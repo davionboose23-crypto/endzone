@@ -72,3 +72,4 @@ The user asked to remove the "QB pass TD" column; it "makes no sense to have a s
 - [x] Adopted calibrated team TD budget (src/calibration.js, src/calibration-fits.json); stacking rejected
 - [x] Volume 80% bands recalibrated on held-out data
 - [x] Tests: tests/calibration.test.js (walk-forward fit keys, caps, budget invariant); npm test 32/32
+- [x] 4.2.1: candidate round (goal-line, QB rush, TE red-zone, priors, defense, recency, combined, caps counterfactual, INA sensitivity) — none adopted; see README

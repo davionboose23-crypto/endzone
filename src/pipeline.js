@@ -18,14 +18,14 @@ const sum = (a, f) => a.reduce((s, x) => s + f(x), 0);
 export function chanceBandKey(p) { return p < 0.15 ? 'lt15' : p < 0.25 ? '15to25' : p < 0.35 ? '25to35' : p < 0.5 ? '35to50' : '50plus'; }
 
 // Week context shared by every game: league rates, matchup tables, team totals (all before cutoff).
-export function weekContext(ix, identity, { season, week, weights, lessons = null, now = Date.now(), errorModel = null, coverage = null, pubTdBlend, stackFit, budgetFit, volCal }) {
+export function weekContext(ix, identity, { season, week, weights, lessons = null, now = Date.now(), errorModel = null, coverage = null, pubTdBlend, stackFit, budgetFit, volCal, exp = null }) {
   // endzone-4.2: shipped walk-forward fits (trained only on games before this week) unless the caller overrides; pass false to disable.
   const shipped = fitFor(season, week);
   if (budgetFit === undefined) budgetFit = shipped?.budget ? { ...shipped.budget, id: shipped.id } : null;
   if (volCal === undefined) volCal = shipped?.volcal ? { ...shipped.volcal, id: shipped.id } : null;
   const rows = allLogsBefore(ix, season, week);
   const zonesAll = season === ix.season ? [...ix.teamZones.values()].flat().filter(z => z.week < week) : [];
-  const league = leagueRates(zonesAll);
+  const league = leagueRates(zonesAll, { k: exp?.lgK });
   const T = buildMatchupTables(rows, zonesAll);
   const teamTotals = teamGameTotals(rows);
   const byTeam = new Map();
@@ -41,7 +41,7 @@ export function weekContext(ix, identity, { season, week, weights, lessons = nul
   for (const a of teamRz.values()) { a.rzRush /= a.n; a.rzTgt /= a.n; }
   const lgRzPg = lgN ? lgRz / lgN : null;
   const qbRows = rows.filter(r => r.pos === 'QB' && r.att > 0); const lgYpa = sum(qbRows, r => r.passYd) / Math.max(1, sum(qbRows, r => r.att)) || 6.6;
-  return { ix, identity, season, week, weights: sanitizeWeights(weights), lessons, now, league, T, teamTotals, byTeam, teamRz, defRz, lgRzPg, lgYpa, rows, errorModel, coverage, pubTdBlend: pubTdBlend ?? PUB_TD_BLEND, stackFit: stackFit || null, budgetFit: budgetFit || null, volCal: volCal || null };
+  return { ix, identity, season, week, weights: sanitizeWeights(weights), lessons, now, league, T, teamTotals, byTeam, teamRz, defRz, lgRzPg, lgYpa, rows, errorModel, coverage, pubTdBlend: pubTdBlend ?? PUB_TD_BLEND, stackFit: stackFit || null, budgetFit: budgetFit || null, volCal: volCal || null, exp: exp || {} };
 }
 
 function sideContext(W, game, side) {
@@ -99,13 +99,19 @@ export function computeSide(W, game, side, { override = null, historical = false
       for (const p of active) {
         const zs = p.f.zSeason[key], zr = p.f.zRecent[key];
         const sShare = tS ? zs.looks / tS : 0; const rShare = tR ? zr.looks / tR : sShare;
-        const dataShare = tS ? (tR * rShare + 6 * sShare) / (tR + 6) : 0;
+        const rk = path === 'r' && b <= 2 && W.exp.glRecK != null ? W.exp.glRecK : 6; // experiment: goal-line recency
+        const dataShare = tS ? (tR * rShare + rk * sShare) / (tR + rk) : 0;
         const wData = tS / (tS + 8);
-        const prior = p.vol[rzVolKey[path]] / totVolRz;
+        let prior = p.vol[rzVolKey[path]] / totVolRz;
+        // experiments (off by default): snap-informed goal-line prior, QB rushing paths, TE red-zone target prior
+        if (W.exp.glSnap && path === 'r' && b <= 2 && p.pos !== 'WR' && p.pos !== 'TE' && p.f.snapShare != null) prior *= Math.pow(Math.max(0.05, p.f.snapShare) / 0.6, W.exp.glSnap);
+        if (W.exp.qbRush && path === 'r' && p.pos === 'QB') prior *= W.exp.qbRush;
+        if (W.exp.teRz && path === 't' && p.pos === 'TE') prior *= W.exp.teRz;
         const avail = p.avail.factor * (p.roleFactor || 1);
         p.share = p.share || {}; p.shareData = p.shareData || {};
         p.shareData[key] = { season: sShare, recent: rShare, data: dataShare, wData, prior, teamSeason: tS, teamRecent: tR, playerSeason: zs.looks, playerRecent: zr.looks };
         p.share[key] = (wData * dataShare + (1 - wData) * prior) * avail;
+        if (W.exp.qbRushData && path === 'r' && p.pos === 'QB') p.share[key] *= W.exp.qbRushData;
       }
       // include unavailable players' observed shares for transfer
       for (const p of members.filter(m => m.avail.excluded || m.avail.factor < 1)) {
@@ -154,7 +160,7 @@ export function computeSide(W, game, side, { override = null, historical = false
       for (const b of BINS) {
         const key = `${path}${b}`; const zs = p.f.zSeason[key], zr = p.f.zRecent[key];
         const q = qualityFactor(path, b, zs, L, W.ix.prep.charting);
-        const sr = spotRate(path, b, { looks: zs.looks, scores: zs.scores, recentLooks: zr.looks, recentScores: zr.scores, hot, spike: p.f.spike, quality: q.factor }, L);
+        const sr = spotRate(path, b, { kMult: W.exp.spotK, looks: zs.looks, scores: zs.scores, recentLooks: zr.looks, recentScores: zr.scores, hot, spike: p.f.spike, quality: q.factor }, L);
         if (sr.cold) coldGoal = true;
         let rate = sr.rate * (path === 't' && p.pos === 'TE' ? w.tePremium : 1);
         const spotScale = W.lessons?.spot?.[key] ?? 1;
@@ -201,7 +207,8 @@ export function computeSide(W, game, side, { override = null, historical = false
       if (a > 0) { const before = lam; lam = (1 - a) * lam + a * pubExpTd; p.pubBlend = { weight: a, published: pubExpTd, before }; lessonNotes.push(`Blended ${(a * 100).toFixed(0)}% toward the published projection (${(1 - Math.exp(-pubExpTd)) * 100 | 0}%) because of ${p.f.n < 4 ? 'a thin sample' : 'limited recent red-zone evidence'}; safety caps applied after.`); }
     }
     const preSafety = anytimeFromLambda(lam);
-    const safe = safetyCalibrate(preSafety, { insideFinisher, recentFinisher, coldGoal });
+    const safe = W.exp.noCaps ? { chance: Math.min(preSafety, 0.97), notes: [], ceiling: null } : safetyCalibrate(preSafety, { insideFinisher, recentFinisher, coldGoal }); // noCaps: harness counterfactual only
+    p.preSafety = preSafety;
     let chance = safe.chance; const softNotes = [];
     if (mf > 1 && i10Exp < 0.15) { const capC = Math.max(anytimeFromLambda(noLiftLambda * (lam / rawLambda || 1)), 0.32); if (chance > capC) { chance = capC; softNotes.push('Soft-position lift capped near 32% without credible inside-10 scores.'); } }
     const lamFinal = lambdaFromChance(chance);
@@ -389,7 +396,7 @@ export function compactPrediction(p, side) {
     scenarios: p.scenarios, safetyNotes: p.safetyNotes, lessonNotes: p.lessonNotes, conversionNote: p.conversionNote, segment: p.segment,
     spots: Object.fromEntries(Object.entries(p.spots).map(([k, s]) => [k, { opps: r(s.opps), rate: r(s.rate), expected: r(s.expected), looks: s.looks, scores: s.scores }])),
     matchupFactor: r(p.matchupFactor), challenger: p.challenger ?? null,
-    ceiling: p.ceiling ?? null, preStack: r(p.preStack), stacked: p.stacked ? { before: r(p.stacked.before), after: r(p.stacked.after), fit: p.stacked.fit } : null, glShareRaw: r(p.share?.r1 || 0), pubBlend: p.pubBlend ? { weight: r(p.pubBlend.weight), before: r(p.pubBlend.before) } : null, recentRzLooks: p.recentRzLooks ?? null, gamesPlayed: p.f?.n ?? null, i10Exp: r(p.i10Exp), lambdaRaw: r(p.lambdaRaw),
+    ceiling: p.ceiling ?? null, preSafety: r(p.preSafety), preStack: r(p.preStack), stacked: p.stacked ? { before: r(p.stacked.before), after: r(p.stacked.after), fit: p.stacked.fit } : null, glShareRaw: r(p.share?.r1 || 0), pubBlend: p.pubBlend ? { weight: r(p.pubBlend.weight), before: r(p.pubBlend.before) } : null, recentRzLooks: p.recentRzLooks ?? null, gamesPlayed: p.f?.n ?? null, i10Exp: r(p.i10Exp), lambdaRaw: r(p.lambdaRaw),
   };
 }
 

@@ -31,7 +31,7 @@ export function prepAtWeek(S, w) {
   for (const p of S.prep.players) {
     const r = (p.gsis && R.get('g' + p.gsis)) || R.get('s' + p.id); if (!r) continue;
     if (!(r.status === 'ACT' || r.status === 'INA')) continue; // reserve/practice squad/cut known pregame
-    players.push({ ...p, team: r.team, injury: null, practice: null, injuryNotes: null, depth: null, depthPos: r.depthPos || p.pos, status: 'Active', active: true });
+    players.push({ ...p, team: r.team, injury: null, practice: null, injuryNotes: null, depth: null, depthPos: r.depthPos || p.pos, status: 'Active', active: true, rosterStatus: r.status });
   }
   const roster = [...new Map([...R.values()].map(r => [r.gsis || r.sleeper, r])).values()];
   return { ...S.prep, week: w, currentWeek: w, players, roster };
@@ -39,7 +39,7 @@ export function prepAtWeek(S, w) {
 export function gradeWeek(S, w, engineOpts = {}) {
   const pw = prepAtWeek(S, w);
   const res = runEngine(pw, { ix: S.ix, week: w, now: Date.now(), lessons: null, ...engineOpts });
-  const rows = [];
+  const rows = []; const rs = new Map(pw.players.map(p => [p.id, p.rosterStatus]));
   for (const G of res.games) {
     if (!G.game.finished) continue;
     const callIds = { away: G.sides.away.call?.id, home: G.sides.home.call?.id };
@@ -47,10 +47,10 @@ export function gradeWeek(S, w, engineOpts = {}) {
       const Sd = G.sides[s];
       for (const r of gradeGame(S.ix, G.game, Sd.players, { prospective: false, callIds })) {
         if (!(r.actual.status === 'confirmed' || r.actual.status === 'confirmed-zero')) continue;
-        rows.push({ season: G.game.season, week: w, gameId: G.game.id, id: r.id, name: r.name, pos: r.pos, team: r.team, side: s, spread: Sd.spread, implied: Sd.implied, teamLambda: Sd.teamLambda, tdBudget: Sd.tdBudget,
+        rows.push({ rosterStatus: rs.get(r.id) || null, season: G.game.season, week: w, gameId: G.game.id, id: r.id, name: r.name, pos: r.pos, team: r.team, side: s, spread: Sd.spread, implied: Sd.implied, teamLambda: Sd.teamLambda, tdBudget: Sd.tdBudget,
           chance: r.chance, lambda: r.lambda, published: r.published, pubExp: r.published != null ? -Math.log(1 - Math.min(0.999, r.published)) : null,
           y: r.actual.td > 0 ? 1 : 0, td: r.actual.td, teamCall: r.teamCall, contributor: r.contributor, tdConf: r.tdConf, role: r.role, glShare: r.glShare, insideFinisher: r.insideFinisher, recentFinisher: r.recentFinisher, coldGoal: r.coldGoal,
-          ceiling: r.ceiling, preStack: r.preStack, glShareRaw: r.glShareRaw, stacked: r.stacked, recentRzLooks: r.recentRzLooks, gamesPlayed: r.gamesPlayed, i10Exp: r.i10Exp, lambdaRaw: r.lambdaRaw, components: r.components, vol: r.vol, verified: r.verified,
+          ceiling: r.ceiling, preSafety: r.preSafety, preStack: r.preStack, glShareRaw: r.glShareRaw, stacked: r.stacked, recentRzLooks: r.recentRzLooks, gamesPlayed: r.gamesPlayed, i10Exp: r.i10Exp, lambdaRaw: r.lambdaRaw, components: r.components, vol: r.vol, verified: r.verified,
           volume: Object.fromEntries(Object.entries(r.volume || {}).map(([k, v]) => [k, { mean: v.mean, lo: v.lo, hi: v.hi }])), volConf: r.volConf,
           actualVol: { rushYd: r.actual.rushYd, rec: r.actual.rec, recYd: r.actual.recYd, passYd: r.actual.passYd } });
       }

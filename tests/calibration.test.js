@@ -7,7 +7,7 @@ import { makeFixture } from './fixture.js';
 import { runEngine } from '../src/engine.js';
 import { MODEL_VERSION } from '../src/model.js';
 
-test('model version bumped to 4.2', () => assert.equal(MODEL_VERSION, 'endzone-4.2.0'));
+test('model version bumped to 4.2.1', () => assert.equal(MODEL_VERSION, 'endzone-4.2.1'));
 
 test('shipped fits are walk-forward: entry for week w is only usable at week >= w', () => {
   for (const f of FITS.fits) { assert.equal(fitFor(f.season, f.week).id, `${f.season}-w${f.week}`); if (f.week > 1) assert.notEqual(fitFor(f.season, f.week - 1).id, `${f.season}-w${f.week}`); }
@@ -33,4 +33,12 @@ test('engine with fits still respects safety caps and team TD budget; fits can b
     assert.ok(S.teamLambda <= S.tdBudget + 1e-6); assert.ok(Math.abs(S.tdBudget - Math.max(0.4, -1 + 0.155 * S.implied)) < 1e-9);
     for (const p of S.raw) assert.ok(p.chance <= 0.62 + 1e-9); }
   for (const G of off.games) for (const s of ['away', 'home']) assert.ok(Math.abs(G.sides[s].tdBudget - G.sides[s].implied * 0.7 / 6.9) < 1e-9);
+});
+
+test('4.2.1 experiment hooks are off by default and never relax caps unless explicitly requested', () => {
+  const prep = makeFixture();
+  const a = runEngine(prep, {}), b = runEngine(prep, { exp: {} });
+  const ch = r => r.games.flatMap(G => ['away', 'home'].flatMap(s => G.sides[s].raw.map(p => p.chance)));
+  assert.deepEqual(ch(a), ch(b));
+  for (const G of a.games) for (const s of ['away', 'home']) for (const p of G.sides[s].raw) { assert.ok(p.chance <= 0.62 + 1e-9); if (p.preSafety != null && !p.recentFinisher) assert.ok(p.chance <= 0.5 + 1e-9); }
 });

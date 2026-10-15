@@ -64,3 +64,13 @@ Rejected: stacked logistic calibration on [model, published, role features] — 
 Volume: 80% bands recalibrated per metric × tier (mean ≥ 25 yds / 2 rec / 150 pass yds) on held-out errors. Meaningful-tier coverage moved from 73–79% (pass yds 87–92%) to 75–82%; MAE essentially unchanged. Applies only when the in-app held-out error model is not yet available.
 vs published: 2025 the model ties published on Brier and is better on log loss (not significant); 2026 wk1–5 published is still slightly better (not significant). The model does not measurably beat Sleeper.
 Reproduce: `node scripts/hist/build.mjs raw <season> '{"pubTdBlend":0}'`, `node scripts/hist/walk.mjs <season> budget '{"stack":false,"budget":true}'`, `node scripts/hist/brief.mjs base budget`, `node scripts/hist/volcal.mjs budget`, `node scripts/hist/ship-fits.mjs`.
+
+## endzone-4.2.1 — candidate round (nothing new adopted)
+
+Same harness (walk-forward, budget fit on, game bootstrap). Each knob's value was picked by log loss on earlier seasons only (2024 → tested on 2025; 2024+2025 → tested on 2026), then compared with 4.2.0. No candidate improved both Brier and log loss with intervals excluding zero on both held-out sets, so 4.2.1 forecasts are identical to 4.2.0; the knobs ship off (`exp` engine option) for future testing.
+- Goal-line recency (inside-10 rush share weight), snap-informed goal-line prior, TE red-zone target prior, league conversion prior strength, spot shrinkage strength, defense trust (0–1.25), volume recency (0.25–0.7): all |ΔBrier| ≤ .0001–.0003, intervals include 0 on at least one held-out set. Defense trust .75 was closest (2025 ΔLL −.0003 [−.0006, .0000]; 2026 n.s.).
+- QB rushing multiplier: no value beat baseline on earlier seasons.
+- Combined (picked on earlier seasons): 2025 ΔBrier .0000 [−.0002, .0002]; 2026 −.0001 [−.0004, .0000], ΔLL −.0003 [−.0009, .0002]. Rejected.
+- Safety caps (counterfactual only, not shipped): capped rows are ~9% of rows but half of the 25%+ bin. They are forecast at .37–.39 vs a .43–.46 hit rate (before caps: .47–.48; uncapped engine after team budget: .42–.44). Removing caps: 2026 ΔBrier −.0013 [−.0024, −.0003], ΔLL −.0026 [−.0050, −.0001]; 2025 and 2024 not significant. Caps are a spec invariant and stay; flagged for the user.
+- Inactive (INA) players: only 27 rows over three seasons, none with a published projection, so the matched comparisons are identical with them dropped. Players with no stat or snap record are already excluded from grading.
+Reproduce: `node scripts/hist/grid.mjs`, `node scripts/hist/select.mjs '<families>'`, `node scripts/hist/diff.mjs <tag> <season>`.

@@ -11,7 +11,8 @@ export const INSIDE20_SHARE = { r: 0.72, t: 0.62 }; // fallback context only
 export const binOf = yl => (yl <= 5 ? 1 : yl <= 10 ? 2 : yl <= 20 ? 3 : 0);
 
 // League conversion priors from current-season zone rows before the cutoff.
-export function leagueRates(teamZoneRowsAll) {
+export function leagueRates(teamZoneRowsAll, { k: lgK } = {}) {
+  const K = lgK ?? 100;
   const agg = { r: {}, t: {} }; const yl = { r: {}, t: {} };
   for (const p of ['r', 't']) for (const b of [0, 1, 2, 3]) { agg[p][b] = { looks: 0, scores: 0, charted: 0, catchable: 0, endzone: 0, sumYl: 0, sumYtg: 0 }; }
   for (const z of teamZoneRowsAll) {
@@ -23,7 +24,7 @@ export function leagueRates(teamZoneRowsAll) {
     let rz = 0; for (const b of BINS) rz += agg[p][b].looks;
     for (const b of BINS) {
       const a = agg[p][b]; const fb = FALLBACK[p][b];
-      let r = a.looks >= 150 ? (a.scores + 100 * fb) / (a.looks + 100) : fb;
+      let r = a.looks >= 150 ? (a.scores + K * fb) / (a.looks + K) : fb;
       if (b === 2) r *= 1.06;           // 6-10 upward prior correction
       if (b === 3 && p === 'r') r *= 0.7; // crush 11-20 rushing conversion only
       rates[p][b] = clamp(r, ...NEIGH[p][b]);
@@ -56,7 +57,7 @@ export function betaPosterior(looks, scores, prior, k) {
  */
 export function spotRate(path, bin, ev, league) {
   const prior = league.rates[path][bin];
-  const k = ev.hot ? 4 : 10;
+  const k = (ev.hot ? 4 : 10) * (ev.kMult || 1);
   const scores = ev.spike ? ev.scores * 0.72 : ev.scores;
   const post = betaPosterior(ev.looks, Math.min(scores, ev.looks), prior, k);
   const [lo, hi] = NEIGH[path][bin];

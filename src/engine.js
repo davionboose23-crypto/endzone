@@ -17,10 +17,10 @@ export function identityFor(ix, prep, asOfWeek = null) {
   return buildIdentity({ players: prep.players, roster: prep.roster, idmap: prep.idmap, recentByGsis, recentBySleeper, currentWeek: asOfWeek != null ? Math.min(prep.currentWeek ?? 18, asOfWeek) : prep.currentWeek });
 }
 
-export function runEngine(prep, { weights, lessons = null, lessonsUnplayed = null, now = Date.now(), week = prep.week, errorModel = null, coverage = null, challenger = null, ix = null, identity = null, pubTdBlend, stackFit, budgetFit, volCal } = {}) {
+export function runEngine(prep, { weights, lessons = null, lessonsUnplayed = null, now = Date.now(), week = prep.week, errorModel = null, coverage = null, challenger = null, ix = null, identity = null, pubTdBlend, stackFit, budgetFit, volCal, exp } = {}) {
   ix = ix || buildIndex(prep);
   identity = identity || identityFor(ix, prep, week);
-  const fw = forecastWeek(ix, identity, { season: prep.season, week, weights, lessons, lessonsUnplayed, now, errorModel, coverage, pubTdBlend, stackFit, budgetFit, volCal });
+  const fw = forecastWeek(ix, identity, { season: prep.season, week, weights, lessons, lessonsUnplayed, now, errorModel, coverage, pubTdBlend, stackFit, budgetFit, volCal, exp });
   const games = fw.games.map(G => {
     const sides = {};
     for (const s of ['away', 'home']) {
