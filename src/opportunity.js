@@ -189,7 +189,7 @@ export function teamBudget(teamGames, ctx, w) {
   if (ctx.weather?.rushTilt) { rushMul *= 1.06; passMul *= 0.94; notes.push(ctx.weather.note); }
   if (ctx.override) { rushMul *= ctx.override.rush; passMul *= ctx.override.pass; }
   b.carries *= rushMul * b.volPace; b.rzRush *= rushMul * rzMul; b.targets *= passMul * b.volPace; b.att *= passMul * b.volPace; b.rzTgt *= passMul * rzMul * passEff;
-  b.pace = pace; b.passEff = passEff; b.tdBudget = ctx.implied * 0.7 / 6.9; b.notes = notes; b.scriptFav = sp <= -8.5; b.scriptDog = sp >= 8.5;
+  b.pace = pace; b.passEff = passEff; b.tdBudget = ctx.budgetFit ? Math.max(0.4, ctx.budgetFit.a + ctx.budgetFit.b * ctx.implied) : ctx.implied * 0.7 / 6.9; b.budgetSource = ctx.budgetFit ? `calibrated on ${ctx.budgetFit.n} earlier team-games` : 'implied × .7 / 6.9'; b.notes = notes; b.scriptFav = sp <= -8.5; b.scriptDog = sp >= 8.5;
   return b;
 }
 // Fit player volumes to shared budgets: scale down when over; modest scale-up when under.

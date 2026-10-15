@@ -34,9 +34,9 @@ window.__ezMakeWorker=function(){
 };
 window.__ezJob=async()=>new Response(JSON.stringify({ok:true,status:'standalone',details:{steps:['Standalone file: no server job. Each load or Refresh before kickoff saves pregame frames in this browser and recomputes lessons from finished games.']}}),{status:200,headers:{'content-type':'application/json'}});`;
 const banner = `<div id="sa-note" class="small" style="padding:6px 12px;background:#14202e;color:#cfd8e3">Standalone file — no server. Sleeper and the nflverse schedule load live in your browser. nflverse release files (rosters, ID map, weekly history, play-by-play, snaps, FTN) are blocked by browser CORS, so the copy captured ${bundle.capturedAt.slice(0, 16).replace('T', ' ')} UTC is used and labeled stale in Sources. Frames and settings are stored only in this browser.</div>`;
-html = html.replace('<link rel="stylesheet" href="/styles.css">', `<style>${css}</style>`)
-  .replace('<script type="module" src="/app.js"></script>', `<script>${shim}</script>\n<script type="module">${a.outputFiles[0].text.replace(/<\/script/gi, '<\\/script')}</script>`)
-  .replace(/<body([^>]*)>/, `<body$1>${banner}`);
+html = html.replace('<link rel="stylesheet" href="/styles.css">', () => `<style>${css}</style>`)
+  .replace('<script type="module" src="/app.js"></script>', () => `<script>${shim}</script>\n<script type="module">${a.outputFiles[0].text.replace(/<\/script/gi, '<\\/script')}</script>`)
+  .replace(/<body([^>]*)>/, (_, attrs) => `<body${attrs}>${banner}`);
 if (html.includes('src="/app.js"') || html.includes('href="/styles.css"')) throw new Error('inline failed');
 fs.writeFileSync(path.join(ROOT, 'endzone-standalone.html'), html);
 console.log('wrote endzone-standalone.html', (html.length / 1024).toFixed(0), 'KB; worker', (workerCode.length / 1024).toFixed(0), 'KB; bundle b64', (b64.length / 1024).toFixed(0), 'KB');

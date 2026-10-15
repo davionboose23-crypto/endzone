@@ -1,5 +1,7 @@
 // Production forecast pipeline. The same code runs in the browser worker and in
 // the server refresh job, so archived unplayed-game predictions match the display.
+import { stackX, stackPredict } from './stack.js';
+import { fitFor, applyVolCal } from './calibration.js';
 import { MODEL_VERSION, sanitizeWeights, clamp, distribution, anytimeFromLambda, lambdaFromChance, firstTd, publishedProbability, edgePts, scaleComponents, sumComponents, safetyCalibrate, chanceBand, americanFair, pct } from './model.js';
 import { lines, weather } from './feeds.js';
 import { availability } from './roster.js';
@@ -16,7 +18,11 @@ const sum = (a, f) => a.reduce((s, x) => s + f(x), 0);
 export function chanceBandKey(p) { return p < 0.15 ? 'lt15' : p < 0.25 ? '15to25' : p < 0.35 ? '25to35' : p < 0.5 ? '35to50' : '50plus'; }
 
 // Week context shared by every game: league rates, matchup tables, team totals (all before cutoff).
-export function weekContext(ix, identity, { season, week, weights, lessons = null, now = Date.now(), errorModel = null, coverage = null, pubTdBlend }) {
+export function weekContext(ix, identity, { season, week, weights, lessons = null, now = Date.now(), errorModel = null, coverage = null, pubTdBlend, stackFit, budgetFit, volCal }) {
+  // endzone-4.2: shipped walk-forward fits (trained only on games before this week) unless the caller overrides; pass false to disable.
+  const shipped = fitFor(season, week);
+  if (budgetFit === undefined) budgetFit = shipped?.budget ? { ...shipped.budget, id: shipped.id } : null;
+  if (volCal === undefined) volCal = shipped?.volcal ? { ...shipped.volcal, id: shipped.id } : null;
   const rows = allLogsBefore(ix, season, week);
   const zonesAll = season === ix.season ? [...ix.teamZones.values()].flat().filter(z => z.week < week) : [];
   const league = leagueRates(zonesAll);
@@ -35,7 +41,7 @@ export function weekContext(ix, identity, { season, week, weights, lessons = nul
   for (const a of teamRz.values()) { a.rzRush /= a.n; a.rzTgt /= a.n; }
   const lgRzPg = lgN ? lgRz / lgN : null;
   const qbRows = rows.filter(r => r.pos === 'QB' && r.att > 0); const lgYpa = sum(qbRows, r => r.passYd) / Math.max(1, sum(qbRows, r => r.att)) || 6.6;
-  return { ix, identity, season, week, weights: sanitizeWeights(weights), lessons, now, league, T, teamTotals, byTeam, teamRz, defRz, lgRzPg, lgYpa, rows, errorModel, coverage, pubTdBlend: pubTdBlend ?? PUB_TD_BLEND };
+  return { ix, identity, season, week, weights: sanitizeWeights(weights), lessons, now, league, T, teamTotals, byTeam, teamRz, defRz, lgRzPg, lgYpa, rows, errorModel, coverage, pubTdBlend: pubTdBlend ?? PUB_TD_BLEND, stackFit: stackFit || null, budgetFit: budgetFit || null, volCal: volCal || null };
 }
 
 function sideContext(W, game, side) {
@@ -49,6 +55,7 @@ function sideContext(W, game, side) {
 // Compute one team's players. override: scenario adjustments {rush, pass, glBoost, spread, limit:{id,factor}}.
 export function computeSide(W, game, side, { override = null, historical = false } = {}) {
   const w = W.weights; const sc = sideContext(W, game, side);
+  sc.budgetFit = W.budgetFit || null;
   if (override?.spread != null) sc.spread = override.spread;
   sc.override = override;
   const members = (W.byTeam.get(sc.team) || []).map(p0 => {
@@ -182,8 +189,14 @@ export function computeSide(W, game, side, { override = null, historical = false
     const bscale = W.lessons?.band?.[band0];
     if (bscale && bscale !== 1 && !(band0 === '35to50' && insideFinisher)) { lam *= bscale; lessonNotes.push(`Learned from finished games: ${band0} chances scaled ×${bscale.toFixed(2)} (from the last three weeks).`); }
     const pubExpTd = p.proj && (p.proj.rush_td != null || p.proj.rec_td != null) ? Math.max(0, (p.proj.rush_td || 0) + (p.proj.rec_td || 0)) : null;
-    p.pubBlend = null;
-    if (pubExpTd != null) {
+    p.pubBlend = null; p.preStack = anytimeFromLambda(lam); p.stacked = null;
+    if (W.stackFit) {
+      const pre = anytimeFromLambda(lam);
+      const q = stackPredict(W.stackFit, stackX({ pre, pub: pubExpTd != null ? 1 - Math.exp(-pubExpTd) : null, pos: p.pos, glShare: p.share?.r1 || 0, insideFinisher, games: p.f.n || 0, spread: sc.spread, implied: sc.implied }));
+      p.stacked = { before: pre, after: q, fit: W.stackFit.id || null };
+      lam = lambdaFromChance(Math.min(0.97, q));
+      lessonNotes.push(`Calibrated with published projection and role features (walk-forward fit ${W.stackFit.id || ''}): ${(pre * 100).toFixed(0)}% → ${(q * 100).toFixed(0)}% before safety caps.`);
+    } else if (pubExpTd != null) {
       const a = pubBlendWeight(W.pubTdBlend, { games: p.f.n || 0, recentRzLooks, unverified: !p.verified });
       if (a > 0) { const before = lam; lam = (1 - a) * lam + a * pubExpTd; p.pubBlend = { weight: a, published: pubExpTd, before }; lessonNotes.push(`Blended ${(a * 100).toFixed(0)}% toward the published projection (${(1 - Math.exp(-pubExpTd)) * 100 | 0}%) because of ${p.f.n < 4 ? 'a thin sample' : 'limited recent red-zone evidence'}; safety caps applied after.`); }
     }
@@ -313,6 +326,8 @@ export function forecastGame(W, game, { historical = false } = {}) {
       p.fair = americanFair(p.chance);
       p.passEff = S.budget.passEff;
       p.volume = volumeForecasts(W, p, side);
+      // held-out band recalibration applies to the default-variability path only (the in-app error model is already held-out)
+      if (W.volCal) for (const [m, v] of Object.entries(p.volume)) if (v && v.mean != null && !/^held-out/.test(v.source || '')) { const c = applyVolCal(W.volCal, m, v); if (c !== v) p.volume[m] = { ...v, ...c, rawMean: v.mean, source: `${v.source}; recalibrated on held-out 2024–26 errors (fit ${W.volCal.id})` }; }
       p.tdConf = tdConfidence(p);
       p.volConf = {};
       for (const m of ['rushYd', 'rec', 'recYd'].concat(p.pos === 'QB' ? ['passYd'] : [])) p.volConf[m] = volumeConfidence(m, p, p.volume[m], { coverage: W.coverage?.[m]?.[p.segment] ?? W.coverage?.[m]?.overall ?? null });
@@ -374,6 +389,7 @@ export function compactPrediction(p, side) {
     scenarios: p.scenarios, safetyNotes: p.safetyNotes, lessonNotes: p.lessonNotes, conversionNote: p.conversionNote, segment: p.segment,
     spots: Object.fromEntries(Object.entries(p.spots).map(([k, s]) => [k, { opps: r(s.opps), rate: r(s.rate), expected: r(s.expected), looks: s.looks, scores: s.scores }])),
     matchupFactor: r(p.matchupFactor), challenger: p.challenger ?? null,
+    ceiling: p.ceiling ?? null, preStack: r(p.preStack), stacked: p.stacked ? { before: r(p.stacked.before), after: r(p.stacked.after), fit: p.stacked.fit } : null, glShareRaw: r(p.share?.r1 || 0), pubBlend: p.pubBlend ? { weight: r(p.pubBlend.weight), before: r(p.pubBlend.before) } : null, recentRzLooks: p.recentRzLooks ?? null, gamesPlayed: p.f?.n ?? null, i10Exp: r(p.i10Exp), lambdaRaw: r(p.lambdaRaw),
   };
 }
 

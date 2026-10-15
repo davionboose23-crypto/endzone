@@ -65,3 +65,10 @@ The user asked to remove the "QB pass TD" column; it "makes no sense to have a s
 - Workflow "Refresh data and deploy Pages" runs on workflow_dispatch and on push to main, with no schedule. It fetches nflverse rows server-side on the runner and rebuilds index.html. The first manual run succeeded and the data was captured 2026-10-15 22:47 UTC.
 - Sleeper data still loads live in the visitor's browser.
 - The full server build (SQLite archive) is still not hosted. Pages serves the standalone file only, so the archive is per-browser.
+
+## endzone-4.2.0 additions
+- [x] Point-in-time 2024/2025/2026 reconstruction with walk-forward folds (scripts/hist)
+- [x] Game-level bootstrap comparisons vs 4.1 and published (README table)
+- [x] Adopted calibrated team TD budget (src/calibration.js, src/calibration-fits.json); stacking rejected
+- [x] Volume 80% bands recalibrated on held-out data
+- [x] Tests: tests/calibration.test.js (walk-forward fit keys, caps, budget invariant); npm test 32/32
