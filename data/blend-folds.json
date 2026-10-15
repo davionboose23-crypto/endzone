@@ -1,0 +1,164 @@
+{
+  "ranAt": "2026-10-15T22:39:00.471Z",
+  "season": 2026,
+  "note": "Reconstructed predictions (earlier-week features, closing lines, no pregame injury info); matched rows with a published projection; blend max chosen on prior weeks only.",
+  "grid": [
+    0,
+    0.15,
+    0.3,
+    0.45,
+    0.6,
+    0.8,
+    1
+  ],
+  "folds": [
+    {
+      "heldOutWeek": 2,
+      "trainWeeks": [
+        1
+      ],
+      "chosenMax": 0.3,
+      "before": {
+        "n": 371,
+        "brier": 0.1139,
+        "logLoss": 0.3887
+      },
+      "after": {
+        "n": 371,
+        "brier": 0.1102,
+        "logLoss": 0.3728
+      },
+      "published": {
+        "n": 371,
+        "brier": 0.1102,
+        "logLoss": 0.3749
+      }
+    },
+    {
+      "heldOutWeek": 3,
+      "trainWeeks": [
+        1,
+        2
+      ],
+      "chosenMax": 1,
+      "before": {
+        "n": 357,
+        "brier": 0.1482,
+        "logLoss": 0.4897
+      },
+      "after": {
+        "n": 357,
+        "brier": 0.1429,
+        "logLoss": 0.4616
+      },
+      "published": {
+        "n": 357,
+        "brier": 0.1444,
+        "logLoss": 0.4626
+      }
+    },
+    {
+      "heldOutWeek": 4,
+      "trainWeeks": [
+        1,
+        2,
+        3
+      ],
+      "chosenMax": 1,
+      "before": {
+        "n": 354,
+        "brier": 0.1357,
+        "logLoss": 0.4379
+      },
+      "after": {
+        "n": 354,
+        "brier": 0.1354,
+        "logLoss": 0.4381
+      },
+      "published": {
+        "n": 354,
+        "brier": 0.1364,
+        "logLoss": 0.4384
+      }
+    },
+    {
+      "heldOutWeek": 5,
+      "trainWeeks": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "chosenMax": 1,
+      "before": {
+        "n": 332,
+        "brier": 0.1397,
+        "logLoss": 0.4616
+      },
+      "after": {
+        "n": 332,
+        "brier": 0.1327,
+        "logLoss": 0.4198
+      },
+      "published": {
+        "n": 332,
+        "brier": 0.1241,
+        "logLoss": 0.3995
+      }
+    }
+  ],
+  "pooled": {
+    "before": {
+      "n": 1414,
+      "brier": 0.1341,
+      "logLoss": 0.4436
+    },
+    "after": {
+      "n": 1414,
+      "brier": 0.1301,
+      "logLoss": 0.4226
+    },
+    "published": {
+      "n": 1414,
+      "brier": 0.1287,
+      "logLoss": 0.4187
+    }
+  },
+  "inSampleByMax": {
+    "0": {
+      "n": 1773,
+      "brier": 0.1353,
+      "logLoss": 0.4444
+    },
+    "1": {
+      "n": 1773,
+      "brier": 0.1312,
+      "logLoss": 0.4239
+    },
+    "0.15": {
+      "n": 1773,
+      "brier": 0.1339,
+      "logLoss": 0.4358
+    },
+    "0.3": {
+      "n": 1773,
+      "brier": 0.133,
+      "logLoss": 0.4309
+    },
+    "0.45": {
+      "n": 1773,
+      "brier": 0.1323,
+      "logLoss": 0.4278
+    },
+    "0.6": {
+      "n": 1773,
+      "brier": 0.1321,
+      "logLoss": 0.4264
+    },
+    "0.8": {
+      "n": 1773,
+      "brier": 0.1315,
+      "logLoss": 0.4242
+    }
+  }
+}

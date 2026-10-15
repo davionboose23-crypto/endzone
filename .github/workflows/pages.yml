@@ -1,0 +1,46 @@
+# Builds the standalone single-file app with FRESH nflverse data (fetched server-side on the
+# runner, where browser CORS does not apply) and publishes it to GitHub Pages as index.html.
+# Triggers: manual "Run workflow" button and pushes to main. No schedule (spec §23).
+name: Refresh data and deploy Pages
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Fetch fresh nflverse rows
+        run: npm run bundle:nflverse
+      - name: Build standalone file
+        run: npm run build:standalone
+      - name: Stage site
+        run: |
+          mkdir -p _site
+          cp endzone-standalone.html _site/index.html
+          touch _site/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,23 @@
+{
+  "name": "endzone",
+  "version": "4.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ENDZONE anytime-TD research model",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "node --test tests/",
+    "smoke": "node tests/smoke-live.mjs",
+    "build:standalone": "node standalone/build.mjs",
+    "bundle:nflverse": "node standalone/dump-bundle.mjs",
+    "watch-alerts": "node scripts/watch-alerts.mjs",
+    "blend-folds": "node scripts/blend-folds.mjs"
+  },
+  "dependencies": {
+    "sql.js": "^1.13.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.2",
+    "playwright-core": "1.48"
+  }
+}

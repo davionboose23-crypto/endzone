@@ -1,0 +1,628 @@
+{
+  "ranAt": "2026-10-15T22:43:10.296Z",
+  "season": 2026,
+  "week": 6,
+  "currentWeek": 6,
+  "prepareMs": 2520,
+  "payloadBytes": 4374308,
+  "sources": {
+    "state": {
+      "ok": true
+    },
+    "schedule": {
+      "ok": true,
+      "rows": 544
+    },
+    "players": {
+      "ok": true,
+      "rows": 4154
+    },
+    "stats_1": {
+      "ok": true,
+      "rows": 458
+    },
+    "stats_2": {
+      "ok": true,
+      "rows": 456
+    },
+    "stats_5": {
+      "ok": true,
+      "rows": 420
+    },
+    "stats_6": {
+      "ok": true,
+      "rows": 0
+    },
+    "stats_4": {
+      "ok": true,
+      "rows": 449
+    },
+    "stats_3": {
+      "ok": true,
+      "rows": 454
+    },
+    "proj_1": {
+      "ok": true,
+      "rows": 379
+    },
+    "proj_5": {
+      "ok": true,
+      "rows": 353
+    },
+    "proj_2": {
+      "ok": true,
+      "rows": 387
+    },
+    "proj_6": {
+      "ok": true,
+      "rows": 344
+    },
+    "proj_4": {
+      "ok": true,
+      "rows": 367
+    },
+    "proj_3": {
+      "ok": true,
+      "rows": 380
+    },
+    "roster": {
+      "ok": true,
+      "rows": 950
+    },
+    "idmap": {
+      "ok": true,
+      "rows": 8514
+    },
+    "history_2026": {
+      "ok": true,
+      "rows": 1799
+    },
+    "history_2025": {
+      "ok": true,
+      "rows": 6108
+    },
+    "ftn": {
+      "ok": true,
+      "rows": 13438
+    },
+    "pbp": {
+      "ok": true,
+      "rows": 2
+    },
+    "snaps": {
+      "ok": true,
+      "rows": 2066
+    }
+  },
+  "refresh": {
+    "status": "success",
+    "steps": [
+      "lessons for weeks 1,2,3,4,5",
+      "saved 14 pregame frames, 0 skipped",
+      "outcomes inserted 0, revised 0, unchanged 0",
+      "validation updated"
+    ]
+  },
+  "engineMs": 213,
+  "identity": {
+    "players": 665,
+    "rejected": 249,
+    "unverified": 67
+  },
+  "games": [
+    {
+      "id": "2026_06_SEA_DEN",
+      "kickoff": "2026-10-16T00:15:00.000Z",
+      "started": false,
+      "spread": -2.5,
+      "total": 40.5,
+      "linesKnown": true,
+      "away": {
+        "team": "SEA",
+        "implied": 21.5,
+        "modelTd": 2.18,
+        "budget": 2.18,
+        "players": 18,
+        "excluded": 4,
+        "call": "Emanuel Wilson 47.2% Med"
+      },
+      "home": {
+        "team": "DEN",
+        "implied": 19,
+        "modelTd": 1.93,
+        "budget": 1.93,
+        "players": 17,
+        "excluded": 4,
+        "call": "J.K. Dobbins 31.2% High"
+      }
+    },
+    {
+      "id": "2026_06_HOU_JAX",
+      "kickoff": "2026-10-18T13:30:00.000Z",
+      "started": false,
+      "spread": 2.5,
+      "total": 42.5,
+      "linesKnown": true,
+      "away": {
+        "team": "HOU",
+        "implied": 20,
+        "modelTd": 2.03,
+        "budget": 2.03,
+        "players": 14,
+        "excluded": 5,
+        "call": "Woody Marks 50.2% Med"
+      },
+      "home": {
+        "team": "JAX",
+        "implied": 22.5,
+        "modelTd": 2.28,
+        "budget": 2.28,
+        "players": 15,
+        "excluded": 0,
+        "call": "Bhayshul Tuten 43.5% High"
+      }
+    },
+    {
+      "id": "2026_06_CHI_ATL",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "started": false,
+      "spread": -1.5,
+      "total": 51.5,
+      "linesKnown": true,
+      "away": {
+        "team": "CHI",
+        "implied": 26.5,
+        "modelTd": 2.69,
+        "budget": 2.69,
+        "players": 18,
+        "excluded": 4,
+        "call": "Luther Burden 25.0% High"
+      },
+      "home": {
+        "team": "ATL",
+        "implied": 25,
+        "modelTd": 2.4,
+        "budget": 2.54,
+        "players": 18,
+        "excluded": 2,
+        "call": "Brian Robinson 37.9% High"
+      }
+    },
+    {
+      "id": "2026_06_BAL_CLE",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "started": false,
+      "spread": -3.5,
+      "total": 40.5,
+      "linesKnown": true,
+      "away": {
+        "team": "BAL",
+        "implied": 22,
+        "modelTd": 2.23,
+        "budget": 2.23,
+        "players": 20,
+        "excluded": 4,
+        "call": "Derrick Henry 48.3% High"
+      },
+      "home": {
+        "team": "CLE",
+        "implied": 18.5,
+        "modelTd": 1.88,
+        "budget": 1.88,
+        "players": 17,
+        "excluded": 4,
+        "call": "Quinshon Judkins 32.2% Med"
+      }
+    },
+    {
+      "id": "2026_06_TEN_IND",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "started": false,
+      "spread": 7,
+      "total": 44.5,
+      "linesKnown": true,
+      "away": {
+        "team": "TEN",
+        "implied": 18.75,
+        "modelTd": 1.9,
+        "budget": 1.9,
+        "players": 17,
+        "excluded": 2,
+        "call": "Tony Pollard 43.2% Med"
+      },
+      "home": {
+        "team": "IND",
+        "implied": 25.75,
+        "modelTd": 2.46,
+        "budget": 2.61,
+        "players": 20,
+        "excluded": 4,
+        "call": "Jonathan Taylor 50.0% Med"
+      }
+    },
+    {
+      "id": "2026_06_NYJ_NE",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "started": false,
+      "spread": 7.5,
+      "total": 43.5,
+      "linesKnown": true,
+      "away": {
+        "team": "NYJ",
+        "implied": 18,
+        "modelTd": 1.83,
+        "budget": 1.83,
+        "players": 18,
+        "excluded": 3,
+        "call": "Garrett Wilson 29.1% High"
+      },
+      "home": {
+        "team": "NE",
+        "implied": 25.5,
+        "modelTd": 2.59,
+        "budget": 2.59,
+        "players": 15,
+        "excluded": 6,
+        "call": "Rhamondre Stevenson 54.4% Med"
+      }
+    },
+    {
+      "id": "2026_06_NO_NYG",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "started": false,
+      "spread": -1.5,
+      "total": 45.5,
+      "linesKnown": true,
+      "away": {
+        "team": "NO",
+        "implied": 23.5,
+        "modelTd": 2.38,
+        "budget": 2.38,
+        "players": 16,
+        "excluded": 5,
+        "call": "Juwan Johnson 30.9% Med"
+      },
+      "home": {
+        "team": "NYG",
+        "implied": 22,
+        "modelTd": 2.23,
+        "budget": 2.23,
+        "players": 19,
+        "excluded": 7,
+        "call": "Cam Skattebo 37.7% Med"
+      }
+    },
+    {
+      "id": "2026_06_CAR_PHI",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "started": false,
+      "spread": -3.5,
+      "total": 38.5,
+      "linesKnown": true,
+      "away": {
+        "team": "CAR",
+        "implied": 21,
+        "modelTd": 2.13,
+        "budget": 2.13,
+        "players": 18,
+        "excluded": 4,
+        "call": "Chuba Hubbard 42.6% Med"
+      },
+      "home": {
+        "team": "PHI",
+        "implied": 17.5,
+        "modelTd": 1.78,
+        "budget": 1.78,
+        "players": 16,
+        "excluded": 5,
+        "call": "Dameon Pierce 27.8% Low"
+      }
+    },
+    {
+      "id": "2026_06_PIT_TB",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "started": false,
+      "spread": -2.5,
+      "total": 39.5,
+      "linesKnown": true,
+      "away": {
+        "team": "PIT",
+        "implied": 21,
+        "modelTd": 2.13,
+        "budget": 2.13,
+        "players": 19,
+        "excluded": 4,
+        "call": "Pat Freiermuth 30.3% High"
+      },
+      "home": {
+        "team": "TB",
+        "implied": 18.5,
+        "modelTd": 1.74,
+        "budget": 1.88,
+        "players": 16,
+        "excluded": 2,
+        "call": "Bucky Irving 39.7% Med"
+      }
+    },
+    {
+      "id": "2026_06_ARI_LA",
+      "kickoff": "2026-10-18T20:05:00.000Z",
+      "started": false,
+      "spread": 12.5,
+      "total": 51.5,
+      "linesKnown": true,
+      "away": {
+        "team": "ARI",
+        "implied": 19.5,
+        "modelTd": 1.98,
+        "budget": 1.98,
+        "players": 18,
+        "excluded": 6,
+        "call": "Michael Wilson 28.1% High"
+      },
+      "home": {
+        "team": "LA",
+        "implied": 32,
+        "modelTd": 3.25,
+        "budget": 3.25,
+        "players": 17,
+        "excluded": 3,
+        "call": "Puka Nacua 54.2% Med"
+      }
+    },
+    {
+      "id": "2026_06_LAC_KC",
+      "kickoff": "2026-10-18T20:25:00.000Z",
+      "started": false,
+      "spread": 8.5,
+      "total": 41.5,
+      "linesKnown": true,
+      "away": {
+        "team": "LAC",
+        "implied": 16.5,
+        "modelTd": 1.67,
+        "budget": 1.67,
+        "players": 16,
+        "excluded": 4,
+        "call": "Omarion Hampton 28.1% Med"
+      },
+      "home": {
+        "team": "KC",
+        "implied": 25,
+        "modelTd": 2.54,
+        "budget": 2.54,
+        "players": 17,
+        "excluded": 5,
+        "call": "Kenneth Walker 49.8% Med"
+      }
+    },
+    {
+      "id": "2026_06_BUF_LV",
+      "kickoff": "2026-10-18T20:25:00.000Z",
+      "started": false,
+      "spread": -4.5,
+      "total": 53.5,
+      "linesKnown": true,
+      "away": {
+        "team": "BUF",
+        "implied": 29,
+        "modelTd": 2.94,
+        "budget": 2.94,
+        "players": 16,
+        "excluded": 1,
+        "call": "Josh Allen 54.4% Med"
+      },
+      "home": {
+        "team": "LV",
+        "implied": 24.5,
+        "modelTd": 2.49,
+        "budget": 2.49,
+        "players": 16,
+        "excluded": 5,
+        "call": "Ashton Jeanty 41.1% Med"
+      }
+    },
+    {
+      "id": "2026_06_DAL_GB",
+      "kickoff": "2026-10-19T00:20:00.000Z",
+      "started": false,
+      "spread": 1.5,
+      "total": 53.5,
+      "linesKnown": true,
+      "away": {
+        "team": "DAL",
+        "implied": 26,
+        "modelTd": 2.64,
+        "budget": 2.64,
+        "players": 16,
+        "excluded": 3,
+        "call": "Javonte Williams 58.5% Med"
+      },
+      "home": {
+        "team": "GB",
+        "implied": 27.5,
+        "modelTd": 2.79,
+        "budget": 2.79,
+        "players": 16,
+        "excluded": 8,
+        "call": "Tucker Kraft 42.6% High"
+      }
+    },
+    {
+      "id": "2026_06_WAS_SF",
+      "kickoff": "2026-10-20T00:15:00.000Z",
+      "started": false,
+      "spread": 7.5,
+      "total": 51.5,
+      "linesKnown": true,
+      "away": {
+        "team": "WAS",
+        "implied": 22,
+        "modelTd": 2.23,
+        "budget": 2.23,
+        "players": 19,
+        "excluded": 2,
+        "call": "Stefon Diggs 23.0% Med"
+      },
+      "home": {
+        "team": "SF",
+        "implied": 29.5,
+        "modelTd": 2.76,
+        "budget": 2.99,
+        "players": 15,
+        "excluded": 8,
+        "call": "George Kittle 34.5% High"
+      }
+    }
+  ],
+  "counts": {
+    "players": 477,
+    "highTd": 11,
+    "medTd": 171,
+    "withPublished": 324,
+    "risers": 35,
+    "over50": 5,
+    "maxChance": 0.5851
+  },
+  "top10": [
+    "Javonte Williams DAL 58.5% [Med] edge -7.5",
+    "Josh Allen BUF 54.4% [Med] edge -5.7",
+    "Rhamondre Stevenson NE 54.4% [Med] edge 4.5",
+    "Puka Nacua LA 54.2% [Med] edge -3.1",
+    "Woody Marks HOU 50.2% [Med] edge -2.5",
+    "Bijan Robinson ATL 50.0% [Med] edge -11.3",
+    "Jonathan Taylor IND 50.0% [Med] edge -28.6",
+    "Christian McCaffrey SF 50.0% [Med] edge -16.0",
+    "Kenneth Walker KC 49.8% [Med] edge -14.5",
+    "Derrick Henry BAL 48.3% [High] edge -10.6"
+  ],
+  "weeklyPick": "Derrick Henry 48.3% High",
+  "qbPassTd": [
+    "Sam Darnold 0.9 (0-2) Med",
+    "Bo Nix 1.2 (0-3) Med",
+    "C.J. Stroud 1.2 (0-3) Med",
+    "Trevor Lawrence 1.4 (0-3) Med",
+    "Michael Penix 0.8 (0-2) Med",
+    "Deshaun Watson 1.1 (0-2) Med",
+    "Cam Ward 1.0 (0-2) Med",
+    "Daniel Jones 1.1 (0-3) Med"
+  ],
+  "reconstructedBacktestWeeks1toPrev": {
+    "note": "Reconstructed from earlier-week features (not prospective).",
+    "prospective": 0,
+    "reconstructed": 2155,
+    "missingExcluded": 0,
+    "all": {
+      "n": 2155,
+      "brier": 0.1096,
+      "logLoss": 0.3584,
+      "flat25Brier": 0.137,
+      "matchedN": 1773,
+      "matchedModel": 0.1312,
+      "matchedPublished": 0.13
+    },
+    "contributors": {
+      "n": 1007,
+      "brier": 0.1753,
+      "logLoss": 0.5293,
+      "flat25Brier": 0.1901,
+      "matchedN": 997,
+      "matchedModel": 0.1768,
+      "matchedPublished": 0.1748
+    },
+    "teamCalls": {
+      "n": 152,
+      "brier": 0.2338,
+      "logLoss": 0.6606,
+      "flat25Brier": 0.2697,
+      "matchedN": 152,
+      "matchedModel": 0.2338,
+      "matchedPublished": 0.2318
+    },
+    "highTd": {
+      "n": 0,
+      "brier": null,
+      "logLoss": null,
+      "flat25Brier": null,
+      "matchedN": 0,
+      "matchedModel": null,
+      "matchedPublished": null
+    },
+    "bins": [
+      "Under 15%: n1403 avg 5.3% hit 7.0%",
+      "15–25%: n397 avg 19.7% hit 21.2%",
+      "25–35%: n263 avg 28.9% hit 34.6%",
+      "35–50%: n75 avg 43.1% hit 50.7%",
+      "50%+: n17 avg 53.6% hit 58.8%"
+    ],
+    "teamCallHits": "63/152",
+    "highHits": "0/0"
+  },
+  "volumeReconstructed": {
+    "rushYd": {
+      "n": 2155,
+      "mae": 5.37,
+      "bias": -1.34,
+      "coverage80": 0.907,
+      "highCoverage": null,
+      "highN": 0
+    },
+    "rec": {
+      "n": 2155,
+      "mae": 1,
+      "bias": -0.25,
+      "coverage80": 0.839,
+      "highCoverage": null,
+      "highN": 0
+    },
+    "recYd": {
+      "n": 2155,
+      "mae": 12.57,
+      "bias": -2.52,
+      "coverage80": 0.843,
+      "highCoverage": null,
+      "highN": 0
+    },
+    "passYd": {
+      "n": 313,
+      "mae": 48.35,
+      "bias": -9.38,
+      "coverage80": 0.863,
+      "highCoverage": null,
+      "highN": 0
+    }
+  },
+  "lessons": {
+    "active": {
+      "rushYd": 1.1,
+      "rec": 1.1,
+      "recYd": 1.1,
+      "passYd": 1.0975824718918001
+    },
+    "band": {
+      "lt15": 1.1352265673494721,
+      "15to25": 1.0174418646619146,
+      "25to35": 1.098961142533343,
+      "35to50": 0.9959455460195326,
+      "50plus": 1.001490918723969
+    },
+    "spot": {
+      "r1": 1.2605230694354772,
+      "r2": 0.8529667156675362,
+      "r3": 1.180774884737615,
+      "t1": 1.1323752939727447,
+      "t2": 0.9380518813594917,
+      "t3": 1.2515185053289686
+    },
+    "label": "Learned from finished games (reconstructed history, not prospectively validated), from the last three weeks",
+    "inWeek": {
+      "applied": false,
+      "confirmed": 0
+    }
+  },
+  "challenger": {
+    "status": "rich",
+    "trainingCount": 2155,
+    "reason": null
+  }
+}
