@@ -50,7 +50,7 @@ export function gradeWeek(S, w, engineOpts = {}) {
         rows.push({ rosterStatus: rs.get(r.id) || null, season: G.game.season, week: w, gameId: G.game.id, id: r.id, name: r.name, pos: r.pos, team: r.team, side: s, spread: Sd.spread, implied: Sd.implied, teamLambda: Sd.teamLambda, tdBudget: Sd.tdBudget,
           chance: r.chance, lambda: r.lambda, published: r.published, pubExp: r.published != null ? -Math.log(1 - Math.min(0.999, r.published)) : null,
           y: r.actual.td > 0 ? 1 : 0, td: r.actual.td, teamCall: r.teamCall, contributor: r.contributor, tdConf: r.tdConf, role: r.role, glShare: r.glShare, insideFinisher: r.insideFinisher, recentFinisher: r.recentFinisher, coldGoal: r.coldGoal,
-          ceiling: r.ceiling, preSafety: r.preSafety, preStack: r.preStack, glShareRaw: r.glShareRaw, stacked: r.stacked, recentRzLooks: r.recentRzLooks, gamesPlayed: r.gamesPlayed, i10Exp: r.i10Exp, lambdaRaw: r.lambdaRaw, components: r.components, vol: r.vol, verified: r.verified,
+          ceiling: r.ceiling, preSafety: r.preSafety, secondOption: !!r.secondOption, preStack: r.preStack, glShareRaw: r.glShareRaw, stacked: r.stacked, recentRzLooks: r.recentRzLooks, gamesPlayed: r.gamesPlayed, i10Exp: r.i10Exp, lambdaRaw: r.lambdaRaw, components: r.components, vol: r.vol, verified: r.verified,
           volume: Object.fromEntries(Object.entries(r.volume || {}).map(([k, v]) => [k, { mean: v.mean, lo: v.lo, hi: v.hi }])), volConf: r.volConf,
           actualVol: { rushYd: r.actual.rushYd, rec: r.actual.rec, recYd: r.actual.recYd, passYd: r.actual.passYd } });
       }

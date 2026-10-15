@@ -74,3 +74,14 @@ Same harness (walk-forward, budget fit on, game bootstrap). Each knob's value wa
 - Safety caps (counterfactual only, not shipped): capped rows are ~9% of rows but half of the 25%+ bin. They are forecast at .37–.39 vs a .43–.46 hit rate (before caps: .47–.48; uncapped engine after team budget: .42–.44). Removing caps: 2026 ΔBrier −.0013 [−.0024, −.0003], ΔLL −.0026 [−.0050, −.0001]; 2025 and 2024 not significant. Caps are a spec invariant and stay; flagged for the user.
 - Inactive (INA) players: only 27 rows over three seasons, none with a published projection, so the matched comparisons are identical with them dropped. Players with no stat or snap record are already excluded from grading.
 Reproduce: `node scripts/hist/grid.mjs`, `node scripts/hist/select.mjs '<families>'`, `node scripts/hist/diff.mjs <tag> <season>`.
+
+## endzone-4.2.2 — data-fit safety caps (user-approved override of spec §11; evaluated, left OFF)
+
+The user approved replacing the fixed §11 cap values with values fit from past data. Implemented: `safetyCalibrate(p, ctx, caps)` keeps the same structure (role gating, cold-goal logic, applied after lessons/calibration, then team budget) with fittable values `pullT/pullS` (35–50% no-inside-10 pull), `ceil` (non-finisher ceiling, spec 50%), `cold` (cold-goal ceiling, 46%), `fin` (finisher ceiling, 62%), `floor` (second-option floor, 16%). Bounds: pull target .20–.45, ceilings ≤ .75, cold ≤ ceil ≤ fin, floor .10–.22. `fitCaps` (src/calibration.js) chooses values by log loss on earlier rows and shrinks each toward the fixed value by n/(n+K); K=100 was chosen on inner splits of earlier data only.
+
+Walk-forward result (fit on 2024 → test 2025; fit on 2024–25 → test 2026), vs 4.2.1 (fixed caps):
+| Held-out | ΔBrier [95% game CI] | ΔLogLoss | Team calls ΔBrier | Contributors ΔBrier |
+|---|---|---|---|---|
+| 2025 (K=100) | −.0002 [−.0005, .0002] | −.0003 [−.0011, .0005] | −.0012 [−.0038, .0012] | −.0003 [−.0008, .0003] |
+| 2026 wk1–5 (K=100) | −.0009 [−.0016, −.0001] | −.0017 [−.0035, .0003] | −.0012 [−.0062, .0038] | −.0015 [−.0028, −.0002] |
+Point estimates improve everywhere and nothing regresses, but log loss is not significant on either set and Brier only on 2026, so by the adoption rule the fitted caps are not shipped: production uses the fixed spec values (no `caps` entry in calibration-fits.json). Fitted values, 2024–25 data: pull target .41 (slope .22), ceiling .55, cold .50, finisher .60, floor .14.

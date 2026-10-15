@@ -2,7 +2,7 @@
 // the server refresh job, so archived unplayed-game predictions match the display.
 import { stackX, stackPredict } from './stack.js';
 import { fitFor, applyVolCal } from './calibration.js';
-import { MODEL_VERSION, sanitizeWeights, clamp, distribution, anytimeFromLambda, lambdaFromChance, firstTd, publishedProbability, edgePts, scaleComponents, sumComponents, safetyCalibrate, chanceBand, americanFair, pct } from './model.js';
+import { MODEL_VERSION, sanitizeWeights, clamp, distribution, anytimeFromLambda, lambdaFromChance, firstTd, publishedProbability, edgePts, scaleComponents, sumComponents, safetyCalibrate, sanitizeCaps, chanceBand, americanFair, pct } from './model.js';
 import { lines, weather } from './feeds.js';
 import { availability } from './roster.js';
 import { BINS, leagueRates, spotRate, outsideRate, qualityFactor, betaPosterior, defenseSpotFactor } from './spots.js';
@@ -18,10 +18,11 @@ const sum = (a, f) => a.reduce((s, x) => s + f(x), 0);
 export function chanceBandKey(p) { return p < 0.15 ? 'lt15' : p < 0.25 ? '15to25' : p < 0.35 ? '25to35' : p < 0.5 ? '35to50' : '50plus'; }
 
 // Week context shared by every game: league rates, matchup tables, team totals (all before cutoff).
-export function weekContext(ix, identity, { season, week, weights, lessons = null, now = Date.now(), errorModel = null, coverage = null, pubTdBlend, stackFit, budgetFit, volCal, exp = null }) {
+export function weekContext(ix, identity, { season, week, weights, lessons = null, now = Date.now(), errorModel = null, coverage = null, pubTdBlend, stackFit, budgetFit, volCal, exp = null, caps }) {
   // endzone-4.2: shipped walk-forward fits (trained only on games before this week) unless the caller overrides; pass false to disable.
   const shipped = fitFor(season, week);
   if (budgetFit === undefined) budgetFit = shipped?.budget ? { ...shipped.budget, id: shipped.id } : null;
+  if (caps === undefined) caps = shipped?.caps ? { ...shipped.caps, id: shipped.id } : null;
   if (volCal === undefined) volCal = shipped?.volcal ? { ...shipped.volcal, id: shipped.id } : null;
   const rows = allLogsBefore(ix, season, week);
   const zonesAll = season === ix.season ? [...ix.teamZones.values()].flat().filter(z => z.week < week) : [];
@@ -41,7 +42,7 @@ export function weekContext(ix, identity, { season, week, weights, lessons = nul
   for (const a of teamRz.values()) { a.rzRush /= a.n; a.rzTgt /= a.n; }
   const lgRzPg = lgN ? lgRz / lgN : null;
   const qbRows = rows.filter(r => r.pos === 'QB' && r.att > 0); const lgYpa = sum(qbRows, r => r.passYd) / Math.max(1, sum(qbRows, r => r.att)) || 6.6;
-  return { ix, identity, season, week, weights: sanitizeWeights(weights), lessons, now, league, T, teamTotals, byTeam, teamRz, defRz, lgRzPg, lgYpa, rows, errorModel, coverage, pubTdBlend: pubTdBlend ?? PUB_TD_BLEND, stackFit: stackFit || null, budgetFit: budgetFit || null, volCal: volCal || null, exp: exp || {} };
+  return { ix, identity, season, week, weights: sanitizeWeights(weights), lessons, now, league, T, teamTotals, byTeam, teamRz, defRz, lgRzPg, lgYpa, rows, errorModel, coverage, pubTdBlend: pubTdBlend ?? PUB_TD_BLEND, stackFit: stackFit || null, budgetFit: budgetFit || null, volCal: volCal || null, exp: exp || {}, caps: caps || null, capsEff: sanitizeCaps(caps) };
 }
 
 function sideContext(W, game, side) {
@@ -207,7 +208,7 @@ export function computeSide(W, game, side, { override = null, historical = false
       if (a > 0) { const before = lam; lam = (1 - a) * lam + a * pubExpTd; p.pubBlend = { weight: a, published: pubExpTd, before }; lessonNotes.push(`Blended ${(a * 100).toFixed(0)}% toward the published projection (${(1 - Math.exp(-pubExpTd)) * 100 | 0}%) because of ${p.f.n < 4 ? 'a thin sample' : 'limited recent red-zone evidence'}; safety caps applied after.`); }
     }
     const preSafety = anytimeFromLambda(lam);
-    const safe = W.exp.noCaps ? { chance: Math.min(preSafety, 0.97), notes: [], ceiling: null } : safetyCalibrate(preSafety, { insideFinisher, recentFinisher, coldGoal }); // noCaps: harness counterfactual only
+    const safe = W.exp.noCaps ? { chance: Math.min(preSafety, 0.97), notes: [], ceiling: null } : safetyCalibrate(preSafety, { insideFinisher, recentFinisher, coldGoal }, W.caps); // noCaps: harness counterfactual only
     p.preSafety = preSafety;
     let chance = safe.chance; const softNotes = [];
     if (mf > 1 && i10Exp < 0.15) { const capC = Math.max(anytimeFromLambda(noLiftLambda * (lam / rawLambda || 1)), 0.32); if (chance > capC) { chance = capC; softNotes.push('Soft-position lift capped near 32% without credible inside-10 scores.'); } }
@@ -221,9 +222,9 @@ export function computeSide(W, game, side, { override = null, historical = false
   const rzRank = active.filter(p => p.pos !== 'QB').map(p => ({ p, looks: p.recentRzLooks, games: p.f.last3.filter(g => (g.rzRush || 0) + (g.rzTgt || 0) > 0).length })).sort((a, b) => b.looks - a.looks);
   if (rzRank.length >= 2) {
     const s = rzRank[1];
-    if (s.looks >= 3 && s.games >= 2 && anytimeFromLambda(s.p.lambda) < 0.16 && s.p.avail.factor >= 1) {
-      const target = lambdaFromChance(0.16); const f = s.p.lambda > 0 ? target / s.p.lambda : 0;
-      if (f > 0) { s.p.components = scaleComponents(s.p.components, f); s.p.lambda = target; s.p.secondOption = `Second genuine red-zone option (${s.looks} red-zone looks in ${s.games} of his last three games): floor 16% before the team limit.`; }
+    if (s.looks >= 3 && s.games >= 2 && anytimeFromLambda(s.p.lambda) < W.capsEff.floor && s.p.avail.factor >= 1) {
+      const target = lambdaFromChance(W.capsEff.floor); const f = s.p.lambda > 0 ? target / s.p.lambda : 0;
+      if (f > 0) { s.p.components = scaleComponents(s.p.components, f); s.p.lambda = target; s.p.secondOption = `Second genuine red-zone option (${s.looks} red-zone looks in ${s.games} of his last three games): floor ${Math.round(W.capsEff.floor * 100)}% before the team limit.`; }
     }
   }
   // team scoring budget: cap the sum of intensities, scaling coherently

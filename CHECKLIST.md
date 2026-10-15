@@ -73,3 +73,4 @@ The user asked to remove the "QB pass TD" column; it "makes no sense to have a s
 - [x] Volume 80% bands recalibrated on held-out data
 - [x] Tests: tests/calibration.test.js (walk-forward fit keys, caps, budget invariant); npm test 32/32
 - [x] 4.2.1: candidate round (goal-line, QB rush, TE red-zone, priors, defense, recency, combined, caps counterfactual, INA sensitivity) — none adopted; see README
+- [x] 4.2.2: data-fit safety caps (user-approved override of §11) implemented with bounds, shrinkage and role gating; walk-forward not significant on both Brier and log loss, so left off (fixed values remain); tests 34/34
