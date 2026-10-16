@@ -8835,16 +8835,16 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-16T19:01:26.683Z",
-  "fingerprint": "b95e28fb8b8dea4724c38410",
+  "capturedAt": "2026-10-16T21:52:19.452Z",
+  "fingerprint": "419aa40ce3daa4970494f256",
   "payload": {
    "callIds": {
     "away": "12495",
     "home": "8146"
    },
-   "capturedAt": "2026-10-16T19:01:26.683Z",
+   "capturedAt": "2026-10-16T21:52:19.452Z",
    "challenger": {
-    "capturedCutoff": "2026-10-16T19:01:26.365Z",
+    "capturedCutoff": "2026-10-16T21:52:18.869Z",
     "reason": null,
     "status": "rich",
     "trainingCount": 2188,
@@ -8857,30 +8857,30 @@
    "gameId": "2026_07_MIA_NYJ",
    "gameLambda": 3.6387420367323524,
    "inputTimestamps": {
-    "ftn": "2026-10-16T19:01:21.958Z",
-    "history_2025": "2026-10-16T19:01:14.885Z",
-    "history_2026": "2026-10-16T19:01:21.900Z",
-    "idmap": "2026-10-16T19:01:21.832Z",
-    "pbp": "2026-10-16T19:01:22.579Z",
-    "players": "2026-10-16T19:01:21.490Z",
-    "proj_1": "2026-10-16T19:01:14.222Z",
-    "proj_2": "2026-10-16T19:01:14.244Z",
-    "proj_3": "2026-10-16T19:01:14.238Z",
-    "proj_4": "2026-10-16T19:01:14.208Z",
-    "proj_5": "2026-10-16T19:01:14.262Z",
-    "proj_6": "2026-10-16T19:01:21.568Z",
-    "proj_7": "2026-10-16T19:01:21.580Z",
-    "roster": "2026-10-16T19:01:21.646Z",
-    "schedule": "2026-10-16T19:01:21.221Z",
-    "snaps": "2026-10-16T19:01:22.605Z",
-    "state": "2026-10-16T19:01:21.067Z",
-    "stats_1": "2026-10-16T19:01:14.136Z",
-    "stats_2": "2026-10-16T19:01:14.153Z",
-    "stats_3": "2026-10-16T19:01:14.171Z",
-    "stats_4": "2026-10-16T19:01:14.107Z",
-    "stats_5": "2026-10-16T19:01:14.192Z",
-    "stats_6": "2026-10-16T19:01:21.521Z",
-    "stats_7": "2026-10-16T19:01:21.531Z"
+    "ftn": "2026-10-16T21:52:14.157Z",
+    "history_2025": "2026-10-16T21:52:05.850Z",
+    "history_2026": "2026-10-16T21:52:14.084Z",
+    "idmap": "2026-10-16T21:52:14.000Z",
+    "pbp": "2026-10-16T21:52:14.767Z",
+    "players": "2026-10-16T21:52:13.637Z",
+    "proj_1": "2026-10-16T21:52:05.146Z",
+    "proj_2": "2026-10-16T21:52:05.183Z",
+    "proj_3": "2026-10-16T21:52:05.198Z",
+    "proj_4": "2026-10-16T21:52:05.192Z",
+    "proj_5": "2026-10-16T21:52:05.171Z",
+    "proj_6": "2026-10-16T21:52:13.672Z",
+    "proj_7": "2026-10-16T21:52:13.695Z",
+    "roster": "2026-10-16T21:52:13.791Z",
+    "schedule": "2026-10-16T21:52:13.424Z",
+    "snaps": "2026-10-16T21:52:14.810Z",
+    "state": "2026-10-16T21:52:13.243Z",
+    "stats_1": "2026-10-16T21:52:05.016Z",
+    "stats_2": "2026-10-16T21:52:05.096Z",
+    "stats_3": "2026-10-16T21:52:05.113Z",
+    "stats_4": "2026-10-16T21:52:05.129Z",
+    "stats_5": "2026-10-16T21:52:05.053Z",
+    "stats_6": "2026-10-16T21:52:13.650Z",
+    "stats_7": "2026-10-16T21:52:13.674Z"
    },
    "kickoff": "2026-10-25T17:00:00.000Z",
    "lessons": "Learned from finished games (reconstructed history, not prospectively validated), from the last three weeks",
@@ -8894,7 +8894,7 @@
     "total": 38.5,
     "totalKnown": true
    },
-   "modelVersion": "endzone-4.3.0",
+   "modelVersion": "endzone-4.4.0",
    "players": [
     {
      "avail": {
@@ -8908,7 +8908,7 @@
       0.6374
      ],
      "ceiling": 0.5,
-     "challenger": 0.40794950001483266,
+     "challenger": 0.4080511918529104,
      "chance": 0.4026,
      "coldGoal": false,
      "components": {
@@ -9090,6 +9090,117 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": {
+      "after": 0.4135,
+      "before": 0.4135,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:12495",
+        "mult": 1,
+        "pp": 0,
+        "text": "Ollie Gordon's snap share rose to 61% over his last 2 games from 52% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:12495",
+        "mult": 1,
+        "pp": 0,
+        "text": "Ollie Gordon's share of team carries + targets rose to 31% (last 2) from 18% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:12495",
+        "mult": 1,
+        "pp": 0,
+        "text": "Ollie Gordon is averaging 5.5 red-zone looks over his last 2 games vs 2.0 before (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "streak",
+        "id": "streak:12495",
+        "mult": 1,
+        "pp": 0,
+        "text": "Ollie Gordon has scored in 3 of his last 4 games (weeks 3, 4, 5).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:12495",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 0.8 scoring games over his last 5 graded games; he had 3.",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:NYJ:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "NYJ has allowed 1.7 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:12495",
+       "status": "new",
+       "strength": 0.22,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:12495",
+       "status": "new",
+       "strength": 0.53,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 7,
+       "id": "redzone:12495",
+       "status": "new",
+       "strength": 0.58,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "streak",
+       "firstDetectedWeek": 7,
+       "id": "streak:12495",
+       "status": "new",
+       "strength": 0.25,
+       "type": "Scoring streak"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 5,
+       "id": "miss:12495",
+       "status": "continuing",
+       "strength": 0.93,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:NYJ:RB",
+       "status": "new",
+       "strength": 0.49,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -9187,7 +9298,7 @@
       0.2486
      ],
      "ceiling": 0.5,
-     "challenger": 0.15765965015812067,
+     "challenger": 0.15538527828131943,
      "chance": 0.169,
      "coldGoal": false,
      "components": {
@@ -9363,6 +9474,8 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -9458,7 +9571,7 @@
       0.2883
      ],
      "ceiling": 0.5,
-     "challenger": 0.12638809667930717,
+     "challenger": 0.12601721187274129,
      "chance": 0.1652,
      "coldGoal": false,
      "components": {
@@ -9636,6 +9749,66 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": {
+      "after": 0.1926,
+      "before": 0.1926,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:11643",
+        "mult": 1,
+        "pp": 0,
+        "text": "Jaylen Wright's snap share rose to 23% over his last 2 games from 6% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:11643",
+        "mult": 1,
+        "pp": 0,
+        "text": "Jaylen Wright's share of team carries + targets rose to 12% (last 2) from 3% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:NYJ:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "NYJ has allowed 1.7 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:11643",
+       "status": "new",
+       "strength": 0.41,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:11643",
+       "status": "new",
+       "strength": 0.38,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:NYJ:RB",
+       "status": "new",
+       "strength": 0.49,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -9726,7 +9899,7 @@
       0.2589
      ],
      "ceiling": 0.5,
-     "challenger": 0.1671362142274191,
+     "challenger": 0.1617865651632332,
      "chance": 0.155,
      "coldGoal": false,
      "components": {
@@ -9919,6 +10092,32 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": {
+      "after": 0.1255,
+      "before": 0.1255,
+      "items": [
+       {
+        "family": "miss",
+        "id": "miss:8161",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 1.0 scoring games over his last 5 graded games; he had 2.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 7,
+       "id": "miss:8161",
+       "status": "new",
+       "strength": 0.43,
+       "type": "Model miss pattern"
+      }
+     ],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -10034,7 +10233,7 @@
       0.2118
      ],
      "ceiling": 0.5,
-     "challenger": 0.13887967822732916,
+     "challenger": 0.13730981939532494,
      "chance": 0.1239,
      "coldGoal": false,
      "components": {
@@ -10212,6 +10411,32 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": {
+      "after": 0.1492,
+      "before": 0.1492,
+      "items": [
+       {
+        "family": "usage",
+        "id": "usage:8172",
+        "mult": 1,
+        "pp": 0,
+        "text": "Greg Dulcich's share of team carries + targets rose to 9% (last 2) from 5% (2 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:8172",
+       "status": "new",
+       "strength": 0.18,
+       "type": "Touch share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -10305,7 +10530,7 @@
       0.196
      ],
      "ceiling": 0.5,
-     "challenger": 0.11753677132297535,
+     "challenger": 0.11340346993773953,
      "chance": 0.1213,
      "coldGoal": false,
      "components": {
@@ -10496,6 +10721,49 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": {
+      "after": 0.1631,
+      "before": 0.1631,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:13338",
+        "mult": 1,
+        "pp": 0,
+        "text": "Kevin Coleman's snap share rose to 57% over his last 2 games from 45% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:13338",
+        "mult": 1,
+        "pp": 0,
+        "text": "Kevin Coleman's share of team carries + targets rose to 12% (last 2) from 5% (2 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:13338",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:13338",
+       "status": "new",
+       "strength": 0.26,
+       "type": "Touch share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -10591,7 +10859,7 @@
       0.1656
      ],
      "ceiling": 0.5,
-     "challenger": 0.10234823127611103,
+     "challenger": 0.11476164234050656,
      "chance": 0.101,
      "coldGoal": false,
      "components": {
@@ -10767,6 +11035,32 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": {
+      "after": 0.0379,
+      "before": 0.0379,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:13311",
+        "mult": 1,
+        "pp": 0,
+        "text": "Chris Bell's snap share rose to 76% over his last 2 games from 55% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:13311",
+       "status": "continuing",
+       "strength": 0.65,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -10863,7 +11157,7 @@
       0.1982
      ],
      "ceiling": 0.5,
-     "challenger": 0.04611507862136044,
+     "challenger": 0.04611808550670449,
      "chance": 0.0534,
      "coldGoal": false,
      "components": {
@@ -11046,6 +11340,41 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": {
+      "after": 0.1957,
+      "before": 0.1957,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:NYJ:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "NYJ has allowed 1.7 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 7,
+       "id": "vacuum:14026",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:NYJ:RB",
+       "status": "new",
+       "strength": 0.49,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -11136,7 +11465,7 @@
       0.0836
      ],
      "ceiling": 0.5,
-     "challenger": 0.03299687701252674,
+     "challenger": 0.03472264973885286,
      "chance": 0.0363,
      "coldGoal": false,
      "components": {
@@ -11304,6 +11633,32 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": {
+      "after": 0.0371,
+      "before": 0.0371,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:NYJ:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "NYJ has allowed 1.7 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:NYJ:RB",
+       "status": "new",
+       "strength": 0.49,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -11393,7 +11748,7 @@
       0.0491
      ],
      "ceiling": 0.5,
-     "challenger": 0.039296151302181115,
+     "challenger": 0.04022778461591825,
      "chance": 0.0284,
      "coldGoal": false,
      "components": {
@@ -11569,6 +11924,32 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": {
+      "after": 0.031,
+      "before": 0.031,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:13434",
+        "mult": 1,
+        "pp": 0,
+        "text": "Will Kacmarek's snap share rose to 50% over his last 2 games from 38% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:13434",
+       "status": "continuing",
+       "strength": 0.37,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -11660,7 +12041,7 @@
       0.059
      ],
      "ceiling": 0.5,
-     "challenger": 0.0303917620255022,
+     "challenger": 0.03147186975220384,
      "chance": 0.0255,
      "coldGoal": false,
      "components": {
@@ -11830,6 +12211,8 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -11921,7 +12304,7 @@
       0.0468
      ],
      "ceiling": 0.5,
-     "challenger": 0.02635146252139231,
+     "challenger": 0.02461485898371918,
      "chance": 0.022,
      "coldGoal": false,
      "components": {
@@ -12097,6 +12480,8 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -12186,7 +12571,7 @@
       0.024
      ],
      "ceiling": 0.5,
-     "challenger": 0.015923387285532886,
+     "challenger": 0.016014160497175522,
      "chance": 0.0101,
      "coldGoal": false,
      "components": {
@@ -12356,6 +12741,8 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -12445,7 +12832,7 @@
       0.016
      ],
      "ceiling": 0.5,
-     "challenger": 0.01099051399959472,
+     "challenger": 0.010740950127890891,
      "chance": 0.0067,
      "coldGoal": false,
      "components": {
@@ -12613,6 +13000,8 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -12702,7 +13091,7 @@
       0.0056
      ],
      "ceiling": 0.5,
-     "challenger": 0.003532129504672188,
+     "challenger": 0.0035208001724038596,
      "chance": 0.0023,
      "coldGoal": false,
      "components": {
@@ -12888,6 +13277,8 @@
       ]
      },
      "team": "MIA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 5, ACT)",
      "vol": {
@@ -12998,7 +13389,7 @@
       0.4485
      ],
      "ceiling": 0.5,
-     "challenger": 0.3600270344352807,
+     "challenger": 0.3710949171657355,
      "chance": 0.3186,
      "coldGoal": false,
      "components": {
@@ -13179,6 +13570,66 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.3121,
+      "before": 0.3121,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:8146",
+        "mult": 1,
+        "pp": 0,
+        "text": "Garrett Wilson's snap share rose to 97% over his last 2 games from 86% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "streak",
+        "id": "streak:8146",
+        "mult": 1,
+        "pp": 0,
+        "text": "Garrett Wilson has scored in 3 of his last 4 games (weeks 2, 3, 5).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:8146",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 1.4 scoring games over his last 5 graded games; he had 3.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:8146",
+       "status": "continuing",
+       "strength": 0.33,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "streak",
+       "firstDetectedWeek": 7,
+       "id": "streak:8146",
+       "status": "new",
+       "strength": 0.25,
+       "type": "Scoring streak"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 7,
+       "id": "miss:8146",
+       "status": "new",
+       "strength": 0.66,
+       "type": "Model miss pattern"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -13272,7 +13723,7 @@
       0.7028
      ],
      "ceiling": 0.5,
-     "challenger": 0.4763387351097699,
+     "challenger": 0.4722316146343022,
      "chance": 0.5,
      "coldGoal": false,
      "components": {
@@ -13455,6 +13906,66 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.7374,
+      "before": 0.7374,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:11576",
+        "mult": 1,
+        "pp": 0,
+        "text": "Braelon Allen's snap share rose to 90% over his last 2 games from 41% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:11576",
+        "mult": 1,
+        "pp": 0,
+        "text": "Braelon Allen's share of team carries + targets rose to 51% (last 2) from 13% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:MIA:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "MIA has allowed 1.0 RB touchdowns a game over its last 3 vs 2.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:11576",
+       "status": "continuing",
+       "strength": 1,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 5,
+       "id": "usage:11576",
+       "status": "continuing",
+       "strength": 1,
+       "type": "Touch share"
+      },
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:MIA:RB",
+       "status": "new",
+       "strength": -0.42,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -13550,7 +14061,7 @@
       0.3536
      ],
      "ceiling": 0.5,
-     "challenger": 0.3026484225344783,
+     "challenger": 0.30632822143003025,
      "chance": 0.2246,
      "coldGoal": false,
      "components": {
@@ -13729,6 +14240,49 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.1712,
+      "before": 0.1712,
+      "items": [
+       {
+        "family": "miss",
+        "id": "miss:13330",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 0.8 scoring games over his last 5 graded games; he had 2.",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:MIA:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "MIA has allowed 1.0 TE touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 4,
+       "id": "miss:13330",
+       "status": "continuing",
+       "strength": 0.49,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:MIA:TE",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -13830,7 +14384,7 @@
       0.232
      ],
      "ceiling": 0.5,
-     "challenger": 0.14910236289295153,
+     "challenger": 0.14352054449085672,
      "chance": 0.1172,
      "coldGoal": false,
      "components": {
@@ -14007,6 +14561,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.1505,
+      "before": 0.1505,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:MIA:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "MIA has allowed 1.0 TE touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:MIA:TE",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -14098,7 +14678,7 @@
       0.1595
      ],
      "ceiling": 0.5,
-     "challenger": 0.12997999040354835,
+     "challenger": 0.13137497286838773,
      "chance": 0.0983,
      "coldGoal": false,
      "components": {
@@ -14280,6 +14860,41 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.1101,
+      "before": 0.1101,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:MIA:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "MIA has allowed 1.0 TE touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 7,
+       "id": "vacuum:12498",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:MIA:TE",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -14371,7 +14986,7 @@
       0.1596
      ],
      "ceiling": 0.5,
-     "challenger": 0.09989458966498799,
+     "challenger": 0.09704828733151716,
      "chance": 0.0909,
      "coldGoal": false,
      "components": {
@@ -14562,6 +15177,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0937,
+      "before": 0.0937,
+      "items": [
+       {
+        "family": "qbRush",
+        "id": "qbRush:1373",
+        "mult": 1,
+        "pp": 0,
+        "text": "QB Geno Smith ran 2.5 times a game over his last 2 vs 4.3 before.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "qbRush",
+       "firstDetectedWeek": 5,
+       "id": "qbRush:1373",
+       "status": "continuing",
+       "strength": -0.21,
+       "type": "QB rushing"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -14674,7 +15315,7 @@
       0.2041
      ],
      "ceiling": 0.5,
-     "challenger": 0.08354504013500197,
+     "challenger": 0.08161249189907405,
      "chance": 0.0899,
      "coldGoal": false,
      "components": {
@@ -14843,6 +15484,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0852,
+      "before": 0.0852,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:MIA:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "MIA has allowed 1.0 RB touchdowns a game over its last 3 vs 2.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:MIA:RB",
+       "status": "new",
+       "strength": -0.42,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -14933,7 +15600,7 @@
       0.1685
      ],
      "ceiling": 0.5,
-     "challenger": 0.07023778245527434,
+     "challenger": 0.06968631086584298,
      "chance": 0.0737,
      "coldGoal": false,
      "components": {
@@ -15102,6 +15769,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0698,
+      "before": 0.0698,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:MIA:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "MIA has allowed 1.0 RB touchdowns a game over its last 3 vs 2.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:MIA:RB",
+       "status": "new",
+       "strength": -0.42,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -15192,7 +15885,7 @@
       0.093
      ],
      "ceiling": 0.5,
-     "challenger": 0.06599206307391747,
+     "challenger": 0.06604345369952314,
      "chance": 0.0532,
      "coldGoal": false,
      "components": {
@@ -15368,6 +16061,8 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -15463,7 +16158,7 @@
       0.0912
      ],
      "ceiling": 0.5,
-     "challenger": 0.0509391957877392,
+     "challenger": 0.05052692453080887,
      "chance": 0.0396,
      "coldGoal": false,
      "components": {
@@ -15633,6 +16328,8 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -15724,7 +16421,7 @@
       0.069
      ],
      "ceiling": 0.5,
-     "challenger": 0.039341365154375696,
+     "challenger": 0.037857497266507556,
      "chance": 0.0296,
      "coldGoal": false,
      "components": {
@@ -15900,6 +16597,8 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -15991,7 +16690,7 @@
       0.0542
      ],
      "ceiling": 0.5,
-     "challenger": 0.037038331399969815,
+     "challenger": 0.03621916745045206,
      "chance": 0.0229,
      "coldGoal": false,
      "components": {
@@ -16161,6 +16860,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0217,
+      "before": 0.0217,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:MIA:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "MIA has allowed 1.0 TE touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:MIA:TE",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -16250,7 +16975,7 @@
       0.0389
      ],
      "ceiling": 0.5,
-     "challenger": 0.02808820873103779,
+     "challenger": 0.02723309158288767,
      "chance": 0.0201,
      "coldGoal": false,
      "components": {
@@ -16426,6 +17151,8 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -16515,7 +17242,7 @@
       0.069
      ],
      "ceiling": 0.5,
-     "challenger": 0.020077604842749674,
+     "challenger": 0.019777606355099175,
      "chance": 0.0178,
      "coldGoal": false,
      "components": {
@@ -16691,6 +17418,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.058,
+      "before": 0.058,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:MIA:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "MIA has allowed 1.0 RB touchdowns a game over its last 3 vs 2.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:MIA:RB",
+       "status": "new",
+       "strength": -0.42,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -16780,7 +17533,7 @@
       0.0175
      ],
      "ceiling": 0.5,
-     "challenger": 0.02028215478532225,
+     "challenger": 0.020800165275070448,
      "chance": 0.0114,
      "coldGoal": false,
      "components": {
@@ -16956,6 +17709,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0149,
+      "before": 0.0149,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:MIA:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "MIA has allowed 1.0 TE touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:MIA:TE",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -17045,7 +17824,7 @@
       0.0244
      ],
      "ceiling": 0.5,
-     "challenger": 0.014543948443458854,
+     "challenger": 0.013850221858412448,
      "chance": 0.0101,
      "coldGoal": false,
      "components": {
@@ -17231,6 +18010,8 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {

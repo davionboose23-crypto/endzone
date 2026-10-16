@@ -9063,16 +9063,16 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-16T19:01:20.850Z",
-  "fingerprint": "7cbb2701919004f058f9acf2",
+  "capturedAt": "2026-10-16T21:52:12.982Z",
+  "fingerprint": "259704760c4aca5bc86e1073",
   "payload": {
    "callIds": {
     "away": "7588",
-    "home": "11581"
+    "home": "12501"
    },
-   "capturedAt": "2026-10-16T19:01:20.850Z",
+   "capturedAt": "2026-10-16T21:52:12.982Z",
    "challenger": {
-    "capturedCutoff": "2026-10-16T19:01:20.248Z",
+    "capturedCutoff": "2026-10-16T21:52:12.054Z",
     "reason": null,
     "status": "rich",
     "trainingCount": 2159,
@@ -9085,28 +9085,28 @@
    "gameId": "2026_06_DAL_GB",
    "gameLambda": 6.04994169659792,
    "inputTimestamps": {
-    "ftn": "2026-10-16T19:01:14.965Z",
-    "history_2025": "2026-10-16T19:01:14.885Z",
-    "history_2026": "2026-10-16T19:01:14.647Z",
-    "idmap": "2026-10-16T19:01:14.566Z",
-    "pbp": "2026-10-16T19:01:15.538Z",
-    "players": "2026-10-16T19:01:14.052Z",
-    "proj_1": "2026-10-16T19:01:14.222Z",
-    "proj_2": "2026-10-16T19:01:14.244Z",
-    "proj_3": "2026-10-16T19:01:14.238Z",
-    "proj_4": "2026-10-16T19:01:14.208Z",
-    "proj_5": "2026-10-16T19:01:14.262Z",
-    "proj_6": "2026-10-16T19:01:14.252Z",
-    "roster": "2026-10-16T19:01:14.347Z",
-    "schedule": "2026-10-16T19:01:13.804Z",
-    "snaps": "2026-10-16T19:01:15.564Z",
-    "state": "2026-10-16T19:01:13.576Z",
-    "stats_1": "2026-10-16T19:01:14.136Z",
-    "stats_2": "2026-10-16T19:01:14.153Z",
-    "stats_3": "2026-10-16T19:01:14.171Z",
-    "stats_4": "2026-10-16T19:01:14.107Z",
-    "stats_5": "2026-10-16T19:01:14.192Z",
-    "stats_6": "2026-10-16T19:01:14.175Z"
+    "ftn": "2026-10-16T21:52:05.923Z",
+    "history_2025": "2026-10-16T21:52:05.850Z",
+    "history_2026": "2026-10-16T21:52:05.629Z",
+    "idmap": "2026-10-16T21:52:05.542Z",
+    "pbp": "2026-10-16T21:52:06.501Z",
+    "players": "2026-10-16T21:52:04.987Z",
+    "proj_1": "2026-10-16T21:52:05.146Z",
+    "proj_2": "2026-10-16T21:52:05.183Z",
+    "proj_3": "2026-10-16T21:52:05.198Z",
+    "proj_4": "2026-10-16T21:52:05.192Z",
+    "proj_5": "2026-10-16T21:52:05.171Z",
+    "proj_6": "2026-10-16T21:52:05.160Z",
+    "roster": "2026-10-16T21:52:05.325Z",
+    "schedule": "2026-10-16T21:52:04.745Z",
+    "snaps": "2026-10-16T21:52:06.538Z",
+    "state": "2026-10-16T21:52:04.469Z",
+    "stats_1": "2026-10-16T21:52:05.016Z",
+    "stats_2": "2026-10-16T21:52:05.096Z",
+    "stats_3": "2026-10-16T21:52:05.113Z",
+    "stats_4": "2026-10-16T21:52:05.129Z",
+    "stats_5": "2026-10-16T21:52:05.053Z",
+    "stats_6": "2026-10-16T21:52:05.065Z"
    },
    "kickoff": "2026-10-19T00:20:00.000Z",
    "lessons": "Learned from finished games (reconstructed history, not prospectively validated), from the last three weeks",
@@ -9120,7 +9120,7 @@
     "total": 53.5,
     "totalKnown": true
    },
-   "modelVersion": "endzone-4.3.0",
+   "modelVersion": "endzone-4.4.0",
    "players": [
     {
      "avail": {
@@ -9134,7 +9134,7 @@
       0.785
      ],
      "ceiling": 0.62,
-     "challenger": 0.5630368548505352,
+     "challenger": 0.5700772061598588,
      "chance": 0.62,
      "coldGoal": false,
      "components": {
@@ -9311,6 +9311,66 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.8602,
+      "before": 0.8602,
+      "items": [
+       {
+        "family": "streak",
+        "id": "streak:7588",
+        "mult": 1,
+        "pp": 0,
+        "text": "Javonte Williams has scored in 3 of his last 4 games (weeks 3, 4, 5).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:7588",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 2.6 scoring games over his last 5 graded games; he had 4.",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:GB:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "GB has allowed 2.0 RB touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "streak",
+       "firstDetectedWeek": 5,
+       "id": "streak:7588",
+       "status": "continuing",
+       "strength": 0.25,
+       "type": "Scoring streak"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 5,
+       "id": "miss:7588",
+       "status": "continuing",
+       "strength": 0.59,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:GB:RB",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -9409,7 +9469,7 @@
       0.492
      ],
      "ceiling": 0.5,
-     "challenger": 0.35624205625058203,
+     "challenger": 0.3541689124962949,
      "chance": 0.3238,
      "coldGoal": false,
      "components": {
@@ -9597,6 +9657,66 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.4049,
+      "before": 0.4049,
+      "items": [
+       {
+        "family": "usage",
+        "id": "usage:6786",
+        "mult": 1,
+        "pp": 0,
+        "text": "CeeDee Lamb's share of team carries + targets rose to 21% (last 2) from 16% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:6786",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 1.7 scoring games over his last 5 graded games; he had 3.",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:GB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "GB has allowed 0.0 WR touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 6,
+       "id": "usage:6786",
+       "status": "new",
+       "strength": 0.24,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 4,
+       "id": "miss:6786",
+       "status": "continuing",
+       "strength": 0.55,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:GB:WR",
+       "status": "new",
+       "strength": -0.62,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -9693,7 +9813,7 @@
       0.4368
      ],
      "ceiling": 0.5,
-     "challenger": 0.37785029414668037,
+     "challenger": 0.38076095511949704,
      "chance": 0.3073,
      "coldGoal": false,
      "components": {
@@ -9865,6 +9985,32 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.2897,
+      "before": 0.2897,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:8110",
+        "mult": 1,
+        "pp": 0,
+        "text": "Jake Ferguson's snap share rose to 77% over his last 2 games from 68% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:8110",
+       "status": "new",
+       "strength": 0.26,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -9960,7 +10106,7 @@
       0.3638
      ],
      "ceiling": 0.46,
-     "challenger": 0.34267466927745494,
+     "challenger": 0.3372695519425827,
      "chance": 0.2407,
      "coldGoal": true,
      "components": {
@@ -10132,6 +10278,32 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.2293,
+      "before": 0.2293,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:GB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "GB has allowed 0.0 WR touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:GB:WR",
+       "status": "new",
+       "strength": -0.62,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -10226,7 +10398,7 @@
       0.2667
      ],
      "ceiling": 0.5,
-     "challenger": 0.16384229125558536,
+     "challenger": 0.1566411599538079,
      "chance": 0.1655,
      "coldGoal": false,
      "components": {
@@ -10396,6 +10568,32 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.1471,
+      "before": 0.1471,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:GB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "GB has allowed 0.0 WR touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:GB:WR",
+       "status": "new",
+       "strength": -0.62,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -10492,7 +10690,7 @@
       0.2282
      ],
      "ceiling": 0.5,
-     "challenger": 0.12707001203972412,
+     "challenger": 0.12288382184143154,
      "chance": 0.1298,
      "coldGoal": false,
      "components": {
@@ -10677,6 +10875,32 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.1416,
+      "before": 0.1416,
+      "items": [
+       {
+        "family": "qbRush",
+        "id": "qbRush:3294",
+        "mult": 1,
+        "pp": 0,
+        "text": "QB Dak Prescott ran 1.0 times a game over his last 2 vs 3.3 before.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "qbRush",
+       "firstDetectedWeek": 6,
+       "id": "qbRush:3294",
+       "status": "new",
+       "strength": -0.32,
+       "type": "QB rushing"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -10789,7 +11013,7 @@
       0.1981
      ],
      "ceiling": 0.5,
-     "challenger": 0.09031919792369258,
+     "challenger": 0.09310368974013339,
      "chance": 0.112,
      "coldGoal": false,
      "components": {
@@ -10959,6 +11183,32 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.1548,
+      "before": 0.1548,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:GB:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "GB has allowed 2.0 RB touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:GB:RB",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -11051,7 +11301,7 @@
       0.1965
      ],
      "ceiling": 0.5,
-     "challenger": 0.10995058961990023,
+     "challenger": 0.10294006423317414,
      "chance": 0.1044,
      "coldGoal": false,
      "components": {
@@ -11222,6 +11472,49 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.1051,
+      "before": 0.1051,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:8917",
+        "mult": 1,
+        "pp": 0,
+        "text": "KaVontae Turpin's snap share rose to 25% over his last 2 games from 13% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:GB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "GB has allowed 0.0 WR touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:8917",
+       "status": "new",
+       "strength": 0.36,
+       "type": "Snap share"
+      },
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:GB:WR",
+       "status": "new",
+       "strength": -0.62,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -11313,7 +11606,7 @@
       0.139
      ],
      "ceiling": 0.5,
-     "challenger": 0.052852621481197515,
+     "challenger": 0.05536415805675243,
      "chance": 0.0611,
      "coldGoal": false,
      "components": {
@@ -11477,6 +11770,32 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.0555,
+      "before": 0.0555,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:GB:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "GB has allowed 2.0 RB touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:GB:RB",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -11567,7 +11886,7 @@
       0.065
      ],
      "ceiling": 0.5,
-     "challenger": 0.049210068775385474,
+     "challenger": 0.049954859430066945,
      "chance": 0.0435,
      "coldGoal": false,
      "components": {
@@ -11737,6 +12056,49 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.0477,
+      "before": 0.0477,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:11510",
+        "mult": 1,
+        "pp": 0,
+        "text": "Hunter Luepke's snap share fell to 12% over his last 2 games from 22% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:GB:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "GB has allowed 2.0 RB touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:11510",
+       "status": "new",
+       "strength": -0.25,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:GB:RB",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -11826,7 +12188,7 @@
       0.0622
      ],
      "ceiling": 0.5,
-     "challenger": 0.05159261578822538,
+     "challenger": 0.053488479603570616,
      "chance": 0.0362,
      "coldGoal": false,
      "components": {
@@ -11996,6 +12358,8 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -12087,7 +12451,7 @@
       0.0611
      ],
      "ceiling": 0.5,
-     "challenger": 0.03199248920418096,
+     "challenger": 0.03222901803798184,
      "chance": 0.0346,
      "coldGoal": false,
      "components": {
@@ -12257,6 +12621,32 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.0568,
+      "before": 0.0568,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:GB:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "GB has allowed 2.0 RB touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:GB:RB",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -12346,7 +12736,7 @@
       0.0786
      ],
      "ceiling": 0.5,
-     "challenger": 0.04188332874375722,
+     "challenger": 0.042805904782157955,
      "chance": 0.034,
      "coldGoal": false,
      "components": {
@@ -12508,6 +12898,32 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.0309,
+      "before": 0.0309,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:GB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "GB has allowed 0.0 WR touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:GB:WR",
+       "status": "new",
+       "strength": -0.62,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -12599,7 +13015,7 @@
       0.0404
      ],
      "ceiling": 0.5,
-     "challenger": 0.039830417105028104,
+     "challenger": 0.043580411258075546,
      "chance": 0.0267,
      "coldGoal": false,
      "components": {
@@ -12769,6 +13185,8 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -12858,7 +13276,7 @@
       0.0483
      ],
      "ceiling": 0.5,
-     "challenger": 0.029147506704232495,
+     "challenger": 0.02726876393607136,
      "chance": 0.0225,
      "coldGoal": false,
      "components": {
@@ -13028,6 +13446,32 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": {
+      "after": 0.0539,
+      "before": 0.0539,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:GB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "GB has allowed 0.0 WR touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:GB:WR",
+       "status": "new",
+       "strength": -0.62,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -13119,7 +13563,7 @@
       0.0112
      ],
      "ceiling": 0.5,
-     "challenger": 0.007039348813882684,
+     "challenger": 0.007023280891399586,
      "chance": 0.0047,
      "coldGoal": false,
      "components": {
@@ -13299,6 +13743,8 @@
       ]
      },
      "team": "DAL",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On DAL nflverse roster (week 6, ACT)",
      "vol": {
@@ -13405,50 +13851,50 @@
       "uncertain": false
      },
      "band": [
-      0.3252,
-      0.6544
+      0.3141,
+      0.6397
      ],
      "ceiling": 0.5,
-     "challenger": 0.4606335121061229,
-     "chance": 0.4761,
+     "challenger": 0.4607301418788101,
+     "chance": 0.4623,
      "coldGoal": false,
      "components": {
-      "r0": 0.0203,
-      "r1": 0.3135,
-      "r2": 0.1523,
-      "r3": 0.0089,
-      "t0": 0.0252,
-      "t1": 0.033,
-      "t2": 0.0772,
-      "t3": 0.0159
+      "r0": 0.0196,
+      "r1": 0.3031,
+      "r2": 0.1472,
+      "r3": 0.0086,
+      "t0": 0.0244,
+      "t1": 0.0316,
+      "t2": 0.0708,
+      "t3": 0.015
      },
      "conversionNote": "2 of 11 red-zone carries scored. 1 of 3 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.4761,
-      "lambda": 0.6464,
-      "p0": 0.5239,
-      "p1": 0.3387,
-      "p2": 0.1095,
-      "p3plus": 0.0279,
-      "twoPlus": 0.1374
+      "anytime": 0.4623,
+      "lambda": 0.6204,
+      "p0": 0.5377,
+      "p1": 0.3336,
+      "p2": 0.1035,
+      "p3plus": 0.0252,
+      "twoPlus": 0.1287
      },
-     "edge": 4.7286,
+     "edge": 2.7807,
      "espn": "4429023",
-     "fair": 110,
-     "firstTd": 0.1066,
+     "fair": 116,
+     "firstTd": 0.1023,
      "gamesPlayed": 5,
      "glShare": 0.7105,
      "glShareRaw": 0.7105,
      "gsis": "00-0039811",
-     "i10Exp": 1.3597,
+     "i10Exp": 1.3495,
      "id": "11581",
      "injury": null,
      "insideFinisher": true,
-     "lambda": 0.6464,
-     "lambdaRaw": 1.5258,
+     "lambda": 0.6204,
+     "lambdaRaw": 1.5146,
      "lessonNotes": [
       "Learned from finished games: 50plus chances scaled ×1.06 (from the last three weeks).",
-      "Blended 38% toward the published projection (42%) because of limited recent red-zone evidence; safety caps applied after."
+      "Blended 38% toward the published projection (43%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 1.1857,
      "name": "MarShawn Lloyd",
@@ -13460,15 +13906,15 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.7047,
-     "preStack": 0.8013,
+     "preSafety": 0.7036,
+     "preStack": 0.7989,
      "pubBlend": {
-      "before": 1.6157,
+      "before": 1.6039,
       "weight": 0.375
      },
      "published": {
-      "expected": 0.56,
-      "probability": 0.42879093615118513,
+      "expected": 0.5700000000000001,
+      "probability": 0.4344745613004629,
       "source": "Sleeper projections week 6"
      },
      "recentFinisher": false,
@@ -13486,8 +13932,8 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 10.0206537389675,
-       "chance": 0.45131706515690784,
+       "carries": 10.024452722203137,
+       "chance": 0.46305483237261214,
        "targets": 4.713448065234151
       },
       "close": {
@@ -13498,15 +13944,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 13.20368492663953,
-       "chance": 0.4999999999999999,
-       "targets": 3.97605914177312
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "carries": 13.208690645726483,
+       "chance": 0.4636050508380012,
+       "targets": 3.9487299797710196
       }
      },
      "scriptSensitive": false,
@@ -13516,7 +13956,7 @@
       "r0": {
        "expected": 0.0479,
        "looks": 29,
-       "opps": 7.6654,
+       "opps": 7.6699,
        "rate": 0.0053,
        "scores": 0
       },
@@ -13542,30 +13982,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0596,
+       "expected": 0.0595,
        "looks": 10,
-       "opps": 3.7733,
+       "opps": 3.7696,
        "rate": 0.0133,
        "scores": 0
       },
       "t1": {
-       "expected": 0.078,
+       "expected": 0.0772,
        "looks": 0,
-       "opps": 0.1092,
+       "opps": 0.1081,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.1823,
+       "expected": 0.1728,
        "looks": 2,
-       "opps": 0.3893,
+       "opps": 0.3691,
        "rate": 0.4162,
        "scores": 1
       },
       "t3": {
-       "expected": 0.0375,
+       "expected": 0.0366,
        "looks": 1,
-       "opps": 0.2464,
+       "opps": 0.2404,
        "rate": 0.1032,
        "scores": 0
       }
@@ -13579,7 +14019,7 @@
      ],
      "tdConf": {
       "blocks": [
-       "80% band 33–65% is too wide."
+       "80% band 31–64% is too wide."
       ],
       "evidence": {
        "avgTouches": 10.333333333333334,
@@ -13589,7 +14029,7 @@
        "recentRz": 9,
        "repeat": false,
        "roleOk": true,
-       "width": 0.3292051673249149
+       "width": 0.3255383757856247
       },
       "level": "Med",
       "reasons": [
@@ -13597,14 +14037,83 @@
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.7801,
+      "before": 0.7801,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:11581",
+        "mult": 1,
+        "pp": 0,
+        "text": "MarShawn Lloyd's snap share rose to 50% over his last 2 games from 31% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:11581",
+        "mult": 1,
+        "pp": 0,
+        "text": "MarShawn Lloyd's share of team carries + targets rose to 21% (last 2) from 17% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:DAL:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "DAL has allowed 1.7 RB touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:11581",
+       "status": "new",
+       "strength": 0.55,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 6,
+       "id": "usage:11581",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 6,
+       "id": "vacuum:11581",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:DAL:RB",
+       "status": "new",
+       "strength": 0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On GB nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 11.789,
+      "carries": 11.7935,
       "rzRush": 3.8755,
       "rzTgt": 0.6193,
-      "targets": 4.5182
+      "targets": 4.4872
      },
      "volConf": {
       "rec": {
@@ -13648,12 +14157,12 @@
         "factor": 1.0088,
         "league": 0.7765
        },
-       "hi": 9.033,
-       "leagueDefense": 3.9753,
-       "lo": 0.0805,
-       "mean": 3.8901,
+       "hi": 8.9709,
+       "leagueDefense": 3.948,
+       "lo": 0.08,
+       "mean": 3.8633,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "4.0 without this defense. DAL allows RBs a 81% catch rate versus 78% league."
+       "text": "3.9 without this defense. DAL allows RBs a 81% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
@@ -13661,10 +14170,10 @@
         "factor": 0.9858,
         "league": 5.417
        },
-       "hi": 72.8427,
-       "leagueDefense": 25.9786,
-       "lo": 1.1781,
-       "mean": 23.5614,
+       "hi": 72.342,
+       "leagueDefense": 25.8001,
+       "lo": 1.17,
+       "mean": 23.3995,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "26 without this defense. DAL allows RBs 5.0 yards a target versus 5.4 league."
       },
@@ -13674,10 +14183,10 @@
         "factor": 1.0841,
         "league": 4.134
        },
-       "hi": 98.96,
-       "leagueDefense": 46.069,
-       "lo": 16.6784,
-       "mean": 49.9412,
+       "hi": 98.9975,
+       "leagueDefense": 46.0865,
+       "lo": 16.6847,
+       "mean": 49.9601,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "46 without this defense. DAL allows RBs 4.6 yards a carry versus 4.1 league."
       }
@@ -13691,598 +14200,47 @@
       "uncertain": false
      },
      "band": [
-      0.3353,
-      0.6406
+      0.3154,
+      0.6379
      ],
      "ceiling": 0.5,
-     "challenger": 0.4606335121061229,
-     "chance": 0.4761,
+     "challenger": 0.4607301418788101,
+     "chance": 0.4623,
      "coldGoal": false,
      "components": {
-      "r0": 0.0004,
-      "r1": 0.0002,
-      "r2": 0.0001,
+      "r0": 0.0008,
+      "r1": 0.0004,
+      "r2": 0.0002,
       "r3": 0,
-      "t0": 0.2156,
-      "t1": 0.2709,
-      "t2": 0.0988,
-      "t3": 0.0604
-     },
-     "conversionNote": "3 of 7 red-zone targets converted: those targets are the score.",
-     "dist": {
-      "anytime": 0.4761,
-      "lambda": 0.6464,
-      "p0": 0.5239,
-      "p1": 0.3387,
-      "p2": 0.1095,
-      "p3plus": 0.0279,
-      "twoPlus": 0.1374
-     },
-     "edge": -9.6508,
-     "espn": "4248528",
-     "fair": 110,
-     "firstTd": 0.1066,
-     "gamesPlayed": 5,
-     "glShare": 0.0002,
-     "glShareRaw": 0.0002,
-     "gsis": "00-0038124",
-     "i10Exp": 0.3955,
-     "id": "8167",
-     "injury": null,
-     "insideFinisher": false,
-     "lambda": 0.6464,
-     "lambdaRaw": 0.6909,
-     "lessonNotes": [
-      "Learned from finished games: 35to50 chances scaled ×0.97 (from the last three weeks).",
-      "Blended 38% toward the published projection (57%) because of limited recent red-zone evidence; safety caps applied after."
-     ],
-     "matchupFactor": 1.3038,
-     "name": "Christian Watson",
-     "passTd": null,
-     "photo": {
-      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4248528.png",
-      "initials": "CW",
-      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/8167.jpg"
-     },
-     "pos": "WR",
-     "practice": null,
-     "preSafety": 0.5208,
-     "preStack": 0.4868,
-     "pubBlend": {
-      "before": 0.667,
-      "weight": 0.375
-     },
-     "published": {
-      "expected": 0.85,
-      "probability": 0.5725850680512733,
-      "source": "Sleeper projections week 6"
-     },
-     "recentFinisher": false,
-     "recentRzLooks": 4,
-     "replacing": null,
-     "riser": null,
-     "role": "WR2",
-     "safetyNotes": [
-      "Held near 50%: no recent inside-10 finishing run."
-     ],
-     "scenarios": {
-      "behind": {
-       "att": 0,
-       "carries": 0.043497190921727664,
-       "chance": 0.45131706515690784,
-       "targets": 6.132267187499998
-      },
-      "close": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      },
-      "lead": {
-       "att": 0,
-       "carries": 0.05731394568509999,
-       "chance": 0.3556910718969307,
-       "targets": 5.172913050744193
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      }
-     },
-     "scriptSensitive": false,
-     "secondOption": null,
-     "segment": "WR|support|available",
-     "spots": {
-      "r0": {
-       "expected": 0.0004,
-       "looks": 0,
-       "opps": 0.0501,
-       "rate": 0.0063,
-       "scores": 0
-      },
-      "r1": {
-       "expected": 0.0002,
-       "looks": 0,
-       "opps": 0.0003,
-       "rate": 0.4359,
-       "scores": 0
-      },
-      "r2": {
-       "expected": 0.0001,
-       "looks": 0,
-       "opps": 0.0003,
-       "rate": 0.3604,
-       "scores": 0
-      },
-      "r3": {
-       "expected": 0,
-       "looks": 0,
-       "opps": 0.0004,
-       "rate": 0.017,
-       "scores": 0
-      },
-      "t0": {
-       "expected": 0.2305,
-       "looks": 33,
-       "opps": 4.8257,
-       "rate": 0.0366,
-       "scores": 3
-      },
-      "t1": {
-       "expected": 0.2896,
-       "looks": 3,
-       "opps": 0.2897,
-       "rate": 0.7,
-       "scores": 3
-      },
-      "t2": {
-       "expected": 0.1056,
-       "looks": 1,
-       "opps": 0.229,
-       "rate": 0.3728,
-       "scores": 0
-      },
-      "t3": {
-       "expected": 0.0645,
-       "looks": 3,
-       "opps": 0.5339,
-       "rate": 0.0745,
-       "scores": 0
-      }
-     },
-     "stacked": null,
-     "tags": [
-      "Recurring scorer"
-     ],
-     "tdConf": {
-      "blocks": [
-       "80% band 34–64% is too wide.",
-       "Workload share is falling."
-      ],
-      "evidence": {
-       "avgTouches": 7,
-       "baseline": false,
-       "latest": 8,
-       "narrow": false,
-       "recentRz": 4,
-       "repeat": true,
-       "roleOk": true,
-       "width": 0.30527873426177765
-      },
-      "level": "Med",
-      "reasons": [
-       "4 red-zone touches in his last three games.",
-       "Scored in 4 of his last 5 games, including 2 of the last three."
-      ]
-     },
-     "team": "GB",
-     "verified": true,
-     "verifyReason": "On GB nflverse roster (week 6, ACT)",
-     "vol": {
-      "att": 0,
-      "carries": 0.0512,
-      "rzRush": 0.0032,
-      "rzTgt": 0.8647,
-      "targets": 5.8783
-     },
-     "volConf": {
-      "rec": {
-       "blocks": [
-        "Falling shrunk usage share."
-       ],
-       "level": "Med",
-       "provisional": true,
-       "reasons": [
-        "40 targets this season (High needs 12, Medium 5).",
-        "Role-specific held-out coverage not yet available: provisional."
-       ]
-      },
-      "recYd": {
-       "blocks": [
-        "Falling shrunk usage share.",
-        "Very wide range."
-       ],
-       "level": "Med",
-       "provisional": true,
-       "reasons": [
-        "40 targets this season (High needs 18, Medium 8).",
-        "Role-specific held-out coverage not yet available: provisional."
-       ]
-      },
-      "rushYd": {
-       "blocks": [],
-       "level": "Low",
-       "provisional": true,
-       "reasons": [
-        "Near-zero projected carries (0.1)."
-       ]
-      }
-     },
-     "volume": {
-      "rec": {
-       "defense": {
-        "allowed": 0.6905,
-        "factor": 1.0534,
-        "league": 0.6253
-       },
-       "hi": 8.2763,
-       "leagueDefense": 4.2795,
-       "lo": 1.4815,
-       "mean": 4.3729,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "4.3 without this defense. DAL allows WRs a 69% catch rate versus 63% league."
-      },
-      "recYd": {
-       "defense": {
-        "allowed": 9.6667,
-        "factor": 1.0901,
-        "league": 8.22
-       },
-       "hi": 155.2743,
-       "leagueDefense": 68.7831,
-       "lo": 16.0977,
-       "mean": 68.9848,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "69 without this defense. DAL allows WRs 9.7 yards a target versus 8.2 league."
-      },
-      "rushYd": {
-       "defense": {
-        "allowed": 10.25,
-        "factor": 1.0634,
-        "league": 5.087
-       },
-       "hi": 1.4036,
-       "leagueDefense": 0.2934,
-       "lo": 0,
-       "mean": 0.2652,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "0 without this defense. DAL allows WRs 10.3 yards a carry versus 5.1 league."
-      }
-     }
-    },
-    {
-     "avail": {
-      "factor": 1,
-      "label": "Available",
-      "status": "available",
-      "uncertain": false
-     },
-     "band": [
-      0.3316,
-      0.6455
-     ],
-     "ceiling": 0.5,
-     "challenger": 0.4606335121061229,
-     "chance": 0.4761,
-     "coldGoal": false,
-     "components": {
-      "r0": 0,
-      "r1": 0.0138,
-      "r2": 0.0458,
-      "r3": 0.0007,
-      "t0": 0.0595,
-      "t1": 0.2997,
-      "t2": 0.0925,
-      "t3": 0.1344
-     },
-     "conversionNote": "1 of 5 red-zone targets converted: those targets are the score.",
-     "dist": {
-      "anytime": 0.4761,
-      "lambda": 0.6464,
-      "p0": 0.5239,
-      "p1": 0.3387,
-      "p2": 0.1095,
-      "p3plus": 0.0279,
-      "twoPlus": 0.1374
-     },
-     "edge": 13.9727,
-     "espn": "4572680",
-     "fair": 110,
-     "firstTd": 0.1066,
-     "gamesPlayed": 5,
-     "glShare": 0.0157,
-     "glShareRaw": 0.0157,
-     "gsis": "00-0038996",
-     "i10Exp": 0.6705,
-     "id": "9484",
-     "injury": null,
-     "insideFinisher": false,
-     "lambda": 0.6464,
-     "lambdaRaw": 0.9593,
-     "lessonNotes": [
-      "Learned from finished games: 50plus chances scaled ×1.06 (from the last three weeks).",
-      "Blended 38% toward the published projection (33%) because of limited recent red-zone evidence; safety caps applied after."
-     ],
-     "matchupFactor": 1.32,
-     "name": "Tucker Kraft",
-     "passTd": null,
-     "photo": {
-      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4572680.png",
-      "initials": "TK",
-      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/9484.jpg"
-     },
-     "pos": "TE",
-     "practice": null,
-     "preSafety": 0.5456,
-     "preStack": 0.6379,
-     "pubBlend": {
-      "before": 1.0159,
-      "weight": 0.375
-     },
-     "published": {
-      "expected": 0.41,
-      "probability": 0.3363497498636806,
-      "source": "Sleeper projections week 6"
-     },
-     "recentFinisher": false,
-     "recentRzLooks": 6,
-     "replacing": null,
-     "riser": null,
-     "role": "TE1",
-     "safetyNotes": [
-      "Held near 50%: no recent inside-10 finishing run."
-     ],
-     "scenarios": {
-      "behind": {
-       "att": 0,
-       "carries": 0.21787519965459443,
-       "chance": 0.45131706515690784,
-       "targets": 8.061520337051777
-      },
-      "close": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      },
-      "lead": {
-       "att": 0,
-       "carries": 0.2870826160154656,
-       "chance": 0.5,
-       "targets": 6.800346835079073
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      }
-     },
-     "scriptSensitive": false,
-     "secondOption": null,
-     "segment": "TE|primary|available",
-     "spots": {
-      "r0": {
-       "expected": 0,
-       "looks": 1,
-       "opps": 0.0005,
-       "rate": 0.0062,
-       "scores": 0
-      },
-      "r1": {
-       "expected": 0.0205,
-       "looks": 0,
-       "opps": 0.0275,
-       "rate": 0.4359,
-       "scores": 0
-      },
-      "r2": {
-       "expected": 0.0679,
-       "looks": 1,
-       "opps": 0.1901,
-       "rate": 0.3274,
-       "scores": 0
-      },
-      "r3": {
-       "expected": 0.0011,
-       "looks": 0,
-       "opps": 0.0382,
-       "rate": 0.017,
-       "scores": 0
-      },
-      "t0": {
-       "expected": 0.0883,
-       "looks": 24,
-       "opps": 5.661,
-       "rate": 0.0118,
-       "scores": 0
-      },
-      "t1": {
-       "expected": 0.4448,
-       "looks": 2,
-       "opps": 0.5638,
-       "rate": 0.5456,
-       "scores": 1
-      },
-      "t2": {
-       "expected": 0.1373,
-       "looks": 0,
-       "opps": 0.2949,
-       "rate": 0.3718,
-       "scores": 0
-      },
-      "t3": {
-       "expected": 0.1995,
-       "looks": 3,
-       "opps": 1.2079,
-       "rate": 0.1006,
-       "scores": 0
-      }
-     },
-     "stacked": null,
-     "tags": [],
-     "tdConf": {
-      "blocks": [
-       "80% band 33–65% is too wide."
-      ],
-      "evidence": {
-       "avgTouches": 7.333333333333333,
-       "baseline": true,
-       "latest": 6,
-       "narrow": false,
-       "recentRz": 6,
-       "repeat": false,
-       "roleOk": true,
-       "width": 0.3138716955477292
-      },
-      "level": "Med",
-      "reasons": [
-       "6 red-zone touches in his last 3 games with stable work."
-      ]
-     },
-     "team": "GB",
-     "verified": true,
-     "verifyReason": "On GB nflverse roster (week 6, ACT)",
-     "vol": {
-      "att": 0,
-      "carries": 0.2563,
-      "rzRush": 0.1695,
-      "rzTgt": 1.4325,
-      "targets": 7.7277
-     },
-     "volConf": {
-      "rec": {
-       "blocks": [],
-       "level": "High",
-       "provisional": true,
-       "reasons": [
-        "29 targets this season (High needs 12, Medium 5).",
-        "Role-specific held-out coverage not yet available: provisional."
-       ]
-      },
-      "recYd": {
-       "blocks": [
-        "Very wide range."
-       ],
-       "level": "Med",
-       "provisional": true,
-       "reasons": [
-        "29 targets this season (High needs 18, Medium 8).",
-        "Role-specific held-out coverage not yet available: provisional."
-       ]
-      },
-      "rushYd": {
-       "blocks": [],
-       "level": "Low",
-       "provisional": true,
-       "reasons": [
-        "Near-zero projected carries (0.3)."
-       ]
-      }
-     },
-     "volume": {
-      "rec": {
-       "defense": {
-        "allowed": 0.8966,
-        "factor": 1.0645,
-        "league": 0.7215
-       },
-       "hi": 11.5188,
-       "leagueDefense": 6.1874,
-       "lo": 2.5894,
-       "mean": 6.3891,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "6.2 without this defense. DAL allows TEs a 90% catch rate versus 72% league."
-      },
-      "recYd": {
-       "defense": {
-        "allowed": 8.3103,
-        "factor": 1.046,
-        "league": 7.0852
-       },
-       "hi": 136.4783,
-       "leagueDefense": 63.207,
-       "lo": 14.4579,
-       "mean": 60.8256,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "63 without this defense. DAL allows TEs 8.3 yards a target versus 7.1 league."
-      },
-      "rushYd": {
-       "defense": {
-        "allowed": null,
-        "factor": 1,
-        "league": 2.0769
-       },
-       "hi": 2.1013,
-       "leagueDefense": 0.6059,
-       "lo": 0,
-       "mean": 0.515,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "1 without this defense; no positional defense sample."
-      }
-     }
-    },
-    {
-     "avail": {
-      "factor": 1,
-      "label": "Available",
-      "status": "available",
-      "uncertain": false
-     },
-     "band": [
-      0.218,
-      0.4792
-     ],
-     "ceiling": 0.5,
-     "challenger": 0.37124701980051944,
-     "chance": 0.33,
-     "coldGoal": false,
-     "components": {
-      "r0": 0.0006,
-      "r1": 0.0003,
-      "r2": 0.0001,
-      "r3": 0,
-      "t0": 0.0474,
-      "t1": 0.1215,
-      "t2": 0.0895,
-      "t3": 0.141
+      "t0": 0.0631,
+      "t1": 0.1602,
+      "t2": 0.1803,
+      "t3": 0.2155
      },
      "conversionNote": "2 of 8 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.33,
-      "lambda": 0.4005,
-      "p0": 0.67,
-      "p1": 0.2683,
-      "p2": 0.0537,
-      "p3plus": 0.008,
-      "twoPlus": 0.0617
+      "anytime": 0.4623,
+      "lambda": 0.6204,
+      "p0": 0.5377,
+      "p1": 0.3336,
+      "p2": 0.1035,
+      "p3plus": 0.0252,
+      "twoPlus": 0.1287
      },
-     "edge": -3.2335,
+     "edge": 9.3566,
      "espn": "4701936",
-     "fair": 203,
-     "firstTd": 0.066,
+     "fair": 116,
+     "firstTd": 0.1023,
      "gamesPlayed": 5,
      "glShare": 0.0004,
      "glShareRaw": 0.0004,
      "gsis": "00-0040667",
-     "i10Exp": 0.3833,
+     "i10Exp": 0.5142,
      "id": "12501",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.4005,
-     "lambdaRaw": 0.7261,
+     "lambda": 0.6204,
+     "lambdaRaw": 0.9353,
      "lessonNotes": [
       "Learned from finished games: 50plus chances scaled ×1.06 (from the last three weeks).",
       "Blended 38% toward the published projection (36%) because of limited recent red-zone evidence; safety caps applied after."
@@ -14297,15 +14255,15 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.4776,
-     "preStack": 0.5365,
+     "preSafety": 0.5469,
+     "preStack": 0.6286,
      "pubBlend": {
-      "before": 0.7689,
+      "before": 0.9905,
       "weight": 0.375
      },
      "published": {
-      "expected": 0.45,
-      "probability": 0.3623718483782268,
+      "expected": 0.46,
+      "probability": 0.36871635449307405,
       "source": "Sleeper projections week 6"
      },
      "recentFinisher": false,
@@ -14313,7 +14271,7 @@
      "replacing": {
       "id": "8168",
       "name": "Skyy Moore",
-      "share": 0.33333333333333337
+      "share": 1
      },
      "riser": {
       "reason": "Rising, not the star: touch share 17% → 13%; DAL is soft to WRs; 5 red-zone looks in the last three weeks; next man up for Skyy Moore; 2 red-zone targets converted.",
@@ -14331,14 +14289,14 @@
      },
      "role": "WR1",
      "safetyNotes": [
-      "A 48% chance without an inside-10 finishing role is pulled toward 28% (now 35%)."
+      "Held near 50%: no recent inside-10 finishing run."
      ],
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.12511287830419163,
-       "chance": 0.45131706515690784,
-       "targets": 8.291647274094574
+       "carries": 0.1251603105116724,
+       "chance": 0.46305483237261214,
+       "targets": 9.653762378261241
       },
       "close": {
        "att": null,
@@ -14348,15 +14306,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.16485461611846425,
-       "chance": 0.33097971021928374,
-       "targets": 6.99447187881217
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "carries": 0.1649171150271448,
+       "chance": 0.4636050508380012,
+       "targets": 8.087519029178491
       }
      },
      "scriptSensitive": false,
@@ -14392,30 +14344,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.086,
+       "expected": 0.0951,
        "looks": 36,
-       "opps": 6.1195,
+       "opps": 6.7685,
        "rate": 0.0108,
        "scores": 0
       },
       "t1": {
-       "expected": 0.2202,
+       "expected": 0.2415,
        "looks": 1,
-       "opps": 0.2595,
+       "opps": 0.2846,
        "rate": 0.5943,
        "scores": 1
       },
       "t2": {
-       "expected": 0.1623,
+       "expected": 0.2718,
        "looks": 1,
-       "opps": 0.3537,
+       "opps": 0.5922,
        "rate": 0.371,
        "scores": 0
       },
       "t3": {
-       "expected": 0.2556,
+       "expected": 0.3249,
        "looks": 6,
-       "opps": 1.2157,
+       "opps": 1.545,
        "rate": 0.1297,
        "scores": 1
       }
@@ -14427,33 +14379,68 @@
      ],
      "tdConf": {
       "blocks": [
+       "80% band 32–64% is too wide.",
        "Workload share is falling."
       ],
       "evidence": {
        "avgTouches": 9,
        "baseline": false,
        "latest": 7,
-       "narrow": true,
+       "narrow": false,
        "recentRz": 5,
        "repeat": false,
        "roleOk": true,
-       "width": 0.2612658598158297
+       "width": 0.3224746700395772
       },
       "level": "Med",
       "reasons": [
-       "5 red-zone touches in his last three games.",
-       "80% band 22–48% is narrow enough."
+       "5 red-zone touches in his last three games."
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.6075,
+      "before": 0.6075,
+      "items": [
+       {
+        "family": "usage",
+        "id": "usage:12501",
+        "mult": 1,
+        "pp": 0,
+        "text": "Matthew Golden's share of team carries + targets fell to 13% (last 2) from 17% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "usage",
+       "firstDetectedWeek": 6,
+       "id": "usage:12501",
+       "status": "new",
+       "strength": -0.2,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 6,
+       "id": "vacuum:12501",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      }
+     ],
      "verified": true,
      "verifyReason": "On GB nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
       "carries": 0.1472,
       "rzRush": 0.0068,
-      "rzTgt": 1.3235,
-      "targets": 7.9483
+      "rzTgt": 1.56,
+      "targets": 9.1904
      },
      "volConf": {
       "rec": {
@@ -14495,12 +14482,12 @@
         "factor": 1.0534,
         "league": 0.6253
        },
-       "hi": 9.6007,
-       "leagueDefense": 5.1892,
-       "lo": 2.1184,
-       "mean": 5.3024,
+       "hi": 10.753,
+       "leagueDefense": 6.0001,
+       "lo": 2.7073,
+       "mean": 6.131,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "5.2 without this defense. DAL allows WRs a 69% catch rate versus 63% league."
+       "text": "6.0 without this defense. DAL allows WRs a 69% catch rate versus 63% league."
       },
       "recYd": {
        "defense": {
@@ -14508,12 +14495,12 @@
         "factor": 1.0901,
         "league": 8.22
        },
-       "hi": 174.9298,
-       "leagueDefense": 78.5759,
-       "lo": 19.8919,
-       "mean": 78.8063,
+       "hi": 202.2666,
+       "leagueDefense": 90.8552,
+       "lo": 23.0005,
+       "mean": 91.1216,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "79 without this defense. DAL allows WRs 9.7 yards a target versus 8.2 league."
+       "text": "91 without this defense. DAL allows WRs 9.7 yards a target versus 8.2 league."
       },
       "rushYd": {
        "defense": {
@@ -14521,10 +14508,10 @@
         "factor": 1.0634,
         "league": 5.087
        },
-       "hi": 2.7011,
-       "leagueDefense": 0.8476,
+       "hi": 2.7018,
+       "leagueDefense": 0.848,
        "lo": 0,
-       "mean": 0.7662,
+       "mean": 0.7665,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "1 without this defense. DAL allows WRs 10.3 yards a carry versus 5.1 league."
       }
@@ -14538,47 +14525,706 @@
       "uncertain": false
      },
      "band": [
-      0.0749,
-      0.3602
+      0.3241,
+      0.6256
      ],
      "ceiling": 0.5,
-     "challenger": 0.13658525671061827,
-     "chance": 0.1702,
+     "challenger": 0.4607301418788101,
+     "chance": 0.4623,
      "coldGoal": false,
      "components": {
-      "r0": 0.0191,
-      "r1": 0.0692,
-      "r2": 0.0344,
-      "r3": 0.0061,
-      "t0": 0.0237,
-      "t1": 0.0165,
-      "t2": 0.0105,
-      "t3": 0.007
+      "r0": 0.0004,
+      "r1": 0.0002,
+      "r2": 0.0001,
+      "r3": 0,
+      "t0": 0.2017,
+      "t1": 0.2654,
+      "t2": 0.0946,
+      "t3": 0.058
+     },
+     "conversionNote": "3 of 7 red-zone targets converted: those targets are the score.",
+     "dist": {
+      "anytime": 0.4623,
+      "lambda": 0.6204,
+      "p0": 0.5377,
+      "p1": 0.3336,
+      "p2": 0.1035,
+      "p3plus": 0.0252,
+      "twoPlus": 0.1287
+     },
+     "edge": -11.4556,
+     "espn": "4248528",
+     "fair": 116,
+     "firstTd": 0.1023,
+     "gamesPlayed": 5,
+     "glShare": 0.0002,
+     "glShareRaw": 0.0002,
+     "gsis": "00-0038124",
+     "i10Exp": 0.4065,
+     "id": "8167",
+     "injury": null,
+     "insideFinisher": false,
+     "lambda": 0.6204,
+     "lambdaRaw": 0.6999,
+     "lessonNotes": [
+      "Learned from finished games: 50plus chances scaled ×1.06 (from the last three weeks).",
+      "Blended 38% toward the published projection (57%) because of limited recent red-zone evidence; safety caps applied after."
+     ],
+     "matchupFactor": 1.3038,
+     "name": "Christian Watson",
+     "passTd": null,
+     "photo": {
+      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4248528.png",
+      "initials": "CW",
+      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/8167.jpg"
+     },
+     "pos": "WR",
+     "practice": null,
+     "preSafety": 0.5442,
+     "preStack": 0.5235,
+     "pubBlend": {
+      "before": 0.7412,
+      "weight": 0.375
+     },
+     "published": {
+      "expected": 0.86,
+      "probability": 0.5768379176822511,
+      "source": "Sleeper projections week 6"
+     },
+     "recentFinisher": false,
+     "recentRzLooks": 4,
+     "replacing": null,
+     "riser": null,
+     "role": "WR2",
+     "safetyNotes": [
+      "Held near 50%: no recent inside-10 finishing run."
+     ],
+     "scenarios": {
+      "behind": {
+       "att": 0,
+       "carries": 0.043513681372691584,
+       "chance": 0.46305483237261214,
+       "targets": 6.132267187499998
+      },
+      "close": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      },
+      "lead": {
+       "att": 0,
+       "carries": 0.057335674279311265,
+       "chance": 0.4636050508380012,
+       "targets": 5.137357397836193
+      }
+     },
+     "scriptSensitive": false,
+     "secondOption": null,
+     "segment": "WR|support|available",
+     "spots": {
+      "r0": {
+       "expected": 0.0004,
+       "looks": 0,
+       "opps": 0.0501,
+       "rate": 0.0063,
+       "scores": 0
+      },
+      "r1": {
+       "expected": 0.0002,
+       "looks": 0,
+       "opps": 0.0003,
+       "rate": 0.4359,
+       "scores": 0
+      },
+      "r2": {
+       "expected": 0.0001,
+       "looks": 0,
+       "opps": 0.0003,
+       "rate": 0.3604,
+       "scores": 0
+      },
+      "r3": {
+       "expected": 0,
+       "looks": 0,
+       "opps": 0.0004,
+       "rate": 0.017,
+       "scores": 0
+      },
+      "t0": {
+       "expected": 0.2276,
+       "looks": 33,
+       "opps": 4.7657,
+       "rate": 0.0366,
+       "scores": 3
+      },
+      "t1": {
+       "expected": 0.2995,
+       "looks": 3,
+       "opps": 0.2996,
+       "rate": 0.7,
+       "scores": 3
+      },
+      "t2": {
+       "expected": 0.1067,
+       "looks": 1,
+       "opps": 0.2314,
+       "rate": 0.3728,
+       "scores": 0
+      },
+      "t3": {
+       "expected": 0.0654,
+       "looks": 3,
+       "opps": 0.5413,
+       "rate": 0.0745,
+       "scores": 0
+      }
+     },
+     "stacked": null,
+     "tags": [
+      "Recurring scorer"
+     ],
+     "tdConf": {
+      "blocks": [
+       "80% band 32–63% is too wide.",
+       "Workload share is falling."
+      ],
+      "evidence": {
+       "avgTouches": 7,
+       "baseline": false,
+       "latest": 8,
+       "narrow": false,
+       "recentRz": 4,
+       "repeat": true,
+       "roleOk": true,
+       "width": 0.30151489828631883
+      },
+      "level": "Med",
+      "reasons": [
+       "4 red-zone touches in his last three games.",
+       "Scored in 4 of his last 5 games, including 2 of the last three."
+      ]
+     },
+     "team": "GB",
+     "trendEffect": {
+      "after": 0.5034,
+      "before": 0.5034,
+      "items": [
+       {
+        "family": "usage",
+        "id": "usage:8167",
+        "mult": 1,
+        "pp": 0,
+        "text": "Christian Watson's share of team carries + targets fell to 10% (last 2) from 18% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:8167",
+        "mult": 1,
+        "pp": 0,
+        "text": "Christian Watson is averaging 0.5 red-zone looks over his last 2 games vs 2.0 before (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "streak",
+        "id": "streak:8167",
+        "mult": 1,
+        "pp": 0,
+        "text": "Christian Watson has scored in 3 of his last 4 games (weeks 2, 3, 5).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:8167",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 1.7 scoring games over his last 5 graded games; he had 4.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "usage",
+       "firstDetectedWeek": 5,
+       "id": "usage:8167",
+       "status": "continuing",
+       "strength": -0.4,
+       "type": "Touch share"
+      },
+      {
+       "direction": "down",
+       "family": "redzone",
+       "firstDetectedWeek": 6,
+       "id": "redzone:8167",
+       "status": "new",
+       "strength": -0.3,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "streak",
+       "firstDetectedWeek": 4,
+       "id": "streak:8167",
+       "status": "continuing",
+       "strength": 0.25,
+       "type": "Scoring streak"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 4,
+       "id": "miss:8167",
+       "status": "continuing",
+       "strength": 0.97,
+       "type": "Model miss pattern"
+      }
+     ],
+     "verified": true,
+     "verifyReason": "On GB nflverse roster (week 6, ACT)",
+     "vol": {
+      "att": 0,
+      "carries": 0.0512,
+      "rzRush": 0.0032,
+      "rzTgt": 0.9809,
+      "targets": 5.8379
+     },
+     "volConf": {
+      "rec": {
+       "blocks": [
+        "Falling shrunk usage share."
+       ],
+       "level": "Med",
+       "provisional": true,
+       "reasons": [
+        "40 targets this season (High needs 12, Medium 5).",
+        "Role-specific held-out coverage not yet available: provisional."
+       ]
+      },
+      "recYd": {
+       "blocks": [
+        "Falling shrunk usage share.",
+        "Very wide range."
+       ],
+       "level": "Med",
+       "provisional": true,
+       "reasons": [
+        "40 targets this season (High needs 18, Medium 8).",
+        "Role-specific held-out coverage not yet available: provisional."
+       ]
+      },
+      "rushYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "Near-zero projected carries (0.1)."
+       ]
+      }
+     },
+     "volume": {
+      "rec": {
+       "defense": {
+        "allowed": 0.6905,
+        "factor": 1.0534,
+        "league": 0.6253
+       },
+       "hi": 8.2328,
+       "leagueDefense": 4.2501,
+       "lo": 1.4614,
+       "mean": 4.3428,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "4.3 without this defense. DAL allows WRs a 69% catch rate versus 63% league."
+      },
+      "recYd": {
+       "defense": {
+        "allowed": 9.6667,
+        "factor": 1.0901,
+        "league": 8.22
+       },
+       "hi": 154.207,
+       "leagueDefense": 68.3103,
+       "lo": 15.987,
+       "mean": 68.5106,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "68 without this defense. DAL allows WRs 9.7 yards a target versus 8.2 league."
+      },
+      "rushYd": {
+       "defense": {
+        "allowed": 10.25,
+        "factor": 1.0634,
+        "league": 5.087
+       },
+       "hi": 1.4039,
+       "leagueDefense": 0.2935,
+       "lo": 0,
+       "mean": 0.2653,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "0 without this defense. DAL allows WRs 10.3 yards a carry versus 5.1 league."
+      }
+     }
+    },
+    {
+     "avail": {
+      "factor": 1,
+      "label": "Available",
+      "status": "available",
+      "uncertain": false
+     },
+     "band": [
+      0.3209,
+      0.6302
+     ],
+     "ceiling": 0.5,
+     "challenger": 0.4523831832324937,
+     "chance": 0.4623,
+     "coldGoal": false,
+     "components": {
+      "r0": 0,
+      "r1": 0.0135,
+      "r2": 0.0447,
+      "r3": 0.0007,
+      "t0": 0.0581,
+      "t1": 0.2897,
+      "t2": 0.0857,
+      "t3": 0.1281
+     },
+     "conversionNote": "1 of 5 red-zone targets converted: those targets are the score.",
+     "dist": {
+      "anytime": 0.4623,
+      "lambda": 0.6204,
+      "p0": 0.5377,
+      "p1": 0.3336,
+      "p2": 0.1035,
+      "p3plus": 0.0252,
+      "twoPlus": 0.1287
+     },
+     "edge": 11.9329,
+     "espn": "4572680",
+     "fair": 116,
+     "firstTd": 0.1023,
+     "gamesPlayed": 5,
+     "glShare": 0.0157,
+     "glShareRaw": 0.0157,
+     "gsis": "00-0038996",
+     "i10Exp": 0.6588,
+     "id": "9484",
+     "injury": null,
+     "insideFinisher": false,
+     "lambda": 0.6204,
+     "lambdaRaw": 0.9427,
+     "lessonNotes": [
+      "Learned from finished games: 50plus chances scaled ×1.06 (from the last three weeks).",
+      "Blended 38% toward the published projection (34%) because of limited recent red-zone evidence; safety caps applied after."
+     ],
+     "matchupFactor": 1.32,
+     "name": "Tucker Kraft",
+     "passTd": null,
+     "photo": {
+      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4572680.png",
+      "initials": "TK",
+      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/9484.jpg"
+     },
+     "pos": "TE",
+     "practice": null,
+     "preSafety": 0.5423,
+     "preStack": 0.6315,
+     "pubBlend": {
+      "before": 0.9983,
+      "weight": 0.375
+     },
+     "published": {
+      "expected": 0.42,
+      "probability": 0.34295318018494325,
+      "source": "Sleeper projections week 6"
+     },
+     "recentFinisher": false,
+     "recentRzLooks": 6,
+     "replacing": null,
+     "riser": null,
+     "role": "TE1",
+     "safetyNotes": [
+      "Held near 50%: no recent inside-10 finishing run."
+     ],
+     "scenarios": {
+      "behind": {
+       "att": 0,
+       "carries": 0.2179577994781698,
+       "chance": 0.463054832372612,
+       "targets": 8.061520337051777
+      },
+      "close": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      },
+      "lead": {
+       "att": 0,
+       "carries": 0.287191453430059,
+       "chance": 0.4636050508380012,
+       "targets": 6.753605130869042
+      }
+     },
+     "scriptSensitive": false,
+     "secondOption": null,
+     "segment": "TE|primary|available",
+     "spots": {
+      "r0": {
+       "expected": 0,
+       "looks": 1,
+       "opps": 0.0006,
+       "rate": 0.0062,
+       "scores": 0
+      },
+      "r1": {
+       "expected": 0.0205,
+       "looks": 0,
+       "opps": 0.0275,
+       "rate": 0.4359,
+       "scores": 0
+      },
+      "r2": {
+       "expected": 0.0679,
+       "looks": 1,
+       "opps": 0.1901,
+       "rate": 0.3274,
+       "scores": 0
+      },
+      "r3": {
+       "expected": 0.0011,
+       "looks": 0,
+       "opps": 0.0382,
+       "rate": 0.017,
+       "scores": 0
+      },
+      "t0": {
+       "expected": 0.0883,
+       "looks": 24,
+       "opps": 5.6585,
+       "rate": 0.0118,
+       "scores": 0
+      },
+      "t1": {
+       "expected": 0.4402,
+       "looks": 2,
+       "opps": 0.558,
+       "rate": 0.5456,
+       "scores": 1
+      },
+      "t2": {
+       "expected": 0.1302,
+       "looks": 0,
+       "opps": 0.2796,
+       "rate": 0.3718,
+       "scores": 0
+      },
+      "t3": {
+       "expected": 0.1946,
+       "looks": 3,
+       "opps": 1.1785,
+       "rate": 0.1006,
+       "scores": 0
+      }
+     },
+     "stacked": null,
+     "tags": [],
+     "tdConf": {
+      "blocks": [
+       "80% band 32–63% is too wide."
+      ],
+      "evidence": {
+       "avgTouches": 7.333333333333333,
+       "baseline": true,
+       "latest": 6,
+       "narrow": false,
+       "recentRz": 6,
+       "repeat": false,
+       "roleOk": true,
+       "width": 0.30927388015076274
+      },
+      "level": "Med",
+      "reasons": [
+       "6 red-zone touches in his last 3 games with stable work."
+      ]
+     },
+     "team": "GB",
+     "trendEffect": {
+      "after": 0.6104,
+      "before": 0.6104,
+      "items": [
+       {
+        "family": "redzone",
+        "id": "redzone:9484",
+        "mult": 1,
+        "pp": 0,
+        "text": "Tucker Kraft is averaging 2.5 red-zone looks over his last 2 games vs 0.3 before (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:DAL:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "DAL has allowed 0.3 TE touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 5,
+       "id": "redzone:9484",
+       "status": "continuing",
+       "strength": 0.65,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:DAL:TE",
+       "status": "new",
+       "strength": -0.28,
+       "type": "Defense trend"
+      }
+     ],
+     "verified": true,
+     "verifyReason": "On GB nflverse roster (week 6, ACT)",
+     "vol": {
+      "att": 0,
+      "carries": 0.2564,
+      "rzRush": 0.1695,
+      "rzTgt": 1.4325,
+      "targets": 7.6746
+     },
+     "volConf": {
+      "rec": {
+       "blocks": [],
+       "level": "High",
+       "provisional": true,
+       "reasons": [
+        "29 targets this season (High needs 12, Medium 5).",
+        "Role-specific held-out coverage not yet available: provisional."
+       ]
+      },
+      "recYd": {
+       "blocks": [
+        "Very wide range."
+       ],
+       "level": "Med",
+       "provisional": true,
+       "reasons": [
+        "29 targets this season (High needs 18, Medium 8).",
+        "Role-specific held-out coverage not yet available: provisional."
+       ]
+      },
+      "rushYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "Near-zero projected carries (0.3)."
+       ]
+      }
+     },
+     "volume": {
+      "rec": {
+       "defense": {
+        "allowed": 0.8966,
+        "factor": 1.0645,
+        "league": 0.7215
+       },
+       "hi": 11.4396,
+       "leagueDefense": 6.1448,
+       "lo": 2.5716,
+       "mean": 6.3452,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "6.1 without this defense. DAL allows TEs a 90% catch rate versus 72% league."
+      },
+      "recYd": {
+       "defense": {
+        "allowed": 8.3103,
+        "factor": 1.046,
+        "league": 7.0852
+       },
+       "hi": 135.5402,
+       "leagueDefense": 62.7726,
+       "lo": 14.3585,
+       "mean": 60.4075,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "63 without this defense. DAL allows TEs 8.3 yards a target versus 7.1 league."
+      },
+      "rushYd": {
+       "defense": {
+        "allowed": null,
+        "factor": 1,
+        "league": 2.0769
+       },
+       "hi": 2.1018,
+       "leagueDefense": 0.6061,
+       "lo": 0,
+       "mean": 0.5152,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "1 without this defense; no positional defense sample."
+      }
+     }
+    },
+    {
+     "avail": {
+      "factor": 1,
+      "label": "Available",
+      "status": "available",
+      "uncertain": false
+     },
+     "band": [
+      0.072,
+      0.3487
+     ],
+     "ceiling": 0.5,
+     "challenger": 0.13412788495683725,
+     "chance": 0.1639,
+     "coldGoal": false,
+     "components": {
+      "r0": 0.0185,
+      "r1": 0.0668,
+      "r2": 0.0332,
+      "r3": 0.0059,
+      "t0": 0.0228,
+      "t1": 0.0157,
+      "t2": 0.0096,
+      "t3": 0.0066
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.1702,
-      "lambda": 0.1865,
-      "p0": 0.8298,
-      "p1": 0.1548,
-      "p2": 0.0144,
-      "p3plus": 0.0009,
-      "twoPlus": 0.0154
+      "anytime": 0.1639,
+      "lambda": 0.179,
+      "p0": 0.8361,
+      "p1": 0.1497,
+      "p2": 0.0134,
+      "p3plus": 0.0008,
+      "twoPlus": 0.0142
      },
-     "edge": -1.1116,
+     "edge": -1.7362,
      "espn": "4249836",
-     "fair": 488,
-     "firstTd": 0.0308,
+     "fair": 510,
+     "firstTd": 0.0295,
      "gamesPlayed": 1,
      "glShare": 0.0863,
      "glShareRaw": 0.0863,
      "gsis": "00-0038098",
-     "i10Exp": 0.1605,
+     "i10Exp": 0.1596,
      "id": "8116",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1865,
-     "lambdaRaw": 0.2292,
+     "lambda": 0.179,
+     "lambdaRaw": 0.2279,
      "lessonNotes": [
       "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
       "Blended 100% toward the published projection (18%) because of a thin sample; safety caps applied after."
@@ -14594,9 +15240,9 @@
      "pos": "RB",
      "practice": null,
      "preSafety": 0.1813,
-     "preStack": 0.2049,
+     "preStack": 0.2039,
      "pubBlend": {
-      "before": 0.2292,
+      "before": 0.228,
       "weight": 1
      },
      "published": {
@@ -14613,8 +15259,8 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 3.8627754700720955,
-       "chance": 0.15902309254894254,
+       "carries": 3.864239907386875,
+       "chance": 0.16425410477696067,
        "targets": 2.29195
       },
       "close": {
@@ -14625,15 +15271,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 5.089774737036173,
-       "chance": 0.18126924692201807,
-       "targets": 1.9333890230387414
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "carries": 5.0917043485568225,
+       "chance": 0.16450130131515517,
+       "targets": 1.9201000099884615
       }
      },
      "scriptSensitive": false,
@@ -14643,7 +15283,7 @@
       "r0": {
        "expected": 0.0235,
        "looks": 4,
-       "opps": 3.8396,
+       "opps": 3.8414,
        "rate": 0.0061,
        "scores": 0
       },
@@ -14669,30 +15309,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0292,
+       "expected": 0.029,
        "looks": 4,
-       "opps": 2.0707,
+       "opps": 2.0593,
        "rate": 0.0141,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0202,
+       "expected": 0.02,
        "looks": 0,
-       "opps": 0.0337,
+       "opps": 0.0333,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0129,
+       "expected": 0.0122,
        "looks": 0,
-       "opps": 0.0387,
+       "opps": 0.0367,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0086,
+       "expected": 0.0083,
        "looks": 0,
-       "opps": 0.054,
+       "opps": 0.0526,
        "rate": 0.13,
        "scores": 0
       }
@@ -14701,7 +15341,7 @@
      "tags": [],
      "tdConf": {
       "blocks": [
-       "80% band 7–36% is too wide."
+       "80% band 7–35% is too wide."
       ],
       "evidence": {
        "avgTouches": 9,
@@ -14711,7 +15351,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": true,
-       "width": 0.2852997034991378
+       "width": 0.2766790658841133
       },
       "level": "Low",
       "reasons": [
@@ -14719,14 +15359,40 @@
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.2038,
+      "before": 0.2038,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:DAL:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "DAL has allowed 1.7 RB touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:DAL:RB",
+       "status": "new",
+       "strength": 0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On GB nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 4.5444,
+      "carries": 4.5462,
       "rzRush": 1.1125,
       "rzTgt": 0.225,
-      "targets": 2.197
+      "targets": 2.1819
      },
      "volConf": {
       "rec": {
@@ -14764,10 +15430,10 @@
         "factor": 1.0088,
         "league": 0.7765
        },
-       "hi": 3.9031,
-       "leagueDefense": 1.9301,
+       "hi": 3.884,
+       "leagueDefense": 1.9169,
        "lo": 0,
-       "mean": 1.6551,
+       "mean": 1.6437,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "1.9 without this defense. DAL allows RBs a 81% catch rate versus 78% league."
       },
@@ -14777,10 +15443,10 @@
         "factor": 0.9858,
         "league": 5.417
        },
-       "hi": 29.9854,
-       "leagueDefense": 12.7444,
+       "hi": 29.8456,
+       "leagueDefense": 12.6568,
        "lo": 0,
-       "mean": 10.6791,
+       "mean": 10.6057,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "13 without this defense. DAL allows RBs 5.0 yards a target versus 5.4 league."
       },
@@ -14790,10 +15456,10 @@
         "factor": 1.0841,
         "league": 4.134
        },
-       "hi": 27.4769,
-       "leagueDefense": 19.6193,
+       "hi": 27.4855,
+       "leagueDefense": 19.6268,
        "lo": 0,
-       "mean": 18.0781,
+       "mean": 18.085,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "20 without this defense. DAL allows RBs 4.6 yards a carry versus 4.1 league."
       }
@@ -14807,47 +15473,47 @@
       "uncertain": false
      },
      "band": [
-      0.1065,
-      0.2611
+      0.1023,
+      0.252
      ],
      "ceiling": 0.5,
-     "challenger": 0.13500269350096228,
-     "chance": 0.1685,
+     "challenger": 0.13125305327255166,
+     "chance": 0.1622,
      "coldGoal": false,
      "components": {
-      "r0": 0.0199,
-      "r1": 0.1287,
-      "r2": 0.0159,
-      "r3": 0.0017,
-      "t0": 0.0115,
-      "t1": 0.0033,
-      "t2": 0.0022,
-      "t3": 0.0014
+      "r0": 0.0191,
+      "r1": 0.1236,
+      "r2": 0.0153,
+      "r3": 0.0016,
+      "t0": 0.0109,
+      "t1": 0.0031,
+      "t2": 0.002,
+      "t3": 0.0013
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.1685,
-      "lambda": 0.1846,
-      "p0": 0.8315,
-      "p1": 0.1535,
-      "p2": 0.0142,
-      "p3plus": 0.0009,
-      "twoPlus": 0.0151
+      "anytime": 0.1622,
+      "lambda": 0.177,
+      "p0": 0.8378,
+      "p1": 0.1483,
+      "p2": 0.0131,
+      "p3plus": 0.0008,
+      "twoPlus": 0.0139
      },
-     "edge": -1.2725,
+     "edge": -1.9031,
      "espn": "4819231",
-     "fair": 493,
-     "firstTd": 0.0304,
+     "fair": 516,
+     "firstTd": 0.0292,
      "gamesPlayed": 4,
      "glShare": 0.1418,
      "glShareRaw": 0.1418,
      "gsis": "00-0040142",
-     "i10Exp": 0.1597,
+     "i10Exp": 0.1595,
      "id": "12504",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1846,
-     "lambdaRaw": 0.1963,
+     "lambda": 0.177,
+     "lambdaRaw": 0.196,
      "lessonNotes": [
       "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
       "Blended 43% toward the published projection (18%) because of limited recent red-zone evidence; safety caps applied after."
@@ -14862,10 +15528,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.1796,
-     "preStack": 0.1783,
+     "preSafety": 0.1794,
+     "preStack": 0.1781,
      "pubBlend": {
-      "before": 0.1964,
+      "before": 0.1961,
       "weight": 0.4286
      },
      "published": {
@@ -14882,8 +15548,8 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 3.1242368096570474,
-       "chance": 0.14696410540841853,
+       "carries": 3.125421255659596,
+       "chance": 0.15174780848357883,
        "targets": 0.7726092785100617
       },
       "close": {
@@ -14894,15 +15560,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 4.116641443312816,
-       "chance": 0.1815645861764411,
-       "targets": 0.6517394786837563
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "carries": 4.118202125104409,
+       "chance": 0.16467373277131037,
+       "targets": 0.6472597933569002
       }
      },
      "scriptSensitive": false,
@@ -14912,7 +15572,7 @@
       "r0": {
        "expected": 0.0211,
        "looks": 25,
-       "opps": 3.3087,
+       "opps": 3.3101,
        "rate": 0.0054,
        "scores": 0
       },
@@ -14938,30 +15598,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0122,
+       "expected": 0.0121,
        "looks": 3,
-       "opps": 0.7222,
+       "opps": 0.7177,
        "rate": 0.0142,
        "scores": 0
       },
       "t1": {
        "expected": 0.0035,
        "looks": 0,
-       "opps": 0.0049,
+       "opps": 0.0048,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0024,
+       "expected": 0.0022,
        "looks": 0,
-       "opps": 0.0056,
+       "opps": 0.0053,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
        "expected": 0.0015,
        "looks": 0,
-       "opps": 0.0079,
+       "opps": 0.0077,
        "rate": 0.13,
        "scores": 0
       }
@@ -14978,23 +15638,66 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": true,
-       "width": 0.15463483909234088
+       "width": 0.14964442202126227
       },
       "level": "Med",
       "reasons": [
        "2 red-zone touches in his last three games.",
-       "80% band 11–26% is narrow enough."
+       "80% band 10–25% is narrow enough."
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.178,
+      "before": 0.178,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:12504",
+        "mult": 1,
+        "pp": 0,
+        "text": "Kaleb Johnson's snap share fell to 22% over his last 2 games from 32% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:DAL:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "DAL has allowed 1.7 RB touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:12504",
+       "status": "new",
+       "strength": -0.25,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:DAL:RB",
+       "status": "new",
+       "strength": 0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On GB nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 3.6756,
+      "carries": 3.677,
       "rzRush": 0.3966,
       "rzTgt": 0.0346,
-      "targets": 0.7406
+      "targets": 0.7355
      },
      "volConf": {
       "rec": {
@@ -15033,10 +15736,10 @@
         "factor": 1.0088,
         "league": 0.7765
        },
-       "hi": 1.7939,
-       "leagueDefense": 0.6137,
+       "hi": 1.786,
+       "leagueDefense": 0.6095,
        "lo": 0,
-       "mean": 0.5263,
+       "mean": 0.5227,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.6 without this defense. DAL allows RBs a 81% catch rate versus 78% league."
       },
@@ -15046,10 +15749,10 @@
         "factor": 0.9858,
         "league": 5.417
        },
-       "hi": 15.0326,
-       "leagueDefense": 4.4008,
+       "hi": 14.9682,
+       "leagueDefense": 4.3705,
        "lo": 0,
-       "mean": 3.6876,
+       "mean": 3.6623,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "4 without this defense. DAL allows RBs 5.0 yards a target versus 5.4 league."
       },
@@ -15059,291 +15762,12 @@
         "factor": 1.0841,
         "league": 4.134
        },
-       "hi": 24.1531,
-       "leagueDefense": 16.7793,
+       "hi": 24.1606,
+       "leagueDefense": 16.7857,
        "lo": 0,
-       "mean": 15.4612,
+       "mean": 15.467,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "17 without this defense. DAL allows RBs 4.6 yards a carry versus 4.1 league."
-      }
-     }
-    },
-    {
-     "avail": {
-      "factor": 0.6666666666666666,
-      "label": "Questionable, practice report unavailable: about two-thirds of usual work",
-      "status": "questionable",
-      "uncertain": true
-     },
-     "band": [
-      0.0564,
-      0.2388
-     ],
-     "ceiling": 0.5,
-     "challenger": 0.12621697802772758,
-     "chance": 0.1182,
-     "coldGoal": false,
-     "components": {
-      "r0": 0.0001,
-      "r1": 0,
-      "r2": 0,
-      "r3": 0,
-      "t0": 0.0102,
-      "t1": 0.0155,
-      "t2": 0.0642,
-      "t3": 0.0359
-     },
-     "conversionNote": "",
-     "dist": {
-      "anytime": 0.1182,
-      "lambda": 0.1258,
-      "p0": 0.8818,
-      "p1": 0.111,
-      "p2": 0.007,
-      "p3plus": 0.0003,
-      "twoPlus": 0.0073
-     },
-     "edge": 4.1366,
-     "espn": "4430191",
-     "fair": 746,
-     "firstTd": 0.0208,
-     "gamesPlayed": 5,
-     "glShare": 0,
-     "glShareRaw": 0,
-     "gsis": "00-0038090",
-     "i10Exp": 0.1063,
-     "id": "8168",
-     "injury": "Questionable",
-     "insideFinisher": false,
-     "lambda": 0.1258,
-     "lambdaRaw": 0.1679,
-     "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
-      "Blended 38% toward the published projection (7%) because of limited recent red-zone evidence; safety caps applied after."
-     ],
-     "matchupFactor": 1.3038,
-     "name": "Skyy Moore",
-     "passTd": null,
-     "photo": {
-      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4430191.png",
-      "initials": "SM",
-      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/8168.jpg"
-     },
-     "pos": "WR",
-     "practice": null,
-     "preSafety": 0.1262,
-     "preStack": 0.1546,
-     "pubBlend": {
-      "before": 0.1679,
-      "weight": 0.375
-     },
-     "published": {
-      "expected": 0.08,
-      "probability": 0.07688365361336424,
-      "source": "Sleeper projections week 6"
-     },
-     "recentFinisher": false,
-     "recentRzLooks": 4,
-     "replacing": null,
-     "riser": null,
-     "role": "WR4",
-     "safetyNotes": [],
-     "scenarios": {
-      "behind": {
-       "att": 0,
-       "carries": 0.007872067793775273,
-       "chance": 0.1191051407719782,
-       "targets": 1.3367072916666667
-      },
-      "close": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      },
-      "lead": {
-       "att": 0,
-       "carries": 0.010372606975327419,
-       "chance": 0.12350452776702447,
-       "targets": 1.1275879511874949
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      }
-     },
-     "scriptSensitive": false,
-     "secondOption": null,
-     "segment": "WR|reserve|uncertain",
-     "spots": {
-      "r0": {
-       "expected": 0.0001,
-       "looks": 0,
-       "opps": 0.0093,
-       "rate": 0.0063,
-       "scores": 0
-      },
-      "r1": {
-       "expected": 0,
-       "looks": 0,
-       "opps": 0,
-       "rate": 0.4359,
-       "scores": 0
-      },
-      "r2": {
-       "expected": 0,
-       "looks": 0,
-       "opps": 0,
-       "rate": 0.3604,
-       "scores": 0
-      },
-      "r3": {
-       "expected": 0,
-       "looks": 0,
-       "opps": 0,
-       "rate": 0.017,
-       "scores": 0
-      },
-      "t0": {
-       "expected": 0.0136,
-       "looks": 9,
-       "opps": 0.7735,
-       "rate": 0.0134,
-       "scores": 0
-      },
-      "t1": {
-       "expected": 0.0207,
-       "looks": 0,
-       "opps": 0.0264,
-       "rate": 0.55,
-       "scores": 0
-      },
-      "t2": {
-       "expected": 0.0856,
-       "looks": 2,
-       "opps": 0.187,
-       "rate": 0.37,
-       "scores": 0
-      },
-      "t3": {
-       "expected": 0.0479,
-       "looks": 3,
-       "opps": 0.2945,
-       "rate": 0.1004,
-       "scores": 0
-      }
-     },
-     "stacked": null,
-     "tags": [
-      "Availability risk"
-     ],
-     "tdConf": {
-      "blocks": [
-       "80% band 6–24% is too wide.",
-       "Workload share is falling."
-      ],
-      "evidence": {
-       "avgTouches": 3.3333333333333335,
-       "baseline": false,
-       "latest": 1,
-       "narrow": false,
-       "recentRz": 4,
-       "repeat": false,
-       "roleOk": false,
-       "width": 0.18239293855118932
-      },
-      "level": "Med",
-      "reasons": [
-       "4 red-zone touches in his last three games."
-      ]
-     },
-     "team": "GB",
-     "verified": true,
-     "verifyReason": "On GB nflverse roster (week 6, ACT)",
-     "vol": {
-      "att": 0,
-      "carries": 0.0093,
-      "rzRush": 0,
-      "rzTgt": 0.3527,
-      "targets": 1.2813
-     },
-     "volConf": {
-      "rec": {
-       "blocks": [
-        "Projected targets below 60% of recent average.",
-        "Fewer than 3 projected targets.",
-        "Unstable efficiency (CV 0.70 > 0.45).",
-        "Unstable production (CV 0.81 > 0.6).",
-        "Falling shrunk usage share.",
-        "Very wide range.",
-        "Availability uncertain."
-       ],
-       "level": "Med",
-       "provisional": true,
-       "reasons": [
-        "14 targets this season (High needs 12, Medium 5).",
-        "Role-specific held-out coverage not yet available: provisional."
-       ]
-      },
-      "recYd": {
-       "blocks": [],
-       "level": "Med",
-       "provisional": true,
-       "reasons": [
-        "14 targets this season (High needs 18, Medium 8).",
-        "Role-specific held-out coverage not yet available: provisional."
-       ]
-      },
-      "rushYd": {
-       "blocks": [],
-       "level": "Low",
-       "provisional": true,
-       "reasons": [
-        "Near-zero projected carries (0.0)."
-       ]
-      }
-     },
-     "volume": {
-      "rec": {
-       "defense": {
-        "allowed": 0.6905,
-        "factor": 1.0534,
-        "league": 0.6253
-       },
-       "hi": 2.2769,
-       "leagueDefense": 0.8452,
-       "lo": 0,
-       "mean": 0.7568,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "0.8 without this defense. DAL allows WRs a 69% catch rate versus 63% league."
-      },
-      "recYd": {
-       "defense": {
-        "allowed": 9.6667,
-        "factor": 1.0901,
-        "league": 8.22
-       },
-       "hi": 28.3473,
-       "leagueDefense": 9.3214,
-       "lo": 0,
-       "mean": 8.6374,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "9 without this defense. DAL allows WRs 9.7 yards a target versus 8.2 league."
-      },
-      "rushYd": {
-       "defense": {
-        "allowed": 10.25,
-        "factor": 1.0634,
-        "league": 5.087
-       },
-       "hi": 0.5323,
-       "leagueDefense": 0.0531,
-       "lo": 0,
-       "mean": 0.048,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "0 without this defense. DAL allows WRs 10.3 yards a carry versus 5.1 league."
       }
      }
     },
@@ -15355,47 +15779,47 @@
       "uncertain": false
      },
      "band": [
-      0.0528,
-      0.1691
+      0.0503,
+      0.1609
      ],
      "ceiling": 0.5,
-     "challenger": 0.1221648045995769,
-     "chance": 0.0954,
+     "challenger": 0.1140889809320913,
+     "chance": 0.0907,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0175,
-      "t1": 0.0228,
-      "t2": 0.0503,
-      "t3": 0.0096
+      "t0": 0.0171,
+      "t1": 0.0221,
+      "t2": 0.0467,
+      "t3": 0.0092
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0954,
-      "lambda": 0.1002,
-      "p0": 0.9046,
-      "p1": 0.0907,
-      "p2": 0.0045,
-      "p3plus": 0.0002,
-      "twoPlus": 0.0047
+      "anytime": 0.0907,
+      "lambda": 0.0951,
+      "p0": 0.9093,
+      "p1": 0.0865,
+      "p2": 0.0041,
+      "p3plus": 0.0001,
+      "twoPlus": 0.0042
      },
-     "edge": 0.9304,
+     "edge": 0.4648,
      "espn": "3054212",
-     "fair": 949,
-     "firstTd": 0.0165,
+     "fair": 1002,
+     "firstTd": 0.0157,
      "gamesPlayed": 3,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0033858",
-     "i10Exp": 0.1057,
+     "i10Exp": 0.1016,
      "id": "4144",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1002,
-     "lambdaRaw": 0.145,
+     "lambda": 0.0951,
+     "lambdaRaw": 0.1405,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 75% toward the published projection (8%) because of a thin sample; safety caps applied after."
@@ -15410,10 +15834,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.1019,
-     "preStack": 0.1478,
+     "preSafety": 0.1008,
+     "preStack": 0.1436,
      "pubBlend": {
-      "before": 0.1599,
+      "before": 0.155,
       "weight": 0.75
      },
      "published": {
@@ -15431,7 +15855,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.09214463082717816,
+       "chance": 0.09423204600509716,
        "targets": 2.2917583333333327
       },
       "close": {
@@ -15443,14 +15867,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.09758609448323252,
-       "targets": 1.9332273414010894
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "chance": 0.087254821514268,
+       "targets": 1.9199394396581393
       }
      },
      "scriptSensitive": false,
@@ -15486,30 +15904,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0254,
+       "expected": 0.0253,
        "looks": 6,
-       "opps": 1.8344,
+       "opps": 1.8334,
        "rate": 0.0138,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0329,
+       "expected": 0.0326,
        "looks": 0,
-       "opps": 0.0549,
+       "opps": 0.0543,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0728,
+       "expected": 0.069,
        "looks": 1,
-       "opps": 0.2197,
+       "opps": 0.2083,
        "rate": 0.37,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0139,
+       "expected": 0.0136,
        "looks": 0,
-       "opps": 0.0879,
+       "opps": 0.0858,
        "rate": 0.13,
        "scores": 0
       }
@@ -15526,15 +15944,41 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.11631849393425941
+       "width": 0.1106302374237561
       },
       "level": "Low",
       "reasons": [
        "1 red-zone touches in his last three games.",
-       "80% band 5–17% is narrow enough."
+       "80% band 5–16% is narrow enough."
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.1311,
+      "before": 0.1311,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:DAL:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "DAL has allowed 0.3 TE touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:DAL:TE",
+       "status": "new",
+       "strength": -0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On GB nflverse roster (week 6, ACT)",
      "vol": {
@@ -15542,7 +15986,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.3667,
-      "targets": 2.1968
+      "targets": 2.1817
      },
      "volConf": {
       "rec": {
@@ -15579,10 +16023,10 @@
         "factor": 1.0645,
         "league": 0.7215
        },
-       "hi": 3.8554,
-       "leagueDefense": 1.7977,
+       "hi": 3.8365,
+       "leagueDefense": 1.7854,
        "lo": 0,
-       "mean": 1.6267,
+       "mean": 1.6155,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "1.8 without this defense. DAL allows TEs a 90% catch rate versus 72% league."
       },
@@ -15592,10 +16036,10 @@
         "factor": 1.046,
         "league": 7.0852
        },
-       "hi": 42.8185,
-       "leagueDefense": 20.0818,
+       "hi": 42.6098,
+       "leagueDefense": 19.9437,
        "lo": 0,
-       "mean": 17.8548,
+       "mean": 17.732,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "20 without this defense. DAL allows TEs 8.3 yards a target versus 7.1 league."
       },
@@ -15622,50 +16066,50 @@
       "uncertain": false
      },
      "band": [
-      0.035,
-      0.1113
+      0.0431,
+      0.1352
      ],
      "ceiling": 0.5,
-     "challenger": 0.07388989088854014,
-     "chance": 0.0628,
+     "challenger": 0.0933739229005337,
+     "chance": 0.0769,
      "coldGoal": false,
      "components": {
-      "r0": 0.0005,
+      "r0": 0.0006,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0386,
-      "t1": 0.0125,
-      "t2": 0.008,
-      "t3": 0.0053
+      "t0": 0.05,
+      "t1": 0.0145,
+      "t2": 0.0088,
+      "t3": 0.006
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0628,
-      "lambda": 0.0648,
-      "p0": 0.9372,
-      "p1": 0.0608,
-      "p2": 0.002,
-      "p3plus": 0,
-      "twoPlus": 0.002
+      "anytime": 0.0769,
+      "lambda": 0.08,
+      "p0": 0.9231,
+      "p1": 0.0738,
+      "p2": 0.003,
+      "p3plus": 0.0001,
+      "twoPlus": 0.003
      },
-     "edge": -1.4106,
+     "edge": -2.7303,
      "espn": "4259305",
-     "fair": 1493,
-     "firstTd": 0.0107,
+     "fair": 1201,
+     "firstTd": 0.0132,
      "gamesPlayed": 5,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0037091",
-     "i10Exp": 0.0149,
+     "i10Exp": 0.0145,
      "id": "8204",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0648,
-     "lambdaRaw": 0.0472,
+     "lambda": 0.08,
+     "lambdaRaw": 0.0498,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
-      "Blended 63% toward the published projection (7%) because of limited recent red-zone evidence; safety caps applied after."
+      "Blended 63% toward the published projection (10%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 1,
      "name": "Bo Melton",
@@ -15677,15 +16121,15 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0672,
-     "preStack": 0.0507,
+     "preSafety": 0.0855,
+     "preStack": 0.0535,
      "pubBlend": {
-      "before": 0.0521,
+      "before": 0.0549,
       "weight": 0.625
      },
      "published": {
-      "expected": 0.08,
-      "probability": 0.07688365361336424,
+      "expected": 0.11,
+      "probability": 0.10416586470347178,
       "source": "Sleeper projections week 6"
      },
      "recentFinisher": false,
@@ -15697,9 +16141,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.051037878609574414,
-       "chance": 0.059554696529486084,
-       "targets": 2.2179569710405365
+       "carries": 0.05105722785067893,
+       "chance": 0.07828457321455384,
+       "targets": 2.471665587713202
       },
       "close": {
        "att": null,
@@ -15709,15 +16153,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.06724991063849806,
-       "chance": 0.06500749320460397,
-       "targets": 1.870971732098008
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "carries": 0.06727540610912988,
+       "chance": 0.07513432932761166,
+       "targets": 2.070658225378501
       }
      },
      "scriptSensitive": false,
@@ -15727,7 +16165,7 @@
       "r0": {
        "expected": 0.0004,
        "looks": 0,
-       "opps": 0.06,
+       "opps": 0.0601,
        "rate": 0.0063,
        "scores": 0
       },
@@ -15753,30 +16191,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0281,
+       "expected": 0.0312,
        "looks": 8,
-       "opps": 2.0692,
+       "opps": 2.2978,
        "rate": 0.0136,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0091,
+       "expected": 0.009,
        "looks": 0,
-       "opps": 0.0152,
+       "opps": 0.015,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0058,
+       "expected": 0.0055,
        "looks": 0,
-       "opps": 0.0174,
+       "opps": 0.0165,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0039,
+       "expected": 0.0038,
        "looks": 0,
-       "opps": 0.0243,
+       "opps": 0.0237,
        "rate": 0.13,
        "scores": 0
       }
@@ -15793,23 +16231,49 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.07626210707584213
+       "width": 0.09209935528734403
       },
       "level": "Low",
       "reasons": [
        "0 red-zone touches in his last three games.",
-       "80% band 4–11% is narrow enough."
+       "80% band 4–14% is narrow enough."
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.0486,
+      "before": 0.0486,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:8204",
+        "mult": 1,
+        "pp": 0,
+        "text": "Bo Melton's snap share rose to 34% over his last 2 games from 20% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:8204",
+       "status": "continuing",
+       "strength": 0.41,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On GB nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.06,
+      "carries": 0.0601,
       "rzRush": 0,
       "rzTgt": 0.0804,
-      "targets": 2.1261
+      "targets": 2.353
      },
      "volConf": {
       "rec": {
@@ -15846,12 +16310,12 @@
         "factor": 1.0534,
         "league": 0.6253
        },
-       "hi": 3.8484,
-       "leagueDefense": 1.4377,
+       "hi": 4.2591,
+       "leagueDefense": 1.5911,
        "lo": 0,
-       "mean": 1.2873,
+       "mean": 1.4247,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "1.4 without this defense. DAL allows WRs a 69% catch rate versus 63% league."
+       "text": "1.6 without this defense. DAL allows WRs a 69% catch rate versus 63% league."
       },
       "recYd": {
        "defense": {
@@ -15859,12 +16323,12 @@
         "factor": 1.0901,
         "league": 8.22
        },
-       "hi": 46.63,
-       "leagueDefense": 17.5908,
+       "hi": 51.6068,
+       "leagueDefense": 19.4682,
        "lo": 0,
-       "mean": 16.3,
+       "mean": 18.0397,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "18 without this defense. DAL allows WRs 9.7 yards a target versus 8.2 league."
+       "text": "19 without this defense. DAL allows WRs 9.7 yards a target versus 8.2 league."
       },
       "rushYd": {
        "defense": {
@@ -15872,10 +16336,10 @@
         "factor": 1.0634,
         "league": 5.087
        },
-       "hi": 1.5443,
-       "leagueDefense": 0.3443,
+       "hi": 1.5447,
+       "leagueDefense": 0.3444,
        "lo": 0,
-       "mean": 0.3112,
+       "mean": 0.3113,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0 without this defense. DAL allows WRs 10.3 yards a carry versus 5.1 league."
       }
@@ -15889,47 +16353,47 @@
       "uncertain": false
      },
      "band": [
-      0.0266,
-      0.1408
+      0.0254,
+      0.1347
      ],
      "ceiling": 0.5,
-     "challenger": 0.05564451087193156,
-     "chance": 0.062,
+     "challenger": 0.0546462369696159,
+     "chance": 0.0591,
      "coldGoal": false,
      "components": {
-      "r0": 0.009,
-      "r1": 0.0197,
-      "r2": 0.0098,
-      "r3": 0.001,
-      "t0": 0.0093,
-      "t1": 0.0074,
-      "t2": 0.0047,
-      "t3": 0.0031
+      "r0": 0.0087,
+      "r1": 0.0189,
+      "r2": 0.0094,
+      "r3": 0.0009,
+      "t0": 0.0089,
+      "t1": 0.007,
+      "t2": 0.0043,
+      "t3": 0.0029
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.062,
-      "lambda": 0.064,
-      "p0": 0.938,
-      "p1": 0.06,
-      "p2": 0.0019,
+      "anytime": 0.0591,
+      "lambda": 0.061,
+      "p0": 0.9409,
+      "p1": 0.0574,
+      "p2": 0.0017,
       "p3plus": 0,
-      "twoPlus": 0.002
+      "twoPlus": 0.0018
      },
      "edge": null,
      "espn": "3919104",
-     "fair": 1514,
-     "firstTd": 0.0105,
+     "fair": 1591,
+     "firstTd": 0.0101,
      "gamesPlayed": 0,
      "glShare": 0.0194,
      "glShareRaw": 0.0194,
      "gsis": "00-0035596",
-     "i10Exp": 0.0404,
+     "i10Exp": 0.0401,
      "id": "6175",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.064,
-     "lambdaRaw": 0.0622,
+     "lambda": 0.061,
+     "lambdaRaw": 0.0618,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
      ],
@@ -15943,8 +16407,8 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.0663,
-     "preStack": 0.0663,
+     "preSafety": 0.0658,
+     "preStack": 0.0658,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -15956,8 +16420,8 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 1.2852355581673915,
-       "chance": 0.05438883924700555,
+       "carries": 1.2857228106427798,
+       "chance": 0.055911233710358,
        "targets": 0.69
       },
       "close": {
@@ -15968,15 +16432,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 1.6934868531146807,
-       "chance": 0.06598435164969052,
-       "targets": 0.5820538955460335
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "carries": 1.6941288799057803,
+       "chance": 0.059147099770487044,
+       "targets": 0.5780531891585935
       }
      },
      "scriptSensitive": false,
@@ -15986,7 +16444,7 @@
       "r0": {
        "expected": 0.0088,
        "looks": 0,
-       "opps": 1.3991,
+       "opps": 1.3997,
        "rate": 0.0063,
        "scores": 0
       },
@@ -16014,28 +16472,28 @@
       "t0": {
        "expected": 0.009,
        "looks": 0,
-       "opps": 0.6165,
+       "opps": 0.6133,
        "rate": 0.0147,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0072,
+       "expected": 0.0071,
        "looks": 0,
-       "opps": 0.012,
+       "opps": 0.0118,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0046,
+       "expected": 0.0043,
        "looks": 0,
-       "opps": 0.0138,
+       "opps": 0.013,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
        "expected": 0.003,
        "looks": 0,
-       "opps": 0.0192,
+       "opps": 0.0187,
        "rate": 0.13,
        "scores": 0
       }
@@ -16044,7 +16502,7 @@
      "tags": [],
      "tdConf": {
       "blocks": [
-       "80% band 3–14% is too wide.",
+       "80% band 3–13% is too wide.",
        "Roster membership not verified."
       ],
       "evidence": {
@@ -16055,7 +16513,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.11419344372588569
+       "width": 0.10930798117554208
       },
       "level": "Low",
       "reasons": [
@@ -16063,14 +16521,40 @@
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.0599,
+      "before": 0.0599,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:DAL:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "DAL has allowed 1.7 RB touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:DAL:RB",
+       "status": "new",
+       "strength": 0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
       "att": 0,
-      "carries": 1.512,
+      "carries": 1.5126,
       "rzRush": 0.25,
       "rzTgt": 0.08,
-      "targets": 0.6614
+      "targets": 0.6569
      },
      "volConf": {
       "rec": {
@@ -16106,10 +16590,10 @@
         "factor": 1.0088,
         "league": 0.7765
        },
-       "hi": 1.737,
-       "leagueDefense": 0.5838,
+       "hi": 1.7293,
+       "leagueDefense": 0.5798,
        "lo": 0,
-       "mean": 0.5006,
+       "mean": 0.4972,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.6 without this defense. DAL allows RBs a 81% catch rate versus 78% league."
       },
@@ -16119,10 +16603,10 @@
         "factor": 0.9858,
         "league": 5.417
        },
-       "hi": 14.3265,
-       "leagueDefense": 4.0726,
+       "hi": 14.2655,
+       "leagueDefense": 4.0446,
        "lo": 0,
-       "mean": 3.4127,
+       "mean": 3.3892,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "4 without this defense. DAL allows RBs 5.0 yards a target versus 5.4 league."
       },
@@ -16132,10 +16616,10 @@
         "factor": 1.0841,
         "league": 4.134
        },
-       "hi": 12.1244,
-       "leagueDefense": 7.0455,
+       "hi": 12.1279,
+       "leagueDefense": 7.0482,
        "lo": 0,
-       "mean": 6.4921,
+       "mean": 6.4945,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "7 without this defense. DAL allows RBs 4.6 yards a carry versus 4.1 league."
       }
@@ -16149,18 +16633,18 @@
       "uncertain": false
      },
      "band": [
-      0.0288,
-      0.1266
+      0.0277,
+      0.1218
      ],
      "ceiling": 0.5,
-     "challenger": 0.06866602760301066,
-     "chance": 0.061,
+     "challenger": 0.06488435203266274,
+     "chance": 0.0586,
      "coldGoal": false,
      "components": {
-      "r0": 0.0131,
-      "r1": 0.031,
-      "r2": 0.0154,
-      "r3": 0.0035,
+      "r0": 0.0126,
+      "r1": 0.0297,
+      "r2": 0.0148,
+      "r3": 0.0033,
       "t0": 0,
       "t1": 0,
       "t2": 0,
@@ -16168,18 +16652,18 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.061,
-      "lambda": 0.0629,
-      "p0": 0.939,
-      "p1": 0.0591,
-      "p2": 0.0019,
+      "anytime": 0.0586,
+      "lambda": 0.0604,
+      "p0": 0.9414,
+      "p1": 0.0568,
+      "p2": 0.0017,
       "p3plus": 0,
-      "twoPlus": 0.0019
+      "twoPlus": 0.0018
      },
-     "edge": -1.5909,
+     "edge": -1.8286,
      "espn": "4036378",
-     "fair": 1540,
-     "firstTd": 0.0104,
+     "fair": 1607,
+     "firstTd": 0.01,
      "gamesPlayed": 5,
      "glShare": 0.0239,
      "glShareRaw": 0.0239,
@@ -16188,7 +16672,7 @@
      "id": "6804",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0629,
+     "lambda": 0.0604,
      "lambdaRaw": 0.0422,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
@@ -16199,7 +16683,7 @@
      "passTd": {
       "attemptShare": 0.9686,
       "display": "2.2",
-      "expected": 2.1992,
+      "expected": 2.2312,
       "interval": [
        0,
        4
@@ -16207,10 +16691,10 @@
       "level": "Med",
       "provisional": true,
       "reasons": [
-       "97% of projected team attempts (38.4) × team receiving-score total 2.27.",
+       "97% of projected team attempts (38.4) × team receiving-score total 2.30.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 2.2704
+      "teamReceivingLambda": 2.3034
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4036378.png",
@@ -16239,8 +16723,8 @@
      "scenarios": {
       "behind": {
        "att": 39.963649999999994,
-       "carries": 1.5679873809642173,
-       "chance": 0.054603445925873295,
+       "carries": 1.568581828984191,
+       "chance": 0.05651513679887166,
        "targets": 0
       },
       "close": {
@@ -16251,15 +16735,9 @@
       },
       "lead": {
        "att": 33.77674447028717,
-       "carries": 2.06605396079991,
-       "chance": 0.06633753220249894,
+       "carries": 2.0668372334850518,
+       "chance": 0.05982003517887291,
        "targets": 0
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
       }
      },
      "scriptSensitive": false,
@@ -16269,7 +16747,7 @@
       "r0": {
        "expected": 0.0088,
        "looks": 3,
-       "opps": 1.6185,
+       "opps": 1.6192,
        "rate": 0.0062,
        "scores": 0
       },
@@ -16335,20 +16813,46 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.09775914776756633
+       "width": 0.0941366678285388
       },
       "level": "Med",
       "reasons": [
        "0 red-zone touches in his last three games.",
-       "80% band 3–13% is narrow enough."
+       "80% band 3–12% is narrow enough."
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.0413,
+      "before": 0.0413,
+      "items": [
+       {
+        "family": "qbRush",
+        "id": "qbRush:6804",
+        "mult": 1,
+        "pp": 0,
+        "text": "QB Jordan Love ran 2.5 times a game over his last 2 vs 0.7 before.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "qbRush",
+       "firstDetectedWeek": 5,
+       "id": "qbRush:6804",
+       "status": "continuing",
+       "strength": 0.37,
+       "type": "QB rushing"
+      }
+     ],
      "verified": true,
      "verifyReason": "On GB nflverse roster (week 6, ACT)",
      "vol": {
       "att": 38.3827,
-      "carries": 1.8447,
+      "carries": 1.8454,
       "rzRush": 0.3088,
       "rzTgt": 0,
       "targets": 0
@@ -16435,10 +16939,10 @@
         "factor": 1.1369,
         "league": 4.5016
        },
-       "hi": 13.7117,
-       "leagueDefense": 7.8773,
+       "hi": 13.7157,
+       "leagueDefense": 7.8803,
        "lo": 0,
-       "mean": 7.6126,
+       "mean": 7.6155,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "8 without this defense. DAL allows QBs 6.2 yards a carry versus 4.5 league."
       }
@@ -16452,47 +16956,47 @@
       "uncertain": false
      },
      "band": [
-      0.0123,
-      0.0849
+      0.0117,
+      0.0805
      ],
      "ceiling": 0.5,
-     "challenger": 0.04196716332055095,
-     "chance": 0.0326,
+     "challenger": 0.041983595388279116,
+     "chance": 0.0309,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0201,
-      "t1": 0.0063,
-      "t2": 0.004,
-      "t3": 0.0027
+      "t0": 0.0192,
+      "t1": 0.006,
+      "t2": 0.0037,
+      "t3": 0.0025
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0326,
-      "lambda": 0.0332,
-      "p0": 0.9674,
-      "p1": 0.0321,
+      "anytime": 0.0309,
+      "lambda": 0.0314,
+      "p0": 0.9691,
+      "p1": 0.0304,
       "p2": 0.0005,
       "p3plus": 0,
       "twoPlus": 0.0005
      },
      "edge": null,
      "espn": "4635009",
-     "fair": 2964,
-     "firstTd": 0.0055,
+     "fair": 3135,
+     "firstTd": 0.0052,
      "gamesPlayed": 4,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0040948",
-     "i10Exp": 0.0101,
+     "i10Exp": 0.0098,
      "id": "13770",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0332,
-     "lambdaRaw": 0.0323,
+     "lambda": 0.0314,
+     "lambdaRaw": 0.0318,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
      ],
@@ -16506,8 +17010,8 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.035,
-     "preStack": 0.035,
+     "preSafety": 0.0345,
+     "preStack": 0.0345,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -16520,7 +17024,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.03249776275470362,
+       "chance": 0.03331116531111222,
        "targets": 1.4895238095238095
       },
       "close": {
@@ -16532,14 +17036,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.030829537834815568,
-       "targets": 1.2564972983215963
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "chance": 0.02736372838837109,
+       "targets": 1.2478608527868051
       }
      },
      "scriptSensitive": false,
@@ -16575,30 +17073,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0196,
+       "expected": 0.0195,
        "looks": 4,
-       "opps": 1.3893,
+       "opps": 1.3806,
        "rate": 0.0141,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0062,
+       "expected": 0.0061,
        "looks": 0,
-       "opps": 0.0103,
+       "opps": 0.0102,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0039,
+       "expected": 0.0037,
        "looks": 0,
-       "opps": 0.0118,
+       "opps": 0.0112,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0026,
+       "expected": 0.0025,
        "looks": 0,
-       "opps": 0.0164,
+       "opps": 0.016,
        "rate": 0.13,
        "scores": 0
       }
@@ -16615,7 +17113,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.07257851949453453
+       "width": 0.06884937420150017
       },
       "level": "Low",
       "reasons": [
@@ -16624,6 +17122,32 @@
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.0313,
+      "before": 0.0313,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:13770",
+        "mult": 1,
+        "pp": 0,
+        "text": "J. Michael Sturdivant's snap share fell to 8% over his last 2 games from 24% (2 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:13770",
+       "status": "new",
+       "strength": -0.39,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On GB nflverse roster (week 6, ACT)",
      "vol": {
@@ -16631,7 +17155,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.0686,
-      "targets": 1.4278
+      "targets": 1.418
      },
      "volConf": {
       "rec": {
@@ -16668,10 +17192,10 @@
         "factor": 1.0534,
         "league": 0.6253
        },
-       "hi": 2.9932,
-       "leagueDefense": 1.0427,
+       "hi": 2.9727,
+       "leagueDefense": 1.0355,
        "lo": 0,
-       "mean": 0.9336,
+       "mean": 0.9272,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "1.0 without this defense. DAL allows WRs a 69% catch rate versus 63% league."
       },
@@ -16681,10 +17205,10 @@
         "factor": 1.0901,
         "league": 8.22
        },
-       "hi": 38.0508,
-       "leagueDefense": 12.8215,
+       "hi": 37.7893,
+       "leagueDefense": 12.7334,
        "lo": 0,
-       "mean": 11.8807,
+       "mean": 11.799,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "13 without this defense. DAL allows WRs 9.7 yards a target versus 8.2 league."
       },
@@ -16711,47 +17235,47 @@
       "uncertain": false
      },
      "band": [
-      0.0117,
-      0.0638
+      0.0111,
+      0.0603
      ],
      "ceiling": 0.5,
-     "challenger": 0.04244246075031621,
-     "chance": 0.0275,
+     "challenger": 0.042394575417278646,
+     "chance": 0.026,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0136,
-      "t1": 0.0069,
-      "t2": 0.0044,
-      "t3": 0.0029
+      "t0": 0.013,
+      "t1": 0.0066,
+      "t2": 0.004,
+      "t3": 0.0027
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0275,
-      "lambda": 0.0279,
-      "p0": 0.9725,
-      "p1": 0.0271,
-      "p2": 0.0004,
+      "anytime": 0.026,
+      "lambda": 0.0264,
+      "p0": 0.974,
+      "p1": 0.0257,
+      "p2": 0.0003,
       "p3plus": 0,
-      "twoPlus": 0.0004
+      "twoPlus": 0.0003
      },
      "edge": null,
      "espn": "4431346",
-     "fair": 3534,
-     "firstTd": 0.0046,
+     "fair": 3745,
+     "firstTd": 0.0043,
      "gamesPlayed": 1,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0040598",
-     "i10Exp": 0.011,
+     "i10Exp": 0.0107,
      "id": "13013",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0279,
-     "lambdaRaw": 0.0271,
+     "lambda": 0.0264,
+     "lambdaRaw": 0.0267,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
      ],
@@ -16765,8 +17289,8 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0295,
-     "preStack": 0.0295,
+     "preSafety": 0.029,
+     "preStack": 0.029,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -16779,7 +17303,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.027618782232468275,
+       "chance": 0.028228754243870058,
        "targets": 1.0062499999999999
       },
       "close": {
@@ -16791,14 +17315,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.02599040586812751,
-       "targets": 0.8488285976712989
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "chance": 0.023012457251952445,
+       "targets": 0.8429942341896155
       }
      },
      "scriptSensitive": false,
@@ -16834,30 +17352,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0133,
+       "expected": 0.0132,
        "looks": 2,
-       "opps": 0.9225,
+       "opps": 0.9171,
        "rate": 0.0144,
        "scores": 0
       },
       "t1": {
        "expected": 0.0067,
        "looks": 0,
-       "opps": 0.0112,
+       "opps": 0.0111,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0043,
+       "expected": 0.0041,
        "looks": 0,
-       "opps": 0.0129,
+       "opps": 0.0122,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0029,
+       "expected": 0.0028,
        "looks": 0,
-       "opps": 0.018,
+       "opps": 0.0175,
        "rate": 0.13,
        "scores": 0
       }
@@ -16874,7 +17392,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.05207271545872971
+       "width": 0.049253605346558094
       },
       "level": "Low",
       "reasons": [
@@ -16883,6 +17401,32 @@
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.0263,
+      "before": 0.0263,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:DAL:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "DAL has allowed 0.3 TE touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:DAL:TE",
+       "status": "new",
+       "strength": -0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On GB nflverse roster (week 6, ACT)",
      "vol": {
@@ -16890,7 +17434,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.075,
-      "targets": 0.9646
+      "targets": 0.9579
      },
      "volConf": {
       "rec": {
@@ -16925,10 +17469,10 @@
         "factor": 1.0645,
         "league": 0.7215
        },
-       "hi": 2.2356,
-       "leagueDefense": 0.8137,
+       "hi": 2.2254,
+       "leagueDefense": 0.8081,
        "lo": 0,
-       "mean": 0.7363,
+       "mean": 0.7312,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.8 without this defense. DAL allows TEs a 90% catch rate versus 72% league."
       },
@@ -16938,10 +17482,10 @@
         "factor": 1.046,
         "league": 7.0852
        },
-       "hi": 23.3847,
-       "leagueDefense": 8.2764,
+       "hi": 23.2789,
+       "leagueDefense": 8.2195,
        "lo": 0,
-       "mean": 7.3585,
+       "mean": 7.308,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "8 without this defense. DAL allows TEs 8.3 yards a target versus 7.1 league."
       },
@@ -16968,47 +17512,47 @@
       "uncertain": false
      },
      "band": [
-      0.011,
-      0.0615
+      0.0104,
+      0.058
      ],
      "ceiling": 0.5,
-     "challenger": 0.040497859470859154,
-     "chance": 0.0262,
+     "challenger": 0.03800733456449379,
+     "chance": 0.0246,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0075,
-      "t1": 0.0092,
-      "t2": 0.0059,
-      "t3": 0.0039
+      "t0": 0.0071,
+      "t1": 0.0088,
+      "t2": 0.0054,
+      "t3": 0.0037
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0262,
-      "lambda": 0.0265,
-      "p0": 0.9738,
-      "p1": 0.0258,
+      "anytime": 0.0246,
+      "lambda": 0.0249,
+      "p0": 0.9754,
+      "p1": 0.0243,
       "p2": 0.0003,
       "p3plus": 0,
       "twoPlus": 0.0003
      },
      "edge": null,
      "espn": "2980444",
-     "fair": 3724,
-     "firstTd": 0.0044,
+     "fair": 3962,
+     "firstTd": 0.0041,
      "gamesPlayed": 0,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0033117",
-     "i10Exp": 0.0147,
+     "i10Exp": 0.0143,
      "id": "3239",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0265,
-     "lambdaRaw": 0.0258,
+     "lambda": 0.0249,
+     "lambdaRaw": 0.0253,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
      ],
@@ -17022,8 +17566,8 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.028,
-     "preStack": 0.028,
+     "preSafety": 0.0275,
+     "preStack": 0.0275,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -17036,7 +17580,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.026606613116675448,
+       "chance": 0.027057534698261887,
        "targets": 0.575
       },
       "close": {
@@ -17048,14 +17592,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.02469550179697877,
-       "targets": 0.48504491295502794
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "chance": 0.021781717688472035,
+       "targets": 0.4817109909654946
       }
      },
      "scriptSensitive": false,
@@ -17091,30 +17629,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0073,
+       "expected": 0.0072,
        "looks": 0,
-       "opps": 0.495,
+       "opps": 0.4929,
        "rate": 0.0147,
        "scores": 0
       },
       "t1": {
-       "expected": 0.009,
+       "expected": 0.0089,
        "looks": 0,
-       "opps": 0.015,
+       "opps": 0.0148,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0057,
+       "expected": 0.0054,
        "looks": 0,
-       "opps": 0.0172,
+       "opps": 0.0163,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0038,
+       "expected": 0.0037,
        "looks": 0,
-       "opps": 0.024,
+       "opps": 0.0234,
        "rate": 0.13,
        "scores": 0
       }
@@ -17133,7 +17671,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.050521729778450486
+       "width": 0.04760084452551161
       },
       "level": "Low",
       "reasons": [
@@ -17142,6 +17680,32 @@
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.0249,
+      "before": 0.0249,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:DAL:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "DAL has allowed 0.3 TE touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:DAL:TE",
+       "status": "new",
+       "strength": -0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -17149,7 +17713,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.1,
-      "targets": 0.5512
+      "targets": 0.5474
      },
      "volConf": {
       "rec": {
@@ -17157,7 +17721,7 @@
        "level": "Low",
        "provisional": true,
        "reasons": [
-        "Near-zero projected targets (0.6)."
+        "Near-zero projected targets (0.5)."
        ]
       },
       "recYd": {
@@ -17165,7 +17729,7 @@
        "level": "Low",
        "provisional": true,
        "reasons": [
-        "Near-zero projected targets (0.6)."
+        "Near-zero projected targets (0.5)."
        ]
       },
       "rushYd": {
@@ -17184,12 +17748,12 @@
         "factor": 1.0645,
         "league": 0.7215
        },
-       "hi": 1.5266,
-       "leagueDefense": 0.452,
+       "hi": 1.5199,
+       "leagueDefense": 0.4489,
        "lo": 0,
-       "mean": 0.409,
+       "mean": 0.4062,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "0.5 without this defense. DAL allows TEs a 90% catch rate versus 72% league."
+       "text": "0.4 without this defense. DAL allows TEs a 90% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
@@ -17197,10 +17761,10 @@
         "factor": 1.046,
         "league": 7.0852
        },
-       "hi": 15.6836,
-       "leagueDefense": 4.439,
+       "hi": 15.6161,
+       "leagueDefense": 4.4085,
        "lo": 0,
-       "mean": 3.9467,
+       "mean": 3.9196,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "4 without this defense. DAL allows TEs 8.3 yards a target versus 7.1 league."
       },
@@ -17227,47 +17791,47 @@
       "uncertain": false
      },
      "band": [
-      0.0039,
-      0.0222
+      0.0037,
+      0.0213
      ],
      "ceiling": 0.5,
-     "challenger": 0.016488982355352566,
-     "chance": 0.0093,
+     "challenger": 0.015355464598275526,
+     "chance": 0.0089,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0022,
-      "t1": 0.0035,
-      "t2": 0.0022,
-      "t3": 0.0015
+      "t0": 0.0021,
+      "t1": 0.0034,
+      "t2": 0.0021,
+      "t3": 0.0014
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0093,
-      "lambda": 0.0093,
-      "p0": 0.9907,
-      "p1": 0.0092,
+      "anytime": 0.0089,
+      "lambda": 0.009,
+      "p0": 0.9911,
+      "p1": 0.0089,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
-     "edge": -0.0668,
+     "edge": -0.1039,
      "espn": "4360086",
-     "fair": 10673,
+     "fair": 11122,
      "firstTd": 0.0015,
      "gamesPlayed": 0,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0038589",
-     "i10Exp": 0.0147,
+     "i10Exp": 0.0143,
      "id": "10212",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0093,
-     "lambdaRaw": 0.0241,
+     "lambda": 0.009,
+     "lambdaRaw": 0.0236,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 100% toward the published projection (0%) because of a thin sample; safety caps applied after."
@@ -17283,9 +17847,9 @@
      "pos": "TE",
      "practice": null,
      "preSafety": 0.01,
-     "preStack": 0.0263,
+     "preStack": 0.0257,
      "pubBlend": {
-      "before": 0.0266,
+      "before": 0.0261,
       "weight": 1
      },
      "published": {
@@ -17303,7 +17867,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.008622167947591963,
+       "chance": 0.008931409135931823,
        "targets": 0.458275
       },
       "close": {
@@ -17315,14 +17879,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.009950166250831893,
-       "targets": 0.3865807956251573
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "chance": 0.008946068086251202,
+       "targets": 0.3839236597994992
       }
      },
      "scriptSensitive": false,
@@ -17360,28 +17918,28 @@
       "t0": {
        "expected": 0.0056,
        "looks": 0,
-       "opps": 0.3832,
+       "opps": 0.3818,
        "rate": 0.0147,
        "scores": 0
       },
       "t1": {
-       "expected": 0.009,
+       "expected": 0.0089,
        "looks": 0,
-       "opps": 0.015,
+       "opps": 0.0148,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0057,
+       "expected": 0.0054,
        "looks": 0,
-       "opps": 0.0172,
+       "opps": 0.0163,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0038,
+       "expected": 0.0037,
        "looks": 0,
-       "opps": 0.024,
+       "opps": 0.0234,
        "rate": 0.13,
        "scores": 0
       }
@@ -17398,7 +17956,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.01831406671401381
+       "width": 0.017577130282441567
       },
       "level": "Low",
       "reasons": [
@@ -17407,6 +17965,32 @@
       ]
      },
      "team": "GB",
+     "trendEffect": {
+      "after": 0.0233,
+      "before": 0.0233,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:DAL:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "DAL has allowed 0.3 TE touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:DAL:TE",
+       "status": "new",
+       "strength": -0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On GB nflverse roster (week 6, ACT)",
      "vol": {
@@ -17414,7 +17998,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.1,
-      "targets": 0.4393
+      "targets": 0.4363
      },
      "volConf": {
       "rec": {
@@ -17449,10 +18033,10 @@
         "factor": 1.0645,
         "league": 0.7215
        },
-       "hi": 1.3237,
-       "leagueDefense": 0.3603,
+       "hi": 1.318,
+       "leagueDefense": 0.3578,
        "lo": 0,
-       "mean": 0.326,
+       "mean": 0.3238,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.4 without this defense. DAL allows TEs a 90% catch rate versus 72% league."
       },
@@ -17462,10 +18046,10 @@
         "factor": 1.046,
         "league": 7.0852
        },
-       "hi": 13.6236,
-       "leagueDefense": 3.5379,
+       "hi": 13.5659,
+       "leagueDefense": 3.5136,
        "lo": 0,
-       "mean": 3.1456,
+       "mean": 3.1239,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "4 without this defense. DAL allows TEs 8.3 yards a target versus 7.1 league."
       },
@@ -17492,17 +18076,17 @@
       "uncertain": false
      },
      "band": [
-      0.0023,
-      0.0128
+      0.0022,
+      0.0123
      ],
      "ceiling": 0.5,
-     "challenger": 0.008432554805818393,
-     "chance": 0.0055,
+     "challenger": 0.008602088596219803,
+     "chance": 0.0052,
      "coldGoal": false,
      "components": {
-      "r0": 0.0031,
-      "r1": 0.0016,
-      "r2": 0.0008,
+      "r0": 0.0029,
+      "r1": 0.0015,
+      "r2": 0.0007,
       "r3": 0.0001,
       "t0": 0,
       "t1": 0,
@@ -17511,17 +18095,17 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0055,
-      "lambda": 0.0055,
-      "p0": 0.9945,
-      "p1": 0.0054,
+      "anytime": 0.0052,
+      "lambda": 0.0053,
+      "p0": 0.9948,
+      "p1": 0.0052,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
      "edge": null,
      "espn": "14163",
-     "fair": 18230,
+     "fair": 18992,
      "firstTd": 0.0009,
      "gamesPlayed": 1,
      "glShare": 0.0017,
@@ -17531,7 +18115,7 @@
      "id": "827",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0055,
+     "lambda": 0.0053,
      "lambdaRaw": 0.0053,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
@@ -17541,7 +18125,7 @@
      "passTd": {
       "attemptShare": 0.0314,
       "display": "0.1",
-      "expected": 0.0712,
+      "expected": 0.0722,
       "interval": [
        0,
        0
@@ -17549,13 +18133,13 @@
       "level": "Low",
       "provisional": true,
       "reasons": [
-       "3% of projected team attempts (1.2) × team receiving-score total 2.27.",
+       "3% of projected team attempts (1.2) × team receiving-score total 2.30.",
        "Only 0 of the last three games with attempts.",
        "0 attempts this season (needs 60).",
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 2.2704
+      "teamReceivingLambda": 2.3034
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/14163.png",
@@ -17564,8 +18148,8 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.0058,
-     "preStack": 0.0058,
+     "preSafety": 0.0059,
+     "preStack": 0.0059,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -17577,8 +18161,8 @@
      "scenarios": {
       "behind": {
        "att": 1.29375,
-       "carries": 0.4658978898356794,
-       "chance": 0.0043084526686929525,
+       "carries": 0.46607451885800766,
+       "chance": 0.004464289799672172,
        "targets": 0
       },
       "close": {
@@ -17589,15 +18173,9 @@
       },
       "lead": {
        "att": 1.09346026097301,
-       "carries": 0.6138889842540718,
-       "chance": 0.0063713988054596715,
+       "carries": 0.6141217189658453,
+       "chance": 0.005728667798584608,
        "targets": 0
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
       }
      },
      "scriptSensitive": false,
@@ -17607,7 +18185,7 @@
       "r0": {
        "expected": 0.003,
        "looks": 0,
-       "opps": 0.538,
+       "opps": 0.5382,
        "rate": 0.0063,
        "scores": 0
       },
@@ -17673,7 +18251,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.010510951132988167
+       "width": 0.010093515700361877
       },
       "level": "Low",
       "reasons": [
@@ -17682,11 +18260,13 @@
       ]
      },
      "team": "GB",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On GB nflverse roster (week 6, ACT)",
      "vol": {
       "att": 1.2426,
-      "carries": 0.5481,
+      "carries": 0.5483,
       "rzRush": 0.0225,
       "rzTgt": 0,
       "targets": 0
@@ -17771,10 +18351,10 @@
         "factor": 1.1369,
         "league": 4.5016
        },
-       "hi": 6.0481,
-       "leagueDefense": 2.6192,
+       "hi": 6.0498,
+       "leagueDefense": 2.6202,
        "lo": 0,
-       "mean": 2.5312,
+       "mean": 2.5322,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "3 without this defense. DAL allows QBs 6.2 yards a carry versus 4.5 league."
       }
@@ -17924,6 +18504,31 @@
       "transfer": null
      },
      {
+      "id": "8168",
+      "name": "Skyy Moore",
+      "pos": "WR",
+      "reason": "Out",
+      "transfer": {
+       "fraction": 1,
+       "glTo": "12501",
+       "glToName": "Matthew Golden",
+       "to": "12501",
+       "toName": "Matthew Golden",
+       "vacated": {
+        "att": 0,
+        "carries": 0,
+        "rzRush": 0,
+        "rzTgt": 0.5290625,
+        "targets": 1.765625
+       },
+       "weeks": [
+        3,
+        4,
+        5
+       ]
+      }
+     },
+     {
       "id": "9481",
       "name": "Luke Musgrave",
       "pos": "TE",
@@ -17984,6 +18589,12 @@
       "verified": true
      },
      {
+      "gsis": "00-0040667",
+      "id": "12501",
+      "team": "GB",
+      "verified": true
+     },
+     {
       "gsis": "00-0038124",
       "id": "8167",
       "team": "GB",
@@ -17996,12 +18607,6 @@
       "verified": true
      },
      {
-      "gsis": "00-0040667",
-      "id": "12501",
-      "team": "GB",
-      "verified": true
-     },
-     {
       "gsis": "00-0038098",
       "id": "8116",
       "team": "GB",
@@ -18010,12 +18615,6 @@
      {
       "gsis": "00-0040142",
       "id": "12504",
-      "team": "GB",
-      "verified": true
-     },
-     {
-      "gsis": "00-0038090",
-      "id": "8168",
       "team": "GB",
       "verified": true
      },

@@ -8920,16 +8920,16 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-16T19:01:20.738Z",
-  "fingerprint": "1d01f8d802a6fdcf0c1a1c51",
+  "capturedAt": "2026-10-16T21:52:12.873Z",
+  "fingerprint": "595498658ce8d77981494b21",
   "payload": {
    "callIds": {
     "away": "8146",
     "home": "7611"
    },
-   "capturedAt": "2026-10-16T19:01:20.738Z",
+   "capturedAt": "2026-10-16T21:52:12.873Z",
    "challenger": {
-    "capturedCutoff": "2026-10-16T19:01:20.248Z",
+    "capturedCutoff": "2026-10-16T21:52:12.054Z",
     "reason": null,
     "status": "rich",
     "trainingCount": 2159,
@@ -8942,28 +8942,28 @@
    "gameId": "2026_06_NYJ_NE",
    "gameLambda": 4.508081629126332,
    "inputTimestamps": {
-    "ftn": "2026-10-16T19:01:14.965Z",
-    "history_2025": "2026-10-16T19:01:14.885Z",
-    "history_2026": "2026-10-16T19:01:14.647Z",
-    "idmap": "2026-10-16T19:01:14.566Z",
-    "pbp": "2026-10-16T19:01:15.538Z",
-    "players": "2026-10-16T19:01:14.052Z",
-    "proj_1": "2026-10-16T19:01:14.222Z",
-    "proj_2": "2026-10-16T19:01:14.244Z",
-    "proj_3": "2026-10-16T19:01:14.238Z",
-    "proj_4": "2026-10-16T19:01:14.208Z",
-    "proj_5": "2026-10-16T19:01:14.262Z",
-    "proj_6": "2026-10-16T19:01:14.252Z",
-    "roster": "2026-10-16T19:01:14.347Z",
-    "schedule": "2026-10-16T19:01:13.804Z",
-    "snaps": "2026-10-16T19:01:15.564Z",
-    "state": "2026-10-16T19:01:13.576Z",
-    "stats_1": "2026-10-16T19:01:14.136Z",
-    "stats_2": "2026-10-16T19:01:14.153Z",
-    "stats_3": "2026-10-16T19:01:14.171Z",
-    "stats_4": "2026-10-16T19:01:14.107Z",
-    "stats_5": "2026-10-16T19:01:14.192Z",
-    "stats_6": "2026-10-16T19:01:14.175Z"
+    "ftn": "2026-10-16T21:52:05.923Z",
+    "history_2025": "2026-10-16T21:52:05.850Z",
+    "history_2026": "2026-10-16T21:52:05.629Z",
+    "idmap": "2026-10-16T21:52:05.542Z",
+    "pbp": "2026-10-16T21:52:06.501Z",
+    "players": "2026-10-16T21:52:04.987Z",
+    "proj_1": "2026-10-16T21:52:05.146Z",
+    "proj_2": "2026-10-16T21:52:05.183Z",
+    "proj_3": "2026-10-16T21:52:05.198Z",
+    "proj_4": "2026-10-16T21:52:05.192Z",
+    "proj_5": "2026-10-16T21:52:05.171Z",
+    "proj_6": "2026-10-16T21:52:05.160Z",
+    "roster": "2026-10-16T21:52:05.325Z",
+    "schedule": "2026-10-16T21:52:04.745Z",
+    "snaps": "2026-10-16T21:52:06.538Z",
+    "state": "2026-10-16T21:52:04.469Z",
+    "stats_1": "2026-10-16T21:52:05.016Z",
+    "stats_2": "2026-10-16T21:52:05.096Z",
+    "stats_3": "2026-10-16T21:52:05.113Z",
+    "stats_4": "2026-10-16T21:52:05.129Z",
+    "stats_5": "2026-10-16T21:52:05.053Z",
+    "stats_6": "2026-10-16T21:52:05.065Z"
    },
    "kickoff": "2026-10-18T17:00:00.000Z",
    "lessons": "Learned from finished games (reconstructed history, not prospectively validated), from the last three weeks",
@@ -8977,7 +8977,7 @@
     "total": 43.5,
     "totalKnown": true
    },
-   "modelVersion": "endzone-4.3.0",
+   "modelVersion": "endzone-4.4.0",
    "players": [
     {
      "avail": {
@@ -8991,7 +8991,7 @@
       0.4252
      ],
      "ceiling": 0.5,
-     "challenger": 0.3132784812929985,
+     "challenger": 0.3216737232410586,
      "chance": 0.301,
      "coldGoal": false,
      "components": {
@@ -9170,6 +9170,83 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.2764,
+      "before": 0.2764,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:8146",
+        "mult": 1,
+        "pp": 0,
+        "text": "Garrett Wilson's snap share rose to 97% over his last 2 games from 86% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "streak",
+        "id": "streak:8146",
+        "mult": 1,
+        "pp": 0,
+        "text": "Garrett Wilson has scored in 3 of his last 4 games (weeks 2, 3, 5).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:8146",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 1.4 scoring games over his last 5 graded games; he had 3.",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:NE:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "NE has allowed 1.3 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:8146",
+       "status": "continuing",
+       "strength": 0.33,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "streak",
+       "firstDetectedWeek": 6,
+       "id": "streak:8146",
+       "status": "new",
+       "strength": 0.25,
+       "type": "Scoring streak"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 6,
+       "id": "miss:8146",
+       "status": "new",
+       "strength": 0.66,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NE:WR",
+       "status": "new",
+       "strength": 0.35,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -9263,7 +9340,7 @@
       0.6549
      ],
      "ceiling": 0.5,
-     "challenger": 0.41942941076343876,
+     "challenger": 0.40958729624269496,
      "chance": 0.4546,
      "coldGoal": false,
      "components": {
@@ -9451,6 +9528,75 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.5996,
+      "before": 0.5996,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:11576",
+        "mult": 1,
+        "pp": 0,
+        "text": "Braelon Allen's snap share rose to 90% over his last 2 games from 41% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:11576",
+        "mult": 1,
+        "pp": 0,
+        "text": "Braelon Allen's share of team carries + targets rose to 51% (last 2) from 13% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:NE:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "NE has allowed 1.3 RB touchdowns a game over its last 3 vs 0.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:11576",
+       "status": "continuing",
+       "strength": 1,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 5,
+       "id": "usage:11576",
+       "status": "continuing",
+       "strength": 1,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 6,
+       "id": "vacuum:11576",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NE:RB",
+       "status": "new",
+       "strength": 0.56,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -9546,7 +9692,7 @@
       0.5036
      ],
      "ceiling": 0.5,
-     "challenger": 0.117876753798274,
+     "challenger": 0.12958020881043808,
      "chance": 0.1638,
      "coldGoal": false,
      "components": {
@@ -9723,6 +9869,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.1009,
+      "before": 0.1009,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:NE:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "NE has allowed 1.3 RB touchdowns a game over its last 3 vs 0.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NE:RB",
+       "status": "new",
+       "strength": 0.56,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -9815,7 +9987,7 @@
       0.1853
      ],
      "ceiling": 0.5,
-     "challenger": 0.15992569655416877,
+     "challenger": 0.15969616463914205,
      "chance": 0.1126,
      "coldGoal": false,
      "components": {
@@ -9994,6 +10166,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0847,
+      "before": 0.0847,
+      "items": [
+       {
+        "family": "miss",
+        "id": "miss:13330",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 0.8 scoring games over his last 5 graded games; he had 2.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 4,
+       "id": "miss:13330",
+       "status": "continuing",
+       "strength": 0.49,
+       "type": "Model miss pattern"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -10099,7 +10297,7 @@
       0.2039
      ],
      "ceiling": 0.5,
-     "challenger": 0.09065045068582345,
+     "challenger": 0.08907592759710303,
      "chance": 0.0917,
      "coldGoal": false,
      "components": {
@@ -10276,6 +10474,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0814,
+      "before": 0.0814,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:NE:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "NE has allowed 1.3 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NE:WR",
+       "status": "new",
+       "strength": 0.35,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -10367,7 +10591,7 @@
       0.1298
      ],
      "ceiling": 0.5,
-     "challenger": 0.09479394490123394,
+     "challenger": 0.09602767514953625,
      "chance": 0.0808,
      "coldGoal": false,
      "components": {
@@ -10549,6 +10773,18 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": null,
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 6,
+       "id": "vacuum:12498",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -10640,7 +10876,7 @@
       0.1184
      ],
      "ceiling": 0.5,
-     "challenger": 0.07149687253641646,
+     "challenger": 0.07310421718232518,
      "chance": 0.0696,
      "coldGoal": false,
      "components": {
@@ -10816,6 +11052,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0755,
+      "before": 0.0755,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:NE:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "NE has allowed 1.3 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NE:WR",
+       "status": "new",
+       "strength": 0.35,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -10911,7 +11173,7 @@
       0.1253
      ],
      "ceiling": 0.5,
-     "challenger": 0.07472029936362601,
+     "challenger": 0.06893501875484997,
      "chance": 0.0615,
      "coldGoal": false,
      "components": {
@@ -11087,6 +11349,8 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -11178,7 +11442,7 @@
       0.0938
      ],
      "ceiling": 0.5,
-     "challenger": 0.054260955001814715,
+     "challenger": 0.053416177234956175,
      "chance": 0.0536,
      "coldGoal": false,
      "components": {
@@ -11369,6 +11633,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0308,
+      "before": 0.0308,
+      "items": [
+       {
+        "family": "qbRush",
+        "id": "qbRush:1373",
+        "mult": 1,
+        "pp": 0,
+        "text": "QB Geno Smith ran 2.5 times a game over his last 2 vs 4.3 before.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "qbRush",
+       "firstDetectedWeek": 5,
+       "id": "qbRush:1373",
+       "status": "continuing",
+       "strength": -0.21,
+       "type": "QB rushing"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -11481,7 +11771,7 @@
       0.0749
      ],
      "ceiling": 0.5,
-     "challenger": 0.027599554832793083,
+     "challenger": 0.026992211910313535,
      "chance": 0.0322,
      "coldGoal": false,
      "components": {
@@ -11649,6 +11939,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0333,
+      "before": 0.0333,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:NE:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "NE has allowed 1.3 RB touchdowns a game over its last 3 vs 0.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NE:RB",
+       "status": "new",
+       "strength": 0.56,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -11738,7 +12054,7 @@
       0.0723
      ],
      "ceiling": 0.5,
-     "challenger": 0.035625584737979166,
+     "challenger": 0.0350250732644215,
      "chance": 0.0313,
      "coldGoal": false,
      "components": {
@@ -11908,6 +12224,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0324,
+      "before": 0.0324,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:NE:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "NE has allowed 1.3 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NE:WR",
+       "status": "new",
+       "strength": 0.35,
+       "type": "Defense trend"
+      }
+     ],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -11999,7 +12341,7 @@
       0.0641
      ],
      "ceiling": 0.5,
-     "challenger": 0.024136371757522368,
+     "challenger": 0.02419247881150033,
      "chance": 0.0276,
      "coldGoal": false,
      "components": {
@@ -12167,6 +12509,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0286,
+      "before": 0.0286,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:NE:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "NE has allowed 1.3 RB touchdowns a game over its last 3 vs 0.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NE:RB",
+       "status": "new",
+       "strength": 0.56,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -12256,7 +12624,7 @@
       0.0288
      ],
      "ceiling": 0.5,
-     "challenger": 0.018403208727610587,
+     "challenger": 0.017512552510462798,
      "chance": 0.0121,
      "coldGoal": false,
      "components": {
@@ -12426,6 +12794,8 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -12515,7 +12885,7 @@
       0.0192
      ],
      "ceiling": 0.5,
-     "challenger": 0.01307569636914363,
+     "challenger": 0.012464294801621145,
      "chance": 0.0099,
      "coldGoal": false,
      "components": {
@@ -12691,6 +13061,32 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0173,
+      "before": 0.0173,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:NE:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "NE has allowed 1.3 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NE:WR",
+       "status": "new",
+       "strength": 0.35,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -12780,7 +13176,7 @@
       0.0133
      ],
      "ceiling": 0.5,
-     "challenger": 0.013778668712091435,
+     "challenger": 0.013832155733254026,
      "chance": 0.0087,
      "coldGoal": false,
      "components": {
@@ -12956,6 +13352,8 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -13045,7 +13443,7 @@
       0.0071
      ],
      "ceiling": 0.5,
-     "challenger": 0.004341126603228385,
+     "challenger": 0.0041895218380270105,
      "chance": 0.003,
      "coldGoal": false,
      "components": {
@@ -13231,6 +13629,8 @@
       ]
      },
      "team": "NYJ",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
@@ -13341,7 +13741,7 @@
       0.7615
      ],
      "ceiling": 0.62,
-     "challenger": 0.5955640474917308,
+     "challenger": 0.5994357023902726,
      "chance": 0.5759,
      "coldGoal": false,
      "components": {
@@ -13526,6 +13926,75 @@
       ]
      },
      "team": "NE",
+     "trendEffect": {
+      "after": 0.5954,
+      "before": 0.5954,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:7611",
+        "mult": 1,
+        "pp": 0,
+        "text": "Rhamondre Stevenson's snap share rose to 69% over his last 2 games from 58% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:7611",
+        "mult": 1,
+        "pp": 0,
+        "text": "Rhamondre Stevenson is averaging 2.5 red-zone looks over his last 2 games vs 0.3 before (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:NYJ:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "NYJ has allowed 1.7 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:7611",
+       "status": "new",
+       "strength": 0.33,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 6,
+       "id": "redzone:7611",
+       "status": "new",
+       "strength": 0.65,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 6,
+       "id": "vacuum:7611",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NYJ:RB",
+       "status": "new",
+       "strength": 0.49,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -13624,7 +14093,7 @@
       0.5212
      ],
      "ceiling": 0.5,
-     "challenger": 0.33828981513749756,
+     "challenger": 0.32904072425036146,
      "chance": 0.3485,
      "coldGoal": false,
      "components": {
@@ -13820,6 +14289,58 @@
       ]
      },
      "team": "NE",
+     "trendEffect": {
+      "after": 0.404,
+      "before": 0.404,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:8121",
+        "mult": 1,
+        "pp": 0,
+        "text": "Romeo Doubs's snap share rose to 74% over his last 2 games from 65% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:8121",
+        "mult": 1,
+        "pp": 0,
+        "text": "Romeo Doubs is averaging 2.0 red-zone looks over his last 2 games vs 0.3 before (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:8121",
+       "status": "new",
+       "strength": 0.25,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 5,
+       "id": "redzone:8121",
+       "status": "continuing",
+       "strength": 0.5,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 6,
+       "id": "vacuum:8121",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -13919,7 +14440,7 @@
       0.3127
      ],
      "ceiling": 0.5,
-     "challenger": 0.24660813140443316,
+     "challenger": 0.24311472007180202,
      "chance": 0.2087,
      "coldGoal": false,
      "components": {
@@ -14095,6 +14616,49 @@
       ]
      },
      "team": "NE",
+     "trendEffect": {
+      "after": 0.1766,
+      "before": 0.1766,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:3214",
+        "mult": 1,
+        "pp": 0,
+        "text": "Hunter Henry's snap share fell to 64% over his last 2 games from 79% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:3214",
+        "mult": 1,
+        "pp": 0,
+        "text": "Hunter Henry is averaging 1.5 red-zone looks over his last 2 games vs 0.3 before (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:3214",
+       "status": "continuing",
+       "strength": -0.45,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 6,
+       "id": "redzone:3214",
+       "status": "new",
+       "strength": 0.35,
+       "type": "Red-zone role"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -14190,7 +14754,7 @@
       0.3155
      ],
      "ceiling": 0.5,
-     "challenger": 0.2058158389648398,
+     "challenger": 0.19979626601758804,
      "chance": 0.2052,
      "coldGoal": false,
      "components": {
@@ -14383,6 +14947,32 @@
       ]
      },
      "team": "NE",
+     "trendEffect": {
+      "after": 0.205,
+      "before": 0.205,
+      "items": [
+       {
+        "family": "qbRush",
+        "id": "qbRush:11564",
+        "mult": 1,
+        "pp": 0,
+        "text": "QB Drake Maye ran 7.5 times a game over his last 2 vs 5.0 before.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "qbRush",
+       "firstDetectedWeek": 6,
+       "id": "qbRush:11564",
+       "status": "new",
+       "strength": 0.25,
+       "type": "QB rushing"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -14497,7 +15087,7 @@
       0.2924
      ],
      "ceiling": 0.5,
-     "challenger": 0.2023879270014589,
+     "challenger": 0.20138892670829744,
      "chance": 0.1924,
      "coldGoal": false,
      "components": {
@@ -14673,6 +15263,32 @@
       ]
      },
      "team": "NE",
+     "trendEffect": {
+      "after": 0.2365,
+      "before": 0.2365,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:9501",
+        "mult": 1,
+        "pp": 0,
+        "text": "DeMario Douglas's snap share fell to 48% over his last 2 games from 56% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:9501",
+       "status": "new",
+       "strength": -0.25,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -14769,7 +15385,7 @@
       0.3475
      ],
      "ceiling": 0.5,
-     "challenger": 0.2282749852201731,
+     "challenger": 0.22142716814911378,
      "chance": 0.1902,
      "coldGoal": false,
      "components": {
@@ -14946,6 +15562,32 @@
       ]
      },
      "team": "NE",
+     "trendEffect": {
+      "after": 0.1786,
+      "before": 0.1786,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:13421",
+        "mult": 1,
+        "pp": 0,
+        "text": "Eli Raridon's snap share rose to 57% over his last 2 games from 37% (2 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:13421",
+       "status": "new",
+       "strength": 0.51,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -15037,7 +15679,7 @@
       0.2855
      ],
      "ceiling": 0.5,
-     "challenger": 0.1459182280090312,
+     "challenger": 0.15838108895977743,
      "chance": 0.1737,
      "coldGoal": false,
      "components": {
@@ -15217,6 +15859,66 @@
       ]
      },
      "team": "NE",
+     "trendEffect": {
+      "after": 0.1063,
+      "before": 0.1063,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:12529",
+        "mult": 1,
+        "pp": 0,
+        "text": "TreVeyon Henderson's snap share fell to 27% over his last 2 games from 49% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:12529",
+        "mult": 1,
+        "pp": 0,
+        "text": "TreVeyon Henderson's share of team carries + targets fell to 15% (last 2) from 24% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:NYJ:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "NYJ has allowed 1.7 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:12529",
+       "status": "new",
+       "strength": -0.55,
+       "type": "Snap share"
+      },
+      {
+       "direction": "down",
+       "family": "usage",
+       "firstDetectedWeek": 6,
+       "id": "usage:12529",
+       "status": "new",
+       "strength": -0.38,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NYJ:RB",
+       "status": "new",
+       "strength": 0.49,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -15312,7 +16014,7 @@
       0.2833
      ],
      "ceiling": 0.5,
-     "challenger": 0.17439280149212455,
+     "challenger": 0.1743721708207735,
      "chance": 0.1617,
      "coldGoal": false,
      "components": {
@@ -15490,6 +16192,49 @@
       ]
      },
      "team": "NE",
+     "trendEffect": {
+      "after": 0.142,
+      "before": 0.142,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:12542",
+        "mult": 1,
+        "pp": 0,
+        "text": "Efton Chism's snap share rose to 61% over his last 2 games from 22% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:12542",
+        "mult": 1,
+        "pp": 0,
+        "text": "Efton Chism's share of team carries + targets rose to 8% (last 2) from 3% (2 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:12542",
+       "status": "new",
+       "strength": 0.98,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 6,
+       "id": "usage:12542",
+       "status": "new",
+       "strength": 0.24,
+       "type": "Touch share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -15585,7 +16330,7 @@
       0.1385
      ],
      "ceiling": 0.5,
-     "challenger": 0.07113548035527817,
+     "challenger": 0.07095486283253505,
      "chance": 0.0778,
      "coldGoal": false,
      "components": {
@@ -15761,6 +16506,49 @@
       ]
      },
      "team": "NE",
+     "trendEffect": {
+      "after": 0.0864,
+      "before": 0.0864,
+      "items": [
+       {
+        "family": "redzone",
+        "id": "redzone:12491",
+        "mult": 1,
+        "pp": 0,
+        "text": "Corey Kiner is averaging 1.5 red-zone looks over his last 2 games vs 0.0 before (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:NYJ:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "NYJ has allowed 1.7 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 6,
+       "id": "redzone:12491",
+       "status": "new",
+       "strength": 0.45,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NYJ:RB",
+       "status": "new",
+       "strength": 0.49,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -15856,7 +16644,7 @@
       0.1125
      ],
      "ceiling": 0.5,
-     "challenger": 0.08608269078297803,
+     "challenger": 0.09648888881596751,
      "chance": 0.0706,
      "coldGoal": false,
      "components": {
@@ -16032,6 +16820,8 @@
       ]
      },
      "team": "NE",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -16123,7 +16913,7 @@
       0.0263
      ],
      "ceiling": 0.5,
-     "challenger": 0.027370201458082777,
+     "challenger": 0.02759196091230276,
      "chance": 0.0156,
      "coldGoal": false,
      "components": {
@@ -16299,6 +17089,32 @@
       ]
      },
      "team": "NE",
+     "trendEffect": {
+      "after": 0.0061,
+      "before": 0.0061,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:10210",
+        "mult": 1,
+        "pp": 0,
+        "text": "Cameron Latu's snap share fell to 4% over his last 2 games from 20% (2 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:10210",
+       "status": "new",
+       "strength": -0.39,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -16388,7 +17204,7 @@
       0.0344
      ],
      "ceiling": 0.5,
-     "challenger": 0.025745426086314582,
+     "challenger": 0.02587681393978436,
      "chance": 0.0146,
      "coldGoal": false,
      "components": {
@@ -16558,6 +17374,8 @@
       ]
      },
      "team": "NE",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -16647,7 +17465,7 @@
       0.0259
      ],
      "ceiling": 0.5,
-     "challenger": 0.020088733303408546,
+     "challenger": 0.02013622893680489,
      "chance": 0.0109,
      "coldGoal": false,
      "components": {
@@ -16815,6 +17633,8 @@
       ]
      },
      "team": "NE",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -16904,7 +17724,7 @@
       0.0123
      ],
      "ceiling": 0.5,
-     "challenger": 0.008514740296575063,
+     "challenger": 0.008830699751953719,
      "chance": 0.0052,
      "coldGoal": false,
      "components": {
@@ -17090,6 +17910,8 @@
       ]
      },
      "team": "NE",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
@@ -17200,7 +18022,7 @@
       0.0124
      ],
      "ceiling": 0.5,
-     "challenger": 0.008432683842872102,
+     "challenger": 0.008296664732411752,
      "chance": 0.0052,
      "coldGoal": false,
      "components": {
@@ -17386,6 +18208,8 @@
       ]
      },
      "team": "NE",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {

@@ -9029,16 +9029,16 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-16T19:01:26.651Z",
-  "fingerprint": "14d5348b7b5bdc8c0eb60e23",
+  "capturedAt": "2026-10-16T21:52:19.406Z",
+  "fingerprint": "c3323ef87746bd4e189e7205",
   "payload": {
    "callIds": {
     "away": "11584",
     "home": "7594"
    },
-   "capturedAt": "2026-10-16T19:01:26.651Z",
+   "capturedAt": "2026-10-16T21:52:19.406Z",
    "challenger": {
-    "capturedCutoff": "2026-10-16T19:01:26.365Z",
+    "capturedCutoff": "2026-10-16T21:52:18.869Z",
     "reason": null,
     "status": "rich",
     "trainingCount": 2188,
@@ -9051,30 +9051,30 @@
    "gameId": "2026_07_TB_CAR",
    "gameLambda": 4.699616303379354,
    "inputTimestamps": {
-    "ftn": "2026-10-16T19:01:21.958Z",
-    "history_2025": "2026-10-16T19:01:14.885Z",
-    "history_2026": "2026-10-16T19:01:21.900Z",
-    "idmap": "2026-10-16T19:01:21.832Z",
-    "pbp": "2026-10-16T19:01:22.579Z",
-    "players": "2026-10-16T19:01:21.490Z",
-    "proj_1": "2026-10-16T19:01:14.222Z",
-    "proj_2": "2026-10-16T19:01:14.244Z",
-    "proj_3": "2026-10-16T19:01:14.238Z",
-    "proj_4": "2026-10-16T19:01:14.208Z",
-    "proj_5": "2026-10-16T19:01:14.262Z",
-    "proj_6": "2026-10-16T19:01:21.568Z",
-    "proj_7": "2026-10-16T19:01:21.580Z",
-    "roster": "2026-10-16T19:01:21.646Z",
-    "schedule": "2026-10-16T19:01:21.221Z",
-    "snaps": "2026-10-16T19:01:22.605Z",
-    "state": "2026-10-16T19:01:21.067Z",
-    "stats_1": "2026-10-16T19:01:14.136Z",
-    "stats_2": "2026-10-16T19:01:14.153Z",
-    "stats_3": "2026-10-16T19:01:14.171Z",
-    "stats_4": "2026-10-16T19:01:14.107Z",
-    "stats_5": "2026-10-16T19:01:14.192Z",
-    "stats_6": "2026-10-16T19:01:21.521Z",
-    "stats_7": "2026-10-16T19:01:21.531Z"
+    "ftn": "2026-10-16T21:52:14.157Z",
+    "history_2025": "2026-10-16T21:52:05.850Z",
+    "history_2026": "2026-10-16T21:52:14.084Z",
+    "idmap": "2026-10-16T21:52:14.000Z",
+    "pbp": "2026-10-16T21:52:14.767Z",
+    "players": "2026-10-16T21:52:13.637Z",
+    "proj_1": "2026-10-16T21:52:05.146Z",
+    "proj_2": "2026-10-16T21:52:05.183Z",
+    "proj_3": "2026-10-16T21:52:05.198Z",
+    "proj_4": "2026-10-16T21:52:05.192Z",
+    "proj_5": "2026-10-16T21:52:05.171Z",
+    "proj_6": "2026-10-16T21:52:13.672Z",
+    "proj_7": "2026-10-16T21:52:13.695Z",
+    "roster": "2026-10-16T21:52:13.791Z",
+    "schedule": "2026-10-16T21:52:13.424Z",
+    "snaps": "2026-10-16T21:52:14.810Z",
+    "state": "2026-10-16T21:52:13.243Z",
+    "stats_1": "2026-10-16T21:52:05.016Z",
+    "stats_2": "2026-10-16T21:52:05.096Z",
+    "stats_3": "2026-10-16T21:52:05.113Z",
+    "stats_4": "2026-10-16T21:52:05.129Z",
+    "stats_5": "2026-10-16T21:52:05.053Z",
+    "stats_6": "2026-10-16T21:52:13.650Z",
+    "stats_7": "2026-10-16T21:52:13.674Z"
    },
    "kickoff": "2026-10-25T17:00:00.000Z",
    "lessons": "Learned from finished games (reconstructed history, not prospectively validated), from the last three weeks",
@@ -9088,7 +9088,7 @@
     "total": 44.5,
     "totalKnown": true
    },
-   "modelVersion": "endzone-4.3.0",
+   "modelVersion": "endzone-4.4.0",
    "players": [
     {
      "avail": {
@@ -9102,7 +9102,7 @@
       0.7476
      ],
      "ceiling": 0.62,
-     "challenger": 0.56838738303187,
+     "challenger": 0.5718210251447926,
      "chance": 0.5822,
      "coldGoal": false,
      "components": {
@@ -9289,6 +9289,41 @@
       ]
      },
      "team": "TB",
+     "trendEffect": {
+      "after": 0.6971,
+      "before": 0.6971,
+      "items": [
+       {
+        "family": "redzone",
+        "id": "redzone:11584",
+        "mult": 1,
+        "pp": 0,
+        "text": "Bucky Irving is averaging 5.0 red-zone looks over his last 2 games vs 2.3 before (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 7,
+       "id": "redzone:11584",
+       "status": "new",
+       "strength": 0.48,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 7,
+       "id": "vacuum:11584",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      }
+     ],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -9390,7 +9425,7 @@
       0.3619
      ],
      "ceiling": 0.5,
-     "challenger": 0.2041647242490161,
+     "challenger": 0.20921892778791684,
      "chance": 0.2593,
      "coldGoal": false,
      "components": {
@@ -9566,6 +9601,8 @@
       ]
      },
      "team": "TB",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -9661,7 +9698,7 @@
       0.3309
      ],
      "ceiling": 0.5,
-     "challenger": 0.2507111139087126,
+     "challenger": 0.24234546603363238,
      "chance": 0.2238,
      "coldGoal": false,
      "components": {
@@ -9839,6 +9876,49 @@
       ]
      },
      "team": "TB",
+     "trendEffect": {
+      "after": 0.2329,
+      "before": 0.2329,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:12514",
+        "mult": 1,
+        "pp": 0,
+        "text": "Emeka Egbuka's snap share rose to 92% over his last 2 games from 82% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:12514",
+        "mult": 1,
+        "pp": 0,
+        "text": "Emeka Egbuka is averaging 2.0 red-zone looks over his last 2 games vs 0.7 before (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:12514",
+       "status": "new",
+       "strength": 0.29,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 7,
+       "id": "redzone:12514",
+       "status": "new",
+       "strength": 0.4,
+       "type": "Red-zone role"
+      }
+     ],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -9932,7 +10012,7 @@
       0.2576
      ],
      "ceiling": 0.5,
-     "challenger": 0.16590114638331122,
+     "challenger": 0.16353198615527087,
      "chance": 0.1669,
      "coldGoal": false,
      "components": {
@@ -10108,6 +10188,49 @@
       ]
      },
      "team": "TB",
+     "trendEffect": {
+      "after": 0.1375,
+      "before": 0.1375,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:4037",
+        "mult": 1,
+        "pp": 0,
+        "text": "Chris Godwin's snap share rose to 89% over his last 2 games from 78% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:4037",
+        "mult": 1,
+        "pp": 0,
+        "text": "Over-predicted: the model expected 1.1 scoring games over his last 5 graded games; he had 0.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:4037",
+       "status": "new",
+       "strength": 0.32,
+       "type": "Snap share"
+      },
+      {
+       "direction": "down",
+       "family": "miss",
+       "firstDetectedWeek": 7,
+       "id": "miss:4037",
+       "status": "new",
+       "strength": -0.46,
+       "type": "Model miss pattern"
+      }
+     ],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -10201,7 +10324,7 @@
       0.1817
      ],
      "ceiling": 0.5,
-     "challenger": 0.1455252173819288,
+     "challenger": 0.14989498945138946,
      "chance": 0.1216,
      "coldGoal": false,
      "components": {
@@ -10377,6 +10500,8 @@
       ]
      },
      "team": "TB",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -10472,7 +10597,7 @@
       0.2018
      ],
      "ceiling": 0.5,
-     "challenger": 0.1030573459749815,
+     "challenger": 0.10166176037975971,
      "chance": 0.1024,
      "coldGoal": false,
      "components": {
@@ -10658,6 +10783,8 @@
       ]
      },
      "team": "TB",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -10776,7 +10903,7 @@
       0.1625
      ],
      "ceiling": 0.5,
-     "challenger": 0.10542156039897632,
+     "challenger": 0.10728566921001925,
      "chance": 0.0986,
      "coldGoal": false,
      "components": {
@@ -10954,6 +11081,32 @@
       ]
      },
      "team": "TB",
+     "trendEffect": {
+      "after": 0.0871,
+      "before": 0.0871,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:13317",
+        "mult": 1,
+        "pp": 0,
+        "text": "Ted Hurst's snap share fell to 57% over his last 2 games from 75% (2 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:13317",
+       "status": "new",
+       "strength": -0.43,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -11050,7 +11203,7 @@
       0.1857
      ],
      "ceiling": 0.5,
-     "challenger": 0.08343692388945201,
+     "challenger": 0.08174486050065155,
      "chance": 0.0977,
      "coldGoal": false,
      "components": {
@@ -11229,6 +11382,8 @@
       ]
      },
      "team": "TB",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -11318,7 +11473,7 @@
       0.0935
      ],
      "ceiling": 0.5,
-     "challenger": 0.06461564351251547,
+     "challenger": 0.061930037725875575,
      "chance": 0.0567,
      "coldGoal": false,
      "components": {
@@ -11494,6 +11649,32 @@
       ]
      },
      "team": "TB",
+     "trendEffect": {
+      "after": 0.0515,
+      "before": 0.0515,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:12485",
+        "mult": 1,
+        "pp": 0,
+        "text": "Tez Johnson's snap share rose to 48% over his last 2 games from 25% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:12485",
+       "status": "continuing",
+       "strength": 0.68,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -11585,7 +11766,7 @@
       0.0484
      ],
      "ceiling": 0.5,
-     "challenger": 0.031289307787312204,
+     "challenger": 0.031256243178597765,
      "chance": 0.0205,
      "coldGoal": false,
      "components": {
@@ -11755,6 +11936,8 @@
       ]
      },
      "team": "TB",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -11844,7 +12027,7 @@
       0.0244
      ],
      "ceiling": 0.5,
-     "challenger": 0.023426487654604422,
+     "challenger": 0.023151207511558303,
      "chance": 0.0147,
      "coldGoal": false,
      "components": {
@@ -12020,6 +12203,8 @@
       ]
      },
      "team": "TB",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -12111,7 +12296,7 @@
       0.0329
      ],
      "ceiling": 0.5,
-     "challenger": 0.02205038630557743,
+     "challenger": 0.021428721265442485,
      "chance": 0.0138,
      "coldGoal": false,
      "components": {
@@ -12279,6 +12464,8 @@
       ]
      },
      "team": "TB",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -12368,7 +12555,7 @@
       0.041
      ],
      "ceiling": 0.5,
-     "challenger": 0.015355553563743074,
+     "challenger": 0.015413196434756471,
      "chance": 0.0109,
      "coldGoal": false,
      "components": {
@@ -12544,6 +12731,8 @@
       ]
      },
      "team": "TB",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -12633,7 +12822,7 @@
       0.0147
      ],
      "ceiling": 0.5,
-     "challenger": 0.014624708665200825,
+     "challenger": 0.01421881196582786,
      "chance": 0.0086,
      "coldGoal": false,
      "components": {
@@ -12801,6 +12990,8 @@
       ]
      },
      "team": "TB",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On TB nflverse roster (week 6, ACT)",
      "vol": {
@@ -12890,7 +13081,7 @@
       0.0131
      ],
      "ceiling": 0.5,
-     "challenger": 0.007931469242968947,
+     "challenger": 0.007870781044078123,
      "chance": 0.0055,
      "coldGoal": false,
      "components": {
@@ -13079,6 +13270,8 @@
       ]
      },
      "team": "TB",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -13189,7 +13382,7 @@
       0.6738
      ],
      "ceiling": 0.5,
-     "challenger": 0.485663220225636,
+     "challenger": 0.48916930843120354,
      "chance": 0.5,
      "coldGoal": false,
      "components": {
@@ -13372,6 +13565,109 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.6631,
+      "before": 0.6631,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:7594",
+        "mult": 1,
+        "pp": 0,
+        "text": "Chuba Hubbard's snap share rose to 84% over his last 2 games from 68% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:7594",
+        "mult": 1,
+        "pp": 0,
+        "text": "Chuba Hubbard's share of team carries + targets rose to 34% (last 2) from 25% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:7594",
+        "mult": 1,
+        "pp": 0,
+        "text": "Chuba Hubbard is averaging 1.5 red-zone looks over his last 2 games vs 4.0 before (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "streak",
+        "id": "streak:7594",
+        "mult": 1,
+        "pp": 0,
+        "text": "Chuba Hubbard has scored in 3 of his last 4 games (weeks 1, 2, 4).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:7594",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 1.4 scoring games over his last 4 graded games; he had 3.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:7594",
+       "status": "new",
+       "strength": 0.4,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:7594",
+       "status": "new",
+       "strength": 0.4,
+       "type": "Touch share"
+      },
+      {
+       "direction": "down",
+       "family": "redzone",
+       "firstDetectedWeek": 7,
+       "id": "redzone:7594",
+       "status": "new",
+       "strength": -0.25,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "streak",
+       "firstDetectedWeek": 7,
+       "id": "streak:7594",
+       "status": "new",
+       "strength": 0.25,
+       "type": "Scoring streak"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 7,
+       "id": "miss:7594",
+       "status": "new",
+       "strength": 0.74,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 7,
+       "id": "vacuum:7594",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -13466,7 +13762,7 @@
       0.4951
      ],
      "ceiling": 0.5,
-     "challenger": 0.2878192209601358,
+     "challenger": 0.29241176890609977,
      "chance": 0.334,
      "coldGoal": false,
      "components": {
@@ -13636,6 +13932,66 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.3382,
+      "before": 0.3382,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:12526",
+        "mult": 1,
+        "pp": 0,
+        "text": "Tetairoa McMillan's snap share rose to 92% over his last 2 games from 81% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:12526",
+        "mult": 1,
+        "pp": 0,
+        "text": "Tetairoa McMillan is averaging 1.0 red-zone looks over his last 2 games vs 2.0 before (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:TB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:12526",
+       "status": "new",
+       "strength": 0.27,
+       "type": "Snap share"
+      },
+      {
+       "direction": "down",
+       "family": "redzone",
+       "firstDetectedWeek": 7,
+       "id": "redzone:12526",
+       "status": "new",
+       "strength": -0.17,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -13732,7 +14088,7 @@
       0.4892
      ],
      "ceiling": 0.5,
-     "challenger": 0.34336165187538337,
+     "challenger": 0.33766185559234774,
      "chance": 0.3069,
      "coldGoal": false,
      "components": {
@@ -13920,6 +14276,66 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.3483,
+      "before": 0.3483,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:2505",
+        "mult": 1,
+        "pp": 0,
+        "text": "Darren Waller's snap share rose to 52% over his last 2 games from 40% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:2505",
+        "mult": 1,
+        "pp": 0,
+        "text": "Darren Waller's share of team carries + targets rose to 11% (last 2) from 5% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:TB:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 0.3 TE touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:2505",
+       "status": "new",
+       "strength": 0.31,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:2505",
+       "status": "new",
+       "strength": 0.25,
+       "type": "Touch share"
+      },
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:TE",
+       "status": "new",
+       "strength": -0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -14015,7 +14431,7 @@
       0.4668
      ],
      "ceiling": 0.5,
-     "challenger": 0.30751509270808475,
+     "challenger": 0.30403234748985253,
      "chance": 0.3068,
      "coldGoal": false,
      "components": {
@@ -14187,6 +14603,32 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.2888,
+      "before": 0.2888,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:TB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -14282,7 +14724,7 @@
       0.3467
      ],
      "ceiling": 0.5,
-     "challenger": 0.1924271871332297,
+     "challenger": 0.18786510098378395,
      "chance": 0.1872,
      "coldGoal": false,
      "components": {
@@ -14468,6 +14910,32 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.0868,
+      "before": 0.0868,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:9228",
+        "mult": 1,
+        "pp": 0,
+        "text": "Bryce Young's snap share rose to 100% over his last 2 games from 92% (2 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:9228",
+       "status": "new",
+       "strength": 0.2,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -14580,7 +15048,7 @@
       0.1903
      ],
      "ceiling": 0.5,
-     "challenger": 0.09690028225041236,
+     "challenger": 0.097260478209931,
      "chance": 0.0847,
      "coldGoal": false,
      "components": {
@@ -14744,6 +15212,8 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -14834,7 +15304,7 @@
       0.133
      ],
      "ceiling": 0.5,
-     "challenger": 0.11370385682090067,
+     "challenger": 0.11565548981560891,
      "chance": 0.0816,
      "coldGoal": false,
      "components": {
@@ -15004,6 +15474,32 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.0682,
+      "before": 0.0682,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:TB:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 0.3 TE touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:TE",
+       "status": "new",
+       "strength": -0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -15098,7 +15594,7 @@
       0.1524
      ],
      "ceiling": 0.5,
-     "challenger": 0.08115042129662187,
+     "challenger": 0.08718064249221502,
      "chance": 0.065,
      "coldGoal": false,
      "components": {
@@ -15271,6 +15767,66 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.0372,
+      "before": 0.0372,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:11157",
+        "mult": 1,
+        "pp": 0,
+        "text": "Brycen Tremayne's snap share rose to 87% over his last 2 games from 18% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:11157",
+        "mult": 1,
+        "pp": 0,
+        "text": "Brycen Tremayne's share of team carries + targets rose to 7% (last 2) from 0% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:TB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:11157",
+       "status": "new",
+       "strength": 1,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:11157",
+       "status": "new",
+       "strength": 0.29,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -15362,7 +15918,7 @@
       0.0971
      ],
      "ceiling": 0.5,
-     "challenger": 0.08057618915373832,
+     "challenger": 0.07709209151617524,
      "chance": 0.055,
      "coldGoal": false,
      "components": {
@@ -15532,6 +16088,32 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.083,
+      "before": 0.083,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:TB:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 0.3 TE touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:TE",
+       "status": "new",
+       "strength": -0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -15623,7 +16205,7 @@
       0.1043
      ],
      "ceiling": 0.5,
-     "challenger": 0.06239986409774467,
+     "challenger": 0.05981333176218351,
      "chance": 0.0489,
      "coldGoal": false,
      "components": {
@@ -15793,6 +16375,32 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.0991,
+      "before": 0.0991,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:TB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -15884,7 +16492,7 @@
       0.1653
      ],
      "ceiling": 0.5,
-     "challenger": 0.05873193068628546,
+     "challenger": 0.06117913984415613,
      "chance": 0.045,
      "coldGoal": false,
      "components": {
@@ -16055,6 +16663,32 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.022,
+      "before": 0.022,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:TB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -16146,7 +16780,7 @@
       0.0782
      ],
      "ceiling": 0.5,
-     "challenger": 0.04579545070439406,
+     "challenger": 0.04682811643774587,
      "chance": 0.0339,
      "coldGoal": false,
      "components": {
@@ -16310,6 +16944,32 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.0321,
+      "before": 0.0321,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:TB:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -16401,7 +17061,7 @@
       0.0419
      ],
      "ceiling": 0.5,
-     "challenger": 0.030505490372611743,
+     "challenger": 0.030614663610331272,
      "chance": 0.0178,
      "coldGoal": false,
      "components": {
@@ -16565,6 +17225,32 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.0168,
+      "before": 0.0168,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:TB:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 0.3 TE touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:TE",
+       "status": "new",
+       "strength": -0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -16654,7 +17340,7 @@
       0.0238
      ],
      "ceiling": 0.5,
-     "challenger": 0.018330287044649674,
+     "challenger": 0.017939037244104394,
      "chance": 0.01,
      "coldGoal": false,
      "components": {
@@ -16824,6 +17510,32 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.0153,
+      "before": 0.0153,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:TB:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 0.3 TE touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:TE",
+       "status": "new",
+       "strength": -0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -16913,7 +17625,7 @@
       0.0189
      ],
      "ceiling": 0.5,
-     "challenger": 0.01772120501829466,
+     "challenger": 0.017286691597571235,
      "chance": 0.0096,
      "coldGoal": false,
      "components": {
@@ -17075,6 +17787,32 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": {
+      "after": 0.0091,
+      "before": 0.0091,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:TB:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "TB has allowed 0.3 TE touchdowns a game over its last 3 vs 1.0 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:TB:TE",
+       "status": "new",
+       "strength": -0.28,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -17164,7 +17902,7 @@
       0.0067
      ],
      "ceiling": 0.5,
-     "challenger": 0.0069887521862479485,
+     "challenger": 0.007470906941957733,
      "chance": 0.0042,
      "coldGoal": false,
      "components": {
@@ -17344,6 +18082,8 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {
@@ -17454,7 +18194,7 @@
       0.0098
      ],
      "ceiling": 0.5,
-     "challenger": 0.0068139072462585215,
+     "challenger": 0.006703642354257466,
      "chance": 0.0041,
      "coldGoal": false,
      "components": {
@@ -17634,6 +18374,8 @@
       ]
      },
      "team": "CAR",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On CAR nflverse roster (week 6, ACT)",
      "vol": {

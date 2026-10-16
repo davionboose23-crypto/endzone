@@ -9093,16 +9093,16 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-16T19:01:26.739Z",
-  "fingerprint": "d6a2e5ee90716f58f5f31ab4",
+  "capturedAt": "2026-10-16T21:52:19.531Z",
+  "fingerprint": "6dfa4acffe3b036e2790ad6d",
   "payload": {
    "callIds": {
     "away": "8151",
     "home": "11435"
    },
-   "capturedAt": "2026-10-16T19:01:26.739Z",
+   "capturedAt": "2026-10-16T21:52:19.531Z",
    "challenger": {
-    "capturedCutoff": "2026-10-16T19:01:26.365Z",
+    "capturedCutoff": "2026-10-16T21:52:18.869Z",
     "reason": null,
     "status": "rich",
     "trainingCount": 2188,
@@ -9115,30 +9115,30 @@
    "gameId": "2026_07_KC_SEA",
    "gameLambda": 4.021145739607654,
    "inputTimestamps": {
-    "ftn": "2026-10-16T19:01:21.958Z",
-    "history_2025": "2026-10-16T19:01:14.885Z",
-    "history_2026": "2026-10-16T19:01:21.900Z",
-    "idmap": "2026-10-16T19:01:21.832Z",
-    "pbp": "2026-10-16T19:01:22.579Z",
-    "players": "2026-10-16T19:01:21.490Z",
-    "proj_1": "2026-10-16T19:01:14.222Z",
-    "proj_2": "2026-10-16T19:01:14.244Z",
-    "proj_3": "2026-10-16T19:01:14.238Z",
-    "proj_4": "2026-10-16T19:01:14.208Z",
-    "proj_5": "2026-10-16T19:01:14.262Z",
-    "proj_6": "2026-10-16T19:01:21.568Z",
-    "proj_7": "2026-10-16T19:01:21.580Z",
-    "roster": "2026-10-16T19:01:21.646Z",
-    "schedule": "2026-10-16T19:01:21.221Z",
-    "snaps": "2026-10-16T19:01:22.605Z",
-    "state": "2026-10-16T19:01:21.067Z",
-    "stats_1": "2026-10-16T19:01:14.136Z",
-    "stats_2": "2026-10-16T19:01:14.153Z",
-    "stats_3": "2026-10-16T19:01:14.171Z",
-    "stats_4": "2026-10-16T19:01:14.107Z",
-    "stats_5": "2026-10-16T19:01:14.192Z",
-    "stats_6": "2026-10-16T19:01:21.521Z",
-    "stats_7": "2026-10-16T19:01:21.531Z"
+    "ftn": "2026-10-16T21:52:14.157Z",
+    "history_2025": "2026-10-16T21:52:05.850Z",
+    "history_2026": "2026-10-16T21:52:14.084Z",
+    "idmap": "2026-10-16T21:52:14.000Z",
+    "pbp": "2026-10-16T21:52:14.767Z",
+    "players": "2026-10-16T21:52:13.637Z",
+    "proj_1": "2026-10-16T21:52:05.146Z",
+    "proj_2": "2026-10-16T21:52:05.183Z",
+    "proj_3": "2026-10-16T21:52:05.198Z",
+    "proj_4": "2026-10-16T21:52:05.192Z",
+    "proj_5": "2026-10-16T21:52:05.171Z",
+    "proj_6": "2026-10-16T21:52:13.672Z",
+    "proj_7": "2026-10-16T21:52:13.695Z",
+    "roster": "2026-10-16T21:52:13.791Z",
+    "schedule": "2026-10-16T21:52:13.424Z",
+    "snaps": "2026-10-16T21:52:14.810Z",
+    "state": "2026-10-16T21:52:13.243Z",
+    "stats_1": "2026-10-16T21:52:05.016Z",
+    "stats_2": "2026-10-16T21:52:05.096Z",
+    "stats_3": "2026-10-16T21:52:05.113Z",
+    "stats_4": "2026-10-16T21:52:05.129Z",
+    "stats_5": "2026-10-16T21:52:05.053Z",
+    "stats_6": "2026-10-16T21:52:13.650Z",
+    "stats_7": "2026-10-16T21:52:13.674Z"
    },
    "kickoff": "2026-10-26T00:20:00.000Z",
    "lessons": "Learned from finished games (reconstructed history, not prospectively validated), from the last three weeks",
@@ -9152,7 +9152,7 @@
     "total": 44.5,
     "totalKnown": true
    },
-   "modelVersion": "endzone-4.3.0",
+   "modelVersion": "endzone-4.4.0",
    "players": [
     {
      "avail": {
@@ -9166,7 +9166,7 @@
       0.672
      ],
      "ceiling": 0.5,
-     "challenger": 0.4863479275002548,
+     "challenger": 0.48559449545813926,
      "chance": 0.5,
      "coldGoal": false,
      "components": {
@@ -9343,6 +9343,66 @@
       ]
      },
      "team": "KC",
+     "trendEffect": {
+      "after": 0.6029,
+      "before": 0.6029,
+      "items": [
+       {
+        "family": "streak",
+        "id": "streak:8151",
+        "mult": 1,
+        "pp": 0,
+        "text": "Kenneth Walker has scored in 3 of his last 4 games (weeks 1, 3, 4).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:8151",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 1.7 scoring games over his last 4 graded games; he had 3.",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:SEA:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "SEA has allowed 1.7 RB touchdowns a game over its last 3 vs 0.3 before (3 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "streak",
+       "firstDetectedWeek": 7,
+       "id": "streak:8151",
+       "status": "new",
+       "strength": 0.25,
+       "type": "Scoring streak"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 7,
+       "id": "miss:8151",
+       "status": "new",
+       "strength": 0.6,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:SEA:RB",
+       "status": "continuing",
+       "strength": 0.67,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -9443,7 +9503,7 @@
       0.4738
      ],
      "ceiling": 0.5,
-     "challenger": 0.3207652464212716,
+     "challenger": 0.3138603919234727,
      "chance": 0.3216,
      "coldGoal": false,
      "components": {
@@ -9632,6 +9692,41 @@
       ]
      },
      "team": "KC",
+     "trendEffect": {
+      "after": 0.3421,
+      "before": 0.3421,
+      "items": [
+       {
+        "family": "redzone",
+        "id": "redzone:11624",
+        "mult": 1,
+        "pp": 0,
+        "text": "Xavier Worthy is averaging 0.0 red-zone looks over his last 2 games vs 2.0 before (2 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "redzone",
+       "firstDetectedWeek": 7,
+       "id": "redzone:11624",
+       "status": "new",
+       "strength": -0.33,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 7,
+       "id": "vacuum:11624",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      }
+     ],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -9727,7 +9822,7 @@
       0.3222
      ],
      "ceiling": 0.5,
-     "challenger": 0.27296429723061777,
+     "challenger": 0.28005441392921626,
      "chance": 0.1902,
      "coldGoal": false,
      "components": {
@@ -9901,6 +9996,66 @@
       ]
      },
      "team": "KC",
+     "trendEffect": {
+      "after": 0.1024,
+      "before": 0.1024,
+      "items": [
+       {
+        "family": "usage",
+        "id": "usage:1466",
+        "mult": 1,
+        "pp": 0,
+        "text": "Travis Kelce's share of team carries + targets fell to 6% (last 2) from 12% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:1466",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 0.9 scoring games over his last 4 graded games; he had 2.",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:SEA:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "SEA has allowed 0.0 TE touchdowns a game over its last 3 vs 0.7 before (3 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:1466",
+       "status": "new",
+       "strength": -0.24,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 4,
+       "id": "miss:1466",
+       "status": "continuing",
+       "strength": 0.51,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:SEA:TE",
+       "status": "continuing",
+       "strength": -0.33,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -9999,7 +10154,7 @@
       0.2646
      ],
      "ceiling": 0.5,
-     "challenger": 0.14813334463592231,
+     "challenger": 0.14604710758101103,
      "chance": 0.1379,
      "coldGoal": false,
      "components": {
@@ -10185,6 +10340,32 @@
       ]
      },
      "team": "KC",
+     "trendEffect": {
+      "after": 0.0555,
+      "before": 0.0555,
+      "items": [
+       {
+        "family": "qbRush",
+        "id": "qbRush:4046",
+        "mult": 1,
+        "pp": 0,
+        "text": "QB Patrick Mahomes ran 1.5 times a game over his last 2 vs 4.5 before.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "qbRush",
+       "firstDetectedWeek": 7,
+       "id": "qbRush:4046",
+       "status": "new",
+       "strength": -0.27,
+       "type": "QB rushing"
+      }
+     ],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -10297,7 +10478,7 @@
       0.1801
      ],
      "ceiling": 0.5,
-     "challenger": 0.13825082191692117,
+     "challenger": 0.13418942664235123,
      "chance": 0.1029,
      "coldGoal": false,
      "components": {
@@ -10469,6 +10650,66 @@
       ]
      },
      "team": "KC",
+     "trendEffect": {
+      "after": 0.1305,
+      "before": 0.1305,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:7828",
+        "mult": 1,
+        "pp": 0,
+        "text": "Noah Gray's snap share rose to 66% over his last 2 games from 53% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:7828",
+        "mult": 1,
+        "pp": 0,
+        "text": "Noah Gray's share of team carries + targets rose to 6% (last 2) from 1% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:SEA:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "SEA has allowed 0.0 TE touchdowns a game over its last 3 vs 0.7 before (3 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:7828",
+       "status": "new",
+       "strength": 0.33,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:7828",
+       "status": "new",
+       "strength": 0.19,
+       "type": "Touch share"
+      },
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:SEA:TE",
+       "status": "continuing",
+       "strength": -0.33,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -10560,7 +10801,7 @@
       0.1771
      ],
      "ceiling": 0.5,
-     "challenger": 0.09586076121681508,
+     "challenger": 0.10209355353378202,
      "chance": 0.1005,
      "coldGoal": false,
      "components": {
@@ -10730,6 +10971,32 @@
       ]
      },
      "team": "KC",
+     "trendEffect": {
+      "after": 0.0695,
+      "before": 0.0695,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:SEA:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "SEA has allowed 1.7 RB touchdowns a game over its last 3 vs 0.3 before (3 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:SEA:RB",
+       "status": "continuing",
+       "strength": 0.67,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -10822,7 +11089,7 @@
       0.1493
      ],
      "ceiling": 0.5,
-     "challenger": 0.10896998010402603,
+     "challenger": 0.10579454342875272,
      "chance": 0.0925,
      "coldGoal": false,
      "components": {
@@ -10992,6 +11259,8 @@
       ]
      },
      "team": "KC",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -11083,7 +11352,7 @@
       0.1792
      ],
      "ceiling": 0.5,
-     "challenger": 0.07429428564228757,
+     "challenger": 0.07257896791610341,
      "chance": 0.0764,
      "coldGoal": false,
      "components": {
@@ -11246,6 +11515,32 @@
       ]
      },
      "team": "KC",
+     "trendEffect": {
+      "after": 0.0724,
+      "before": 0.0724,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:SEA:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "SEA has allowed 1.7 RB touchdowns a game over its last 3 vs 0.3 before (3 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:SEA:RB",
+       "status": "continuing",
+       "strength": 0.67,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -11335,7 +11630,7 @@
       0.1179
      ],
      "ceiling": 0.5,
-     "challenger": 0.05309324161758977,
+     "challenger": 0.05541919391764394,
      "chance": 0.0516,
      "coldGoal": false,
      "components": {
@@ -11499,6 +11794,32 @@
       ]
      },
      "team": "KC",
+     "trendEffect": {
+      "after": 0.0489,
+      "before": 0.0489,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:SEA:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "SEA has allowed 1.7 RB touchdowns a game over its last 3 vs 0.3 before (3 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:SEA:RB",
+       "status": "continuing",
+       "strength": 0.67,
+       "type": "Defense trend"
+      }
+     ],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -11589,7 +11910,7 @@
       0.0898
      ],
      "ceiling": 0.5,
-     "challenger": 0.041439302730048366,
+     "challenger": 0.04316293672061666,
      "chance": 0.039,
      "coldGoal": false,
      "components": {
@@ -11751,6 +12072,32 @@
       ]
      },
      "team": "KC",
+     "trendEffect": {
+      "after": 0.0369,
+      "before": 0.0369,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:SEA:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "SEA has allowed 1.7 RB touchdowns a game over its last 3 vs 0.3 before (3 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:SEA:RB",
+       "status": "continuing",
+       "strength": 0.67,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -11840,7 +12187,7 @@
       0.0682
      ],
      "ceiling": 0.5,
-     "challenger": 0.04033650149948753,
+     "challenger": 0.04018435629802908,
      "chance": 0.0293,
      "coldGoal": false,
      "components": {
@@ -12002,6 +12349,8 @@
       ]
      },
      "team": "KC",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -12093,7 +12442,7 @@
       0.0458
      ],
      "ceiling": 0.5,
-     "challenger": 0.039821969709863514,
+     "challenger": 0.041298637455512655,
      "chance": 0.0287,
      "coldGoal": false,
      "components": {
@@ -12263,6 +12612,8 @@
       ]
      },
      "team": "KC",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -12354,7 +12705,7 @@
       0.0378
      ],
      "ceiling": 0.5,
-     "challenger": 0.03080723823480358,
+     "challenger": 0.03257552151515297,
      "chance": 0.0177,
      "coldGoal": false,
      "components": {
@@ -12524,6 +12875,32 @@
       ]
      },
      "team": "KC",
+     "trendEffect": {
+      "after": 0.0108,
+      "before": 0.0108,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:SEA:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "SEA has allowed 0.0 TE touchdowns a game over its last 3 vs 0.7 before (3 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:SEA:TE",
+       "status": "continuing",
+       "strength": -0.33,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -12613,7 +12990,7 @@
       0.0374
      ],
      "ceiling": 0.5,
-     "challenger": 0.027746356072954836,
+     "challenger": 0.027784518325538632,
      "chance": 0.0158,
      "coldGoal": false,
      "components": {
@@ -12775,6 +13152,32 @@
       ]
      },
      "team": "KC",
+     "trendEffect": {
+      "after": 0.015,
+      "before": 0.015,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:SEA:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "SEA has allowed 0.0 TE touchdowns a game over its last 3 vs 0.7 before (3 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:SEA:TE",
+       "status": "continuing",
+       "strength": -0.33,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -12864,7 +13267,7 @@
       0.0086
      ],
      "ceiling": 0.5,
-     "challenger": 0.006126937643106234,
+     "challenger": 0.006084257119562397,
      "chance": 0.0036,
      "coldGoal": false,
      "components": {
@@ -13044,6 +13447,8 @@
       ]
      },
      "team": "KC",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -13154,7 +13559,7 @@
       0.0086
      ],
      "ceiling": 0.5,
-     "challenger": 0.006126937643106234,
+     "challenger": 0.006084257119562397,
      "chance": 0.0036,
      "coldGoal": false,
      "components": {
@@ -13334,6 +13739,8 @@
       ]
      },
      "team": "KC",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 6, ACT)",
      "vol": {
@@ -13444,7 +13851,7 @@
       0.5111
      ],
      "ceiling": 0.5,
-     "challenger": 0.39629510260463924,
+     "challenger": 0.3960745769145125,
      "chance": 0.3445,
      "coldGoal": false,
      "components": {
@@ -13622,6 +14029,32 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": {
+      "after": 0.3772,
+      "before": 0.3772,
+      "items": [
+       {
+        "family": "redzone",
+        "id": "redzone:11435",
+        "mult": 1,
+        "pp": 0,
+        "text": "Emanuel Wilson is averaging 1.5 red-zone looks over his last 2 games vs 4.3 before (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "redzone",
+       "firstDetectedWeek": 7,
+       "id": "redzone:11435",
+       "status": "new",
+       "strength": -0.32,
+       "type": "Red-zone role"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -13716,7 +14149,7 @@
       0.4656
      ],
      "ceiling": 0.5,
-     "challenger": 0.400054881497983,
+     "challenger": 0.40244226214769396,
      "chance": 0.3408,
      "coldGoal": false,
      "components": {
@@ -13896,6 +14329,32 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": {
+      "after": 0.3382,
+      "before": 0.3382,
+      "items": [
+       {
+        "family": "redzone",
+        "id": "redzone:9488",
+        "mult": 1,
+        "pp": 0,
+        "text": "Jaxon Smith-Njigba is averaging 0.5 red-zone looks over his last 2 games vs 2.3 before (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "redzone",
+       "firstDetectedWeek": 6,
+       "id": "redzone:9488",
+       "status": "continuing",
+       "strength": -0.33,
+       "type": "Red-zone role"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -13991,7 +14450,7 @@
       0.3436
      ],
      "ceiling": 0.5,
-     "challenger": 0.27271362114304337,
+     "challenger": 0.2694687356593232,
      "chance": 0.2225,
      "coldGoal": false,
      "components": {
@@ -14186,6 +14645,41 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": {
+      "after": 0.2196,
+      "before": 0.2196,
+      "items": [
+       {
+        "family": "redzone",
+        "id": "redzone:11603",
+        "mult": 1,
+        "pp": 0,
+        "text": "AJ Barner is averaging 0.5 red-zone looks over his last 2 games vs 2.0 before (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "redzone",
+       "firstDetectedWeek": 6,
+       "id": "redzone:11603",
+       "status": "continuing",
+       "strength": -0.3,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 7,
+       "id": "vacuum:11603",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -14283,7 +14777,7 @@
       0.3016
      ],
      "ceiling": 0.5,
-     "challenger": 0.18510974281013087,
+     "challenger": 0.18339389784607563,
      "chance": 0.2034,
      "coldGoal": false,
      "components": {
@@ -14459,6 +14953,32 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": {
+      "after": 0.2148,
+      "before": 0.2148,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:12048",
+        "mult": 1,
+        "pp": 0,
+        "text": "George Holani's snap share rose to 50% over his last 2 games from 33% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:12048",
+       "status": "new",
+       "strength": 0.49,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -14557,7 +15077,7 @@
       0.2488
      ],
      "ceiling": 0.5,
-     "challenger": 0.17367791644672692,
+     "challenger": 0.16849297641882305,
      "chance": 0.1518,
      "coldGoal": false,
      "components": {
@@ -14735,6 +15255,49 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": {
+      "after": 0.1382,
+      "before": 0.1382,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:4039",
+        "mult": 1,
+        "pp": 0,
+        "text": "Cooper Kupp's snap share rose to 83% over his last 2 games from 56% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:4039",
+        "mult": 1,
+        "pp": 0,
+        "text": "Cooper Kupp's share of team carries + targets rose to 10% (last 2) from 5% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:4039",
+       "status": "new",
+       "strength": 0.82,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:4039",
+       "status": "new",
+       "strength": 0.24,
+       "type": "Touch share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -14830,7 +15393,7 @@
       0.1818
      ],
      "ceiling": 0.5,
-     "challenger": 0.14113566487742027,
+     "challenger": 0.1381407639742519,
      "chance": 0.1191,
      "coldGoal": false,
      "components": {
@@ -15006,6 +15569,32 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": {
+      "after": 0.1075,
+      "before": 0.1075,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:8676",
+        "mult": 1,
+        "pp": 0,
+        "text": "Rashid Shaheed's snap share fell to 46% over his last 2 games from 54% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:8676",
+       "status": "new",
+       "strength": -0.24,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -15101,7 +15690,7 @@
       0.1868
      ],
      "ceiling": 0.5,
-     "challenger": 0.12102230148010687,
+     "challenger": 0.11685132694712697,
      "chance": 0.0999,
      "coldGoal": false,
      "components": {
@@ -15278,6 +15867,8 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -15369,7 +15960,7 @@
       0.1712
      ],
      "ceiling": 0.5,
-     "challenger": 0.11320070406815873,
+     "challenger": 0.11513336192121837,
      "chance": 0.0965,
      "coldGoal": false,
      "components": {
@@ -15562,6 +16153,32 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": {
+      "after": 0.0496,
+      "before": 0.0496,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:4943",
+        "mult": 1,
+        "pp": 0,
+        "text": "Sam Darnold's snap share rose to 100% over his last 2 games from 70% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:4943",
+       "status": "continuing",
+       "strength": 0.9,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -15674,7 +16291,7 @@
       0.0869
      ],
      "ceiling": 0.5,
-     "challenger": 0.06809019177033551,
+     "challenger": 0.06561175567819857,
      "chance": 0.0431,
      "coldGoal": false,
      "components": {
@@ -15850,6 +16467,8 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -15939,7 +16558,7 @@
       0.0603
      ],
      "ceiling": 0.5,
-     "challenger": 0.03844502398448763,
+     "challenger": 0.04081706980939254,
      "chance": 0.0262,
      "coldGoal": false,
      "components": {
@@ -16107,6 +16726,8 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -16198,7 +16819,7 @@
       0.0574
      ],
      "ceiling": 0.5,
-     "challenger": 0.03648675298096198,
+     "challenger": 0.03740982239454624,
      "chance": 0.0248,
      "coldGoal": false,
      "components": {
@@ -16256,7 +16877,7 @@
      "recentRzLooks": 0,
      "replacing": null,
      "riser": null,
-     "role": "WR6",
+     "role": "WR8",
      "safetyNotes": [],
      "scenarios": {
       "behind": {
@@ -16366,6 +16987,8 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -16457,7 +17080,7 @@
       0.0584
      ],
      "ceiling": 0.5,
-     "challenger": 0.02765685579444332,
+     "challenger": 0.029155895692613225,
      "chance": 0.0235,
      "coldGoal": false,
      "components": {
@@ -16625,6 +17248,32 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": {
+      "after": 0.0222,
+      "before": 0.0222,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:11280",
+        "mult": 1,
+        "pp": 0,
+        "text": "Brady Russell's snap share fell to 6% over his last 2 games from 25% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:11280",
+       "status": "continuing",
+       "strength": -0.56,
+       "type": "Snap share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -16714,7 +17363,7 @@
       0.0876
      ],
      "ceiling": 0.5,
-     "challenger": 0.03143976878945906,
+     "challenger": 0.029599831984652353,
      "chance": 0.0224,
      "coldGoal": false,
      "components": {
@@ -16900,6 +17549,8 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -17012,7 +17663,7 @@
       0.0305
      ],
      "ceiling": 0.5,
-     "challenger": 0.03260062186297822,
+     "challenger": 0.03587102121781739,
      "chance": 0.018,
      "coldGoal": false,
      "components": {
@@ -17192,6 +17843,8 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -17281,7 +17934,7 @@
       0.0367
      ],
      "ceiling": 0.5,
-     "challenger": 0.028402921689826884,
+     "challenger": 0.028818872618194515,
      "chance": 0.0156,
      "coldGoal": false,
      "components": {
@@ -17449,6 +18102,8 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On SEA nflverse roster (week 6, ACT)",
      "vol": {
@@ -17538,7 +18193,7 @@
       0.0104
      ],
      "ceiling": 0.5,
-     "challenger": 0.007513723466754517,
+     "challenger": 0.00751583679939904,
      "chance": 0.0043,
      "coldGoal": false,
      "components": {
@@ -17727,6 +18382,8 @@
       ]
      },
      "team": "SEA",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {

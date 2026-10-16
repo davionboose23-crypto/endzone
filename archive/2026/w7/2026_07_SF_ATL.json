@@ -9385,16 +9385,16 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-16T19:01:26.631Z",
-  "fingerprint": "297266b156a99f7a0a3d0204",
+  "capturedAt": "2026-10-16T21:52:19.372Z",
+  "fingerprint": "3ab5788cc9727ff967995363",
   "payload": {
    "callIds": {
     "away": "4217",
     "home": "8154"
    },
-   "capturedAt": "2026-10-16T19:01:26.631Z",
+   "capturedAt": "2026-10-16T21:52:19.372Z",
    "challenger": {
-    "capturedCutoff": "2026-10-16T19:01:26.365Z",
+    "capturedCutoff": "2026-10-16T21:52:18.869Z",
     "reason": null,
     "status": "rich",
     "trainingCount": 2188,
@@ -9407,30 +9407,30 @@
    "gameId": "2026_07_SF_ATL",
    "gameLambda": 4.884024946954512,
    "inputTimestamps": {
-    "ftn": "2026-10-16T19:01:21.958Z",
-    "history_2025": "2026-10-16T19:01:14.885Z",
-    "history_2026": "2026-10-16T19:01:21.900Z",
-    "idmap": "2026-10-16T19:01:21.832Z",
-    "pbp": "2026-10-16T19:01:22.579Z",
-    "players": "2026-10-16T19:01:21.490Z",
-    "proj_1": "2026-10-16T19:01:14.222Z",
-    "proj_2": "2026-10-16T19:01:14.244Z",
-    "proj_3": "2026-10-16T19:01:14.238Z",
-    "proj_4": "2026-10-16T19:01:14.208Z",
-    "proj_5": "2026-10-16T19:01:14.262Z",
-    "proj_6": "2026-10-16T19:01:21.568Z",
-    "proj_7": "2026-10-16T19:01:21.580Z",
-    "roster": "2026-10-16T19:01:21.646Z",
-    "schedule": "2026-10-16T19:01:21.221Z",
-    "snaps": "2026-10-16T19:01:22.605Z",
-    "state": "2026-10-16T19:01:21.067Z",
-    "stats_1": "2026-10-16T19:01:14.136Z",
-    "stats_2": "2026-10-16T19:01:14.153Z",
-    "stats_3": "2026-10-16T19:01:14.171Z",
-    "stats_4": "2026-10-16T19:01:14.107Z",
-    "stats_5": "2026-10-16T19:01:14.192Z",
-    "stats_6": "2026-10-16T19:01:21.521Z",
-    "stats_7": "2026-10-16T19:01:21.531Z"
+    "ftn": "2026-10-16T21:52:14.157Z",
+    "history_2025": "2026-10-16T21:52:05.850Z",
+    "history_2026": "2026-10-16T21:52:14.084Z",
+    "idmap": "2026-10-16T21:52:14.000Z",
+    "pbp": "2026-10-16T21:52:14.767Z",
+    "players": "2026-10-16T21:52:13.637Z",
+    "proj_1": "2026-10-16T21:52:05.146Z",
+    "proj_2": "2026-10-16T21:52:05.183Z",
+    "proj_3": "2026-10-16T21:52:05.198Z",
+    "proj_4": "2026-10-16T21:52:05.192Z",
+    "proj_5": "2026-10-16T21:52:05.171Z",
+    "proj_6": "2026-10-16T21:52:13.672Z",
+    "proj_7": "2026-10-16T21:52:13.695Z",
+    "roster": "2026-10-16T21:52:13.791Z",
+    "schedule": "2026-10-16T21:52:13.424Z",
+    "snaps": "2026-10-16T21:52:14.810Z",
+    "state": "2026-10-16T21:52:13.243Z",
+    "stats_1": "2026-10-16T21:52:05.016Z",
+    "stats_2": "2026-10-16T21:52:05.096Z",
+    "stats_3": "2026-10-16T21:52:05.113Z",
+    "stats_4": "2026-10-16T21:52:05.129Z",
+    "stats_5": "2026-10-16T21:52:05.053Z",
+    "stats_6": "2026-10-16T21:52:13.650Z",
+    "stats_7": "2026-10-16T21:52:13.674Z"
    },
    "kickoff": "2026-10-25T17:00:00.000Z",
    "lessons": "Learned from finished games (reconstructed history, not prospectively validated), from the last three weeks",
@@ -9444,7 +9444,7 @@
     "total": 49.5,
     "totalKnown": true
    },
-   "modelVersion": "endzone-4.3.0",
+   "modelVersion": "endzone-4.4.0",
    "players": [
     {
      "avail": {
@@ -9458,7 +9458,7 @@
       0.4528
      ],
      "ceiling": 0.5,
-     "challenger": 0.4249269609398132,
+     "challenger": 0.42518455021807966,
      "chance": 0.3262,
      "coldGoal": false,
      "components": {
@@ -9639,6 +9639,100 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.3666,
+      "before": 0.3666,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:4217",
+        "mult": 1,
+        "pp": 0,
+        "text": "George Kittle's snap share rose to 92% over his last 2 games from 60% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:4217",
+        "mult": 1,
+        "pp": 0,
+        "text": "George Kittle is averaging 0.5 red-zone looks over his last 2 games vs 1.7 before (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "streak",
+        "id": "streak:4217",
+        "mult": 1,
+        "pp": 0,
+        "text": "George Kittle has scored in 3 of his last 4 games (weeks 2, 3, 4).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:4217",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 1.4 scoring games over his last 5 graded games; he had 3.",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:ATL:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 0.0 TE touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:4217",
+       "status": "continuing",
+       "strength": 0.96,
+       "type": "Snap share"
+      },
+      {
+       "direction": "down",
+       "family": "redzone",
+       "firstDetectedWeek": 7,
+       "id": "redzone:4217",
+       "status": "new",
+       "strength": -0.26,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "streak",
+       "firstDetectedWeek": 5,
+       "id": "streak:4217",
+       "status": "continuing",
+       "strength": 0.25,
+       "type": "Scoring streak"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 4,
+       "id": "miss:4217",
+       "status": "continuing",
+       "strength": 0.65,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:TE",
+       "status": "new",
+       "strength": -0.62,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -9920,6 +10014,92 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.7346,
+      "before": 0.7346,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:4034",
+        "mult": 1,
+        "pp": 0,
+        "text": "Christian McCaffrey's snap share rose to 78% over his last 2 games from 63% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "streak",
+        "id": "streak:4034",
+        "mult": 1,
+        "pp": 0,
+        "text": "Christian McCaffrey has scored in 4 of his last 4 games (weeks 2, 3, 4, 5).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:4034",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 2.5 scoring games over his last 5 graded games; he had 4.",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:ATL:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 1.0 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:4034",
+       "status": "continuing",
+       "strength": 0.44,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "streak",
+       "firstDetectedWeek": 5,
+       "id": "streak:4034",
+       "status": "continuing",
+       "strength": 0.6,
+       "type": "Scoring streak"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 7,
+       "id": "miss:4034",
+       "status": "new",
+       "strength": 0.61,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 7,
+       "id": "vacuum:4034",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:RB",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -10018,7 +10198,7 @@
       0.5053
      ],
      "ceiling": 0.5,
-     "challenger": 0.3847442632039439,
+     "challenger": 0.37432359816869476,
      "chance": 0.327,
      "coldGoal": false,
      "components": {
@@ -10215,6 +10395,83 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.3366,
+      "before": 0.3366,
+      "items": [
+       {
+        "family": "usage",
+        "id": "usage:2216",
+        "mult": 1,
+        "pp": 0,
+        "text": "Mike Evans's share of team carries + targets rose to 16% (last 2) from 10% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:2216",
+        "mult": 1,
+        "pp": 0,
+        "text": "Mike Evans is averaging 2.0 red-zone looks over his last 2 games vs 0.7 before (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:2216",
+        "mult": 1,
+        "pp": 0,
+        "text": "Under-predicted: the model expected 1.5 scoring games over his last 5 graded games; he had 3.",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:ATL:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 1.3 WR touchdowns a game over its last 3 vs 0.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:2216",
+       "status": "new",
+       "strength": 0.31,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 7,
+       "id": "redzone:2216",
+       "status": "new",
+       "strength": 0.4,
+       "type": "Red-zone role"
+      },
+      {
+       "direction": "up",
+       "family": "miss",
+       "firstDetectedWeek": 7,
+       "id": "miss:2216",
+       "status": "new",
+       "strength": 0.64,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:WR",
+       "status": "new",
+       "strength": 0.56,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -10311,7 +10568,7 @@
       0.4193
      ],
      "ceiling": 0.5,
-     "challenger": 0.2589803450671799,
+     "challenger": 0.24631886295766958,
      "chance": 0.2427,
      "coldGoal": false,
      "components": {
@@ -10493,6 +10750,58 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.4249,
+      "before": 0.4249,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:11616",
+        "mult": 1,
+        "pp": 0,
+        "text": "Jacob Cowing's snap share rose to 38% over his last 2 games from 28% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:ATL:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 1.3 WR touchdowns a game over its last 3 vs 0.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:11616",
+       "status": "new",
+       "strength": 0.27,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "vacuum",
+       "firstDetectedWeek": 7,
+       "id": "vacuum:11616",
+       "status": "new",
+       "strength": 0.3,
+       "type": "Role vacuum"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:WR",
+       "status": "new",
+       "strength": 0.56,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -10584,7 +10893,7 @@
       0.3063
      ],
      "ceiling": 0.5,
-     "challenger": 0.1996611255736174,
+     "challenger": 0.19312039731434583,
      "chance": 0.1878,
      "coldGoal": false,
      "components": {
@@ -10775,6 +11084,32 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.1946,
+      "before": 0.1946,
+      "items": [
+       {
+        "family": "qbRush",
+        "id": "qbRush:8183",
+        "mult": 1,
+        "pp": 0,
+        "text": "QB Brock Purdy ran 7.5 times a game over his last 2 vs 3.3 before.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "qbRush",
+       "firstDetectedWeek": 5,
+       "id": "qbRush:8183",
+       "status": "continuing",
+       "strength": 0.58,
+       "type": "QB rushing"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -10890,7 +11225,7 @@
       0.2521
      ],
      "ceiling": 0.5,
-     "challenger": 0.1461279139922379,
+     "challenger": 0.14583702584697736,
      "chance": 0.1564,
      "coldGoal": false,
      "components": {
@@ -11068,6 +11403,66 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.1705,
+      "before": 0.1705,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:13414",
+        "mult": 1,
+        "pp": 0,
+        "text": "Kaelon Black's snap share fell to 22% over his last 2 games from 30% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:13414",
+        "mult": 1,
+        "pp": 0,
+        "text": "Kaelon Black's share of team carries + targets fell to 11% (last 2) from 16% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:ATL:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 1.0 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:13414",
+       "status": "continuing",
+       "strength": -0.25,
+       "type": "Snap share"
+      },
+      {
+       "direction": "down",
+       "family": "usage",
+       "firstDetectedWeek": 5,
+       "id": "usage:13414",
+       "status": "continuing",
+       "strength": -0.28,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:RB",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -11161,7 +11556,7 @@
       0.1293
      ],
      "ceiling": 0.5,
-     "challenger": 0.09332824428634155,
+     "challenger": 0.09016718972407627,
      "chance": 0.0781,
      "coldGoal": false,
      "components": {
@@ -11339,6 +11734,32 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.0839,
+      "before": 0.0839,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:ATL:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 1.0 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:RB",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -11428,7 +11849,7 @@
       0.1653
      ],
      "ceiling": 0.5,
-     "challenger": 0.07454061671447787,
+     "challenger": 0.07554091878026735,
      "chance": 0.073,
      "coldGoal": false,
      "components": {
@@ -11598,6 +12019,32 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.0691,
+      "before": 0.0691,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:ATL:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 1.0 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:RB",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -11688,7 +12135,7 @@
       0.1577
      ],
      "ceiling": 0.5,
-     "challenger": 0.10243642110673783,
+     "challenger": 0.09719390424561568,
      "chance": 0.0697,
      "coldGoal": false,
      "components": {
@@ -11865,6 +12312,32 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.0981,
+      "before": 0.0981,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:ATL:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 0.0 TE touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:TE",
+       "status": "new",
+       "strength": -0.62,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -11956,7 +12429,7 @@
       0.1146
      ],
      "ceiling": 0.5,
-     "challenger": 0.076567255235294,
+     "challenger": 0.06994615022436668,
      "chance": 0.0594,
      "coldGoal": false,
      "components": {
@@ -12132,6 +12605,32 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.1114,
+      "before": 0.1114,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:ATL:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 1.3 WR touchdowns a game over its last 3 vs 0.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:WR",
+       "status": "new",
+       "strength": 0.56,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -12223,7 +12722,7 @@
       0.0466
      ],
      "ceiling": 0.5,
-     "challenger": 0.023622311641935994,
+     "challenger": 0.023697010105175748,
      "chance": 0.0198,
      "coldGoal": false,
      "components": {
@@ -12399,6 +12898,32 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.0528,
+      "before": 0.0528,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:ATL:RB",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 1.0 RB touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:RB",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -12489,7 +13014,7 @@
       0.0186
      ],
      "ceiling": 0.5,
-     "challenger": 0.020786742018305073,
+     "challenger": 0.020282393084115096,
      "chance": 0.011,
      "coldGoal": false,
      "components": {
@@ -12657,6 +13182,32 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.0104,
+      "before": 0.0104,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:ATL:TE",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 0.0 TE touchdowns a game over its last 3 vs 1.5 before (2 earlier games): trending tight.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:TE",
+       "status": "new",
+       "strength": -0.62,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -12746,7 +13297,7 @@
       0.0233
      ],
      "ceiling": 0.5,
-     "challenger": 0.016319125830972957,
+     "challenger": 0.01634641542065331,
      "chance": 0.01,
      "coldGoal": false,
      "components": {
@@ -12922,6 +13473,32 @@
       ]
      },
      "team": "SF",
+     "trendEffect": {
+      "after": 0.0315,
+      "before": 0.0315,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:ATL:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "ATL has allowed 1.3 WR touchdowns a game over its last 3 vs 0.0 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:ATL:WR",
+       "status": "new",
+       "strength": 0.56,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -13013,7 +13590,7 @@
       0.0201
      ],
      "ceiling": 0.5,
-     "challenger": 0.013660064918821513,
+     "challenger": 0.014451837056682295,
      "chance": 0.0085,
      "coldGoal": false,
      "components": {
@@ -13199,6 +13776,8 @@
       ]
      },
      "team": "SF",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -13309,7 +13888,7 @@
       0.0171
      ],
      "ceiling": 0.5,
-     "challenger": 0.01146109776254733,
+     "challenger": 0.011167459012721249,
      "chance": 0.0071,
      "coldGoal": false,
      "components": {
@@ -13495,6 +14074,8 @@
       ]
      },
      "team": "SF",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On SF nflverse roster (week 6, ACT)",
      "vol": {
@@ -13605,7 +14186,7 @@
       0.4727
      ],
      "ceiling": 0.62,
-     "challenger": 0.2737518655278981,
+     "challenger": 0.2800004693186662,
      "chance": 0.3331,
      "coldGoal": false,
      "components": {
@@ -13776,6 +14357,32 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": {
+      "after": 0.3814,
+      "before": 0.3814,
+      "items": [
+       {
+        "family": "redzone",
+        "id": "redzone:8154",
+        "mult": 1,
+        "pp": 0,
+        "text": "Brian Robinson is averaging 2.5 red-zone looks over his last 2 games vs 0.3 before (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 5,
+       "id": "redzone:8154",
+       "status": "continuing",
+       "strength": 0.65,
+       "type": "Red-zone role"
+      }
+     ],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -13868,7 +14475,7 @@
       0.669
      ],
      "ceiling": 0.5,
-     "challenger": 0.4731950455934195,
+     "challenger": 0.47638693323514847,
      "chance": 0.5,
      "coldGoal": false,
      "components": {
@@ -14046,6 +14653,49 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": {
+      "after": 0.5704,
+      "before": 0.5704,
+      "items": [
+       {
+        "family": "usage",
+        "id": "usage:9509",
+        "mult": 1,
+        "pp": 0,
+        "text": "Bijan Robinson's share of team carries + targets fell to 39% (last 2) from 47% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:9509",
+        "mult": 1,
+        "pp": 0,
+        "text": "Bijan Robinson is averaging 5.5 red-zone looks over his last 2 games vs 3.7 before (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:9509",
+       "status": "new",
+       "strength": -0.4,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 5,
+       "id": "redzone:9509",
+       "status": "continuing",
+       "strength": 0.24,
+       "type": "Red-zone role"
+      }
+     ],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -14150,7 +14800,7 @@
       0.3837
      ],
      "ceiling": 0.5,
-     "challenger": 0.27369937630845875,
+     "challenger": 0.2673732234178263,
      "chance": 0.2419,
      "coldGoal": false,
      "components": {
@@ -14335,6 +14985,32 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": {
+      "after": 0.2193,
+      "before": 0.2193,
+      "items": [
+       {
+        "family": "usage",
+        "id": "usage:7553",
+        "mult": 1,
+        "pp": 0,
+        "text": "Kyle Pitts's share of team carries + targets rose to 8% (last 2) from 3% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 7,
+       "id": "usage:7553",
+       "status": "new",
+       "strength": 0.23,
+       "type": "Touch share"
+      }
+     ],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -14430,7 +15106,7 @@
       0.3386
      ],
      "ceiling": 0.5,
-     "challenger": 0.23735170964815555,
+     "challenger": 0.24152613433636838,
      "chance": 0.2354,
      "coldGoal": false,
      "components": {
@@ -14600,6 +15276,66 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": {
+      "after": 0.1611,
+      "before": 0.1611,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:8112",
+        "mult": 1,
+        "pp": 0,
+        "text": "Drake London's snap share rose to 94% over his last 2 games from 84% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "miss",
+        "id": "miss:8112",
+        "mult": 1,
+        "pp": 0,
+        "text": "Over-predicted: the model expected 1.4 scoring games over his last 5 graded games; he had 0.",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:SF:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "SF has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 5,
+       "id": "snap:8112",
+       "status": "continuing",
+       "strength": 0.28,
+       "type": "Snap share"
+      },
+      {
+       "direction": "down",
+       "family": "miss",
+       "firstDetectedWeek": 5,
+       "id": "miss:8112",
+       "status": "continuing",
+       "strength": -0.58,
+       "type": "Model miss pattern"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:SF:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -14695,7 +15431,7 @@
       0.2362
      ],
      "ceiling": 0.5,
-     "challenger": 0.1691479826201192,
+     "challenger": 0.16479466353993133,
      "chance": 0.1605,
      "coldGoal": false,
      "components": {
@@ -14865,6 +15601,32 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": {
+      "after": 0.1815,
+      "before": 0.1815,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:SF:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "SF has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:SF:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -14958,7 +15720,7 @@
       0.2288
      ],
      "ceiling": 0.5,
-     "challenger": 0.1571720741121554,
+     "challenger": 0.15357743120858358,
      "chance": 0.1249,
      "coldGoal": false,
      "components": {
@@ -15129,6 +15891,8 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -15220,7 +15984,7 @@
       0.183
      ],
      "ceiling": 0.5,
-     "challenger": 0.1256322798723004,
+     "challenger": 0.12768989321190438,
      "chance": 0.1188,
      "coldGoal": false,
      "components": {
@@ -15406,6 +16170,8 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -15520,7 +16286,7 @@
       0.1474
      ],
      "ceiling": 0.5,
-     "challenger": 0.1048905759187787,
+     "challenger": 0.1050527471017928,
      "chance": 0.0921,
      "coldGoal": false,
      "components": {
@@ -15690,6 +16456,32 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": {
+      "after": 0.0677,
+      "before": 0.0677,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:SF:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "SF has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:SF:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -15781,7 +16573,7 @@
       0.1252
      ],
      "ceiling": 0.5,
-     "challenger": 0.07463820765124407,
+     "challenger": 0.07134397594026276,
      "chance": 0.0626,
      "coldGoal": false,
      "components": {
@@ -15951,6 +16743,32 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": {
+      "after": 0.0364,
+      "before": 0.0364,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:SF:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "SF has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:SF:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -16040,7 +16858,7 @@
       0.085
      ],
      "ceiling": 0.5,
-     "challenger": 0.04715793902850096,
+     "challenger": 0.04711727273582267,
      "chance": 0.0367,
      "coldGoal": false,
      "components": {
@@ -16204,6 +17022,32 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": {
+      "after": 0.0347,
+      "before": 0.0347,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:SF:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "SF has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:SF:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -16295,7 +17139,7 @@
       0.085
      ],
      "ceiling": 0.5,
-     "challenger": 0.04715793902850096,
+     "challenger": 0.04711727273582267,
      "chance": 0.0367,
      "coldGoal": false,
      "components": {
@@ -16459,6 +17303,32 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": {
+      "after": 0.0347,
+      "before": 0.0347,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:SF:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "SF has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:SF:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -16550,7 +17420,7 @@
       0.0798
      ],
      "ceiling": 0.5,
-     "challenger": 0.029727657536089414,
+     "challenger": 0.030614231330866826,
      "chance": 0.0215,
      "coldGoal": false,
      "components": {
@@ -16712,6 +17582,49 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": {
+      "after": 0.0204,
+      "before": 0.0204,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:7521",
+        "mult": 1,
+        "pp": 0,
+        "text": "Chris Blair's snap share fell to 22% over his last 2 games from 33% (2 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "defense",
+        "id": "defense:SF:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "SF has allowed 1.0 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 7,
+       "id": "snap:7521",
+       "status": "new",
+       "strength": -0.29,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 7,
+       "id": "defense:SF:WR",
+       "status": "new",
+       "strength": 0.21,
+       "type": "Defense trend"
+      }
+     ],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -16801,7 +17714,7 @@
       0.036
      ],
      "ceiling": 0.5,
-     "challenger": 0.0295649200646102,
+     "challenger": 0.027478328880482517,
      "chance": 0.018,
      "coldGoal": false,
      "components": {
@@ -16971,6 +17884,8 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -17060,7 +17975,7 @@
       0.0374
      ],
      "ceiling": 0.5,
-     "challenger": 0.026419931970866117,
+     "challenger": 0.025722006333883773,
      "chance": 0.0157,
      "coldGoal": false,
      "components": {
@@ -17224,6 +18139,8 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": false,
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
@@ -17313,7 +18230,7 @@
       0.0143
      ],
      "ceiling": 0.5,
-     "challenger": 0.014445561271334006,
+     "challenger": 0.013966388500525118,
      "chance": 0.0079,
      "coldGoal": false,
      "components": {
@@ -17475,6 +18392,8 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -17564,7 +18483,7 @@
       0.0179
      ],
      "ceiling": 0.5,
-     "challenger": 0.011481474478041931,
+     "challenger": 0.012351222474570545,
      "chance": 0.0076,
      "coldGoal": false,
      "components": {
@@ -17744,6 +18663,8 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -17854,7 +18775,7 @@
       0.0238
      ],
      "ceiling": 0.5,
-     "challenger": 0.009439273144554505,
+     "challenger": 0.010134384750168812,
      "chance": 0.0061,
      "coldGoal": false,
      "components": {
@@ -18034,6 +18955,8 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
@@ -18145,7 +19068,7 @@
       0.011
      ],
      "ceiling": 0.5,
-     "challenger": 0.007238520949266247,
+     "challenger": 0.007142146950901984,
      "chance": 0.0046,
      "coldGoal": false,
      "components": {
@@ -18325,6 +19248,8 @@
       ]
      },
      "team": "ATL",
+     "trendEffect": null,
+     "trendTags": [],
      "verified": true,
      "verifyReason": "On ATL nflverse roster (week 6, ACT)",
      "vol": {
