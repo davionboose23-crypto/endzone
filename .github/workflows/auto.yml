@@ -52,7 +52,8 @@ jobs:
             echo "No archive changes."; git reset -q
           else
             git commit -q -m "archive: snapshots/grades/lessons $(date -u +%Y-%m-%dT%H:%MZ)"
-            for i in 1 2 3; do git pull --rebase -q origin main && git push -q origin HEAD:main && break; sleep 5; done
+            ok=0; for i in 1 2 3; do if git pull --rebase --autostash -q origin main && git push -q origin HEAD:main; then ok=1; break; fi; sleep 5; done
+            test "$ok" = 1 || { echo "push failed"; exit 1; }
           fi
       - name: Build site
         run: bash scripts/build-site.sh
