@@ -1,0 +1,689 @@
+{
+ "changes": [
+  {
+   "at": "2026-10-16T19:01:26.970Z",
+   "diff": [
+    {
+     "from": 1,
+     "group": "vol",
+     "key": "rushYd",
+     "to": 1.1
+    },
+    {
+     "from": 1,
+     "group": "vol",
+     "key": "rec",
+     "to": 1.1
+    },
+    {
+     "from": 1,
+     "group": "vol",
+     "key": "recYd",
+     "to": 1.1
+    },
+    {
+     "from": 1,
+     "group": "vol",
+     "key": "passYd",
+     "to": 1.1
+    },
+    {
+     "from": 1,
+     "group": "band",
+     "key": "lt15",
+     "to": 1.142
+    },
+    {
+     "from": 1,
+     "group": "band",
+     "key": "15to25",
+     "to": 0.981
+    },
+    {
+     "from": 1,
+     "group": "band",
+     "key": "25to35",
+     "to": 1.0692
+    },
+    {
+     "from": 1,
+     "group": "band",
+     "key": "35to50",
+     "to": 0.9654
+    },
+    {
+     "from": 1,
+     "group": "band",
+     "key": "50plus",
+     "to": 1.059
+    },
+    {
+     "from": 1,
+     "group": "spot",
+     "key": "r1",
+     "to": 1.2493
+    },
+    {
+     "from": 1,
+     "group": "spot",
+     "key": "r2",
+     "to": 0.8392
+    },
+    {
+     "from": 1,
+     "group": "spot",
+     "key": "r3",
+     "to": 1.1788
+    },
+    {
+     "from": 1,
+     "group": "spot",
+     "key": "t1",
+     "to": 1.1136
+    },
+    {
+     "from": 1,
+     "group": "spot",
+     "key": "t2",
+     "to": 0.914
+    },
+    {
+     "from": 1,
+     "group": "spot",
+     "key": "t3",
+     "to": 1.2358
+    }
+   ],
+   "season": 2026,
+   "week": 6,
+   "why": "Lessons recomputed after newly finished games (last-3-weeks rule; in-week nudge for later games)."
+  }
+ ],
+ "components": {
+  "caps": {
+   "decidedAt": "2026-10-16T18:52:25.875Z",
+   "enabled": false,
+   "fit": {
+    "ceil": 0.6394,
+    "cold": 0.4353,
+    "fin": 0.6394,
+    "floor": 0.1408,
+    "pullS": 0.044,
+    "pullT": 0.4112
+   },
+   "reason": "withheld: Brier change -0.0009 [-0.0017,0] not below zero; log-loss change -0.0016 [-0.0034,0.0004] not below zero",
+   "throughWeek": 5
+  },
+  "challenger": {
+   "decidedAt": "2026-10-16T18:52:25.875Z",
+   "enabled": false,
+   "reason": "withheld: Needs ≥500 prospective paired players for endzone-4.2.2; have 0. Needs ≥40 games; have 0."
+  },
+  "modelVersion": "endzone-4.2.2"
+ },
+ "decisions": [],
+ "experiments": {
+  "validation": {
+   "modelVersion": "endzone-4.3.0",
+   "payload": {
+    "challenger": {
+     "cutoff": {
+      "rule": "weeks strictly before target week",
+      "season": 2026,
+      "week": 7
+     },
+     "fit": {
+      "beta": [
+       -0.021387694246887357,
+       0.8842974598404705,
+       -0.07823076031948015,
+       0.020661605585913654,
+       0.09270621214634349,
+       0.019208164377269698,
+       0.09938166261158232,
+       0.045875104091808755,
+       0.005956606841189569,
+       0.04337095502655434,
+       0.06753638330921735,
+       -0.0016052285857842419,
+       0,
+       0
+      ],
+      "games": 80,
+      "n": 2188,
+      "rich": true
+     },
+     "kind": "rich",
+     "modelVersion": "endzone-4.3.0",
+     "provisional": true,
+     "reason": null,
+     "trainingCount": 2188
+    },
+    "promotion": {
+     "metrics": {
+      "games": 0,
+      "paired": 0
+     },
+     "note": "A new version is never labeled validated because an older version passed.",
+     "promote": false,
+     "reasons": [
+      "Needs ≥500 prospective paired players for endzone-4.3.0; have 0.",
+      "Needs ≥40 games; have 0."
+     ],
+     "rollback": "Champion retained; challenger stays shadow."
+    },
+    "summary": {
+     "all": {
+      "brier": 0.10851280131170014,
+      "flat25Brier": 0.13654021937842778,
+      "logLoss": 0.35536865975511484,
+      "matched": {
+       "model": 0.13041127614269793,
+       "modelLogLoss": 0.421508217220452,
+       "n": 1794,
+       "published": 0.12999553137149272,
+       "publishedLogLoss": 0.41968935034703425
+      },
+      "n": 2188,
+      "prospectiveN": 0,
+      "reconstructedN": 2188
+     },
+     "highTd": {
+      "brier": null,
+      "flat25Brier": null,
+      "logLoss": null,
+      "matched": {
+       "model": null,
+       "modelLogLoss": null,
+       "n": 0,
+       "published": null,
+       "publishedLogLoss": null
+      },
+      "n": 0,
+      "prospectiveN": 0,
+      "reconstructedN": 0
+     },
+     "missingExcluded": 0,
+     "pending": 0,
+     "prospective": 0,
+     "reconstructed": 2188,
+     "teamCalls": {
+      "brier": 0.23399814111111117,
+      "flat25Brier": 0.2716503267973856,
+      "logLoss": 0.661681706481136,
+      "matched": {
+       "model": 0.23399814111111117,
+       "modelLogLoss": 0.661681706481136,
+       "n": 153,
+       "published": 0.23442644488581899,
+       "publishedLogLoss": 0.6623232516088695
+      },
+      "n": 153,
+      "prospectiveN": 0,
+      "reconstructedN": 153
+     }
+    },
+    "volume": {
+     "passTd": {
+      "note": "Passing TDs stay provisional until their own prospective validation exists.",
+      "provisional": true
+     },
+     "passYd": {
+      "byConfidence": {
+       "Low": {
+        "bias": -9.539579255319143,
+        "coverage": 0.8723404255319149,
+        "mae": 34.3803994680851,
+        "n": 188
+       },
+       "Med": {
+        "bias": -11.592848062015502,
+        "coverage": 0.7596899224806202,
+        "mae": 69.03047751937984,
+        "n": 129
+       }
+      },
+      "bySegment": {
+       "QB|primary|uncertain": {
+        "bias": -5.032997350993377,
+        "coverage": 0.7483443708609272,
+        "mae": 69.10419735099336,
+        "n": 151
+       },
+       "QB|reserve|uncertain": {
+        "bias": -27.036721621621616,
+        "coverage": 0.8648648648648649,
+        "mae": 37.67774864864865,
+        "n": 37
+       },
+       "QB|support|uncertain": {
+        "bias": -11.84943410852713,
+        "coverage": 0.9069767441860465,
+        "mae": 27.43904031007752,
+        "n": 129
+       }
+      },
+      "bySource": {
+       "reconstructed": {
+        "bias": -10.375136593059942,
+        "coverage": 0.8264984227129337,
+        "mae": 48.48090441640377,
+        "n": 317
+       }
+      },
+      "overall": {
+       "bias": -10.375136593059942,
+       "coverage": 0.8264984227129337,
+       "mae": 48.48090441640377,
+       "n": 317
+      },
+      "prospective": {
+       "n": 0
+      }
+     },
+     "rec": {
+      "byConfidence": {
+       "Low": {
+        "bias": -0.18594793491864822,
+        "coverage": 0.8848560700876095,
+        "mae": 0.7082732165206506,
+        "n": 1598
+       },
+       "Med": {
+        "bias": -0.7730423728813561,
+        "coverage": 0.7898305084745763,
+        "mae": 1.8033800000000002,
+        "n": 590
+       }
+      },
+      "bySegment": {
+       "QB|primary|uncertain": {
+        "bias": -0.01172251655629139,
+        "coverage": 0.9867549668874173,
+        "mae": 0.014767549668874171,
+        "n": 151
+       },
+       "QB|reserve|uncertain": {
+        "bias": 0,
+        "coverage": 1,
+        "mae": 0,
+        "n": 37
+       },
+       "QB|support|uncertain": {
+        "bias": 0,
+        "coverage": 1,
+        "mae": 0,
+        "n": 129
+       },
+       "RB|primary|uncertain": {
+        "bias": -0.579010055865922,
+        "coverage": 0.8324022346368715,
+        "mae": 1.291706145251396,
+        "n": 179
+       },
+       "RB|reserve|uncertain": {
+        "bias": -0.19709155555555571,
+        "coverage": 0.8577777777777778,
+        "mae": 0.6156106666666669,
+        "n": 225
+       },
+       "RB|support|uncertain": {
+        "bias": -0.5037253731343284,
+        "coverage": 0.8582089552238806,
+        "mae": 1.0816164179104475,
+        "n": 134
+       },
+       "TE|primary|uncertain": {
+        "bias": -0.730059477124183,
+        "coverage": 0.7647058823529411,
+        "mae": 1.873696078431372,
+        "n": 153
+       },
+       "TE|reserve|uncertain": {
+        "bias": -0.23863112033195016,
+        "coverage": 0.8589211618257261,
+        "mae": 0.6210958506224068,
+        "n": 241
+       },
+       "TE|support|uncertain": {
+        "bias": -0.2323744966442954,
+        "coverage": 0.87248322147651,
+        "mae": 0.9308630872483216,
+        "n": 149
+       },
+       "WR|primary|uncertain": {
+        "bias": -0.6086633333333334,
+        "coverage": 0.8466666666666667,
+        "mae": 2.1728499999999995,
+        "n": 150
+       },
+       "WR|reserve|uncertain": {
+        "bias": -0.2488076923076923,
+        "coverage": 0.8279352226720648,
+        "mae": 1.0224291497975713,
+        "n": 494
+       },
+       "WR|support|uncertain": {
+        "bias": -0.8077986301369864,
+        "coverage": 0.8082191780821918,
+        "mae": 1.8688684931506847,
+        "n": 146
+       }
+      },
+      "bySource": {
+       "reconstructed": {
+        "bias": -0.3442595063985374,
+        "coverage": 0.8592321755027422,
+        "mae": 1.003571663619746,
+        "n": 2188
+       }
+      },
+      "overall": {
+       "bias": -0.3442595063985374,
+       "coverage": 0.8592321755027422,
+       "mae": 1.003571663619746,
+       "n": 2188
+      },
+      "prospective": {
+       "n": 0
+      }
+     },
+     "recYd": {
+      "byConfidence": {
+       "Low": {
+        "bias": -2.439072487366649,
+        "coverage": 0.8680516563728242,
+        "mae": 9.193306850084232,
+        "n": 1781
+       },
+       "Med": {
+        "bias": -10.970635872235869,
+        "coverage": 0.7665847665847666,
+        "mae": 26.35559066339068,
+        "n": 407
+       }
+      },
+      "bySegment": {
+       "QB|primary|uncertain": {
+        "bias": -0.051458940397350994,
+        "coverage": 0.9867549668874173,
+        "mae": 0.05450132450331125,
+        "n": 151
+       },
+       "QB|reserve|uncertain": {
+        "bias": 0,
+        "coverage": 1,
+        "mae": 0,
+        "n": 37
+       },
+       "QB|support|uncertain": {
+        "bias": 0,
+        "coverage": 1,
+        "mae": 0,
+        "n": 129
+       },
+       "RB|primary|uncertain": {
+        "bias": -4.372875977653631,
+        "coverage": 0.8044692737430168,
+        "mae": 12.235684916201123,
+        "n": 179
+       },
+       "RB|reserve|uncertain": {
+        "bias": -1.0429266666666672,
+        "coverage": 0.8666666666666667,
+        "mae": 4.742280444444445,
+        "n": 225
+       },
+       "RB|support|uncertain": {
+        "bias": -2.2116328358208954,
+        "coverage": 0.835820895522388,
+        "mae": 8.705047761194026,
+        "n": 134
+       },
+       "TE|primary|uncertain": {
+        "bias": -8.344398692810458,
+        "coverage": 0.7516339869281046,
+        "mae": 23.130057516339868,
+        "n": 153
+       },
+       "TE|reserve|uncertain": {
+        "bias": -1.9127153526970948,
+        "coverage": 0.8713692946058091,
+        "mae": 5.975481327800833,
+        "n": 241
+       },
+       "TE|support|uncertain": {
+        "bias": -1.1627771812080534,
+        "coverage": 0.8791946308724832,
+        "mae": 10.472526174496641,
+        "n": 149
+       },
+       "WR|primary|uncertain": {
+        "bias": -12.536161333333338,
+        "coverage": 0.8333333333333334,
+        "mae": 34.681305333333334,
+        "n": 150
+       },
+       "WR|reserve|uncertain": {
+        "bias": -3.7801522267206487,
+        "coverage": 0.7995951417004049,
+        "mae": 14.439578542510136,
+        "n": 494
+       },
+       "WR|support|uncertain": {
+        "bias": -12.525848630136988,
+        "coverage": 0.7945205479452054,
+        "mae": 25.981878767123284,
+        "n": 146
+       }
+      },
+      "bySource": {
+       "reconstructed": {
+        "bias": -4.026068053016449,
+        "coverage": 0.8491773308957953,
+        "mae": 12.38574264168188,
+        "n": 2188
+       }
+      },
+      "overall": {
+       "bias": -4.026068053016449,
+       "coverage": 0.8491773308957953,
+       "mae": 12.38574264168188,
+       "n": 2188
+      },
+      "prospective": {
+       "n": 0
+      }
+     },
+     "rushYd": {
+      "byConfidence": {
+       "Low": {
+        "bias": -0.7331753797799893,
+        "coverage": 0.8947092718700891,
+        "mae": 2.956605552645362,
+        "n": 1909
+       },
+       "Med": {
+        "bias": -8.827483512544813,
+        "coverage": 0.7634408602150538,
+        "mae": 20.971861290322583,
+        "n": 279
+       }
+      },
+      "bySegment": {
+       "QB|primary|uncertain": {
+        "bias": -4.728005298013244,
+        "coverage": 0.6357615894039735,
+        "mae": 11.937757615894041,
+        "n": 151
+       },
+       "QB|reserve|uncertain": {
+        "bias": -1.8048486486486486,
+        "coverage": 0.8648648648648649,
+        "mae": 3.4606972972972962,
+        "n": 37
+       },
+       "QB|support|uncertain": {
+        "bias": -1.9149062015503877,
+        "coverage": 0.8449612403100775,
+        "mae": 3.7447837209302324,
+        "n": 129
+       },
+       "RB|primary|uncertain": {
+        "bias": -8.467594413407822,
+        "coverage": 0.8770949720670391,
+        "mae": 21.99977877094973,
+        "n": 179
+       },
+       "RB|reserve|uncertain": {
+        "bias": -1.658359111111111,
+        "coverage": 0.7688888888888888,
+        "mae": 7.787390222222225,
+        "n": 225
+       },
+       "RB|support|uncertain": {
+        "bias": -5.35600746268657,
+        "coverage": 0.6865671641791045,
+        "mae": 19.11563880597015,
+        "n": 134
+       },
+       "TE|primary|uncertain": {
+        "bias": -0.059823529411764706,
+        "coverage": 0.9673202614379085,
+        "mae": 0.15376078431372545,
+        "n": 153
+       },
+       "TE|reserve|uncertain": {
+        "bias": -0.01736804979253112,
+        "coverage": 0.995850622406639,
+        "mae": 0.03242448132780083,
+        "n": 241
+       },
+       "TE|support|uncertain": {
+        "bias": -0.00594765100671141,
+        "coverage": 0.9932885906040269,
+        "mae": 0.020897986577181206,
+        "n": 149
+       },
+       "WR|primary|uncertain": {
+        "bias": -0.4289573333333333,
+        "coverage": 0.8466666666666667,
+        "mae": 1.9430946666666666,
+        "n": 150
+       },
+       "WR|reserve|uncertain": {
+        "bias": -0.1978483805668015,
+        "coverage": 0.9433198380566802,
+        "mae": 0.5858989878542511,
+        "n": 494
+       },
+       "WR|support|uncertain": {
+        "bias": -0.3556698630136986,
+        "coverage": 0.910958904109589,
+        "mae": 1.4699616438356164,
+        "n": 146
+       }
+      },
+      "bySource": {
+       "reconstructed": {
+        "bias": -1.7653106489945156,
+        "coverage": 0.8779707495429616,
+        "mae": 5.253797669104189,
+        "n": 2188
+       }
+      },
+      "overall": {
+       "bias": -1.7653106489945156,
+       "coverage": 0.8779707495429616,
+       "mae": 5.253797669104189,
+       "n": 2188
+      },
+      "prospective": {
+       "n": 0
+      }
+     }
+    }
+   },
+   "season": 2026,
+   "trainingCutoff": "{\"season\":2026,\"week\":7,\"rule\":\"weeks strictly before target week\"}",
+   "week": 7
+  }
+ },
+ "learned": {
+  "basis": [
+   {
+    "applied": true,
+    "prospective": 0,
+    "reconstructed": 404,
+    "week": 5
+   },
+   {
+    "applied": true,
+    "prospective": 0,
+    "reconstructed": 433,
+    "week": 4
+   },
+   {
+    "applied": true,
+    "prospective": 0,
+    "reconstructed": 436,
+    "week": 3
+   }
+  ],
+  "describe": [
+   "Learned from finished games (reconstructed history, not prospectively validated), from the last three weeks",
+   "rushYd: +10%",
+   "rec: +10%",
+   "recYd: +10%",
+   "passYd: +10%",
+   "lt15 chances: +14%",
+   "15to25 chances: -2%",
+   "25to35 chances: +7%",
+   "35to50 chances: -3%",
+   "50plus chances: +6%",
+   "r1 spot: +25%",
+   "r2 spot: -16%",
+   "r3 spot: +18%",
+   "t1 spot: +11%",
+   "t2 spot: -9%",
+   "t3 spot: +24%"
+  ],
+  "inWeek": {
+   "confirmed": 29
+  },
+  "label": "Learned from finished games (reconstructed history, not prospectively validated), from the last three weeks",
+  "modelVersion": "endzone-4.3.0",
+  "scales": {
+   "band": {
+    "15to25": 0.9810002016144681,
+    "25to35": 1.069246892802279,
+    "35to50": 0.9653646109754804,
+    "50plus": 1.058971560286092,
+    "lt15": 1.1420108968356504
+   },
+   "spot": {
+    "r1": 1.249321471034398,
+    "r2": 0.8392090255309937,
+    "r3": 1.1787601416379336,
+    "t1": 1.1135640963990185,
+    "t2": 0.9139842520582137,
+    "t3": 1.2358455197205938
+   },
+   "vol": {
+    "passYd": 1.1,
+    "rec": 1.1,
+    "recYd": 1.1,
+    "rushYd": 1.1
+   }
+  },
+  "season": 2026,
+  "week": 6
+ },
+ "promotion": {
+  "promote": false,
+  "reasons": [
+   "Needs ≥500 prospective paired players for endzone-4.3.0; have 0.",
+   "Needs ≥40 games; have 0."
+  ]
+ }
+}
