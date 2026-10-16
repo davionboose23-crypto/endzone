@@ -30,6 +30,7 @@ class MiniArchive {
   snapshots(season, week, kind = 'latest') { return this.list.filter(s => s.kind === kind && s.season === season && s.week === week && Date.parse(s.capturedAt) < Date.parse(s.kickoff)).map(s => s.payload); }
 }
 
+const realFetch = self.fetch.bind(self);
 let lastPrep = null;
 const nd = o => JSON.stringify(o) + '\n';
 function dataResponse(url, signal) {
@@ -46,8 +47,21 @@ function dataResponse(url, signal) {
   });
   return new Response(stream, { status: 200, headers: { 'content-type': 'application/x-ndjson' } });
 }
+// Shared repo archive published with the Pages site (archive/<season>/w<week>.json). Same frozen
+// predictions, grades and lessons on every device; this browser's IndexedDB frames only fill gaps.
+async function repoArchive(season, week) {
+  const base = self.__EZ_BASE__ || self.location?.href || '';
+  if (!/^https?:/.test(base)) return null;
+  try { const r = await realFetch(new URL(`archive/${season}/w${week}.json`, base).href, { cache: 'no-store' }); return r.ok ? await r.json() : null; } catch { return null; }
+}
 async function archiveResponse(url) {
   const season = Number(url.searchParams.get('season')), week = Number(url.searchParams.get('week'));
+  const repo = await repoArchive(season, week);
+  if (repo) {
+    const local = await allSnaps().catch(() => []); const have = new Set(repo.snapshots.map(s => s.gameId));
+    for (const s of new MiniArchive(local).snapshots(season, week, 'latest')) if (!have.has(s.gameId)) repo.snapshots.push({ ...s, browserOnly: true });
+    return new Response(JSON.stringify(repo), { status: 200, headers: { 'content-type': 'application/json' } });
+  }
   const prep = lastPrep && lastPrep.season === season && lastPrep.week === week ? lastPrep : await prepareData({ season, week });
   const list = await allSnaps().catch(() => []);
   const archive = new MiniArchive(list);
@@ -81,7 +95,6 @@ async function archiveResponse(url) {
   } catch (e) { body.snapshotError = String(e.message || e); }
   return new Response(JSON.stringify(body), { status: 200, headers: { 'content-type': 'application/json' } });
 }
-const realFetch = self.fetch.bind(self);
 self.fetch = (input, init = {}) => {
   const u = typeof input === 'string' ? input : input.url;
   if (u.startsWith('/api/data')) return Promise.resolve(dataResponse(new URL(u, 'http://sa'), init.signal));

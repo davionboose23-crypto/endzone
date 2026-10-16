@@ -9,6 +9,8 @@ import { thresholdExplorer } from './player-research.js';
 import { gradeGame } from './grading.js';
 import { tdReport, volumeReport } from './evaluation.js';
 import { challengerProbability } from './validation.js';
+import { componentState } from './calibration.js';
+import { gameResults, weekResults } from './results.js';
 
 const state = { prep: null, ix: null, identity: null, archive: null, base: null, live: null, controller: null, token: null, weights: DEFAULT_WEIGHTS };
 const post = (m) => self.postMessage(m);
@@ -23,7 +25,7 @@ function challengerFn(a) { const c = a?.challenger; return c?.fit ? (p => challe
 
 function compute(weights) {
   const a = state.archive || {}; const cal = a.activeCalibration || {};
-  const common = { ix: state.ix, identity: state.identity, lessons: cal.active || null, lessonsUnplayed: cal.unplayed || null, errorModel: a.uncertainty?.errorModel || null, coverage: a.uncertainty?.coverage || null, challenger: challengerFn(a), now: Date.now() };
+  const common = { ix: state.ix, identity: state.identity, lessons: cal.active || null, lessonsUnplayed: cal.unplayed || null, errorModel: a.uncertainty?.errorModel || null, coverage: a.uncertainty?.coverage || null, challenger: challengerFn(a), useChallenger: !!componentState().challenger?.enabled, now: Date.now() };
   // production (default-weight) run supplies frozen/reconstructed started games
   if (!state.base) state.base = runEngine(state.prep, { ...common, weights: DEFAULT_WEIGHTS });
   const live = sameWeights(weights, DEFAULT_WEIGHTS) ? state.base : runEngine(state.prep, { ...common, weights });
@@ -43,6 +45,7 @@ function compute(weights) {
     if (G.started) return pack(B, 'reconstructed');
     return pack(G, 'live');
   });
+  for (const g of games) if (g.game.finished) { try { g.results = gameResults(state.ix, g.game, g.sides, { frozen: g.frozen }); } catch (e) { g.results = null; } }
   return { games, weeklyPickId: live.weeklyPickId, riserId: live.riserId };
 }
 const sameWeights = (a, b) => Object.keys(DEFAULT_WEIGHTS).every(k => Math.abs((a[k] ?? 0) - (b[k] ?? 0)) < 1e-9);
@@ -55,7 +58,7 @@ function slateMessage(reqId, extra = {}) {
   const pick = sorted[0] || null;
   const riser = unplayed.filter(p => p.riser).sort((a, b) => b.chance - a.chance)[0] || null;
   return { type: 'slate', reqId, season: state.prep.season, week: state.prep.week, currentWeek: state.prep.currentWeek, generatedAt: state.prep.generatedAt, sources: state.prep.sources,
-    games: c.games, weeklyPickId: pick?.id || null, riserId: riser?.id || null, modelVersion: MODEL_VERSION, weights: state.weights,
+    games: c.games, weekResults: weekResults(c.games), learned: state.archive?.learned || null, repoArchive: !!state.archive?.repoArchive, weeklyPickId: pick?.id || null, riserId: riser?.id || null, modelVersion: MODEL_VERSION, weights: state.weights,
     audit: { rejected: state.identity.rejected, unverified: state.identity.unverified, excluded: c.games.flatMap(g => [...g.sides.away.excluded, ...g.sides.home.excluded].map(e => ({ ...e, team: e.team }))) },
     lessons: state.archive?.activeCalibration || null, archiveStale: !!state.archive?.stale, challenger: state.archive?.challenger || null, research: state.archive?.researchStatus || null, pickTracker: state.archive?.pickTracker || null, lastRun: state.archive?.lastRun || null, ...extra };
 }

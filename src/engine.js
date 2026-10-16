@@ -17,7 +17,7 @@ export function identityFor(ix, prep, asOfWeek = null) {
   return buildIdentity({ players: prep.players, roster: prep.roster, idmap: prep.idmap, recentByGsis, recentBySleeper, currentWeek: asOfWeek != null ? Math.min(prep.currentWeek ?? 18, asOfWeek) : prep.currentWeek });
 }
 
-export function runEngine(prep, { weights, lessons = null, lessonsUnplayed = null, now = Date.now(), week = prep.week, errorModel = null, coverage = null, challenger = null, ix = null, identity = null, pubTdBlend, stackFit, budgetFit, volCal, exp, caps } = {}) {
+export function runEngine(prep, { weights, lessons = null, lessonsUnplayed = null, now = Date.now(), week = prep.week, errorModel = null, coverage = null, challenger = null, ix = null, identity = null, pubTdBlend, stackFit, budgetFit, volCal, exp, caps, useChallenger = false } = {}) {
   ix = ix || buildIndex(prep);
   identity = identity || identityFor(ix, prep, week);
   const fw = forecastWeek(ix, identity, { season: prep.season, week, weights, lessons, lessonsUnplayed, now, errorModel, coverage, pubTdBlend, stackFit, budgetFit, volCal, exp, caps });
@@ -31,6 +31,8 @@ export function runEngine(prep, { weights, lessons = null, lessonsUnplayed = nul
         // reapply the shared team scoring budget to the shadow probabilities
         const lam = players.reduce((a, p) => a + (p.challenger != null ? -Math.log(1 - Math.min(0.999, p.challenger)) : 0), 0);
         if (lam > S.tdBudget && lam > 0) for (const p of players) if (p.challenger != null) p.challenger = 1 - Math.exp(Math.log(1 - Math.min(0.999, p.challenger)) * S.tdBudget / lam);
+        // promoted challenger (only when the weekly gate enabled it): replaces the champion chance, still under the safety ceiling
+        if (useChallenger) for (const p of players) if (p.challenger != null) { p.championChance = p.chance; p.chance = Math.min(p.challenger, p.ceiling ?? 0.62); p.lambda = -Math.log(1 - p.chance); p.promotedChallenger = true; }
       }
       sides[s] = { ...S, players: players.map(p => compactPrediction(p, s)).sort(compareDefault), raw: players, budget: { ...S.budget } };
     }

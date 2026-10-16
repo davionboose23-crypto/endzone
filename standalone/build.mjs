@@ -26,11 +26,11 @@ window.__ezMakeWorker=function(){
   // file:// pages cannot start workers in most browsers; run the same worker code in-page instead.
   var inPage = function(){ var w={onmessage:null,onerror:null}; var fs={onmessage:null};
     fs.postMessage=function(m){setTimeout(function(){w.onmessage&&w.onmessage({data:m});},0);};
-    fs.fetch=fetch.bind(window); fs.addEventListener=function(){}; window.__ezInPage=true;
+    fs.fetch=fetch.bind(window); fs.addEventListener=function(){}; fs.__EZ_BASE__=location.href; window.__ezInPage=true;
     new Function('self','fetch','postMessage',window.__EZ_WORKER__)(fs,function(){return fs.fetch.apply(null,arguments);},fs.postMessage);
     w.postMessage=function(m){var c=structuredClone(m);setTimeout(function(){fs.onmessage&&fs.onmessage({data:c});},0);}; w.terminate=function(){}; return w; };
   if (location.protocol==='file:' || typeof Worker==='undefined') return inPage();
-  try { return new Worker(URL.createObjectURL(new Blob([window.__EZ_WORKER__],{type:'text/javascript'}))); } catch(e){ return inPage(); }
+  try { return new Worker(URL.createObjectURL(new Blob(['self.__EZ_BASE__='+JSON.stringify(location.href)+';\\n'+window.__EZ_WORKER__],{type:'text/javascript'}))); } catch(e){ return inPage(); }
 };
 window.__ezJob=async()=>new Response(JSON.stringify({ok:true,status:'standalone',details:{steps:['Standalone file: no server job. Each load or Refresh before kickoff saves pregame frames in this browser and recomputes lessons from finished games.']}}),{status:200,headers:{'content-type':'application/json'}});`;
 const banner = `<div id="sa-note" class="small" style="padding:6px 12px;background:#14202e;color:#cfd8e3">Standalone file — no server. Sleeper and the nflverse schedule load live in your browser. nflverse release files (rosters, ID map, weekly history, play-by-play, snaps, FTN) are blocked by browser CORS, so the copy captured ${bundle.capturedAt.slice(0, 16).replace('T', ' ')} UTC is used and labeled stale in Sources. Frames and settings are stored only in this browser.</div>`;

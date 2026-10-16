@@ -32,6 +32,8 @@ export function applyVolCal(cal, m, v) {
   return { mean: mu, lo: Math.max(0, mu - f.kLo * f.c * (v.mean - v.lo)), hi: mu + f.kHi * f.c * (v.hi - v.mean) };
 }
 
+// Auto-calibration gate decisions (written weekly by scripts/gate.mjs; only enabled when the adoption rule passes).
+export const componentState = () => FITS.components || {};
 // Latest shipped fit usable for (season, week): trained only on games before it.
 export function fitFor(season, week) {
   const ok = (FITS.fits || []).filter(f => f.season < season || (f.season === season && f.week <= week));

@@ -5,7 +5,8 @@ import { prepareData } from './prepare.js';
 import { runEngine } from '../src/engine.js';
 import { buildIndex } from '../src/stats-index.js';
 import { gradeGame, snapshotFromGame } from '../src/grading.js';
-import { weeklyLesson, activeLessons, withInWeekNudge } from '../src/research.js';
+import { weeklyLesson, activeLessons, withInWeekNudge, describeLessons } from '../src/research.js';
+import { componentState } from '../src/calibration.js';
 import { trainChallenger, challengerProbability, volumeErrorModel, promotionDecision } from '../src/validation.js';
 import { tdReport, volumeReport } from '../src/evaluation.js';
 import { MODEL_VERSION, DEFAULT_WEIGHTS } from '../src/model.js';
@@ -69,7 +70,7 @@ async function runRefresh(archive, { season, week, now = () => Date.now(), prep:
     details.steps.push(`lessons for weeks ${Object.keys(cal.lessonsByWeek).join(',') || 'none'}`);
     const cutoffIso = new Date(now()).toISOString();
     const chFn = cal.challenger.fit ? (p => challengerProbability(cal.challenger, p, null, null)) : null;
-    const res = runEngine(prep, { ix, week: prep.week, weights: DEFAULT_WEIGHTS, lessons: cal.active, lessonsUnplayed: cal.unplayedLessons, now: now(), errorModel: cal.errorModel, coverage: cal.coverage, challenger: chFn });
+    const res = runEngine(prep, { ix, week: prep.week, weights: DEFAULT_WEIGHTS, lessons: cal.active, lessonsUnplayed: cal.unplayedLessons, now: now(), errorModel: cal.errorModel, coverage: cal.coverage, challenger: chFn, useChallenger: !!componentState().challenger?.enabled });
     let saved = 0, skipped = 0;
     const meta = { modelVersion: MODEL_VERSION, weights: res.weights, inputTimestamps: Object.fromEntries(Object.entries(prep.sources).map(([k, s]) => [k, s.fetchedAt])), sourceAvailability: Object.fromEntries(Object.entries(prep.sources).map(([k, s]) => [k, s.ok])),
       lessonsLabel: cal.active.label, challenger: { status: cal.challenger.fit ? cal.challenger.kind : 'not fit', reason: cal.challenger.reason, trainingCutoff: cal.challenger.cutoff, trainingCount: cal.challenger.trainingCount, capturedCutoff: cutoffIso } };
@@ -89,6 +90,7 @@ async function runRefresh(archive, { season, week, now = () => Date.now(), prep:
     const promo = promotionDecision(pairs, { modelVersion: MODEL_VERSION });
     archive.saveExperiment({ season: prep.season, week: prep.week, kind: 'validation', modelVersion: MODEL_VERSION, trainingCutoff: JSON.stringify(cal.challenger.cutoff), payload: { summary: summarizeReport(report), volume: vol, promotion: promo, challenger: { ...cal.challenger, fit: cal.challenger.fit ? { n: cal.challenger.fit.n, games: cal.challenger.fit.games, rich: cal.challenger.fit.rich, beta: cal.challenger.fit.beta } : null } } });
     details.steps.push('validation updated');
+    details.learned = { active: { vol: cal.active.vol, band: cal.active.band, spot: cal.active.spot, basis: cal.active.basis, label: cal.active.label }, describe: describeLessons(cal.active), inWeek: cal.inWeek?.applied ? { confirmed: cal.inWeek.confirmed } : null, promotion: { promote: promo.promote, reasons: promo.reasons } };
     archive.finishRun(runId, details.partial.length ? 'partial' : 'success', details);
     return { ok: true, runId, status: details.partial.length ? 'partial' : 'success', details };
   } catch (e) {

@@ -74,3 +74,4 @@ The user asked to remove the "QB pass TD" column; it "makes no sense to have a s
 - [x] Tests: tests/calibration.test.js (walk-forward fit keys, caps, budget invariant); npm test 32/32
 - [x] 4.2.1: candidate round (goal-line, QB rush, TE red-zone, priors, defense, recency, combined, caps counterfactual, INA sensitivity) — none adopted; see README
 - [x] 4.2.2: data-fit safety caps (user-approved override of §11) implemented with bounds, shrinkage and role gating; walk-forward not significant on both Brier and log loss, so left off (fixed values remain); tests 34/34
+- [x] 4.3.0: results vs predicted (game, rows, week Results view); scheduled GitHub Actions archive (user-approved override of §23) with idempotent commits, concurrency group, GITHUB_TOKEN only; Pages loads the shared archive; Lab shows learned scales, latest changes and gate decisions; weekly walk-forward gate for caps and challenger; tests: idempotent job, frozen immutability, no leakage, results

@@ -99,6 +99,29 @@ function renderControls() {
   $('#prevWeek').disabled = S.week <= 1; $('#nextWeek').disabled = S.week >= 18;
 }
 
+// ---------- Results vs predicted (finished games)
+const VOLLBL = { rushYd: 'Rush yds', recYd: 'Rec yds', rec: 'Catches', passYd: 'Pass yds' };
+const resLabel = R => `<span class="chip ${R.prospective ? 'high' : ''}">${R.prospective ? 'Prospective' : 'Reconstructed'}</span>`;
+function resultsSummaryLine(g) {
+  const R = g.results; if (!R) return ''; const m = R.summary;
+  return `<div class="small results-line">${resLabel(R)} Results: ${m.actualTd} TDs vs ${n1(m.expectedTd)} expected · team calls ${m.teamCalls.hits}/${m.teamCalls.total} · Brier ${m.brier == null ? '—' : m.brier.toFixed(3)} · yardage in 80% range ${m.rangeHits}/${m.rangeTotal}</div>`;
+}
+function resultsTable(g) {
+  const R = g.results; if (!R) return '';
+  const rows = R.rows.filter(r => r.chance != null).sort((a, b) => b.chance - a.chance);
+  const vcell = v => (v ? `<span class="${v.inRange ? '' : 'warn'}">${Math.round(v.actual)} <span class="muted">vs ${n1(v.pred)} (${n1(v.lo)}–${n1(v.hi)})</span> ${v.inRange ? '✓' : '✗'}</span>` : '—');
+  return `<div class="card" id="results"><h2>Results vs predicted</h2><p class="small">${esc(R.label)}. ${R.prospective ? 'These are the frozen pregame numbers; they never change after kickoff.' : 'No pregame snapshot was captured for this game, so these numbers were rebuilt from earlier weeks and are not evidence of prospective accuracy.'}</p>
+   ${resultsSummaryLine(g)}
+   <p class="small">${['away', 'home'].map(s => `${esc(R.summary.teams[s].team)}: ${R.summary.teams[s].actualTd} TDs vs ${n1(R.summary.teams[s].expectedTd)} expected`).join(' · ')}${R.summary.missing ? ` · ${R.summary.missing} players without a stat or snap record excluded` : ''}</p>
+   <div class="reswrap" tabindex="0" role="region" aria-label="Results vs predicted"><table class="restable"><thead><tr><th scope="col">Player</th><th scope="col">Anytime (pregame)</th><th scope="col">TD</th><th scope="col">Rush yds</th><th scope="col">Rec yds</th><th scope="col">Catches</th></tr></thead><tbody>
+   ${rows.map(r => `<tr class="${r.scored ? 'high' : ''}"><td>${esc(r.name)} <span class="muted small">${esc(r.pos)}</span>${r.teamCall ? ' <span class="chip">team call</span>' : ''}${r.pos === 'QB' ? `<div class="small">Passing: ${vcell(r.vol.passYd)} yds · TDs ${r.passTd?.actual ?? '—'} vs ${r.passTd?.pred == null ? '—' : r.passTd.pred.toFixed(1)}</div>` : ''}</td><td class="mid">${pc(r.chance)}</td><td>${r.scored ? `<strong>Yes${r.td > 1 ? ` ×${r.td}` : ''}</strong>` : 'No'}</td><td>${vcell(r.vol.rushYd)}</td><td>${vcell(r.vol.recYd)}</td><td>${vcell(r.vol.rec)}</td></tr>`).join('')}</tbody></table></div></div>`;
+}
+function resultsWeekHtml() {
+  const W = S.slate.weekResults; const done = S.slate.games.filter(g => g.results);
+  const grp = (k, x) => x.n ? `<p class="small"><strong>${k}</strong>: ${x.n} players · ${x.actualTd} TDs vs ${n1(x.expectedTd)} expected · team calls ${x.calls.hits}/${x.calls.total} · Brier ${x.brier.toFixed(3)}</p>` : `<p class="small muted">${k}: none</p>`;
+  return `<div class="card"><h2>Results — week ${S.slate.week}</h2>${done.length ? `${grp('Prospective (frozen pregame snapshots)', W.prospective)}${grp('Reconstructed (no pregame snapshot; not prospective evidence)', W.reconstructed)}` : '<p class="small muted">No finished games this week yet.</p>'}</div>
+   ${done.map(g => `<button class="game" data-act="game" data-game="${esc(g.id)}"><div class="row between"><strong>${esc(g.sides.away.team)} ${g.game.awayScore} @ ${esc(g.sides.home.team)} ${g.game.homeScore}</strong><span class="small muted">Final</span></div>${resultsSummaryLine(g)}</button>`).join('')}`;
+}
 // ---------- Slate
 function gameCard(g) {
   const k = etDisplay(g.game.kickoff); const a = g.sides.away, h = g.sides.home; const L = a.lines;
@@ -109,7 +132,7 @@ function gameCard(g) {
     <div class="small muted">${L.known ? `${esc(a.team)} ${L.awaySpread > 0 ? '+' : ''}${L.awaySpread} · total ${L.total}` : '<span class="warn">Lines unknown (spread 0, total 44.5 used)</span>'} · implied ${n1(a.implied)}–${n1(h.implied)}</div>
     <div class="small">Model TDs ${n1(a.teamLambda)} vs budget ${n1(a.tdBudget)} · ${n1(h.teamLambda)} vs ${n1(h.tdBudget)}</div>
     <div class="grid" style="grid-template-columns:1fr 1fr">${call('away')}${call('home')}</div>
-    <div class="small muted">${g.frozen === 'snapshot' ? 'Frozen pregame forecast' : g.frozen === 'reconstructed' ? 'Reconstructed (no pregame snapshot)' : ''}${g.game.finished ? ' · Final' : g.started ? ' · Started' : ''}</div></button>`;
+    <div class="small muted">${g.frozen === 'snapshot' ? 'Frozen pregame forecast' : g.frozen === 'reconstructed' ? 'Reconstructed (no pregame snapshot)' : ''}${g.game.finished ? ' · Final' : g.started ? ' · Started' : ''}</div>${resultsSummaryLine(g)}</button>`;
 }
 function renderSlate() {
   const v = $('#view-slate'); if (!S.slate) { v.innerHTML = ''; return; }
@@ -118,7 +141,8 @@ function renderSlate() {
   const list = `<div ${phoneOpen ? 'hidden' : ''}>
     ${pick ? `<div class="card ${pick.tdConf.level === 'High' ? 'high' : ''}"><div class="eyebrow">WEEKLY RECOMMENDED SCORER</div>${playerBtn(pick, pick.gameId)}<div class="row"><span class="big">${pc(pick.chance)}</span>${chip(pick.tdConf.level, 'TD confidence')}</div></div>` : ''}
     ${riser ? `<div class="card"><div class="eyebrow">RISING, NOT THE STAR</div>${playerBtn(riser, riser.gameId)}<div><span class="mid">${pc(riser.chance)}</span> <span class="small muted">${esc(riser.riser.reason)}</span></div></div>` : ''}
-    <h2>Games</h2>${S.slate.games.length ? S.slate.games.map(gameCard).join('') : '<p class="muted">No regular-season games found for this week.</p>'}
+    <div class="row" role="group" aria-label="Slate view"><button class="btn ${S.resultsView ? '' : 'gold'}" data-act="slateview" data-view="games" aria-pressed="${!S.resultsView}">Games</button><button class="btn ${S.resultsView ? 'gold' : ''}" data-act="slateview" data-view="results" aria-pressed="${!!S.resultsView}">Results</button></div>
+    ${S.resultsView ? resultsWeekHtml() : `<h2>Games</h2>${S.slate.games.length ? S.slate.games.map(gameCard).join('') : '<p class="muted">No regular-season games found for this week.</p>'}`}
     ${auditBlock()}</div>`;
   v.innerHTML = `<div class="slate-layout ${S.gameId ? 'open' : ''}">${list}${S.gameId ? `<div id="matchup">${matchupHtml(S.slate.games.find(g => g.id === S.gameId))}</div>` : ''}</div>`;
 }
@@ -152,7 +176,7 @@ function matchupHtml(g) {
    <h2>${esc(g.sides.away.team)} @ ${esc(g.sides.home.team)}</h2><p class="small muted">${esc(k.day)} ${esc(k.time)} · ${esc(g.game.stadium || '')} · roof ${esc(g.game.roof || 'unknown')} · ${esc(W.note)} ${g.game.finished ? `· Final ${g.game.awayScore}–${g.game.homeScore}` : ''}
    ${g.frozen === 'snapshot' ? `· Frozen pregame snapshot captured ${new Date(g.capturedAt).toLocaleString()}` : g.frozen === 'reconstructed' ? '· Reconstructed from earlier weeks (not a prospective forecast)' : ''}</p>
    <p class="small muted">First-touchdown estimates share the offensive intensity; defensive and return touchdowns are not modeled.</p>
-   ${side('away')}${side('home')}`;
+   ${resultsTable(g)}${side('away')}${side('home')}`;
 }
 // Focus view (user request): anytime %, TD confidence, and the single primary yardage line.
 const PRIMARY = { QB: ['passYd', 'Pass yds'], RB: ['rushYd', 'Rush yds'], FB: ['rushYd', 'Rush yds'], WR: ['recYd', 'Rec yds'], TE: ['recYd', 'Rec yds'] };
@@ -291,6 +315,16 @@ function pickTrackerHtml() {
      <td><details><summary>${rec(g.highTd)}${g.highTd.pending ? ` · ${g.highTd.pending} pending` : ''}</summary><ul class="small">${lst(g.highTd.list)}</ul></details></td></tr>`)).join('') || '<tr><td colspan="4" class="muted">No graded weeks yet.</td></tr>'}
    </tbody></table></div></div>`;
 }
+function learnedRepoHtml() {
+  const X = S.slate.learned; if (!X) return '<p class="small muted">Shared archive not loaded (local or file:// copy): lessons above come from this device only.</p>';
+  const pctc = v => `${v >= 1 ? '+' : ''}${((v - 1) * 100).toFixed(1)}%`;
+  const sc = X.scales ? Object.entries(X.scales).flatMap(([g, o]) => Object.entries(o || {}).map(([k, v]) => `${g}.${k} ${pctc(v)}`)) : [];
+  const ch = (X.changes || [])[0]; const comp = X.components || {};
+  const dec = k => { const c = comp[k]; return c ? `<li><strong>${k}</strong>: ${c.enabled ? 'enabled' : 'off'} — ${esc(c.reason || '')}${c.decidedAt ? ` (${esc(c.decidedAt.slice(0, 10))})` : ''}</li>` : `<li><strong>${k}</strong>: not evaluated yet</li>`; };
+  return `<h3>Shared archive (same on every device)</h3><p class="small">Current scales (week ${X.week ?? '—'}): ${esc(sc.join(' · ') || 'none')}</p>
+   <p class="small">${ch ? `Latest change ${esc(new Date(ch.at).toLocaleString())} (week ${ch.week}): ${esc(ch.diff.map(d => `${d.group}.${d.key} ${pctc(d.from)} → ${pctc(d.to)}`).join(' · ') || 'basis updated, scales unchanged')}. ${esc(ch.why)}` : 'No change recorded yet.'}</p>
+   <h3>Auto-calibration decisions</h3><ul class="small">${dec('caps')}${dec('challenger')}</ul>${X.promotion ? `<p class="small muted">Challenger promotion check: ${X.promotion.promote ? 'passes' : esc(X.promotion.reasons.join(' '))}</p>` : ''}`;
+}
 function renderLab() {
   const v = $('#view-lab'); if (!S.slate) { v.innerHTML = ''; return; }
   const W = S.weights; const labels = { recentBlend: 'Recent volume blend', publishedBlend: 'Published projection blend', script: 'Game script', redZone: 'Red zone', shrinkGames: 'Shrinkage games', tePremium: 'TE premium', goalLine: 'Goal-line weight' };
@@ -301,6 +335,7 @@ function renderLab() {
     <p class="small">Defense trust ${W.defenseTrust} (retained default).</p><button class="btn" data-act="reset">Reset weights</button></div>
    <div class="card"><h2>Learned from finished games</h2>${L?.describe?.length ? `<ul class="small">${L.describe.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : '<p class="small muted">No lesson yet.</p>'}
      <p class="small muted">Basis: ${(L?.active?.basis || []).map(b => `week ${b.week}: ${b.applied ? `${b.prospective} prospective / ${b.reconstructed} reconstructed` : 'none (counts as 1)'}`).join(' · ')}</p>
+     ${learnedRepoHtml()}
      ${L?.inWeek?.applied ? `<p class="small">In-week nudge from ${L.inWeek.confirmed} completed results this week, damped (scale+2)/3, applied to unplayed games only.</p>` : '<p class="small muted">No in-week nudge (needs 8 completed results this week).</p>'}</div>
    <div class="card"><h2>Backtest: week ${S.week}</h2><button class="btn gold" data-act="backtest">Run backtest for selected week</button>
      ${bt ? `<p class="small">${bt.finishedGames} finished games · confirmed ${bt.td.cohorts.all.all.n} (prospective ${bt.td.prospective}, reconstructed ${bt.td.reconstructed}) · missing excluded ${bt.td.missingExcluded} · confirmed zeros ${bt.td.cohorts.all.all.confirmedZeros}</p>
@@ -315,7 +350,7 @@ function renderLab() {
    ${pickTrackerHtml()}<div class="card"><h2>Champion / challenger</h2><p class="small">Challenger: ${esc(ch?.status || 'unknown')} ${ch?.reason ? '— ' + esc(ch.reason) : ''} · training ${ch?.trainingCount ?? 0} · cutoff ${esc(JSON.stringify(ch?.cutoff || {}))}</p>
      ${R?.promotion ? `<p class="small">Promotion: <strong>${R.promotion.promote ? 'eligible' : 'withheld'}</strong>. ${esc(R.promotion.reasons.join(' '))} Paired ${R.promotion.metrics.paired} across ${R.promotion.metrics.games} games. ${esc(R.promotion.note)}</p>` : '<p class="small muted">No validation run yet.</p>'}
      ${R?.summary ? `<p class="small">Archive summary: ${R.summary.prospective} prospective / ${R.summary.reconstructed} reconstructed graded · missing excluded ${R.summary.missingExcluded}</p>` : ''}</div>
-   <div class="card"><h2>Refresh</h2><p class="small">Scheduled refreshes are paused. The app loads once and refreshes when you press Refresh.</p>
+   <div class="card"><h2>Refresh</h2><p class="small">${esc(S.slate.repoArchive ? 'A scheduled GitHub Actions job (user-approved) captures pregame snapshots and grades finished games into the shared archive; this page loads it.' : 'This copy has no shared archive; it refreshes when you press Refresh.')}</p>
      <label><input type="checkbox" id="autoToggle" ${S.auto.enabled ? 'checked' : ''}> Optional auto-refresh every ${S.auto.minutes} minutes while this page is open (off by default)</label>
      <p class="small">Archive job: ${S.slate.lastRun ? `last run ${esc(S.slate.lastRun.status)} at ${esc(S.slate.lastRun.finished_at || S.slate.lastRun.started_at)}` : 'never run'}.</p>
      <button class="btn" data-act="job">Run archive refresh now (one time)</button><p id="jobOut" class="small" aria-live="polite"></p>
@@ -330,6 +365,7 @@ document.addEventListener('click', e => {
   if (a === 'retry') startLoad(true);
   else if (a === 'dismiss') $('#loading').hidden = true;
   else if (a === 'game') { S.gameId = t.dataset.game; renderSlate(); const m = $('#matchup'); if (m) { m.querySelector('[data-act=back]')?.focus(); if (isSmall()) window.scrollTo(0, 0); } }
+  else if (a === 'slateview') { S.resultsView = t.dataset.view === 'results'; renderSlate(); }
   else if (a === 'back') { const id = S.gameId; S.gameId = null; renderSlate(); document.querySelector(`[data-act=game][data-game="${CSS.escape(id)}"]`)?.focus(); }
   else if (a === 'player') openPlayer(t.dataset.game, t.dataset.player);
   else if (a === 'close') closePanel();

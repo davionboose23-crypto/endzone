@@ -1,0 +1,70 @@
+# Scheduled prospective archive (user-approved override of spec §23's no-schedule rule).
+# Captures pregame snapshots strictly before kickoff (first + latest), grades finished games once official stats
+# exist, updates lessons/validation, runs the weekly auto-calibration gate (Tuesdays), commits archive/ changes
+# with GITHUB_TOKEN only, and rebuilds + redeploys Pages. Times are UTC; GitHub may delay scheduled runs.
+name: Archive, grade and redeploy
+on:
+  schedule:
+    - cron: '*/30 23 * * 4'    # Thu 23:00-23:30
+    - cron: '*/30 0-5 * * 5'   # Fri 00:00-05:30 (Thursday night game)
+    - cron: '*/30 16-23 * * 0' # Sun 16:00-23:30
+    - cron: '*/30 0-5 * * 1'   # Mon 00:00-05:30 (Sunday night)
+    - cron: '*/30 23 * * 1'    # Mon 23:00-23:30
+    - cron: '*/30 0-5 * * 2'   # Tue 00:00-05:30 (Monday night)
+    - cron: '0 12 * * 2'       # Tue 12:00 weekly: final stats, gate, fits
+  workflow_dispatch:
+    inputs:
+      gate:
+        description: Run the weekly auto-calibration gate too
+        type: boolean
+        default: false
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: endzone-archive-pages
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Fetch fresh nflverse rows (for the Pages bundle)
+        run: npm run bundle:nflverse
+      - name: Capture snapshots, grade, update lessons and validation
+        run: node scripts/auto-run.mjs
+      - name: Weekly auto-calibration gate
+        if: github.event.schedule == '0 12 * * 2' || inputs.gate == true
+        run: node scripts/gate.mjs
+      - name: Commit archive changes (idempotent)
+        run: |
+          git config user.name "endzone-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add archive src/calibration-fits.json
+          if git diff --cached --quiet -- archive src/calibration-fits.json ':!archive/runs'; then
+            echo "No archive changes."; git reset -q
+          else
+            git commit -q -m "archive: snapshots/grades/lessons $(date -u +%Y-%m-%dT%H:%MZ)"
+            for i in 1 2 3; do git pull --rebase -q origin main && git push -q origin HEAD:main && break; sleep 5; done
+          fi
+      - name: Build site
+        run: bash scripts/build-site.sh
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: run
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
