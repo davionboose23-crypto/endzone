@@ -1,7 +1,7 @@
 // Headless scheduled job (GitHub Actions): capture pregame snapshots strictly before kickoff (first + latest),
 // reconcile final results, grade, update lessons/validation, and record what the model learned, all in archive/.
 // Usage: node scripts/auto-run.mjs [--season 2026 --week 7]   (idempotent: unchanged inputs => no file changes)
-import { FileArchive, writeJson } from '../server/file-archive.js';
+import { FileArchive, writeJson, stable } from '../server/file-archive.js';
 import { refresh } from '../server/jobs.js';
 import { MODEL_VERSION } from '../src/model.js';
 import { componentState } from '../src/calibration.js';
@@ -20,10 +20,10 @@ const st = A.state(); const L = r.details.learned;
 const scales = L ? { vol: L.active.vol, band: L.active.band, spot: L.active.spot } : null;
 const prev = st.learned?.scales || null;
 st.learned = { season: r.details.season, week: r.details.week, scales, describe: L?.describe || [], basis: L?.active.basis || [], label: L?.active.label || null, inWeek: L?.inWeek || null, modelVersion: MODEL_VERSION };
-if (scales && JSON.stringify(scales) !== JSON.stringify(prev)) {
+if (scales && JSON.stringify(stable(scales)) !== JSON.stringify(stable(prev))) {
   const diff = [];
   for (const g of ['vol', 'band', 'spot']) for (const k of Object.keys(scales[g] || {})) { const a = prev?.[g]?.[k] ?? 1, b = scales[g][k]; if (Math.abs(a - b) >= 0.005) diff.push({ group: g, key: k, from: +a.toFixed(4), to: +b.toFixed(4) }); }
-  st.changes = [{ at: new Date().toISOString(), season: r.details.season, week: r.details.week, diff, why: 'Lessons recomputed after newly finished games (last-3-weeks rule; in-week nudge for later games).' }, ...(st.changes || [])].slice(0, 30);
+  if (diff.length || !prev) st.changes = [{ at: new Date().toISOString(), season: r.details.season, week: r.details.week, diff, why: 'Lessons recomputed after newly finished games (last-3-weeks rule; in-week nudge for later games).' }, ...(st.changes || [])].slice(0, 30);
 }
 st.promotion = L?.promotion || null; st.components = componentState();
 A.saveState(st);
