@@ -73,7 +73,7 @@ async function archiveResponse(url) {
     season, week, modelVersion: MODEL_VERSION,
     snapshots: archive.snapshots(season, week, 'latest'), firstSnapshots: archive.snapshots(season, week, 'first').map(s => ({ gameId: s.gameId, capturedAt: s.capturedAt, modelVersion: s.modelVersion })),
     lessons: Object.fromEntries(Object.entries(cal.lessonsByWeek)), activeCalibration: { active: cal.active, inWeek: cal.inWeek, unplayed: cal.unplayedLessons, describe: describeLessons(cal.active) },
-    uncertainty: { errorModel: cal.errorModel, coverage: cal.coverage },
+    uncertainty: { errorModel: cal.errorModel, coverage: cal.coverage }, trendHistory: cal.trendHistory,
     challenger: { status: cal.challenger.fit ? cal.challenger.kind : 'not fit', reason: cal.challenger.reason, trainingCount: cal.challenger.trainingCount, cutoff: cal.challenger.cutoff, fit: cal.challenger.fit ? { beta: cal.challenger.fit.beta, mu: cal.challenger.fit.mu, sd: cal.challenger.fit.sd, rich: cal.challenger.fit.rich, n: cal.challenger.fit.n, games: cal.challenger.fit.games } : null },
     researchStatus: { summary: summarizeReport(report), volume: vol, promotion: promo }, pickTracker: pickTracker(cal.cur.perWeek), lastRun: null,
     schedule: 'Standalone file: no background refresh. Frames are saved in this browser (IndexedDB) each time you load or refresh before kickoff.',
@@ -82,7 +82,7 @@ async function archiveResponse(url) {
   try {
     const now = Date.now();
     const chFn = cal.challenger.fit ? (p => challengerProbability(cal.challenger, p, null, null)) : null;
-    const res = runEngine(prep, { ix, week: prep.week, weights: DEFAULT_WEIGHTS, lessons: cal.active, lessonsUnplayed: cal.unplayedLessons, now, errorModel: cal.errorModel, coverage: cal.coverage, challenger: chFn });
+    const res = runEngine(prep, { ix, week: prep.week, weights: DEFAULT_WEIGHTS, lessons: cal.active, lessonsUnplayed: cal.unplayedLessons, now, errorModel: cal.errorModel, coverage: cal.coverage, challenger: chFn, trendHistory: cal.trendHistory });
     const meta = { modelVersion: MODEL_VERSION, weights: res.weights, inputTimestamps: Object.fromEntries(Object.entries(prep.sources).map(([k, s]) => [k, s.fetchedAt])), sourceAvailability: Object.fromEntries(Object.entries(prep.sources).map(([k, s]) => [k, s.ok])), lessonsLabel: cal.active.label, challenger: { status: cal.challenger.fit ? cal.challenger.kind : 'not fit', capturedCutoff: new Date(now).toISOString() } };
     const have = new Set(list.map(s => `${s.payload.gameId}:${s.kind}`));
     for (const G of res.games) {

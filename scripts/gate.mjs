@@ -11,6 +11,8 @@ import { pairedBoot, r4 } from './hist/metrics.mjs';
 import { fitBudget, fitVolCal, fitCaps } from '../src/calibration.js';
 import { FileArchive, writeJson, readJson } from '../server/file-archive.js';
 import { MODEL_VERSION } from '../src/model.js';
+import { trendGate } from './trend-gate.mjs';
+import TW from '../src/trend-weights.json' with { type: 'json' };
 const ARCH = process.env.ENDZONE_ARCHIVE || 'archive'; const FITS_FILE = 'src/calibration-fits.json';
 const season = Number(process.argv[2]) || null;
 const prior = [2024, 2025].flatMap(s => { const f = `${ARCH}/hist/rows-${s}.json.gz`; return fs.existsSync(f) ? JSON.parse(zlib.gunzipSync(fs.readFileSync(f))) : []; });
@@ -41,13 +43,17 @@ const allFit = fitCaps([...prior, ...fixedRows], { K: 100 }); const capsOn = rea
 const capsDecision = { enabled: capsOn, decidedAt: now, throughWeek: full, reason: capsOn ? `passed: Brier ${ev.all.dBrier} [${ev.all.dBrierCI}], log loss ${ev.all.dLogLoss} [${ev.all.dLogLossCI}] over ${ev.all.games} games` : `withheld: ${reasons.join('; ')}`, evaluation: ev, fit: allFit ? { pullT: allFit.pullT, pullS: allFit.pullS, ceil: allFit.ceil, cold: allFit.cold, fin: allFit.fin, floor: allFit.floor } : null };
 const A = await FileArchive.open(ARCH); const st = A.state(); const promo = st.promotion;
 const chDecision = { enabled: !!promo?.promote, decidedAt: now, reason: promo ? (promo.promote ? 'passed the prospective promotion rule' : `withheld: ${promo.reasons.join(' ')}`) : 'no prospective validation yet' };
+// 4) trends agent: re-evaluate every family walk-forward (see scripts/trend-gate.mjs)
+const TG = process.env.ENDZONE_SKIP_TRENDS ? null : trendGate(S, full, gradeWeek, TW, { log: (...a) => console.log('trends', ...a) });
+const anyTrend = TG && Object.values(TG.weights).some(w => w > 0);
+const trDecision = TG ? { enabled: anyTrend, decidedAt: now, throughWeek: full, weights: TG.weights, reason: anyTrend ? `enabled: ${Object.entries(TG.weights).filter(([, w]) => w).map(([f, w]) => `${f} ${w}`).join(', ')}` : `all families off: ${Object.entries(TG.families).map(([f, x]) => `${f} (${x.reason.replace(/^off: /, '')})`).join('; ')}`, families: Object.fromEntries(Object.entries(TG.families).map(([f, x]) => [f, { enabled: x.enabled, weight: x.weight, reason: x.reason, all: x.evaluation.all }])) } : null;
 // fits file: refresh budget/volume fits for the next week; caps only when enabled
 const FITS = readJson(FITS_FILE, { fits: [] });
 const train = [...prior, ...fixedRows];
-const entry = { season: yr, week: nextWeek, budget: fitBudget(train), volcal: fitVolCal(train), ...(capsOn ? { caps: capsDecision.fit } : {}) };
+const entry = { season: yr, week: nextWeek, budget: fitBudget(train), volcal: fitVolCal(train), ...(capsOn ? { caps: capsDecision.fit } : {}), ...(anyTrend ? { trendWeights: TG.weights } : {}) };
 FITS.fits = FITS.fits.filter(f => !(f.season === yr && f.week === nextWeek)).concat(entry).sort((a, b) => a.season - b.season || a.week - b.week);
-FITS.components = { caps: { ...capsDecision, evaluation: undefined }, challenger: chDecision, modelVersion: MODEL_VERSION };
+FITS.components = { caps: { ...capsDecision, evaluation: undefined }, challenger: chDecision, ...(trDecision ? { trends: trDecision } : (FITS.components?.trends ? { trends: FITS.components.trends } : {})), modelVersion: MODEL_VERSION };
 writeJson(FITS_FILE, FITS);
-st.decisions = [{ at: now, season: yr, throughWeek: full, caps: { enabled: capsOn, reason: capsDecision.reason, evaluation: ev }, challenger: chDecision }, ...(st.decisions || [])].slice(0, 30);
+st.decisions = [{ at: now, season: yr, throughWeek: full, caps: { enabled: capsOn, reason: capsDecision.reason, evaluation: ev }, challenger: chDecision, trends: trDecision }, ...(st.decisions || [])].slice(0, 30);
 st.components = FITS.components; A.saveState(st);
-console.log(JSON.stringify({ throughWeek: full, caps: capsDecision.reason, challenger: chDecision.reason, nextWeekFit: { week: nextWeek, budget: entry.budget } }, null, 1));
+console.log(JSON.stringify({ throughWeek: full, caps: capsDecision.reason, challenger: chDecision.reason, trends: trDecision?.reason, nextWeekFit: { week: nextWeek, budget: entry.budget } }, null, 1));

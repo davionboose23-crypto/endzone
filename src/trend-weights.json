@@ -1,0 +1,158 @@
+{
+  "weights": {
+    "snap": 0,
+    "usage": 0,
+    "redzone": 0,
+    "qbRush": 0,
+    "streak": 0,
+    "defense": 0,
+    "miss": 0
+  },
+  "note": "Walk-forward fit on 2024+2025 (pooled log loss vs chk, w in {0.1,0.25,0.5}); held-out 2026 wk1-5 game bootstrap (n=1803). No family met the enable rule (training pick must not be harmful on 2026 and must improve Brier or log loss). All families display-only.",
+  "selected": {
+    "qbRush": 0.5,
+    "streak": 0.1
+  },
+  "validation2026_x1e4": {
+    "qbRush@0.5": {
+      "dBrier": [
+        0.03,
+        -0.03,
+        0.11
+      ],
+      "dLogLoss": [
+        0.09,
+        -0.07,
+        0.31
+      ],
+      "result": "worse on point estimate"
+    },
+    "streak@0.1": {
+      "dBrier": [
+        0.02,
+        -0.13,
+        0.17
+      ],
+      "dLogLoss": [
+        0.04,
+        -0.31,
+        0.36
+      ],
+      "result": "worse on point estimate"
+    },
+    "snap@0.1": {
+      "dBrier": [
+        -0.13,
+        -0.62,
+        0.28
+      ],
+      "dLogLoss": [
+        -0.26,
+        -1.43,
+        0.74
+      ],
+      "result": "rejected in training (+0.4e-4 LL)"
+    },
+    "usage@0.1": {
+      "dBrier": [
+        -0.05,
+        -0.21,
+        0.13
+      ],
+      "dLogLoss": [
+        -0.15,
+        -0.55,
+        0.27
+      ],
+      "result": "rejected in training"
+    },
+    "redzone@0.1": {
+      "dBrier": [
+        0.18,
+        0.02,
+        0.39
+      ],
+      "dLogLoss": [
+        0.38,
+        -0.05,
+        0.87
+      ],
+      "result": "harmful"
+    },
+    "defense@0.1": {
+      "dBrier": [
+        -0.1,
+        -0.31,
+        0
+      ],
+      "dLogLoss": [
+        -0.19,
+        -0.59,
+        0
+      ],
+      "result": "rejected in training (+1.5e-4 LL)"
+    },
+    "miss@0.5": {
+      "dBrier": [
+        1.5,
+        -0.31,
+        3.77
+      ],
+      "dLogLoss": [
+        3.65,
+        -0.78,
+        8.85
+      ],
+      "result": "worse"
+    }
+  },
+  "training": {
+    "seasons": [
+      2024,
+      2025
+    ],
+    "n": 11586,
+    "grid": [
+      0.1,
+      0.25,
+      0.5
+    ],
+    "dLogLoss": {
+      "snap": {
+        "0.1": 0.0000371,
+        "0.25": 0.000261,
+        "0.5": 0.000364
+      },
+      "usage": {
+        "0.1": 0.0001473,
+        "0.25": 0.0004117,
+        "0.5": 0.0006205
+      },
+      "redzone": {
+        "0.1": 0.0000044,
+        "0.25": 0.0001176,
+        "0.5": 0.0002245
+      },
+      "qbRush": {
+        "0.1": -0.0000268,
+        "0.25": -0.000062,
+        "0.5": -0.0000853
+      },
+      "streak": {
+        "0.1": -0.0000129,
+        "0.25": 0.0000246,
+        "0.5": 0.0000764
+      },
+      "defense": {
+        "0.1": 0.0001522,
+        "0.25": 0.0002673,
+        "0.5": 0.0003689
+      },
+      "miss": {
+        "0.1": 0.000046,
+        "0.25": 0.0000706,
+        "0.5": 0.000043
+      }
+    }
+  }
+}

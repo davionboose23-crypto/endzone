@@ -24,24 +24,26 @@ let timers = [];
 function send(type, extra = {}) { const reqId = ++S.reqId; worker.postMessage({ type, reqId, ...extra }); return reqId; }
 const gate = requestGate(); let loadReq = 0;
 function startLoad(force = false) {
-  clearTimers(); S.loading = true;
+  clearTimers(); S.loading = true; stageState.tryAgain = false;
   loadReq = gate.next(); S.reqId = loadReq - 1; send('load', { season: S.season, week: S.week, force, weights: S.weights, token: S.token });
   renderLoading({ stage: 0 }); status(force ? 'Refreshing…' : 'Loading…');
   timers.push(setTimeout(() => renderLoading({ tryAgain: true }), 20000));
   timers.push(setTimeout(() => { worker.postMessage({ type: 'cancel', reqId: loadReq }); S.loading = false; renderLoading({ timeout: true }); }, 50000));
 }
 function clearTimers() { timers.forEach(clearTimeout); timers = []; }
-let stageState = { current: 0 };
+let stageState = { current: 0, tryAgain: false };
 function renderLoading(o) {
   const el = $('#loading');
   if (o.stage != null) stageState.current = o.stage;
+  if (o.tryAgain) stageState.tryAgain = true; // sticky: a late stage message must not hide Try again
+  const tryAgain = o.tryAgain || stageState.tryAgain;
   if (!S.loading && !o.timeout) { el.hidden = true; return; }
   el.hidden = false;
   const cur = stageState.current;
   el.innerHTML = `<h2>${o.timeout ? 'This is taking too long' : S.slate ? 'Refreshing — your last slate stays usable' : 'Building this week’s slate'}</h2>
    ${o.timeout ? `<p>The data service did not finish within 50 seconds. The request was cancelled.${S.slate ? ' The last usable slate is still shown.' : ''}</p>` : '<p class="muted small">First open can take about a minute.</p>'}
    <ol class="stages">${STAGES.map((s, i) => `<li class="stage ${i + 1 < cur ? 'done' : i + 1 === cur ? 'active' : ''}">${i + 1 < cur ? '✓' : i + 1 === cur ? '●' : '○'} ${s}</li>`).join('')}</ol>
-   ${o.tryAgain || o.timeout ? `<div class="row"><button class="btn gold" data-act="retry">Try again</button>${o.timeout ? '<button class="btn" data-act="dismiss">Dismiss</button>' : ''}</div>` : ''}`;
+   ${tryAgain || o.timeout ? `<div class="row"><button class="btn gold" data-act="retry">Try again</button>${o.timeout ? '<button class="btn" data-act="dismiss">Dismiss</button>' : ''}</div>` : ''}`;
 }
 worker.onmessage = ev => {
   const m = ev.data;
@@ -87,11 +89,53 @@ const findPlayer = (gid, pid) => { const g = S.slate.games.find(x => x.id === gi
 const qbLine = p => p.pos === 'QB' ? `<div class="qbline small"><span><strong>Pass TD</strong> ${passTdCell(p)}</span> <span><strong>Pass yds</strong> ${volCell(p, 'passYd')}</span></div>` : '';
 function passTdCell(p) { if (p.pos !== 'QB') return '—'; const t = snapshotPassTd(p); if (t.na) return esc(t.note || t.display); return `${t.display} <span class="muted small">(${t.interval[0]}–${t.interval[1]})</span> ${chip(t.level)}`; }
 function volCell(p, m) { const v = p.volume?.[m]; if (!v) return '—'; return `${m === 'rec' ? n1(v.mean) : n0(v.mean)} <span class="muted small">${m === 'rec' ? n1(v.lo) : n0(v.lo)}–${m === 'rec' ? n1(v.hi) : n0(v.hi)}</span> ${chip(p.volConf?.[m]?.level)}`; }
-const playerBtn = (p, gid) => `<button class="plink" data-act="player" data-game="${esc(gid)}" data-player="${esc(p.id)}">${photo(p)}<span>${esc(p.name)} <span class="muted small">${esc(p.pos)} · ${esc(p.team)}${p.injury ? ` · <span class="warn">${esc(p.injury)}</span>` : ''}</span> ${highBadge(p)}</span></button>`;
+const playerBtn = (p, gid) => `<button class="plink" data-act="player" data-game="${esc(gid)}" data-player="${esc(p.id)}">${photo(p)}<span>${esc(p.name)} <span class="muted small">${esc(p.pos)} · ${esc(p.team)}${p.injury ? ` · <span class="warn">${esc(p.injury)}</span>` : ''}</span> ${highBadge(p)}${trendTag(p)}</span></button>`;
 
+const ppTxt = x => `${x > 0 ? '+' : x < 0 ? '−' : '±'}${Math.abs((x || 0) * 100).toFixed(1)} pp`;
+const STATUS_LBL = { new: 'New', continuing: 'Continuing', faded: 'Faded' };
+function trendTag(p) {
+  const t = (p.trendTags || []).filter(x => x.status !== 'faded'); if (!t.length) return '';
+  const top = t.slice().sort((a, b) => Math.abs(b.strength) - Math.abs(a.strength))[0];
+  return ` <span class="ttag ${top.direction}" title="${esc(t.map(x => `${x.type} ${x.direction} (${x.status || 'new'})`).join(' · '))}">${top.direction === 'up' ? '▲' : '▼'} ${esc(top.type)}${t.length > 1 ? ` +${t.length - 1}` : ''}</span>`;
+}
+function trendCard(t) {
+  const ev = Object.entries(t.evidence || {}).map(([k, v]) => `${esc(k)} ${esc(Array.isArray(v) ? v.join(', ') : v)}`).join(' · ');
+  return `<article class="card trendcard ${t.status}" data-family="${esc(t.family)}"><div class="row between"><div><span class="ttag ${t.direction}">${t.direction === 'up' ? '▲' : '▼'} ${esc(t.type)}</span> <span class="chip st-${t.status}">${STATUS_LBL[t.status] || t.status}</span></div><span class="small muted">${t.entity.kind === 'defense' ? `${esc(t.team)} defense vs ${esc(t.entity.pos)}` : t.entity.kind === 'team' ? `${esc(t.team)} offense` : `${esc(t.entity.name)} · ${esc(t.entity.pos)} · ${esc(t.team)}`}</span></div>
+   <p>${esc(t.text)}</p><p class="small muted">Evidence: ${ev} · strength ${t.strength.toFixed(2)} · first detected week ${t.firstDetectedWeek ?? '—'}</p>
+   <p class="small"><strong>${esc(t.mode)}</strong>${t.mode === 'active' ? ` (family weight ${t.weight})` : ''}</p>
+   ${t.affected.length ? `<ul class="small affected">${t.affected.map(a => `<li><button class="plink" data-act="player" data-game="${esc(a.gameId)}" data-player="${esc(a.id)}">${esc(a.name)} <span class="muted">${esc(a.pos)} · ${esc(a.team)}</span></button> ${pc(a.chance, 1)} <span class="pp">${ppTxt(a.pp)}</span></li>`).join('')}</ul>` : '<p class="small muted">No individual player chance attached (team-level context).</p>'}</article>`;
+}
+function renderTrends() {
+  const v = $('#view-trends'); const T = S.slate?.trends; if (!T) { v.innerHTML = '<p class="muted">No trends loaded.</p>'; return; }
+  S.tf = S.tf || { family: 'all', team: 'all', status: 'all' };
+  const fams = [...new Set(T.items.map(t => t.family))]; const teams = [...new Set(T.items.map(t => t.team))].sort();
+  const rows = T.items.filter(t => (S.tf.family === 'all' || t.family === S.tf.family) && (S.tf.team === 'all' || t.team === S.tf.team || t.side === S.tf.team) && (S.tf.status === 'all' || t.status === S.tf.status));
+  const on = Object.entries(T.weights).filter(([, w]) => w).map(([k]) => T.families[k]?.label || k);
+  const opt = (id, cur, list, lbl) => `<label class="small">${lbl} <select class="select" id="${id}" aria-label="${lbl}"><option value="all">All</option>${list.map(([k, l]) => `<option value="${esc(k)}" ${cur === k ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select></label>`;
+  v.innerHTML = `<div class="card"><h2>Trends agent · week ${S.slate.week}</h2><p class="small">Detected only from games before this week. ${T.items.filter(t => t.status !== 'faded').length} live trends, ${T.items.filter(t => t.status === 'faded').length} faded. ${on.length ? `Families moving predictions: ${esc(on.join(', '))}.` : '<strong>No family has passed walk-forward validation yet, so every trend is tracking, not yet proven, and moves chances by ±0.0 pp.</strong>'} Effects are bounded (×0.85–1.15 per trend) and applied before the safety caps and team TD budget.</p>
+   <div class="row" role="group" aria-label="Trend filters">${opt('tfFamily', S.tf.family, fams.map(f => [f, T.families[f]?.label || f]), 'Type')}${opt('tfTeam', S.tf.team, teams.map(t => [t, t]), 'Team')}${opt('tfStatus', S.tf.status, [['new', 'New'], ['continuing', 'Continuing'], ['faded', 'Faded']], 'Status')}</div></div>
+   <div class="trendgrid">${rows.map(trendCard).join('') || '<p class="muted">No trends match these filters.</p>'}</div>`;
+  for (const [id, k] of [['tfFamily', 'family'], ['tfTeam', 'team'], ['tfStatus', 'status']]) v.querySelector('#' + id).addEventListener('change', e => { S.tf[k] = e.target.value; renderTrends(); });
+}
+function panelTrendsHtml(p) {
+  const T = S.slate?.trends; const mine = (T?.items || []).filter(t => t.status !== 'faded' && t.affected.some(a => a.id === p.id));
+  if (!mine.length) return '<h3>Trends that moved his chance</h3><p class="small muted">No active trend detected for him this week.</p>';
+  const e = p.trendEffect;
+  return `<h3>Trends that moved his chance</h3><p class="small">Before trends ${pc(e?.before, 1)} → after ${pc(e?.after, 1)} <span class="muted">(${esc(e?.note || 'before safety caps and the team TD budget')})</span></p><ul class="small">${mine.map(t => { const a = t.affected.find(x => x.id === p.id); return `<li><strong>${esc(t.type)}</strong> ${t.direction === 'up' ? '▲' : '▼'} <span class="pp">${ppTxt(a.pp)}</span> · ${esc(t.mode)} · ${STATUS_LBL[t.status]} since week ${t.firstDetectedWeek ?? '—'}<br>${esc(t.text)}</li>`; }).join('')}</ul>`;
+}
+function labTrendsHtml() {
+  const T = S.slate?.trends; if (!T) return '';
+  const V = T.validation || {}; const val = V.validation2026_x1e4 || {}; const gate = S.slate.learned?.components?.trends;
+  const fmt = a => a ? `${a[0] > 0 ? '+' : ''}${a[0].toFixed(2)} [${a[1].toFixed(2)}, ${a[2].toFixed(2)}]` : '—';
+  return `<div class="card"><h2>Trends agent validation</h2><p class="small">${esc(V.note || '')}</p>
+   <div class="tablewrap" tabindex="0" role="region" aria-label="Trend family validation"><table style="min-width:560px"><thead><tr><th>Family</th><th>Weight</th><th>Status</th><th>Held-out ΔBrier ×1e-4</th><th>Held-out Δlog loss ×1e-4</th><th>Result</th></tr></thead><tbody>
+   ${Object.entries(T.families).filter(([, f]) => f.effect !== 'none').map(([k, f]) => { const r = Object.entries(val).find(([n]) => n.startsWith(k + '@')); return `<tr><td>${esc(f.label)}</td><td>${T.weights[k] || 0}</td><td>${T.weights[k] ? 'on' : 'off (tracking)'}</td><td>${r ? `${fmt(r[1].dBrier)} <span class="muted">@${r[0].split('@')[1]}</span>` : '—'}</td><td>${r ? fmt(r[1].dLogLoss) : '—'}</td><td class="small">${esc(r?.[1].result || '')}</td></tr>`; }).join('')}</tbody></table></div>
+   <p class="small muted">Negative = better. Display-only families: ${Object.entries(T.families).filter(([, f]) => f.effect === 'none').map(([, f]) => esc(f.label)).join(', ')}.</p>
+   <p class="small">Tuesday gate: ${gate ? `${esc(gate.reason || '')}${gate.decidedAt ? ` (${esc(gate.decidedAt.slice(0, 10))})` : ''}` : 'not run yet for trends'}</p></div>`;
+}
 function renderAll() {
   renderControls();
-  if (S.tab === 'slate') renderSlate(); else if (S.tab === 'board') renderBoard(); else renderLab();
+  if (S.tab === 'slate') renderSlate(); else if (S.tab === 'board') renderBoard(); else if (S.tab === 'trends') renderTrends(); else renderLab();
 }
 function renderControls() {
   $('#seasonLabel').textContent = S.slate ? `${S.slate.season} season` : '';
@@ -265,6 +309,7 @@ function renderPanel() {
    <h3>Volume forecasts</h3><div class="kv small">${Object.entries(p.volume || {}).map(([k, v]) => `<div><strong>${esc({ rushYd: 'Rush yards', rec: 'Receptions', recYd: 'Receiving yards', passYd: 'Pass yards' }[k])}</strong> ${k === 'rec' ? n1(v.mean) : n0(v.mean)} <span class="muted">(${k === 'rec' ? n1(v.lo) : n0(v.lo)}–${k === 'rec' ? n1(v.hi) : n0(v.hi)})</span><br>${esc(v.text || '')}<br><span class="muted">${esc(v.source || '')}</span></div>`).join('')}</div>
    ${p.pos === 'QB' ? `<div class="card"><h4>Passing touchdowns</h4><p>${passTdCell(p)}</p><p class="small">${esc((p.passTd?.reasons || []).join(' '))} Passing TDs do not count toward his anytime chance.</p></div>` : ''}
    ${[p.conversionNote, p.riser?.reason, p.secondOption, ...(p.safetyNotes || []), ...(p.lessonNotes || []), d?.notes?.spike].filter(Boolean).map(t => `<p class="small">• ${esc(t)}</p>`).join('')}
+   ${panelTrendsHtml(p)}
    ${d ? detailBody(d, p, g) : ''}`;
   if (el.dataset.focused !== p.id || focusWasInside || !el.contains(document.activeElement)) { el.dataset.focused = p.id; el.querySelector('[data-act=close]').focus({ preventScroll: true }); }
 }
@@ -323,7 +368,7 @@ function learnedRepoHtml() {
   const dec = k => { const c = comp[k]; return c ? `<li><strong>${k}</strong>: ${c.enabled ? 'enabled' : 'off'} — ${esc(c.reason || '')}${c.decidedAt ? ` (${esc(c.decidedAt.slice(0, 10))})` : ''}</li>` : `<li><strong>${k}</strong>: not evaluated yet</li>`; };
   return `<h3>Shared archive (same on every device)</h3><p class="small">Current scales (week ${X.week ?? '—'}): ${esc(sc.join(' · ') || 'none')}</p>
    <p class="small">${ch ? `Latest change ${esc(new Date(ch.at).toLocaleString())} (week ${ch.week}): ${esc(ch.diff.map(d => `${d.group}.${d.key} ${pctc(d.from)} → ${pctc(d.to)}`).join(' · ') || 'basis updated, scales unchanged')}. ${esc(ch.why)}` : 'No change recorded yet.'}</p>
-   <h3>Auto-calibration decisions</h3><ul class="small">${dec('caps')}${dec('challenger')}</ul>${X.promotion ? `<p class="small muted">Challenger promotion check: ${X.promotion.promote ? 'passes' : esc(X.promotion.reasons.join(' '))}</p>` : ''}`;
+   <h3>Auto-calibration decisions</h3><ul class="small">${dec('caps')}${dec('challenger')}${dec('trends')}</ul>${X.promotion ? `<p class="small muted">Challenger promotion check: ${X.promotion.promote ? 'passes' : esc(X.promotion.reasons.join(' '))}</p>` : ''}`;
 }
 function renderLab() {
   const v = $('#view-lab'); if (!S.slate) { v.innerHTML = ''; return; }
@@ -347,7 +392,7 @@ function renderLab() {
       <h3>Lowest-chance scorers</h3><ul class="small">${bt.td.lowestScorers.map(r => `<li>${esc(r.name)} ${pc(r.chance)} (${r.td} TD)</li>`).join('')}</ul>
       <h3>Expected vs actual by yard-line spot</h3><p class="small">${bt.td.spots.agg.map(s => `${s.spot}: ${s.expected.toFixed(1)} exp / ${s.actual} act`).join(' · ')} (unknown-spot rows excluded: ${bt.td.spots.excludedUnknown})</p>
       <h3>Meaningful expected, zero confirmed</h3><ul class="small">${bt.td.spots.meaningfulZero.slice(0, 12).map(r => `<li>${esc(r.name)} ${r.spot} expected ${r.expected.toFixed(2)}</li>`).join('') || '<li>None</li>'}</ul>` : ''}</div>
-   ${pickTrackerHtml()}<div class="card"><h2>Champion / challenger</h2><p class="small">Challenger: ${esc(ch?.status || 'unknown')} ${ch?.reason ? '— ' + esc(ch.reason) : ''} · training ${ch?.trainingCount ?? 0} · cutoff ${esc(JSON.stringify(ch?.cutoff || {}))}</p>
+   ${labTrendsHtml()}${pickTrackerHtml()}<div class="card"><h2>Champion / challenger</h2><p class="small">Challenger: ${esc(ch?.status || 'unknown')} ${ch?.reason ? '— ' + esc(ch.reason) : ''} · training ${ch?.trainingCount ?? 0} · cutoff ${esc(JSON.stringify(ch?.cutoff || {}))}</p>
      ${R?.promotion ? `<p class="small">Promotion: <strong>${R.promotion.promote ? 'eligible' : 'withheld'}</strong>. ${esc(R.promotion.reasons.join(' '))} Paired ${R.promotion.metrics.paired} across ${R.promotion.metrics.games} games. ${esc(R.promotion.note)}</p>` : '<p class="small muted">No validation run yet.</p>'}
      ${R?.summary ? `<p class="small">Archive summary: ${R.summary.prospective} prospective / ${R.summary.reconstructed} reconstructed graded · missing excluded ${R.summary.missingExcluded}</p>` : ''}</div>
    <div class="card"><h2>Refresh</h2><p class="small">${esc(S.slate.repoArchive ? 'A scheduled GitHub Actions job (user-approved) captures pregame snapshots and grades finished games into the shared archive; this page loads it.' : 'This copy has no shared archive; it refreshes when you press Refresh.')}</p>

@@ -11,6 +11,27 @@ import { tdReport, volumeReport } from './evaluation.js';
 import { challengerProbability } from './validation.js';
 import { componentState } from './calibration.js';
 import { gameResults, weekResults } from './results.js';
+import { FAMILIES, trendValidation, shippedTrendWeights } from './trends.js';
+
+// Trends feed for the Trends tab: every detected trend this week (production run), with the players it touches and
+// the ±pp it moved each one's chance (0 pp while the family weight is 0 = tracking, not yet proven).
+export function trendsFeed(base) {
+  const items = []; const seen = new Set(); const W = base.W?.trendWeights || shippedTrendWeights();
+  for (const G of base.games) for (const s of ['away', 'home']) {
+    const S = G.sides[s]; const byId = new Map(S.players.map(p => [p.id, p]));
+    for (const t of S.trends || []) {
+      const key = `${G.gameId}|${t.id}`; if (seen.has(key)) continue; seen.add(key);
+      const ids = t.entity.kind === 'player' ? [t.entity.id] : (t.affects || []);
+      const affected = ids.map(id => byId.get(id)).filter(Boolean).map(p => { const it = p.trendEffect?.items?.find(x => x.id === t.id); return { id: p.id, name: p.name, pos: p.pos, team: p.team, chance: p.chance, pp: it ? it.pp : 0, gameId: G.gameId }; });
+      const w = W[t.family] || 0; const eff = FAMILIES[t.family]?.effect;
+      items.push({ id: t.id, gameId: G.gameId, family: t.family, type: t.type, status: t.status || 'new', firstDetectedWeek: t.firstDetectedWeek ?? null, strength: t.strength, direction: t.direction, text: t.text, evidence: t.evidence, entity: t.entity,
+        team: t.entity.team, side: S.team, weight: w, mode: eff === 'none' ? 'display only' : (w ? 'active' : 'tracking, not yet proven'), affected });
+    }
+  }
+  const ord = { new: 0, continuing: 1, faded: 2 };
+  items.sort((a, b) => (ord[a.status] - ord[b.status]) || Math.abs(b.strength) - Math.abs(a.strength));
+  return { items, weights: W, validation: trendValidation(), families: Object.fromEntries(Object.entries(FAMILIES).map(([k, v]) => [k, { label: v.label, effect: v.effect, desc: v.desc }])) };
+}
 
 const state = { prep: null, ix: null, identity: null, archive: null, base: null, live: null, controller: null, token: null, weights: DEFAULT_WEIGHTS };
 const post = (m) => self.postMessage(m);
@@ -25,7 +46,7 @@ function challengerFn(a) { const c = a?.challenger; return c?.fit ? (p => challe
 
 function compute(weights) {
   const a = state.archive || {}; const cal = a.activeCalibration || {};
-  const common = { ix: state.ix, identity: state.identity, lessons: cal.active || null, lessonsUnplayed: cal.unplayed || null, errorModel: a.uncertainty?.errorModel || null, coverage: a.uncertainty?.coverage || null, challenger: challengerFn(a), useChallenger: !!componentState().challenger?.enabled, now: Date.now() };
+  const common = { ix: state.ix, identity: state.identity, lessons: cal.active || null, lessonsUnplayed: cal.unplayed || null, errorModel: a.uncertainty?.errorModel || null, coverage: a.uncertainty?.coverage || null, challenger: challengerFn(a), useChallenger: !!componentState().challenger?.enabled, trendHistory: a.trendHistory || [], now: Date.now() };
   // production (default-weight) run supplies frozen/reconstructed started games
   if (!state.base) state.base = runEngine(state.prep, { ...common, weights: DEFAULT_WEIGHTS });
   const live = sameWeights(weights, DEFAULT_WEIGHTS) ? state.base : runEngine(state.prep, { ...common, weights });
@@ -58,7 +79,7 @@ function slateMessage(reqId, extra = {}) {
   const pick = sorted[0] || null;
   const riser = unplayed.filter(p => p.riser).sort((a, b) => b.chance - a.chance)[0] || null;
   return { type: 'slate', reqId, season: state.prep.season, week: state.prep.week, currentWeek: state.prep.currentWeek, generatedAt: state.prep.generatedAt, sources: state.prep.sources,
-    games: c.games, weekResults: weekResults(c.games), learned: state.archive?.learned || null, repoArchive: !!state.archive?.repoArchive, weeklyPickId: pick?.id || null, riserId: riser?.id || null, modelVersion: MODEL_VERSION, weights: state.weights,
+    games: c.games, trends: trendsFeed(state.base), weekResults: weekResults(c.games), learned: state.archive?.learned || null, repoArchive: !!state.archive?.repoArchive, weeklyPickId: pick?.id || null, riserId: riser?.id || null, modelVersion: MODEL_VERSION, weights: state.weights,
     audit: { rejected: state.identity.rejected, unverified: state.identity.unverified, excluded: c.games.flatMap(g => [...g.sides.away.excluded, ...g.sides.home.excluded].map(e => ({ ...e, team: e.team }))) },
     lessons: state.archive?.activeCalibration || null, archiveStale: !!state.archive?.stale, challenger: state.archive?.challenger || null, research: state.archive?.researchStatus || null, pickTracker: state.archive?.pickTracker || null, lastRun: state.archive?.lastRun || null, ...extra };
 }

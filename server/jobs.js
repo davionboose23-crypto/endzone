@@ -54,7 +54,7 @@ export function calibrationState(archive, prep, ix, season, week) {
   const challenger = trainChallenger(graded, { season, week, modelVersion: MODEL_VERSION });
   const prosp = graded.filter(r => r.prospective);
   const vem = volumeErrorModel(prosp);
-  return { hist, cur, lessonsByWeek, active, inWeek, unplayedLessons: withInWeekNudge(active, inWeek), challenger, errorModel: vem.errorModel, coverage: vem.coverage, graded };
+  return { hist, cur, lessonsByWeek, active, inWeek, unplayedLessons: withInWeekNudge(active, inWeek), challenger, errorModel: vem.errorModel, coverage: vem.coverage, graded, trendHistory: graded.map(r => ({ id: r.id, week: r.week, chance: r.chance, y: r.y })) };
 }
 
 async function runRefresh(archive, { season, week, now = () => Date.now(), prep: givenPrep = null } = {}) {
@@ -70,7 +70,7 @@ async function runRefresh(archive, { season, week, now = () => Date.now(), prep:
     details.steps.push(`lessons for weeks ${Object.keys(cal.lessonsByWeek).join(',') || 'none'}`);
     const cutoffIso = new Date(now()).toISOString();
     const chFn = cal.challenger.fit ? (p => challengerProbability(cal.challenger, p, null, null)) : null;
-    const res = runEngine(prep, { ix, week: prep.week, weights: DEFAULT_WEIGHTS, lessons: cal.active, lessonsUnplayed: cal.unplayedLessons, now: now(), errorModel: cal.errorModel, coverage: cal.coverage, challenger: chFn, useChallenger: !!componentState().challenger?.enabled });
+    const res = runEngine(prep, { ix, week: prep.week, weights: DEFAULT_WEIGHTS, lessons: cal.active, lessonsUnplayed: cal.unplayedLessons, now: now(), errorModel: cal.errorModel, coverage: cal.coverage, challenger: chFn, useChallenger: !!componentState().challenger?.enabled, trendHistory: cal.trendHistory });
     let saved = 0, skipped = 0;
     const meta = { modelVersion: MODEL_VERSION, weights: res.weights, inputTimestamps: Object.fromEntries(Object.entries(prep.sources).map(([k, s]) => [k, s.fetchedAt])), sourceAvailability: Object.fromEntries(Object.entries(prep.sources).map(([k, s]) => [k, s.ok])),
       lessonsLabel: cal.active.label, challenger: { status: cal.challenger.fit ? cal.challenger.kind : 'not fit', reason: cal.challenger.reason, trainingCutoff: cal.challenger.cutoff, trainingCount: cal.challenger.trainingCount, capturedCutoff: cutoffIso } };

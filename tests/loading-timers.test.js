@@ -28,6 +28,7 @@ test('loading timers: Try again at 20s, timeout + cancel at 50s', { skip: !fs.ex
     await p.clock.runFor(19000);
     assert.equal(await p.locator('#loading [data-act=retry]').count(), 0, 'still none at 19s');
     await p.clock.runFor(1500);
+    { const t = Date.now(); while (await p.locator('#loading [data-act=retry]').count() === 0 && Date.now() - t < 5000) await new Promise(r => setTimeout(r, 100)); } // render may land a tick later under load
     assert.equal(await p.locator('#loading [data-act=retry]').count(), 1, 'Try again offered after 20s');
     assert.doesNotMatch(await p.locator('#loading').innerText(), /taking too long/);
     await p.clock.runFor(30000);

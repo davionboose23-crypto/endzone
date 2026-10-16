@@ -86,6 +86,11 @@ test('UI: Focus view (default on for mobile, persisted), primary yardage per pos
     const pt = await d.locator('#pickTracker').innerText();
     assert.match(pt, /Prospective \(frozen pregame snapshots\)/); assert.match(pt, /Reconstructed \(earlier-week features/);
     assert.match(pt, /\d+\/\d+/);
+    const lab = await d.locator('#view-lab').innerText(); assert.match(lab, /Trends agent validation/);
+    await d.click('#tab-trends'); await d.waitForSelector('#view-trends .trendcard, #view-trends .card', { timeout: 60000 });
+    const tv = await d.locator('#view-trends').innerText(); assert.match(tv, /Trends agent · week/);
+    if (await d.locator('#view-trends .trendcard').count()) { assert.match(tv, /tracking, not yet proven|active|display only/); assert.match(tv, /pp/);
+      await d.selectOption('#tfStatus', 'new'); const cards = await d.locator('#view-trends .trendcard').allInnerTexts(); assert.ok(cards.every(c => /New/.test(c))); }
     assert.deepEqual(errors, []);
   } finally { await b.close(); server.close(); }
 });

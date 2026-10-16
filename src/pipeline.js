@@ -2,6 +2,7 @@
 // the server refresh job, so archived unplayed-game predictions match the display.
 import { stackX, stackPredict } from './stack.js';
 import { fitFor, applyVolCal } from './calibration.js';
+import { playerTrendsWithStatus, defenseTrendsWithStatus, teamTrendsWithStatus, trendMultipliers, componentMult, shippedTrendWeights } from './trends.js';
 import { MODEL_VERSION, sanitizeWeights, clamp, distribution, anytimeFromLambda, lambdaFromChance, firstTd, publishedProbability, edgePts, scaleComponents, sumComponents, safetyCalibrate, sanitizeCaps, chanceBand, americanFair, pct } from './model.js';
 import { lines, weather } from './feeds.js';
 import { availability } from './roster.js';
@@ -18,7 +19,7 @@ const sum = (a, f) => a.reduce((s, x) => s + f(x), 0);
 export function chanceBandKey(p) { return p < 0.15 ? 'lt15' : p < 0.25 ? '15to25' : p < 0.35 ? '25to35' : p < 0.5 ? '35to50' : '50plus'; }
 
 // Week context shared by every game: league rates, matchup tables, team totals (all before cutoff).
-export function weekContext(ix, identity, { season, week, weights, lessons = null, now = Date.now(), errorModel = null, coverage = null, pubTdBlend, stackFit, budgetFit, volCal, exp = null, caps }) {
+export function weekContext(ix, identity, { season, week, weights, lessons = null, now = Date.now(), errorModel = null, coverage = null, pubTdBlend, stackFit, budgetFit, volCal, exp = null, caps, trendWeights, trendHistory = null }) {
   // endzone-4.2: shipped walk-forward fits (trained only on games before this week) unless the caller overrides; pass false to disable.
   const shipped = fitFor(season, week);
   if (budgetFit === undefined) budgetFit = shipped?.budget ? { ...shipped.budget, id: shipped.id } : null;
@@ -42,7 +43,7 @@ export function weekContext(ix, identity, { season, week, weights, lessons = nul
   for (const a of teamRz.values()) { a.rzRush /= a.n; a.rzTgt /= a.n; }
   const lgRzPg = lgN ? lgRz / lgN : null;
   const qbRows = rows.filter(r => r.pos === 'QB' && r.att > 0); const lgYpa = sum(qbRows, r => r.passYd) / Math.max(1, sum(qbRows, r => r.att)) || 6.6;
-  return { ix, identity, season, week, weights: sanitizeWeights(weights), lessons, now, league, T, teamTotals, byTeam, teamRz, defRz, lgRzPg, lgYpa, rows, errorModel, coverage, pubTdBlend: pubTdBlend ?? PUB_TD_BLEND, stackFit: stackFit || null, budgetFit: budgetFit || null, volCal: volCal || null, exp: exp || {}, caps: caps || null, capsEff: sanitizeCaps(caps) };
+  return { ix, identity, season, week, weights: sanitizeWeights(weights), lessons, now, league, T, teamTotals, byTeam, teamRz, defRz, lgRzPg, lgYpa, rows, errorModel, coverage, pubTdBlend: pubTdBlend ?? PUB_TD_BLEND, stackFit: stackFit || null, budgetFit: budgetFit || null, volCal: volCal || null, exp: exp || {}, caps: caps || null, capsEff: sanitizeCaps(caps), trendWeights: trendWeights || (shipped?.trendWeights ? { ...shippedTrendWeights(), ...shipped.trendWeights } : shippedTrendWeights()), trendHistory: trendHistory || [], defTrendCache: new Map() };
 }
 
 function sideContext(W, game, side) {
@@ -92,6 +93,16 @@ export function computeSide(W, game, side, { override = null, historical = false
   }
   const binMix = {};
   for (const path of PATHS) { const tot = sum(BINS, b => teamBin[`${path}${b}`]); for (const b of BINS) binMix[`${path}${b}`] = (teamBin[`${path}${b}`] + 20 * L.binMix[path][b]) / (tot + 20); }
+  // ---- trends agent: detect (pre-week data only) and convert to bounded multipliers
+  if (!W.defTrendCache.has(sc.opp)) W.defTrendCache.set(sc.opp, defenseTrendsWithStatus(W.rows, sc.opp, W.week));
+  const defT = W.defTrendCache.get(sc.opp); const sideTrends = [...teamTrendsWithStatus([...W.teamTotals.values()], sc.team, W.week)];
+  for (const p of active) {
+    p.trends = playerTrendsWithStatus(p, { history: W.trendHistory, week: W.week });
+    const dT = defT.filter(t => t.status !== 'faded' && t.entity.pos === (p.pos === 'FB' ? 'RB' : p.pos));
+    p.tm = trendMultipliers([...p.trends, ...dT], W.trendWeights); p.defTrends = dT;
+    sideTrends.push(...p.trends);
+  }
+  for (const t of defT) sideTrends.push({ ...t, affects: active.filter(p => (p.pos === 'FB' ? 'RB' : p.pos) === t.entity.pos).map(p => p.id) });
   const rzVolKey = { r: 'rzRush', t: 'rzTgt' };
   for (const path of PATHS) {
     const totVolRz = sum(active, p => p.vol[rzVolKey[path]]) || 1;
@@ -111,7 +122,7 @@ export function computeSide(W, game, side, { override = null, historical = false
         const avail = p.avail.factor * (p.roleFactor || 1);
         p.share = p.share || {}; p.shareData = p.shareData || {};
         p.shareData[key] = { season: sShare, recent: rShare, data: dataShare, wData, prior, teamSeason: tS, teamRecent: tR, playerSeason: zs.looks, playerRecent: zr.looks };
-        p.share[key] = (wData * dataShare + (1 - wData) * prior) * avail;
+        p.share[key] = (wData * dataShare + (1 - wData) * prior) * avail * componentMult(p.tm.m, path, b);
         if (W.exp.qbRushData && path === 'r' && p.pos === 'QB') p.share[key] *= W.exp.qbRushData;
       }
       // include unavailable players' observed shares for transfer
@@ -154,6 +165,7 @@ export function computeSide(W, game, side, { override = null, historical = false
     const realScoringOpp = recentRzLooks >= 2;
     let mf = m ? m.factor : 1; const liftBlocked = mf > 1 && !realScoringOpp;
     if (liftBlocked) mf = 1;
+    mf *= p.tm.m.def; let noTrendLam = 0;
     const hotGames = new Set([...p.f.zSeason.r1.scoreGames, ...p.f.zSeason.r2.scoreGames, ...p.f.zSeason.t1.scoreGames, ...p.f.zSeason.t2.scoreGames]);
     const hot = hotGames.size >= 2 && !p.f.spike;
     let coldGoal = false;
@@ -163,13 +175,13 @@ export function computeSide(W, game, side, { override = null, historical = false
         const q = qualityFactor(path, b, zs, L, W.ix.prep.charting);
         const sr = spotRate(path, b, { kMult: W.exp.spotK, looks: zs.looks, scores: zs.scores, recentLooks: zr.looks, recentScores: zr.scores, hot, spike: p.f.spike, quality: q.factor }, L);
         if (sr.cold) coldGoal = true;
-        let rate = sr.rate * (path === 't' && p.pos === 'TE' ? w.tePremium : 1);
+        let rate = sr.rate * (path === 't' && p.pos === 'TE' ? w.tePremium : 1) * p.tm.m.spot;
         const spotScale = W.lessons?.spot?.[key] ?? 1;
         const opps = sideTeamBudgetBins[key] * p.share[key];
         let dsf = defenseSpotFactor(W.T.dz, W.T.lz, sc.opp, path, b);
         if (dsf.factor > 1 && !realScoringOpp) dsf = { ...dsf, factor: 1, blocked: true };
         const exp = opps * rate * mf * dsf.factor * spotScale;
-        comp[key] = exp; if (b <= 2) i10Exp += exp;
+        comp[key] = exp; if (b <= 2) i10Exp += exp; noTrendLam += exp / (componentMult(p.tm.m, path, b) * p.tm.m.spot * p.tm.m.def);
         spots[key] = { opps, rate, rawRate: sr.rate, posterior: sr.posterior, prior: sr.prior, k: sr.k, cold: sr.cold, notes: sr.notes, quality: q, looks: zs.looks, scores: zs.scores, recentLooks: zr.looks, recentScores: zr.scores, expected: exp, lessonScale: spotScale, defenseSpot: dsf };
       }
       const rzOpps = sum(BINS, b => spots[`${path}${b}`].opps);
@@ -177,10 +189,12 @@ export function computeSide(W, game, side, { override = null, historical = false
       const outOpps = Math.max(0, totalOpp - rzOpps);
       const zo = p.f.zSeason[`${path}0`];
       const orr = outsideRate(path, zo.looks, p.f.spike ? zo.scores * 0.72 : zo.scores, zo.scoreGames.size, L);
-      comp[`${path}0`] = outOpps * orr.rate * mf;
+      comp[`${path}0`] = outOpps * orr.rate * mf * p.tm.m.share * (path === 'r' ? p.tm.m.rshare : 1); noTrendLam += comp[`${path}0`] / (p.tm.m.share * (path === 'r' ? p.tm.m.rshare : 1) * p.tm.m.def);
       spots[`${path}0`] = { opps: outOpps, rate: orr.rate, looks: zo.looks, scores: zo.scores, recurring: orr.recurring, expected: comp[`${path}0`] };
     }
     if (p.pos === 'QB') { /* passing TDs never enter the QB's own anytime intensity */ }
+    { const withT = sumComponents(comp); const before = anytimeFromLambda(noTrendLam), after = anytimeFromLambda(withT); const tot = p.tm.applied.reduce((a, x) => a + x.logm, 0);
+      p.trendEffect = p.tm.applied.length ? { before, after, note: 'before safety caps and the team TD budget', items: p.tm.applied.map(x => ({ ...x, weight: W.trendWeights[x.family] || 0, pp: tot ? (after - before) * x.logm / tot : 0 })) } : null; }
     p.spots = spots; p.coldGoal = coldGoal; p.i10Exp = i10Exp; p.liftBlocked = liftBlocked; p.matchupFactor = mf;
     p.glShare = p.share.r1 || 0;
     const rawLambda = sumComponents(comp);
@@ -235,7 +249,7 @@ export function computeSide(W, game, side, { override = null, historical = false
   const teamRec = sum(active, p => sum(['t0', 't1', 't2', 't3'], k => p.components[k] || 0));
   allocatePassingTd(active.filter(p => p.pos === 'QB'), teamRec);
   for (const p of active) { p.chance = anytimeFromLambda(p.lambda); }
-  return { sc, members, active, budget, fits, transfers, teamBin, binMix, raw, budgetFactor, teamNotes, teamRec, teamLambda: sum(active, p => p.lambda) };
+  return { sc, members, active, budget, fits, transfers, teamBin, binMix, raw, budgetFactor, teamNotes, teamRec, teamLambda: sum(active, p => p.lambda), trends: sideTrends };
 }
 
 // Volume forecasts with league-average-defense version and ranges.
@@ -367,7 +381,7 @@ export function forecastGame(W, game, { historical = false } = {}) {
       p.conversionNote = convNote(p);
     }
     const call = chooseTeamCall(players, { spread: S.sc.spread });
-    out.sides[side] = { team: S.sc.team, opp: S.sc.opp, spread: S.sc.spread, implied: S.sc.implied, lines: S.sc.lines, weather: S.sc.weather, budget: S.budget, fits: S.fits, transfers: S.transfers,
+    out.sides[side] = { trends: S.trends, team: S.sc.team, opp: S.sc.opp, spread: S.sc.spread, implied: S.sc.implied, lines: S.sc.lines, weather: S.sc.weather, budget: S.budget, fits: S.fits, transfers: S.transfers,
       teamLambda: S.teamLambda, tdBudget: S.budget.tdBudget, teamNotes: S.teamNotes, teamRec: S.teamRec, players, excluded: S.members.filter(p => p.avail.excluded).map(p => ({ id: p.id, name: p.name, pos: p.pos, reason: p.avail.label, transfer: p.transfer || null })), call };
   }
   return out;
@@ -388,6 +402,8 @@ export function compactPrediction(p, side) {
   return {
     id: p.id, gsis: p.gsis || null, espn: p.espn || null, name: p.name, pos: p.pos, team: p.team, role: p.role, photo: p.photo, injury: p.injury || null, practice: p.practice || null,
     avail: p.avail, verified: p.verified, verifyReason: p.verifyReason,
+    trendTags: (p.trends || []).concat(p.defTrends || []).filter(t => t.status !== 'faded').map(t => ({ id: t.id, family: t.family, type: t.type, direction: t.direction, strength: t.strength, status: t.status, firstDetectedWeek: t.firstDetectedWeek })),
+    trendEffect: p.trendEffect ? { before: r(p.trendEffect.before), after: r(p.trendEffect.after), note: p.trendEffect.note, items: p.trendEffect.items.map(x => ({ id: x.id, family: x.family, weight: x.weight, mult: r(x.mult), pp: r(x.pp), text: [...(p.trends || []), ...(p.defTrends || [])].find(t => t.id === x.id)?.text || '' })) } : null,
     chance: r(p.chance), lambda: r(p.lambda), dist: Object.fromEntries(Object.entries(p.dist).map(([k, v]) => [k, r(v)])), firstTd: r(p.firstTd), band: p.band.map(r),
     components: Object.fromEntries(Object.entries(p.components).map(([k, v]) => [k, r(v)])), published: p.published, edge: r(p.edge), fair: p.fair,
     tdConf: p.tdConf, volConf: p.volConf, volume: Object.fromEntries(Object.entries(p.volume).map(([k, v]) => [k, { mean: r(v.mean), lo: r(v.lo), hi: r(v.hi), leagueDefense: r(v.leagueDefense), text: v.text, source: v.source, defense: v.defense ? { allowed: r(v.defense.allowed), league: r(v.defense.league), factor: r(v.defense.factor) } : null }])),
