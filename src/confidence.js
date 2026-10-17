@@ -43,7 +43,6 @@ const VOL = {
   recYd: { opp: 'targets', high: 18, med: 8, minProj: 3, effCv: 0.8, prodCv: 0.85, prod: g => g.recYd, eff: g => (g.targets ? g.recYd / g.targets : null), defKey: 'ypt', label: 'Receiving yards' },
   passYd: { opp: 'att', high: 50, med: 20, minProj: 20, effCv: 0.8, prodCv: 0.85, prod: g => g.passYd, eff: g => (g.att ? g.passYd / g.att : null), defKey: 'passYpa', label: 'Pass yards' },
 };
-export const VOLUME_METRICS = Object.keys(VOL);
 export function volumeConfidence(metric, p, fc, ctx = {}) {
   const spec = VOL[metric]; const f = p.f; const reasons = [], blocks = [];
   const sample = f.games.reduce((s, g) => s + (g[spec.opp] || 0), 0);

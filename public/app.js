@@ -4,6 +4,7 @@ import { STAGES, etDisplay, requestGate } from '/src/feeds.js';
 import { sortPlayers, SORTS, compareDefault } from '/src/ranking.js';
 import { teamLogo } from '/src/roster.js';
 import { snapshotPassTd } from '/src/passing-touchdowns.js';
+import { buildBrief, analyze, PROVIDERS } from '/src/analyst.js';
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -100,10 +101,11 @@ function trendTag(p) {
 }
 function trendCard(t) {
   const ev = Object.entries(t.evidence || {}).map(([k, v]) => `${esc(k)} ${esc(Array.isArray(v) ? v.join(', ') : v)}`).join(' · ');
-  return `<article class="card trendcard ${t.status}" data-family="${esc(t.family)}"><div class="row between"><div><span class="ttag ${t.direction}">${t.direction === 'up' ? '▲' : '▼'} ${esc(t.type)}</span> <span class="chip st-${t.status}">${STATUS_LBL[t.status] || t.status}</span></div><span class="small muted">${t.entity.kind === 'defense' ? `${esc(t.team)} defense vs ${esc(t.entity.pos)}` : t.entity.kind === 'team' ? `${esc(t.team)} offense` : `${esc(t.entity.name)} · ${esc(t.entity.pos)} · ${esc(t.team)}`}</span></div>
-   <p>${esc(t.text)}</p><p class="small muted">Evidence: ${ev} · strength ${t.strength.toFixed(2)} · first detected week ${t.firstDetectedWeek ?? '—'}</p>
-   <p class="small"><strong>${esc(t.mode)}</strong>${t.mode === 'active' ? ` (family weight ${t.weight})` : ''}</p>
-   ${t.affected.length ? `<ul class="small affected">${t.affected.map(a => `<li><button class="plink" data-act="player" data-game="${esc(a.gameId)}" data-player="${esc(a.id)}">${esc(a.name)} <span class="muted">${esc(a.pos)} · ${esc(a.team)}</span></button> ${pc(a.chance, 1)} <span class="pp">${ppTxt(a.pp)}</span></li>`).join('')}</ul>` : '<p class="small muted">No individual player chance attached (team-level context).</p>'}</article>`;
+  const who = t.entity.kind === 'defense' ? `${esc(t.team)} D vs ${esc(t.entity.pos)}` : t.entity.kind === 'team' ? `${esc(t.team)} offense` : `${esc(t.entity.name)} · ${esc(t.entity.pos)} · ${esc(t.team)}`;
+  return `<article class="trendcard ${t.status}" data-family="${esc(t.family)}"><header><span class="ttag ${t.direction}">${t.direction === 'up' ? '▲' : '▼'} ${esc(t.type)}</span><span class="chip st-${t.status}">${STATUS_LBL[t.status] || t.status}</span><span class="who small muted">${who}</span></header>
+   <p class="ttext">${esc(t.text)}</p>
+   ${t.affected.length ? `<ul class="small affected">${t.affected.slice(0, 4).map(a => `<li><button class="plink" data-act="player" data-game="${esc(a.gameId)}" data-player="${esc(a.id)}">${esc(a.name)}</button> <span class="muted">${pc(a.chance, 1)}</span> <span class="pp">${ppTxt(a.pp)}</span></li>`).join('')}${t.affected.length > 4 ? `<li class="muted">+${t.affected.length - 4} more</li>` : ''}</ul>` : ''}
+   <footer class="small muted"><span>${esc(t.mode)}${t.mode === 'active' ? ` · weight ${t.weight}` : ''}</span><details><summary>Evidence</summary>${ev} · strength ${t.strength.toFixed(2)} · first detected week ${t.firstDetectedWeek ?? '—'}</details></footer></article>`;
 }
 function renderTrends() {
   const v = $('#view-trends'); const T = S.slate?.trends; if (!T) { v.innerHTML = '<p class="muted">No trends loaded.</p>'; return; }
@@ -119,19 +121,52 @@ function renderTrends() {
 }
 function panelTrendsHtml(p) {
   const T = S.slate?.trends; const mine = (T?.items || []).filter(t => t.status !== 'faded' && t.affected.some(a => a.id === p.id));
-  if (!mine.length) return '<h3>Trends that moved his chance</h3><p class="small muted">No active trend detected for him this week.</p>';
+  if (!mine.length) return '<p class="small muted">No active trend detected for him this week.</p>';
   const e = p.trendEffect;
-  return `<h3>Trends that moved his chance</h3><p class="small">Before trends ${pc(e?.before, 1)} → after ${pc(e?.after, 1)} <span class="muted">(${esc(e?.note || 'before safety caps and the team TD budget')})</span></p><ul class="small">${mine.map(t => { const a = t.affected.find(x => x.id === p.id); return `<li><strong>${esc(t.type)}</strong> ${t.direction === 'up' ? '▲' : '▼'} <span class="pp">${ppTxt(a.pp)}</span> · ${esc(t.mode)} · ${STATUS_LBL[t.status]} since week ${t.firstDetectedWeek ?? '—'}<br>${esc(t.text)}</li>`; }).join('')}</ul>`;
+  return `<p class="small">Before trends ${pc(e?.before, 1)} → after ${pc(e?.after, 1)} <span class="muted">(${esc(e?.note || 'before safety caps and the team TD budget')})</span></p><ul class="small">${mine.map(t => { const a = t.affected.find(x => x.id === p.id); return `<li><strong>${esc(t.type)}</strong> ${t.direction === 'up' ? '▲' : '▼'} <span class="pp">${ppTxt(a.pp)}</span> · ${esc(t.mode)} · ${STATUS_LBL[t.status]} since week ${t.firstDetectedWeek ?? '—'}<br>${esc(t.text)}</li>`; }).join('')}</ul>`;
 }
 function labTrendsHtml() {
   const T = S.slate?.trends; if (!T) return '';
   const V = T.validation || {}; const val = V.validation2026_x1e4 || {}; const gate = S.slate.learned?.components?.trends;
   const fmt = a => a ? `${a[0] > 0 ? '+' : ''}${a[0].toFixed(2)} [${a[1].toFixed(2)}, ${a[2].toFixed(2)}]` : '—';
-  return `<div class="card"><h2>Trends agent validation</h2><p class="small">${esc(V.note || '')}</p>
+  return `<div><h3>Trends agent validation</h3><p class="small">${esc(V.note || '')}</p>
    <div class="tablewrap" tabindex="0" role="region" aria-label="Trend family validation"><table style="min-width:560px"><thead><tr><th>Family</th><th>Weight</th><th>Status</th><th>Held-out ΔBrier ×1e-4</th><th>Held-out Δlog loss ×1e-4</th><th>Result</th></tr></thead><tbody>
    ${Object.entries(T.families).filter(([, f]) => f.effect !== 'none').map(([k, f]) => { const r = Object.entries(val).find(([n]) => n.startsWith(k + '@')); return `<tr><td>${esc(f.label)}</td><td>${T.weights[k] || 0}</td><td>${T.weights[k] ? 'on' : 'off (tracking)'}</td><td>${r ? `${fmt(r[1].dBrier)} <span class="muted">@${r[0].split('@')[1]}</span>` : '—'}</td><td>${r ? fmt(r[1].dLogLoss) : '—'}</td><td class="small">${esc(r?.[1].result || '')}</td></tr>`; }).join('')}</tbody></table></div>
    <p class="small muted">Negative = better. Display-only families: ${Object.entries(T.families).filter(([, f]) => f.effect === 'none').map(([, f]) => esc(f.label)).join(', ')}.</p>
    <p class="small">Tuesday gate: ${gate ? `${esc(gate.reason || '')}${gate.decidedAt ? ` (${esc(gate.decidedAt.slice(0, 10))})` : ''}` : 'not run yet for trends'}</p></div>`;
+}
+// ---------- AI analysis agent (key stays in this device's localStorage; sent only to the chosen provider)
+const AI_LS = 'endzone.ai.v1', AI_CACHE = 'endzone.aicache.v1';
+function aiSettings() { return load(AI_LS, { provider: 'xai', baseUrl: '', model: '', key: '' }); }
+const snapKey = g => g.capturedAt || (g.frozen === 'snapshot' ? 'frozen' : S.slate?.generatedAt || '');
+const aiKey = (g, p) => `${g.id}|${p.id}|${snapKey(g)}`;
+function aiCached(g, p) { return (load(AI_CACHE, {}))[aiKey(g, p)] || null; }
+function aiStore(g, p, rv) { const c = load(AI_CACHE, {}); c[aiKey(g, p)] = { ...rv, at: new Date().toISOString() }; const ks = Object.keys(c); for (const k of ks.slice(0, Math.max(0, ks.length - 150))) delete c[k]; save(AI_CACHE, c); }
+function aiReviewHtml(rv) {
+  const li = a => (a?.length ? `<ul class="small">${a.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : '<p class="small muted">None noted.</p>');
+  return `<section class="card ai ${rv.source}" aria-label="AI analysis"><div class="row between"><span class="eyebrow">${esc(rv.label)}</span><span class="small muted">${rv.at ? esc(new Date(rv.at).toLocaleString()) : ''}</span></div>
+   <p class="why"><strong>${esc(rv.verdict)}</strong></p>${rv.note ? `<p class="small warn">${esc(rv.note)}</p>` : ''}
+   <div class="aigrid"><div><h4>Case for</h4>${li(rv.caseFor)}</div><div><h4>Case against</h4>${li(rv.caseAgainst)}</div></div>
+   <h4>Key risks</h4>${li(rv.risks)}<p class="small"><strong>Vs the model:</strong> ${esc(rv.vsModel)}</p>
+   <p class="small muted">Commentary only: the model's numbers above are unchanged.</p></section>`;
+}
+async function runAi() {
+  const f = findPlayer(S.panel.gameId, S.panel.playerId); if (!f) return; const { g, p } = f; const out = $('#aiOut');
+  out.innerHTML = '<p class="small muted">Writing review…</p>';
+  const opp = f.s === 'away' ? g.sides.home.team : g.sides.away.team;
+  const misses = (S.slate?.trends?.items || []).filter(t => t.family === 'miss' && t.affected.some(a => a.id === p.id));
+  const brief = buildBrief(p, S.detail || null, { opp, fair: fmtAmerican(p.chance), snapshotLabel: g.frozen || 'live', misses });
+  const rv = await analyze(brief, aiSettings());
+  aiStore(g, p, rv); if (S.panel?.playerId === p.id) out.innerHTML = aiReviewHtml({ ...rv, at: new Date().toISOString() });
+}
+function aiSettingsHtml() {
+  const a = aiSettings(); const P = PROVIDERS[a.provider] || PROVIDERS.xai;
+  return `<p class="small">Optional. Paste your own API key to get an AI-written review on each player panel. <strong>The key is stored only in this browser's localStorage on this device and is sent directly from your browser to the provider you choose.</strong> It is never sent to ENDZONE, the repo, snapshots or logs. Without a key, the panel uses a built-in rule-based review.</p>
+   <div class="formgrid"><label class="small">Provider <select id="aiProvider">${Object.entries(PROVIDERS).map(([k, v]) => `<option value="${k}" ${a.provider === k ? 'selected' : ''}>${esc(v.label)}</option>`).join('')}</select></label>
+   <label class="small">Base URL <input id="aiBase" type="url" placeholder="${esc(P.baseUrl)}" value="${esc(a.baseUrl)}"></label>
+   <label class="small">Model <input id="aiModel" placeholder="${esc(P.model)}" value="${esc(a.model)}"></label>
+   <label class="small">API key <input id="aiKey" type="password" autocomplete="off" placeholder="${a.key ? 'saved on this device' : 'paste key'}" value=""></label></div>
+   <div class="row"><button class="btn" data-act="aisave">Save</button><button class="btn" data-act="aiclear">Remove key</button><span class="small muted" id="aiState">${a.key ? 'Key saved on this device.' : 'No key saved.'}</span></div>`;
 }
 function renderAll() {
   renderControls();
@@ -144,7 +179,6 @@ function renderControls() {
 }
 
 // ---------- Results vs predicted (finished games)
-const VOLLBL = { rushYd: 'Rush yds', recYd: 'Rec yds', rec: 'Catches', passYd: 'Pass yds' };
 const resLabel = R => `<span class="chip ${R.prospective ? 'high' : ''}">${R.prospective ? 'Prospective' : 'Reconstructed'}</span>`;
 function resultsSummaryLine(g) {
   const R = g.results; if (!R) return ''; const m = R.summary;
@@ -224,10 +258,11 @@ function matchupHtml(g) {
 }
 // Focus view (user request): anytime %, TD confidence, and the single primary yardage line.
 const PRIMARY = { QB: ['passYd', 'Pass yds'], RB: ['rushYd', 'Rush yds'], FB: ['rushYd', 'Rush yds'], WR: ['recYd', 'Rec yds'], TE: ['recYd', 'Rec yds'] };
-const primaryCell = p => { const [m, l] = PRIMARY[p.pos] || PRIMARY.WR; return `<span class="muted small">${l}</span> ${volCell(p, m)}`; };
+const primaryCell = p => { const [m, l] = PRIMARY[p.pos] || PRIMARY.WR; const v = p.volume?.[m]; return `<span class="muted small">${l}</span> ${v ? (m === 'rec' ? n1(v.mean) : n0(v.mean)) : '—'}`; };
+const focusBtn = (p, gid) => `<button class="plink" data-act="player" data-game="${esc(gid)}" data-player="${esc(p.id)}">${photo(p)}<span>${esc(p.name)} <span class="muted small">${esc(p.pos)} · ${esc(p.team)}</span></span></button>`;
 function focusList(players, gidOf, label, withStar = false) {
   return `<div class="focuslist" role="table" aria-label="${esc(label)} (focus view)"><div role="row" class="frow fhead small muted"><span role="columnheader">Player</span><span role="columnheader">Anytime</span><span role="columnheader">TD conf</span><span role="columnheader">Primary yards</span></div>
-   ${players.map(p => `<div role="row" class="frow ${p.tdConf.level === 'High' ? 'high' : ''}"><span role="cell" class="fplayer">${withStar ? star(p) : ''}${playerBtn(p, gidOf(p))}</span><span role="cell" class="mid">${pc(p.chance)}</span><span role="cell" aria-label="TD confidence ${p.tdConf.level}">${chip(p.tdConf.level)}</span><span role="cell">${primaryCell(p)}</span></div>`).join('')}</div>`;
+   ${players.map(p => `<div role="row" class="frow ${p.tdConf.level === 'High' ? 'high' : ''}"><span role="cell" class="fplayer">${withStar ? star(p) : ''}${focusBtn(p, gidOf(p))}</span><span role="cell" class="mid">${pc(p.chance)}</span><span role="cell" aria-label="TD confidence ${p.tdConf.level}">${chip(p.tdConf.level)}</span><span role="cell">${primaryCell(p)}</span></div>`).join('')}</div>`;
 }
 function mobileCard(p, gid) {
   return `<div class="card ${p.tdConf.level === 'High' ? 'high' : ''}"><div class="pcard">${photo(p)}<div><button class="plink" data-act="player" data-game="${esc(gid)}" data-player="${esc(p.id)}">${esc(p.name)}</button><div class="small muted">${esc(p.pos)} · ${esc(p.team)} ${highBadge(p)}</div></div><div class="big">${pc(p.chance)}</div></div>
@@ -285,6 +320,9 @@ function pie(player, team, label) {
   const path = f >= 1 ? `<circle cx="40" cy="40" r="34" fill="#e4b54a"/>` : `<circle cx="40" cy="40" r="34" fill="#3f8f6a"/><path d="M40 40 L40 6 A34 34 0 ${f > 0.5 ? 1 : 0} 1 ${x.toFixed(2)} ${y.toFixed(2)} Z" fill="#e4b54a"/>`;
   return `<figure><svg width="80" height="80" viewBox="0 0 80 80" role="img" aria-label="${player} of ${team} (${Math.round(f * 100)}%)">${path}</svg></figure>`;
 }
+const sec = (title, body, open = false) => `<details class="sec"${open ? ' open' : ''}><summary>${esc(title)}</summary><div class="secbody">${body}</div></details>`;
+// turn "<h3>Title</h3>body" chunks from the detail renderer into collapsed disclosures
+const h3ToDetails = html => html.split('<h3>').filter(x => x.trim()).map(ch => { const k = ch.indexOf('</h3>'); return k < 0 ? ch : `<details class="sec"><summary>${ch.slice(0, k)}</summary><div class="secbody">${ch.slice(k + 5)}</div></details>`; }).join('');
 function renderPanel() {
   const el = $('#panel'); if (!S.panel) return;
   const f = findPlayer(S.panel.gameId, S.panel.playerId); if (!f) return closePanel();
@@ -296,21 +334,31 @@ function renderPanel() {
   if (p.pos === 'QB' && p.passTd) conf.push(['Passing TD', { level: p.passTd.level, reasons: p.passTd.reasons, blocks: [] }]);
   const highs = conf.filter(([, c]) => c?.level === 'High');
   const dist = p.dist || {};
+  const [pm, pl] = PRIMARY[p.pos] || PRIMARY.WR; const pv = p.volume?.[pm];
+  const why = d?.matchupLead?.sentence || p.conversionNote || p.tdConf.reasons?.[0] || '';
+  const opp = f.s === 'away' ? g.sides.home.team : g.sides.away.team;
+  const notes = [p.conversionNote, p.riser?.reason, p.secondOption, ...(p.safetyNotes || []), ...(p.lessonNotes || []), d?.notes?.spike].filter(Boolean);
   el.innerHTML = `<div class="row between"><h2 id="panelTitle">${esc(p.name)}</h2><button class="btn" data-act="close" aria-label="Close player details">Close ✕</button></div>
-   ${d ? `<div class="card"><div class="eyebrow">SCORE MATCHUP</div><p>${esc(d.matchupLead.sentence)}</p><p class="small">${esc(d.matchupLead.evidence || '')} ${d.matchupLead.featured ? `This offense ${esc(d.matchupLead.featured)} the position (role ratio ${d.matchupLead.roleRatio?.toFixed(2)}).` : ''} ${d.matchupLead.liftBlocked ? 'No real recent scoring opportunities, so the soft position does not lift him.' : ''}</p></div>` : '<p class="muted">Loading details…</p>'}
-   <div class="row">${photo(p)}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.pos)} · ${esc(p.team)} vs ${esc(f.s === 'away' ? g.sides.home.team : g.sides.away.team)}</span><div class="small">${esc(d?.role || p.role || '')} · ${esc(p.avail?.label || '')}${p.replacing ? ` · replacing ${esc(p.replacing.name)}` : ''}</div><div class="small muted">${esc(d?.weather?.note || '')}</div></div></div>
-   <div class="card ${p.tdConf.level === 'High' ? 'high' : ''}"><div class="row between"><div><div class="small muted">Anytime chance</div><div class="big" aria-label="Anytime touchdown chance ${pc(p.chance)}">${pc(p.chance, 1)}</div></div>${chip(p.tdConf.level, 'TD confidence')}</div>
+   <div class="row pid">${photo(p)}<div><span class="muted">${esc(p.pos)} · ${esc(p.team)} vs ${esc(opp)}</span><div class="small">${esc(d?.role || p.role || '')} · ${esc(p.avail?.label || '')}${p.replacing ? ` · replacing ${esc(p.replacing.name)}` : ''}</div></div></div>
+   <section class="card summary ${p.tdConf.level === 'High' ? 'high' : ''}" aria-labelledby="sumH"><h3 id="sumH" class="eyebrow">Summary</h3>
+     <div class="sumgrid"><div class="sumchance"><div class="small muted">Anytime chance</div><div class="big" aria-label="Anytime touchdown chance ${pc(p.chance)}">${pc(p.chance, 1)}</div></div>
+       <div><div class="small muted">Fair price</div><strong>${fmtAmerican(p.chance)}</strong></div>
+       <div><div class="small muted">Edge</div><strong>${p.edge == null ? '—' : (p.edge > 0 ? '+' : '') + p.edge.toFixed(1) + ' pts'}</strong></div>
+       <div><div class="small muted">TD conf.</div>${chip(p.tdConf.level)}</div>
+       <div><div class="small muted">${pl}</div><strong>${pv ? (pm === 'rec' ? n1(pv.mean) : n0(pv.mean)) : '—'}</strong> <span class="small muted">${pv ? `${n0(pv.lo)}–${n0(pv.hi)}` : ''}</span></div></div>
      <div class="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(p.chance * 100)}" aria-label="Chance"><span style="width:${(p.chance * 100).toFixed(1)}%"></span></div>
-     <div class="kv small" style="margin-top:8px"><div>American fair price<br><strong>${fmtAmerican(p.chance)}</strong></div><div>Edge<br><strong>${p.edge == null ? 'unavailable' : (p.edge > 0 ? '+' : '') + p.edge.toFixed(1) + ' pts'}</strong></div><div>Published projection<br><strong>${p.published ? pc(p.published.probability) : 'none'}</strong></div><div>First TD<br><strong>${pc(p.firstTd, 1)}</strong></div><div>Two or more<br><strong>${pc(dist.twoPlus, 1)}</strong></div><div>80% band (probability)<br><strong>${pc(p.band[0])}–${pc(p.band[1])}</strong></div></div>
-     <p class="small">Count distribution: 0 ${pc(dist.p0)} · 1 ${pc(dist.p1)} · 2 ${pc(dist.p2)} · 3+ ${pc(dist.p3plus)} (λ ${n1(p.lambda)}). The band is uncertainty about the probability, not a range for his touchdown count.</p></div>
-   <div class="row">${conf.map(([k, c]) => chip(c?.level || 'Low', k)).join(' ')}</div>
-   ${highs.length ? `<details><summary>Why High confidence</summary>${highs.map(([k, c]) => `<p class="small"><strong>${esc(k)}:</strong> ${esc(c.reasons.join(' '))}</p>`).join('')}</details>` : ''}
-   <details><summary>Confidence reasons by area</summary>${conf.map(([k, c]) => `<p class="small"><strong>${esc(k)} ${c?.level}:</strong> ${esc([...(c?.reasons || []), ...(c?.blocks || [])].join(' '))}</p>`).join('')}</details>
-   <h3>Volume forecasts</h3><div class="kv small">${Object.entries(p.volume || {}).map(([k, v]) => `<div><strong>${esc({ rushYd: 'Rush yards', rec: 'Receptions', recYd: 'Receiving yards', passYd: 'Pass yards' }[k])}</strong> ${k === 'rec' ? n1(v.mean) : n0(v.mean)} <span class="muted">(${k === 'rec' ? n1(v.lo) : n0(v.lo)}–${k === 'rec' ? n1(v.hi) : n0(v.hi)})</span><br>${esc(v.text || '')}<br><span class="muted">${esc(v.source || '')}</span></div>`).join('')}</div>
-   ${p.pos === 'QB' ? `<div class="card"><h4>Passing touchdowns</h4><p>${passTdCell(p)}</p><p class="small">${esc((p.passTd?.reasons || []).join(' '))} Passing TDs do not count toward his anytime chance.</p></div>` : ''}
-   ${[p.conversionNote, p.riser?.reason, p.secondOption, ...(p.safetyNotes || []), ...(p.lessonNotes || []), d?.notes?.spike].filter(Boolean).map(t => `<p class="small">• ${esc(t)}</p>`).join('')}
-   ${panelTrendsHtml(p)}
-   ${d ? detailBody(d, p, g) : ''}`;
+     ${why ? `<p class="why">${esc(why)}</p>` : ''}</section>
+   <div class="row"><button class="btn gold" data-act="ai" aria-describedby="aiHint">AI analysis</button><span id="aiHint" class="small muted">${aiSettings().key ? `Uses your ${esc(PROVIDERS[aiSettings().provider]?.label || 'AI')} key from Lab · never changes the model's number` : 'No AI key set: built-in review (add a key in Lab → AI analyst)'}</span></div>
+   <div id="aiOut" aria-live="polite">${aiCached(g, p) ? aiReviewHtml(aiCached(g, p)) : ''}</div>
+   ${sec('Probability details', `<div class="kv small"><div>Published projection<br><strong>${p.published ? pc(p.published.probability) : 'none'}</strong></div><div>First TD<br><strong>${pc(p.firstTd, 1)}</strong></div><div>Two or more<br><strong>${pc(dist.twoPlus, 1)}</strong></div><div>80% band<br><strong>${pc(p.band[0])}–${pc(p.band[1])}</strong></div></div>
+     <p class="small">Count distribution: 0 ${pc(dist.p0)} · 1 ${pc(dist.p1)} · 2 ${pc(dist.p2)} · 3+ ${pc(dist.p3plus)} (λ ${n1(p.lambda)}). The band is uncertainty about the probability, not a range for his touchdown count.</p>`)}
+   ${d ? sec('Score matchup', `<p>${esc(d.matchupLead.sentence)}</p><p class="small">${esc(d.matchupLead.evidence || '')} ${d.matchupLead.featured ? `This offense ${esc(d.matchupLead.featured)} the position (role ratio ${d.matchupLead.roleRatio?.toFixed(2)}).` : ''} ${d.matchupLead.liftBlocked ? 'No real recent scoring opportunities, so the soft position does not lift him.' : ''}</p><p class="small muted">${esc(d?.weather?.note || '')}</p>`) : '<p class="muted small">Loading details…</p>'}
+   ${sec('Confidence by area', `<div class="row">${conf.map(([k, c]) => chip(c?.level || 'Low', k)).join(' ')}</div>${highs.length ? `<p class="small"><strong>Why High:</strong> ${highs.map(([k, c]) => `${esc(k)}: ${esc(c.reasons.join(' '))}`).join(' ')}</p>` : ''}${conf.map(([k, c]) => `<p class="small"><strong>${esc(k)} ${c?.level}:</strong> ${esc([...(c?.reasons || []), ...(c?.blocks || [])].join(' '))}</p>`).join('')}`)}
+   ${sec('Volume forecasts', `<div class="kv small">${Object.entries(p.volume || {}).map(([k, v]) => `<div><strong>${esc({ rushYd: 'Rush yards', rec: 'Receptions', recYd: 'Receiving yards', passYd: 'Pass yards' }[k])}</strong> ${k === 'rec' ? n1(v.mean) : n0(v.mean)} <span class="muted">(${k === 'rec' ? n1(v.lo) : n0(v.lo)}–${k === 'rec' ? n1(v.hi) : n0(v.hi)})</span><br>${esc(v.text || '')}<br><span class="muted">${esc(v.source || '')}</span></div>`).join('')}</div>`)}
+   ${p.pos === 'QB' ? sec('Passing touchdowns', `<p>${passTdCell(p)}</p><p class="small">${esc((p.passTd?.reasons || []).join(' '))} Passing TDs do not count toward his anytime chance.</p>`) : ''}
+   ${sec('Trends that moved his chance', panelTrendsHtml(p))}
+   ${notes.length ? sec('Model notes', notes.map(t => `<p class="small">• ${esc(t)}</p>`).join('')) : ''}
+   ${d ? h3ToDetails(detailBody(d, p, g)) : ''}`;
   if (el.dataset.focused !== p.id || focusWasInside || !el.contains(document.activeElement)) { el.dataset.focused = p.id; el.querySelector('[data-act=close]').focus({ preventScroll: true }); }
 }
 function statTable(rows, caption) {
@@ -348,11 +396,11 @@ function detailBody(d, p, g) {
 // ---------- Lab
 let recalcReq = 0;
 function pickTrackerHtml() {
-  const T = S.slate.pickTracker; if (!T) return '<div class="card"><h2>Pick tracker</h2><p class="small muted">Unavailable (archive not loaded).</p></div>';
+  const T = S.slate.pickTracker; if (!T) return '<div><h3>Pick tracker</h3><p class="small muted">Unavailable (archive not loaded).</p></div>';
   const rec = g => g.total ? `${g.hits}/${g.total} (${Math.round(100 * g.hits / g.total)}%)` : '0/0';
   const lst = l => l.map(x => `<li>${esc(x.name)} ${esc(x.team)} · ${pc(x.chance)} · <strong class="${x.outcome === 'scored' ? 'ok' : ''}">${esc(x.outcome)}</strong></li>`).join('') || '<li class="muted">None</li>';
   const kinds = { prospective: 'Prospective (frozen pregame snapshots)', reconstructed: 'Reconstructed (earlier-week features; not prospective evidence)' };
-  return `<div class="card" id="pickTracker"><h2>Pick tracker</h2>
+  return `<div id="pickTracker"><h3>Pick tracker</h3>
    ${Object.entries(kinds).map(([k, l]) => `<p class="small"><strong>${l}:</strong> team calls ${rec(T.totals[k].teamCalls)} · High TD names ${rec(T.totals[k].highTd)}</p>`).join('')}
    <div class="tablewrap" tabindex="0" role="region" aria-label="Pick tracker by week"><table><thead><tr><th scope="col">Week</th><th scope="col">Source</th><th scope="col">Team calls</th><th scope="col">High TD names</th></tr></thead><tbody>
    ${T.weeks.flatMap(w => Object.entries(w.groups).map(([k, g]) => `<tr><td>${w.week}</td><td>${k === 'prospective' ? 'Prospective' : 'Reconstructed'}</td>
@@ -374,15 +422,15 @@ function renderLab() {
   const v = $('#view-lab'); if (!S.slate) { v.innerHTML = ''; return; }
   const W = S.weights; const labels = { recentBlend: 'Recent volume blend', publishedBlend: 'Published projection blend', script: 'Game script', redZone: 'Red zone', shrinkGames: 'Shrinkage games', tePremium: 'TE premium', goalLine: 'Goal-line weight' };
   const L = S.slate.lessons; const bt = S.backtest; const R = S.slate.research; const ch = S.slate.challenger;
-  const met = c => c && c.n ? `n ${c.n} · Brier ${c.brier?.toFixed(4)} · log loss ${c.logLoss?.toFixed(4)} · flat-25% Brier ${c.flat25Brier?.toFixed(4)} · matched vs published (n ${c.matched.n}): ${c.matched.model?.toFixed(4) ?? '—'} vs ${c.matched.published?.toFixed(4) ?? '—'}` : 'no confirmed results';
-  v.innerHTML = `<div class="card"><h2>Weights</h2><p class="small muted">Changes recalculate only unplayed games; finished predictions stay frozen. Saved on this device.</p>
-    ${Object.keys(labels).map(k => `<label class="small" style="display:block">${labels[k]}: <strong id="wv-${k}">${W[k]}</strong><input type="range" data-weight="${k}" min="${WEIGHT_RANGES[k][0]}" max="${WEIGHT_RANGES[k][1]}" step="${k === 'shrinkGames' ? 1 : 0.01}" value="${W[k]}" aria-label="${labels[k]}"></label>`).join('')}
-    <p class="small">Defense trust ${W.defenseTrust} (retained default).</p><button class="btn" data-act="reset">Reset weights</button></div>
-   <div class="card"><h2>Learned from finished games</h2>${L?.describe?.length ? `<ul class="small">${L.describe.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : '<p class="small muted">No lesson yet.</p>'}
-     <p class="small muted">Basis: ${(L?.active?.basis || []).map(b => `week ${b.week}: ${b.applied ? `${b.prospective} prospective / ${b.reconstructed} reconstructed` : 'none (counts as 1)'}`).join(' · ')}</p>
-     ${learnedRepoHtml()}
-     ${L?.inWeek?.applied ? `<p class="small">In-week nudge from ${L.inWeek.confirmed} completed results this week, damped (scale+2)/3, applied to unplayed games only.</p>` : '<p class="small muted">No in-week nudge (needs 8 completed results this week).</p>'}</div>
-   <div class="card"><h2>Backtest: week ${S.week}</h2><button class="btn gold" data-act="backtest">Run backtest for selected week</button>
+  const met = c => c && c.n ? `n ${c.n} · Brier ${c.brier?.toFixed(4)} · log loss ${c.logLoss?.toFixed(4)} · flat-25% Brier ${c.flat25Brier?.toFixed(4)} · vs published (n ${c.matched.n}): ${c.matched.model?.toFixed(4) ?? '—'} vs ${c.matched.published?.toFixed(4) ?? '—'}` : 'no confirmed results';
+  const sect = (id, title, body) => `<section class="labsec card" aria-labelledby="lab-${id}"><h2 id="lab-${id}">${title}</h2>${body}</section>`;
+  const repo = learnedRepoHtml(); const cut = repo.indexOf('<h3>Auto-calibration decisions</h3>');
+  const repoLearn = cut < 0 ? repo : repo.slice(0, cut), repoGates = cut < 0 ? '' : repo.slice(cut);
+  v.innerHTML = `<nav class="labnav small" aria-label="Lab sections">${[['weights', 'Weights'], ['results', 'Results & calibration'], ['learning', 'Learning'], ['trends', 'Trends'], ['gates', 'Model gates'], ['ai', 'AI analyst'], ['sources', 'Sources']].map(([k, l]) => `<a href="#lab-${k}">${l}</a>`).join('')}</nav>
+   ${sect('weights', 'Weights', `<p class="small muted">Changes recalculate only unplayed games; finished predictions stay frozen. Saved on this device.</p>
+    <div class="sliders">${Object.keys(labels).map(k => `<label class="small">${labels[k]} <strong id="wv-${k}">${W[k]}</strong><input type="range" data-weight="${k}" min="${WEIGHT_RANGES[k][0]}" max="${WEIGHT_RANGES[k][1]}" step="${k === 'shrinkGames' ? 1 : 0.01}" value="${W[k]}" aria-label="${labels[k]}"></label>`).join('')}</div>
+    <button class="btn" data-act="reset">Reset weights</button>`)}
+   ${sect('results', 'Results & calibration', `<div class="row"><button class="btn gold" data-act="backtest">Run backtest for week ${S.week}</button></div>
      ${bt ? `<p class="small">${bt.finishedGames} finished games · confirmed ${bt.td.cohorts.all.all.n} (prospective ${bt.td.prospective}, reconstructed ${bt.td.reconstructed}) · missing excluded ${bt.td.missingExcluded} · confirmed zeros ${bt.td.cohorts.all.all.confirmedZeros}</p>
       <p class="small"><strong>Reconstructed outcomes do not prove prospective accuracy.</strong></p>
       ${['all', 'contributors', 'teamCalls', 'highTd', 'medTd', 'lowTd'].map(k => `<p class="small"><strong>${k}</strong>: ${met(bt.td.cohorts[k].all)}<br><span class="muted">prospective: ${met(bt.td.cohorts[k].prospective)}</span></p>`).join('')}
@@ -391,15 +439,20 @@ function renderLab() {
       <h3>Highest-chance misses</h3><ul class="small">${bt.td.highestMisses.map(r => `<li>${esc(r.name)} ${pc(r.chance)} — ${esc(r.reason)}</li>`).join('')}</ul>
       <h3>Lowest-chance scorers</h3><ul class="small">${bt.td.lowestScorers.map(r => `<li>${esc(r.name)} ${pc(r.chance)} (${r.td} TD)</li>`).join('')}</ul>
       <h3>Expected vs actual by yard-line spot</h3><p class="small">${bt.td.spots.agg.map(s => `${s.spot}: ${s.expected.toFixed(1)} exp / ${s.actual} act`).join(' · ')} (unknown-spot rows excluded: ${bt.td.spots.excludedUnknown})</p>
-      <h3>Meaningful expected, zero confirmed</h3><ul class="small">${bt.td.spots.meaningfulZero.slice(0, 12).map(r => `<li>${esc(r.name)} ${r.spot} expected ${r.expected.toFixed(2)}</li>`).join('') || '<li>None</li>'}</ul>` : ''}</div>
-   ${labTrendsHtml()}${pickTrackerHtml()}<div class="card"><h2>Champion / challenger</h2><p class="small">Challenger: ${esc(ch?.status || 'unknown')} ${ch?.reason ? '— ' + esc(ch.reason) : ''} · training ${ch?.trainingCount ?? 0} · cutoff ${esc(JSON.stringify(ch?.cutoff || {}))}</p>
-     ${R?.promotion ? `<p class="small">Promotion: <strong>${R.promotion.promote ? 'eligible' : 'withheld'}</strong>. ${esc(R.promotion.reasons.join(' '))} Paired ${R.promotion.metrics.paired} across ${R.promotion.metrics.games} games. ${esc(R.promotion.note)}</p>` : '<p class="small muted">No validation run yet.</p>'}
-     ${R?.summary ? `<p class="small">Archive summary: ${R.summary.prospective} prospective / ${R.summary.reconstructed} reconstructed graded · missing excluded ${R.summary.missingExcluded}</p>` : ''}</div>
-   <div class="card"><h2>Refresh</h2><p class="small">${esc(S.slate.repoArchive ? 'A scheduled GitHub Actions job (user-approved) captures pregame snapshots and grades finished games into the shared archive; this page loads it.' : 'This copy has no shared archive; it refreshes when you press Refresh.')}</p>
-     <label><input type="checkbox" id="autoToggle" ${S.auto.enabled ? 'checked' : ''}> Optional auto-refresh every ${S.auto.minutes} minutes while this page is open (off by default)</label>
-     <p class="small">Archive job: ${S.slate.lastRun ? `last run ${esc(S.slate.lastRun.status)} at ${esc(S.slate.lastRun.finished_at || S.slate.lastRun.started_at)}` : 'never run'}.</p>
-     <button class="btn" data-act="job">Run archive refresh now (one time)</button><p id="jobOut" class="small" aria-live="polite"></p>
-     <h3>Sources</h3><ul class="small">${Object.values(S.slate.sources).map(s => `<li>${s.ok ? '✓' : '✗'} ${esc(s.label)} ${s.fetchedAt ? `· ${new Date(s.fetchedAt).toLocaleString()}` : ''}${s.stale ? ' · stale' : ''}${s.error ? ` · <span class="warn">${esc(s.error)}</span>` : ''}</li>`).join('')}</ul><p class="small muted">Charting: FTN Data via nflverse, CC-BY-SA 4.0.</p></div>`;
+      <h3>Meaningful expected, zero confirmed</h3><ul class="small">${bt.td.spots.meaningfulZero.slice(0, 12).map(r => `<li>${esc(r.name)} ${r.spot} expected ${r.expected.toFixed(2)}</li>`).join('') || '<li>None</li>'}</ul>` : ''}
+     ${pickTrackerHtml()}`)}
+   ${sect('learning', 'Learning', `${L?.describe?.length ? `<p class="small">${esc(L.describe[0])}</p><details class="sec"><summary>All learned scales (${L.describe.length - 1})</summary><div class="secbody"><p class="small">${L.describe.slice(1).map(esc).join(' · ')}</p><p class="small muted">Basis: ${(L?.active?.basis || []).map(b => `week ${b.week}: ${b.applied ? `${b.prospective} prospective / ${b.reconstructed} reconstructed` : 'none'}`).join(' · ')}</p></div></details>` : '<p class="small muted">No lesson yet.</p>'}
+     <p class="small">${L?.inWeek?.applied ? `In-week nudge from ${L.inWeek.confirmed} completed results this week, damped (scale+2)/3, unplayed games only.` : 'No in-week nudge (needs 8 completed results this week).'}</p>${repoLearn}`)}
+   ${sect('trends', 'Trends', labTrendsHtml())}
+   ${sect('gates', 'Model gates', `${repoGates || '<p class="small muted">Gate decisions come from the shared archive (not loaded in this copy).</p>'}
+     <h3>Champion / challenger</h3><p class="small">Challenger: ${esc(ch?.status || 'unknown')}${ch?.reason ? ' — ' + esc(ch.reason) : ''} · training rows ${ch?.trainingCount ?? 0}</p>
+     ${R?.promotion ? `<p class="small">Promotion: <strong>${R.promotion.promote ? 'eligible' : 'withheld'}</strong>. ${esc(R.promotion.reasons.join(' '))} Paired ${R.promotion.metrics.paired} across ${R.promotion.metrics.games} games.</p>` : '<p class="small muted">No validation run yet.</p>'}
+     ${R?.summary ? `<p class="small">Archive: ${R.summary.prospective} prospective / ${R.summary.reconstructed} reconstructed graded · missing excluded ${R.summary.missingExcluded}</p>` : ''}`)}
+   ${sect('ai', 'AI analyst', aiSettingsHtml())}
+   ${sect('sources', 'Sources & refresh', `<ul class="small">${Object.values(S.slate.sources).map(s => `<li>${s.ok ? '✓' : '✗'} ${esc(s.label)} ${s.fetchedAt ? `· ${new Date(s.fetchedAt).toLocaleString()}` : ''}${s.stale ? ' · stale' : ''}${s.error ? ` · <span class="warn">${esc(s.error)}</span>` : ''}</li>`).join('')}</ul><p class="small muted">Charting: FTN Data via nflverse, CC-BY-SA 4.0.</p>
+     <p class="small">${esc(S.slate.repoArchive ? 'A scheduled GitHub Actions job captures pregame snapshots and grades finished games into the shared archive; this page loads it.' : 'This copy has no shared archive; it refreshes when you press Refresh.')} Archive job: ${S.slate.lastRun ? `last run ${esc(S.slate.lastRun.status)} at ${esc(S.slate.lastRun.finished_at || S.slate.lastRun.started_at)}` : 'never run'}.</p>
+     <label class="small"><input type="checkbox" id="autoToggle" ${S.auto.enabled ? 'checked' : ''}> Auto-refresh every ${S.auto.minutes} minutes while open (off by default)</label>
+     <div class="row"><button class="btn" data-act="job">Run archive refresh now</button></div><p id="jobOut" class="small" aria-live="polite"></p>`)}`;
 }
 let autoTimer = null;
 function applyAuto() { clearInterval(autoTimer); autoTimer = null; if (S.auto.enabled) autoTimer = setInterval(() => { if (!S.loading) startLoad(false); }, S.auto.minutes * 60000); }
@@ -414,6 +467,9 @@ document.addEventListener('click', e => {
   else if (a === 'back') { const id = S.gameId; S.gameId = null; renderSlate(); document.querySelector(`[data-act=game][data-game="${CSS.escape(id)}"]`)?.focus(); }
   else if (a === 'player') openPlayer(t.dataset.game, t.dataset.player);
   else if (a === 'close') closePanel();
+  else if (a === 'ai') runAi();
+  else if (a === 'aisave') { const cur = aiSettings(); const k = $('#aiKey').value.trim(); save(AI_LS, { provider: $('#aiProvider').value, baseUrl: $('#aiBase').value.trim(), model: $('#aiModel').value.trim(), key: k || cur.key }); $('#aiKey').value = ''; $('#aiState').textContent = aiSettings().key ? 'Key saved on this device.' : 'Settings saved (no key).'; }
+  else if (a === 'aiclear') { save(AI_LS, { ...aiSettings(), key: '' }); $('#aiState').textContent = 'Key removed from this device.'; }
   else if (a === 'star') { const id = t.dataset.player; S.watch.has(id) ? S.watch.delete(id) : S.watch.add(id); save(LS.watch, [...S.watch]); renderBoard(); }
   else if (a === 'pos') { S.board.pos = t.dataset.pos; save(LS.board, S.board); renderBoard(); }
   else if (a === 'reset') { S.weights = { ...DEFAULT_WEIGHTS }; save(LS.weights, S.weights); recalcReq = send('recalc', { weights: S.weights }); renderLab(); }

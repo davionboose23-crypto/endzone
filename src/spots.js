@@ -7,7 +7,6 @@ export const FALLBACK = { r: { 1: 0.48, 2: 0.34, 3: 0.01 }, t: { 1: 0.55, 2: 0.4
 export const NEIGH = { r: { 1: [0.22, 0.65], 2: [0.27, 0.49], 3: [0.003, 0.035] }, t: { 1: [0.24, 0.70], 2: [0.37, 0.64], 3: [0.045, 0.13] } };
 export const FALLBACK_OUTSIDE = { r: 0.009, t: 0.02 };
 export const FALLBACK_BINMIX = { r: { 1: 0.33, 2: 0.24, 3: 0.43 }, t: { 1: 0.22, 2: 0.22, 3: 0.56 } };
-export const INSIDE20_SHARE = { r: 0.72, t: 0.62 }; // fallback context only
 export const binOf = yl => (yl <= 5 ? 1 : yl <= 10 ? 2 : yl <= 20 ? 3 : 0);
 
 // League conversion priors from current-season zone rows before the cutoff.

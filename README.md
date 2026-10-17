@@ -102,3 +102,21 @@ Limits: GitHub can delay or skip scheduled runs under load (snapshots are captur
 - Validation (scripts/hist grid, walk-forward 2024–25, held-out 2026 wk1–5, game bootstrap): no family met the enable rule, so all weights are 0 and every trend is shown as "tracking, not yet proven" with ±0.0 pp. Table in `src/trend-weights.json` and in the Lab.
 - Tuesday gate (`scripts/trend-gate.mjs`, called by `scripts/gate.mjs`): re-evaluates every family on the current season walk-forward. Each week's weight is chosen only from the 2024–25 training table plus earlier current-season weeks (never the test week). A family turns on for the next week only if it isn't harmful beyond noise, improves Brier or log loss, and team calls and contributors don't regress (≥40 games). The weight is written per week into `src/calibration-fits.json`, so there's no leakage in reconstructions.
 - UI: Trends tab (cards, evidence, affected players with ±pp, filters by type / team / status), trend tags on player rows, "Trends that moved his chance" in the player panel, trend validation and gate status in the Lab.
+
+## endzone-4.5.0 — UX cleanup and AI analysis agent
+- Cleanup (audited with headless screenshots at 390 px and 1280 px, `node scripts/ux-shots.mjs <dir>`):
+  - spacing and type scale tokens;
+  - two-row mobile header (Focus/Refresh top-right, season ‹ week › on one line);
+  - Focus view rows show only the name, chance, one TD-confidence chip and the primary yardage number;
+  - the player panel opens with a summary (chance, fair price, edge, TD confidence, main yardage line, one-sentence why), and everything else is in collapsible sections;
+  - the Lab is grouped into Weights, Results & calibration, Learning, Trends, Model gates, AI analyst and Sources, with a jump bar;
+  - compact trend cards (evidence in a disclosure);
+  - debug-ish text removed (raw cutoff JSON, retained-default notes);
+  - dead code and unused scratch scripts removed;
+  - `npm run lint` (syntax check plus unused-definition check).
+- AI analysis (`src/analyst.js`): every player panel has an **AI analysis** button.
+  - **Brief:** a compact JSON brief built only from fields the model produced (chance, band, components, yard-line pies, volume, confidence reasons, matchup, trends, recent/H2H logs, availability, result, model-miss trends).
+  - **AI review:** with a key (Lab → AI analyst: xAI Grok or any OpenAI-compatible endpoint, with configurable base URL and model), the browser sends the brief directly to the provider. The prompt forbids inventing stats beyond the brief, and the reply is a verdict, case for, case against, key risks and a comparison with the model's number.
+  - **Key storage:** the key lives only in this device's localStorage and is never sent to ENDZONE, the repo, snapshots or logs.
+  - **Built-in review:** without a key, or if the call fails, a deterministic rule-based review labeled "Built-in review (no AI key)" is shown.
+  - **Caching:** reviews are cached per player per snapshot and never change the model's numbers.

@@ -30,7 +30,6 @@ export function splits(p) {
   return [mk('All earlier games', all), mk('Home', all.filter(g => g.home === true)), mk('Away', all.filter(g => g.home === false)), mk(`With ${p.team}`, all.filter(g => g.team === p.team))]
     .map(s => ({ ...s, note: 'Descriptive only; not applied again to the forecast.' }));
 }
-export const THRESHOLD_METRICS = { rushYd: 'Rush yards', recYd: 'Receiving yards', rec: 'Catches', passYd: 'QB passing yards' };
 // Historical frequency only from games strictly before the selected matchup.
 export function thresholdExplorer(games, metric, threshold, cutoff) {
   const pool = games.filter(g => g.season < cutoff.season || (g.season === cutoff.season && g.week < cutoff.week));

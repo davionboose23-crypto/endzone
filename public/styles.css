@@ -73,3 +73,43 @@ input[type=range]{width:100%;padding:0}
 .trendcard .affected{list-style:none;padding:0;margin:6px 0 0}.trendcard .affected li{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .pp{font-variant-numeric:tabular-nums;font-weight:700}
 .chip.st-new{background:#c9a227;color:#111}.chip.st-faded{opacity:.7}
+/* ---- 4.5 cleanup: spacing/type scale, header, panel summary, disclosures, Lab sections, compact trend cards, AI ---- */
+:root{--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--fs-sm:.85rem;--fs-xs:.78rem}
+h2{font-size:1.5rem}h3{font-size:1.2rem}h4{font-size:1rem;margin:var(--s2) 0 var(--s1)}
+p{margin:var(--s2) 0}
+.top{padding:var(--s2) var(--s4);gap:var(--s2)}
+.controls{gap:var(--s1);flex-wrap:nowrap}
+.controls .btn,.controls .select{padding:0 10px}
+@media(max-width:560px){.top{display:grid;grid-template-columns:1fr auto;align-items:end}.brand{grid-column:1}.controls{grid-column:1/-1;margin:0;width:100%}.controls .select{flex:1;min-width:0}.season{font-size:var(--fs-xs)}.wordmark{font-size:1.6rem}#focusBtn,#refreshBtn{padding:0 8px}}
+.status{font-size:var(--fs-xs)}
+.tabs{gap:var(--s2)}
+/* panel */
+.panel h2{font-size:1.6rem}.pid{gap:var(--s3);margin:var(--s2) 0}
+.summary .sumgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s2);align-items:end}
+.summary .sumchance{grid-column:1/-1}.summary .sumgrid strong{font-size:1.05rem}
+@media(min-width:420px){.summary .sumgrid{grid-template-columns:1.4fr repeat(4,minmax(0,1fr))}.summary .sumchance{grid-column:auto}}
+.summary .meter{margin:var(--s3) 0 var(--s2)}.why{margin:var(--s2) 0 0;font-size:.95rem}
+details.sec{padding:0 var(--s3);margin:var(--s2) 0}details.sec>summary{font-family:var(--display);font-size:1.05rem;letter-spacing:.02em}
+details.sec>.secbody{padding-bottom:var(--s3)}details.sec[open]>summary{border-bottom:1px solid var(--border);margin-bottom:var(--s2)}
+/* AI review */
+.card.ai{border-color:var(--gold)}.card.ai.builtin{border-style:dashed}
+.aigrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}@media(max-width:560px){.aigrid{grid-template-columns:1fr}}
+.aigrid ul,.card.ai ul{margin:var(--s1) 0;padding-left:18px}
+.formgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--s2)}.formgrid label{display:flex;flex-direction:column;gap:var(--s1)}
+/* Lab */
+.labnav{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s2) 0}.labnav a{color:var(--cream);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 12px;text-decoration:none;min-height:32px}
+.labsec{scroll-margin-top:140px}.labsec>h2{margin-bottom:var(--s2)}
+.sliders{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--s2) var(--s5);margin:var(--s2) 0 var(--s3)}.sliders label{display:block}.sliders input{width:100%}
+/* trend cards: compact */
+.trendgrid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s2)}
+.trendcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:var(--s3);display:flex;flex-direction:column;gap:var(--s1)}
+.trendcard header{display:flex;flex-wrap:wrap;align-items:center;gap:6px}.trendcard .who{margin-left:auto}
+.trendcard .ttext{margin:var(--s1) 0;font-size:.92rem}
+.trendcard footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s2)}
+.trendcard footer details{border:0;padding:0;margin:0;background:none}.trendcard footer summary{min-height:32px;font-weight:600}
+.trendcard .affected li .plink{min-height:32px;padding:0}
+.ttag{margin-left:0}
+@media(max-width:560px){.controls{display:grid;grid-template-columns:auto 44px minmax(0,1fr) 44px auto auto;align-items:center}.controls .select{width:100%}.season{max-width:52px;line-height:1.1}#focusBtn{font-size:.85rem}}
+.pid{flex-wrap:nowrap}.pid>div{min-width:0}
+#pickTracker td{vertical-align:middle}
+@media(max-width:560px){.controls{grid-template-columns:auto 44px minmax(0,1fr) 44px}.top{position:sticky}#refreshBtn{position:absolute;top:10px;right:16px}#focusBtn{position:absolute;top:10px;right:112px}.season{max-width:none}}

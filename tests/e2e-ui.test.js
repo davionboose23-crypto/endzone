@@ -49,6 +49,9 @@ test('UI: phone matchup replaces slate, mobile passing TD, accessible panel, boa
     await d.waitForSelector('#matchup .tablewrap'); assert.ok(await d.locator('#matchup .scrollhint').count() >= 1);
     assert.equal(await d.locator('.slate-layout > div').first().isVisible(), true, 'desktop shows list beside matchup');
     await d.locator('#matchup .tablewrap [data-act=player]').first().click(); await d.waitForSelector('#panel:not([hidden])');
+    await d.click('#panel [data-act=ai]'); await d.waitForSelector('#aiOut .card.ai', { timeout: 30000 });
+    assert.match(await d.locator('#aiOut').innerText(), /Built-in review \(no AI key\)[\s\S]*Case for[\s\S]*Case against[\s\S]*Key risks/);
+    assert.equal(await d.evaluate(() => localStorage.getItem('endzone.ai.v1')), null, 'no AI settings stored unless the user saves them');
     assert.equal(await d.getAttribute('#panel', 'role'), 'complementary'); assert.equal(await d.locator('.game').first().isVisible(), true);
     const ow = await d.evaluate(() => { const t = document.querySelector('#matchup .tablewrap'); return t.scrollWidth > t.clientWidth; }); assert.equal(ow, true, 'horizontal scrolling');
     const hd = await d.evaluate(() => [...document.querySelectorAll('#matchup thead th')].map(t => t.textContent)); assert.ok(!hd.some(h => /pass/i.test(h)), 'no QB-only pass columns (user-requested deviation)');
