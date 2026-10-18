@@ -8920,19 +8920,19 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-16T21:52:12.873Z",
-  "fingerprint": "595498658ce8d77981494b21",
+  "capturedAt": "2026-10-18T13:29:54.040Z",
+  "fingerprint": "4f2f77a5607dcd573ed4dbd7",
   "payload": {
    "callIds": {
     "away": "8146",
     "home": "7611"
    },
-   "capturedAt": "2026-10-16T21:52:12.873Z",
+   "capturedAt": "2026-10-18T13:29:54.040Z",
    "challenger": {
-    "capturedCutoff": "2026-10-16T21:52:12.054Z",
+    "capturedCutoff": "2026-10-18T13:29:53.422Z",
     "reason": null,
     "status": "rich",
-    "trainingCount": 2159,
+    "trainingCount": 2170,
     "trainingCutoff": {
      "rule": "weeks strictly before target week",
      "season": 2026,
@@ -8940,30 +8940,30 @@
     }
    },
    "gameId": "2026_06_NYJ_NE",
-   "gameLambda": 4.508081629126332,
+   "gameLambda": 4.681542226576918,
    "inputTimestamps": {
-    "ftn": "2026-10-16T21:52:05.923Z",
-    "history_2025": "2026-10-16T21:52:05.850Z",
-    "history_2026": "2026-10-16T21:52:05.629Z",
-    "idmap": "2026-10-16T21:52:05.542Z",
-    "pbp": "2026-10-16T21:52:06.501Z",
-    "players": "2026-10-16T21:52:04.987Z",
-    "proj_1": "2026-10-16T21:52:05.146Z",
-    "proj_2": "2026-10-16T21:52:05.183Z",
-    "proj_3": "2026-10-16T21:52:05.198Z",
-    "proj_4": "2026-10-16T21:52:05.192Z",
-    "proj_5": "2026-10-16T21:52:05.171Z",
-    "proj_6": "2026-10-16T21:52:05.160Z",
-    "roster": "2026-10-16T21:52:05.325Z",
-    "schedule": "2026-10-16T21:52:04.745Z",
-    "snaps": "2026-10-16T21:52:06.538Z",
-    "state": "2026-10-16T21:52:04.469Z",
-    "stats_1": "2026-10-16T21:52:05.016Z",
-    "stats_2": "2026-10-16T21:52:05.096Z",
-    "stats_3": "2026-10-16T21:52:05.113Z",
-    "stats_4": "2026-10-16T21:52:05.129Z",
-    "stats_5": "2026-10-16T21:52:05.053Z",
-    "stats_6": "2026-10-16T21:52:05.065Z"
+    "ftn": "2026-10-18T13:29:46.677Z",
+    "history_2025": "2026-10-18T13:29:46.599Z",
+    "history_2026": "2026-10-18T13:29:46.354Z",
+    "idmap": "2026-10-18T13:29:46.263Z",
+    "pbp": "2026-10-18T13:29:47.313Z",
+    "players": "2026-10-18T13:29:45.693Z",
+    "proj_1": "2026-10-18T13:29:45.867Z",
+    "proj_2": "2026-10-18T13:29:45.896Z",
+    "proj_3": "2026-10-18T13:29:45.883Z",
+    "proj_4": "2026-10-18T13:29:45.889Z",
+    "proj_5": "2026-10-18T13:29:45.852Z",
+    "proj_6": "2026-10-18T13:29:45.906Z",
+    "roster": "2026-10-18T13:29:46.029Z",
+    "schedule": "2026-10-18T13:29:45.437Z",
+    "snaps": "2026-10-18T13:29:47.355Z",
+    "state": "2026-10-18T13:29:45.173Z",
+    "stats_1": "2026-10-18T13:29:45.732Z",
+    "stats_2": "2026-10-18T13:29:45.815Z",
+    "stats_3": "2026-10-18T13:29:45.830Z",
+    "stats_4": "2026-10-18T13:29:45.795Z",
+    "stats_5": "2026-10-18T13:29:45.777Z",
+    "stats_6": "2026-10-18T13:29:45.834Z"
    },
    "kickoff": "2026-10-18T17:00:00.000Z",
    "lessons": "Learned from finished games (reconstructed history, not prospectively validated), from the last three weeks",
@@ -8977,7 +8977,7 @@
     "total": 43.5,
     "totalKnown": true
    },
-   "modelVersion": "endzone-4.4.0",
+   "modelVersion": "endzone-4.5.0",
    "players": [
     {
      "avail": {
@@ -8987,49 +8987,49 @@
       "uncertain": false
      },
      "band": [
-      0.2068,
-      0.4252
+      0.1947,
+      0.4044
      ],
      "ceiling": 0.5,
-     "challenger": 0.3216737232410586,
-     "chance": 0.301,
+     "challenger": 0.3042795064912942,
+     "chance": 0.2846,
      "coldGoal": false,
      "components": {
-      "r0": 0.0007,
+      "r0": 0.0006,
       "r1": 0.0005,
       "r2": 0.0001,
       "r3": 0,
-      "t0": 0.2157,
-      "t1": 0.0739,
-      "t2": 0.0279,
-      "t3": 0.0394
+      "t0": 0.1992,
+      "t1": 0.0705,
+      "t2": 0.0264,
+      "t3": 0.0376
      },
      "conversionNote": "1 of 2 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.301,
-      "lambda": 0.3582,
-      "p0": 0.699,
-      "p1": 0.2503,
-      "p2": 0.0448,
-      "p3plus": 0.0059,
-      "twoPlus": 0.0507
+      "anytime": 0.2846,
+      "lambda": 0.335,
+      "p0": 0.7154,
+      "p1": 0.2396,
+      "p2": 0.0401,
+      "p3plus": 0.0049,
+      "twoPlus": 0.045
      },
-     "edge": -5.4931,
+     "edge": -7.1327,
      "espn": "4569618",
-     "fair": 232,
-     "firstTd": 0.0786,
+     "fair": 251,
+     "firstTd": 0.0709,
      "gamesPlayed": 5,
      "glShare": 0.0008,
      "glShareRaw": 0.0008,
      "gsis": "00-0037740",
-     "i10Exp": 0.0925,
+     "i10Exp": 0.0918,
      "id": "8146",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3582,
-     "lambdaRaw": 0.3235,
+     "lambda": 0.335,
+     "lambdaRaw": 0.3151,
      "lessonNotes": [
-      "Learned from finished games: 25to35 chances scaled ×1.11 (from the last three weeks).",
+      "Learned from finished games: 25to35 chances scaled ×1.09 (from the last three weeks).",
       "Blended 63% toward the published projection (35%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 1,
@@ -9042,10 +9042,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.336,
-     "preStack": 0.3014,
+     "preSafety": 0.3322,
+     "preStack": 0.2906,
      "pubBlend": {
-      "before": 0.3586,
+      "before": 0.3433,
       "weight": 0.625
      },
      "published": {
@@ -9062,9 +9062,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.08172364242397445,
-       "chance": 0.30749071019550134,
-       "targets": 7.6715850693959595
+       "carries": 0.08200997162642207,
+       "chance": 0.2908499828831448,
+       "targets": 7.393899804909221
       },
       "close": {
        "att": null,
@@ -9074,9 +9074,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.10768291707629575,
-       "chance": 0.28943079664460525,
-       "targets": 6.027673983096825
+       "carries": 0.10806019790775614,
+       "chance": 0.2757191625065314,
+       "targets": 5.809492703857245
       },
       "limited": {
        "att": null,
@@ -9092,7 +9092,7 @@
       "r0": {
        "expected": 0.0006,
        "looks": 0,
-       "opps": 0.094,
+       "opps": 0.0943,
        "rate": 0.0063,
        "scores": 0
       },
@@ -9118,30 +9118,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.1948,
+       "expected": 0.1874,
        "looks": 40,
-       "opps": 6.4173,
+       "opps": 6.1728,
        "rate": 0.0304,
        "scores": 2
       },
       "t1": {
-       "expected": 0.0667,
+       "expected": 0.0663,
        "looks": 1,
-       "opps": 0.1061,
+       "opps": 0.1054,
        "rate": 0.5856,
        "scores": 1
       },
       "t2": {
-       "expected": 0.0252,
+       "expected": 0.0249,
        "looks": 0,
-       "opps": 0.0796,
+       "opps": 0.0786,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0356,
+       "expected": 0.0354,
        "looks": 1,
-       "opps": 0.2465,
+       "opps": 0.2449,
        "rate": 0.1183,
        "scores": 0
       }
@@ -9160,19 +9160,19 @@
        "recentRz": 1,
        "repeat": true,
        "roleOk": true,
-       "width": 0.21836242105335268
+       "width": 0.20975772974776796
       },
       "level": "High",
       "reasons": [
        "1 red-zone touches in his last three games.",
        "Scored in 3 of his last 5 games, including 2 of the last three.",
-       "80% band 21–43% is narrow enough."
+       "80% band 19–40% is narrow enough."
       ]
      },
      "team": "NYJ",
      "trendEffect": {
-      "after": 0.2764,
-      "before": 0.2764,
+      "after": 0.2703,
+      "before": 0.2703,
       "items": [
        {
         "family": "snap",
@@ -9251,10 +9251,10 @@
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.0961,
+      "carries": 0.0965,
       "rzRush": 0.0087,
       "rzTgt": 0.7478,
-      "targets": 6.8496
+      "targets": 6.6017
      },
      "volConf": {
       "rec": {
@@ -9293,12 +9293,12 @@
         "factor": 1.023,
         "league": 0.6253
        },
-       "hi": 9.8093,
-       "leagueDefense": 5.4188,
-       "lo": 2.0943,
-       "mean": 5.3773,
+       "hi": 9.4543,
+       "leagueDefense": 5.2227,
+       "lo": 2.0185,
+       "mean": 5.1826,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "5.4 without this defense. NE allows WRs a 65% catch rate versus 63% league."
+       "text": "5.2 without this defense. NE allows WRs a 65% catch rate versus 63% league."
       },
       "recYd": {
        "defense": {
@@ -9306,12 +9306,12 @@
         "factor": 0.9517,
         "league": 8.22
        },
-       "hi": 126.7756,
-       "leagueDefense": 67.1088,
-       "lo": 17.0733,
-       "mean": 58.7602,
+       "hi": 122.1867,
+       "leagueDefense": 64.6796,
+       "lo": 16.4553,
+       "mean": 56.6333,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "67 without this defense. NE allows WRs 7.5 yards a target versus 8.2 league."
+       "text": "65 without this defense. NE allows WRs 7.5 yards a target versus 8.2 league."
       },
       "rushYd": {
        "defense": {
@@ -9319,10 +9319,10 @@
         "factor": 0.9524,
         "league": 5.087
        },
-       "hi": 1.923,
-       "leagueDefense": 0.5513,
+       "hi": 1.9248,
+       "leagueDefense": 0.5521,
        "lo": 0,
-       "mean": 0.4463,
+       "mean": 0.4469,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "1 without this defense. NE allows WRs 0.0 yards a carry versus 5.1 league."
       }
@@ -9336,50 +9336,50 @@
       "uncertain": false
      },
      "band": [
-      0.2921,
-      0.6549
+      0.2794,
+      0.6355
      ],
      "ceiling": 0.5,
-     "challenger": 0.40958729624269496,
-     "chance": 0.4546,
+     "challenger": 0.3983729981576829,
+     "chance": 0.4373,
      "coldGoal": false,
      "components": {
-      "r0": 0.0662,
-      "r1": 0.3577,
-      "r2": 0.0492,
-      "r3": 0.0105,
-      "t0": 0.0238,
-      "t1": 0.0327,
-      "t2": 0.0203,
-      "t3": 0.0459
+      "r0": 0.0632,
+      "r1": 0.3402,
+      "r2": 0.0468,
+      "r3": 0.01,
+      "t0": 0.0215,
+      "t1": 0.0307,
+      "t2": 0.0191,
+      "t3": 0.0435
      },
      "conversionNote": "1 of 5 red-zone carries scored.",
      "dist": {
-      "anytime": 0.4546,
-      "lambda": 0.6063,
-      "p0": 0.5454,
-      "p1": 0.3306,
-      "p2": 0.1002,
-      "p3plus": 0.0237,
-      "twoPlus": 0.124
+      "anytime": 0.4373,
+      "lambda": 0.5751,
+      "p0": 0.5627,
+      "p1": 0.3236,
+      "p2": 0.093,
+      "p3plus": 0.0207,
+      "twoPlus": 0.1138
      },
-     "edge": 0.3422,
+     "edge": -0.833,
      "espn": "4685247",
-     "fair": 120,
-     "firstTd": 0.133,
+     "fair": 129,
+     "firstTd": 0.1217,
      "gamesPlayed": 5,
      "glShare": 0.8473,
      "glShareRaw": 0.8473,
      "gsis": "00-0039794",
-     "i10Exp": 0.6944,
+     "i10Exp": 0.6934,
      "id": "11576",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.6063,
-     "lambdaRaw": 0.9153,
+     "lambda": 0.5751,
+     "lambdaRaw": 0.9128,
      "lessonNotes": [
       "Learned from finished games: 50plus chances scaled ×1.06 (from the last three weeks).",
-      "Blended 38% toward the published projection (45%) because of limited recent red-zone evidence; safety caps applied after."
+      "Blended 38% toward the published projection (44%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.9896,
      "name": "Braelon Allen",
@@ -9391,15 +9391,15 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.5643,
-     "preStack": 0.6207,
+     "preSafety": 0.5621,
+     "preStack": 0.6198,
      "pubBlend": {
-      "before": 0.9693,
+      "before": 0.9671,
       "weight": 0.375
      },
      "published": {
-      "expected": 0.6,
-      "probability": 0.4511883639059735,
+      "expected": 0.59,
+      "probability": 0.4456727152654929,
       "source": "Sleeper projections week 6"
      },
      "recentFinisher": false,
@@ -9417,9 +9417,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 10.80450768368486,
-       "chance": 0.4504044726215517,
-       "targets": 3.830089205646756
+       "carries": 10.842362654121189,
+       "chance": 0.43362134455558166,
+       "targets": 3.6764950279290156
       },
       "close": {
        "att": null,
@@ -9429,9 +9429,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 14.23652777144358,
-       "chance": 0.462150828430266,
-       "targets": 3.009355804436737
+       "carries": 14.28640726190086,
+       "chance": 0.44338809061322315,
+       "targets": 2.8886746648013695
       },
       "limited": {
        "att": null,
@@ -9445,14 +9445,14 @@
      "segment": "RB|support|available",
      "spots": {
       "r0": {
-       "expected": 0.0999,
+       "expected": 0.1003,
        "looks": 52,
-       "opps": 10.4991,
+       "opps": 10.5437,
        "rate": 0.0096,
        "scores": 1
       },
       "r1": {
-       "expected": 0.54,
+       "expected": 0.5401,
        "looks": 1,
        "opps": 0.7954,
        "rate": 0.4841,
@@ -9473,30 +9473,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.036,
+       "expected": 0.0342,
        "looks": 7,
-       "opps": 2.6555,
+       "opps": 2.5219,
        "rate": 0.0137,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0494,
+       "expected": 0.0487,
        "looks": 0,
-       "opps": 0.0845,
+       "opps": 0.0833,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0307,
+       "expected": 0.0303,
        "looks": 0,
-       "opps": 0.0981,
+       "opps": 0.0968,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0692,
+       "expected": 0.0691,
        "looks": 4,
-       "opps": 0.5817,
+       "opps": 0.5805,
        "rate": 0.093,
        "scores": 0
       }
@@ -9510,7 +9510,7 @@
      ],
      "tdConf": {
       "blocks": [
-       "80% band 29–65% is too wide."
+       "80% band 28–64% is too wide."
       ],
       "evidence": {
        "avgTouches": 17,
@@ -9520,7 +9520,7 @@
        "recentRz": 6,
        "repeat": false,
        "roleOk": true,
-       "width": 0.3627152937679611
+       "width": 0.35616134346923745
       },
       "level": "Med",
       "reasons": [
@@ -9529,8 +9529,8 @@
      },
      "team": "NYJ",
      "trendEffect": {
-      "after": 0.5996,
-      "before": 0.5996,
+      "after": 0.5986,
+      "before": 0.5986,
       "items": [
        {
         "family": "snap",
@@ -9601,10 +9601,10 @@
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 12.7112,
+      "carries": 12.7557,
       "rzRush": 4.03,
       "rzTgt": 0.7291,
-      "targets": 3.4197
+      "targets": 3.2826
      },
      "volConf": {
       "rec": {
@@ -9645,12 +9645,12 @@
         "factor": 0.9992,
         "league": 0.7765
        },
-       "hi": 6.0969,
-       "leagueDefense": 2.852,
-       "lo": 0.2954,
-       "mean": 2.7641,
+       "hi": 5.8524,
+       "leagueDefense": 2.7376,
+       "lo": 0.2835,
+       "mean": 2.6533,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "2.9 without this defense. NE allows RBs a 77% catch rate versus 78% league."
+       "text": "2.7 without this defense. NE allows RBs a 77% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
@@ -9658,10 +9658,10 @@
         "factor": 1.0533,
         "league": 5.417
        },
-       "hi": 38.5972,
-       "leagueDefense": 17.2085,
+       "hi": 37.5096,
+       "leagueDefense": 16.5184,
        "lo": 0,
-       "mean": 15.4074,
+       "mean": 14.7896,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "17 without this defense. NE allows RBs 6.5 yards a target versus 5.4 league."
       },
@@ -9671,10 +9671,10 @@
         "factor": 1.0098,
         "league": 4.134
        },
-       "hi": 143.7644,
-       "leagueDefense": 59.2824,
-       "lo": 2.9931,
-       "mean": 59.8621,
+       "hi": 143.9819,
+       "leagueDefense": 59.3721,
+       "lo": 2.9976,
+       "mean": 59.9527,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "59 without this defense. NE allows RBs 4.2 yards a carry versus 4.1 league."
       }
@@ -9688,37 +9688,37 @@
       "uncertain": false
      },
      "band": [
-      0.0447,
-      0.5036
+      0.0424,
+      0.485
      ],
      "ceiling": 0.5,
-     "challenger": 0.12958020881043808,
-     "chance": 0.1638,
+     "challenger": 0.1268956527362407,
+     "chance": 0.1559,
      "coldGoal": false,
      "components": {
-      "r0": 0.0722,
-      "r1": 0.0396,
-      "r2": 0.0106,
-      "r3": 0.0016,
-      "t0": 0.046,
-      "t1": 0.0042,
-      "t2": 0.0026,
-      "t3": 0.0021
+      "r0": 0.0687,
+      "r1": 0.038,
+      "r2": 0.0102,
+      "r3": 0.0015,
+      "t0": 0.0427,
+      "t1": 0.004,
+      "t2": 0.0025,
+      "t3": 0.002
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.1638,
-      "lambda": 0.1789,
-      "p0": 0.8362,
-      "p1": 0.1496,
-      "p2": 0.0134,
-      "p3plus": 0.0008,
-      "twoPlus": 0.0142
+      "anytime": 0.1559,
+      "lambda": 0.1695,
+      "p0": 0.8441,
+      "p1": 0.1431,
+      "p2": 0.0121,
+      "p3plus": 0.0007,
+      "twoPlus": 0.0128
      },
-     "edge": -3.3633,
+     "edge": -4.1553,
      "espn": "4695404",
-     "fair": 510,
-     "firstTd": 0.0393,
+     "fair": 541,
+     "firstTd": 0.0359,
      "gamesPlayed": 2,
      "glShare": 0.0435,
      "glShareRaw": 0.0435,
@@ -9727,8 +9727,8 @@
      "id": "11571",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1789,
-     "lambdaRaw": 0.1063,
+     "lambda": 0.1695,
+     "lambdaRaw": 0.1051,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 85% toward the published projection (19%) because of a thin sample; safety caps applied after."
@@ -9743,10 +9743,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.185,
-     "preStack": 0.1107,
+     "preSafety": 0.1848,
+     "preStack": 0.109,
      "pubBlend": {
-      "before": 0.1173,
+      "before": 0.1155,
       "weight": 0.85
      },
      "published": {
@@ -9763,9 +9763,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 6.039135416759445,
-       "chance": 0.16109464344704938,
-       "targets": 2.1744421602239106
+       "carries": 5.99242527771372,
+       "chance": 0.15346275158459144,
+       "targets": 2.105292475212609
       },
       "close": {
        "att": null,
@@ -9775,9 +9775,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 7.957449019730093,
-       "chance": 0.16752184192662123,
-       "targets": 1.7084902687473584
+       "carries": 7.8959015423992565,
+       "chance": 0.1588534757874055,
+       "targets": 1.654158373381336
       },
       "limited": {
        "att": null,
@@ -9791,9 +9791,9 @@
      "segment": "RB|reserve|available",
      "spots": {
       "r0": {
-       "expected": 0.0429,
+       "expected": 0.0426,
        "looks": 2,
-       "opps": 6.992,
+       "opps": 6.9371,
        "rate": 0.0062,
        "scores": 0
       },
@@ -9819,30 +9819,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0274,
+       "expected": 0.0265,
        "looks": 2,
-       "opps": 1.9244,
+       "opps": 1.8629,
        "rate": 0.0144,
        "scores": 0
       },
       "t1": {
        "expected": 0.0025,
        "looks": 0,
-       "opps": 0.0043,
+       "opps": 0.0042,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0016,
+       "expected": 0.0015,
        "looks": 0,
-       "opps": 0.005,
+       "opps": 0.0049,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
        "expected": 0.0012,
        "looks": 0,
-       "opps": 0.0079,
+       "opps": 0.0077,
        "rate": 0.13,
        "scores": 0
       }
@@ -9851,7 +9851,7 @@
      "tags": [],
      "tdConf": {
       "blocks": [
-       "80% band 4–50% is too wide."
+       "80% band 4–48% is too wide."
       ],
       "evidence": {
        "avgTouches": 2,
@@ -9861,7 +9861,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.4588982237524324
+       "width": 0.4425830404157072
       },
       "level": "Low",
       "reasons": [
@@ -9870,8 +9870,8 @@
      },
      "team": "NYJ",
      "trendEffect": {
-      "after": 0.1009,
-      "before": 0.1009,
+      "after": 0.0997,
+      "before": 0.0997,
       "items": [
        {
         "family": "defense",
@@ -9899,10 +9899,10 @@
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 7.1049,
+      "carries": 7.0499,
       "rzRush": 0.4729,
       "rzTgt": 0.048,
-      "targets": 1.9415
+      "targets": 1.8797
      },
      "volConf": {
       "rec": {
@@ -9940,12 +9940,12 @@
         "factor": 0.9992,
         "league": 0.7765
        },
-       "hi": 3.4971,
-       "leagueDefense": 1.6685,
+       "hi": 3.4186,
+       "leagueDefense": 1.6154,
        "lo": 0,
-       "mean": 1.417,
+       "mean": 1.3719,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "1.7 without this defense. NE allows RBs a 77% catch rate versus 78% league."
+       "text": "1.6 without this defense. NE allows RBs a 77% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
@@ -9953,12 +9953,12 @@
         "factor": 1.0533,
         "league": 5.417
        },
-       "hi": 29.8154,
-       "leagueDefense": 11.8278,
+       "hi": 29.1705,
+       "leagueDefense": 11.4517,
        "lo": 0,
-       "mean": 10.5899,
+       "mean": 10.2531,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "12 without this defense. NE allows RBs 6.5 yards a target versus 5.4 league."
+       "text": "11 without this defense. NE allows RBs 6.5 yards a target versus 5.4 league."
       },
       "rushYd": {
        "defense": {
@@ -9966,10 +9966,10 @@
         "factor": 1.0098,
         "league": 4.134
        },
-       "hi": 72.1641,
-       "leagueDefense": 33.0548,
-       "lo": 7.059,
-       "mean": 33.3781,
+       "hi": 71.6516,
+       "leagueDefense": 32.7341,
+       "lo": 6.8631,
+       "mean": 33.0542,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "33 without this defense. NE allows RBs 4.2 yards a carry versus 4.1 league."
       }
@@ -9983,47 +9983,47 @@
       "uncertain": true
      },
      "band": [
-      0.0673,
-      0.1853
+      0.0635,
+      0.1759
      ],
      "ceiling": 0.5,
-     "challenger": 0.15969616463914205,
-     "chance": 0.1126,
+     "challenger": 0.14793129286288287,
+     "chance": 0.1065,
      "coldGoal": false,
      "components": {
       "r0": 0,
-      "r1": 0.0233,
+      "r1": 0.0224,
       "r2": 0.0005,
       "r3": 0.0001,
-      "t0": 0.0464,
-      "t1": 0.0177,
-      "t2": 0.011,
-      "t3": 0.0206
+      "t0": 0.0428,
+      "t1": 0.0168,
+      "t2": 0.0104,
+      "t3": 0.0197
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.1126,
-      "lambda": 0.1195,
-      "p0": 0.8874,
-      "p1": 0.106,
-      "p2": 0.0063,
-      "p3plus": 0.0003,
-      "twoPlus": 0.0066
+      "anytime": 0.1065,
+      "lambda": 0.1126,
+      "p0": 0.8935,
+      "p1": 0.1006,
+      "p2": 0.0057,
+      "p3plus": 0.0002,
+      "twoPlus": 0.0059
      },
-     "edge": -3.5253,
+     "edge": -4.1335,
      "espn": "5083315",
-     "fair": 788,
-     "firstTd": 0.0262,
+     "fair": 839,
+     "firstTd": 0.0238,
      "gamesPlayed": 5,
      "glShare": 0.0364,
      "glShareRaw": 0.0364,
      "gsis": "00-0041032",
-     "i10Exp": 0.0388,
+     "i10Exp": 0.0386,
      "id": "13330",
      "injury": "Questionable",
      "insideFinisher": false,
-     "lambda": 0.1195,
-     "lambdaRaw": 0.0885,
+     "lambda": 0.1126,
+     "lambdaRaw": 0.0868,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 63% toward the published projection (14%) because of limited recent red-zone evidence; safety caps applied after."
@@ -10038,10 +10038,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.1277,
-     "preStack": 0.093,
+     "preSafety": 0.1269,
+     "preStack": 0.0909,
      "pubBlend": {
-      "before": 0.0976,
+      "before": 0.0954,
       "weight": 0.625
      },
      "published": {
@@ -10058,9 +10058,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.029713316869770037,
-       "chance": 0.11311155373988335,
-       "targets": 2.6340207029931997
+       "carries": 0.02981742126439867,
+       "chance": 0.10707067662495928,
+       "targets": 2.5366917446268524
       },
       "close": {
        "att": null,
@@ -10070,9 +10070,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.03915166458134405,
-       "chance": 0.11223094172543524,
-       "targets": 2.0695876952089427
+       "carries": 0.03928883743073707,
+       "chance": 0.1058148678866978,
+       "targets": 1.9931149422068128
       },
       "limited": {
        "att": null,
@@ -10114,30 +10114,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0343,
+       "expected": 0.033,
        "looks": 20,
-       "opps": 2.1542,
+       "opps": 2.0687,
        "rate": 0.0205,
        "scores": 1
       },
       "t1": {
-       "expected": 0.0131,
+       "expected": 0.0129,
        "looks": 0,
-       "opps": 0.0285,
+       "opps": 0.0282,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0081,
+       "expected": 0.008,
        "looks": 0,
-       "opps": 0.0331,
+       "opps": 0.0327,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
        "expected": 0.0152,
        "looks": 1,
-       "opps": 0.136,
+       "opps": 0.1354,
        "rate": 0.1183,
        "scores": 0
       }
@@ -10157,18 +10157,18 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.11807081574151257
+       "width": 0.11243389252876079
       },
       "level": "Med",
       "reasons": [
        "1 red-zone touches in his last three games.",
-       "80% band 7–19% is narrow enough."
+       "80% band 6–18% is narrow enough."
       ]
      },
      "team": "NYJ",
      "trendEffect": {
-      "after": 0.0847,
-      "before": 0.0847,
+      "after": 0.0831,
+      "before": 0.0831,
       "items": [
        {
         "family": "miss",
@@ -10196,10 +10196,10 @@
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.035,
+      "carries": 0.0351,
       "rzRush": 0.0535,
       "rzTgt": 0.4494,
-      "targets": 2.3518
+      "targets": 2.2649
      },
      "volConf": {
       "rec": {
@@ -10250,12 +10250,12 @@
         "factor": 1.0079,
         "league": 0.7215
        },
-       "hi": 3.8019,
-       "leagueDefense": 1.8618,
+       "hi": 3.7018,
+       "leagueDefense": 1.793,
        "lo": 0,
-       "mean": 1.5951,
+       "mean": 1.5361,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "1.9 without this defense. NE allows TEs a 74% catch rate versus 72% league."
+       "text": "1.8 without this defense. NE allows TEs a 74% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
@@ -10263,12 +10263,12 @@
         "factor": 1.0068,
         "league": 7.0852
        },
-       "hi": 45.9012,
-       "leagueDefense": 18.7941,
+       "hi": 44.2051,
+       "leagueDefense": 18.0997,
        "lo": 0,
-       "mean": 16.0838,
+       "mean": 15.4895,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "19 without this defense. NE allows TEs 7.3 yards a target versus 7.1 league."
+       "text": "18 without this defense. NE allows TEs 7.3 yards a target versus 7.1 league."
       },
       "rushYd": {
        "defense": {
@@ -10276,10 +10276,10 @@
         "factor": 0.9994,
         "league": 2.0769
        },
-       "hi": 0.6562,
-       "leagueDefense": 0.0827,
+       "hi": 0.6568,
+       "leagueDefense": 0.0828,
        "lo": 0,
-       "mean": 0.0703,
+       "mean": 0.0704,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0 without this defense. NE allows TEs 2.0 yards a carry versus 2.1 league."
       }
@@ -10287,90 +10287,90 @@
     },
     {
      "avail": {
-      "factor": 1,
-      "label": "Available",
-      "status": "available",
-      "uncertain": false
+      "factor": 0.6666666666666666,
+      "label": "Questionable, practice report unavailable: about two-thirds of usual work",
+      "status": "questionable",
+      "uncertain": true
      },
      "band": [
-      0.0398,
-      0.2039
+      0.0401,
+      0.2149
      ],
      "ceiling": 0.5,
-     "challenger": 0.08907592759710303,
-     "chance": 0.0917,
+     "challenger": 0.09885033180846403,
+     "chance": 0.0948,
      "coldGoal": false,
      "components": {
-      "r0": 0.0003,
-      "r1": 0.0004,
-      "r2": 0.0001,
+      "r0": 0.0002,
+      "r1": 0,
+      "r2": 0,
       "r3": 0,
-      "t0": 0.0433,
-      "t1": 0.0246,
-      "t2": 0.0153,
-      "t3": 0.0121
+      "t0": 0.0718,
+      "t1": 0.013,
+      "t2": 0.0081,
+      "t3": 0.0064
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0917,
-      "lambda": 0.0962,
-      "p0": 0.9083,
-      "p1": 0.0874,
-      "p2": 0.0042,
-      "p3plus": 0.0001,
-      "twoPlus": 0.0043
+      "anytime": 0.0948,
+      "lambda": 0.0996,
+      "p0": 0.9052,
+      "p1": 0.0901,
+      "p2": 0.0045,
+      "p3plus": 0.0002,
+      "twoPlus": 0.0046
      },
-     "edge": -1.2439,
-     "espn": "3134353",
-     "fair": 990,
+     "edge": -1.8315,
+     "espn": "4723820",
+     "fair": 955,
      "firstTd": 0.0211,
      "gamesPlayed": 1,
-     "glShare": 0.0007,
-     "glShareRaw": 0.0007,
-     "gsis": "00-0033375",
-     "i10Exp": 0.0357,
-     "id": "4351",
-     "injury": null,
+     "glShare": 0,
+     "glShareRaw": 0,
+     "gsis": "00-0041511",
+     "i10Exp": 0.0042,
+     "id": "13276",
+     "injury": "Questionable",
      "insideFinisher": false,
-     "lambda": 0.0962,
-     "lambdaRaw": 0.0849,
+     "lambda": 0.0996,
+     "lambdaRaw": 0.0198,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
-      "Blended 100% toward the published projection (10%) because of a thin sample; safety caps applied after."
+      "Blended 100% toward the published projection (11%) because of a thin sample; safety caps applied after."
      ],
      "matchupFactor": 1,
-     "name": "Tim Patrick",
+     "name": "Omar Cooper",
      "passTd": null,
      "photo": {
-      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/3134353.png",
-      "initials": "TP",
-      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/4351.jpg"
+      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4723820.png",
+      "initials": "OC",
+      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/13276.jpg"
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.1042,
-     "preStack": 0.0894,
+     "preSafety": 0.1131,
+     "preStack": 0.0216,
      "pubBlend": {
-      "before": 0.0937,
+      "before": 0.0218,
       "weight": 1
      },
      "published": {
-      "expected": 0.11,
-      "probability": 0.10416586470347178,
+      "expected": 0.12,
+      "probability": 0.11307956328284252,
       "source": "Sleeper projections week 6"
      },
      "recentFinisher": false,
      "recentRzLooks": 0,
      "replacing": null,
      "riser": null,
-     "role": "WR3",
+     "role": "WR5",
      "safetyNotes": [],
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.038958561359440605,
-       "chance": 0.09061920983494498,
-       "targets": 3.175421243007361
+       "carries": 0.006081453411766692,
+       "chance": 0.0937312140868295,
+       "targets": 1.124436318685228
       },
       "close": {
        "att": null,
@@ -10380,9 +10380,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.05133363379126291,
-       "chance": 0.09373172568817645,
-       "targets": 2.494973833791498
+       "carries": 0.0080132092013867,
+       "chance": 0.09645625975768357,
+       "targets": 0.883485678966965
       },
       "limited": {
        "att": null,
@@ -10393,80 +10393,82 @@
      },
      "scriptSensitive": false,
      "secondOption": null,
-     "segment": "WR|reserve|available",
+     "segment": "WR|reserve|uncertain",
      "spots": {
       "r0": {
-       "expected": 0.0003,
+       "expected": 0,
        "looks": 0,
-       "opps": 0.044,
+       "opps": 0.0072,
        "rate": 0.0063,
        "scores": 0
       },
       "r1": {
-       "expected": 0.0004,
+       "expected": 0,
        "looks": 0,
-       "opps": 0.0006,
+       "opps": 0,
        "rate": 0.4359,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0001,
+       "expected": 0,
        "looks": 0,
-       "opps": 0.0003,
+       "opps": 0,
        "rate": 0.3604,
        "scores": 0
       },
       "r3": {
        "expected": 0,
        "looks": 0,
-       "opps": 0.0008,
+       "opps": 0,
        "rate": 0.017,
        "scores": 0
       },
       "t0": {
-       "expected": 0.0382,
-       "looks": 3,
-       "opps": 2.6883,
-       "rate": 0.0142,
+       "expected": 0.0143,
+       "looks": 1,
+       "opps": 0.9864,
+       "rate": 0.0145,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0217,
+       "expected": 0.0026,
        "looks": 0,
-       "opps": 0.0368,
+       "opps": 0.0044,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0135,
+       "expected": 0.0016,
        "looks": 0,
-       "opps": 0.0427,
+       "opps": 0.0051,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0107,
+       "expected": 0.0013,
        "looks": 0,
-       "opps": 0.0675,
+       "opps": 0.008,
        "rate": 0.13,
        "scores": 0
       }
      },
      "stacked": null,
-     "tags": [],
+     "tags": [
+      "Availability risk"
+     ],
      "tdConf": {
       "blocks": [
-       "80% band 4–20% is too wide."
+       "80% band 4–21% is too wide."
       ],
       "evidence": {
-       "avgTouches": 3,
+       "avgTouches": 1,
        "baseline": false,
-       "latest": 3,
+       "latest": 1,
        "narrow": false,
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.16412757915964404
+       "width": 0.17471311272007561
       },
       "level": "Low",
       "reasons": [
@@ -10475,8 +10477,8 @@
      },
      "team": "NYJ",
      "trendEffect": {
-      "after": 0.0814,
-      "before": 0.0814,
+      "after": 0.0196,
+      "before": 0.0196,
       "items": [
        {
         "family": "defense",
@@ -10504,10 +10506,304 @@
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.0458,
+      "carries": 0.0072,
+      "rzRush": 0,
+      "rzTgt": 0.075,
+      "targets": 1.004
+     },
+     "volConf": {
+      "rec": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "1 targets this season (High needs 12, Medium 5).",
+        "Role-specific held-out coverage not yet available: provisional."
+       ]
+      },
+      "recYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "1 targets this season (High needs 18, Medium 8).",
+        "Role-specific held-out coverage not yet available: provisional."
+       ]
+      },
+      "rushYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "Near-zero projected carries (0.0)."
+       ]
+      }
+     },
+     "volume": {
+      "rec": {
+       "defense": {
+        "allowed": 0.6522,
+        "factor": 1.023,
+        "league": 0.6253
+       },
+       "hi": 2.0269,
+       "leagueDefense": 0.73,
+       "lo": 0,
+       "mean": 0.6348,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "0.7 without this defense. NE allows WRs a 65% catch rate versus 63% league."
+      },
+      "recYd": {
+       "defense": {
+        "allowed": 7.4783,
+        "factor": 0.9517,
+        "league": 8.22
+       },
+       "hi": 25.193,
+       "leagueDefense": 10.1822,
+       "lo": 0,
+       "mean": 8.2371,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "10 without this defense. NE allows WRs 7.5 yards a target versus 8.2 league."
+      },
+      "rushYd": {
+       "defense": {
+        "allowed": 0,
+        "factor": 0.9524,
+        "league": 5.087
+       },
+       "hi": 0.4356,
+       "leagueDefense": 0.0409,
+       "lo": 0,
+       "mean": 0.0331,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "0 without this defense. NE allows WRs 0.0 yards a carry versus 5.1 league."
+      }
+     }
+    },
+    {
+     "avail": {
+      "factor": 1,
+      "label": "Available",
+      "status": "available",
+      "uncertain": false
+     },
+     "band": [
+      0.0378,
+      0.1946
+     ],
+     "ceiling": 0.5,
+     "challenger": 0.08283281790059216,
+     "chance": 0.0872,
+     "coldGoal": false,
+     "components": {
+      "r0": 0.0003,
+      "r1": 0.0004,
+      "r2": 0.0001,
+      "r3": 0,
+      "t0": 0.0405,
+      "t1": 0.0236,
+      "t2": 0.0147,
+      "t3": 0.0116
+     },
+     "conversionNote": "",
+     "dist": {
+      "anytime": 0.0872,
+      "lambda": 0.0913,
+      "p0": 0.9128,
+      "p1": 0.0833,
+      "p2": 0.0038,
+      "p3plus": 0.0001,
+      "twoPlus": 0.0039
+     },
+     "edge": -1.6943,
+     "espn": "3134353",
+     "fair": 1046,
+     "firstTd": 0.0193,
+     "gamesPlayed": 1,
+     "glShare": 0.0007,
+     "glShareRaw": 0.0007,
+     "gsis": "00-0033375",
+     "i10Exp": 0.0352,
+     "id": "4351",
+     "injury": null,
+     "insideFinisher": false,
+     "lambda": 0.0913,
+     "lambdaRaw": 0.0828,
+     "lessonNotes": [
+      "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
+      "Blended 100% toward the published projection (10%) because of a thin sample; safety caps applied after."
+     ],
+     "matchupFactor": 1,
+     "name": "Tim Patrick",
+     "passTd": null,
+     "photo": {
+      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/3134353.png",
+      "initials": "TP",
+      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/4351.jpg"
+     },
+     "pos": "WR",
+     "practice": null,
+     "preSafety": 0.1042,
+     "preStack": 0.087,
+     "pubBlend": {
+      "before": 0.091,
+      "weight": 1
+     },
+     "published": {
+      "expected": 0.11,
+      "probability": 0.10416586470347178,
+      "source": "Sleeper projections week 6"
+     },
+     "recentFinisher": false,
+     "recentRzLooks": 0,
+     "replacing": null,
+     "riser": null,
+     "role": "WR3",
+     "safetyNotes": [],
+     "scenarios": {
+      "behind": {
+       "att": 0,
+       "carries": 0.03909505764707159,
+       "chance": 0.08626778491778764,
+       "targets": 3.0568143048957306
+      },
+      "close": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      },
+      "lead": {
+       "att": 0,
+       "carries": 0.051513487723200226,
+       "chance": 0.08878663086243943,
+       "targets": 2.40178266813236
+      },
+      "limited": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      }
+     },
+     "scriptSensitive": false,
+     "secondOption": null,
+     "segment": "WR|reserve|available",
+     "spots": {
+      "r0": {
+       "expected": 0.0003,
+       "looks": 0,
+       "opps": 0.0442,
+       "rate": 0.0063,
+       "scores": 0
+      },
+      "r1": {
+       "expected": 0.0004,
+       "looks": 0,
+       "opps": 0.0006,
+       "rate": 0.4359,
+       "scores": 0
+      },
+      "r2": {
+       "expected": 0.0001,
+       "looks": 0,
+       "opps": 0.0003,
+       "rate": 0.3604,
+       "scores": 0
+      },
+      "r3": {
+       "expected": 0,
+       "looks": 0,
+       "opps": 0.0008,
+       "rate": 0.017,
+       "scores": 0
+      },
+      "t0": {
+       "expected": 0.0368,
+       "looks": 3,
+       "opps": 2.5845,
+       "rate": 0.0142,
+       "scores": 0
+      },
+      "t1": {
+       "expected": 0.0214,
+       "looks": 0,
+       "opps": 0.0363,
+       "rate": 0.55,
+       "scores": 0
+      },
+      "t2": {
+       "expected": 0.0133,
+       "looks": 0,
+       "opps": 0.0421,
+       "rate": 0.3718,
+       "scores": 0
+      },
+      "t3": {
+       "expected": 0.0105,
+       "looks": 0,
+       "opps": 0.0664,
+       "rate": 0.13,
+       "scores": 0
+      }
+     },
+     "stacked": null,
+     "tags": [],
+     "tdConf": {
+      "blocks": [
+       "80% band 4–19% is too wide."
+      ],
+      "evidence": {
+       "avgTouches": 3,
+       "baseline": false,
+       "latest": 3,
+       "narrow": false,
+       "recentRz": 0,
+       "repeat": false,
+       "roleOk": false,
+       "width": 0.15682225109494896
+      },
+      "level": "Low",
+      "reasons": [
+       "0 red-zone touches in his last three games."
+      ]
+     },
+     "team": "NYJ",
+     "trendEffect": {
+      "after": 0.0795,
+      "before": 0.0795,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:NE:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "NE has allowed 1.3 WR touchdowns a game over its last 3 vs 0.5 before (2 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:NE:WR",
+       "status": "new",
+       "strength": 0.35,
+       "type": "Defense trend"
+      }
+     ],
+     "verified": true,
+     "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
+     "vol": {
+      "att": 0,
+      "carries": 0.046,
       "rzRush": 0.0075,
       "rzTgt": 0.4125,
-      "targets": 2.8352
+      "targets": 2.7293
      },
      "volConf": {
       "rec": {
@@ -10544,10 +10840,10 @@
         "factor": 1.023,
         "league": 0.6253
        },
-       "hi": 4.6626,
-       "leagueDefense": 2.0293,
-       "lo": 0.0516,
-       "mean": 2.0137,
+       "hi": 3.9762,
+       "leagueDefense": 1.9535,
+       "lo": 0.0117,
+       "mean": 1.6987,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "2.0 without this defense. NE allows WRs a 65% catch rate versus 63% league."
       },
@@ -10557,12 +10853,12 @@
         "factor": 0.9517,
         "league": 8.22
        },
-       "hi": 60.1057,
-       "leagueDefense": 26.6212,
-       "lo": 1.1655,
-       "mean": 23.3094,
+       "hi": 47.6312,
+       "leagueDefense": 25.6269,
+       "lo": 0,
+       "mean": 20.7315,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "27 without this defense. NE allows WRs 7.5 yards a target versus 8.2 league."
+       "text": "26 without this defense. NE allows WRs 7.5 yards a target versus 8.2 league."
       },
       "rushYd": {
        "defense": {
@@ -10570,10 +10866,10 @@
         "factor": 0.9524,
         "league": 5.087
        },
-       "hi": 1.2323,
-       "leagueDefense": 0.2628,
+       "hi": 1.2334,
+       "leagueDefense": 0.2632,
        "lo": 0,
-       "mean": 0.2127,
+       "mean": 0.2131,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0 without this defense. NE allows WRs 0.0 yards a carry versus 5.1 league."
       }
@@ -10587,47 +10883,47 @@
       "uncertain": false
      },
      "band": [
-      0.0498,
-      0.1298
+      0.0471,
+      0.1234
      ],
      "ceiling": 0.5,
-     "challenger": 0.09602767514953625,
-     "chance": 0.0808,
+     "challenger": 0.08978975364253317,
+     "chance": 0.0766,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0403,
-      "t1": 0.0176,
-      "t2": 0.0109,
-      "t3": 0.0154
+      "t0": 0.0376,
+      "t1": 0.0168,
+      "t2": 0.0105,
+      "t3": 0.0148
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0808,
-      "lambda": 0.0843,
-      "p0": 0.9192,
-      "p1": 0.0775,
-      "p2": 0.0033,
+      "anytime": 0.0766,
+      "lambda": 0.0797,
+      "p0": 0.9234,
+      "p1": 0.0736,
+      "p2": 0.0029,
       "p3plus": 0.0001,
-      "twoPlus": 0.0034
+      "twoPlus": 0.003
      },
-     "edge": -1.434,
+     "edge": -1.8567,
      "espn": "4808766",
-     "fair": 1137,
-     "firstTd": 0.0185,
+     "fair": 1206,
+     "firstTd": 0.0169,
      "gamesPlayed": 2,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0040736",
-     "i10Exp": 0.0233,
+     "i10Exp": 0.023,
      "id": "12498",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0843,
-     "lambdaRaw": 0.0686,
+     "lambda": 0.0797,
+     "lambdaRaw": 0.067,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 85% toward the published projection (9%) because of a thin sample; safety caps applied after."
@@ -10642,10 +10938,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0919,
-     "preStack": 0.0729,
+     "preSafety": 0.0916,
+     "preStack": 0.071,
      "pubBlend": {
-      "before": 0.0757,
+      "before": 0.0737,
       "weight": 0.85
      },
      "published": {
@@ -10667,8 +10963,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.08092201334720261,
-       "targets": 3.621129627020293
+       "chance": 0.07675644419543981,
+       "targets": 3.4917103993845258
       },
       "close": {
        "att": null,
@@ -10679,8 +10975,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.0814801889579696,
-       "targets": 2.8451732783730876
+       "chance": 0.07694327804415235,
+       "targets": 2.7434867423735563
       },
       "limited": {
        "att": null,
@@ -10722,30 +11018,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0329,
+       "expected": 0.0316,
        "looks": 6,
-       "opps": 3.0638,
+       "opps": 2.9499,
        "rate": 0.0138,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0143,
+       "expected": 0.0142,
        "looks": 0,
-       "opps": 0.0313,
+       "opps": 0.0309,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0089,
+       "expected": 0.0088,
        "looks": 0,
-       "opps": 0.0363,
+       "opps": 0.0359,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0125,
+       "expected": 0.0124,
        "looks": 0,
-       "opps": 0.1017,
+       "opps": 0.1009,
        "rate": 0.13,
        "scores": 0
       }
@@ -10764,12 +11060,12 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.08004491623443544
+       "width": 0.07628588619912535
       },
       "level": "Low",
       "reasons": [
        "0 red-zone touches in his last three games.",
-       "80% band 5–13% is narrow enough."
+       "80% band 5–12% is narrow enough."
       ]
      },
      "team": "NYJ",
@@ -10792,7 +11088,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.3511,
-      "targets": 3.2332
+      "targets": 3.1176
      },
      "volConf": {
       "rec": {
@@ -10829,12 +11125,12 @@
         "factor": 1.0079,
         "league": 0.7215
        },
-       "hi": 5.7203,
-       "leagueDefense": 2.7311,
-       "lo": 0.4107,
-       "mean": 2.6701,
+       "hi": 5.5699,
+       "leagueDefense": 2.6335,
+       "lo": 0.356,
+       "mean": 2.5747,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "2.7 without this defense. NE allows TEs a 74% catch rate versus 72% league."
+       "text": "2.6 without this defense. NE allows TEs a 74% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
@@ -10842,12 +11138,12 @@
         "factor": 1.0068,
         "league": 7.0852
        },
-       "hi": 47.2349,
-       "leagueDefense": 23.9445,
+       "hi": 46.0203,
+       "leagueDefense": 23.0887,
        "lo": 0,
-       "mean": 20.4914,
+       "mean": 19.7591,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "24 without this defense. NE allows TEs 7.3 yards a target versus 7.1 league."
+       "text": "23 without this defense. NE allows TEs 7.3 yards a target versus 7.1 league."
       },
       "rushYd": {
        "defense": {
@@ -10872,47 +11168,47 @@
       "uncertain": false
      },
      "band": [
-      0.0404,
-      0.1184
+      0.0379,
+      0.1116
      ],
      "ceiling": 0.5,
-     "challenger": 0.07310421718232518,
-     "chance": 0.0696,
+     "challenger": 0.0681734379444009,
+     "chance": 0.0654,
      "coldGoal": false,
      "components": {
       "r0": 0.0007,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0433,
-      "t1": 0.01,
-      "t2": 0.0062,
-      "t3": 0.012
+      "t0": 0.0401,
+      "t1": 0.0095,
+      "t2": 0.0059,
+      "t3": 0.0115
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0696,
-      "lambda": 0.0721,
-      "p0": 0.9304,
-      "p1": 0.0671,
-      "p2": 0.0024,
-      "p3plus": 0.0001,
-      "twoPlus": 0.0025
+      "anytime": 0.0654,
+      "lambda": 0.0676,
+      "p0": 0.9346,
+      "p1": 0.0632,
+      "p2": 0.0021,
+      "p3plus": 0,
+      "twoPlus": 0.0022
      },
-     "edge": -0.7287,
+     "edge": -1.1494,
      "espn": "4569371",
-     "fair": 1337,
-     "firstTd": 0.0158,
+     "fair": 1429,
+     "firstTd": 0.0143,
      "gamesPlayed": 5,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0039451",
-     "i10Exp": 0.0176,
+     "i10Exp": 0.0173,
      "id": "11608",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0721,
-     "lambdaRaw": 0.0785,
+     "lambda": 0.0676,
+     "lambdaRaw": 0.0765,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 63% toward the published projection (7%) because of limited recent red-zone evidence; safety caps applied after."
@@ -10927,10 +11223,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0792,
-     "preStack": 0.083,
+     "preSafety": 0.0783,
+     "preStack": 0.0806,
      "pubBlend": {
-      "before": 0.0866,
+      "before": 0.084,
       "weight": 0.625
      },
      "published": {
@@ -10947,9 +11243,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.10680086577582056,
-       "chance": 0.0718052448007398,
-       "targets": 2.5671520554550202
+       "carries": 0.10495326335463766,
+       "chance": 0.06749625275045257,
+       "targets": 2.474840105261061
       },
       "close": {
        "att": null,
@@ -10959,9 +11255,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.1407258466693165,
-       "chance": 0.0679569924902762,
-       "targets": 2.0170480435718017
+       "carries": 0.13829135877316964,
+       "chance": 0.06364848504104681,
+       "targets": 1.9445172255622625
       },
       "limited": {
        "att": null,
@@ -10977,7 +11273,7 @@
       "r0": {
        "expected": 0.0008,
        "looks": 2,
-       "opps": 0.1256,
+       "opps": 0.1235,
        "rate": 0.0062,
        "scores": 0
       },
@@ -11003,30 +11299,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0472,
+       "expected": 0.0454,
        "looks": 13,
-       "opps": 2.1617,
+       "opps": 2.0802,
        "rate": 0.0218,
        "scores": 1
       },
       "t1": {
-       "expected": 0.0108,
+       "expected": 0.0107,
        "looks": 0,
-       "opps": 0.0183,
+       "opps": 0.0181,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
        "expected": 0.0067,
        "looks": 0,
-       "opps": 0.0213,
+       "opps": 0.021,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
        "expected": 0.013,
        "looks": 1,
-       "opps": 0.0908,
+       "opps": 0.0904,
        "rate": 0.1177,
        "scores": 0
       }
@@ -11043,18 +11339,18 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.07796753219802754
+       "width": 0.07365269666605978
       },
       "level": "Low",
       "reasons": [
        "0 red-zone touches in his last three games.",
-       "80% band 4–12% is narrow enough."
+       "80% band 4–11% is narrow enough."
       ]
      },
      "team": "NYJ",
      "trendEffect": {
-      "after": 0.0755,
-      "before": 0.0755,
+      "after": 0.0736,
+      "before": 0.0736,
       "items": [
        {
         "family": "defense",
@@ -11082,10 +11378,10 @@
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.1256,
+      "carries": 0.1235,
       "rzRush": 0,
       "rzTgt": 0.169,
-      "targets": 2.2921
+      "targets": 2.2097
      },
      "volConf": {
       "rec": {
@@ -11126,12 +11422,12 @@
         "factor": 1.023,
         "league": 0.6253
        },
-       "hi": 3.7204,
-       "leagueDefense": 1.7791,
+       "hi": 3.6254,
+       "leagueDefense": 1.7151,
        "lo": 0,
-       "mean": 1.547,
+       "mean": 1.4914,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "1.8 without this defense. NE allows WRs a 65% catch rate versus 63% league."
+       "text": "1.7 without this defense. NE allows WRs a 65% catch rate versus 63% league."
       },
       "recYd": {
        "defense": {
@@ -11139,12 +11435,12 @@
         "factor": 0.9517,
         "league": 8.22
        },
-       "hi": 44.8284,
-       "leagueDefense": 23.5429,
+       "hi": 43.6757,
+       "leagueDefense": 22.6963,
        "lo": 0,
-       "mean": 19.0456,
+       "mean": 18.3608,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "24 without this defense. NE allows WRs 7.5 yards a target versus 8.2 league."
+       "text": "23 without this defense. NE allows WRs 7.5 yards a target versus 8.2 league."
       },
       "rushYd": {
        "defense": {
@@ -11152,10 +11448,10 @@
         "factor": 0.9524,
         "league": 5.087
        },
-       "hi": 2.3167,
-       "leagueDefense": 0.7434,
+       "hi": 2.2885,
+       "leagueDefense": 0.7291,
        "lo": 0,
-       "mean": 0.6018,
+       "mean": 0.5903,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "1 without this defense. NE allows WRs 0.0 yards a carry versus 5.1 league."
       }
@@ -11169,47 +11465,47 @@
       "uncertain": false
      },
      "band": [
-      0.0297,
-      0.1253
+      0.028,
+      0.1188
      ],
      "ceiling": 0.5,
-     "challenger": 0.06893501875484997,
-     "chance": 0.0615,
+     "challenger": 0.062053766679456945,
+     "chance": 0.0582,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0088,
-      "t1": 0.0355,
-      "t2": 0.0085,
-      "t3": 0.0106
+      "t0": 0.0081,
+      "t1": 0.0338,
+      "t2": 0.008,
+      "t3": 0.0101
      },
      "conversionNote": "1 of 2 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.0615,
-      "lambda": 0.0635,
-      "p0": 0.9385,
-      "p1": 0.0596,
-      "p2": 0.0019,
+      "anytime": 0.0582,
+      "lambda": 0.06,
+      "p0": 0.9418,
+      "p1": 0.0565,
+      "p2": 0.0017,
       "p3plus": 0,
-      "twoPlus": 0.0019
+      "twoPlus": 0.0017
      },
-     "edge": -0.6109,
+     "edge": -0.9388,
      "espn": "4361372",
-     "fair": 1526,
-     "firstTd": 0.0139,
+     "fair": 1618,
+     "firstTd": 0.0127,
      "gamesPlayed": 3,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0037805",
-     "i10Exp": 0.0505,
+     "i10Exp": 0.0503,
      "id": "8145",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0635,
-     "lambdaRaw": 0.0728,
+     "lambda": 0.06,
+     "lambdaRaw": 0.0721,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 75% toward the published projection (6%) because of a thin sample; safety caps applied after."
@@ -11224,10 +11520,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.07,
-     "preStack": 0.0771,
+     "preSafety": 0.0697,
+     "preStack": 0.0761,
      "pubBlend": {
-      "before": 0.0803,
+      "before": 0.0792,
       "weight": 0.75
      },
      "published": {
@@ -11245,8 +11541,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.06269324028119927,
-       "targets": 1.3194455121715218
+       "chance": 0.05940496463817846,
+       "targets": 1.2723556322146494
       },
       "close": {
        "att": null,
@@ -11257,8 +11553,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.06084296154338198,
-       "targets": 1.0367071881347671
+       "chance": 0.05738810951075646,
+       "targets": 0.9997079967400817
       },
       "limited": {
        "att": null,
@@ -11300,30 +11596,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0101,
+       "expected": 0.0097,
        "looks": 6,
-       "opps": 0.946,
+       "opps": 0.9055,
        "rate": 0.0138,
        "scores": 0
       },
       "t1": {
        "expected": 0.0407,
        "looks": 1,
-       "opps": 0.0828,
+       "opps": 0.0826,
        "rate": 0.5902,
        "scores": 1
       },
       "t2": {
-       "expected": 0.0097,
+       "expected": 0.0096,
        "looks": 0,
-       "opps": 0.0397,
+       "opps": 0.0392,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0122,
+       "expected": 0.0121,
        "looks": 1,
-       "opps": 0.1096,
+       "opps": 0.1087,
        "rate": 0.1173,
        "scores": 0
       }
@@ -11340,12 +11636,12 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.09560952988166027
+       "width": 0.09081339435557689
       },
       "level": "Med",
       "reasons": [
        "2 red-zone touches in his last three games.",
-       "80% band 3–13% is narrow enough."
+       "80% band 3–12% is narrow enough."
       ]
      },
      "team": "NYJ",
@@ -11358,7 +11654,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.3833,
-      "targets": 1.1781
+      "targets": 1.136
      },
      "volConf": {
       "rec": {
@@ -11395,12 +11691,12 @@
         "factor": 1.0079,
         "league": 0.7215
        },
-       "hi": 2.5677,
-       "leagueDefense": 1.0566,
+       "hi": 2.5054,
+       "leagueDefense": 1.0189,
        "lo": 0,
-       "mean": 0.9052,
+       "mean": 0.8729,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "1.1 without this defense. NE allows TEs a 74% catch rate versus 72% league."
+       "text": "1.0 without this defense. NE allows TEs a 74% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
@@ -11408,10 +11704,10 @@
         "factor": 1.0068,
         "league": 7.0852
        },
-       "hi": 24.4184,
-       "leagueDefense": 9.1818,
+       "hi": 23.8397,
+       "leagueDefense": 8.8541,
        "lo": 0,
-       "mean": 7.8577,
+       "mean": 7.5772,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "9 without this defense. NE allows TEs 7.3 yards a target versus 7.1 league."
       },
@@ -11438,18 +11734,18 @@
       "uncertain": false
      },
      "band": [
-      0.0303,
-      0.0938
+      0.0288,
+      0.0891
      ],
      "ceiling": 0.5,
-     "challenger": 0.053416177234956175,
-     "chance": 0.0536,
+     "challenger": 0.04973389689446406,
+     "chance": 0.0508,
      "coldGoal": false,
      "components": {
-      "r0": 0.0182,
-      "r1": 0.0273,
-      "r2": 0.0073,
-      "r3": 0.0022,
+      "r0": 0.0173,
+      "r1": 0.0259,
+      "r2": 0.007,
+      "r3": 0.0021,
       "t0": 0,
       "t1": 0,
       "t2": 0,
@@ -11457,18 +11753,18 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0536,
-      "lambda": 0.0551,
-      "p0": 0.9464,
-      "p1": 0.0521,
-      "p2": 0.0014,
+      "anytime": 0.0508,
+      "lambda": 0.0522,
+      "p0": 0.9492,
+      "p1": 0.0495,
+      "p2": 0.0013,
       "p3plus": 0,
-      "twoPlus": 0.0015
+      "twoPlus": 0.0013
      },
-     "edge": -2.3316,
+     "edge": -2.6038,
      "espn": "15864",
-     "fair": 1767,
-     "firstTd": 0.0121,
+     "fair": 1867,
+     "firstTd": 0.011,
      "gamesPlayed": 5,
      "glShare": 0.0284,
      "glShareRaw": 0.0284,
@@ -11477,7 +11773,7 @@
      "id": "1373",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0551,
+     "lambda": 0.0522,
      "lambdaRaw": 0.0313,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
@@ -11486,9 +11782,9 @@
      "matchupFactor": 1,
      "name": "Geno Smith",
      "passTd": {
-      "attemptShare": 0.9536,
+      "attemptShare": 0.9538,
       "display": "1.0",
-      "expected": 0.9827,
+      "expected": 1.016,
       "interval": [
        0,
        2
@@ -11496,10 +11792,10 @@
       "level": "Med",
       "provisional": true,
       "reasons": [
-       "95% of projected team attempts (27.2) × team receiving-score total 1.03.",
+       "95% of projected team attempts (27.2) × team receiving-score total 1.07.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.0305
+      "teamReceivingLambda": 1.0653
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/15864.png",
@@ -11509,9 +11805,9 @@
      "pos": "QB",
      "practice": null,
      "preSafety": 0.061,
-     "preStack": 0.0339,
+     "preStack": 0.0338,
      "pubBlend": {
-      "before": 0.0345,
+      "before": 0.0344,
       "weight": 0.625
      },
      "published": {
@@ -11527,9 +11823,9 @@
      "safetyNotes": [],
      "scenarios": {
       "behind": {
-       "att": 30.46733095662379,
-       "carries": 1.6103304901472777,
-       "chance": 0.05131763035451775,
+       "att": 30.47308596562174,
+       "carries": 1.6086747442711136,
+       "chance": 0.04876997287849505,
        "targets": 0
       },
       "close": {
@@ -11539,9 +11835,9 @@
        "targets": null
       },
       "lead": {
-       "att": 23.938617180204407,
-       "carries": 2.1218472340764127,
-       "chance": 0.055398388240129326,
+       "att": 23.94313897298851,
+       "carries": 2.119665545392526,
+       "chance": 0.052374992236598916,
        "targets": 0
       },
       "limited": {
@@ -11558,7 +11854,7 @@
       "r0": {
        "expected": 0.0104,
        "looks": 12,
-       "opps": 1.7818,
+       "opps": 1.7798,
        "rate": 0.0058,
        "scores": 0
       },
@@ -11624,7 +11920,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.06344220256115407
+       "width": 0.06033961848545777
       },
       "level": "Med",
       "reasons": [
@@ -11662,8 +11958,8 @@
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
-      "att": 27.203,
-      "carries": 1.8945,
+      "att": 27.2081,
+      "carries": 1.8926,
       "rzRush": 0.3088,
       "rzTgt": 0,
       "targets": 0
@@ -11711,10 +12007,10 @@
         "factor": 0.9836,
         "league": null
        },
-       "hi": 323.2498,
-       "leagueDefense": 218.3502,
-       "lo": 114.8813,
-       "mean": 219.0656,
+       "hi": 323.301,
+       "leagueDefense": 218.3914,
+       "lo": 114.9129,
+       "mean": 219.107,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "218 without this defense; opponent factor 0.98 from how this offense uses WRs, TEs, and backs."
       },
@@ -11750,10 +12046,10 @@
         "factor": 0.9699,
         "league": 4.5016
        },
-       "hi": 12.5224,
-       "leagueDefense": 8.2125,
+       "hi": 12.4934,
+       "leagueDefense": 8.1877,
        "lo": 0,
-       "mean": 6.7706,
+       "mean": 6.7502,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "8 without this defense. NE allows QBs 3.8 yards a carry versus 4.5 league."
       }
@@ -11767,37 +12063,37 @@
       "uncertain": false
      },
      "band": [
-      0.0136,
-      0.0749
+      0.0128,
+      0.0704
      ],
      "ceiling": 0.5,
-     "challenger": 0.026992211910313535,
-     "chance": 0.0322,
+     "challenger": 0.024812061616641512,
+     "chance": 0.0302,
      "coldGoal": false,
      "components": {
-      "r0": 0.0046,
-      "r1": 0.012,
-      "r2": 0.0032,
+      "r0": 0.0044,
+      "r1": 0.0113,
+      "r2": 0.0031,
       "r3": 0.0005,
-      "t0": 0.0039,
-      "t1": 0.004,
-      "t2": 0.0025,
-      "t3": 0.002
+      "t0": 0.0035,
+      "t1": 0.0037,
+      "t2": 0.0023,
+      "t3": 0.0018
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0322,
-      "lambda": 0.0327,
-      "p0": 0.9678,
-      "p1": 0.0316,
+      "anytime": 0.0302,
+      "lambda": 0.0307,
+      "p0": 0.9698,
+      "p1": 0.0297,
       "p2": 0.0005,
       "p3plus": 0,
       "twoPlus": 0.0005
      },
      "edge": null,
      "espn": "4035537",
-     "fair": 3009,
-     "firstTd": 0.0072,
+     "fair": 3212,
+     "firstTd": 0.0065,
      "gamesPlayed": 0,
      "glShare": 0.023,
      "glShareRaw": 0.023,
@@ -11806,8 +12102,8 @@
      "id": "7720",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0327,
-     "lambdaRaw": 0.0339,
+     "lambda": 0.0307,
+     "lambdaRaw": 0.0336,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
      ],
@@ -11821,8 +12117,8 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.0367,
-     "preStack": 0.0367,
+     "preSafety": 0.0363,
+     "preStack": 0.0363,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -11834,9 +12130,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.70618885557546,
-       "chance": 0.030262769898994457,
-       "targets": 0.34098192362488655
+       "carries": 0.7086630782825845,
+       "chance": 0.02839375721103421,
+       "targets": 0.32730787183033205
       },
       "close": {
        "att": null,
@@ -11846,9 +12142,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.9305076685229591,
-       "chance": 0.032352442456201946,
-       "targets": 0.26791436856241085
+       "carries": 0.9337678207958761,
+       "chance": 0.030274528184358496,
+       "targets": 0.25717047072383237
       },
       "limited": {
        "att": null,
@@ -11864,7 +12160,7 @@
       "r0": {
        "expected": 0.0048,
        "looks": 0,
-       "opps": 0.7712,
+       "opps": 0.7741,
        "rate": 0.0063,
        "scores": 0
       },
@@ -11890,30 +12186,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.004,
+       "expected": 0.0038,
        "looks": 0,
-       "opps": 0.276,
+       "opps": 0.2642,
        "rate": 0.0147,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0042,
+       "expected": 0.0041,
        "looks": 0,
-       "opps": 0.0071,
+       "opps": 0.007,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
        "expected": 0.0026,
        "looks": 0,
-       "opps": 0.0083,
+       "opps": 0.0082,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0021,
+       "expected": 0.002,
        "looks": 0,
-       "opps": 0.0131,
+       "opps": 0.0129,
        "rate": 0.13,
        "scores": 0
       }
@@ -11930,7 +12226,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.06121874516918313
+       "width": 0.057585494954868754
       },
       "level": "Low",
       "reasons": [
@@ -11940,8 +12236,8 @@
      },
      "team": "NYJ",
      "trendEffect": {
-      "after": 0.0333,
-      "before": 0.0333,
+      "after": 0.0331,
+      "before": 0.0331,
       "items": [
        {
         "family": "defense",
@@ -11969,10 +12265,10 @@
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.8308,
+      "carries": 0.8337,
       "rzRush": 0.25,
       "rzTgt": 0.08,
-      "targets": 0.3044
+      "targets": 0.2922
      },
      "volConf": {
       "rec": {
@@ -12007,10 +12303,10 @@
         "factor": 0.9992,
         "league": 0.7765
        },
-       "hi": 1.063,
-       "leagueDefense": 0.2687,
+       "hi": 1.0369,
+       "leagueDefense": 0.258,
        "lo": 0,
-       "mean": 0.2282,
+       "mean": 0.2191,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.3 without this defense. NE allows RBs a 77% catch rate versus 78% league."
       },
@@ -12020,10 +12316,10 @@
         "factor": 1.0533,
         "league": 5.417
        },
-       "hi": 9.3322,
-       "leagueDefense": 1.8746,
+       "hi": 9.1099,
+       "leagueDefense": 1.7994,
        "lo": 0,
-       "mean": 1.6784,
+       "mean": 1.6111,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "2 without this defense. NE allows RBs 6.5 yards a target versus 5.4 league."
       },
@@ -12033,10 +12329,10 @@
         "factor": 1.0098,
         "league": 4.134
        },
-       "hi": 7.3522,
-       "leagueDefense": 3.8713,
+       "hi": 7.3603,
+       "leagueDefense": 3.8771,
        "lo": 0,
-       "mean": 3.3227,
+       "mean": 3.3278,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "4 without this defense. NE allows RBs 4.2 yards a carry versus 4.1 league."
       }
@@ -12050,47 +12346,47 @@
       "uncertain": false
      },
      "band": [
-      0.0133,
-      0.0723
+      0.0123,
+      0.0667
      ],
      "ceiling": 0.5,
-     "challenger": 0.0350250732644215,
-     "chance": 0.0313,
+     "challenger": 0.03145242266910531,
+     "chance": 0.0288,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0156,
-      "t1": 0.0076,
-      "t2": 0.0047,
-      "t3": 0.0038
+      "t0": 0.0142,
+      "t1": 0.0071,
+      "t2": 0.0044,
+      "t3": 0.0035
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0313,
-      "lambda": 0.0318,
-      "p0": 0.9687,
-      "p1": 0.0308,
-      "p2": 0.0005,
+      "anytime": 0.0288,
+      "lambda": 0.0292,
+      "p0": 0.9712,
+      "p1": 0.0284,
+      "p2": 0.0004,
       "p3plus": 0,
-      "twoPlus": 0.0005
+      "twoPlus": 0.0004
      },
      "edge": null,
      "espn": null,
-     "fair": 3100,
-     "firstTd": 0.007,
+     "fair": 3376,
+     "firstTd": 0.0062,
      "gamesPlayed": 0,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": null,
-     "i10Exp": 0.0128,
+     "i10Exp": 0.0126,
      "id": "3050",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0318,
-     "lambdaRaw": 0.0329,
+     "lambda": 0.0292,
+     "lambdaRaw": 0.032,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
      ],
@@ -12104,8 +12400,8 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0357,
-     "preStack": 0.0357,
+     "preSafety": 0.0346,
+     "preStack": 0.0346,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -12118,8 +12414,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.034500803436253946,
-       "targets": 1.2998040290656412
+       "chance": 0.03180568126966121,
+       "targets": 1.2476793081207067
       },
       "close": {
        "att": null,
@@ -12130,8 +12426,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.028177515124166108,
-       "targets": 1.021274594265861
+       "chance": 0.025833742484814626,
+       "targets": 0.9803194563805553
       },
       "limited": {
        "att": null,
@@ -12173,30 +12469,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0162,
+       "expected": 0.0155,
        "looks": 0,
-       "opps": 1.1071,
+       "opps": 1.0613,
        "rate": 0.0147,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0079,
+       "expected": 0.0078,
        "looks": 0,
-       "opps": 0.0134,
+       "opps": 0.0132,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0049,
+       "expected": 0.0048,
        "looks": 0,
-       "opps": 0.0155,
+       "opps": 0.0153,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0039,
+       "expected": 0.0038,
        "looks": 0,
-       "opps": 0.0245,
+       "opps": 0.0241,
        "rate": 0.13,
        "scores": 0
       }
@@ -12215,7 +12511,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.059012360612651804
+       "width": 0.05448413878256908
       },
       "level": "Low",
       "reasons": [
@@ -12225,8 +12521,8 @@
      },
      "team": "NYJ",
      "trendEffect": {
-      "after": 0.0324,
-      "before": 0.0324,
+      "after": 0.0315,
+      "before": 0.0315,
       "items": [
        {
         "family": "defense",
@@ -12257,7 +12553,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.15,
-      "targets": 1.1605
+      "targets": 1.114
      },
      "volConf": {
       "rec": {
@@ -12294,10 +12590,10 @@
         "factor": 1.023,
         "league": 0.6253
        },
-       "hi": 2.1971,
-       "leagueDefense": 0.8248,
+       "hi": 2.1383,
+       "leagueDefense": 0.7917,
        "lo": 0,
-       "mean": 0.7172,
+       "mean": 0.6885,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.8 without this defense. NE allows WRs a 65% catch rate versus 63% league."
       },
@@ -12307,12 +12603,12 @@
         "factor": 0.9517,
         "league": 8.22
        },
-       "hi": 26.2697,
-       "leagueDefense": 10.8434,
+       "hi": 25.5635,
+       "leagueDefense": 10.4085,
        "lo": 0,
-       "mean": 8.772,
+       "mean": 8.4202,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "11 without this defense. NE allows WRs 7.5 yards a target versus 8.2 league."
+       "text": "10 without this defense. NE allows WRs 7.5 yards a target versus 8.2 league."
       },
       "rushYd": {
        "defense": {
@@ -12337,47 +12633,47 @@
       "uncertain": false
      },
      "band": [
-      0.0117,
-      0.0641
+      0.011,
+      0.0601
      ],
      "ceiling": 0.5,
-     "challenger": 0.02419247881150033,
-     "chance": 0.0276,
+     "challenger": 0.022398252161822896,
+     "chance": 0.0258,
      "coldGoal": false,
      "components": {
-      "r0": 0.0052,
-      "r1": 0.009,
-      "r2": 0.0024,
-      "r3": 0.0004,
-      "t0": 0.0046,
-      "t1": 0.003,
-      "t2": 0.0019,
-      "t3": 0.0015
+      "r0": 0.005,
+      "r1": 0.0085,
+      "r2": 0.0023,
+      "r3": 0.0003,
+      "t0": 0.0041,
+      "t1": 0.0028,
+      "t2": 0.0017,
+      "t3": 0.0014
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0276,
-      "lambda": 0.028,
-      "p0": 0.9724,
-      "p1": 0.0272,
-      "p2": 0.0004,
+      "anytime": 0.0258,
+      "lambda": 0.0262,
+      "p0": 0.9742,
+      "p1": 0.0255,
+      "p2": 0.0003,
       "p3plus": 0,
-      "twoPlus": 0.0004
+      "twoPlus": 0.0003
      },
      "edge": null,
      "espn": "3125107",
-     "fair": 3527,
-     "firstTd": 0.0061,
+     "fair": 3770,
+     "firstTd": 0.0055,
      "gamesPlayed": 1,
      "glShare": 0.0172,
      "glShareRaw": 0.0172,
      "gsis": "00-0034959",
-     "i10Exp": 0.0169,
+     "i10Exp": 0.0168,
      "id": "6323",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.028,
-     "lambdaRaw": 0.029,
+     "lambda": 0.0262,
+     "lambdaRaw": 0.0287,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
      ],
@@ -12391,8 +12687,8 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.0315,
-     "preStack": 0.0315,
+     "preSafety": 0.0311,
+     "preStack": 0.0311,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -12404,9 +12700,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.779171227188812,
-       "chance": 0.02603342810752496,
-       "targets": 0.38994120871969234
+       "carries": 0.7819011529414318,
+       "chance": 0.024387963623583087,
+       "targets": 0.374303792436212
       },
       "close": {
        "att": null,
@@ -12416,9 +12712,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 1.0266726758252582,
-       "chance": 0.02779766100957337,
-       "targets": 0.3063823782797583
+       "carries": 1.0302697544640043,
+       "chance": 0.025982088071992315,
+       "targets": 0.2940958369141666
       },
       "limited": {
        "att": null,
@@ -12434,7 +12730,7 @@
       "r0": {
        "expected": 0.0054,
        "looks": 0,
-       "opps": 0.8719,
+       "opps": 0.8751,
        "rate": 0.0063,
        "scores": 0
       },
@@ -12460,9 +12756,9 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0047,
+       "expected": 0.0045,
        "looks": 0,
-       "opps": 0.3268,
+       "opps": 0.3131,
        "rate": 0.0147,
        "scores": 0
       },
@@ -12476,14 +12772,14 @@
       "t2": {
        "expected": 0.0019,
        "looks": 0,
-       "opps": 0.0062,
+       "opps": 0.0061,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
        "expected": 0.0015,
        "looks": 0,
-       "opps": 0.0098,
+       "opps": 0.0097,
        "rate": 0.13,
        "scores": 0
       }
@@ -12500,7 +12796,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.052326370005281064
+       "width": 0.04914238630598999
       },
       "level": "Low",
       "reasons": [
@@ -12510,8 +12806,8 @@
      },
      "team": "NYJ",
      "trendEffect": {
-      "after": 0.0286,
-      "before": 0.0286,
+      "after": 0.0283,
+      "before": 0.0283,
       "items": [
        {
         "family": "defense",
@@ -12539,10 +12835,10 @@
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.9167,
+      "carries": 0.9199,
       "rzRush": 0.1875,
       "rzTgt": 0.06,
-      "targets": 0.3482
+      "targets": 0.3342
      },
      "volConf": {
       "rec": {
@@ -12577,10 +12873,10 @@
         "factor": 0.9992,
         "league": 0.7765
        },
-       "hi": 1.1537,
-       "leagueDefense": 0.3073,
+       "hi": 1.1251,
+       "leagueDefense": 0.295,
        "lo": 0,
-       "mean": 0.261,
+       "mean": 0.2505,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.3 without this defense. NE allows RBs a 77% catch rate versus 78% league."
       },
@@ -12590,10 +12886,10 @@
         "factor": 1.0533,
         "league": 5.417
        },
-       "hi": 10.1043,
-       "leagueDefense": 2.1438,
+       "hi": 9.8615,
+       "leagueDefense": 2.0578,
        "lo": 0,
-       "mean": 1.9194,
+       "mean": 1.8424,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "2 without this defense. NE allows RBs 6.5 yards a target versus 5.4 league."
       },
@@ -12603,10 +12899,10 @@
         "factor": 1.0098,
         "league": 4.134
        },
-       "hi": 7.8987,
-       "leagueDefense": 4.2713,
+       "hi": 7.9074,
+       "leagueDefense": 4.2778,
        "lo": 0,
-       "mean": 3.6661,
+       "mean": 3.6717,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "4 without this defense. NE allows RBs 4.2 yards a carry versus 4.1 league."
       }
@@ -12620,47 +12916,47 @@
       "uncertain": false
      },
      "band": [
-      0.0051,
-      0.0288
+      0.0047,
+      0.0266
      ],
      "ceiling": 0.5,
-     "challenger": 0.017512552510462798,
-     "chance": 0.0121,
+     "challenger": 0.015455104780468853,
+     "chance": 0.0112,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0039,
-      "t1": 0.0039,
-      "t2": 0.0024,
-      "t3": 0.0019
+      "t0": 0.0035,
+      "t1": 0.0037,
+      "t2": 0.0023,
+      "t3": 0.0018
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0121,
-      "lambda": 0.0122,
-      "p0": 0.9879,
-      "p1": 0.012,
+      "anytime": 0.0112,
+      "lambda": 0.0113,
+      "p0": 0.9888,
+      "p1": 0.0111,
       "p2": 0.0001,
       "p3plus": 0,
       "twoPlus": 0.0001
      },
      "edge": null,
      "espn": "2578377",
-     "fair": 8158,
-     "firstTd": 0.0027,
+     "fair": 8836,
+     "firstTd": 0.0024,
      "gamesPlayed": 0,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0032599",
-     "i10Exp": 0.0066,
+     "i10Exp": 0.0065,
      "id": "3668",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0122,
-     "lambdaRaw": 0.0126,
+     "lambda": 0.0113,
+     "lambdaRaw": 0.0123,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
      ],
@@ -12674,8 +12970,8 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0138,
-     "preStack": 0.0138,
+     "preSafety": 0.0135,
+     "preStack": 0.0135,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -12688,8 +12984,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.013382134449149596,
-       "targets": 0.43326800968854706
+       "chance": 0.012382514902204877,
+       "targets": 0.4158931027069022
       },
       "close": {
        "att": null,
@@ -12700,8 +12996,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.01090766283818756,
-       "targets": 0.340424864755287
+       "chance": 0.010038676909227773,
+       "targets": 0.32677315212685176
       },
       "limited": {
        "att": null,
@@ -12743,30 +13039,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.004,
+       "expected": 0.0038,
        "looks": 0,
-       "opps": 0.3512,
+       "opps": 0.3362,
        "rate": 0.0147,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0041,
+       "expected": 0.004,
        "looks": 0,
-       "opps": 0.0089,
+       "opps": 0.0088,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
        "expected": 0.0025,
        "looks": 0,
-       "opps": 0.0103,
+       "opps": 0.0102,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
        "expected": 0.002,
        "looks": 0,
-       "opps": 0.0164,
+       "opps": 0.0161,
        "rate": 0.13,
        "scores": 0
       }
@@ -12785,12 +13081,12 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.023684706714834358
+       "width": 0.021920647949846606
       },
       "level": "Low",
       "reasons": [
        "unknown red-zone touches in his last three games (no red-zone data).",
-       "80% band 1–3% is narrow enough."
+       "80% band 0–3% is narrow enough."
       ]
      },
      "team": "NYJ",
@@ -12803,7 +13099,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.1,
-      "targets": 0.3868
+      "targets": 0.3713
      },
      "volConf": {
       "rec": {
@@ -12838,10 +13134,10 @@
         "factor": 1.0079,
         "league": 0.7215
        },
-       "hi": 1.1828,
-       "leagueDefense": 0.3173,
+       "hi": 1.1534,
+       "leagueDefense": 0.3045,
        "lo": 0,
-       "mean": 0.2718,
+       "mean": 0.2609,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.3 without this defense. NE allows TEs a 74% catch rate versus 72% league."
       },
@@ -12851,10 +13147,10 @@
         "factor": 1.0068,
         "league": 7.0852
        },
-       "hi": 12.3129,
-       "leagueDefense": 3.1155,
+       "hi": 12.0106,
+       "leagueDefense": 2.9905,
        "lo": 0,
-       "mean": 2.6662,
+       "mean": 2.5593,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "3 without this defense. NE allows TEs 7.3 yards a target versus 7.1 league."
       },
@@ -12881,47 +13177,47 @@
       "uncertain": false
      },
      "band": [
-      0.0051,
-      0.0192
+      0.0048,
+      0.0182
      ],
      "ceiling": 0.5,
-     "challenger": 0.012464294801621145,
-     "chance": 0.0099,
+     "challenger": 0.011230152132491011,
+     "chance": 0.0093,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0042,
-      "t1": 0.0027,
-      "t2": 0.0017,
+      "t0": 0.0039,
+      "t1": 0.0026,
+      "t2": 0.0016,
       "t3": 0.0013
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0099,
-      "lambda": 0.01,
-      "p0": 0.9901,
-      "p1": 0.0099,
+      "anytime": 0.0093,
+      "lambda": 0.0094,
+      "p0": 0.9907,
+      "p1": 0.0093,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
-     "edge": -0.0046,
+     "edge": -0.0616,
      "espn": "4682509",
-     "fair": 9997,
-     "firstTd": 0.0022,
+     "fair": 10614,
+     "firstTd": 0.002,
      "gamesPlayed": 2,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0041267",
-     "i10Exp": 0.0077,
+     "i10Exp": 0.0076,
      "id": "13825",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.01,
-     "lambdaRaw": 0.0174,
+     "lambda": 0.0094,
+     "lambdaRaw": 0.017,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 85% toward the published projection (0%) because of a thin sample; safety caps applied after."
@@ -12936,10 +13232,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0113,
-     "preStack": 0.019,
+     "preSafety": 0.0112,
+     "preStack": 0.0185,
      "pubBlend": {
-      "before": 0.0192,
+      "before": 0.0187,
       "weight": 0.85
      },
      "published": {
@@ -12957,8 +13253,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.01007453921892909,
-       "targets": 0.6009427294380149
+       "chance": 0.009500512260133265,
+       "targets": 0.5797549851734217
       },
       "close": {
        "att": null,
@@ -12969,8 +13265,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.009824110689715115,
-       "targets": 0.4721692874155831
+       "chance": 0.009226613598844025,
+       "targets": 0.4555217740648314
       },
       "limited": {
        "att": null,
@@ -13012,30 +13308,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0074,
+       "expected": 0.0071,
        "looks": 0,
-       "opps": 0.5045,
+       "opps": 0.486,
        "rate": 0.0147,
        "scores": 0
       },
       "t1": {
        "expected": 0.0047,
        "looks": 0,
-       "opps": 0.008,
+       "opps": 0.0079,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
        "expected": 0.0029,
        "looks": 0,
-       "opps": 0.0093,
+       "opps": 0.0092,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
        "expected": 0.0023,
        "looks": 0,
-       "opps": 0.0147,
+       "opps": 0.0145,
        "rate": 0.13,
        "scores": 0
       }
@@ -13052,18 +13348,18 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.014159744956380282
+       "width": 0.0133606512975174
       },
       "level": "Low",
       "reasons": [
        "0 red-zone touches in his last three games.",
-       "80% band 1–2% is narrow enough."
+       "80% band 0–2% is narrow enough."
       ]
      },
      "team": "NYJ",
      "trendEffect": {
-      "after": 0.0173,
-      "before": 0.0173,
+      "after": 0.0169,
+      "before": 0.0169,
       "items": [
        {
         "family": "defense",
@@ -13094,7 +13390,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.09,
-      "targets": 0.5366
+      "targets": 0.5176
      },
      "volConf": {
       "rec": {
@@ -13129,10 +13425,10 @@
         "factor": 1.023,
         "league": 0.6253
        },
-       "hi": 1.3378,
-       "leagueDefense": 0.3813,
+       "hi": 1.3082,
+       "leagueDefense": 0.3679,
        "lo": 0,
-       "mean": 0.3316,
+       "mean": 0.3199,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.4 without this defense. NE allows WRs a 65% catch rate versus 63% league."
       },
@@ -13142,10 +13438,10 @@
         "factor": 0.9517,
         "league": 8.22
        },
-       "hi": 15.9532,
-       "leagueDefense": 5.0132,
+       "hi": 15.5986,
+       "leagueDefense": 4.8365,
        "lo": 0,
-       "mean": 4.0556,
+       "mean": 3.9126,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "5 without this defense. NE allows WRs 7.5 yards a target versus 8.2 league."
       },
@@ -13172,37 +13468,37 @@
       "uncertain": false
      },
      "band": [
-      0.0056,
-      0.0133
+      0.0053,
+      0.0125
      ],
      "ceiling": 0.5,
-     "challenger": 0.013832155733254026,
-     "chance": 0.0087,
+     "challenger": 0.012638441488486696,
+     "chance": 0.0082,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0045,
-      "t1": 0.002,
+      "t0": 0.0041,
+      "t1": 0.0019,
       "t2": 0.0012,
-      "t3": 0.001
+      "t3": 0.0009
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0087,
-      "lambda": 0.0087,
-      "p0": 0.9913,
-      "p1": 0.0086,
+      "anytime": 0.0082,
+      "lambda": 0.0082,
+      "p0": 0.9918,
+      "p1": 0.0081,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
-     "edge": -0.1293,
+     "edge": -0.1799,
      "espn": "4241410",
-     "fair": 11451,
-     "firstTd": 0.0019,
+     "fair": 12168,
+     "firstTd": 0.0017,
      "gamesPlayed": 3,
      "glShare": 0,
      "glShareRaw": 0,
@@ -13211,8 +13507,8 @@
      "id": "8219",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0087,
-     "lambdaRaw": 0.0089,
+     "lambda": 0.0082,
+     "lambdaRaw": 0.0086,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 75% toward the published projection (0%) because of a thin sample; safety caps applied after."
@@ -13227,10 +13523,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0099,
-     "preStack": 0.0097,
+     "preSafety": 0.0098,
+     "preStack": 0.0094,
      "pubBlend": {
-      "before": 0.0098,
+      "before": 0.0095,
       "weight": 0.75
      },
      "published": {
@@ -13248,8 +13544,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.008798603241063963,
-       "targets": 0.4800609547349102
+       "chance": 0.008289021308946709,
+       "targets": 0.4608095577992477
       },
       "close": {
        "att": null,
@@ -13260,8 +13556,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.008595206040171721,
-       "targets": 0.377190750148858
+       "chance": 0.00806579593328427,
+       "targets": 0.3620646525565518
       },
       "limited": {
        "att": null,
@@ -13303,30 +13599,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0045,
+       "expected": 0.0043,
        "looks": 3,
-       "opps": 0.4108,
+       "opps": 0.3939,
        "rate": 0.0142,
        "scores": 0
       },
       "t1": {
        "expected": 0.002,
        "looks": 0,
-       "opps": 0.0045,
+       "opps": 0.0044,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
        "expected": 0.0013,
        "looks": 0,
-       "opps": 0.0052,
+       "opps": 0.0051,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
        "expected": 0.001,
        "looks": 0,
-       "opps": 0.0082,
+       "opps": 0.008,
        "rate": 0.13,
        "scores": 0
       }
@@ -13343,7 +13639,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.007633995662709947
+       "width": 0.007203930005469927
       },
       "level": "Low",
       "reasons": [
@@ -13361,7 +13657,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.05,
-      "targets": 0.4286
+      "targets": 0.4114
      },
      "volConf": {
       "rec": {
@@ -13396,10 +13692,10 @@
         "factor": 1.0079,
         "league": 0.7215
        },
-       "hi": 1.2537,
-       "leagueDefense": 0.3487,
+       "hi": 1.2224,
+       "leagueDefense": 0.3347,
        "lo": 0,
-       "mean": 0.2987,
+       "mean": 0.2867,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.3 without this defense. NE allows TEs a 74% catch rate versus 72% league."
       },
@@ -13409,12 +13705,12 @@
         "factor": 1.0068,
         "league": 7.0852
        },
-       "hi": 13.441,
-       "leagueDefense": 3.5958,
+       "hi": 13.1076,
+       "leagueDefense": 3.4516,
        "lo": 0,
-       "mean": 3.0773,
+       "mean": 2.9539,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "4 without this defense. NE allows TEs 7.3 yards a target versus 7.1 league."
+       "text": "3 without this defense. NE allows TEs 7.3 yards a target versus 7.1 league."
       },
       "rushYd": {
        "defense": {
@@ -13440,15 +13736,15 @@
      },
      "band": [
       0.0012,
-      0.0071
+      0.0067
      ],
      "ceiling": 0.5,
-     "challenger": 0.0041895218380270105,
-     "chance": 0.003,
+     "challenger": 0.0038056501534772247,
+     "chance": 0.0028,
      "coldGoal": false,
      "components": {
-      "r0": 0.0011,
-      "r1": 0.0015,
+      "r0": 0.001,
+      "r1": 0.0014,
       "r2": 0.0004,
       "r3": 0.0001,
       "t0": 0,
@@ -13458,18 +13754,18 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.003,
-      "lambda": 0.003,
-      "p0": 0.997,
-      "p1": 0.003,
+      "anytime": 0.0028,
+      "lambda": 0.0028,
+      "p0": 0.9972,
+      "p1": 0.0028,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
      "edge": null,
      "espn": "4685413",
-     "fair": 33591,
-     "firstTd": 0.0007,
+     "fair": 35491,
+     "firstTd": 0.0006,
      "gamesPlayed": 0,
      "glShare": 0.0028,
      "glShareRaw": 0.0028,
@@ -13478,7 +13774,7 @@
      "id": "13303",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.003,
+     "lambda": 0.0028,
      "lambdaRaw": 0.0031,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
@@ -13486,9 +13782,9 @@
      "matchupFactor": 1,
      "name": "Cade Klubnik",
      "passTd": {
-      "attemptShare": 0.0464,
+      "attemptShare": 0.0462,
       "display": "0.0",
-      "expected": 0.0478,
+      "expected": 0.0492,
       "interval": [
        0,
        0
@@ -13496,13 +13792,13 @@
       "level": "Low",
       "provisional": true,
       "reasons": [
-       "5% of projected team attempts (1.3) × team receiving-score total 1.03.",
+       "5% of projected team attempts (1.3) × team receiving-score total 1.07.",
        "Only 0 of the last three games with attempts.",
        "0 attempts this season (needs 60).",
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.0305
+      "teamReceivingLambda": 1.0653
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4685413.png",
@@ -13523,9 +13819,9 @@
      "safetyNotes": [],
      "scenarios": {
       "behind": {
-       "att": 1.4823867886083284,
-       "carries": 0.1558342454377624,
-       "chance": 0.002491554417099917,
+       "att": 1.476631779610383,
+       "carries": 0.15638023058828635,
+       "chance": 0.002361404530448752,
        "targets": 0
       },
       "close": {
@@ -13535,9 +13831,9 @@
        "targets": null
       },
       "lead": {
-       "att": 1.1647324767636864,
-       "carries": 0.20533453516505162,
-       "chance": 0.0032145758222558163,
+       "att": 1.1602106839795867,
+       "carries": 0.20605395089280087,
+       "chance": 0.0030308057430741275,
        "targets": 0
       },
       "limited": {
@@ -13554,7 +13850,7 @@
       "r0": {
        "expected": 0.0011,
        "looks": 0,
-       "opps": 0.1762,
+       "opps": 0.1768,
        "rate": 0.0063,
        "scores": 0
       },
@@ -13620,7 +13916,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.0058817240838420215
+       "width": 0.005567916869967826
       },
       "level": "Low",
       "reasons": [
@@ -13634,8 +13930,8 @@
      "verified": true,
      "verifyReason": "On NYJ nflverse roster (week 6, ACT)",
      "vol": {
-      "att": 1.3236,
-      "carries": 0.1833,
+      "att": 1.3184,
+      "carries": 0.184,
       "rzRush": 0.03,
       "rzTgt": 0,
       "targets": 0
@@ -13681,10 +13977,10 @@
         "factor": 0.9836,
         "league": null
        },
-       "hi": 63.8948,
-       "leagueDefense": 10.3468,
+       "hi": 63.7539,
+       "leagueDefense": 10.3066,
        "lo": 0,
-       "mean": 8.6506,
+       "mean": 8.617,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "10 without this defense; opponent factor 0.98 from how this offense uses WRs, TEs, and backs."
       },
@@ -13720,10 +14016,10 @@
         "factor": 0.9699,
         "league": 4.5016
        },
-       "hi": 2.7027,
-       "leagueDefense": 0.9302,
+       "hi": 2.7053,
+       "leagueDefense": 0.9316,
        "lo": 0,
-       "mean": 0.7669,
+       "mean": 0.7681,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "1 without this defense. NE allows QBs 3.8 yards a carry versus 4.5 league."
       }
@@ -13737,47 +14033,47 @@
       "uncertain": false
      },
      "band": [
-      0.4014,
-      0.7615
+      0.3811,
+      0.7387
      ],
      "ceiling": 0.62,
-     "challenger": 0.5994357023902726,
-     "chance": 0.5759,
+     "challenger": 0.5638010698422763,
+     "chance": 0.5517,
      "coldGoal": false,
      "components": {
-      "r0": 0.0708,
-      "r1": 0.5542,
-      "r2": 0.1006,
-      "r3": 0.0132,
-      "t0": 0.0406,
-      "t1": 0.0265,
-      "t2": 0.0168,
-      "t3": 0.0351
+      "r0": 0.0665,
+      "r1": 0.5206,
+      "r2": 0.0945,
+      "r3": 0.0124,
+      "t0": 0.0354,
+      "t1": 0.0246,
+      "t2": 0.0156,
+      "t3": 0.0329
      },
      "conversionNote": "2 of 5 red-zone carries scored.",
      "dist": {
-      "anytime": 0.5759,
-      "lambda": 0.8577,
-      "p0": 0.4241,
-      "p1": 0.3638,
-      "p2": 0.156,
-      "p3plus": 0.0561,
-      "twoPlus": 0.2121
+      "anytime": 0.5517,
+      "lambda": 0.8024,
+      "p0": 0.4483,
+      "p1": 0.3597,
+      "p2": 0.1443,
+      "p3plus": 0.0478,
+      "twoPlus": 0.1921
      },
-     "edge": 7.7443,
+     "edge": 5.8365,
      "espn": "4569173",
-     "fair": -136,
-     "firstTd": 0.1882,
+     "fair": -123,
+     "firstTd": 0.1698,
      "gamesPlayed": 5,
      "glShare": 0.6009,
      "glShareRaw": 0.6009,
      "gsis": "00-0036875",
-     "i10Exp": 0.7364,
+     "i10Exp": 0.7361,
      "id": "7611",
      "injury": null,
      "insideFinisher": true,
-     "lambda": 0.8577,
-     "lambdaRaw": 0.905,
+     "lambda": 0.8024,
+     "lambdaRaw": 0.9014,
      "lessonNotes": [
       "Learned from finished games: 50plus chances scaled ×1.06 (from the last three weeks).",
       "Blended 38% toward the published projection (49%) because of limited recent red-zone evidence; safety caps applied after."
@@ -13792,15 +14088,15 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.5759,
-     "preStack": 0.6165,
+     "preSafety": 0.5734,
+     "preStack": 0.6152,
      "pubBlend": {
-      "before": 0.9583,
+      "before": 0.955,
       "weight": 0.375
      },
      "published": {
-      "expected": 0.69,
-      "probability": 0.49842393093394444,
+      "expected": 0.6799999999999999,
+      "probability": 0.49338300763441034,
       "source": "Sleeper projections week 6"
      },
      "recentFinisher": true,
@@ -13816,9 +14112,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 14.513589358529854,
-       "chance": 0.5462851712477317,
-       "targets": 4.049651377774403
+       "carries": 14.507534447549922,
+       "chance": 0.5319360892735787,
+       "targets": 3.780350012139564
       },
       "close": {
        "att": null,
@@ -13828,9 +14124,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 18.83366541118372,
-       "chance": 0.6063662844885411,
-       "targets": 3.1818689396798874
+       "carries": 18.746986610045884,
+       "chance": 0.5834515523550731,
+       "targets": 2.9702750095382284
       },
       "limited": {
        "att": null,
@@ -13846,12 +14142,12 @@
       "r0": {
        "expected": 0.0747,
        "looks": 52,
-       "opps": 15.0418,
+       "opps": 15.0347,
        "rate": 0.0047,
        "scores": 0
       },
       "r1": {
-       "expected": 0.5847,
+       "expected": 0.5848,
        "looks": 3,
        "opps": 0.8184,
        "rate": 0.5305,
@@ -13872,30 +14168,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0429,
+       "expected": 0.0397,
        "looks": 18,
-       "opps": 3.2437,
+       "opps": 3.0046,
        "rate": 0.0124,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0279,
+       "expected": 0.0277,
        "looks": 0,
-       "opps": 0.0432,
+       "opps": 0.0428,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0177,
+       "expected": 0.0175,
        "looks": 0,
-       "opps": 0.0509,
+       "opps": 0.0505,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.037,
+       "expected": 0.0369,
        "looks": 1,
-       "opps": 0.278,
+       "opps": 0.2775,
        "rate": 0.1034,
        "scores": 0
       }
@@ -13908,7 +14204,7 @@
      ],
      "tdConf": {
       "blocks": [
-       "80% band 40–76% is too wide."
+       "80% band 38–74% is too wide."
       ],
       "evidence": {
        "avgTouches": 14.666666666666666,
@@ -13918,7 +14214,7 @@
        "recentRz": 6,
        "repeat": false,
        "roleOk": true,
-       "width": 0.3600951032035892
+       "width": 0.35760285276245773
       },
       "level": "Med",
       "reasons": [
@@ -13927,8 +14223,8 @@
      },
      "team": "NE",
      "trendEffect": {
-      "after": 0.5954,
-      "before": 0.5954,
+      "after": 0.594,
+      "before": 0.594,
       "items": [
        {
         "family": "snap",
@@ -13999,10 +14295,10 @@
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 17.0748,
+      "carries": 17.0677,
       "rzRush": 2.3172,
       "rzTgt": 0.4633,
-      "targets": 3.6158
+      "targets": 3.3753
      },
      "volConf": {
       "rec": {
@@ -14046,12 +14342,12 @@
         "factor": 0.9939,
         "league": 0.7765
        },
-       "hi": 6.3849,
-       "leagueDefense": 3.2145,
-       "lo": 0.6648,
-       "mean": 3.0989,
+       "hi": 6.0677,
+       "leagueDefense": 3.0007,
+       "lo": 0.5411,
+       "mean": 2.8928,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "3.2 without this defense. NYJ allows RBs a 76% catch rate versus 78% league."
+       "text": "3.0 without this defense. NYJ allows RBs a 76% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
@@ -14059,12 +14355,12 @@
         "factor": 0.9744,
         "league": 5.417
        },
-       "hi": 44.7541,
-       "leagueDefense": 22.941,
+       "hi": 42.6195,
+       "leagueDefense": 21.4154,
        "lo": 0,
-       "mean": 19.0013,
+       "mean": 17.7377,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "23 without this defense. NYJ allows RBs 4.9 yards a target versus 5.4 league."
+       "text": "21 without this defense. NYJ allows RBs 4.9 yards a target versus 5.4 league."
       },
       "rushYd": {
        "defense": {
@@ -14072,10 +14368,10 @@
         "factor": 1.02,
         "league": 4.134
        },
-       "hi": 144.0323,
-       "leagueDefense": 77.8478,
-       "lo": 35.556,
-       "mean": 79.4081,
+       "hi": 143.6866,
+       "leagueDefense": 77.6609,
+       "lo": 35.4707,
+       "mean": 79.2175,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "78 without this defense. NYJ allows RBs 4.3 yards a carry versus 4.1 league."
       }
@@ -14089,47 +14385,47 @@
       "uncertain": false
      },
      "band": [
-      0.2207,
-      0.5212
+      0.2064,
+      0.4966
      ],
      "ceiling": 0.5,
-     "challenger": 0.32904072425036146,
-     "chance": 0.3485,
+     "challenger": 0.2848900458150525,
+     "chance": 0.3286,
      "coldGoal": false,
      "components": {
       "r0": 0.0007,
       "r1": 0.0009,
-      "r2": 0.0004,
+      "r2": 0.0003,
       "r3": 0,
-      "t0": 0.0757,
-      "t1": 0.1283,
-      "t2": 0.0721,
-      "t3": 0.1503
+      "t0": 0.0655,
+      "t1": 0.1209,
+      "t2": 0.068,
+      "t3": 0.1421
      },
      "conversionNote": "2 of 5 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.3485,
-      "lambda": 0.4285,
-      "p0": 0.6515,
-      "p1": 0.2792,
-      "p2": 0.0598,
-      "p3plus": 0.0095,
-      "twoPlus": 0.0693
+      "anytime": 0.3286,
+      "lambda": 0.3984,
+      "p0": 0.6714,
+      "p1": 0.2675,
+      "p2": 0.0533,
+      "p3plus": 0.0078,
+      "twoPlus": 0.0611
      },
-     "edge": 8.1951,
+     "edge": 6.2057,
      "espn": "4361432",
-     "fair": 187,
-     "firstTd": 0.094,
+     "fair": 204,
+     "firstTd": 0.0843,
      "gamesPlayed": 5,
      "glShare": 0.0017,
      "glShareRaw": 0.0017,
      "gsis": "00-0037816",
-     "i10Exp": 0.2437,
+     "i10Exp": 0.2426,
      "id": "8121",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.4285,
-     "lambdaRaw": 0.5175,
+     "lambda": 0.3984,
+     "lambdaRaw": 0.5083,
      "lessonNotes": [
       "Learned from finished games: 35to50 chances scaled ×0.97 (from the last three weeks).",
       "Blended 38% toward the published projection (26%) because of limited recent red-zone evidence; safety caps applied after."
@@ -14144,10 +14440,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.3485,
-     "preStack": 0.3932,
+     "preSafety": 0.3449,
+     "preStack": 0.3878,
      "pubBlend": {
-      "before": 0.4996,
+      "before": 0.4907,
       "weight": 0.375
      },
      "published": {
@@ -14181,9 +14477,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.13607002339396168,
-       "chance": 0.3122726054052697,
-       "targets": 11.23157221383739
+       "carries": 0.13664212905540923,
+       "chance": 0.302690785520477,
+       "targets": 10.44032062515933
       },
       "close": {
        "att": null,
@@ -14194,8 +14490,8 @@
       "lead": {
        "att": 0,
        "carries": 0.1765722613329748,
-       "chance": 0.3238267433534938,
-       "targets": 8.824806739443662
+       "chance": 0.3059822812163433,
+       "targets": 8.203109062625188
       },
       "limited": {
        "att": null,
@@ -14211,7 +14507,7 @@
       "r0": {
        "expected": 0.0009,
        "looks": 0,
-       "opps": 0.153,
+       "opps": 0.1537,
        "rate": 0.0063,
        "scores": 0
       },
@@ -14237,30 +14533,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0914,
+       "expected": 0.0835,
        "looks": 18,
-       "opps": 8.1828,
+       "opps": 7.4807,
        "rate": 0.0124,
        "scores": 0
       },
       "t1": {
-       "expected": 0.155,
+       "expected": 0.1543,
        "looks": 1,
-       "opps": 0.2627,
+       "opps": 0.2614,
        "rate": 0.5943,
        "scores": 1
       },
       "t2": {
-       "expected": 0.0871,
+       "expected": 0.0868,
        "looks": 1,
-       "opps": 0.2987,
+       "opps": 0.2973,
        "rate": 0.37,
        "scores": 0
       },
       "t3": {
-       "expected": 0.1815,
+       "expected": 0.1813,
        "looks": 3,
-       "opps": 1.284,
+       "opps": 1.2824,
        "rate": 0.13,
        "scores": 1
       }
@@ -14270,28 +14566,27 @@
       "Next man up"
      ],
      "tdConf": {
-      "blocks": [
-       "80% band 22–52% is too wide."
-      ],
+      "blocks": [],
       "evidence": {
        "avgTouches": 5.333333333333333,
        "baseline": false,
        "latest": 3,
-       "narrow": false,
+       "narrow": true,
        "recentRz": 5,
        "repeat": false,
        "roleOk": false,
-       "width": 0.30053105199162755
+       "width": 0.29019581037413933
       },
       "level": "Med",
       "reasons": [
-       "5 red-zone touches in his last three games."
+       "5 red-zone touches in his last three games.",
+       "80% band 21–50% is narrow enough."
       ]
      },
      "team": "NE",
      "trendEffect": {
-      "after": 0.404,
-      "before": 0.404,
+      "after": 0.3985,
+      "before": 0.3985,
       "items": [
        {
         "family": "snap",
@@ -14345,10 +14640,10 @@
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.1601,
+      "carries": 0.1608,
       "rzRush": 0.0102,
       "rzTgt": 1.56,
-      "targets": 10.0282
+      "targets": 9.3217
      },
      "volConf": {
       "rec": {
@@ -14393,12 +14688,12 @@
         "factor": 0.9916,
         "league": 0.6253
        },
-       "hi": 14.8717,
-       "leagueDefense": 6.7992,
-       "lo": 0.3681,
-       "mean": 6.5398,
+       "hi": 13.824,
+       "leagueDefense": 6.3202,
+       "lo": 0.3421,
+       "mean": 6.0791,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "6.8 without this defense. NYJ allows WRs a 62% catch rate versus 63% league."
+       "text": "6.3 without this defense. NYJ allows WRs a 62% catch rate versus 63% league."
       },
       "recYd": {
        "defense": {
@@ -14406,12 +14701,12 @@
         "factor": 0.9317,
         "league": 8.22
        },
-       "hi": 223.9097,
-       "leagueDefense": 100.1365,
-       "lo": 4.2916,
-       "mean": 85.8324,
+       "hi": 208.1355,
+       "leagueDefense": 93.082,
+       "lo": 3.9893,
+       "mean": 79.7856,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "100 without this defense. NYJ allows WRs 7.2 yards a target versus 8.2 league."
+       "text": "93 without this defense. NYJ allows WRs 7.2 yards a target versus 8.2 league."
       },
       "rushYd": {
        "defense": {
@@ -14419,12 +14714,286 @@
         "factor": 1.0191,
         "league": 5.087
        },
-       "hi": 2.7661,
-       "leagueDefense": 0.9179,
+       "hi": 2.77,
+       "leagueDefense": 0.9199,
        "lo": 0,
-       "mean": 0.795,
+       "mean": 0.7968,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "1 without this defense. NYJ allows WRs 11.0 yards a carry versus 5.1 league."
+      }
+     }
+    },
+    {
+     "avail": {
+      "factor": 0.6666666666666666,
+      "label": "Questionable, practice report unavailable: about two-thirds of usual work",
+      "status": "questionable",
+      "uncertain": true
+     },
+     "band": [
+      0.1338,
+      0.5694
+     ],
+     "ceiling": 0.5,
+     "challenger": 0.3135851753348662,
+     "chance": 0.2938,
+     "coldGoal": false,
+     "components": {
+      "r0": 0,
+      "r1": 0,
+      "r2": 0,
+      "r3": 0,
+      "t0": 0.2947,
+      "t1": 0.0251,
+      "t2": 0.0161,
+      "t3": 0.0119
+     },
+     "conversionNote": "",
+     "dist": {
+      "anytime": 0.2938,
+      "lambda": 0.3479,
+      "p0": 0.7062,
+      "p1": 0.2457,
+      "p2": 0.0427,
+      "p3plus": 0.0054,
+      "twoPlus": 0.0482
+     },
+     "edge": -6.8525,
+     "espn": "4047646",
+     "fair": 240,
+     "firstTd": 0.0736,
+     "gamesPlayed": 1,
+     "glShare": 0,
+     "glShareRaw": 0,
+     "gsis": "00-0035676",
+     "i10Exp": 0.0039,
+     "id": "5859",
+     "injury": "Questionable",
+     "insideFinisher": false,
+     "lambda": 0.3479,
+     "lambdaRaw": 0.0332,
+     "lessonNotes": [
+      "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
+      "Blended 100% toward the published projection (36%) because of a thin sample; safety caps applied after."
+     ],
+     "matchupFactor": 0.8993,
+     "name": "A.J. Brown",
+     "passTd": null,
+     "photo": {
+      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4047646.png",
+      "initials": "AB",
+      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/5859.jpg"
+     },
+     "pos": "WR",
+     "practice": null,
+     "preSafety": 0.3624,
+     "preStack": 0.0358,
+     "pubBlend": {
+      "before": 0.0364,
+      "weight": 1
+     },
+     "published": {
+      "expected": 0.45,
+      "probability": 0.3623718483782268,
+      "source": "Sleeper projections week 6"
+     },
+     "recentFinisher": false,
+     "recentRzLooks": 0,
+     "replacing": null,
+     "riser": null,
+     "role": "WR5",
+     "safetyNotes": [
+      "A 36% chance without an inside-10 finishing role is pulled toward 28% (now 31%)."
+     ],
+     "scenarios": {
+      "behind": {
+       "att": 0,
+       "carries": 0,
+       "chance": 0.3006535017732259,
+       "targets": 2.5038161048986707
+      },
+      "close": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      },
+      "lead": {
+       "att": 0,
+       "carries": 0,
+       "chance": 0.29468989043374316,
+       "targets": 1.9672840824203837
+      },
+      "limited": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      }
+     },
+     "scriptSensitive": false,
+     "secondOption": null,
+     "segment": "WR|reserve|uncertain",
+     "spots": {
+      "r0": {
+       "expected": 0,
+       "looks": 0,
+       "opps": 0,
+       "rate": 0.0063,
+       "scores": 0
+      },
+      "r1": {
+       "expected": 0,
+       "looks": 0,
+       "opps": 0,
+       "rate": 0.4359,
+       "scores": 0
+      },
+      "r2": {
+       "expected": 0,
+       "looks": 0,
+       "opps": 0,
+       "rate": 0.3604,
+       "scores": 0
+      },
+      "r3": {
+       "expected": 0,
+       "looks": 0,
+       "opps": 0,
+       "rate": 0.017,
+       "scores": 0
+      },
+      "t0": {
+       "expected": 0.0281,
+       "looks": 4,
+       "opps": 2.2178,
+       "rate": 0.0141,
+       "scores": 0
+      },
+      "t1": {
+       "expected": 0.0024,
+       "looks": 0,
+       "opps": 0.0044,
+       "rate": 0.55,
+       "scores": 0
+      },
+      "t2": {
+       "expected": 0.0015,
+       "looks": 0,
+       "opps": 0.0052,
+       "rate": 0.3718,
+       "scores": 0
+      },
+      "t3": {
+       "expected": 0.0011,
+       "looks": 0,
+       "opps": 0.008,
+       "rate": 0.13,
+       "scores": 0
+      }
+     },
+     "stacked": null,
+     "tags": [
+      "Availability risk"
+     ],
+     "tdConf": {
+      "blocks": [
+       "80% band 13–57% is too wide."
+      ],
+      "evidence": {
+       "avgTouches": 4,
+       "baseline": false,
+       "latest": 4,
+       "narrow": false,
+       "recentRz": 0,
+       "repeat": false,
+       "roleOk": false,
+       "width": 0.4356401442930682
+      },
+      "level": "Low",
+      "reasons": [
+       "0 red-zone touches in his last three games."
+      ]
+     },
+     "team": "NE",
+     "trendEffect": null,
+     "trendTags": [],
+     "verified": true,
+     "verifyReason": "On NE nflverse roster (week 6, ACT)",
+     "vol": {
+      "att": 0,
+      "carries": 0,
+      "rzRush": 0,
+      "rzTgt": 0.075,
+      "targets": 2.2356
+     },
+     "volConf": {
+      "rec": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "4 targets this season (High needs 12, Medium 5).",
+        "Role-specific held-out coverage not yet available: provisional."
+       ]
+      },
+      "recYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "4 targets this season (High needs 18, Medium 8).",
+        "Role-specific held-out coverage not yet available: provisional."
+       ]
+      },
+      "rushYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "Near-zero projected carries (0.0)."
+       ]
+      }
+     },
+     "volume": {
+      "rec": {
+       "defense": {
+        "allowed": 0.6154,
+        "factor": 0.9916,
+        "league": 0.6253
+       },
+       "hi": 3.4257,
+       "leagueDefense": 1.6326,
+       "lo": 0,
+       "mean": 1.376,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "1.6 without this defense. NYJ allows WRs a 62% catch rate versus 63% league."
+      },
+      "recYd": {
+       "defense": {
+        "allowed": 7.1648,
+        "factor": 0.9317,
+        "league": 8.22
+       },
+       "hi": 39.865,
+       "leagueDefense": 20.3734,
+       "lo": 0,
+       "mean": 16.1344,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "20 without this defense. NYJ allows WRs 7.2 yards a target versus 8.2 league."
+      },
+      "rushYd": {
+       "defense": {
+        "allowed": 11,
+        "factor": 1.0191,
+        "league": 5.087
+       },
+       "hi": 0,
+       "leagueDefense": 0,
+       "lo": 0,
+       "mean": 0,
+       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
+       "text": "0 without this defense. NYJ allows WRs 11.0 yards a carry versus 5.1 league."
       }
      }
     },
@@ -14436,50 +15005,50 @@
       "uncertain": false
      },
      "band": [
-      0.1359,
-      0.3127
+      0.1305,
+      0.3029
      ],
      "ceiling": 0.5,
-     "challenger": 0.24311472007180202,
-     "chance": 0.2087,
+     "challenger": 0.21457368825519962,
+     "chance": 0.2012,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0415,
-      "t1": 0.0539,
-      "t2": 0.086,
-      "t3": 0.0526
+      "t0": 0.0373,
+      "t1": 0.0522,
+      "t2": 0.0839,
+      "t3": 0.0512
      },
      "conversionNote": "1 of 4 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.2087,
-      "lambda": 0.234,
-      "p0": 0.7913,
-      "p1": 0.1852,
-      "p2": 0.0217,
-      "p3plus": 0.0018,
-      "twoPlus": 0.0235
+      "anytime": 0.2012,
+      "lambda": 0.2247,
+      "p0": 0.7988,
+      "p1": 0.1795,
+      "p2": 0.0202,
+      "p3plus": 0.0016,
+      "twoPlus": 0.0218
      },
-     "edge": -5.0529,
+     "edge": -6.5338,
      "espn": "3046439",
-     "fair": 379,
-     "firstTd": 0.0513,
+     "fair": 397,
+     "firstTd": 0.0475,
      "gamesPlayed": 5,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0033090",
-     "i10Exp": 0.1162,
+     "i10Exp": 0.1157,
      "id": "3214",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.234,
-     "lambdaRaw": 0.1944,
+     "lambda": 0.2247,
+     "lambdaRaw": 0.1909,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
-      "Blended 38% toward the published projection (25%) because of limited recent red-zone evidence; safety caps applied after."
+      "Learned from finished games: 15to25 chances scaled ×1.02 (from the last three weeks).",
+      "Blended 38% toward the published projection (26%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.75,
      "name": "Hunter Henry",
@@ -14491,15 +15060,15 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.2087,
-     "preStack": 0.1767,
+     "preSafety": 0.2122,
+     "preStack": 0.1777,
      "pubBlend": {
-      "before": 0.1944,
+      "before": 0.1956,
       "weight": 0.375
      },
      "published": {
-      "expected": 0.3,
-      "probability": 0.2591817793182821,
+      "expected": 0.31,
+      "probability": 0.26655304377571076,
       "source": "Sleeper projections week 6"
      },
      "recentFinisher": false,
@@ -14512,8 +15081,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.22010881632012247,
-       "targets": 4.890794855174581
+       "chance": 0.2173909157468903,
+       "targets": 4.564312524265775
       },
       "close": {
        "att": null,
@@ -14524,8 +15093,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.1970287777408558,
-       "targets": 3.8427673862085987
+       "chance": 0.19068545416358895,
+       "targets": 3.586245554780251
       },
       "limited": {
        "att": null,
@@ -14567,30 +15136,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0345,
+       "expected": 0.0317,
        "looks": 15,
-       "opps": 3.6057,
+       "opps": 3.3172,
        "rate": 0.0127,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0448,
+       "expected": 0.0444,
        "looks": 0,
-       "opps": 0.0984,
+       "opps": 0.0975,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0714,
+       "expected": 0.0713,
        "looks": 2,
-       "opps": 0.2917,
+       "opps": 0.2912,
        "rate": 0.3725,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0437,
+       "expected": 0.0435,
        "looks": 2,
-       "opps": 0.371,
+       "opps": 0.3695,
        "rate": 0.1298,
        "scores": 1
       }
@@ -14607,18 +15176,18 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": false,
-       "width": 0.17683415793431223
+       "width": 0.17235430442833077
       },
       "level": "Med",
       "reasons": [
        "3 red-zone touches in his last three games.",
-       "80% band 14–31% is narrow enough."
+       "80% band 13–30% is narrow enough."
       ]
      },
      "team": "NE",
      "trendEffect": {
-      "after": 0.1766,
-      "before": 0.1766,
+      "after": 0.1738,
+      "before": 0.1738,
       "items": [
        {
         "family": "snap",
@@ -14666,7 +15235,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 1.0424,
-      "targets": 4.3668
+      "targets": 4.0753
      },
      "volConf": {
       "rec": {
@@ -14707,12 +15276,12 @@
         "factor": 0.9954,
         "league": 0.7215
        },
-       "hi": 7.1396,
-       "leagueDefense": 3.727,
-       "lo": 0.9756,
-       "mean": 3.5986,
+       "hi": 6.7792,
+       "leagueDefense": 3.4782,
+       "lo": 0.8244,
+       "mean": 3.3584,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "3.7 without this defense. NYJ allows TEs a 71% catch rate versus 72% league."
+       "text": "3.5 without this defense. NYJ allows TEs a 71% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
@@ -14720,12 +15289,12 @@
         "factor": 0.9534,
         "league": 7.0852
        },
-       "hi": 80.5187,
-       "leagueDefense": 39.4611,
-       "lo": 6.4769,
-       "mean": 34.6128,
+       "hi": 75.6188,
+       "leagueDefense": 36.8269,
+       "lo": 5.7533,
+       "mean": 32.3022,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "39 without this defense. NYJ allows TEs 5.9 yards a target versus 7.1 league."
+       "text": "37 without this defense. NYJ allows TEs 5.9 yards a target versus 7.1 league."
       },
       "rushYd": {
        "defense": {
@@ -14750,18 +15319,18 @@
       "uncertain": false
      },
      "band": [
-      0.1299,
-      0.3155
+      0.1227,
+      0.2999
      ],
      "ceiling": 0.5,
-     "challenger": 0.19979626601758804,
-     "chance": 0.2052,
+     "challenger": 0.17319459330650944,
+     "chance": 0.1943,
      "coldGoal": false,
      "components": {
-      "r0": 0.0213,
-      "r1": 0.1766,
-      "r2": 0.0267,
-      "r3": 0.005,
+      "r0": 0.0201,
+      "r1": 0.1661,
+      "r2": 0.0251,
+      "r3": 0.0047,
       "t0": 0,
       "t1": 0,
       "t2": 0,
@@ -14769,18 +15338,18 @@
      },
      "conversionNote": "1 of 4 red-zone carries scored.",
      "dist": {
-      "anytime": 0.2052,
-      "lambda": 0.2297,
-      "p0": 0.7948,
-      "p1": 0.1825,
-      "p2": 0.021,
-      "p3plus": 0.0017,
-      "twoPlus": 0.0227
+      "anytime": 0.1943,
+      "lambda": 0.2161,
+      "p0": 0.8057,
+      "p1": 0.1741,
+      "p2": 0.0188,
+      "p3plus": 0.0014,
+      "twoPlus": 0.0202
      },
-     "edge": -0.0253,
+     "edge": -0.3162,
      "espn": "4431452",
-     "fair": 387,
-     "firstTd": 0.0504,
+     "fair": 415,
+     "firstTd": 0.0457,
      "gamesPlayed": 5,
      "glShare": 0.3319,
      "glShareRaw": 0.3319,
@@ -14789,18 +15358,18 @@
      "id": "11564",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.2297,
+     "lambda": 0.2161,
      "lambdaRaw": 0.2294,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
-      "Blended 38% toward the published projection (20%) because of limited recent red-zone evidence; safety caps applied after."
+      "Learned from finished games: 15to25 chances scaled ×1.02 (from the last three weeks).",
+      "Blended 38% toward the published projection (19%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.75,
      "name": "Drake Maye",
      "passTd": {
-      "attemptShare": 0.8902,
-      "display": "1.4",
-      "expected": 1.3952,
+      "attemptShare": 0.8906,
+      "display": "1.6",
+      "expected": 1.6157,
       "interval": [
        0,
        3
@@ -14808,10 +15377,10 @@
       "level": "Med",
       "provisional": true,
       "reasons": [
-       "89% of projected team attempts (30.5) × team receiving-score total 1.57.",
+       "89% of projected team attempts (30.6) × team receiving-score total 1.81.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.5673
+      "teamReceivingLambda": 1.8142
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4431452.png",
@@ -14820,15 +15389,15 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.2052,
-     "preStack": 0.2051,
+     "preSafety": 0.205,
+     "preStack": 0.2094,
      "pubBlend": {
-      "before": 0.2295,
+      "before": 0.235,
       "weight": 0.375
      },
      "published": {
-      "expected": 0.23,
-      "probability": 0.20546639749666595,
+      "expected": 0.22,
+      "probability": 0.1974812020375215,
       "source": "Sleeper projections week 6"
      },
      "recentFinisher": false,
@@ -14839,9 +15408,9 @@
      "safetyNotes": [],
      "scenarios": {
       "behind": {
-       "att": 34.215211959755,
-       "carries": 5.119604903256795,
-       "chance": 0.18792856675791747,
+       "att": 34.23118155299437,
+       "carries": 5.11487408249306,
+       "chance": 0.18188424541070258,
        "targets": 0
       },
       "close": {
@@ -14851,9 +15420,9 @@
        "targets": null
       },
       "lead": {
-       "att": 26.883380825521783,
-       "carries": 6.6434927572706926,
-       "chance": 0.21063238500606862,
+       "att": 26.895928363067004,
+       "carries": 6.60956389821029,
+       "chance": 0.20017360957342134,
        "targets": 0
       },
       "limited": {
@@ -14870,7 +15439,7 @@
       "r0": {
        "expected": 0.0213,
        "looks": 19,
-       "opps": 5.0976,
+       "opps": 5.092,
        "rate": 0.0056,
        "scores": 0
       },
@@ -14938,12 +15507,12 @@
        "recentRz": 4,
        "repeat": false,
        "roleOk": true,
-       "width": 0.18551498775461073
+       "width": 0.1771788431295086
       },
       "level": "Med",
       "reasons": [
        "4 red-zone touches in his last three games.",
-       "80% band 13–32% is narrow enough."
+       "80% band 12–30% is narrow enough."
       ]
      },
      "team": "NE",
@@ -14976,8 +15545,8 @@
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
-      "att": 30.5493,
-      "carries": 6.0231,
+      "att": 30.5636,
+      "carries": 6.0175,
       "rzRush": 0.8434,
       "rzTgt": 0,
       "targets": 0
@@ -15027,10 +15596,10 @@
         "factor": 0.9441,
         "league": null
        },
-       "hi": 364.0916,
-       "leagueDefense": 261.9871,
-       "lo": 140.4813,
-       "mean": 252.2864,
+       "hi": 364.2354,
+       "leagueDefense": 262.1094,
+       "lo": 140.5729,
+       "mean": 252.4042,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "262 without this defense; opponent factor 0.94 from how this offense uses WRs, TEs, and backs."
       },
@@ -15066,10 +15635,10 @@
         "factor": 0.9629,
         "league": 4.5016
        },
-       "hi": 69.7378,
-       "leagueDefense": 33.0774,
-       "lo": 6.1404,
-       "mean": 31.85,
+       "hi": 69.5901,
+       "leagueDefense": 32.9812,
+       "lo": 6.0853,
+       "mean": 31.7574,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "33 without this defense. NYJ allows QBs 3.8 yards a carry versus 4.5 league."
       }
@@ -15083,49 +15652,49 @@
       "uncertain": false
      },
      "band": [
-      0.1237,
-      0.2924
+      0.1162,
+      0.2778
      ],
      "ceiling": 0.5,
-     "challenger": 0.20138892670829744,
-     "chance": 0.1924,
+     "challenger": 0.1746663309107772,
+     "chance": 0.1817,
      "coldGoal": false,
      "components": {
       "r0": 0.0006,
       "r1": 0.0002,
       "r2": 0.0001,
       "r3": 0,
-      "t0": 0.07,
-      "t1": 0.0486,
-      "t2": 0.0537,
-      "t3": 0.0406
+      "t0": 0.0625,
+      "t1": 0.0465,
+      "t2": 0.0516,
+      "t3": 0.039
      },
      "conversionNote": "1 of 3 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.1924,
-      "lambda": 0.2137,
-      "p0": 0.8076,
-      "p1": 0.1726,
-      "p2": 0.0184,
-      "p3plus": 0.0014,
-      "twoPlus": 0.0198
+      "anytime": 0.1817,
+      "lambda": 0.2005,
+      "p0": 0.8183,
+      "p1": 0.1641,
+      "p2": 0.0165,
+      "p3plus": 0.0012,
+      "twoPlus": 0.0176
      },
-     "edge": 7.9325,
+     "edge": 6.862,
      "espn": "4427095",
-     "fair": 420,
-     "firstTd": 0.0469,
+     "fair": 450,
+     "firstTd": 0.0424,
      "gamesPlayed": 5,
      "glShare": 0.0004,
      "glShareRaw": 0.0004,
      "gsis": "00-0038621",
-     "i10Exp": 0.1295,
+     "i10Exp": 0.1287,
      "id": "9501",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.2137,
-     "lambdaRaw": 0.2698,
+     "lambda": 0.2005,
+     "lambdaRaw": 0.2622,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×1.02 (from the last three weeks).",
       "Blended 38% toward the published projection (11%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.8993,
@@ -15138,10 +15707,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.1924,
-     "preStack": 0.2366,
+     "preSafety": 0.1918,
+     "preStack": 0.2356,
      "pubBlend": {
-      "before": 0.2699,
+      "before": 0.2686,
       "weight": 0.375
      },
      "published": {
@@ -15158,9 +15727,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.11202014395113236,
-       "chance": 0.22441846212694805,
-       "targets": 6.145190465442256
+       "carries": 0.11249113202736032,
+       "chance": 0.21095718677039443,
+       "targets": 5.745309621854699
       },
       "close": {
        "att": null,
@@ -15171,8 +15740,8 @@
       "lead": {
        "att": 0,
        "carries": 0.14536375932727702,
-       "chance": 0.17600708017550748,
-       "targets": 4.828363937133201
+       "chance": 0.166656066614971,
+       "targets": 4.514171845742977
       },
       "limited": {
        "att": null,
@@ -15188,7 +15757,7 @@
       "r0": {
        "expected": 0.0007,
        "looks": 0,
-       "opps": 0.1302,
+       "opps": 0.1308,
        "rate": 0.0063,
        "scores": 0
       },
@@ -15214,30 +15783,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0883,
+       "expected": 0.0818,
        "looks": 19,
-       "opps": 4.7425,
+       "opps": 4.3892,
        "rate": 0.0207,
        "scores": 1
       },
       "t1": {
-       "expected": 0.0613,
+       "expected": 0.0608,
        "looks": 0,
-       "opps": 0.1124,
+       "opps": 0.1113,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0678,
+       "expected": 0.0675,
        "looks": 1,
-       "opps": 0.1996,
+       "opps": 0.1986,
        "rate": 0.4312,
        "scores": 1
       },
       "t3": {
-       "expected": 0.0512,
+       "expected": 0.051,
        "looks": 2,
-       "opps": 0.4323,
+       "opps": 0.4306,
        "rate": 0.1089,
        "scores": 0
       }
@@ -15254,18 +15823,18 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": false,
-       "width": 0.16876239639787727
+       "width": 0.16164120270713134
       },
       "level": "Med",
       "reasons": [
        "3 red-zone touches in his last three games.",
-       "80% band 12–29% is narrow enough."
+       "80% band 12–28% is narrow enough."
       ]
      },
      "team": "NE",
      "trendEffect": {
-      "after": 0.2365,
-      "before": 0.2365,
+      "after": 0.2306,
+      "before": 0.2306,
       "items": [
        {
         "family": "snap",
@@ -15293,10 +15862,10 @@
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.1318,
+      "carries": 0.1323,
       "rzRush": 0.0034,
       "rzTgt": 1.56,
-      "targets": 5.4868
+      "targets": 5.1297
      },
      "volConf": {
       "rec": {
@@ -15338,12 +15907,12 @@
         "factor": 0.9916,
         "league": 0.6253
        },
-       "hi": 7.6539,
-       "leagueDefense": 3.7992,
-       "lo": 0.6916,
-       "mean": 3.6543,
+       "hi": 7.1559,
+       "leagueDefense": 3.552,
+       "lo": 0.6466,
+       "mean": 3.4165,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "3.8 without this defense. NYJ allows WRs a 62% catch rate versus 63% league."
+       "text": "3.6 without this defense. NYJ allows WRs a 62% catch rate versus 63% league."
       },
       "recYd": {
        "defense": {
@@ -15351,12 +15920,12 @@
         "factor": 0.9317,
         "league": 8.22
        },
-       "hi": 101.6684,
-       "leagueDefense": 47.2065,
-       "lo": 2.9504,
-       "mean": 40.4632,
+       "hi": 95.0527,
+       "leagueDefense": 44.1347,
+       "lo": 2.7584,
+       "mean": 37.8302,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "47 without this defense. NYJ allows WRs 7.2 yards a target versus 8.2 league."
+       "text": "44 without this defense. NYJ allows WRs 7.2 yards a target versus 8.2 league."
       },
       "rushYd": {
        "defense": {
@@ -15364,10 +15933,10 @@
         "factor": 1.0191,
         "league": 5.087
        },
-       "hi": 2.4429,
-       "leagueDefense": 0.7556,
+       "hi": 2.4463,
+       "leagueDefense": 0.7573,
        "lo": 0,
-       "mean": 0.6545,
+       "mean": 0.656,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "1 without this defense. NYJ allows WRs 11.0 yards a carry versus 5.1 league."
       }
@@ -15381,49 +15950,49 @@
       "uncertain": false
      },
      "band": [
-      0.099,
-      0.3475
+      0.094,
+      0.3331
      ],
      "ceiling": 0.5,
-     "challenger": 0.22142716814911378,
-     "chance": 0.1902,
+     "challenger": 0.19203354802196515,
+     "chance": 0.1813,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0236,
-      "t1": 0.1215,
-      "t2": 0.0268,
-      "t3": 0.0391
+      "t0": 0.0207,
+      "t1": 0.1165,
+      "t2": 0.0255,
+      "t3": 0.0373
      },
      "conversionNote": "1 of 3 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.1902,
-      "lambda": 0.211,
-      "p0": 0.8098,
-      "p1": 0.1709,
-      "p2": 0.018,
-      "p3plus": 0.0013,
-      "twoPlus": 0.0194
+      "anytime": 0.1813,
+      "lambda": 0.2,
+      "p0": 0.8187,
+      "p1": 0.1638,
+      "p2": 0.0164,
+      "p3plus": 0.0011,
+      "twoPlus": 0.0175
      },
-     "edge": -1.5223,
+     "edge": -2.4184,
      "espn": "4831959",
-     "fair": 426,
-     "firstTd": 0.0463,
+     "fair": 452,
+     "firstTd": 0.0423,
      "gamesPlayed": 4,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0041395",
-     "i10Exp": 0.1383,
+     "i10Exp": 0.138,
      "id": "13421",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.211,
-     "lambdaRaw": 0.1967,
+     "lambda": 0.2,
+     "lambdaRaw": 0.1943,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×1.02 (from the last three weeks).",
       "Blended 43% toward the published projection (20%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.75,
@@ -15436,10 +16005,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.1902,
-     "preStack": 0.1786,
+     "preSafety": 0.1913,
+     "preStack": 0.1805,
      "pubBlend": {
-      "before": 0.1968,
+      "before": 0.1991,
       "weight": 0.4286
      },
      "published": {
@@ -15457,8 +16026,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.20109663029081948,
-       "targets": 3.154949939346855
+       "chance": 0.19652008737575954,
+       "targets": 2.9460559794275825
       },
       "close": {
        "att": null,
@@ -15469,8 +16038,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.17924227580005003,
-       "targets": 2.478889238058243
+       "chance": 0.17121870303359898,
+       "targets": 2.314758269550243
       },
       "limited": {
        "att": null,
@@ -15512,30 +16081,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.022,
+       "expected": 0.0201,
        "looks": 6,
-       "opps": 2.1226,
+       "opps": 1.9387,
        "rate": 0.0138,
        "scores": 0
       },
       "t1": {
-       "expected": 0.1133,
+       "expected": 0.1132,
        "looks": 2,
-       "opps": 0.25,
+       "opps": 0.2496,
        "rate": 0.5474,
        "scores": 1
       },
       "t2": {
-       "expected": 0.025,
+       "expected": 0.0248,
        "looks": 0,
-       "opps": 0.1023,
+       "opps": 0.1014,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0364,
+       "expected": 0.0363,
        "looks": 1,
-       "opps": 0.342,
+       "opps": 0.3407,
        "rate": 0.1175,
        "scores": 0
       }
@@ -15544,7 +16113,7 @@
      "tags": [],
      "tdConf": {
       "blocks": [
-       "80% band 10–35% is too wide."
+       "80% band 9–33% is too wide."
       ],
       "evidence": {
        "avgTouches": 2.6666666666666665,
@@ -15554,7 +16123,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.2484584887444995
+       "width": 0.2390393077802796
       },
       "level": "Med",
       "reasons": [
@@ -15563,8 +16132,8 @@
      },
      "team": "NE",
      "trendEffect": {
-      "after": 0.1786,
-      "before": 0.1786,
+      "after": 0.1766,
+      "before": 0.1766,
       "items": [
        {
         "family": "snap",
@@ -15595,7 +16164,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.7453,
-      "targets": 2.8169
+      "targets": 2.6304
      },
      "volConf": {
       "rec": {
@@ -15632,12 +16201,12 @@
         "factor": 0.9954,
         "league": 0.7215
        },
-       "hi": 5.5423,
-       "leagueDefense": 2.4521,
-       "lo": 0.016,
-       "mean": 2.3676,
+       "hi": 5.1753,
+       "leagueDefense": 2.2897,
+       "lo": 0.0149,
+       "mean": 2.2109,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "2.5 without this defense. NYJ allows TEs a 71% catch rate versus 72% league."
+       "text": "2.3 without this defense. NYJ allows TEs a 71% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
@@ -15645,12 +16214,12 @@
         "factor": 0.9534,
         "league": 7.0852
        },
-       "hi": 49.3642,
-       "leagueDefense": 25.743,
+       "hi": 46.0957,
+       "leagueDefense": 24.0385,
        "lo": 0,
-       "mean": 20.8621,
+       "mean": 19.4808,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "26 without this defense. NYJ allows TEs 5.9 yards a target versus 7.1 league."
+       "text": "24 without this defense. NYJ allows TEs 5.9 yards a target versus 7.1 league."
       },
       "rushYd": {
        "defense": {
@@ -15675,37 +16244,37 @@
       "uncertain": true
      },
      "band": [
-      0.1026,
-      0.2855
+      0.0946,
+      0.2654
      ],
      "ceiling": 0.5,
-     "challenger": 0.15838108895977743,
-     "chance": 0.1737,
+     "challenger": 0.14024876170029887,
+     "chance": 0.1606,
      "coldGoal": false,
      "components": {
-      "r0": 0.0718,
-      "r1": 0.0383,
-      "r2": 0.0298,
-      "r3": 0.0039,
-      "t0": 0.014,
-      "t1": 0.0071,
-      "t2": 0.0045,
-      "t3": 0.0214
+      "r0": 0.0663,
+      "r1": 0.0354,
+      "r2": 0.0275,
+      "r3": 0.0036,
+      "t0": 0.0119,
+      "t1": 0.0065,
+      "t2": 0.0041,
+      "t3": 0.0198
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.1737,
-      "lambda": 0.1908,
-      "p0": 0.8263,
-      "p1": 0.1577,
-      "p2": 0.015,
-      "p3plus": 0.001,
-      "twoPlus": 0.016
+      "anytime": 0.1606,
+      "lambda": 0.1751,
+      "p0": 0.8394,
+      "p1": 0.1469,
+      "p2": 0.0129,
+      "p3plus": 0.0008,
+      "twoPlus": 0.0136
      },
-     "edge": -7.0522,
+     "edge": -7.6026,
      "espn": "4432710",
-     "fair": 476,
-     "firstTd": 0.0419,
+     "fair": 523,
+     "firstTd": 0.037,
      "gamesPlayed": 4,
      "glShare": 0.0282,
      "glShareRaw": 0.0282,
@@ -15714,11 +16283,11 @@
      "id": "12529",
      "injury": "Questionable",
      "insideFinisher": false,
-     "lambda": 0.1908,
-     "lambdaRaw": 0.1123,
+     "lambda": 0.1751,
+     "lambdaRaw": 0.1117,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
-      "Blended 43% toward the published projection (24%) because of limited recent red-zone evidence; safety caps applied after."
+      "Blended 43% toward the published projection (23%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 1.0648,
      "name": "TreVeyon Henderson",
@@ -15730,15 +16299,15 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.1737,
-     "preStack": 0.1165,
+     "preSafety": 0.1696,
+     "preStack": 0.1155,
      "pubBlend": {
-      "before": 0.1239,
+      "before": 0.1227,
       "weight": 0.4286
      },
      "published": {
-      "expected": 0.28,
-      "probability": 0.24421625854427453,
+      "expected": 0.27,
+      "probability": 0.23662050566314685,
       "source": "Sleeper projections week 6"
      },
      "recentFinisher": false,
@@ -15750,9 +16319,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 3.4827303177707183,
-       "chance": 0.168797919384302,
-       "targets": 0.7172758164123685
+       "carries": 3.486471691866885,
+       "chance": 0.15985320811981452,
+       "targets": 0.6701724171508233
       },
       "close": {
        "att": null,
@@ -15762,9 +16331,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 4.519390476190476,
-       "chance": 0.17578989748926377,
-       "targets": 0.5635738557525751
+       "carries": 4.505302976190476,
+       "chance": 0.16304391517503802,
+       "targets": 0.5265640420470754
       },
       "limited": {
        "att": null,
@@ -15780,7 +16349,7 @@
       "r0": {
        "expected": 0.0423,
        "looks": 40,
-       "opps": 3.8825,
+       "opps": 3.8869,
        "rate": 0.0102,
        "scores": 1
       },
@@ -15806,21 +16375,21 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0082,
+       "expected": 0.0076,
        "looks": 3,
-       "opps": 0.5436,
+       "opps": 0.5017,
        "rate": 0.0142,
        "scores": 0
       },
       "t1": {
        "expected": 0.0042,
        "looks": 0,
-       "opps": 0.0065,
+       "opps": 0.0064,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0027,
+       "expected": 0.0026,
        "looks": 0,
        "opps": 0.0076,
        "rate": 0.3718,
@@ -15850,18 +16419,18 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": false,
-       "width": 0.18281330119314732
+       "width": 0.1708833607820105
       },
       "level": "Med",
       "reasons": [
        "3 red-zone touches in his last three games.",
-       "80% band 10–29% is narrow enough."
+       "80% band 9–27% is narrow enough."
       ]
      },
      "team": "NE",
      "trendEffect": {
-      "after": 0.1063,
-      "before": 0.1063,
+      "after": 0.1057,
+      "before": 0.1057,
       "items": [
        {
         "family": "snap",
@@ -15923,10 +16492,10 @@
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 4.0973,
+      "carries": 4.1017,
       "rzRush": 0.4152,
       "rzTgt": 0.1448,
-      "targets": 0.6404
+      "targets": 0.5984
      },
      "volConf": {
       "rec": {
@@ -15967,10 +16536,10 @@
         "factor": 0.9939,
         "league": 0.7765
        },
-       "hi": 1.6316,
-       "leagueDefense": 0.5375,
+       "hi": 1.5624,
+       "leagueDefense": 0.5022,
        "lo": 0,
-       "mean": 0.4541,
+       "mean": 0.4243,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.5 without this defense. NYJ allows RBs a 76% catch rate versus 78% league."
       },
@@ -15980,10 +16549,10 @@
         "factor": 0.9744,
         "league": 5.417
        },
-       "hi": 13.9587,
-       "leagueDefense": 3.9504,
+       "hi": 13.3869,
+       "leagueDefense": 3.691,
        "lo": 0,
-       "mean": 3.272,
+       "mean": 3.0572,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "4 without this defense. NYJ allows RBs 4.9 yards a target versus 5.4 league."
       },
@@ -15993,10 +16562,10 @@
         "factor": 1.02,
         "league": 4.134
        },
-       "hi": 24.886,
-       "leagueDefense": 18.4933,
+       "hi": 24.8674,
+       "leagueDefense": 18.4765,
        "lo": 0,
-       "mean": 16.0344,
+       "mean": 16.0198,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "18 without this defense. NYJ allows RBs 4.3 yards a carry versus 4.1 league."
       }
@@ -16010,47 +16579,47 @@
       "uncertain": false
      },
      "band": [
-      0.0892,
-      0.2833
+      0.0833,
+      0.2675
      ],
      "ceiling": 0.5,
-     "challenger": 0.1743721708207735,
-     "chance": 0.1617,
+     "challenger": 0.15028435539791818,
+     "chance": 0.1518,
      "coldGoal": false,
      "components": {
       "r0": 0.0013,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0619,
-      "t1": 0.0829,
-      "t2": 0.0174,
-      "t3": 0.0129
+      "t0": 0.055,
+      "t1": 0.0795,
+      "t2": 0.0165,
+      "t3": 0.0123
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.1617,
-      "lambda": 0.1764,
-      "p0": 0.8383,
-      "p1": 0.1479,
-      "p2": 0.013,
-      "p3plus": 0.0008,
-      "twoPlus": 0.0138
+      "anytime": 0.1518,
+      "lambda": 0.1646,
+      "p0": 0.8482,
+      "p1": 0.1396,
+      "p2": 0.0115,
+      "p3plus": 0.0007,
+      "twoPlus": 0.0121
      },
-     "edge": -0.2988,
+     "edge": -1.297,
      "espn": "4695193",
-     "fair": 518,
-     "firstTd": 0.0387,
+     "fair": 559,
+     "firstTd": 0.0348,
      "gamesPlayed": 4,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0040563",
-     "i10Exp": 0.087,
+     "i10Exp": 0.0869,
      "id": "12542",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1764,
-     "lambdaRaw": 0.1531,
+     "lambda": 0.1646,
+     "lambdaRaw": 0.1489,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 68% toward the published projection (16%) because of limited recent red-zone evidence; safety caps applied after."
@@ -16065,10 +16634,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.1617,
-     "preStack": 0.1554,
+     "preSafety": 0.1603,
+     "preStack": 0.1509,
      "pubBlend": {
-      "before": 0.1689,
+      "before": 0.1636,
       "weight": 0.6786
      },
      "published": {
@@ -16084,10 +16653,10 @@
      "safetyNotes": [],
      "scenarios": {
       "behind": {
-       "att": 0.1659688859853447,
-       "carries": 0.17555445572322348,
-       "chance": 0.1623826391120189,
-       "targets": 3.3502958091519823
+       "att": 0.1653646566224601,
+       "carries": 0.17629257346221153,
+       "chance": 0.15744697483505454,
+       "targets": 3.123183718721444
       },
       "close": {
        "att": null,
@@ -16096,10 +16665,10 @@
        "targets": null
       },
       "lead": {
-       "att": 0.13040412470277082,
+       "att": 0.12992937306050437,
        "carries": 0.22780952380952377,
-       "chance": 0.15634073473660837,
-       "targets": 2.6323752786194143
+       "chance": 0.1472387887219886,
+       "targets": 2.4539300647097058
       },
       "limited": {
        "att": null,
@@ -16115,7 +16684,7 @@
       "r0": {
        "expected": 0.0012,
        "looks": 1,
-       "opps": 0.2065,
+       "opps": 0.2074,
        "rate": 0.0062,
        "scores": 0
       },
@@ -16141,30 +16710,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0537,
+       "expected": 0.0497,
        "looks": 12,
-       "opps": 2.7148,
+       "opps": 2.5134,
        "rate": 0.022,
        "scores": 1
       },
       "t1": {
        "expected": 0.0719,
        "looks": 1,
-       "opps": 0.1457,
+       "opps": 0.1456,
        "rate": 0.5029,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0151,
+       "expected": 0.015,
        "looks": 0,
-       "opps": 0.0515,
+       "opps": 0.0511,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0112,
+       "expected": 0.0111,
        "looks": 0,
-       "opps": 0.0793,
+       "opps": 0.0785,
        "rate": 0.13,
        "scores": 0
       }
@@ -16183,18 +16752,18 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.19413038536867666
+       "width": 0.18414524780711772
       },
       "level": "Low",
       "reasons": [
        "1 red-zone touches in his last three games.",
-       "80% band 9–28% is narrow enough."
+       "80% band 8–27% is narrow enough."
       ]
      },
      "team": "NE",
      "trendEffect": {
-      "after": 0.142,
-      "before": 0.142,
+      "after": 0.1383,
+      "before": 0.1383,
       "items": [
        {
         "family": "snap",
@@ -16238,11 +16807,11 @@
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
-      "att": 0.1482,
-      "carries": 0.2065,
+      "att": 0.1476,
+      "carries": 0.2074,
       "rzRush": 0,
       "rzTgt": 0.3752,
-      "targets": 2.9913
+      "targets": 2.7886
      },
      "volConf": {
       "rec": {
@@ -16283,12 +16852,12 @@
         "factor": 0.9916,
         "league": 0.6253
        },
-       "hi": 4.8377,
-       "leagueDefense": 2.204,
-       "lo": 0.1067,
-       "mean": 2.1199,
+       "hi": 4.6002,
+       "leagueDefense": 2.0546,
+       "lo": 0.0324,
+       "mean": 1.9762,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "2.2 without this defense. NYJ allows WRs a 62% catch rate versus 63% league."
+       "text": "2.1 without this defense. NYJ allows WRs a 62% catch rate versus 63% league."
       },
       "recYd": {
        "defense": {
@@ -16296,12 +16865,12 @@
         "factor": 0.9317,
         "league": 8.22
        },
-       "hi": 68.7212,
-       "leagueDefense": 27.2486,
-       "lo": 1.1678,
-       "mean": 23.3563,
+       "hi": 51.626,
+       "leagueDefense": 25.4015,
+       "lo": 0,
+       "mean": 20.1163,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "27 without this defense. NYJ allows WRs 7.2 yards a target versus 8.2 league."
+       "text": "25 without this defense. NYJ allows WRs 7.2 yards a target versus 8.2 league."
       },
       "rushYd": {
        "defense": {
@@ -16309,10 +16878,10 @@
         "factor": 1.0191,
         "league": 5.087
        },
-       "hi": 3.2328,
-       "leagueDefense": 1.1667,
+       "hi": 3.2374,
+       "leagueDefense": 1.1693,
        "lo": 0,
-       "mean": 1.0106,
+       "mean": 1.0128,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "1 without this defense. NYJ allows WRs 11.0 yards a carry versus 5.1 league."
       }
@@ -16326,47 +16895,47 @@
       "uncertain": false
      },
      "band": [
-      0.0431,
-      0.1385
+      0.0404,
+      0.1303
      ],
      "ceiling": 0.5,
-     "challenger": 0.07095486283253505,
-     "chance": 0.0778,
+     "challenger": 0.06124553933007959,
+     "chance": 0.073,
      "coldGoal": false,
      "components": {
-      "r0": 0.009,
-      "r1": 0.0213,
-      "r2": 0.0205,
-      "r3": 0.0027,
-      "t0": 0.0025,
-      "t1": 0.0051,
-      "t2": 0.0032,
-      "t3": 0.0167
+      "r0": 0.0085,
+      "r1": 0.0201,
+      "r2": 0.0192,
+      "r3": 0.0025,
+      "t0": 0.0021,
+      "t1": 0.0048,
+      "t2": 0.003,
+      "t3": 0.0157
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0778,
-      "lambda": 0.081,
-      "p0": 0.9222,
-      "p1": 0.0747,
-      "p2": 0.003,
+      "anytime": 0.073,
+      "lambda": 0.0758,
+      "p0": 0.927,
+      "p1": 0.0703,
+      "p2": 0.0027,
       "p3plus": 0.0001,
-      "twoPlus": 0.0031
+      "twoPlus": 0.0027
      },
-     "edge": 2.9053,
+     "edge": 2.4268,
      "espn": "4431431",
-     "fair": 1185,
-     "firstTd": 0.0178,
+     "fair": 1269,
+     "firstTd": 0.0161,
      "gamesPlayed": 5,
      "glShare": 0.0298,
      "glShareRaw": 0.0298,
      "gsis": "00-0040556",
-     "i10Exp": 0.056,
+     "i10Exp": 0.0559,
      "id": "12491",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.081,
-     "lambdaRaw": 0.0903,
+     "lambda": 0.0758,
+     "lambdaRaw": 0.0899,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 38% toward the published projection (4%) because of limited recent red-zone evidence; safety caps applied after."
@@ -16381,10 +16950,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.0778,
-     "preStack": 0.0948,
+     "preSafety": 0.0774,
+     "preStack": 0.0941,
      "pubBlend": {
-      "before": 0.0996,
+      "before": 0.0988,
       "weight": 0.375
      },
      "published": {
@@ -16401,9 +16970,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 1.656330969394423,
-       "chance": 0.07447813369444611,
-       "targets": 0.3622471784024359
+       "carries": 1.6586228268255128,
+       "chance": 0.07172264344992385,
+       "targets": 0.3367272734463032
       },
       "close": {
        "att": null,
@@ -16413,9 +16982,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 2.14935,
-       "chance": 0.07851331451110821,
-       "targets": 0.2846227830304853
+       "carries": 2.1433125,
+       "chance": 0.07393280117145906,
+       "targets": 0.26457142913638104
       },
       "limited": {
        "att": null,
@@ -16431,7 +17000,7 @@
       "r0": {
        "expected": 0.01,
        "looks": 18,
-       "opps": 1.6794,
+       "opps": 1.6821,
        "rate": 0.0056,
        "scores": 0
       },
@@ -16457,9 +17026,9 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0028,
+       "expected": 0.0025,
        "looks": 1,
-       "opps": 0.1817,
+       "opps": 0.1591,
        "rate": 0.0145,
        "scores": 0
       },
@@ -16473,7 +17042,7 @@
       "t2": {
        "expected": 0.0036,
        "looks": 0,
-       "opps": 0.0104,
+       "opps": 0.0103,
        "rate": 0.3718,
        "scores": 0
       },
@@ -16497,18 +17066,18 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": false,
-       "width": 0.09542327042771181
+       "width": 0.08997522189121454
       },
       "level": "Med",
       "reasons": [
        "3 red-zone touches in his last three games.",
-       "80% band 4–14% is narrow enough."
+       "80% band 4–13% is narrow enough."
       ]
      },
      "team": "NE",
      "trendEffect": {
-      "after": 0.0864,
-      "before": 0.0864,
+      "after": 0.086,
+      "before": 0.086,
       "items": [
        {
         "family": "redzone",
@@ -16553,10 +17122,10 @@
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 1.9486,
+      "carries": 1.9513,
       "rzRush": 0.2922,
       "rzTgt": 0.1318,
-      "targets": 0.3234
+      "targets": 0.3006
      },
      "volConf": {
       "rec": {
@@ -16597,10 +17166,10 @@
         "factor": 0.9939,
         "league": 0.7765
        },
-       "hi": 1.1135,
-       "leagueDefense": 0.2916,
+       "hi": 1.0651,
+       "leagueDefense": 0.271,
        "lo": 0,
-       "mean": 0.2463,
+       "mean": 0.229,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.3 without this defense. NYJ allows RBs a 76% catch rate versus 78% league."
       },
@@ -16610,10 +17179,10 @@
         "factor": 0.9744,
         "league": 5.417
        },
-       "hi": 9.3986,
-       "leagueDefense": 2.0509,
+       "hi": 9.0027,
+       "leagueDefense": 1.9064,
        "lo": 0,
-       "mean": 1.6987,
+       "mean": 1.579,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "2 without this defense. NYJ allows RBs 4.9 yards a target versus 5.4 league."
       },
@@ -16623,10 +17192,10 @@
         "factor": 1.02,
         "league": 4.134
        },
-       "hi": 14.0005,
-       "leagueDefense": 9.0183,
+       "hi": 13.9939,
+       "leagueDefense": 9.0129,
        "lo": 0,
-       "mean": 7.8192,
+       "mean": 7.8145,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "9 without this defense. NYJ allows RBs 4.3 yards a carry versus 4.1 league."
       }
@@ -16640,47 +17209,47 @@
       "uncertain": false
      },
      "band": [
-      0.0439,
-      0.1125
+      0.0409,
+      0.105
      ],
      "ceiling": 0.5,
-     "challenger": 0.09648888881596751,
-     "chance": 0.0706,
+     "challenger": 0.08585510680835973,
+     "chance": 0.0658,
      "coldGoal": false,
      "components": {
       "r0": 0.0002,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0597,
-      "t1": 0.0063,
-      "t2": 0.004,
-      "t3": 0.003
+      "t0": 0.0548,
+      "t1": 0.0061,
+      "t2": 0.0039,
+      "t3": 0.0029
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0706,
-      "lambda": 0.0732,
-      "p0": 0.9294,
-      "p1": 0.0681,
-      "p2": 0.0025,
-      "p3plus": 0.0001,
-      "twoPlus": 0.0026
+      "anytime": 0.0658,
+      "lambda": 0.068,
+      "p0": 0.9342,
+      "p1": 0.0635,
+      "p2": 0.0022,
+      "p3plus": 0,
+      "twoPlus": 0.0022
      },
-     "edge": -1.5459,
+     "edge": -2.0314,
      "espn": "4613202",
-     "fair": 1316,
-     "firstTd": 0.0161,
+     "fair": 1421,
+     "firstTd": 0.0144,
      "gamesPlayed": 5,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0040131",
-     "i10Exp": 0.0058,
+     "i10Exp": 0.0057,
      "id": "12547",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0732,
-     "lambdaRaw": 0.041,
+     "lambda": 0.068,
+     "lambdaRaw": 0.0387,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 63% toward the published projection (8%) because of limited recent red-zone evidence; safety caps applied after."
@@ -16695,10 +17264,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0706,
-     "preStack": 0.0443,
+     "preSafety": 0.0697,
+     "preStack": 0.0417,
      "pubBlend": {
-      "before": 0.0453,
+      "before": 0.0426,
       "weight": 0.625
      },
      "published": {
@@ -16715,9 +17284,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.019878850744520143,
-       "chance": 0.07248737435600261,
-       "targets": 1.8896395933314385
+       "carries": 0.0199624312626265,
+       "chance": 0.06923607033436607,
+       "targets": 1.7638396128031404
       },
       "close": {
        "att": null,
@@ -16728,8 +17297,8 @@
       "lead": {
        "att": 0,
        "carries": 0.02579593610047381,
-       "chance": 0.06872574830318423,
-       "targets": 1.4847168233318444
+       "chance": 0.06429127629380149,
+       "targets": 1.3858739814881815
       },
       "limited": {
        "att": null,
@@ -16745,7 +17314,7 @@
       "r0": {
        "expected": 0.0001,
        "looks": 0,
-       "opps": 0.0234,
+       "opps": 0.0235,
        "rate": 0.0063,
        "scores": 0
       },
@@ -16771,9 +17340,9 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0335,
+       "expected": 0.0312,
        "looks": 10,
-       "opps": 1.6612,
+       "opps": 1.5491,
        "rate": 0.0224,
        "scores": 1
       },
@@ -16785,16 +17354,16 @@
        "scores": 0
       },
       "t2": {
-       "expected": 0.0023,
+       "expected": 0.0022,
        "looks": 0,
-       "opps": 0.0077,
+       "opps": 0.0076,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
        "expected": 0.0017,
        "looks": 0,
-       "opps": 0.0118,
+       "opps": 0.0117,
        "rate": 0.13,
        "scores": 0
       }
@@ -16811,12 +17380,12 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.06858534361530477
+       "width": 0.06412524529847319
       },
       "level": "Low",
       "reasons": [
        "0 red-zone touches in his last three games.",
-       "80% band 4–11% is narrow enough."
+       "80% band 4–10% is narrow enough."
       ]
      },
      "team": "NE",
@@ -16826,10 +17395,10 @@
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.0234,
+      "carries": 0.0235,
       "rzRush": 0,
       "rzTgt": 0.0681,
-      "targets": 1.6872
+      "targets": 1.5749
      },
      "volConf": {
       "rec": {
@@ -16866,10 +17435,10 @@
         "factor": 0.9916,
         "league": 0.6253
        },
-       "hi": 2.6585,
-       "leagueDefense": 1.1305,
+       "hi": 2.5373,
+       "leagueDefense": 1.0552,
        "lo": 0,
-       "mean": 0.9528,
+       "mean": 0.8894,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "1.1 without this defense. NYJ allows WRs a 62% catch rate versus 63% league."
       },
@@ -16879,12 +17448,12 @@
         "factor": 0.9317,
         "league": 8.22
        },
-       "hi": 40.5557,
-       "leagueDefense": 18.2954,
+       "hi": 37.8557,
+       "leagueDefense": 17.0774,
        "lo": 0,
-       "mean": 14.4888,
+       "mean": 13.5242,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
-       "text": "18 without this defense. NYJ allows WRs 7.2 yards a target versus 8.2 league."
+       "text": "17 without this defense. NYJ allows WRs 7.2 yards a target versus 8.2 league."
       },
       "rushYd": {
        "defense": {
@@ -16892,10 +17461,10 @@
         "factor": 1.0191,
         "league": 5.087
        },
-       "hi": 0.8695,
-       "leagueDefense": 0.1341,
+       "hi": 0.8706,
+       "leagueDefense": 0.1344,
        "lo": 0,
-       "mean": 0.1162,
+       "mean": 0.1164,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0 without this defense. NYJ allows WRs 11.0 yards a carry versus 5.1 league."
       }
@@ -16909,37 +17478,37 @@
       "uncertain": false
      },
      "band": [
-      0.0093,
-      0.0263
+      0.0087,
+      0.0247
      ],
      "ceiling": 0.5,
-     "challenger": 0.02759196091230276,
-     "chance": 0.0156,
+     "challenger": 0.023303891530514487,
+     "chance": 0.0147,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0058,
-      "t1": 0.0047,
-      "t2": 0.003,
+      "t0": 0.0052,
+      "t1": 0.0045,
+      "t2": 0.0029,
       "t3": 0.0022
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0156,
-      "lambda": 0.0158,
-      "p0": 0.9844,
-      "p1": 0.0155,
+      "anytime": 0.0147,
+      "lambda": 0.0148,
+      "p0": 0.9853,
+      "p1": 0.0145,
       "p2": 0.0001,
       "p3plus": 0,
       "twoPlus": 0.0001
      },
-     "edge": -0.417,
+     "edge": -0.5145,
      "espn": "4372026",
-     "fair": 6297,
-     "firstTd": 0.0035,
+     "fair": 6723,
+     "firstTd": 0.0031,
      "gamesPlayed": 4,
      "glShare": 0,
      "glShareRaw": 0,
@@ -16948,8 +17517,8 @@
      "id": "10210",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0158,
-     "lambdaRaw": 0.0062,
+     "lambda": 0.0148,
+     "lambdaRaw": 0.006,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks).",
       "Blended 68% toward the published projection (1%) because of limited recent red-zone evidence; safety caps applied after."
@@ -16965,9 +17534,9 @@
      "pos": "TE",
      "practice": null,
      "preSafety": 0.0156,
-     "preStack": 0.0068,
+     "preStack": 0.0065,
      "pubBlend": {
-      "before": 0.0068,
+      "before": 0.0065,
       "weight": 0.6786
      },
      "published": {
@@ -16985,8 +17554,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.01588970654234023,
-       "targets": 0.24872920240372937
+       "chance": 0.015302178296145552,
+       "targets": 0.23120651076220577
       },
       "close": {
        "att": null,
@@ -16997,8 +17566,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.015373783797230867,
-       "targets": 0.1954300876029302
+       "chance": 0.014471370583167165,
+       "targets": 0.1816622584560188
       },
       "limited": {
        "att": null,
@@ -17040,9 +17609,9 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0023,
+       "expected": 0.0021,
        "looks": 0,
-       "opps": 0.2057,
+       "opps": 0.1902,
        "rate": 0.0147,
        "scores": 0
       },
@@ -17080,18 +17649,18 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.016967222802586557
+       "width": 0.01598229639553861
       },
       "level": "Low",
       "reasons": [
        "0 red-zone touches in his last three games.",
-       "80% band 1–3% is narrow enough."
+       "80% band 1–2% is narrow enough."
       ]
      },
      "team": "NE",
      "trendEffect": {
-      "after": 0.0061,
-      "before": 0.0061,
+      "after": 0.0059,
+      "before": 0.0059,
       "items": [
        {
         "family": "snap",
@@ -17122,7 +17691,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.0457,
-      "targets": 0.2221
+      "targets": 0.2064
      },
      "volConf": {
       "rec": {
@@ -17157,10 +17726,10 @@
         "factor": 0.9954,
         "league": 0.7215
        },
-       "hi": 0.8401,
-       "leagueDefense": 0.1821,
+       "hi": 0.8046,
+       "leagueDefense": 0.1693,
        "lo": 0,
-       "mean": 0.1541,
+       "mean": 0.1432,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.2 without this defense. NYJ allows TEs a 71% catch rate versus 72% league."
       },
@@ -17170,10 +17739,10 @@
         "factor": 0.9534,
         "league": 7.0852
        },
-       "hi": 8.562,
-       "leagueDefense": 1.7885,
+       "hi": 8.2048,
+       "leagueDefense": 1.6625,
        "lo": 0,
-       "mean": 1.4494,
+       "mean": 1.3473,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "2 without this defense. NYJ allows TEs 5.9 yards a target versus 7.1 league."
       },
@@ -17200,37 +17769,37 @@
       "uncertain": false
      },
      "band": [
-      0.0061,
-      0.0344
+      0.0056,
+      0.0313
      ],
      "ceiling": 0.5,
-     "challenger": 0.02587681393978436,
-     "chance": 0.0146,
+     "challenger": 0.02121800407300023,
+     "chance": 0.0132,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0053,
-      "t1": 0.0044,
-      "t2": 0.0028,
-      "t3": 0.0021
+      "t0": 0.0046,
+      "t1": 0.0041,
+      "t2": 0.0026,
+      "t3": 0.002
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0146,
-      "lambda": 0.0147,
-      "p0": 0.9854,
-      "p1": 0.0145,
+      "anytime": 0.0132,
+      "lambda": 0.0133,
+      "p0": 0.9868,
+      "p1": 0.0131,
       "p2": 0.0001,
       "p3plus": 0,
       "twoPlus": 0.0001
      },
      "edge": null,
      "espn": "2576179",
-     "fair": 6764,
-     "firstTd": 0.0032,
+     "fair": 7456,
+     "firstTd": 0.0028,
      "gamesPlayed": 0,
      "glShare": 0,
      "glShareRaw": 0,
@@ -17239,8 +17808,8 @@
      "id": "2944",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0147,
-     "lambdaRaw": 0.0133,
+     "lambda": 0.0133,
+     "lambdaRaw": 0.0129,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
      ],
@@ -17254,8 +17823,8 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0146,
-     "preStack": 0.0146,
+     "preSafety": 0.014,
+     "preStack": 0.014,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -17268,8 +17837,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.016301714446836146,
-       "targets": 0.5268092032756749
+       "chance": 0.015219632744804756,
+       "targets": 0.48969608936019376
       },
       "close": {
        "att": null,
@@ -17280,8 +17849,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.012831010348218319,
-       "targets": 0.4139215168594588
+       "chance": 0.011695164223629151,
+       "targets": 0.38476121306872363
       },
       "limited": {
        "att": null,
@@ -17323,30 +17892,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0048,
+       "expected": 0.0044,
        "looks": 0,
-       "opps": 0.4346,
+       "opps": 0.4018,
        "rate": 0.0147,
        "scores": 0
       },
       "t1": {
        "expected": 0.004,
        "looks": 0,
-       "opps": 0.009,
+       "opps": 0.0089,
        "rate": 0.55,
        "scores": 0
       },
       "t2": {
        "expected": 0.0026,
        "looks": 0,
-       "opps": 0.0106,
+       "opps": 0.0105,
        "rate": 0.3718,
        "scores": 0
       },
       "t3": {
        "expected": 0.0019,
        "looks": 0,
-       "opps": 0.0163,
+       "opps": 0.0161,
        "rate": 0.13,
        "scores": 0
       }
@@ -17365,7 +17934,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.02827076582496124
+       "width": 0.02575622648418263
       },
       "level": "Low",
       "reasons": [
@@ -17383,7 +17952,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.1,
-      "targets": 0.4704
+      "targets": 0.4372
      },
      "volConf": {
       "rec": {
@@ -17391,7 +17960,7 @@
        "level": "Low",
        "provisional": true,
        "reasons": [
-        "Near-zero projected targets (0.5)."
+        "Near-zero projected targets (0.4)."
        ]
       },
       "recYd": {
@@ -17399,7 +17968,7 @@
        "level": "Low",
        "provisional": true,
        "reasons": [
-        "Near-zero projected targets (0.5)."
+        "Near-zero projected targets (0.4)."
        ]
       },
       "rushYd": {
@@ -17418,10 +17987,10 @@
         "factor": 0.9954,
         "league": 0.7215
        },
-       "hi": 1.3247,
-       "leagueDefense": 0.3858,
+       "hi": 1.2659,
+       "leagueDefense": 0.3586,
        "lo": 0,
-       "mean": 0.3264,
+       "mean": 0.3034,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.4 without this defense. NYJ allows TEs a 71% catch rate versus 72% league."
       },
@@ -17431,10 +18000,10 @@
         "factor": 0.9534,
         "league": 7.0852
        },
-       "hi": 13.4211,
-       "leagueDefense": 3.7881,
+       "hi": 12.8336,
+       "leagueDefense": 3.5212,
        "lo": 0,
-       "mean": 3.0699,
+       "mean": 2.8536,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "4 without this defense. NYJ allows TEs 5.9 yards a target versus 7.1 league."
       },
@@ -17461,47 +18030,47 @@
       "uncertain": false
      },
      "band": [
-      0.0046,
-      0.0259
+      0.0042,
+      0.0236
      ],
      "ceiling": 0.5,
-     "challenger": 0.02013622893680489,
-     "chance": 0.0109,
+     "challenger": 0.016459346487119664,
+     "chance": 0.0099,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0039,
-      "t1": 0.0033,
-      "t2": 0.0021,
-      "t3": 0.0016
+      "t0": 0.0034,
+      "t1": 0.0031,
+      "t2": 0.002,
+      "t3": 0.0015
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0109,
-      "lambda": 0.011,
-      "p0": 0.9891,
-      "p1": 0.0109,
-      "p2": 0.0001,
+      "anytime": 0.0099,
+      "lambda": 0.01,
+      "p0": 0.9901,
+      "p1": 0.0099,
+      "p2": 0,
       "p3plus": 0,
-      "twoPlus": 0.0001
+      "twoPlus": 0
      },
      "edge": null,
      "espn": "4683308",
-     "fair": 9036,
-     "firstTd": 0.0024,
+     "fair": 9958,
+     "firstTd": 0.0021,
      "gamesPlayed": 1,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0041314",
-     "i10Exp": 0.005,
+     "i10Exp": 0.0049,
      "id": "13827",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.011,
-     "lambdaRaw": 0.01,
+     "lambda": 0.01,
+     "lambdaRaw": 0.0097,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
      ],
@@ -17515,8 +18084,8 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0109,
-     "preStack": 0.0109,
+     "preSafety": 0.0106,
+     "preStack": 0.0106,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -17529,8 +18098,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.012251370304234177,
-       "targets": 0.39510690245675617
+       "chance": 0.011436579451056028,
+       "targets": 0.3672720670201453
       },
       "close": {
        "att": null,
@@ -17541,8 +18110,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.009638775393568944,
-       "targets": 0.31044113764459413
+       "chance": 0.008784258898608566,
+       "targets": 0.2885709098015427
       },
       "limited": {
        "att": null,
@@ -17584,9 +18153,9 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0036,
+       "expected": 0.0033,
        "looks": 0,
-       "opps": 0.3259,
+       "opps": 0.3013,
        "rate": 0.0147,
        "scores": 0
       },
@@ -17607,7 +18176,7 @@
       "t3": {
        "expected": 0.0014,
        "looks": 0,
-       "opps": 0.0122,
+       "opps": 0.0121,
        "rate": 0.13,
        "scores": 0
       }
@@ -17624,12 +18193,12 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.02131212319306275
+       "width": 0.0194074396950219
       },
       "level": "Low",
       "reasons": [
        "0 red-zone touches in his last three games.",
-       "80% band 0–3% is narrow enough."
+       "80% band 0–2% is narrow enough."
       ]
      },
      "team": "NE",
@@ -17642,7 +18211,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.075,
-      "targets": 0.3528
+      "targets": 0.3279
      },
      "volConf": {
       "rec": {
@@ -17650,7 +18219,7 @@
        "level": "Low",
        "provisional": true,
        "reasons": [
-        "Near-zero projected targets (0.4)."
+        "Near-zero projected targets (0.3)."
        ]
       },
       "recYd": {
@@ -17658,7 +18227,7 @@
        "level": "Low",
        "provisional": true,
        "reasons": [
-        "Near-zero projected targets (0.4)."
+        "Near-zero projected targets (0.3)."
        ]
       },
       "rushYd": {
@@ -17677,10 +18246,10 @@
         "factor": 0.9954,
         "league": 0.7215
        },
-       "hi": 1.1093,
-       "leagueDefense": 0.2893,
+       "hi": 1.0611,
+       "leagueDefense": 0.2689,
        "lo": 0,
-       "mean": 0.2448,
+       "mean": 0.2275,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "0.3 without this defense. NYJ allows TEs a 71% catch rate versus 72% league."
       },
@@ -17690,10 +18259,10 @@
         "factor": 0.9534,
         "league": 7.0852
        },
-       "hi": 11.2668,
-       "leagueDefense": 2.8411,
+       "hi": 10.7831,
+       "leagueDefense": 2.6409,
        "lo": 0,
-       "mean": 2.3024,
+       "mean": 2.1402,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "3 without this defense. NYJ allows TEs 5.9 yards a target versus 7.1 league."
       },
@@ -17720,16 +18289,16 @@
       "uncertain": false
      },
      "band": [
-      0.0022,
-      0.0123
+      0.0021,
+      0.0116
      ],
      "ceiling": 0.5,
-     "challenger": 0.008830699751953719,
-     "chance": 0.0052,
+     "challenger": 0.007604696734566541,
+     "chance": 0.0049,
      "coldGoal": false,
      "components": {
-      "r0": 0.0025,
-      "r1": 0.0019,
+      "r0": 0.0023,
+      "r1": 0.0018,
       "r2": 0.0007,
       "r3": 0.0001,
       "t0": 0,
@@ -17739,18 +18308,18 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0052,
-      "lambda": 0.0052,
-      "p0": 0.9948,
-      "p1": 0.0052,
+      "anytime": 0.0049,
+      "lambda": 0.0049,
+      "p0": 0.9951,
+      "p1": 0.0049,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
      "edge": null,
      "espn": "4240391",
-     "fair": 19087,
-     "firstTd": 0.0011,
+     "fair": 20296,
+     "firstTd": 0.001,
      "gamesPlayed": 1,
      "glShare": 0.0031,
      "glShareRaw": 0.0031,
@@ -17759,7 +18328,7 @@
      "id": "11292",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0052,
+     "lambda": 0.0049,
      "lambdaRaw": 0.0047,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
@@ -17767,9 +18336,9 @@
      "matchupFactor": 0.75,
      "name": "Tommy DeVito",
      "passTd": {
-      "attemptShare": 0.0673,
+      "attemptShare": 0.0671,
       "display": "0.1",
-      "expected": 0.1055,
+      "expected": 0.1217,
       "interval": [
        0,
        1
@@ -17777,13 +18346,13 @@
       "level": "Low",
       "provisional": true,
       "reasons": [
-       "7% of projected team attempts (2.3) × team receiving-score total 1.57.",
+       "7% of projected team attempts (2.3) × team receiving-score total 1.81.",
        "Only 1 of the last three games with attempts.",
        "5 attempts this season (needs 60).",
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.5673
+      "teamReceivingLambda": 1.8142
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4240391.png",
@@ -17804,9 +18373,9 @@
      "safetyNotes": [],
      "scenarios": {
       "behind": {
-       "att": 2.5867806839122087,
-       "carries": 0.4209508884228736,
-       "chance": 0.00443172846289086,
+       "att": 2.5773632028266245,
+       "carries": 0.4227207741071058,
+       "chance": 0.004284865639714197,
        "targets": 0
       },
       "close": {
@@ -17816,9 +18385,9 @@
        "targets": null
       },
       "lead": {
-       "att": 2.0324705373595924,
+       "att": 2.025071087935205,
        "carries": 0.5462499999999999,
-       "chance": 0.005619310290611468,
+       "chance": 0.005293670205004375,
        "targets": 0
       },
       "limited": {
@@ -17835,7 +18404,7 @@
       "r0": {
        "expected": 0.0023,
        "looks": 1,
-       "opps": 0.4823,
+       "opps": 0.4844,
        "rate": 0.0062,
        "scores": 0
       },
@@ -17901,7 +18470,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.010134433009064137
+       "width": 0.009535556975458825
       },
       "level": "Low",
       "reasons": [
@@ -17915,8 +18484,8 @@
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
-      "att": 2.3096,
-      "carries": 0.4952,
+      "att": 2.3012,
+      "carries": 0.4973,
       "rzRush": 0.0225,
       "rzTgt": 0,
       "targets": 0
@@ -17962,10 +18531,10 @@
         "factor": 0.9441,
         "league": null
        },
-       "hi": 85.5331,
-       "leagueDefense": 17.8931,
+       "hi": 85.3512,
+       "leagueDefense": 17.8279,
        "lo": 0,
-       "mean": 14.3588,
+       "mean": 14.3065,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "18 without this defense; opponent factor 0.94 from how this offense uses WRs, TEs, and backs."
       },
@@ -18001,10 +18570,10 @@
         "factor": 0.9629,
         "league": 4.5016
        },
-       "hi": 5.1773,
-       "leagueDefense": 2.4787,
+       "hi": 5.1852,
+       "leagueDefense": 2.4842,
        "lo": 0,
-       "mean": 2.0287,
+       "mean": 2.0332,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "2 without this defense. NYJ allows QBs 3.8 yards a carry versus 4.5 league."
       }
@@ -18018,17 +18587,17 @@
       "uncertain": false
      },
      "band": [
-      0.0021,
-      0.0124
+      0.002,
+      0.0117
      ],
      "ceiling": 0.5,
-     "challenger": 0.008296664732411752,
-     "chance": 0.0052,
+     "challenger": 0.006998685629874046,
+     "chance": 0.0049,
      "coldGoal": false,
      "components": {
-      "r0": 0.0015,
-      "r1": 0.0025,
-      "r2": 0.001,
+      "r0": 0.0014,
+      "r1": 0.0024,
+      "r2": 0.0009,
       "r3": 0.0001,
       "t0": 0,
       "t1": 0,
@@ -18037,18 +18606,18 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0052,
-      "lambda": 0.0052,
-      "p0": 0.9948,
-      "p1": 0.0052,
+      "anytime": 0.0049,
+      "lambda": 0.0049,
+      "p0": 0.9951,
+      "p1": 0.0048,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
      "edge": null,
      "espn": "4431465",
-     "fair": 19244,
-     "firstTd": 0.0011,
+     "fair": 20477,
+     "firstTd": 0.001,
      "gamesPlayed": 0,
      "glShare": 0.0041,
      "glShareRaw": 0.0041,
@@ -18057,7 +18626,7 @@
      "id": "13295",
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0052,
+     "lambda": 0.0049,
      "lambdaRaw": 0.0047,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.10 (from the last three weeks)."
@@ -18065,9 +18634,9 @@
      "matchupFactor": 0.75,
      "name": "Behren Morton",
      "passTd": {
-      "attemptShare": 0.0425,
+      "attemptShare": 0.0424,
       "display": "0.1",
-      "expected": 0.0666,
+      "expected": 0.0768,
       "interval": [
        0,
        0
@@ -18075,13 +18644,13 @@
       "level": "Low",
       "provisional": true,
       "reasons": [
-       "4% of projected team attempts (1.5) × team receiving-score total 1.57.",
+       "4% of projected team attempts (1.5) × team receiving-score total 1.81.",
        "Only 0 of the last three games with attempts.",
        "0 attempts this season (needs 60).",
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.5673
+      "teamReceivingLambda": 1.8142
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4431465.png",
@@ -18102,9 +18671,9 @@
      "safetyNotes": [],
      "scenarios": {
       "behind": {
-       "att": 1.633756221418237,
-       "carries": 0.2658637190039202,
-       "chance": 0.004395923442910843,
+       "att": 1.6278083386273419,
+       "carries": 0.26698154154132997,
+       "chance": 0.004247182940477878,
        "targets": 0
       },
       "close": {
@@ -18114,9 +18683,9 @@
        "targets": null
       },
       "lead": {
-       "att": 1.2836656025429005,
+       "att": 1.27899226606434,
        "carries": 0.345,
-       "chance": 0.0055303189176717504,
+       "chance": 0.005209903047752595,
        "targets": 0
       },
       "limited": {
@@ -18133,7 +18702,7 @@
       "r0": {
        "expected": 0.0014,
        "looks": 0,
-       "opps": 0.2956,
+       "opps": 0.2969,
        "rate": 0.0063,
        "scores": 0
       },
@@ -18199,7 +18768,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.01027661638201427
+       "width": 0.009662276703293005
       },
       "level": "Low",
       "reasons": [
@@ -18213,8 +18782,8 @@
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 6, ACT)",
      "vol": {
-      "att": 1.4587,
-      "carries": 0.3128,
+      "att": 1.4534,
+      "carries": 0.3141,
       "rzRush": 0.03,
       "rzTgt": 0,
       "targets": 0
@@ -18260,10 +18829,10 @@
         "factor": 0.9441,
         "league": null
        },
-       "hi": 65.9703,
-       "leagueDefense": 11.4033,
+       "hi": 65.8335,
+       "leagueDefense": 11.3618,
        "lo": 0,
-       "mean": 9.1509,
+       "mean": 9.1176,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "11 without this defense; opponent factor 0.94 from how this offense uses WRs, TEs, and backs."
       },
@@ -18299,10 +18868,10 @@
         "factor": 0.9629,
         "league": 4.5016
        },
-       "hi": 3.8182,
-       "leagueDefense": 1.587,
+       "hi": 3.8239,
+       "leagueDefense": 1.5905,
        "lo": 0,
-       "mean": 1.2989,
+       "mean": 1.3018,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w6)",
        "text": "2 without this defense. NYJ allows QBs 3.8 yards a carry versus 4.5 league."
       }
@@ -18332,6 +18901,12 @@
      {
       "gsis": "00-0041032",
       "id": "13330",
+      "team": "NYJ",
+      "verified": true
+     },
+     {
+      "gsis": "00-0041511",
+      "id": "13276",
       "team": "NYJ",
       "verified": true
      },
@@ -18447,13 +19022,6 @@
       "transfer": null
      },
      {
-      "id": "13276",
-      "name": "Omar Cooper",
-      "pos": "WR",
-      "reason": "Injured reserve",
-      "transfer": null
-     },
-     {
       "id": "13438",
       "name": "DeaMonte Trayanum",
       "pos": "RB",
@@ -18483,13 +19051,6 @@
         4
        ]
       }
-     },
-     {
-      "id": "5859",
-      "name": "A.J. Brown",
-      "pos": "WR",
-      "reason": "Injured reserve",
-      "transfer": null
      },
      {
       "id": "7204",
@@ -18530,6 +19091,12 @@
      {
       "gsis": "00-0037816",
       "id": "8121",
+      "team": "NE",
+      "verified": true
+     },
+     {
+      "gsis": "00-0035676",
+      "id": "5859",
       "team": "NE",
       "verified": true
      },
@@ -18642,12 +19209,12 @@
     "away": {
      "tdBudget": 1.7601637843660525,
      "team": "NYJ",
-     "teamLambda": 1.7601637843660525
+     "teamLambda": 1.7601637843660523
     },
     "home": {
      "tdBudget": 2.921378442210867,
      "team": "NE",
-     "teamLambda": 2.7479178447602792
+     "teamLambda": 2.9213784422108664
     }
    },
    "week": 6,
