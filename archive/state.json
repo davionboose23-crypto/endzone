@@ -504,7 +504,7 @@
  ],
  "experiments": {
   "validation": {
-   "modelVersion": "endzone-4.5.0",
+   "modelVersion": "endzone-4.5.1",
    "payload": {
     "challenger": {
      "cutoff": {
@@ -514,30 +514,30 @@
      },
      "fit": {
       "beta": [
-       0.021927836182023493,
-       0.902615796634954,
-       -0.06711051358541875,
-       -0.00898956904552654,
-       0.08624198102451974,
-       0.03706765254718247,
-       0.07079089424025926,
-       0.04681314717144772,
-       0.06487977008941662,
-       0.04441166024920025,
-       0.07185321376771085,
-       0.005069841003776239,
+       -0.0021876345532607796,
+       0.8848478218197446,
+       -0.05052796025871433,
+       0.006036228870641241,
+       0.1054203784806413,
+       0.05673793851375096,
+       0.06732875320149748,
+       0.018834863172658787,
+       0.05336453933939439,
+       0.040182784187059804,
+       0.07394509729415202,
+       -0.005837785818838907,
        0,
-       0
+       -0.015887202585848064
       ],
-      "games": 80,
-      "n": 2200,
+      "games": 81,
+      "n": 2223,
       "rich": true
      },
      "kind": "rich",
-     "modelVersion": "endzone-4.5.0",
+     "modelVersion": "endzone-4.5.1",
      "provisional": true,
      "reason": null,
-     "trainingCount": 2200
+     "trainingCount": 2223
     },
     "promotion": {
      "metrics": {
@@ -547,59 +547,59 @@
      "note": "A new version is never labeled validated because an older version passed.",
      "promote": false,
      "reasons": [
-      "Needs ≥500 prospective paired players for endzone-4.5.0; have 0.",
+      "Needs ≥500 prospective paired players for endzone-4.5.1; have 0.",
       "Needs ≥40 games; have 0."
      ],
      "rollback": "Champion retained; challenger stays shadow."
     },
     "summary": {
      "all": {
-      "brier": 0.10801329860000003,
-      "flat25Brier": 0.13613636363636364,
-      "logLoss": 0.3539040202144792,
+      "brier": 0.10890072204228525,
+      "flat25Brier": 0.1364991003148898,
+      "logLoss": 0.35696172344964505,
       "matched": {
-       "model": 0.1305090205351171,
-       "modelLogLoss": 0.42185135874160495,
-       "n": 1794,
-       "published": 0.12999553137149272,
-       "publishedLogLoss": 0.41968935034703425
+       "model": 0.1313091560594387,
+       "modelLogLoss": 0.4247266788827704,
+       "n": 1817,
+       "published": 0.1308544266509495,
+       "publishedLogLoss": 0.4227358976307123
       },
-      "n": 2200,
-      "prospectiveN": 0,
-      "reconstructedN": 2200
+      "n": 2223,
+      "prospectiveN": 26,
+      "reconstructedN": 2197
      },
      "highTd": {
-      "brier": null,
-      "flat25Brier": null,
-      "logLoss": null,
+      "brier": 0.11122225000000001,
+      "flat25Brier": 0.0625,
+      "logLoss": 0.4057151393633737,
       "matched": {
-       "model": null,
-       "modelLogLoss": null,
-       "n": 0,
-       "published": null,
-       "publishedLogLoss": null
+       "model": 0.11122225000000001,
+       "modelLogLoss": 0.4057151393633737,
+       "n": 1,
+       "published": 0.12214389287111574,
+       "publishedLogLoss": 0.43000000000000005
       },
-      "n": 0,
-      "prospectiveN": 0,
+      "n": 1,
+      "prospectiveN": 1,
       "reconstructedN": 0
      },
      "missingExcluded": 0,
      "pending": 0,
-     "prospective": 0,
-     "reconstructed": 2200,
+     "prospective": 26,
+     "reconstructed": 2197,
      "teamCalls": {
-      "brier": 0.2328783352597403,
-      "flat25Brier": 0.2702922077922078,
-      "logLoss": 0.6593174959144104,
+      "brier": 0.23224310557692313,
+      "flat25Brier": 0.2676282051282051,
+      "logLoss": 0.6579770881645913,
       "matched": {
-       "model": 0.2328783352597403,
-       "modelLogLoss": 0.6593174959144104,
-       "n": 154,
-       "published": 0.2333911715417271,
-       "publishedLogLoss": 0.660100373351669
+       "model": 0.23224310557692313,
+       "modelLogLoss": 0.6579770881645913,
+       "n": 156,
+       "published": 0.23287056126320044,
+       "publishedLogLoss": 0.6590093429240835
       },
-      "n": 154,
-      "prospectiveN": 0,
+      "n": 156,
+      "prospectiveN": 2,
       "reconstructedN": 154
      }
     },
@@ -610,6 +610,12 @@
      },
      "passYd": {
       "byConfidence": {
+       "High": {
+        "bias": -38.4691,
+        "coverage": 1,
+        "mae": 38.4691,
+        "n": 2
+       },
        "Low": {
         "bias": -9.431606315789471,
         "coverage": 0.868421052631579,
@@ -624,6 +630,12 @@
        }
       },
       "bySegment": {
+       "QB|primary|available": {
+        "bias": -38.4691,
+        "coverage": 1,
+        "mae": 38.4691,
+        "n": 2
+       },
        "QB|primary|uncertain": {
         "bias": -3.5160337748344395,
         "coverage": 0.7483443708609272,
@@ -644,6 +656,12 @@
        }
       },
       "bySource": {
+       "prospective": {
+        "bias": -38.4691,
+        "coverage": 1,
+        "mae": 38.4691,
+        "n": 2
+       },
        "reconstructed": {
         "bias": -10.479993103448283,
         "coverage": 0.8244514106583072,
@@ -652,35 +670,50 @@
        }
       },
       "overall": {
-       "bias": -10.479993103448283,
-       "coverage": 0.8244514106583072,
-       "mae": 49.17183824451409,
-       "n": 319
+       "bias": -10.654380062305304,
+       "coverage": 0.8255451713395638,
+       "mae": 49.10515451713394,
+       "n": 321
       },
       "prospective": {
-       "n": 0
+       "bias": -38.4691,
+       "coverage": 1,
+       "mae": 38.4691,
+       "n": 2
       }
      },
      "rec": {
       "byConfidence": {
+       "High": {
+        "bias": 1.3186,
+        "coverage": 1,
+        "mae": 1.4348,
+        "n": 2
+       },
        "Low": {
-        "bias": -0.18788851644941026,
-        "coverage": 0.88268156424581,
-        "mae": 0.7074432029795162,
-        "n": 1611
+        "bias": -0.18492378011117966,
+        "coverage": 0.8826436071649166,
+        "mae": 0.7049431747992596,
+        "n": 1619
        },
        "Med": {
-        "bias": -0.8031069609507647,
-        "coverage": 0.7826825127334465,
-        "mae": 1.812028183361629,
-        "n": 589
+        "bias": -0.7865774086378743,
+        "coverage": 0.7857142857142857,
+        "mae": 1.8001029900332222,
+        "n": 602
        }
       },
       "bySegment": {
+       "QB|primary|available": {
+        "bias": 0,
+        "coverage": 1,
+        "mae": 0,
+        "n": 2
+       },
        "QB|primary|uncertain": {
-        "bias": -0.01172251655629139,
+        "bias": -0.011708609271523179,
         "coverage": 0.9867549668874173,
-        "mae": 0.014767549668874171,
+        "mae": 0.014781456953642382,
         "n": 151
        },
        "QB|reserve|uncertain": {
@@ -695,99 +728,168 @@
         "mae": 0,
         "n": 129
        },
+       "RB|primary|available": {
+        "bias": 0.06699999999999995,
+        "coverage": 1,
+        "mae": 1.4040000000000001,
+        "n": 2
+       },
        "RB|primary|uncertain": {
-        "bias": -0.6044396648044696,
-        "coverage": 0.8268156424581006,
-        "mae": 1.29986312849162,
+        "bias": -0.6013558659217881,
+        "coverage": 0.8212290502793296,
+        "mae": 1.2985346368715087,
         "n": 179
        },
+       "RB|reserve|available": {
+        "bias": 0.182175,
+        "coverage": 1,
+        "mae": 0.490125,
+        "n": 4
+       },
        "RB|reserve|uncertain": {
-        "bias": -0.2063567796610171,
+        "bias": -0.20603559322033915,
         "coverage": 0.8559322033898306,
-        "mae": 0.6136500000000006,
+        "mae": 0.613488983050848,
         "n": 236
        },
+       "RB|support|available": {
+        "bias": 0.4178,
+        "coverage": 1,
+        "mae": 0.4178,
+        "n": 1
+       },
        "RB|support|uncertain": {
-        "bias": -0.47521068702290076,
+        "bias": -0.47379007633587783,
         "coverage": 0.8396946564885496,
-        "mae": 1.0871312977099232,
+        "mae": 1.0861519083969462,
         "n": 131
        },
+       "TE|primary|available": {
+        "bias": -0.2529999999999999,
+        "coverage": 1,
+        "mae": 0.9984,
+        "n": 2
+       },
        "TE|primary|uncertain": {
-        "bias": -0.7586424836601308,
+        "bias": -0.756512418300654,
         "coverage": 0.7581699346405228,
-        "mae": 1.8829575163398686,
+        "mae": 1.8850875816993458,
         "n": 153
        },
+       "TE|reserve|available": {
+        "bias": 0.08127500000000001,
+        "coverage": 1,
+        "mae": 0.44632499999999997,
+        "n": 4
+       },
        "TE|reserve|uncertain": {
-        "bias": -0.2472539419087136,
+        "bias": -0.24685726141078834,
         "coverage": 0.8589211618257261,
-        "mae": 0.623223236514523,
+        "mae": 0.6229850622406641,
         "n": 241
        },
+       "TE|support|available": {
+        "bias": -0.8657,
+        "coverage": 1,
+        "mae": 0.8657,
+        "n": 2
+       },
        "TE|support|uncertain": {
-        "bias": -0.2319080536912752,
+        "bias": -0.2307791946308725,
         "coverage": 0.8657718120805369,
-        "mae": 0.9409416107382547,
+        "mae": 0.9409563758389261,
         "n": 149
        },
+       "WR|primary|available": {
+        "bias": 1.3186,
+        "coverage": 1,
+        "mae": 1.4348,
+        "n": 2
+       },
        "WR|primary|uncertain": {
-        "bias": -0.6746353333333335,
+        "bias": -0.6706253333333332,
         "coverage": 0.8466666666666667,
-        "mae": 2.1516566666666663,
+        "mae": 2.1525346666666665,
         "n": 150
        },
+       "WR|reserve|available": {
+        "bias": 0.30066,
+        "coverage": 0.8,
+        "mae": 1.5983399999999999,
+        "n": 5
+       },
        "WR|reserve|uncertain": {
-        "bias": -0.2572786290322582,
-        "coverage": 0.8266129032258065,
-        "mae": 1.0252669354838715,
-        "n": 496
+        "bias": -0.25661460446247475,
+        "coverage": 0.8255578093306288,
+        "mae": 1.0266073022312376,
+        "n": 493
+       },
+       "WR|support|available": {
+        "bias": -0.7901,
+        "coverage": 1,
+        "mae": 0.8371000000000002,
+        "n": 2
        },
        "WR|support|uncertain": {
-        "bias": -0.7930171232876715,
+        "bias": -0.7902123287671237,
         "coverage": 0.8013698630136986,
-        "mae": 1.8840006849315065,
+        "mae": 1.8842630136986296,
         "n": 146
        }
       },
       "bySource": {
+       "prospective": {
+        "bias": 0.07417307692307692,
+        "coverage": 0.9615384615384616,
+        "mae": 0.8936653846153847,
+        "n": 26
+       },
        "reconstructed": {
-        "bias": -0.35259927272727215,
-        "coverage": 0.855909090909091,
-        "mae": 1.0031707272727288,
-        "n": 2200
+        "bias": -0.35148042785616684,
+        "coverage": 0.8552571688666363,
+        "mae": 1.003458944014567,
+        "n": 2197
        }
       },
       "overall": {
-       "bias": -0.35259927272727215,
-       "coverage": 0.855909090909091,
-       "mae": 1.0031707272727288,
-       "n": 2200
+       "bias": -0.34650202429149723,
+       "coverage": 0.8565002249212775,
+       "mae": 1.0021748088169151,
+       "n": 2223
       },
       "prospective": {
-       "n": 0
+       "bias": 0.07417307692307692,
+       "coverage": 0.9615384615384616,
+       "mae": 0.8936653846153847,
+       "n": 26
       }
      },
      "recYd": {
       "byConfidence": {
        "Low": {
-        "bias": -2.4850372002230903,
-        "coverage": 0.8683770217512549,
-        "mae": 9.148832403792538,
-        "n": 1793
+        "bias": -2.4488124306326293,
+        "coverage": 0.8684794672586016,
+        "mae": 9.1086783573807,
+        "n": 1802
        },
        "Med": {
-        "bias": -11.312853808353811,
-        "coverage": 0.7567567567567568,
-        "mae": 26.368648894348905,
-        "n": 407
+        "bias": -11.07279144893112,
+        "coverage": 0.7577197149643705,
+        "mae": 26.17961615201901,
+        "n": 421
        }
       },
       "bySegment": {
+       "QB|primary|available": {
+        "bias": 0,
+        "coverage": 1,
+        "mae": 0,
+        "n": 2
+       },
        "QB|primary|uncertain": {
-        "bias": -0.051458940397350994,
+        "bias": -0.051445033112582784,
         "coverage": 0.9867549668874173,
-        "mae": 0.05450132450331125,
+        "mae": 0.05451523178807947,
         "n": 151
        },
        "QB|reserve|uncertain": {
@@ -802,95 +904,164 @@
         "mae": 0,
         "n": 129
        },
+       "RB|primary|available": {
+        "bias": -19.64425,
+        "coverage": 0.5,
+        "mae": 19.64425,
+        "n": 2
+       },
        "RB|primary|uncertain": {
-        "bias": -4.570181564245811,
+        "bias": -4.556244692737431,
         "coverage": 0.8044692737430168,
-        "mae": 12.171193854748608,
+        "mae": 12.176349720670396,
         "n": 179
        },
+       "RB|reserve|available": {
+        "bias": 1.0170750000000002,
+        "coverage": 1,
+        "mae": 3.200975,
+        "n": 4
+       },
        "RB|reserve|uncertain": {
-        "bias": -1.012096186440678,
+        "bias": -1.0096038135593222,
         "coverage": 0.8601694915254238,
-        "mae": 4.775004661016951,
+        "mae": 4.776213983050848,
         "n": 236
        },
+       "RB|support|available": {
+        "bias": 2.4956,
+        "coverage": 1,
+        "mae": 2.4956,
+        "n": 1
+       },
        "RB|support|uncertain": {
-        "bias": -2.1628236641221372,
+        "bias": -2.152419847328244,
         "coverage": 0.8396946564885496,
-        "mae": 8.719438931297706,
+        "mae": 8.71665190839694,
         "n": 131
        },
+       "TE|primary|available": {
+        "bias": 3.2791000000000015,
+        "coverage": 1,
+        "mae": 10.5587,
+        "n": 2
+       },
        "TE|primary|uncertain": {
-        "bias": -8.645049019607843,
+        "bias": -8.62350588235294,
         "coverage": 0.7450980392156863,
-        "mae": 23.24722549019609,
+        "mae": 23.257081045751644,
         "n": 153
        },
+       "TE|reserve|available": {
+        "bias": 3.5022,
+        "coverage": 0.75,
+        "mae": 3.5022,
+        "n": 4
+       },
        "TE|reserve|uncertain": {
-        "bias": -2.0059958506224067,
+        "bias": -2.001930290456431,
         "coverage": 0.8713692946058091,
-        "mae": 5.998946058091287,
+        "mae": 5.996380082987551,
         "n": 241
        },
+       "TE|support|available": {
+        "bias": 3.3369,
+        "coverage": 1,
+        "mae": 3.3369,
+        "n": 2
+       },
        "TE|support|uncertain": {
-        "bias": -1.1514268456375834,
+        "bias": -1.139722147651006,
         "coverage": 0.87248322147651,
-        "mae": 10.549641610738249,
+        "mae": 10.549879194630867,
         "n": 149
        },
+       "WR|primary|available": {
+        "bias": -3.47785,
+        "coverage": 1,
+        "mae": 6.1906500000000015,
+        "n": 2
+       },
        "WR|primary|uncertain": {
-        "bias": -12.970018,
+        "bias": -12.919633333333328,
         "coverage": 0.8333333333333334,
-        "mae": 34.30397666666666,
+        "mae": 34.30808266666666,
         "n": 150
        },
+       "WR|reserve|available": {
+        "bias": -1.9728799999999989,
+        "coverage": 0.6,
+        "mae": 30.80448,
+        "n": 5
+       },
        "WR|reserve|uncertain": {
-        "bias": -3.78171189516129,
-        "coverage": 0.8004032258064516,
-        "mae": 14.336721169354858,
-        "n": 496
+        "bias": -3.79116612576065,
+        "coverage": 0.7991886409736308,
+        "mae": 14.371572210953369,
+        "n": 493
+       },
+       "WR|support|available": {
+        "bias": -10.881000000000002,
+        "coverage": 1,
+        "mae": 29.960500000000003,
+        "n": 2
        },
        "WR|support|uncertain": {
-        "bias": -13.10310890410959,
+        "bias": -13.069176027397262,
         "coverage": 0.7876712328767124,
-        "mae": 26.36162534246575,
+        "mae": 26.36361164383561,
         "n": 146
        }
       },
       "bySource": {
+       "prospective": {
+        "bias": -1.694842307692308,
+        "coverage": 0.8461538461538461,
+        "mae": 12.412026923076924,
+        "n": 26
+       },
        "reconstructed": {
-        "bias": -4.118183272727269,
-        "coverage": 0.8477272727272728,
-        "mae": 12.334498454545432,
-        "n": 2200
+        "bias": -4.110304642694579,
+        "coverage": 0.8475193445607647,
+        "mae": 12.34080295857986,
+        "n": 2197
        }
       },
       "overall": {
-       "bias": -4.118183272727269,
-       "coverage": 0.8477272727272728,
-       "mae": 12.334498454545432,
-       "n": 2200
+       "bias": -4.082053621232564,
+       "coverage": 0.8475033738191633,
+       "mae": 12.341635987404391,
+       "n": 2223
       },
       "prospective": {
-       "n": 0
+       "bias": -1.694842307692308,
+       "coverage": 0.8461538461538461,
+       "mae": 12.412026923076924,
+       "n": 26
       }
      },
      "rushYd": {
       "byConfidence": {
        "Low": {
-        "bias": -0.7779527055150879,
-        "coverage": 0.8938605619146722,
-        "mae": 3.0449207596253896,
-        "n": 1922
+        "bias": -0.7831374226804119,
+        "coverage": 0.893298969072165,
+        "mae": 3.0521574226804122,
+        "n": 1940
        },
        "Med": {
-        "bias": -9.171286690647488,
-        "coverage": 0.762589928057554,
-        "mae": 21.01313848920863,
-        "n": 278
+        "bias": -9.034822968197886,
+        "coverage": 0.7632508833922261,
+        "mae": 20.955872438162537,
+        "n": 283
        }
       },
       "bySegment": {
+       "QB|primary|available": {
+        "bias": 2.9174000000000007,
+        "coverage": 1,
+        "mae": 2.9174000000000007,
+        "n": 2
+       },
        "QB|primary|uncertain": {
         "bias": -4.620200662251656,
         "coverage": 0.6291390728476821,
@@ -909,11 +1080,23 @@
         "mae": 3.992313178294574,
         "n": 129
        },
+       "RB|primary|available": {
+        "bias": 13.924149999999997,
+        "coverage": 1,
+        "mae": 21.052149999999997,
+        "n": 2
+       },
        "RB|primary|uncertain": {
         "bias": -8.90932681564246,
         "coverage": 0.8770949720670391,
         "mae": 22.16762625698325,
         "n": 179
+       },
+       "RB|reserve|available": {
+        "bias": -5.04835,
+        "coverage": 0.75,
+        "mae": 13.68805,
+        "n": 4
        },
        "RB|reserve|uncertain": {
         "bias": -3.054100847457631,
@@ -921,11 +1104,23 @@
         "mae": 8.979850000000003,
         "n": 236
        },
+       "RB|support|available": {
+        "bias": -40.9203,
+        "coverage": 0,
+        "mae": 40.9203,
+        "n": 1
+       },
        "RB|support|uncertain": {
         "bias": -3.442269465648855,
         "coverage": 0.7175572519083969,
         "mae": 17.911930534351146,
         "n": 131
+       },
+       "TE|primary|available": {
+        "bias": 0,
+        "coverage": 1,
+        "mae": 0,
+        "n": 2
        },
        "TE|primary|uncertain": {
         "bias": -0.06039150326797386,
@@ -933,11 +1128,23 @@
         "mae": 0.1536529411764706,
         "n": 153
        },
+       "TE|reserve|available": {
+        "bias": -1.236425,
+        "coverage": 0.75,
+        "mae": 1.236425,
+        "n": 4
+       },
        "TE|reserve|uncertain": {
         "bias": -0.017512033195020746,
         "coverage": 0.995850622406639,
         "mae": 0.03228049792531121,
         "n": 241
+       },
+       "TE|support|available": {
+        "bias": 0,
+        "coverage": 1,
+        "mae": 0,
+        "n": 2
        },
        "TE|support|uncertain": {
         "bias": -0.0059751677852349,
@@ -945,17 +1152,35 @@
         "mae": 0.02087046979865772,
         "n": 149
        },
+       "WR|primary|available": {
+        "bias": -1.44875,
+        "coverage": 0.5,
+        "mae": 2.5873500000000003,
+        "n": 2
+       },
        "WR|primary|uncertain": {
         "bias": -0.43521266666666664,
         "coverage": 0.8466666666666667,
         "mae": 1.9401433333333329,
         "n": 150
        },
+       "WR|reserve|available": {
+        "bias": 0.51098,
+        "coverage": 1,
+        "mae": 0.51098,
+        "n": 5
+       },
        "WR|reserve|uncertain": {
-        "bias": -0.19704193548387094,
-        "coverage": 0.9435483870967742,
-        "mae": 0.5841294354838712,
-        "n": 496
+        "bias": -0.1982409736308316,
+        "coverage": 0.9432048681541582,
+        "mae": 0.5876839756592295,
+        "n": 493
+       },
+       "WR|support|available": {
+        "bias": 0.7101,
+        "coverage": 1,
+        "mae": 0.7101,
+        "n": 2
        },
        "WR|support|uncertain": {
         "bias": -0.3718150684931506,
@@ -965,21 +1190,30 @@
        }
       },
       "bySource": {
+       "prospective": {
+        "bias": -1.203796153846154,
+        "coverage": 0.8461538461538461,
+        "mae": 6.065657692307694,
+        "n": 26
+       },
        "reconstructed": {
-        "bias": -1.8385649090909089,
-        "coverage": 0.8772727272727273,
-        "mae": 5.315450090909081,
-        "n": 2200
+        "bias": -1.8410754665452889,
+        "coverage": 0.8771051433773327,
+        "mae": 5.322708329540272,
+        "n": 2197
        }
       },
       "overall": {
-       "bias": -1.8385649090909089,
-       "coverage": 0.8772727272727273,
-       "mae": 5.315450090909081,
-       "n": 2200
+       "bias": -1.833621907332434,
+       "coverage": 0.8767431399010346,
+       "mae": 5.33139779577147,
+       "n": 2223
       },
       "prospective": {
-       "n": 0
+       "bias": -1.203796153846154,
+       "coverage": 0.8461538461538461,
+       "mae": 6.065657692307694,
+       "n": 26
       }
      }
     }
@@ -994,19 +1228,19 @@
    {
     "applied": true,
     "prospective": 0,
-    "reconstructed": 409,
+    "reconstructed": 408,
     "week": 5
    },
    {
     "applied": true,
     "prospective": 0,
-    "reconstructed": 436,
+    "reconstructed": 435,
     "week": 4
    },
    {
     "applied": true,
     "prospective": 0,
-    "reconstructed": 438,
+    "reconstructed": 437,
     "week": 3
    }
   ],
@@ -1017,6 +1251,7 @@
    "recYd: +10%",
    "passYd: +10%",
    "lt15 chances: +14%",
+   "15to25 chances: +1%",
    "25to35 chances: +5%",
    "35to50 chances: -3%",
    "50plus chances: +6%",
@@ -1028,25 +1263,25 @@
    "t3 spot: +24%"
   ],
   "inWeek": {
-   "confirmed": 30
+   "confirmed": 56
   },
   "label": "Learned from finished games (reconstructed history, not prospectively validated), from the last three weeks",
-  "modelVersion": "endzone-4.5.0",
+  "modelVersion": "endzone-4.5.1",
   "scales": {
    "band": {
-    "15to25": 1.0046627261237444,
-    "25to35": 1.0508036057137833,
+    "15to25": 1.0093337539916873,
+    "25to35": 1.0506473677015682,
     "35to50": 0.9653646109754804,
     "50plus": 1.0594778830159217,
-    "lt15": 1.1404646111714434
+    "lt15": 1.1417419284790697
    },
    "spot": {
-    "r1": 1.2497140824646367,
-    "r2": 0.8394395693071438,
-    "r3": 1.1787719481495442,
-    "t1": 1.1141507973650695,
-    "t2": 0.9145901039553039,
-    "t3": 1.2357757511945922
+    "r1": 1.2496653548961596,
+    "r2": 0.8392099962871452,
+    "r3": 1.178752576725982,
+    "t1": 1.1142433552053903,
+    "t2": 0.914693790210853,
+    "t3": 1.2358286666469633
    },
    "vol": {
     "passYd": 1.1,
@@ -1061,7 +1296,7 @@
  "promotion": {
   "promote": false,
   "reasons": [
-   "Needs ≥500 prospective paired players for endzone-4.5.0; have 0.",
+   "Needs ≥500 prospective paired players for endzone-4.5.1; have 0.",
    "Needs ≥40 games; have 0."
   ]
  }
