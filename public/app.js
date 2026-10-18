@@ -18,7 +18,7 @@ const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } cat
 const S = { slate: null, tab: 'slate', week: null, season: null, gameId: null, panel: null, detail: null, reqId: 0, loading: false, token: null, backtest: null,
   weights: sanitizeWeights(load(LS.weights, DEFAULT_WEIGHTS)), watch: new Set(load(LS.watch, [])),
   board: Object.assign({ pos: 'ALL', q: '', game: '', hideLow: false, hideStarted: false, watchOnly: false, sort: 'default' }, load(LS.board, {})), auto: load(LS.auto, { enabled: false, minutes: 15 }),
-  focus: load(LS.view, null) ?? window.matchMedia('(max-width:1023px)').matches };
+  focus: load(LS.view, null) ?? window.matchMedia('(max-width:1023px) and (orientation:portrait)').matches };
 const worker = new Worker('/src/worker.js', { type: 'module' });
 let timers = [];
 
@@ -338,7 +338,7 @@ function renderPanel() {
   const why = d?.matchupLead?.sentence || p.conversionNote || p.tdConf.reasons?.[0] || '';
   const opp = f.s === 'away' ? g.sides.home.team : g.sides.away.team;
   const notes = [p.conversionNote, p.riser?.reason, p.secondOption, ...(p.safetyNotes || []), ...(p.lessonNotes || []), d?.notes?.spike].filter(Boolean);
-  el.innerHTML = `<div class="row between"><h2 id="panelTitle">${esc(p.name)}</h2><button class="btn" data-act="close" aria-label="Close player details">Close ✕</button></div>
+  el.innerHTML = `<div class="pcols"><div class="pcol-a"><div class="row between phead"><h2 id="panelTitle">${esc(p.name)}</h2><button class="btn" data-act="close" aria-label="Close player details">Close ✕</button></div>
    <div class="row pid">${photo(p)}<div><span class="muted">${esc(p.pos)} · ${esc(p.team)} vs ${esc(opp)}</span><div class="small">${esc(d?.role || p.role || '')} · ${esc(p.avail?.label || '')}${p.replacing ? ` · replacing ${esc(p.replacing.name)}` : ''}</div></div></div>
    <section class="card summary ${p.tdConf.level === 'High' ? 'high' : ''}" aria-labelledby="sumH"><h3 id="sumH" class="eyebrow">Summary</h3>
      <div class="sumgrid"><div class="sumchance"><div class="small muted">Anytime chance</div><div class="big" aria-label="Anytime touchdown chance ${pc(p.chance)}">${pc(p.chance, 1)}</div></div>
@@ -350,6 +350,7 @@ function renderPanel() {
      ${why ? `<p class="why">${esc(why)}</p>` : ''}</section>
    <div class="row"><button class="btn gold" data-act="ai" aria-describedby="aiHint">AI analysis</button><span id="aiHint" class="small muted">${aiSettings().key ? `Uses your ${esc(PROVIDERS[aiSettings().provider]?.label || 'AI')} key from Lab · never changes the model's number` : 'No AI key set: built-in review (add a key in Lab → AI analyst)'}</span></div>
    <div id="aiOut" aria-live="polite">${aiCached(g, p) ? aiReviewHtml(aiCached(g, p)) : ''}</div>
+   </div><div class="pcol-b">
    ${sec('Probability details', `<div class="kv small"><div>Published projection<br><strong>${p.published ? pc(p.published.probability) : 'none'}</strong></div><div>First TD<br><strong>${pc(p.firstTd, 1)}</strong></div><div>Two or more<br><strong>${pc(dist.twoPlus, 1)}</strong></div><div>80% band<br><strong>${pc(p.band[0])}–${pc(p.band[1])}</strong></div></div>
      <p class="small">Count distribution: 0 ${pc(dist.p0)} · 1 ${pc(dist.p1)} · 2 ${pc(dist.p2)} · 3+ ${pc(dist.p3plus)} (λ ${n1(p.lambda)}). The band is uncertainty about the probability, not a range for his touchdown count.</p>`)}
    ${d ? sec('Score matchup', `<p>${esc(d.matchupLead.sentence)}</p><p class="small">${esc(d.matchupLead.evidence || '')} ${d.matchupLead.featured ? `This offense ${esc(d.matchupLead.featured)} the position (role ratio ${d.matchupLead.roleRatio?.toFixed(2)}).` : ''} ${d.matchupLead.liftBlocked ? 'No real recent scoring opportunities, so the soft position does not lift him.' : ''}</p><p class="small muted">${esc(d?.weather?.note || '')}</p>`) : '<p class="muted small">Loading details…</p>'}
@@ -358,7 +359,7 @@ function renderPanel() {
    ${p.pos === 'QB' ? sec('Passing touchdowns', `<p>${passTdCell(p)}</p><p class="small">${esc((p.passTd?.reasons || []).join(' '))} Passing TDs do not count toward his anytime chance.</p>`) : ''}
    ${sec('Trends that moved his chance', panelTrendsHtml(p))}
    ${notes.length ? sec('Model notes', notes.map(t => `<p class="small">• ${esc(t)}</p>`).join('')) : ''}
-   ${d ? h3ToDetails(detailBody(d, p, g)) : ''}`;
+   ${d ? h3ToDetails(detailBody(d, p, g)) : ''}</div></div>`;
   if (el.dataset.focused !== p.id || focusWasInside || !el.contains(document.activeElement)) { el.dataset.focused = p.id; el.querySelector('[data-act=close]').focus({ preventScroll: true }); }
 }
 function statTable(rows, caption) {
@@ -509,5 +510,9 @@ $('#nextWeek').addEventListener('click', () => { if (S.week < 18) { S.week++; S.
 $('#refreshBtn').addEventListener('click', () => startLoad(true));
 const syncFocus = () => { const b = $('#focusBtn'); b.setAttribute('aria-pressed', String(!!S.focus)); b.textContent = S.focus ? 'Focus ✓' : 'Focus'; b.classList.toggle('gold', !!S.focus); };
 $('#focusBtn').addEventListener('click', () => { S.focus = !S.focus; save(LS.view, S.focus); syncFocus(); renderAll(); }); syncFocus();
+// Rotation / breakpoint changes re-render in place (no reload): selected game, open player, filters and scroll are kept.
+let mqTimer = null;
+const onLayoutChange = () => { clearTimeout(mqTimer); mqTimer = setTimeout(() => { if (!S.slate) return; const y = window.scrollY; const ps = $('#panel')?.scrollTop || 0; renderAll(); if (S.panel) { renderPanel(); $('#panel').scrollTop = ps; } window.scrollTo(0, y); }, 120); };
+for (const q of ['(max-width:1023px)', '(orientation:landscape)', '(max-height:500px)', '(max-width:720px)']) window.matchMedia(q).addEventListener('change', onLayoutChange);
 window.addEventListener('resize', () => { if (S.panel) renderPanel(); });
 renderControls(); applyAuto(); startLoad(false); // initial load only; no background schedule unless the user opts in

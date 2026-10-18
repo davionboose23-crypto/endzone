@@ -1,6 +1,6 @@
 // Core touchdown model math: one Poisson intensity per player, distribution,
 // first-TD share, display transforms, safety calibration, and coherent scaling.
-export const MODEL_VERSION = 'endzone-4.5.0';
+export const MODEL_VERSION = 'endzone-4.5.1';
 export const DEFAULT_WEIGHTS = Object.freeze({ recentBlend: 0.40, publishedBlend: 0.35, script: 1, redZone: 1, shrinkGames: 3, tePremium: 1, goalLine: 1.12, defenseTrust: 1 });
 export const WEIGHT_RANGES = { recentBlend: [0, 0.8], publishedBlend: [0, 0.7], script: [0, 1.5], redZone: [0.5, 1.5], shrinkGames: [1, 8], tePremium: [0.7, 1.3], goalLine: [0.8, 1.4], defenseTrust: [0, 1.5] };
 export const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));

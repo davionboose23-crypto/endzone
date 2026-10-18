@@ -36,7 +36,7 @@ th{position:sticky;top:0;background:var(--surface2);font-family:var(--display);f
 th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--surface);z-index:1}
 tr.high td{background:rgba(228,181,74,.10)}tr.high td:first-child{box-shadow:inset 4px 0 0 var(--gold)}
 .plink{background:none;border:none;color:var(--cream);font:inherit;font-weight:700;cursor:pointer;min-height:44px;text-align:left;padding:0;display:flex;gap:8px;align-items:center}
-.cards-mobile{display:none}@media(max-width:720px){.cards-mobile{display:block}.desk-only{display:none}}
+.cards-mobile{display:none}@media(max-width:720px) and (orientation:portrait),(max-width:560px){.cards-mobile{display:block}.desk-only{display:none}}
 .pcard{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center}
 .meter{height:8px;background:var(--surface2);border-radius:6px;overflow:hidden}.meter>span{display:block;height:100%;background:var(--gold)}
 details{border:1px solid var(--border);border-radius:10px;padding:6px 10px;margin:8px 0;background:var(--surface)}summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700}
@@ -113,3 +113,30 @@ details.sec>.secbody{padding-bottom:var(--s3)}details.sec[open]>summary{border-b
 .pid{flex-wrap:nowrap}.pid>div{min-width:0}
 #pickTracker td{vertical-align:middle}
 @media(max-width:560px){.controls{grid-template-columns:auto 44px minmax(0,1fr) 44px}.top{position:sticky}#refreshBtn{position:absolute;top:10px;right:16px}#focusBtn{position:absolute;top:10px;right:112px}.season{max-width:none}}
+/* ---- 4.5.1 landscape + safe areas ---- */
+.top,.tabs,main,.foot{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+.panel{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:max(60px,env(safe-area-inset-bottom))}
+.sa-note{cursor:pointer}
+.pcols{display:block}
+/* short landscape phones (e.g. 844x390, 932x430, 740x360, 667x375): compact, non-sticky chrome, two-column panel */
+@media (orientation:landscape) and (max-height:500px){
+  .top{position:static;display:flex;flex-wrap:nowrap;align-items:center;padding-top:max(4px,env(safe-area-inset-top));padding-bottom:4px;gap:8px}
+  .top .eyebrow{display:none}.wordmark{font-size:1.4rem}
+  .controls{display:flex;flex-wrap:nowrap;margin-left:auto;gap:4px}.controls .select{width:auto;min-width:0;max-width:200px}
+  #focusBtn,#refreshBtn{position:static}
+  .status{display:none}
+  .tabs{padding-top:4px;padding-bottom:4px}.tab{min-height:44px;font-size:1rem}
+  .sa-note{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:2px 12px!important}.sa-note.open{white-space:normal}
+  .panel{inset:0;padding-top:max(8px,env(safe-area-inset-top))}
+  .pcols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:16px;align-items:start}
+  .pcol-a{position:sticky;top:0;max-height:calc(100dvh - 16px);overflow-y:auto;padding-bottom:12px;background:var(--bg);z-index:2}
+  .summary .sumgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.summary .sumchance{grid-column:1/-1}
+  .big{font-size:1.9rem}.card{margin:6px 0;padding:10px}
+  .card.ai .aigrid{grid-template-columns:1fr}
+  .slate-layout.open{grid-template-columns:1fr}
+  .labsec{scroll-margin-top:8px}
+}
+/* the very short landscape case (<=380px tall): even tighter */
+@media (orientation:landscape) and (max-height:380px){.wordmark{font-size:1.2rem}.tab{font-size:.95rem}.season{display:none}}
+/* tablet landscape: wide side panel keeps two columns of content */
+@media (orientation:landscape) and (min-width:1024px) and (max-width:1366px){.panel .pcols{display:block}}

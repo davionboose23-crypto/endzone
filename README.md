@@ -120,3 +120,14 @@ Limits: GitHub can delay or skip scheduled runs under load (snapshots are captur
   - **Key storage:** the key lives only in this device's localStorage and is never sent to ENDZONE, the repo, snapshots or logs.
   - **Built-in review:** without a key, or if the call fails, a deterministic rule-based review labeled "Built-in review (no AI key)" is shown.
   - **Caching:** reviews are cached per player per snapshot and never change the model's numbers.
+
+## endzone-4.5.1 — phone and tablet landscape
+- Short landscape (`(orientation: landscape) and (max-height: 500px)`, e.g. 844×390, 932×430, 740×360, 667×375):
+  - **Header and tabs:** one-row, non-sticky header (about 53 px instead of 94–146 px); status line hidden; compact tabs that still meet 44 px.
+  - **Standalone notice:** collapses to one line (tap to expand).
+  - **Player sheet:** two columns. Name, Close and summary on the left (sticky, scrolls on its own); disclosures on the right.
+  - **Tables:** landscape phones get the full table (inside its own sideways scroller) instead of the portrait card list. Focus defaults on only for portrait phones.
+- Safe areas: `viewport-fit=cover` plus `env(safe-area-inset-*)` padding on header, tabs, main, footer and panel. No web manifest exists, so there is no orientation lock.
+- Rotation re-renders in place on breakpoint changes (no reload), keeping the selected game, open player, panel scroll, filters and page scroll.
+- `tests/landscape.test.js` covers five landscape sizes: header under 25% of the height, no page-level horizontal overflow, panel scrollable, Close visible and at least 44 px, plus a rotation round-trip.
+- Screenshots: `SIZES=844x390,932x430 MOBILE=1 node scripts/ux-shots.mjs <dir> [url]` (`shots/` is git-ignored).
