@@ -3,16 +3,16 @@
   "learned": {
    "active": {
     "band": {
-     "15to25": 1.0095016575191542,
-     "25to35": 1.0471978468008913,
-     "35to50": 0.9062906284892266,
+     "15to25": 1.0248842351182852,
+     "25to35": 1.0241579435449308,
+     "35to50": 0.9227188290279303,
      "50plus": 0.9661445496825882,
      "lt15": 1.1417419284790697
     },
     "basis": [
      {
       "applied": true,
-      "prospective": 285,
+      "prospective": 311,
       "reconstructed": 30,
       "week": 6
      },
@@ -31,45 +31,46 @@
     ],
     "label": "Learned from finished games, from the last three weeks",
     "spot": {
-     "r1": 1.2226535834355017,
-     "r2": 0.8161143003864022,
-     "r3": 1.1404803348182033,
-     "t1": 1.0004348380191592,
-     "t2": 0.9783829874383886,
-     "t3": 1.2358286666469633
+     "r1": 1.22888343327833,
+     "r2": 0.8098342738372418,
+     "r3": 1.139382263686506,
+     "t1": 0.9792524939063756,
+     "t2": 1.0011720301310363,
+     "t3": 1.2165544136292612
     },
     "vol": {
-     "passYd": 1.071568042269823,
-     "rec": 1.0785072531956321,
-     "recYd": 1.0784531228696286,
-     "rushYd": 1.0484251010268135
+     "passYd": 1.0659269373457427,
+     "rec": 1.0790541337383763,
+     "recYd": 1.075501467200284,
+     "rushYd": 1.042136934204103
     }
    },
    "describe": [
     "Learned from finished games, from the last three weeks",
-    "rushYd: +5%",
+    "rushYd: +4%",
     "rec: +8%",
     "recYd: +8%",
     "passYd: +7%",
     "lt15 chances: +14%",
-    "15to25 chances: +1%",
-    "25to35 chances: +5%",
-    "35to50 chances: -9%",
+    "15to25 chances: +2%",
+    "25to35 chances: +2%",
+    "35to50 chances: -8%",
     "50plus chances: -3%",
-    "r1 spot: +22%",
-    "r2 spot: -18%",
+    "r1 spot: +23%",
+    "r2 spot: -19%",
     "r3 spot: +14%",
-    "t2 spot: -2%",
-    "t3 spot: +24%"
+    "t1 spot: -2%",
+    "t3 spot: +22%"
    ],
    "inWeek": null,
    "promotion": {
     "promote": false,
     "reasons": [
-     "Needs ≥500 prospective paired players for endzone-4.5.1; have 80.",
-     "Needs ≥40 games; have 3.",
+     "Needs ≥500 prospective paired players for endzone-4.5.1; have 106.",
+     "Needs ≥40 games; have 4.",
      "Brier improvement not beyond game-level sampling uncertainty.",
-     "Log loss not lower."
+     "Log loss not lower.",
+     "Calibration error worse than tolerance .005."
     ]
    }
   },
@@ -77,14 +78,14 @@
   "season": 2026,
   "steps": [
    "lessons for weeks 1,2,3,4,5,6",
-   "saved 3 pregame frames, 11 skipped",
-   "outcomes inserted 0, revised 0, unchanged 378",
+   "saved 14 pregame frames, 0 skipped",
+   "outcomes inserted 0, revised 0, unchanged 411",
    "validation updated"
   ],
   "week": 7
  },
- "finished_at": "2026-10-19T02:07:40.021Z",
+ "finished_at": "2026-10-19T07:57:31.572Z",
  "kind": "refresh",
- "started_at": "2026-10-19T02:07:32.540Z",
+ "started_at": "2026-10-19T07:57:24.183Z",
  "status": "success"
 }
