@@ -1,27 +1,27 @@
 {
  "components": {
   "caps": {
-   "decidedAt": "2026-10-16T21:52:54.909Z",
+   "decidedAt": "2026-10-20T16:28:12.331Z",
    "enabled": false,
    "fit": {
-    "ceil": 0.6394,
-    "cold": 0.4353,
-    "fin": 0.6394,
-    "floor": 0.1408,
-    "pullS": 0.044,
-    "pullT": 0.4112
+    "ceil": 0.6398,
+    "cold": 0.4349,
+    "fin": 0.6661,
+    "floor": 0.14,
+    "pullS": 0.0432,
+    "pullT": 0.4115
    },
-   "reason": "withheld: Brier change -0.0009 [-0.0017,0] not below zero; log-loss change -0.0016 [-0.0034,0.0004] not below zero",
-   "throughWeek": 5
+   "reason": "withheld: Brier change -0.0007 [-0.0016,0.0001] not below zero; log-loss change -0.0013 [-0.0033,0.0006] not below zero",
+   "throughWeek": 6
   },
   "challenger": {
-   "decidedAt": "2026-10-16T21:52:54.909Z",
+   "decidedAt": "2026-10-20T16:28:12.331Z",
    "enabled": false,
-   "reason": "withheld: Needs ≥500 prospective paired players for endzone-4.4.0; have 0. Needs ≥40 games; have 0."
+   "reason": "withheld: Needs ≥500 prospective paired players for endzone-4.5.1; have 0. Needs ≥40 games; have 0."
   },
-  "modelVersion": "endzone-4.4.0",
+  "modelVersion": "endzone-4.5.1",
   "trends": {
-   "decidedAt": "2026-10-16T21:52:54.909Z",
+   "decidedAt": "2026-10-20T16:28:12.331Z",
    "enabled": false,
    "families": {
     "defense": {
@@ -36,8 +36,8 @@
        0,
        0
       ],
-      "games": 79,
-      "n": 1782
+      "games": 93,
+      "n": 2098
      },
      "enabled": false,
      "reason": "off: no improvement in Brier or log loss",
@@ -55,8 +55,8 @@
        0,
        0
       ],
-      "games": 79,
-      "n": 1782
+      "games": 93,
+      "n": 2098
      },
      "enabled": false,
      "reason": "off: no improvement in Brier or log loss",
@@ -71,14 +71,14 @@
       ],
       "dLogLoss": 0,
       "dLogLossCI": [
-       0,
-       0
+       -0.0001,
+       0.0001
       ],
-      "games": 79,
-      "n": 1782
+      "games": 93,
+      "n": 2098
      },
      "enabled": false,
-     "reason": "off: no improvement in Brier or log loss; team calls regress (0.0001); contributors regress (0)",
+     "reason": "off: no improvement in Brier or log loss; contributors regress (0)",
      "weight": 0
     },
     "redzone": {
@@ -93,8 +93,8 @@
        0,
        0
       ],
-      "games": 79,
-      "n": 1782
+      "games": 93,
+      "n": 2098
      },
      "enabled": false,
      "reason": "off: no improvement in Brier or log loss",
@@ -112,8 +112,8 @@
        0,
        0
       ],
-      "games": 79,
-      "n": 1782
+      "games": 93,
+      "n": 2098
      },
      "enabled": false,
      "reason": "off: no improvement in Brier or log loss",
@@ -131,8 +131,8 @@
        0,
        0
       ],
-      "games": 79,
-      "n": 1782
+      "games": 93,
+      "n": 2098
      },
      "enabled": false,
      "reason": "off: no improvement in Brier or log loss; team calls regress (0.0001); contributors regress (0)",
@@ -150,16 +150,16 @@
        0,
        0
       ],
-      "games": 79,
-      "n": 1782
+      "games": 93,
+      "n": 2098
      },
      "enabled": false,
      "reason": "off: no improvement in Brier or log loss",
      "weight": 0
     }
    },
-   "reason": "all families off: snap (no improvement in Brier or log loss); usage (no improvement in Brier or log loss); redzone (no improvement in Brier or log loss); qbRush (no improvement in Brier or log loss; team calls regress (0.0001); contributors regress (0)); streak (no improvement in Brier or log loss; team calls regress (0.0001); contributors regress (0)); defense (no improvement in Brier or log loss); miss (no improvement in Brier or log loss)",
-   "throughWeek": 5,
+   "reason": "all families off: snap (no improvement in Brier or log loss); usage (no improvement in Brier or log loss); redzone (no improvement in Brier or log loss); qbRush (no improvement in Brier or log loss; contributors regress (0)); streak (no improvement in Brier or log loss; team calls regress (0.0001); contributors regress (0)); defense (no improvement in Brier or log loss); miss (no improvement in Brier or log loss)",
+   "throughWeek": 6,
    "weights": {
     "defense": 0,
     "miss": 0,
@@ -525,6 +525,65 @@
     }
    },
    "week": 6
+  },
+  {
+   "budget": {
+    "a": -1.0223750950632962,
+    "b": 0.15428561939454752,
+    "n": 1274
+   },
+   "season": 2026,
+   "volcal": {
+    "passYd.hi": {
+     "c": 1.02,
+     "kHi": 0.65,
+     "kLo": 0.65,
+     "n": 1035
+    },
+    "passYd.lo": {
+     "c": 0.85,
+     "kHi": 1.9,
+     "kLo": 1,
+     "n": 1516
+    },
+    "rec.hi": {
+     "c": 0.97,
+     "kHi": 1.35,
+     "kLo": 1,
+     "n": 4971
+    },
+    "rec.lo": {
+     "c": 0.85,
+     "kHi": 1.35,
+     "kLo": 1,
+     "n": 12370
+    },
+    "recYd.hi": {
+     "c": 0.92,
+     "kHi": 1.55,
+     "kLo": 0.95,
+     "n": 3969
+    },
+    "recYd.lo": {
+     "c": 0.85,
+     "kHi": 1.25,
+     "kLo": 1,
+     "n": 13372
+    },
+    "rushYd.hi": {
+     "c": 0.99,
+     "kHi": 1.4,
+     "kLo": 0.95,
+     "n": 1830
+    },
+    "rushYd.lo": {
+     "c": 0.85,
+     "kHi": 0.5,
+     "kLo": 1,
+     "n": 15511
+    }
+   },
+   "week": 7
   }
  ],
  "note": "Walk-forward fits. Entry (season, week) uses only games before that week. Generated by scripts/hist/ship-fits.mjs."
