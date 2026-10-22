@@ -1,7 +1,7 @@
 // ENDZONE UI (browser module). Heavy computation runs in the Web Worker.
 import { fmtAmerican, DEFAULT_WEIGHTS, WEIGHT_RANGES, sanitizeWeights } from '/src/model.js';
 import { STAGES, etDisplay, requestGate } from '/src/feeds.js';
-import { sortPlayers, SORTS, compareDefault } from '/src/ranking.js';
+import { sortPlayers, SORTS, SORT_GROUPS, compareDefault } from '/src/ranking.js';
 import { teamLogo } from '/src/roster.js';
 import { snapshotPassTd } from '/src/passing-touchdowns.js';
 import { buildBrief, analyze, PROVIDERS } from '/src/analyst.js';
@@ -258,11 +258,14 @@ function matchupHtml(g) {
 }
 // Focus view (user request): anytime %, TD confidence, and the single primary yardage line.
 const PRIMARY = { QB: ['passYd', 'Pass yds'], RB: ['rushYd', 'Rush yds'], FB: ['rushYd', 'Rush yds'], WR: ['recYd', 'Rec yds'], TE: ['recYd', 'Rec yds'] };
-const primaryCell = p => { const [m, l] = PRIMARY[p.pos] || PRIMARY.WR; const v = p.volume?.[m]; return `<span class="muted small">${l}</span> ${v ? (m === 'rec' ? n1(v.mean) : n0(v.mean)) : '—'}`; };
+// Board stat sorts show the sorted stat (with its own model-confidence chip) in the focus list's last column.
+const STAT_LBL = { rushYd: 'Rush yds', recYd: 'Rec yds', rec: 'Rec' };
+const sortStat = k => { const m = String(k || '').replace(/Conf$/, ''); return STAT_LBL[m] ? m : null; };
+const primaryCell = (p, stat) => { const [m, l] = stat ? [stat, STAT_LBL[stat]] : (PRIMARY[p.pos] || PRIMARY.WR); const v = p.volume?.[m]; return `<span class="muted small">${l}</span> ${v ? (m === 'rec' ? n1(v.mean) : n0(v.mean)) : '—'}${stat || (p.pos === 'QB' && /^passYd/.test(S.board.sort) && S.tab === 'board') ? ` ${chip(p.volConf?.[m]?.level)}` : ''}`; };
 const focusBtn = (p, gid) => `<button class="plink" data-act="player" data-game="${esc(gid)}" data-player="${esc(p.id)}">${photo(p)}<span>${esc(p.name)} <span class="muted small">${esc(p.pos)} · ${esc(p.team)}</span></span></button>`;
-function focusList(players, gidOf, label, withStar = false) {
-  return `<div class="focuslist" role="table" aria-label="${esc(label)} (focus view)"><div role="row" class="frow fhead small muted"><span role="columnheader">Player</span><span role="columnheader">Anytime</span><span role="columnheader">TD conf</span><span role="columnheader">Primary yards</span></div>
-   ${players.map(p => `<div role="row" class="frow ${p.tdConf.level === 'High' ? 'high' : ''}"><span role="cell" class="fplayer">${withStar ? star(p) : ''}${focusBtn(p, gidOf(p))}</span><span role="cell" class="mid">${pc(p.chance)}</span><span role="cell" aria-label="TD confidence ${p.tdConf.level}">${chip(p.tdConf.level)}</span><span role="cell">${primaryCell(p)}</span></div>`).join('')}</div>`;
+function focusList(players, gidOf, label, withStar = false, stat = null) {
+  return `<div class="focuslist" role="table" aria-label="${esc(label)} (focus view)"><div role="row" class="frow fhead small muted"><span role="columnheader">Player</span><span role="columnheader">Anytime</span><span role="columnheader">TD conf</span><span role="columnheader">${stat ? esc(STAT_LBL[stat]) : 'Primary yards'}</span></div>
+   ${players.map(p => `<div role="row" class="frow ${p.tdConf.level === 'High' ? 'high' : ''}"><span role="cell" class="fplayer">${withStar ? star(p) : ''}${focusBtn(p, gidOf(p))}</span><span role="cell" class="mid">${pc(p.chance)}</span><span role="cell" aria-label="TD confidence ${p.tdConf.level}">${chip(p.tdConf.level)}</span><span role="cell">${primaryCell(p, stat)}</span></div>`).join('')}</div>`;
 }
 function mobileCard(p, gid) {
   return `<div class="card ${p.tdConf.level === 'High' ? 'high' : ''}"><div class="pcard">${photo(p)}<div><button class="plink" data-act="player" data-game="${esc(gid)}" data-player="${esc(p.id)}">${esc(p.name)}</button><div class="small muted">${esc(p.pos)} · ${esc(p.team)} ${highBadge(p)}</div></div><div class="big">${pc(p.chance)}</div></div>
@@ -292,10 +295,10 @@ function renderBoard() {
     <label><input type="checkbox" id="bhide" ${b.hideLow ? 'checked' : ''}> Hide under 15%</label>
     <label><input type="checkbox" id="bstarted" ${b.hideStarted ? 'checked' : ''}> Hide started</label>
     <label><input type="checkbox" id="bwatch" ${b.watchOnly ? 'checked' : ''}> Watchlist only</label>
-    <label>Sort <select id="bsort">${Object.entries(SORTS).map(([k, s]) => `<option value="${k}" ${b.sort === k ? 'selected' : ''}>${esc(s.label)}</option>`).join('')}</select></label></div>
-   <p class="small muted">${rows.length} players. ${b.sort !== 'default' ? 'Explicit stat sort: team calls and ratings are unchanged.' : 'High touchdown confidence first, then chance.'}</p>
+    <label>Sort <select id="bsort">${SORT_GROUPS.map(([g, ks]) => `<optgroup label="${esc(g)}">${ks.map(k => `<option value="${k}" ${b.sort === k ? 'selected' : ''}>${esc(SORTS[k].label)}</option>`).join('')}</optgroup>`).join('')}</select></label></div>
+   <p class="small muted">${rows.length} players. ${b.sort === 'default' ? 'High touchdown confidence first, then chance.' : b.sort === 'conf' ? 'Model TD confidence High › Med › Low, then chance. Team calls and ratings are unchanged.' : SORTS[b.sort]?.conf ? `Model confidence for ${esc(SORTS[b.sort].label.split(' — ')[0].toLowerCase())}: High › Med › Low, then projection. Players without that projection last.` : 'Explicit stat sort: team calls and ratings are unchanged.'}</p>
    <p class="scrollhint" aria-hidden="true">Scroll sideways for every column →</p>
-   ${S.focus ? focusList(rows, p => p.gameId, 'Board', true) : `   <div class="tablewrap desk-only" tabindex="0" role="region" aria-label="Board"><table><thead><tr><th scope="col">Player</th><th scope="col">★</th><th scope="col">Anytime</th><th scope="col">80% band</th><th scope="col">Edge</th><th scope="col">American fair price</th><th scope="col">TD conf</th><th scope="col">Rush yds</th><th scope="col">Rec yds</th><th scope="col">Receptions</th><th scope="col">Role</th></tr></thead>
+   ${S.focus ? focusList(rows, p => p.gameId, 'Board', true, sortStat(b.sort)) : `   <div class="tablewrap desk-only" tabindex="0" role="region" aria-label="Board"><table><thead><tr><th scope="col">Player</th><th scope="col">★</th><th scope="col">Anytime</th><th scope="col">80% band</th><th scope="col">Edge</th><th scope="col">American fair price</th><th scope="col">TD conf</th><th scope="col">Rush yds</th><th scope="col">Rec yds</th><th scope="col">Receptions</th><th scope="col">Role</th></tr></thead>
    <tbody>${rows.map(p => `<tr class="${p.tdConf.level === 'High' ? 'high' : ''}"><td>${playerBtn(p, p.gameId)}${qbLine(p)}</td><td>${star(p)}</td><td class="mid">${pc(p.chance)}</td><td>${pc(p.band[0])}–${pc(p.band[1])}</td><td>${p.edge == null ? 'n/a' : (p.edge > 0 ? '+' : '') + p.edge.toFixed(1)}</td><td>${fmtAmerican(p.chance)}</td><td>${chip(p.tdConf.level)}</td><td>${volCell(p, 'rushYd')}</td><td>${volCell(p, 'recYd')}</td><td>${volCell(p, 'rec')}</td><td>${(p.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join(' ')}</td></tr>`).join('')}</tbody></table></div>
    <div class="cards-mobile">${rows.map(p => `<div class="row">${star(p)}<div style="flex:1">${mobileCard(p, p.gameId)}</div></div>`).join('')}</div>`}`;
 }

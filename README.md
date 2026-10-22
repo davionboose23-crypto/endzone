@@ -121,6 +121,10 @@ Limits: GitHub can delay or skip scheduled runs under load (snapshots are captur
   - **Built-in review:** without a key, or if the call fails, a deterministic rule-based review labeled "Built-in review (no AI key)" is shown.
   - **Caching:** reviews are cached per player per snapshot and never change the model's numbers.
 
+## endzone-4.5.2 — sort the board by model confidence
+
+Board → Sort now has three groups. **Touchdown**: *Model confidence (High › Med › Low)* orders by TD confidence, ties by chance (the default still only lifts High names). **Other stats by model confidence**: *Rush yards / Receiving yards / Receptions / QB pass yards — confidence* order by the model's own confidence for that projection (`volConf`), ties by the projected mean; players without that projection go last. The choice persists like the other board settings, and in the phone focus list the last column switches to the sorted stat with its confidence chip. QB passing stays inline under QB names (no new columns).
+
 ## endzone-4.5.1 — phone and tablet landscape
 - Short landscape (`(orientation: landscape) and (max-height: 500px)`, e.g. 844×390, 932×430, 740×360, 667×375):
   - **Header and tabs:** one-row, non-sticky header (about 53 px instead of 94–146 px); status line hidden; compact tabs that still meet 44 px.

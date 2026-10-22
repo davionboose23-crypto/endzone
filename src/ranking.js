@@ -4,8 +4,30 @@ export function compareDefault(a, b) {
   const ha = a.tdConf?.level === 'High' ? 0 : 1, hb = b.tdConf?.level === 'High' ? 0 : 1;
   return ha - hb || (b.chance - a.chance) || String(a.id).localeCompare(String(b.id));
 }
+const confRank = lvl => CONF_ORDER[lvl] ?? 3; // High 0, Med 1, Low 2, missing last
+// Model TD confidence High > Med > Low, ties by chance (then id for stability).
+export function compareConfidence(a, b) {
+  return confRank(a.tdConf?.level) - confRank(b.tdConf?.level) || (b.chance - a.chance) || String(a.id).localeCompare(String(b.id));
+}
+// Other-stat confidence: the model's own confidence for that stat projection (volConf[m]), High > Med > Low,
+// ties by the projected mean, then chance. Players without that projection (e.g. non-QBs for pass yards) sort last.
+const statConf = (m, qbOnly = false) => (a, b) => {
+  const ha = !!a.volConf?.[m] && (!qbOnly || a.pos === 'QB'), hb = !!b.volConf?.[m] && (!qbOnly || b.pos === 'QB');
+  if (ha !== hb) return ha ? -1 : 1; if (!ha) return compareDefault(a, b);
+  return confRank(a.volConf[m].level) - confRank(b.volConf[m].level) || ((b.volume?.[m]?.mean ?? -Infinity) - (a.volume?.[m]?.mean ?? -Infinity)) || compareDefault(a, b);
+};
+export const SORT_GROUPS = [
+  ['Touchdown', ['default', 'conf', 'chance', 'edge']],
+  ['Other stats', ['rushYd', 'recYd', 'rec', 'passYd', 'passTd']],
+  ['Other stats by model confidence', ['rushYdConf', 'recYdConf', 'recConf', 'passYdConf']],
+];
 export const SORTS = {
   default: { label: 'High TD confidence first', cmp: compareDefault },
+  conf: { label: 'Model confidence (High › Med › Low)', cmp: compareConfidence, conf: true },
+  rushYdConf: { label: 'Rush yards — confidence', cmp: statConf('rushYd'), conf: true },
+  recYdConf: { label: 'Receiving yards — confidence', cmp: statConf('recYd'), conf: true },
+  recConf: { label: 'Receptions — confidence', cmp: statConf('rec'), conf: true },
+  passYdConf: { label: 'QB pass yards — confidence', cmp: statConf('passYd', true), conf: true },
   chance: { label: 'Chance', key: p => p.chance },
   edge: { label: 'Edge', key: p => p.edge },
   rushYd: { label: 'Rush yards', key: p => p.volume?.rushYd?.mean },
