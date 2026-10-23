@@ -825,7 +825,7 @@
  ],
  "experiments": {
   "validation": {
-   "modelVersion": "endzone-4.5.1",
+   "modelVersion": "endzone-4.5.2",
    "payload": {
     "challenger": {
      "cutoff": {
@@ -855,59 +855,21 @@
       "rich": true
      },
      "kind": "rich",
-     "modelVersion": "endzone-4.5.1",
+     "modelVersion": "endzone-4.5.2",
      "provisional": true,
      "reason": null,
      "trainingCount": 2546
     },
     "promotion": {
      "metrics": {
-      "brierDiff": 0.0023607320454906177,
-      "challenger": {
-       "brier": 0.08540113308865932,
-       "ece": 0.05334285228468819,
-       "logLoss": 0.2844966144212588
-      },
-      "champion": {
-       "brier": 0.08298146581560281,
-       "ece": 0.04253758865248226,
-       "logLoss": 0.27651848275775714
-      },
-      "games": 5,
-      "interval": [
-       -0.0011320729542506612,
-       0.005853537045231897
-      ],
-      "paired": 141,
-      "protected": {
-       "contributors": {
-        "challenger": 0.14597998229029005,
-        "champion": 0.1423450102666667,
-        "n": 75,
-        "note": "Fewer than 80: tolerance check not decisive."
-       },
-       "highTd": {
-        "challenger": 0.16243212884080008,
-        "champion": 0.2011785366666667,
-        "n": 3,
-        "note": "Fewer than 80: tolerance check not decisive."
-       },
-       "teamCalls": {
-        "challenger": 0.24061694610633064,
-        "champion": 0.24706363400000003,
-        "n": 10,
-        "note": "Fewer than 80: tolerance check not decisive."
-       }
-      }
+      "games": 0,
+      "paired": 0
      },
      "note": "A new version is never labeled validated because an older version passed.",
      "promote": false,
      "reasons": [
-      "Needs ≥500 prospective paired players for endzone-4.5.1; have 141.",
-      "Needs ≥40 games; have 5.",
-      "Brier improvement not beyond game-level sampling uncertainty.",
-      "Log loss not lower.",
-      "Calibration error worse than tolerance .005."
+      "Needs ≥500 prospective paired players for endzone-4.5.2; have 0.",
+      "Needs ≥40 games; have 0."
      ],
      "rollback": "Champion retained; challenger stays shadow."
     },
@@ -1681,7 +1643,7 @@
   ],
   "inWeek": null,
   "label": "Learned from finished games, from the last three weeks",
-  "modelVersion": "endzone-4.5.1",
+  "modelVersion": "endzone-4.5.2",
   "scales": {
    "band": {
     "15to25": 1.000960007791787,
@@ -1711,11 +1673,8 @@
  "promotion": {
   "promote": false,
   "reasons": [
-   "Needs ≥500 prospective paired players for endzone-4.5.1; have 141.",
-   "Needs ≥40 games; have 5.",
-   "Brier improvement not beyond game-level sampling uncertainty.",
-   "Log loss not lower.",
-   "Calibration error worse than tolerance .005."
+   "Needs ≥500 prospective paired players for endzone-4.5.2; have 0.",
+   "Needs ≥40 games; have 0."
   ]
  }
 }
