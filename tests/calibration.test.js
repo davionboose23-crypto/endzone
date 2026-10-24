@@ -7,7 +7,7 @@ import { makeFixture } from './fixture.js';
 import { runEngine } from '../src/engine.js';
 import { MODEL_VERSION } from '../src/model.js';
 
-test('model version bumped to 4.5.2', () => assert.equal(MODEL_VERSION, 'endzone-4.5.2'));
+test('model version bumped to 4.6.0', () => assert.equal(MODEL_VERSION, 'endzone-4.6.0'));
 
 test('shipped fits are walk-forward: entry for week w is only usable at week >= w', () => {
   for (const f of FITS.fits) { assert.equal(fitFor(f.season, f.week).id, `${f.season}-w${f.week}`); if (f.week > 1) assert.notEqual(fitFor(f.season, f.week - 1).id, `${f.season}-w${f.week}`); }

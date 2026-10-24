@@ -21,6 +21,8 @@ export const readJson = (file, dflt) => { try { return JSON.parse(fs.readFileSyn
 export class FileArchive {
   constructor(dir) { this.dir = dir; fs.mkdirSync(dir, { recursive: true }); }
   static async open(dir) { return new FileArchive(dir); }
+  // weekly usage-model table (scripts/usage/build.mjs): archive/usage/<season>/w<week>.json
+  usage(season, week) { return readJson(path.join(this.dir, 'usage', String(season), `w${week}.json`), null); }
   wk(season, week) { return path.join(this.dir, String(season), `w${week}`); }
   gameFile(season, week, gameId) { return path.join(this.wk(season, week), `${gameId}.json`); }
   // Save ONLY strictly before kickoff. "first" is never replaced; "latest" is replaced only when the forecast content changes.

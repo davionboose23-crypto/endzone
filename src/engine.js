@@ -26,13 +26,19 @@ export function runEngine(prep, { weights, lessons = null, lessonsUnplayed = nul
     for (const s of ['away', 'home']) {
       const S = G.sides[s];
       const players = S.players.slice().sort(compareDefault);
+      for (const p of players) { p.sideImplied = S.implied ?? null; p.sideSpread = S.spread ?? null; }
       if (challenger) {
-        for (const p of players) p.challenger = challenger(p);
-        // reapply the shared team scoring budget to the shadow probabilities
-        const lam = players.reduce((a, p) => a + (p.challenger != null ? -Math.log(1 - Math.min(0.999, p.challenger)) : 0), 0);
-        if (lam > S.tdBudget && lam > 0) for (const p of players) if (p.challenger != null) p.challenger = 1 - Math.exp(Math.log(1 - Math.min(0.999, p.challenger)) * S.tdBudget / lam);
-        // promoted challenger (only when the weekly gate enabled it): replaces the champion chance, still under the safety ceiling
-        if (useChallenger) for (const p of players) if (p.challenger != null) { p.championChance = p.chance; p.chance = Math.min(p.challenger, p.ceiling ?? 0.62); p.lambda = -Math.log(1 - p.chance); p.promotedChallenger = true; }
+        // challenger may return a number (legacy logistic) or { p, legs, usage } (endzone-4.6 blend)
+        const ctx = { implied: S.implied ?? null, spread: S.spread ?? null, home: s === 'home' };
+        for (const p of players) { const c = challenger(p, ctx); if (c && typeof c === 'object') { p.challenger = c.p; p.challengerLegs = c.legs; p.usageProb = c.usage; } else p.challenger = c ?? null; }
+        // reapply the shared team scoring budget to the shadow probabilities (not for the blend: it is a calibrated
+        // combination of three already-budgeted/published forecasts and was validated without re-scaling)
+        if (!challenger.noBudget) {
+          const lam = players.reduce((a, p) => a + (p.challenger != null ? -Math.log(1 - Math.min(0.999, p.challenger)) : 0), 0);
+          if (lam > S.tdBudget && lam > 0) for (const p of players) if (p.challenger != null) p.challenger = 1 - Math.exp(Math.log(1 - Math.min(0.999, p.challenger)) * S.tdBudget / lam);
+        }
+        // promoted challenger (only when the weekly gate enabled it): replaces the champion chance, still under the hard ceiling
+        if (useChallenger) for (const p of players) if (p.challenger != null) { p.championChance = p.chance; p.chance = Math.min(p.challenger, challenger.noBudget ? 0.62 : (p.ceiling ?? 0.62)); p.lambda = -Math.log(1 - p.chance); p.promotedChallenger = true; }
       }
       sides[s] = { ...S, players: players.map(p => compactPrediction(p, s)).sort(compareDefault), raw: players, budget: { ...S.budget } };
     }

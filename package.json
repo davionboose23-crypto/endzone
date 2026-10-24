@@ -1,6 +1,6 @@
 {
   "name": "endzone",
-  "version": "4.5.2",
+  "version": "4.6.0",
   "private": true,
   "type": "module",
   "description": "ENDZONE anytime-TD research model",
@@ -12,7 +12,9 @@
     "bundle:nflverse": "node standalone/dump-bundle.mjs",
     "watch-alerts": "node scripts/watch-alerts.mjs",
     "blend-folds": "node scripts/blend-folds.mjs",
-    "lint": "node scripts/lint.mjs"
+    "lint": "node scripts/lint.mjs",
+    "usage:build": "node scripts/usage/build.mjs",
+    "usage:verify": "node scripts/usage/verify.mjs"
   },
   "dependencies": {
     "sql.js": "^1.13.0"

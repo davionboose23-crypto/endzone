@@ -7,9 +7,10 @@ import { buildIndex } from '../src/stats-index.js';
 import { gradeGame, snapshotFromGame } from '../src/grading.js';
 import { weeklyLesson, activeLessons, withInWeekNudge, describeLessons } from '../src/research.js';
 import { componentState } from '../src/calibration.js';
-import { trainChallenger, challengerProbability, volumeErrorModel, promotionDecision } from '../src/validation.js';
+import { volumeErrorModel, promotionDecision } from '../src/validation.js';
 import { tdReport, volumeReport } from '../src/evaluation.js';
 import { MODEL_VERSION, DEFAULT_WEIGHTS } from '../src/model.js';
+import { blendStatus, blendChallenger, usageLookup, blendProbability, monitorReport, sideLines, BLEND_KIND } from '../src/usage-model.js';
 
 let inflight = null;
 export function refresh(archive, opts = {}) {
@@ -18,6 +19,24 @@ export function refresh(archive, opts = {}) {
   return inflight;
 }
 
+const withLines = (r, lines, isHome) => ({ ...(r.implied != null ? r : { ...r, ...sideLines(lines, isHome) }), isHome });
+// Retro (walk-forward backfill) blend for prospective rows frozen before the blend existed: usage table of that
+// week (fit strictly before it) + the frozen final chance + Sleeper as published. Shown in monitoring, never counted by the gate.
+export function withBlend(archive, rows, season) {
+  const looks = new Map(); const look = w => { if (!looks.has(w)) looks.set(w, usageLookup(archive.usage?.(season, w) || null)); return looks.get(w); };
+  return rows.map(r => {
+    if (r.challengerKind === BLEND_KIND && r.challenger != null) return { ...r, blend: r.challenger, blendSource: 'live' };
+    if (!(r.chance > 0)) return r;
+    const L = r.season === season ? look(r.week) : null; const u = L ? L(r, { implied: r.implied, spread: r.spread, home: r.isHome ?? r.side === 'home' }) : null;
+    const b = blendProbability({ chance: r.chance, published: r.published, usage: u }); return b ? { ...r, blend: b.p, blendLegs: b.legs, blendSource: 'retro' } : r;
+  });
+}
+export function monitorState(archive, graded, season) {
+  const P = withBlend(archive, graded.filter(r => r.prospective), season);
+  const live = P.filter(r => r.blendSource === 'live' && r.modelVersion === MODEL_VERSION).map(r => ({ ...r, challenger: r.blend }));
+  const all = P.filter(r => r.blend != null).map(r => ({ ...r, challenger: r.blend }));
+  return { live: monitorReport(live, { label: `prospective ${MODEL_VERSION} snapshots (counts toward the gate)` }), withBackfill: monitorReport(all, { label: 'all frozen snapshots; weeks before 4.6.0 scored with a walk-forward backfilled blend' }), retroWeeks: [...new Set(P.filter(r => r.blendSource === 'retro').map(r => r.week))].sort((a, b) => a - b) };
+}
 // Graded rows for earlier weeks: frozen snapshots preferred, otherwise reconstructed (labeled).
 export function gradedHistory(archive, prep, ix, season, uptoWeek, { lessonFree = true } = {}) {
   const rows = []; const perWeek = {};
@@ -29,7 +48,7 @@ export function gradedHistory(archive, prep, ix, season, uptoWeek, { lessonFree 
     const wk = [];
     for (const g of games) {
       const s = snaps.get(g.id);
-      if (s) wk.push(...gradeGame(ix, g, s.players, { prospective: true, callIds: s.callIds, source: 'frozen pregame snapshot' }).map(r => ({ ...r, modelVersion: s.modelVersion })));
+      if (s) { const home = s.teams?.home?.team || g.home; wk.push(...gradeGame(ix, g, s.players, { prospective: true, callIds: s.callIds, source: 'frozen pregame snapshot' }).map(r => ({ ...withLines(r, s.lines, r.team === home), modelVersion: s.modelVersion, challengerKind: s.challenger?.status || null }))); }
       else {
         recon = recon || runEngine(prep, { week: w, ix, lessons: null, now: Date.now() });
         const G = recon.games.find(x => x.gameId === g.id); if (!G) continue;
@@ -51,10 +70,13 @@ export function calibrationState(archive, prep, ix, season, week) {
   const inWeekRows = (cur.perWeek[week] || []);
   const inWeek = weeklyLesson(inWeekRows, { season, week });
   const graded = hist.rows.map(r => ({ ...r, y: r.actual.td > 0 ? 1 : 0 })).filter(r => r.actual.status === 'confirmed' || r.actual.status === 'confirmed-zero');
-  const challenger = trainChallenger(graded, { season, week, modelVersion: MODEL_VERSION });
+  // endzone-4.6 challenger: 3-way blend (model, Sleeper, nflverse usage leg); the old logistic challenger is retired
+  const usage = typeof archive.usage === 'function' ? archive.usage(season, week) : null;
+  const challenger = { ...blendStatus(usage, { season, week }), trainingCount: graded.length, modelVersion: MODEL_VERSION };
+  const challengerFn = blendChallenger(usage);
   const prosp = graded.filter(r => r.prospective);
   const vem = volumeErrorModel(prosp);
-  return { hist, cur, lessonsByWeek, active, inWeek, unplayedLessons: withInWeekNudge(active, inWeek), challenger, errorModel: vem.errorModel, coverage: vem.coverage, graded, trendHistory: graded.map(r => ({ id: r.id, week: r.week, chance: r.chance, y: r.y })) };
+  return { hist, cur, lessonsByWeek, active, inWeek, unplayedLessons: withInWeekNudge(active, inWeek), challenger, challengerFn, usage, errorModel: vem.errorModel, coverage: vem.coverage, graded, trendHistory: graded.map(r => ({ id: r.id, week: r.week, chance: r.chance, y: r.y })) };
 }
 
 async function runRefresh(archive, { season, week, now = () => Date.now(), prep: givenPrep = null } = {}) {
@@ -69,11 +91,10 @@ async function runRefresh(archive, { season, week, now = () => Date.now(), prep:
     for (const [w, L] of Object.entries(cal.lessonsByWeek)) archive.saveLesson(prep.season, +w, L);
     details.steps.push(`lessons for weeks ${Object.keys(cal.lessonsByWeek).join(',') || 'none'}`);
     const cutoffIso = new Date(now()).toISOString();
-    const chFn = cal.challenger.fit ? (p => challengerProbability(cal.challenger, p, null, null)) : null;
-    const res = runEngine(prep, { ix, week: prep.week, weights: DEFAULT_WEIGHTS, lessons: cal.active, lessonsUnplayed: cal.unplayedLessons, now: now(), errorModel: cal.errorModel, coverage: cal.coverage, challenger: chFn, useChallenger: !!componentState().challenger?.enabled, trendHistory: cal.trendHistory });
+    const res = runEngine(prep, { ix, week: prep.week, weights: DEFAULT_WEIGHTS, lessons: cal.active, lessonsUnplayed: cal.unplayedLessons, now: now(), errorModel: cal.errorModel, coverage: cal.coverage, challenger: cal.challengerFn, useChallenger: !!componentState().challenger?.enabled, trendHistory: cal.trendHistory });
     let saved = 0, skipped = 0;
     const meta = { modelVersion: MODEL_VERSION, weights: res.weights, inputTimestamps: Object.fromEntries(Object.entries(prep.sources).map(([k, s]) => [k, s.fetchedAt])), sourceAvailability: Object.fromEntries(Object.entries(prep.sources).map(([k, s]) => [k, s.ok])),
-      lessonsLabel: cal.active.label, challenger: { status: cal.challenger.fit ? cal.challenger.kind : 'not fit', reason: cal.challenger.reason, trainingCutoff: cal.challenger.cutoff, trainingCount: cal.challenger.trainingCount, capturedCutoff: cutoffIso } };
+      lessonsLabel: cal.active.label, challenger: { status: cal.challenger.status, reason: cal.challenger.reason, trainingCutoff: cal.challenger.cutoff, trainingCount: cal.challenger.trainingCount, usage: cal.challenger.usage, capturedCutoff: cutoffIso } };
     for (const G of res.games) {
       if (new Date(G.game.kickoff).getTime() > now()) { const r = archive.saveSnapshot(snapshotFromGame(G, meta), { now: new Date(now()) }); if (r.saved) saved++; else skipped++; }
     }
@@ -87,8 +108,9 @@ async function runRefresh(archive, { season, week, now = () => Date.now(), prep:
     const oc = archive.upsertOutcomes(outs); details.steps.push(`outcomes inserted ${oc.inserted}, revised ${oc.revised}, unchanged ${oc.unchanged}`);
     const report = tdReport(cal.graded); const vol = volumeReport(cal.graded);
     const pairs = cal.graded.filter(r => r.challenger != null).map(r => ({ ...r }));
-    const promo = promotionDecision(pairs, { modelVersion: MODEL_VERSION });
-    archive.saveExperiment({ season: prep.season, week: prep.week, kind: 'validation', modelVersion: MODEL_VERSION, trainingCutoff: JSON.stringify(cal.challenger.cutoff), payload: { summary: summarizeReport(report), volume: vol, promotion: promo, challenger: { ...cal.challenger, fit: cal.challenger.fit ? { n: cal.challenger.fit.n, games: cal.challenger.fit.games, rich: cal.challenger.fit.rich, beta: cal.challenger.fit.beta } : null } } });
+    const promo = promotionDecision(pairs, { modelVersion: MODEL_VERSION, kind: BLEND_KIND });
+    const monitor = monitorState(archive, cal.graded, prep.season);
+    archive.saveExperiment({ season: prep.season, week: prep.week, kind: 'validation', modelVersion: MODEL_VERSION, trainingCutoff: JSON.stringify(cal.challenger.cutoff), payload: { summary: summarizeReport(report), volume: vol, promotion: promo, challenger: cal.challenger, monitor } });
     details.steps.push('validation updated');
     details.learned = { active: { vol: cal.active.vol, band: cal.active.band, spot: cal.active.spot, basis: cal.active.basis, label: cal.active.label }, describe: describeLessons(cal.active), inWeek: cal.inWeek?.applied ? { confirmed: cal.inWeek.confirmed } : null, promotion: { promote: promo.promote, reasons: promo.reasons } };
     archive.finishRun(runId, details.partial.length ? 'partial' : 'success', details);

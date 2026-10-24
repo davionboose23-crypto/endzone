@@ -95,6 +95,8 @@ export class Archive {
   lessons(season) { const o = {}; for (const r of this.all('SELECT * FROM lessons WHERE season=?', [season])) o[r.week] = { ...JSON.parse(r.payload), version: r.version }; return o; }
   startRun(kind) { return this.tx(() => { this.run('INSERT INTO runs (kind, started_at, status) VALUES (?,?,?)', [kind, new Date().toISOString(), 'running']); return this.get('SELECT last_insert_rowid() id').id; }); }
   finishRun(id, status, details) { this.tx(() => this.run('UPDATE runs SET finished_at=?, status=?, details=? WHERE id=?', [new Date().toISOString(), status, JSON.stringify(details), id])); }
+  // usage tables live in the repo archive (scripts/usage/build.mjs), not in SQLite
+  usage(season, week) { try { return JSON.parse(fs.readFileSync(path.join(process.env.ENDZONE_USAGE_DIR || path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'archive', 'usage'), String(season), `w${week}.json`), 'utf8')); } catch { return null; } }
   lastRun() { const r = this.get('SELECT * FROM runs ORDER BY id DESC LIMIT 1'); return r ? { ...r, details: r.details ? JSON.parse(r.details) : null } : null; }
   saveExperiment(e) { this.tx(() => this.run('INSERT INTO experiments (season,week,kind,model_version,training_cutoff,payload,created_at) VALUES (?,?,?,?,?,?,?)', [e.season, e.week, e.kind, e.modelVersion, e.trainingCutoff || null, JSON.stringify(e.payload), new Date().toISOString()])); }
   latestExperiment(kind, season, week) { const r = this.get('SELECT * FROM experiments WHERE kind=? AND season=? AND (? IS NULL OR week=?) ORDER BY id DESC LIMIT 1', [kind, season, week ?? null, week ?? null]); return r ? { ...r, payload: JSON.parse(r.payload) } : null; }

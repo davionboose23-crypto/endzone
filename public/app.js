@@ -265,14 +265,21 @@ const primaryCell = (p, stat) => { const [m, l] = stat ? [stat, STAT_LBL[stat]] 
 const focusBtn = (p, gid) => `<button class="plink" data-act="player" data-game="${esc(gid)}" data-player="${esc(p.id)}">${photo(p)}<span>${esc(p.name)} <span class="muted small">${esc(p.pos)} · ${esc(p.team)}</span></span></button>`;
 function focusList(players, gidOf, label, withStar = false, stat = null) {
   return `<div class="focuslist" role="table" aria-label="${esc(label)} (focus view)"><div role="row" class="frow fhead small muted"><span role="columnheader">Player</span><span role="columnheader">Anytime</span><span role="columnheader">TD conf</span><span role="columnheader">${stat ? esc(STAT_LBL[stat]) : 'Primary yards'}</span></div>
-   ${players.map(p => `<div role="row" class="frow ${p.tdConf.level === 'High' ? 'high' : ''}"><span role="cell" class="fplayer">${withStar ? star(p) : ''}${focusBtn(p, gidOf(p))}</span><span role="cell" class="mid">${pc(p.chance)}</span><span role="cell" aria-label="TD confidence ${p.tdConf.level}">${chip(p.tdConf.level)}</span><span role="cell">${primaryCell(p, stat)}</span></div>`).join('')}</div>`;
+   ${players.map(p => `<div role="row" class="frow ${p.tdConf.level === 'High' ? 'high' : ''}"><span role="cell" class="fplayer">${withStar ? star(p) : ''}${focusBtn(p, gidOf(p))}</span><span role="cell" class="mid">${pc(p.chance)}${blendMini(p)}</span><span role="cell" aria-label="TD confidence ${p.tdConf.level}">${chip(p.tdConf.level)}</span><span role="cell">${primaryCell(p, stat)}</span></div>`).join('')}</div>`;
 }
 function mobileCard(p, gid) {
   return `<div class="card ${p.tdConf.level === 'High' ? 'high' : ''}"><div class="pcard">${photo(p)}<div><button class="plink" data-act="player" data-game="${esc(gid)}" data-player="${esc(p.id)}">${esc(p.name)}</button><div class="small muted">${esc(p.pos)} · ${esc(p.team)} ${highBadge(p)}</div></div><div class="big">${pc(p.chance)}</div></div>
-   <div class="row small">${chip(p.tdConf.level, 'TD')} band ${pc(p.band[0])}–${pc(p.band[1])}</div>
+   <div class="row small">${chip(p.tdConf.level, 'TD')} band ${pc(p.band[0])}–${pc(p.band[1])}</div>${blendLine(p)}
    ${p.pos === 'QB' ? `<div class="small"><strong>Pass TD</strong> ${passTdCell(p)} · <strong>Pass yds</strong> ${volCell(p, 'passYd')}</div>` : ''}
    <div class="small">Rush ${volCell(p, 'rushYd')} · Rec yds ${volCell(p, 'recYd')} · Rec ${volCell(p, 'rec')}</div></div>`;
 }
+
+// ---------- Blend challenger (endzone-4.6, shadow only: never replaces the model's number until the gate passes)
+const LEG_LABEL = { model: 'model', sleeper: 'Sleeper', usage: 'usage' };
+const legsText = p => (p.challengerLegs || []).map(l => LEG_LABEL[l] || l).join(' + ');
+const LEG_SHORT = { model: 'M', sleeper: 'S', usage: 'U' };
+const blendMini = p => (p.challenger != null && p.challengerLegs ? `<span class="small muted blendline blendmini" title="Blend challenger (shadow): ${esc(legsText(p))}" aria-label="Blend challenger ${pc(p.challenger)} from ${esc(legsText(p))}">blend ${pc(p.challenger)} <span class="legs">${p.challengerLegs.map(l => LEG_SHORT[l] || l).join('')}</span></span>` : '');
+const blendLine = p => (p.challenger != null && p.challengerLegs ? `<div class="small muted blendline" title="Shadow challenger: equal cloglog blend of ${esc(legsText(p))}">blend ${pc(p.challenger)} · ${esc(legsText(p))}</div>` : '');
 
 // ---------- Board
 function boardRows() {
@@ -299,7 +306,7 @@ function renderBoard() {
    <p class="small muted">${rows.length} players. ${b.sort === 'default' ? 'High touchdown confidence first, then chance.' : b.sort === 'conf' ? 'Model TD confidence High › Med › Low, then chance. Team calls and ratings are unchanged.' : SORTS[b.sort]?.conf ? `Model confidence for ${esc(SORTS[b.sort].label.split(' — ')[0].toLowerCase())}: High › Med › Low, then projection. Players without that projection last.` : 'Explicit stat sort: team calls and ratings are unchanged.'}</p>
    <p class="scrollhint" aria-hidden="true">Scroll sideways for every column →</p>
    ${S.focus ? focusList(rows, p => p.gameId, 'Board', true, sortStat(b.sort)) : `   <div class="tablewrap desk-only" tabindex="0" role="region" aria-label="Board"><table><thead><tr><th scope="col">Player</th><th scope="col">★</th><th scope="col">Anytime</th><th scope="col">80% band</th><th scope="col">Edge</th><th scope="col">American fair price</th><th scope="col">TD conf</th><th scope="col">Rush yds</th><th scope="col">Rec yds</th><th scope="col">Receptions</th><th scope="col">Role</th></tr></thead>
-   <tbody>${rows.map(p => `<tr class="${p.tdConf.level === 'High' ? 'high' : ''}"><td>${playerBtn(p, p.gameId)}${qbLine(p)}</td><td>${star(p)}</td><td class="mid">${pc(p.chance)}</td><td>${pc(p.band[0])}–${pc(p.band[1])}</td><td>${p.edge == null ? 'n/a' : (p.edge > 0 ? '+' : '') + p.edge.toFixed(1)}</td><td>${fmtAmerican(p.chance)}</td><td>${chip(p.tdConf.level)}</td><td>${volCell(p, 'rushYd')}</td><td>${volCell(p, 'recYd')}</td><td>${volCell(p, 'rec')}</td><td>${(p.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join(' ')}</td></tr>`).join('')}</tbody></table></div>
+   <tbody>${rows.map(p => `<tr class="${p.tdConf.level === 'High' ? 'high' : ''}"><td>${playerBtn(p, p.gameId)}${qbLine(p)}</td><td>${star(p)}</td><td class="mid">${pc(p.chance)}${blendLine(p)}</td><td>${pc(p.band[0])}–${pc(p.band[1])}</td><td>${p.edge == null ? 'n/a' : (p.edge > 0 ? '+' : '') + p.edge.toFixed(1)}</td><td>${fmtAmerican(p.chance)}</td><td>${chip(p.tdConf.level)}</td><td>${volCell(p, 'rushYd')}</td><td>${volCell(p, 'recYd')}</td><td>${volCell(p, 'rec')}</td><td>${(p.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join(' ')}</td></tr>`).join('')}</tbody></table></div>
    <div class="cards-mobile">${rows.map(p => `<div class="row">${star(p)}<div style="flex:1">${mobileCard(p, p.gameId)}</div></div>`).join('')}</div>`}`;
 }
 const star = p => `<button class="star" aria-pressed="${S.watch.has(p.id)}" aria-label="${S.watch.has(p.id) ? 'Remove from' : 'Add to'} watchlist: ${esc(p.name)}" data-act="star" data-player="${esc(p.id)}">★</button>`;
@@ -354,7 +361,8 @@ function renderPanel() {
    <div class="row"><button class="btn gold" data-act="ai" aria-describedby="aiHint">AI analysis</button><span id="aiHint" class="small muted">${aiSettings().key ? `Uses your ${esc(PROVIDERS[aiSettings().provider]?.label || 'AI')} key from Lab · never changes the model's number` : 'No AI key set: built-in review (add a key in Lab → AI analyst)'}</span></div>
    <div id="aiOut" aria-live="polite">${aiCached(g, p) ? aiReviewHtml(aiCached(g, p)) : ''}</div>
    </div><div class="pcol-b">
-   ${sec('Probability details', `<div class="kv small"><div>Published projection<br><strong>${p.published ? pc(p.published.probability) : 'none'}</strong></div><div>First TD<br><strong>${pc(p.firstTd, 1)}</strong></div><div>Two or more<br><strong>${pc(dist.twoPlus, 1)}</strong></div><div>80% band<br><strong>${pc(p.band[0])}–${pc(p.band[1])}</strong></div></div>
+   ${sec('Probability details', `<div class="kv small"><div>Published projection<br><strong>${p.published ? pc(p.published.probability) : 'none'}</strong></div>${p.challenger != null ? `<div>Blend challenger<br><strong>${pc(p.challenger, 1)}</strong> <span class="muted">(${esc(legsText(p) || 'model')})</span></div>` : ''}${p.usage != null ? `<div>Usage leg<br><strong>${pc(p.usage, 1)}</strong></div>` : ''}<div>First TD<br><strong>${pc(p.firstTd, 1)}</strong></div><div>Two or more<br><strong>${pc(dist.twoPlus, 1)}</strong></div><div>80% band<br><strong>${pc(p.band[0])}–${pc(p.band[1])}</strong></div></div>
+     ${p.challenger != null ? `<p class="small muted">Blend challenger = equal-weight average of ${esc(legsText(p) || 'model')} on the log-intensity (cloglog) scale, after the safety caps. Shadow only: the headline number stays the model's until the prospective gate (500 players / 40 games) promotes it.</p>` : ''}
      <p class="small">Count distribution: 0 ${pc(dist.p0)} · 1 ${pc(dist.p1)} · 2 ${pc(dist.p2)} · 3+ ${pc(dist.p3plus)} (λ ${n1(p.lambda)}). The band is uncertainty about the probability, not a range for his touchdown count.</p>`)}
    ${d ? sec('Score matchup', `<p>${esc(d.matchupLead.sentence)}</p><p class="small">${esc(d.matchupLead.evidence || '')} ${d.matchupLead.featured ? `This offense ${esc(d.matchupLead.featured)} the position (role ratio ${d.matchupLead.roleRatio?.toFixed(2)}).` : ''} ${d.matchupLead.liftBlocked ? 'No real recent scoring opportunities, so the soft position does not lift him.' : ''}</p><p class="small muted">${esc(d?.weather?.note || '')}</p>`) : '<p class="muted small">Loading details…</p>'}
    ${sec('Confidence by area', `<div class="row">${conf.map(([k, c]) => chip(c?.level || 'Low', k)).join(' ')}</div>${highs.length ? `<p class="small"><strong>Why High:</strong> ${highs.map(([k, c]) => `${esc(k)}: ${esc(c.reasons.join(' '))}`).join(' ')}</p>` : ''}${conf.map(([k, c]) => `<p class="small"><strong>${esc(k)} ${c?.level}:</strong> ${esc([...(c?.reasons || []), ...(c?.blocks || [])].join(' '))}</p>`).join('')}`)}
@@ -422,6 +430,32 @@ function learnedRepoHtml() {
    <p class="small">${ch ? `Latest change ${esc(new Date(ch.at).toLocaleString())} (week ${ch.week}): ${esc(ch.diff.map(d => `${d.group}.${d.key} ${pctc(d.from)} → ${pctc(d.to)}`).join(' · ') || 'basis updated, scales unchanged')}. ${esc(ch.why)}` : 'No change recorded yet.'}</p>
    <h3>Auto-calibration decisions</h3><ul class="small">${dec('caps')}${dec('challenger')}${dec('trends')}</ul>${X.promotion ? `<p class="small muted">Challenger promotion check: ${X.promotion.promote ? 'passes' : esc(X.promotion.reasons.join(' '))}</p>` : ''}`;
 }
+function blendMonitorHtml() {
+  const R = S.slate.research; const M = R?.monitor; const B = S.slate.blendBaseline; const ch = S.slate.challenger;
+  const f = (x, d = 2) => (x == null || !Number.isFinite(x) ? '—' : `${x > 0 ? '+' : ''}${x.toFixed(d)}`);
+  const ci = c => (c ? `[${f(c[0])}, ${f(c[1])}]` : '');
+  const cell = d => (d ? `<span class="${d.dBrierCI[1] < 0 ? 'ok' : d.dBrierCI[0] > 0 ? 'warn' : ''}">${f(d.dBrier)}</span> <span class="muted">${ci(d.dBrierCI)}</span>` : '—');
+  const table = (rep, cap) => {
+    if (!rep?.slices || !(rep.n ?? rep.slices.all?.n)) return `<p class="small muted">${esc(cap)}: no graded rows yet.</p>`;
+    return `<p class="small"><strong>${esc(cap)}</strong></p><div class="tablewrap" tabindex="0" role="region" aria-label="${esc(cap)}"><table class="monitor" style="min-width:560px"><thead><tr><th scope="col">Slice</th><th scope="col">n</th><th scope="col">Actual</th><th scope="col">Model</th><th scope="col">Blend</th><th scope="col">Sleeper</th><th scope="col">Blend − model Brier ×1000</th><th scope="col">Blend − Sleeper Brier ×1000</th></tr></thead><tbody>
+      ${['all', 'implied275', 'fav7', 'gl1535', 'te1', 'runQb'].filter(k => rep.slices[k]).map(k => [k, rep.slices[k]]).map(([k, x]) => x.n ? `<tr data-slice="${k}"><th scope="row">${esc(x.name)}</th><td>${x.n}</td><td>${pc(x.actual, 1)}</td><td>${pc(x.model.mean, 1)}</td><td>${pc(x.challenger.mean, 1)}</td><td>${pc(x.sleeper.mean, 1)}</td><td>${cell(x.vsModel)}</td><td>${cell(x.vsSleeper)}</td></tr>` : `<tr data-slice="${k}"><th scope="row">${esc(x.name)}</th><td colspan="7" class="muted">no rows yet</td></tr>`).join('')}</tbody></table></div>`;
+  };
+  // TE-gap flag: the first non-provisional source (live 4.6.0 → backfilled snapshots → walk-forward baseline); small samples are shown as provisional notes
+  const teSrc = [['live', M?.live?.teGap], ['snapshots', M?.withBackfill?.teGap], ['walk-forward baseline', B?.teGap]].filter(([, t]) => t?.n);
+  const [teFrom, te] = teSrc.find(([, t]) => !t.provisional) || teSrc[teSrc.length - 1] || [];
+  const teProv = teSrc.filter(([k, t]) => t.provisional && k !== teFrom).map(([k, t]) => `${k}: blend ${t.gapBlendPts > 0 ? '+' : ''}${t.gapBlendPts} pts vs actual, n ${t.n} (provisional)`);
+  const H = B?.headline; const pr = R?.promotion?.metrics;
+  return `<div id="blendMonitor"><h3>Blend challenger vs model vs Sleeper</h3>
+   <p class="small">Challenger: <strong>${esc(ch?.kind === 'blend3' ? '3-way blend (model + Sleeper + usage leg)' : ch?.status || 'unknown')}</strong>${ch?.usage ? ` · usage table week ${ch.usage.week} (${ch.usage.players} players, ${ch.usage.trainRows} training player-games)` : ''}${ch?.reason ? ` · ${esc(ch.reason)}` : ''}. Shadow only until the prospective gate passes.</p>
+   ${pr ? `<p class="small">Running score (prospective, counts toward the gate): ${pr.paired} players / ${pr.games} games${pr.champion ? ` · Brier model ${pr.champion.brier.toFixed(4)} vs blend ${pr.challenger.brier.toFixed(4)}` : ''}. Gate needs 500 / 40.</p>` : ''}
+   ${te ? `<p class="small ${te.flagged ? 'warn' : 'ok'}" id="teGapFlag" role="status">${te.flagged ? '⚑ ' : ''}${esc(te.reason)} <span class="muted">(${esc(teFrom)}, n ${te.n}${teProv.length ? `; ${esc(teProv.join('; '))}` : ''})</span></p>` : ''}
+   ${table(M?.live, 'Live: prospective 4.6.0 snapshots')}
+   ${M?.withBackfill?.n ? table(M.withBackfill, `All frozen snapshots${M.retroWeeks?.length ? ` (weeks ${M.retroWeeks.join(', ')} scored with a walk-forward backfilled blend, not counted by the gate)` : ''}`) : ''}
+   ${B ? `<details class="sec"><summary>Walk-forward baseline (${B.n} players)</summary><div class="secbody">
+     <p class="small">Blend − model: Brier ${f(H.vsModel.dB)} ${ci(H.vsModel.dBci)}, log loss ${f(H.vsModel.dLL)} ${ci(H.vsModel.dLLci)} (×1000). Blend − Sleeper: Brier ${f(H.vsSleeper.dB)}, log loss ${f(H.vsSleeper.dLL)}. Negative = blend better.</p>
+     ${table(B, B.label)}</div></details>` : ''}
+   <p class="small muted">Slices: implied team total 27.5+, favored by 7+, goal-line share 15–35%, TE1s, running QBs (3.5+ projected carries). Intervals resample whole games. Updated by each archive run.</p></div>`;
+}
 function renderLab() {
   const v = $('#view-lab'); if (!S.slate) { v.innerHTML = ''; return; }
   const W = S.weights; const labels = { recentBlend: 'Recent volume blend', publishedBlend: 'Published projection blend', script: 'Game script', redZone: 'Red zone', shrinkGames: 'Shrinkage games', tePremium: 'TE premium', goalLine: 'Goal-line weight' };
@@ -444,6 +478,7 @@ function renderLab() {
       <h3>Lowest-chance scorers</h3><ul class="small">${bt.td.lowestScorers.map(r => `<li>${esc(r.name)} ${pc(r.chance)} (${r.td} TD)</li>`).join('')}</ul>
       <h3>Expected vs actual by yard-line spot</h3><p class="small">${bt.td.spots.agg.map(s => `${s.spot}: ${s.expected.toFixed(1)} exp / ${s.actual} act`).join(' · ')} (unknown-spot rows excluded: ${bt.td.spots.excludedUnknown})</p>
       <h3>Meaningful expected, zero confirmed</h3><ul class="small">${bt.td.spots.meaningfulZero.slice(0, 12).map(r => `<li>${esc(r.name)} ${r.spot} expected ${r.expected.toFixed(2)}</li>`).join('') || '<li>None</li>'}</ul>` : ''}
+     ${blendMonitorHtml()}
      ${pickTrackerHtml()}`)}
    ${sect('learning', 'Learning', `${L?.describe?.length ? `<p class="small">${esc(L.describe[0])}</p><details class="sec"><summary>All learned scales (${L.describe.length - 1})</summary><div class="secbody"><p class="small">${L.describe.slice(1).map(esc).join(' · ')}</p><p class="small muted">Basis: ${(L?.active?.basis || []).map(b => `week ${b.week}: ${b.applied ? `${b.prospective} prospective / ${b.reconstructed} reconstructed` : 'none'}`).join(' · ')}</p></div></details>` : '<p class="small muted">No lesson yet.</p>'}
      <p class="small">${L?.inWeek?.applied ? `In-week nudge from ${L.inWeek.confirmed} completed results this week, damped (scale+2)/3, unplayed games only.` : 'No in-week nudge (needs 8 completed results this week).'}</p>${repoLearn}`)}

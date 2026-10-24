@@ -9,6 +9,8 @@ import { thresholdExplorer } from './player-research.js';
 import { gradeGame } from './grading.js';
 import { tdReport, volumeReport } from './evaluation.js';
 import { challengerProbability } from './validation.js';
+import { blendChallenger, BLEND_KIND } from './usage-model.js';
+import BLEND_BASELINE from './blend-baseline.json' with { type: 'json' };
 import { componentState } from './calibration.js';
 import { gameResults, weekResults } from './results.js';
 import { FAMILIES, trendValidation, shippedTrendWeights } from './trends.js';
@@ -42,7 +44,9 @@ async function loadArchive(season, week, signal) {
   try { const r = await authFetch(`/api/archive?season=${season}&week=${week}`, { signal }); if (r.status === 401) throw Object.assign(new Error('auth'), { auth: true }); if (!r.ok) throw new Error(`archive HTTP ${r.status}`); const a = await r.json(); saveLastSuccessful(`archive:${season}:${week}`, a); return { ...a, stale: false }; }
   catch (e) { if (e.auth) throw e; const c = await loadLastSuccessful(`archive:${season}:${week}`); return c ? { ...c.value, stale: true, staleError: String(e.message) } : { snapshots: [], lessons: {}, activeCalibration: null, uncertainty: {}, challenger: null, stale: true, staleError: String(e.message) }; }
 }
-function challengerFn(a) { const c = a?.challenger; return c?.fit ? (p => challengerProbability({ fit: c.fit }, p, null, null)) : null; }
+// endzone-4.6: the challenger is the 3-way blend (model, Sleeper, usage leg from the shipped weekly table);
+// legacy archives that still carry a logistic fit keep working.
+function challengerFn(a) { const c = a?.challenger; if (a?.usage || c?.kind === BLEND_KIND) return blendChallenger(a.usage || null); return c?.fit ? (p => challengerProbability({ fit: c.fit }, p, null, null)) : null; }
 
 function compute(weights) {
   const a = state.archive || {}; const cal = a.activeCalibration || {};
@@ -81,7 +85,7 @@ function slateMessage(reqId, extra = {}) {
   return { type: 'slate', reqId, season: state.prep.season, week: state.prep.week, currentWeek: state.prep.currentWeek, generatedAt: state.prep.generatedAt, sources: state.prep.sources,
     games: c.games, trends: trendsFeed(state.base), weekResults: weekResults(c.games), learned: state.archive?.learned || null, repoArchive: !!state.archive?.repoArchive, weeklyPickId: pick?.id || null, riserId: riser?.id || null, modelVersion: MODEL_VERSION, weights: state.weights,
     audit: { rejected: state.identity.rejected, unverified: state.identity.unverified, excluded: c.games.flatMap(g => [...g.sides.away.excluded, ...g.sides.home.excluded].map(e => ({ ...e, team: e.team }))) },
-    lessons: state.archive?.activeCalibration || null, archiveStale: !!state.archive?.stale, challenger: state.archive?.challenger || null, research: state.archive?.researchStatus || null, pickTracker: state.archive?.pickTracker || null, lastRun: state.archive?.lastRun || null, ...extra };
+    lessons: state.archive?.activeCalibration || null, archiveStale: !!state.archive?.stale, challenger: state.archive?.challenger || null, blendBaseline: BLEND_BASELINE, research: state.archive?.researchStatus || null, pickTracker: state.archive?.pickTracker || null, lastRun: state.archive?.lastRun || null, ...extra };
 }
 
 async function load(m) {

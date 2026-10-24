@@ -140,3 +140,11 @@ details.sec>.secbody{padding-bottom:var(--s3)}details.sec[open]>summary{border-b
 @media (orientation:landscape) and (max-height:380px){.wordmark{font-size:1.2rem}.tab{font-size:.95rem}.season{display:none}}
 /* tablet landscape: wide side panel keeps two columns of content */
 @media (orientation:landscape) and (min-width:1024px) and (max-width:1366px){.panel .pcols{display:block}}
+
+/* 4.6.0 blend challenger (shadow) */
+.blendline{font-weight:400;letter-spacing:0}
+.blendmini{display:block;font-size:.72rem;line-height:1.1;white-space:nowrap}
+.blendmini .legs{opacity:.8}
+#blendMonitor .ok{color:#7fd18b}
+#blendMonitor .warn{color:#f2b84b}
+#blendMonitor table.monitor td,#blendMonitor table.monitor th{white-space:nowrap}

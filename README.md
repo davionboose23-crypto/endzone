@@ -121,6 +121,43 @@ Limits: GitHub can delay or skip scheduled runs under load (snapshots are captur
   - **Built-in review:** without a key, or if the call fails, a deterministic rule-based review labeled "Built-in review (no AI key)" is shown.
   - **Caching:** reviews are cached per player per snapshot and never change the model's numbers.
 
+## endzone-4.6.0 — 3-way blend challenger, nflverse usage leg, slice monitoring
+
+**Challenger (shadow).** Each player gets a blended number: the equal-weight mean, on the cloglog (log-intensity) scale, of
+(1) the model's final chance *after* the safety caps, (2) Sleeper's published probability, (3) the new usage leg.
+Fallbacks: no usage row → 50/50 model + Sleeper; no Sleeper number → model + usage (or the model alone). Hard ceiling .62; no
+team-budget re-scaling. The board (under Anytime), the mobile cards and the player panel (Probability details) show the blended
+number and which legs went in. The headline number stays the model's: the blend goes through the existing prospective gate
+(≥500 paired players / ≥40 games, Brier CI, log loss, ECE, protected cohorts) and is **not** promoted.
+
+**Usage leg.** `scripts/usage/build.mjs` (npm run usage:build) fits a ridge cloglog model of P(≥1 TD) on nflverse pre-game usage
+only — trailing snap share, targets/carries, red-zone/end-zone/inside-10 looks, QB designed runs and sneaks, defense vs position,
+plus the game's implied total/spread/home (applied engine-side from frozen lines). Training rows are player-games strictly
+before the target week (seasons S−2..S); no in-game data, no post-forecast inactives or weather, and never our model's output.
+Output: `archive/usage/<season>/w<week>.json` (base η per gsis id, line coefficients, Sleeper→gsis map), which the server,
+the auto-run, and the Pages export (`/api/archive` body `usage`) load. auto.yml runs it as a free step ("Usage model leg",
+continue-on-error) before the archive run: full rebuild on the Tuesday schedule and on manual dispatch, `--if-missing` otherwise.
+
+**Walk-forward verification** (`npm run usage:verify`; 2025 + 2026 w1–5 replay + w6 prospective, n 8023 players / 364 games,
+×1000, 95% game-bootstrap): 3-way vs model Brier −1.03 [−1.75, −0.41], log loss −3.31 [−5.21, −1.37]; vs Sleeper −1.07 / −4.46;
+2-way (model+Sleeper) vs model −0.89 / −1.98; usage leg alone vs model +1.85 / +7.06 (worse alone, useful in the blend).
+The .62 ceiling costs +0.02 (n.s.). Baseline saved to `src/blend-baseline.json`.
+
+**pubBlend kept.** Blending with the pubBlend-pulled model vs a no-pull model: Brier −0.85 [−1.34, −0.42], log loss −2.74
+[−4.58, −1.06] in favour of keeping pubBlend, so the engine needs no second pass.
+
+**MODEL_VERSION → endzone-4.6.0.** The challenger gate counts prospective pairs for the current version only; 4.5.2 snapshots
+carry the retired logistic challenger, so bumping the version makes the gate count from this week's 4.6.0 snapshots. As a second
+check the gate also filters on `challengerKind === 'blend3'`. The fitted-caps gate is walk-forward (not version-keyed), so it is
+unaffected and the fitted caps stay off until it passes.
+
+**Monitoring.** Lab → Results & calibration → "Blend challenger vs model vs Sleeper": model, blend and Sleeper on all players,
+implied team total 27.5+, favored by 7+, goal-line share 15–35%, TE1s and running QBs (3.5+ projected carries), with paired
+blend-minus deltas and game-bootstrap intervals. "Live" = prospective 4.6.0 snapshots (what the gate counts); a second table adds
+earlier frozen weeks scored with a walk-forward backfilled blend; the walk-forward baseline is in a collapsible. Updated by each
+auto run. The TE gap is flagged when the blended TE1 forecast is still ≥2 pts under the actual TE1 rate and has not closed at least
+half of the model's gap — the baseline flags it (blend −3.58 pts, model −4.40, Sleeper −2.31, n 682).
+
 ## endzone-4.5.2 — sort the board by model confidence
 
 Board → Sort now has three groups. **Touchdown**: *Model confidence (High › Med › Low)* orders by TD confidence, ties by chance (the default still only lifts High names). **Other stats by model confidence**: *Rush yards / Receiving yards / Receptions / QB pass yards — confidence* order by the model's own confidence for that projection (`volConf`), ties by the projected mean; players without that projection go last. The choice persists like the other board settings, and in the phone focus list the last column switches to the sorted stat with its confidence chip. QB passing stays inline under QB names (no new columns).

@@ -412,7 +412,7 @@ export function compactPrediction(p, side) {
     glShare: r(p.glShare), insideFinisher: p.insideFinisher, recentFinisher: p.recentFinisher, coldGoal: p.coldGoal, scriptSensitive: p.scriptSensitive,
     scenarios: p.scenarios, safetyNotes: p.safetyNotes, lessonNotes: p.lessonNotes, conversionNote: p.conversionNote, segment: p.segment,
     spots: Object.fromEntries(Object.entries(p.spots).map(([k, s]) => [k, { opps: r(s.opps), rate: r(s.rate), expected: r(s.expected), looks: s.looks, scores: s.scores }])),
-    matchupFactor: r(p.matchupFactor), challenger: p.challenger ?? null,
+    matchupFactor: r(p.matchupFactor), challenger: r(p.challenger ?? null), challengerLegs: p.challengerLegs || null, usage: r(p.usageProb ?? null), implied: p.sideImplied ?? null, spread: p.sideSpread ?? null,
     ceiling: p.ceiling ?? null, preSafety: r(p.preSafety), preStack: r(p.preStack), stacked: p.stacked ? { before: r(p.stacked.before), after: r(p.stacked.after), fit: p.stacked.fit } : null, glShareRaw: r(p.share?.r1 || 0), pubBlend: p.pubBlend ? { weight: r(p.pubBlend.weight), before: r(p.pubBlend.before) } : null, recentRzLooks: p.recentRzLooks ?? null, gamesPlayed: p.f?.n ?? null, i10Exp: r(p.i10Exp), lambdaRaw: r(p.lambdaRaw),
   };
 }

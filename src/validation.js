@@ -51,8 +51,9 @@ export function challengerProbability(status, r, kickoffIso, cutoffIso) {
 }
 
 // Promotion gates; returns explicit reasons when withheld.
-export function promotionDecision(pairs, { modelVersion } = {}) {
-  const P = pairs.filter(x => x.modelVersion === modelVersion && x.prospective && x.challenger != null);
+// kind (optional): count only pairs whose snapshot carried this challenger kind (endzone-4.6: 'blend3').
+export function promotionDecision(pairs, { modelVersion, kind = null } = {}) {
+  const P = pairs.filter(x => x.modelVersion === modelVersion && x.prospective && x.challenger != null && (!kind || x.challengerKind === kind));
   const games = new Set(P.map(x => x.gameId));
   const reasons = []; const m = { paired: P.length, games: games.size };
   if (P.length < 500) reasons.push(`Needs ≥500 prospective paired players for ${modelVersion}; have ${P.length}.`);

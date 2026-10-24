@@ -82,8 +82,8 @@ export async function createServer({ dbFile = DEFAULT_DB, log = console.log } = 
       snapshots: archive.snapshots(season, week, 'latest'), firstSnapshots: archive.snapshots(season, week, 'first').map(s => ({ gameId: s.gameId, capturedAt: s.capturedAt, modelVersion: s.modelVersion })),
       lessons: archive.lessons(season), activeCalibration: { active: cal.active, inWeek: cal.inWeek, unplayed: cal.unplayedLessons, describe: describeLessons(cal.active) },
       uncertainty: { errorModel: cal.errorModel, coverage: cal.coverage }, trendHistory: cal.trendHistory,
-      challenger: { status: cal.challenger.fit ? cal.challenger.kind : 'not fit', reason: cal.challenger.reason, trainingCount: cal.challenger.trainingCount, cutoff: cal.challenger.cutoff, fit: cal.challenger.fit ? { beta: cal.challenger.fit.beta, mu: cal.challenger.fit.mu, sd: cal.challenger.fit.sd, rich: cal.challenger.fit.rich, n: cal.challenger.fit.n, games: cal.challenger.fit.games } : null },
-      researchStatus: validation ? validation.payload : null, pickTracker: pickTracker(cal.cur.perWeek), lastRun: archive.lastRun(), schedule: 'Scheduled refreshes are paused: initial load and manual Refresh only.',
+      challenger: cal.challenger, usage: cal.usage || null,
+    researchStatus: validation ? validation.payload : null, pickTracker: pickTracker(cal.cur.perWeek), lastRun: archive.lastRun(), schedule: 'Scheduled refreshes are paused: initial load and manual Refresh only.',
     });
   }
   function serveStatic(req, res, p) {

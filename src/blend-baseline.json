@@ -1,0 +1,433 @@
+{
+ "builtAt": "2026-10-24T03:49:22.338Z",
+ "label": "walk-forward: 2025 + 2026 w1–5 replay + w6 prospective (usage leg refit weekly, strictly earlier games)",
+ "n": 8023,
+ "headline": {
+  "vsModel": {
+   "n": 8023,
+   "games": 364,
+   "dB": -1.0317,
+   "dBci": [
+    -1.7489,
+    -0.4115
+   ],
+   "dLL": -3.3104,
+   "dLLci": [
+    -5.2072,
+    -1.3719
+   ]
+  },
+  "vsSleeper": {
+   "n": 8023,
+   "games": 364,
+   "dB": -1.0659,
+   "dBci": [
+    -1.8597,
+    -0.2983
+   ],
+   "dLL": -4.4627,
+   "dLLci": [
+    -6.8913,
+    -2.1853
+   ]
+  },
+  "twoWayVsModel": {
+   "n": 8023,
+   "games": 364,
+   "dB": -0.8876,
+   "dBci": [
+    -1.446,
+    -0.3688
+   ],
+   "dLL": -1.9784,
+   "dLLci": [
+    -3.4748,
+    -0.4996
+   ]
+  },
+  "usageOnlyVsModel": {
+   "n": 8023,
+   "games": 364,
+   "dB": 1.8452,
+   "dBci": [
+    0.4073,
+    3.2177
+   ],
+   "dLL": 7.0642,
+   "dLLci": [
+    2.538,
+    11.4428
+   ]
+  },
+  "ceilingEffect": {
+   "n": 8023,
+   "games": 364,
+   "dB": 0.0219,
+   "dBci": [
+    -0.0115,
+    0.0552
+   ],
+   "dLL": 0.0476,
+   "dLLci": [
+    -0.0253,
+    0.1196
+   ]
+  },
+  "pubBlend": {
+   "n": 7728,
+   "blendWithPull_vs_blendNoPull": {
+    "n": 7728,
+    "games": 351,
+    "dB": -0.8483,
+    "dBci": [
+     -1.3377,
+     -0.4226
+    ],
+    "dLL": -2.744,
+    "dLLci": [
+     -4.5832,
+     -1.0609
+    ]
+   },
+   "modelWithPull_vs_noPull": {
+    "n": 7728,
+    "games": 351,
+    "dB": -4.7844,
+    "dBci": [
+     -6.025,
+     -3.6517
+    ],
+    "dLL": -20.6346,
+    "dLLci": [
+     -26.3222,
+     -15.4521
+    ]
+   }
+  }
+ },
+ "byYear": {
+  "hist2025": {
+   "n": 5946,
+   "games": 272,
+   "dB": -0.9343,
+   "dBci": [
+    -1.702,
+    -0.1614
+   ],
+   "dLL": -2.4311,
+   "dLLci": [
+    -4.6444,
+    -0.2126
+   ]
+  },
+  "hist2026": {
+   "n": 2119,
+   "games": 94,
+   "dB": -1.2388,
+   "dBci": [
+    -2.3054,
+    -0.2363
+   ],
+   "dLL": -5.3714,
+   "dLLci": [
+    -8.913,
+    -2.1765
+   ]
+  },
+  "prosp": {
+   "n": 317,
+   "games": 14,
+   "dB": -0.3176,
+   "dBci": [
+    -4.3796,
+    3.2795
+   ],
+   "dLL": -1.3121,
+   "dLLci": [
+    -11.8525,
+    8.2353
+   ]
+  }
+ },
+ "slices": {
+  "all": {
+   "name": "All players",
+   "n": 8023,
+   "games": 364,
+   "actual": 0.1806,
+   "model": {
+    "brier": 0.1308,
+    "logLoss": 0.4161,
+    "mean": 0.1633
+   },
+   "challenger": {
+    "brier": 0.1298,
+    "logLoss": 0.4128,
+    "mean": 0.176
+   },
+   "sleeper": {
+    "brier": 0.1309,
+    "logLoss": 0.4172,
+    "mean": 0.1912
+   },
+   "vsModel": {
+    "dBrier": -1.03,
+    "dBrierCI": [
+     -1.66,
+     -0.41
+    ],
+    "dLogLoss": -3.31,
+    "dLogLossCI": [
+     -5.1,
+     -1.38
+    ]
+   },
+   "vsSleeper": {
+    "dBrier": -1.07,
+    "dBrierCI": [
+     -1.94,
+     -0.32
+    ],
+    "dLogLoss": -4.46,
+    "dLogLossCI": [
+     -7.08,
+     -2.32
+    ]
+   }
+  },
+  "implied275": {
+   "name": "Implied team total 27.5+",
+   "n": 820,
+   "games": 72,
+   "actual": 0.2366,
+   "model": {
+    "brier": 0.1471,
+    "logLoss": 0.4508,
+    "mean": 0.2054
+   },
+   "challenger": {
+    "brier": 0.1442,
+    "logLoss": 0.4448,
+    "mean": 0.2203
+   },
+   "sleeper": {
+    "brier": 0.1442,
+    "logLoss": 0.4478,
+    "mean": 0.2182
+   },
+   "vsModel": {
+    "dBrier": -2.88,
+    "dBrierCI": [
+     -5.23,
+     -0.78
+    ],
+    "dLogLoss": -5.97,
+    "dLogLossCI": [
+     -12.23,
+     -0.47
+    ]
+   },
+   "vsSleeper": {
+    "dBrier": 0.05,
+    "dBrierCI": [
+     -1.82,
+     1.94
+    ],
+    "dLogLoss": -2.97,
+    "dLogLossCI": [
+     -9.47,
+     2.5
+    ]
+   }
+  },
+  "fav7": {
+   "name": "Favored by 7+",
+   "n": 1187,
+   "games": 106,
+   "actual": 0.2131,
+   "model": {
+    "brier": 0.1409,
+    "logLoss": 0.4391,
+    "mean": 0.1956
+   },
+   "challenger": {
+    "brier": 0.1381,
+    "logLoss": 0.4311,
+    "mean": 0.2092
+   },
+   "sleeper": {
+    "brier": 0.1387,
+    "logLoss": 0.4351,
+    "mean": 0.2108
+   },
+   "vsModel": {
+    "dBrier": -2.81,
+    "dBrierCI": [
+     -4.58,
+     -0.91
+    ],
+    "dLogLoss": -7.96,
+    "dLogLossCI": [
+     -12.8,
+     -3.03
+    ]
+   },
+   "vsSleeper": {
+    "dBrier": -0.63,
+    "dBrierCI": [
+     -2.2,
+     0.68
+    ],
+    "dLogLoss": -4.03,
+    "dLogLossCI": [
+     -9.02,
+     0.73
+    ]
+   }
+  },
+  "gl1535": {
+   "name": "Goal-line share 15–35%",
+   "n": 544,
+   "games": 311,
+   "actual": 0.2537,
+   "model": {
+    "brier": 0.1719,
+    "logLoss": 0.5181,
+    "mean": 0.2349
+   },
+   "challenger": {
+    "brier": 0.1685,
+    "logLoss": 0.5114,
+    "mean": 0.2362
+   },
+   "sleeper": {
+    "brier": 0.1656,
+    "logLoss": 0.5043,
+    "mean": 0.2644
+   },
+   "vsModel": {
+    "dBrier": -3.44,
+    "dBrierCI": [
+     -6.7,
+     -0.44
+    ],
+    "dLogLoss": -6.7,
+    "dLogLossCI": [
+     -15.18,
+     1.41
+    ]
+   },
+   "vsSleeper": {
+    "dBrier": 2.92,
+    "dBrierCI": [
+     -1.53,
+     7.31
+    ],
+    "dLogLoss": 7.14,
+    "dLogLossCI": [
+     -3.37,
+     18.08
+    ]
+   }
+  },
+  "te1": {
+   "name": "TE1s",
+   "n": 682,
+   "games": 363,
+   "actual": 0.2507,
+   "model": {
+    "brier": 0.1813,
+    "logLoss": 0.5443,
+    "mean": 0.2067
+   },
+   "challenger": {
+    "brier": 0.1791,
+    "logLoss": 0.5376,
+    "mean": 0.2149
+   },
+   "sleeper": {
+    "brier": 0.1811,
+    "logLoss": 0.5431,
+    "mean": 0.2276
+   },
+   "vsModel": {
+    "dBrier": -2.18,
+    "dBrierCI": [
+     -5.16,
+     0.42
+    ],
+    "dLogLoss": -6.65,
+    "dLogLossCI": [
+     -14.97,
+     0.83
+    ]
+   },
+   "vsSleeper": {
+    "dBrier": -1.96,
+    "dBrierCI": [
+     -4.68,
+     0.49
+    ],
+    "dLogLoss": -5.5,
+    "dLogLossCI": [
+     -12.76,
+     0.91
+    ]
+   }
+  },
+  "runQb": {
+   "name": "Running QBs (3.5+ projected carries)",
+   "n": 216,
+   "games": 186,
+   "actual": 0.2639,
+   "model": {
+    "brier": 0.1871,
+    "logLoss": 0.5593,
+    "mean": 0.2368
+   },
+   "challenger": {
+    "brier": 0.1852,
+    "logLoss": 0.5544,
+    "mean": 0.2491
+   },
+   "sleeper": {
+    "brier": 0.1847,
+    "logLoss": 0.5516,
+    "mean": 0.2658
+   },
+   "vsModel": {
+    "dBrier": -1.91,
+    "dBrierCI": [
+     -6.32,
+     1.99
+    ],
+    "dLogLoss": -4.85,
+    "dLogLossCI": [
+     -17.75,
+     6.62
+    ]
+   },
+   "vsSleeper": {
+    "dBrier": 0.56,
+    "dBrierCI": [
+     -5.25,
+     5.94
+    ],
+    "dLogLoss": 2.82,
+    "dLogLossCI": [
+     -12.61,
+     19.03
+    ]
+   }
+  }
+ },
+ "teGap": {
+  "flagged": true,
+  "provisional": false,
+  "n": 682,
+  "gapModelPts": -4.4,
+  "gapBlendPts": -3.58,
+  "gapSleeperPts": -2.31,
+  "reason": "TE gap persists after the blend: TE1 forecast -3.58 pts vs actual (model -4.4)"
+ }
+}
