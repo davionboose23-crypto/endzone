@@ -3,16 +3,16 @@
   "learned": {
    "active": {
     "band": {
-     "15to25": 1.000624408792728,
-     "25to35": 1.0328402455460708,
+     "15to25": 1.0366052627240634,
+     "25to35": 0.9368404194880915,
      "35to50": 0.9906875513857832,
      "50plus": 0.9866666666666667,
-     "lt15": 1.048633791107105
+     "lt15": 1.0242220121326715
     },
     "basis": [
      {
       "applied": true,
-      "prospective": 25,
+      "prospective": 48,
       "reconstructed": 0,
       "week": 7
      },
@@ -40,19 +40,20 @@
     },
     "vol": {
      "passYd": 1.058205285234614,
-     "rec": 1.0520315470602077,
-     "recYd": 1.0799851877254507,
-     "rushYd": 0.9722430409449898
+     "rec": 1.0491810240208463,
+     "recYd": 1.0683744483372972,
+     "rushYd": 0.9690176715207549
     }
    },
    "describe": [
     "Learned from finished games, from the last three weeks",
     "rushYd: -3%",
     "rec: +5%",
-    "recYd: +8%",
+    "recYd: +7%",
     "passYd: +6%",
-    "lt15 chances: +5%",
-    "25to35 chances: +3%",
+    "lt15 chances: +2%",
+    "15to25 chances: +4%",
+    "25to35 chances: -6%",
     "35to50 chances: -1%",
     "50plus chances: -1%",
     "r1 spot: +12%",
@@ -65,8 +66,11 @@
    "promotion": {
     "promote": false,
     "reasons": [
-     "Needs ≥500 prospective paired players for endzone-4.6.0; have 0.",
-     "Needs ≥40 games; have 0."
+     "Needs ≥500 prospective paired players for endzone-4.6.0; have 23.",
+     "Needs ≥40 games; have 1.",
+     "Brier improvement not beyond game-level sampling uncertainty.",
+     "Log loss not lower.",
+     "Calibration error worse than tolerance .005."
     ]
    }
   },
@@ -75,13 +79,13 @@
   "steps": [
    "lessons for weeks 1,2,3,4,5,6,7",
    "saved 14 pregame frames, 0 skipped",
-   "outcomes inserted 0, revised 0, unchanged 475",
+   "outcomes inserted 0, revised 0, unchanged 511",
    "validation updated"
   ],
   "week": 8
  },
- "finished_at": "2026-10-25T15:54:26.048Z",
+ "finished_at": "2026-10-25T18:45:12.786Z",
  "kind": "refresh",
- "started_at": "2026-10-25T15:54:19.121Z",
+ "started_at": "2026-10-25T18:45:05.579Z",
  "status": "success"
 }
