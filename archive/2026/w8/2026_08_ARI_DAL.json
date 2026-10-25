@@ -10170,27 +10170,27 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-24T04:00:09.822Z",
-  "fingerprint": "fdaa532be525b77fc8bfa54d",
+  "capturedAt": "2026-10-25T15:54:25.565Z",
+  "fingerprint": "a4e27f288087a3d9756ce695",
   "payload": {
    "callIds": {
     "away": "4454",
     "home": "7588"
    },
-   "capturedAt": "2026-10-24T04:00:09.822Z",
+   "capturedAt": "2026-10-25T15:54:25.565Z",
    "challenger": {
-    "capturedCutoff": "2026-10-24T04:00:09.426Z",
+    "capturedCutoff": "2026-10-25T15:54:25.071Z",
     "reason": null,
     "status": "blend3",
-    "trainingCount": 2567,
+    "trainingCount": 2570,
     "trainingCutoff": {
      "rule": "usage leg fit on player-games strictly before the target week; blend uses the final (post-cap) model chance and Sleeper as published",
      "season": 2026,
      "week": 8
     },
     "usage": {
-     "builtAt": "2026-10-24T03:43:55.889Z",
-     "players": 696,
+     "builtAt": "2026-10-25T15:54:10.144Z",
+     "players": 698,
      "season": 2026,
      "trainRows": 15275,
      "trainedOn": "player-games before 2026 week 8 (from 2024)",
@@ -10199,34 +10199,34 @@
     }
    },
    "gameId": "2026_08_ARI_DAL",
-   "gameLambda": 5.7005028334412415,
+   "gameLambda": 5.619866494803352,
    "inputTimestamps": {
-    "ftn": "2026-10-24T04:00:05.627Z",
-    "history_2025": "2026-10-24T03:59:59.318Z",
-    "history_2026": "2026-10-24T04:00:05.575Z",
-    "idmap": "2026-10-24T04:00:05.519Z",
-    "pbp": "2026-10-24T04:00:06.173Z",
-    "players": "2026-10-24T04:00:05.283Z",
-    "proj_1": "2026-10-24T03:59:58.703Z",
-    "proj_2": "2026-10-24T03:59:58.728Z",
-    "proj_3": "2026-10-24T03:59:58.723Z",
-    "proj_4": "2026-10-24T03:59:58.716Z",
-    "proj_5": "2026-10-24T03:59:58.737Z",
-    "proj_6": "2026-10-24T03:59:58.751Z",
-    "proj_7": "2026-10-24T04:00:05.326Z",
-    "proj_8": "2026-10-24T04:00:05.335Z",
-    "roster": "2026-10-24T04:00:05.373Z",
-    "schedule": "2026-10-24T04:00:05.118Z",
-    "snaps": "2026-10-24T04:00:06.194Z",
-    "state": "2026-10-24T04:00:05.001Z",
-    "stats_1": "2026-10-24T03:59:58.602Z",
-    "stats_2": "2026-10-24T03:59:58.661Z",
-    "stats_3": "2026-10-24T03:59:58.644Z",
-    "stats_4": "2026-10-24T03:59:58.631Z",
-    "stats_5": "2026-10-24T03:59:58.674Z",
-    "stats_6": "2026-10-24T03:59:58.689Z",
-    "stats_7": "2026-10-24T04:00:05.299Z",
-    "stats_8": "2026-10-24T04:00:05.306Z"
+    "ftn": "2026-10-25T15:54:20.216Z",
+    "history_2025": "2026-10-25T15:54:11.834Z",
+    "history_2026": "2026-10-25T15:54:20.145Z",
+    "idmap": "2026-10-25T15:54:20.060Z",
+    "pbp": "2026-10-25T15:54:20.904Z",
+    "players": "2026-10-25T15:54:19.492Z",
+    "proj_1": "2026-10-25T15:54:11.047Z",
+    "proj_2": "2026-10-25T15:54:11.094Z",
+    "proj_3": "2026-10-25T15:54:11.084Z",
+    "proj_4": "2026-10-25T15:54:11.076Z",
+    "proj_5": "2026-10-25T15:54:11.064Z",
+    "proj_6": "2026-10-25T15:54:11.111Z",
+    "proj_7": "2026-10-25T15:54:19.531Z",
+    "proj_8": "2026-10-25T15:54:19.545Z",
+    "roster": "2026-10-25T15:54:19.633Z",
+    "schedule": "2026-10-25T15:54:19.296Z",
+    "snaps": "2026-10-25T15:54:20.942Z",
+    "state": "2026-10-25T15:54:19.130Z",
+    "stats_1": "2026-10-25T15:54:10.918Z",
+    "stats_2": "2026-10-25T15:54:11.005Z",
+    "stats_3": "2026-10-25T15:54:10.991Z",
+    "stats_4": "2026-10-25T15:54:10.970Z",
+    "stats_5": "2026-10-25T15:54:10.953Z",
+    "stats_6": "2026-10-25T15:54:11.030Z",
+    "stats_7": "2026-10-25T15:54:19.508Z",
+    "stats_8": "2026-10-25T15:54:19.512Z"
    },
    "kickoff": "2026-11-01T18:00:00.000Z",
    "lessons": "Learned from finished games, from the last three weeks",
@@ -10250,53 +10250,53 @@
       "uncertain": false
      },
      "band": [
-      0.1782,
-      0.4319
+      0.1762,
+      0.4282
      ],
      "ceiling": 0.5,
-     "challenger": 0.1668,
+     "challenger": 0.1662,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2833,
+     "chance": 0.2805,
      "coldGoal": false,
      "components": {
       "r0": 0.0003,
       "r1": 0.0003,
       "r2": 0.0001,
       "r3": 0,
-      "t0": 0.0304,
-      "t1": 0.141,
-      "t2": 0.0854,
-      "t3": 0.0757
+      "t0": 0.0297,
+      "t1": 0.1394,
+      "t2": 0.0843,
+      "t3": 0.075
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.2833,
-      "lambda": 0.3331,
-      "p0": 0.7167,
-      "p1": 0.2387,
-      "p2": 0.0398,
-      "p3plus": 0.0048,
-      "twoPlus": 0.0446
+      "anytime": 0.2805,
+      "lambda": 0.3291,
+      "p0": 0.7195,
+      "p1": 0.2368,
+      "p2": 0.039,
+      "p3plus": 0.0047,
+      "twoPlus": 0.0436
      },
-     "edge": 11.0258,
+     "edge": 10.742,
      "espn": "3045523",
-     "fair": 253,
-     "firstTd": 0.0582,
+     "fair": 257,
+     "firstTd": 0.0584,
      "gamesPlayed": 5,
-     "glShare": 0.0008,
-     "glShareRaw": 0.0008,
+     "glShare": 0.0007,
+     "glShareRaw": 0.0007,
      "gsis": "00-0033307",
-     "i10Exp": 0.4499,
+     "i10Exp": 0.4476,
      "id": "4454",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3331,
-     "lambdaRaw": 0.661,
+     "lambda": 0.3291,
+     "lambdaRaw": 0.6574,
      "lessonNotes": [
       "Learned from finished games: 35to50 chances scaled ×0.99 (from the last three weeks).",
       "Blended 38% toward the published projection (17%) because of limited recent red-zone evidence; safety caps applied after."
@@ -10311,10 +10311,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.3816,
-     "preStack": 0.4805,
+     "preSafety": 0.3802,
+     "preStack": 0.4786,
      "pubBlend": {
-      "before": 0.6549,
+      "before": 0.6513,
       "weight": 0.375
      },
      "published": {
@@ -10346,9 +10346,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.08258389640612179,
-       "chance": 0.2852420213969259,
-       "targets": 7.812692804921214
+       "carries": 0.07737304715260127,
+       "chance": 0.28255364843775443,
+       "targets": 7.724459761000029
       },
       "close": {
        "att": null,
@@ -10358,9 +10358,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.10881642820571343,
-       "chance": 0.25764108523006524,
-       "targets": 6.13854434672381
+       "carries": 0.10195036801283933,
+       "chance": 0.2887212177166051,
+       "targets": 6.069218383642878
       },
       "limited": {
        "att": null,
@@ -10376,12 +10376,12 @@
       "r0": {
        "expected": 0.0006,
        "looks": 0,
-       "opps": 0.0938,
+       "opps": 0.0878,
        "rate": 0.0058,
        "scores": 0
       },
       "r1": {
-       "expected": 0.0006,
+       "expected": 0.0005,
        "looks": 0,
        "opps": 0.001,
        "rate": 0.4391,
@@ -10390,42 +10390,42 @@
       "r2": {
        "expected": 0.0002,
        "looks": 0,
-       "opps": 0.001,
+       "opps": 0.0009,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
        "expected": 0,
        "looks": 0,
-       "opps": 0.0014,
+       "opps": 0.0013,
        "rate": 0.0146,
        "scores": 0
       },
       "t0": {
-       "expected": 0.0602,
+       "expected": 0.0593,
        "looks": 23,
-       "opps": 4.7338,
+       "opps": 4.663,
        "rate": 0.0113,
        "scores": 0
       },
       "t1": {
-       "expected": 0.2797,
+       "expected": 0.2785,
        "looks": 1,
-       "opps": 0.5257,
+       "opps": 0.5232,
        "rate": 0.4866,
        "scores": 0
       },
       "t2": {
-       "expected": 0.1694,
+       "expected": 0.1683,
        "looks": 1,
-       "opps": 0.3829,
+       "opps": 0.3804,
        "rate": 0.37,
        "scores": 0
       },
       "t3": {
-       "expected": 0.1502,
+       "expected": 0.1499,
        "looks": 5,
-       "opps": 1.3333,
+       "opps": 1.3302,
        "rate": 0.0857,
        "scores": 0
       }
@@ -10445,7 +10445,7 @@
        "recentRz": 6,
        "repeat": false,
        "roleOk": true,
-       "width": 0.25371239537524626
+       "width": 0.25198021216958366
       },
       "level": "High",
       "reasons": [
@@ -10455,8 +10455,8 @@
      },
      "team": "ARI",
      "trendEffect": {
-      "after": 0.4837,
-      "before": 0.4837,
+      "after": 0.4818,
+      "before": 0.4818,
       "items": [
        {
         "family": "usage",
@@ -10502,10 +10502,10 @@
      "verifyReason": "On ARI nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.0972,
+      "carries": 0.091,
       "rzRush": 0.0055,
       "rzTgt": 1.6721,
-      "targets": 6.9756
+      "targets": 6.8968
      },
      "volConf": {
       "rec": {
@@ -10542,10 +10542,10 @@
         "factor": 1.0282,
         "league": 0.621
        },
-       "hi": 9.8466,
-       "leagueDefense": 5.0083,
-       "lo": 1.4014,
-       "mean": 4.9951,
+       "hi": 9.7327,
+       "leagueDefense": 4.9503,
+       "lo": 1.3852,
+       "mean": 4.9373,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "5.0 without this defense. DAL allows WRs a 65% catch rate versus 62% league."
       },
@@ -10555,12 +10555,12 @@
         "factor": 1.084,
         "league": 8.1044
        },
-       "hi": 138.228,
-       "leagueDefense": 58.799,
-       "lo": 9.8562,
-       "mean": 58.6375,
+       "hi": 136.619,
+       "leagueDefense": 58.1146,
+       "lo": 9.7415,
+       "mean": 57.9549,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "59 without this defense. DAL allows WRs 9.3 yards a target versus 8.1 league."
+       "text": "58 without this defense. DAL allows WRs 9.3 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
@@ -10568,10 +10568,10 @@
         "factor": 1.0575,
         "league": 5.1048
        },
-       "hi": 1.8888,
-       "leagueDefense": 0.4822,
+       "hi": 1.8147,
+       "leagueDefense": 0.4518,
        "lo": 0,
-       "mean": 0.4334,
+       "mean": 0.4061,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "0 without this defense. DAL allows WRs 8.3 yards a carry versus 5.1 league."
       }
@@ -10585,53 +10585,53 @@
       "uncertain": false
      },
      "band": [
-      0.2636,
-      0.5415
+      0.2607,
+      0.5372
      ],
      "ceiling": 0.5,
-     "challenger": 0.4343,
+     "challenger": 0.433,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.3864,
+     "chance": 0.3827,
      "coldGoal": false,
      "components": {
       "r0": 0.0002,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0577,
-      "t1": 0.1956,
-      "t2": 0.1835,
-      "t3": 0.0515
+      "t0": 0.0564,
+      "t1": 0.1934,
+      "t2": 0.1815,
+      "t3": 0.0509
      },
      "conversionNote": "3 of 13 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.3864,
-      "lambda": 0.4885,
-      "p0": 0.6136,
-      "p1": 0.2997,
-      "p2": 0.0732,
-      "p3plus": 0.0135,
-      "twoPlus": 0.0867
+      "anytime": 0.3827,
+      "lambda": 0.4824,
+      "p0": 0.6173,
+      "p1": 0.2978,
+      "p2": 0.0718,
+      "p3plus": 0.0131,
+      "twoPlus": 0.0849
      },
-     "edge": -10.6947,
+     "edge": -11.0684,
      "espn": "4361307",
-     "fair": 159,
-     "firstTd": 0.0854,
+     "fair": 161,
+     "firstTd": 0.0855,
      "gamesPlayed": 6,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0037744",
-     "i10Exp": 0.3834,
+     "i10Exp": 0.3823,
      "id": "8130",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": true,
-     "lambda": 0.4885,
-     "lambdaRaw": 0.494,
+     "lambda": 0.4824,
+     "lambdaRaw": 0.4919,
      "lessonNotes": [
       "Blended 33% toward the published projection (49%) because of limited recent red-zone evidence; safety caps applied after."
      ],
@@ -10645,10 +10645,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.4265,
-     "preStack": 0.3898,
+     "preSafety": 0.4257,
+     "preStack": 0.3886,
      "pubBlend": {
-      "before": 0.494,
+      "before": 0.4919,
       "weight": 0.3333
      },
      "published": {
@@ -10665,9 +10665,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.02249440378085268,
-       "chance": 0.3981989547484459,
-       "targets": 7.480967254615848
+       "carries": 0.021075059910548727,
+       "chance": 0.3945852338496647,
+       "targets": 7.39648057008453
       },
       "close": {
        "att": null,
@@ -10677,9 +10677,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.029639684981829416,
-       "chance": 0.3452052524975817,
-       "targets": 5.877902842912451
+       "carries": 0.027769490705664212,
+       "chance": 0.3354281615768453,
+       "targets": 5.811520447923558
       },
       "limited": {
        "att": null,
@@ -10695,7 +10695,7 @@
       "r0": {
        "expected": 0.0002,
        "looks": 0,
-       "opps": 0.0265,
+       "opps": 0.0248,
        "rate": 0.0058,
        "scores": 0
       },
@@ -10721,30 +10721,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0583,
+       "expected": 0.0575,
        "looks": 52,
-       "opps": 5.3712,
+       "opps": 5.2995,
        "rate": 0.0091,
        "scores": 0
       },
       "t1": {
-       "expected": 0.1978,
+       "expected": 0.1972,
        "looks": 4,
-       "opps": 0.3317,
+       "opps": 0.3306,
        "rate": 0.5172,
        "scores": 2
       },
       "t2": {
-       "expected": 0.1856,
+       "expected": 0.185,
        "looks": 5,
-       "opps": 0.3958,
+       "opps": 0.3947,
        "rate": 0.3718,
        "scores": 1
       },
       "t3": {
-       "expected": 0.0521,
+       "expected": 0.0519,
        "looks": 4,
-       "opps": 0.5806,
+       "opps": 0.5792,
        "rate": 0.0647,
        "scores": 0
       }
@@ -10766,7 +10766,7 @@
        "recentRz": 5,
        "repeat": false,
        "roleOk": true,
-       "width": 0.2779207854899549
+       "width": 0.2764616073017758
       },
       "level": "Med",
       "reasons": [
@@ -10776,8 +10776,8 @@
      },
      "team": "ARI",
      "trendEffect": {
-      "after": 0.3898,
-      "before": 0.3898,
+      "after": 0.3886,
+      "before": 0.3886,
       "items": [
        {
         "family": "usage",
@@ -10823,10 +10823,10 @@
      "verifyReason": "On ARI nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.0265,
+      "carries": 0.0248,
       "rzRush": 0,
       "rzTgt": 1.2977,
-      "targets": 6.6794
+      "targets": 6.604
      },
      "volConf": {
       "rec": {
@@ -10866,10 +10866,10 @@
         "factor": 1.0526,
         "league": 0.7184
        },
-       "hi": 9.6527,
-       "leagueDefense": 5.2295,
-       "lo": 2.1444,
-       "mean": 5.3394,
+       "hi": 9.5659,
+       "leagueDefense": 5.1689,
+       "lo": 2.1011,
+       "mean": 5.2776,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "5.2 without this defense. DAL allows TEs a 84% catch rate versus 72% league."
       },
@@ -10879,10 +10879,10 @@
         "factor": 1.0229,
         "league": 7.007
        },
-       "hi": 89.5309,
-       "leagueDefense": 43.3891,
-       "lo": 10.9821,
-       "mean": 40.8306,
+       "hi": 88.7713,
+       "leagueDefense": 42.8841,
+       "lo": 10.681,
+       "mean": 40.3553,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "43 without this defense. DAL allows TEs 7.5 yards a target versus 7.0 league."
       },
@@ -10892,10 +10892,10 @@
         "factor": 1,
         "league": 1.9412
        },
-       "hi": 0.4979,
-       "leagueDefense": 0.0499,
+       "hi": 0.4806,
+       "leagueDefense": 0.0468,
        "lo": 0,
-       "mean": 0.0425,
+       "mean": 0.0398,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "0 without this defense; no positional defense sample."
       }
@@ -10909,53 +10909,53 @@
       "uncertain": false
      },
      "band": [
-      0.2029,
-      0.4792
+      0.1986,
+      0.4718
      ],
      "ceiling": 0.5,
-     "challenger": 0.2449,
+     "challenger": 0.2433,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.3193,
+     "chance": 0.3134,
      "coldGoal": false,
      "components": {
-      "r0": 0.0639,
-      "r1": 0.1502,
-      "r2": 0.0904,
-      "r3": 0.0095,
+      "r0": 0.0598,
+      "r1": 0.147,
+      "r2": 0.0889,
+      "r3": 0.0094,
       "t0": 0.0179,
       "t1": 0.015,
       "t2": 0.0112,
-      "t3": 0.0265
+      "t3": 0.0268
      },
      "conversionNote": "0 of 11 red-zone carries scored.",
      "dist": {
-      "anytime": 0.3193,
-      "lambda": 0.3846,
-      "p0": 0.6807,
-      "p1": 0.2618,
-      "p2": 0.0503,
-      "p3plus": 0.0071,
-      "twoPlus": 0.0575
+      "anytime": 0.3134,
+      "lambda": 0.376,
+      "p0": 0.6866,
+      "p1": 0.2582,
+      "p2": 0.0485,
+      "p3plus": 0.0067,
+      "twoPlus": 0.0552
      },
-     "edge": 12.1801,
+     "edge": 11.5898,
      "espn": "4373626",
-     "fair": 213,
-     "firstTd": 0.0672,
+     "fair": 219,
+     "firstTd": 0.0667,
      "gamesPlayed": 6,
-     "glShare": 0.6033,
-     "glShareRaw": 0.6033,
+     "glShare": 0.584,
+     "glShareRaw": 0.584,
      "gsis": "00-0037263",
-     "i10Exp": 0.6387,
+     "i10Exp": 0.6208,
      "id": "8132",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3846,
-     "lambdaRaw": 0.9209,
+     "lambda": 0.376,
+     "lambdaRaw": 0.8907,
      "lessonNotes": [
       "Learned from finished games: 50plus chances scaled ×0.99 (from the last three weeks).",
       "Blended 33% toward the published projection (19%) because of limited recent red-zone evidence; safety caps applied after."
@@ -10970,10 +10970,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.4929,
-     "preStack": 0.5969,
+     "preSafety": 0.4827,
+     "preStack": 0.5847,
      "pubBlend": {
-      "before": 0.9086,
+      "before": 0.8788,
       "weight": 0.3333
      },
      "published": {
@@ -10991,14 +10991,14 @@
      "riser": null,
      "role": "RB2",
      "safetyNotes": [
-      "A 49% chance without an inside-10 finishing role is pulled toward 28% (now 35%)."
+      "A 48% chance without an inside-10 finishing role is pulled toward 28% (now 35%)."
      ],
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 14.931105991428831,
-       "chance": 0.3014556294744861,
-       "targets": 4.10938018277445
+       "carries": 13.988988388657239,
+       "chance": 0.2961951024709424,
+       "targets": 4.062970688479832
       },
       "close": {
        "att": null,
@@ -11008,9 +11008,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 19.673927894588576,
-       "chance": 0.4334909160211984,
-       "targets": 3.2287987150370667
+       "carries": 18.43254940623072,
+       "chance": 0.42284257467110453,
+       "targets": 3.19233411237701
       },
       "limited": {
        "att": null,
@@ -11024,58 +11024,58 @@
      "segment": "RB|support|available",
      "spots": {
       "r0": {
-       "expected": 0.153,
+       "expected": 0.1418,
        "looks": 42,
-       "opps": 13.9284,
+       "opps": 12.9048,
        "rate": 0.0098,
        "scores": 1
       },
       "r1": {
-       "expected": 0.3596,
+       "expected": 0.3481,
        "looks": 2,
-       "opps": 0.8049,
+       "opps": 0.7791,
        "rate": 0.3658,
        "scores": 0
       },
       "r2": {
-       "expected": 0.2164,
+       "expected": 0.2107,
        "looks": 3,
-       "opps": 0.8605,
+       "opps": 0.8377,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
-       "expected": 0.0227,
+       "expected": 0.0223,
        "looks": 6,
-       "opps": 1.9722,
+       "opps": 1.9359,
        "rate": 0.0092,
        "scores": 0
       },
       "t0": {
-       "expected": 0.0429,
+       "expected": 0.0424,
        "looks": 11,
-       "opps": 3.057,
+       "opps": 3.0177,
        "rate": 0.0125,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0359,
+       "expected": 0.0355,
        "looks": 0,
-       "opps": 0.0618,
+       "opps": 0.0611,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0267,
+       "expected": 0.0264,
        "looks": 0,
-       "opps": 0.0602,
+       "opps": 0.0595,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0636,
+       "expected": 0.0635,
        "looks": 3,
-       "opps": 0.4902,
+       "opps": 0.4894,
        "rate": 0.0991,
        "scores": 0
       }
@@ -11099,18 +11099,18 @@
        "recentRz": 8,
        "repeat": false,
        "roleOk": true,
-       "width": 0.2763365279636827
+       "width": 0.27317113200672527
       },
       "level": "Med",
       "reasons": [
        "8 red-zone touches in his last 3 games with stable work.",
-       "80% band 20–48% is narrow enough."
+       "80% band 20–47% is narrow enough."
       ]
      },
      "team": "ARI",
      "trendEffect": {
-      "after": 0.6018,
-      "before": 0.6018,
+      "after": 0.5896,
+      "before": 0.5896,
       "items": [
        {
         "family": "usage",
@@ -11165,10 +11165,10 @@
      "verifyReason": "On ARI nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 17.566,
+      "carries": 16.4576,
       "rzRush": 3.0362,
       "rzTgt": 0.4743,
-      "targets": 3.6691
+      "targets": 3.6277
      },
      "volConf": {
       "rec": {
@@ -11212,10 +11212,10 @@
         "factor": 1.003,
         "league": 0.7768
        },
-       "hi": 6.4213,
-       "leagueDefense": 3.2098,
-       "lo": 0.6793,
-       "mean": 3.1227,
+       "hi": 6.366,
+       "leagueDefense": 3.1726,
+       "lo": 0.6573,
+       "mean": 3.0865,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "3.2 without this defense. DAL allows RBs a 79% catch rate versus 78% league."
       },
@@ -11225,10 +11225,10 @@
         "factor": 0.9844,
         "league": 5.5098
        },
-       "hi": 40.5515,
-       "leagueDefense": 19.7562,
+       "hi": 40.2189,
+       "leagueDefense": 19.5262,
        "lo": 0,
-       "mean": 16.531,
+       "mean": 16.3386,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "20 without this defense. DAL allows RBs 5.2 yards a target versus 5.5 league."
       },
@@ -11238,12 +11238,12 @@
         "factor": 1.0302,
         "league": 4.0846
        },
-       "hi": 149.3454,
-       "leagueDefense": 58.8352,
-       "lo": 3.0004,
-       "mean": 60.0076,
+       "hi": 139.9221,
+       "leagueDefense": 55.1228,
+       "lo": 2.8111,
+       "mean": 56.2213,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "59 without this defense. DAL allows RBs 4.3 yards a carry versus 4.1 league."
+       "text": "55 without this defense. DAL allows RBs 4.3 yards a carry versus 4.1 league."
       }
      }
     },
@@ -11255,53 +11255,53 @@
       "uncertain": false
      },
      "band": [
-      0.1828,
-      0.3977
+      0.181,
+      0.3945
      ],
      "ceiling": 0.5,
-     "challenger": 0.3229,
+     "challenger": 0.322,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2738,
+     "chance": 0.2713,
      "coldGoal": false,
      "components": {
       "r0": 0.0004,
       "r1": 0.0003,
-      "r2": 0.0002,
+      "r2": 0.0001,
       "r3": 0,
-      "t0": 0.0574,
-      "t1": 0.1439,
-      "t2": 0.0858,
-      "t3": 0.032
+      "t0": 0.0564,
+      "t1": 0.1427,
+      "t2": 0.0849,
+      "t3": 0.0317
      },
      "conversionNote": "1 of 10 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.2738,
-      "lambda": 0.3199,
-      "p0": 0.7262,
-      "p1": 0.2323,
-      "p2": 0.0372,
-      "p3plus": 0.0043,
-      "twoPlus": 0.0415
+      "anytime": 0.2713,
+      "lambda": 0.3165,
+      "p0": 0.7287,
+      "p1": 0.2307,
+      "p2": 0.0365,
+      "p3plus": 0.0042,
+      "twoPlus": 0.0407
      },
-     "edge": -13.7589,
+     "edge": -14.0056,
      "espn": "4360761",
-     "fair": 265,
-     "firstTd": 0.0559,
+     "fair": 269,
+     "firstTd": 0.0561,
      "gamesPlayed": 6,
      "glShare": 0.0005,
      "glShareRaw": 0.0005,
      "gsis": "00-0038559",
-     "i10Exp": 0.2085,
+     "i10Exp": 0.2078,
      "id": "10232",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3199,
-     "lambdaRaw": 0.2899,
+     "lambda": 0.3165,
+     "lambdaRaw": 0.2884,
      "lessonNotes": [
       "Learned from finished games: 25to35 chances scaled ×1.03 (from the last three weeks).",
       "Blended 58% toward the published projection (41%) because of limited recent red-zone evidence; safety caps applied after."
@@ -11316,10 +11316,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.352,
-     "preStack": 0.2588,
+     "preSafety": 0.3516,
+     "preStack": 0.2576,
      "pubBlend": {
-      "before": 0.2994,
+      "before": 0.2979,
       "weight": 0.5833
      },
      "published": {
@@ -11338,9 +11338,9 @@
      "scenarios": {
       "behind": {
        "att": 0.14394974115915124,
-       "carries": 0.053530059548311956,
-       "chance": 0.26997914079411256,
-       "targets": 7.089676757616664
+       "carries": 0.05015243893488745,
+       "chance": 0.2677014411354959,
+       "targets": 7.009609132233035
       },
       "close": {
        "att": null,
@@ -11350,9 +11350,9 @@
       },
       "lead": {
        "att": 0.11310336805361884,
-       "carries": 0.07053372552248165,
-       "chance": 0.2890113694757299,
-       "targets": 5.5704603095559495
+       "carries": 0.06608321365538113,
+       "chance": 0.2804424990660057,
+       "targets": 5.507550032468813
       },
       "limited": {
        "att": null,
@@ -11366,16 +11366,16 @@
      "segment": "WR|primary|available",
      "spots": {
       "r0": {
-       "expected": 0.0004,
+       "expected": 0.0003,
        "looks": 0,
-       "opps": 0.0608,
+       "opps": 0.057,
        "rate": 0.0058,
        "scores": 0
       },
       "r1": {
        "expected": 0.0003,
        "looks": 0,
-       "opps": 0.0007,
+       "opps": 0.0006,
        "rate": 0.4391,
        "scores": 0
       },
@@ -11389,35 +11389,35 @@
       "r3": {
        "expected": 0,
        "looks": 0,
-       "opps": 0.0009,
+       "opps": 0.0008,
        "rate": 0.0146,
        "scores": 0
       },
       "t0": {
-       "expected": 0.052,
+       "expected": 0.0514,
        "looks": 48,
-       "opps": 5.5505,
+       "opps": 5.4821,
        "rate": 0.0094,
        "scores": 0
       },
       "t1": {
-       "expected": 0.1304,
+       "expected": 0.13,
        "looks": 4,
-       "opps": 0.3033,
+       "opps": 0.3024,
        "rate": 0.4436,
        "scores": 1
       },
       "t2": {
-       "expected": 0.0777,
+       "expected": 0.0774,
        "looks": 2,
-       "opps": 0.2095,
+       "opps": 0.2086,
        "rate": 0.3711,
        "scores": 0
       },
       "t3": {
-       "expected": 0.029,
+       "expected": 0.0289,
        "looks": 4,
-       "opps": 0.2667,
+       "opps": 0.2655,
        "rate": 0.0935,
        "scores": 0
       }
@@ -11437,18 +11437,18 @@
        "recentRz": 5,
        "repeat": false,
        "roleOk": true,
-       "width": 0.21485280493514358
+       "width": 0.21345138589989832
       },
       "level": "Med",
       "reasons": [
        "5 red-zone touches in his last three games.",
-       "80% band 18–40% is narrow enough."
+       "80% band 18–39% is narrow enough."
       ]
      },
      "team": "ARI",
      "trendEffect": {
-      "after": 0.2517,
-      "before": 0.2517,
+      "after": 0.2505,
+      "before": 0.2505,
       "items": [
        {
         "family": "usage",
@@ -11494,10 +11494,10 @@
      "verifyReason": "On ARI nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0.1285,
-      "carries": 0.063,
+      "carries": 0.059,
       "rzRush": 0.006,
       "rzTgt": 1.11,
-      "targets": 6.3301
+      "targets": 6.2586
      },
      "volConf": {
       "rec": {
@@ -11538,12 +11538,12 @@
         "factor": 1.0282,
         "league": 0.621
        },
-       "hi": 7.8651,
-       "leagueDefense": 3.8945,
-       "lo": 0.9354,
-       "mean": 3.8842,
+       "hi": 7.7741,
+       "leagueDefense": 3.8494,
+       "lo": 0.9245,
+       "mean": 3.8393,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "3.9 without this defense. DAL allows WRs a 65% catch rate versus 62% league."
+       "text": "3.8 without this defense. DAL allows WRs a 65% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
@@ -11551,12 +11551,12 @@
         "factor": 1.084,
         "league": 8.1044
        },
-       "hi": 105.6037,
-       "leagueDefense": 43.7629,
-       "lo": 5.6665,
-       "mean": 43.6427,
+       "hi": 104.3745,
+       "leagueDefense": 43.2535,
+       "lo": 5.6006,
+       "mean": 43.1347,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "44 without this defense. DAL allows WRs 9.3 yards a target versus 8.1 league."
+       "text": "43 without this defense. DAL allows WRs 9.3 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
@@ -11564,10 +11564,10 @@
         "factor": 1.0575,
         "league": 5.1048
        },
-       "hi": 1.4526,
-       "leagueDefense": 0.3126,
+       "hi": 1.3973,
+       "leagueDefense": 0.2928,
        "lo": 0,
-       "mean": 0.2809,
+       "mean": 0.2632,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "0 without this defense. DAL allows WRs 8.3 yards a carry versus 5.1 league."
       }
@@ -11581,52 +11581,52 @@
       "uncertain": false
      },
      "band": [
-      0.0966,
-      0.45
+      0.095,
+      0.4443
      ],
      "ceiling": 0.5,
-     "challenger": 0.0944,
+     "challenger": 0.0936,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.2184,
+     "chance": 0.2151,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0026,
-      "t1": 0.1699,
-      "t2": 0.0247,
-      "t3": 0.0493
+      "t0": 0.0024,
+      "t1": 0.1672,
+      "t2": 0.0241,
+      "t3": 0.0484
      },
      "conversionNote": "2 of 2 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.2184,
-      "lambda": 0.2465,
-      "p0": 0.7816,
-      "p1": 0.1926,
-      "p2": 0.0237,
-      "p3plus": 0.0021,
-      "twoPlus": 0.0258
+      "anytime": 0.2151,
+      "lambda": 0.2421,
+      "p0": 0.7849,
+      "p1": 0.1901,
+      "p2": 0.023,
+      "p3plus": 0.002,
+      "twoPlus": 0.025
      },
      "edge": null,
      "espn": "4374045",
-     "fair": 358,
-     "firstTd": 0.0431,
+     "fair": 365,
+     "firstTd": 0.0429,
      "gamesPlayed": 1,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0037277",
-     "i10Exp": 0.2205,
+     "i10Exp": 0.2198,
      "id": "8227",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.2465,
-     "lambdaRaw": 0.2791,
+     "lambda": 0.2421,
+     "lambdaRaw": 0.2782,
      "lessonNotes": [
       "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks)."
      ],
@@ -11640,8 +11640,8 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.2446,
-     "preStack": 0.2446,
+     "preSafety": 0.243,
+     "preStack": 0.243,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -11654,8 +11654,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.24072351927952673,
-       "targets": 0.9324140404568653
+       "chance": 0.23809257184482946,
+       "targets": 0.9218837750236026
       },
       "close": {
        "att": null,
@@ -11666,8 +11666,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.1832124541901785,
-       "targets": 0.7326110317875368
+       "chance": 0.17656085762548224,
+       "targets": 0.7243372518042591
       },
       "limited": {
        "att": null,
@@ -11709,30 +11709,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0029,
+       "expected": 0.0028,
        "looks": 0,
-       "opps": 0.1754,
+       "opps": 0.1681,
        "rate": 0.0139,
        "scores": 0
       },
       "t1": {
-       "expected": 0.1925,
+       "expected": 0.1921,
        "looks": 1,
-       "opps": 0.2879,
+       "opps": 0.2873,
        "rate": 0.5797,
        "scores": 1
       },
       "t2": {
-       "expected": 0.028,
+       "expected": 0.0277,
        "looks": 0,
-       "opps": 0.0595,
+       "opps": 0.0588,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0558,
+       "expected": 0.0557,
        "looks": 1,
-       "opps": 0.3098,
+       "opps": 0.3089,
        "rate": 0.13,
        "scores": 1
       }
@@ -11742,7 +11742,7 @@
      "tags": [],
      "tdConf": {
       "blocks": [
-       "80% band 10–45% is too wide."
+       "80% band 9–44% is too wide."
       ],
       "evidence": {
        "avgTouches": 2,
@@ -11752,7 +11752,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.3534520022689126
+       "width": 0.34930563884212074
       },
       "level": "Med",
       "reasons": [
@@ -11761,8 +11761,8 @@
      },
      "team": "ARI",
      "trendEffect": {
-      "after": 0.2436,
-      "before": 0.2436,
+      "after": 0.2429,
+      "before": 0.2429,
       "items": [
        {
         "family": "defense",
@@ -11794,7 +11794,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.575,
-      "targets": 0.8325
+      "targets": 0.8231
      },
      "volConf": {
       "rec": {
@@ -11829,10 +11829,10 @@
         "factor": 1.0526,
         "league": 0.7184
        },
-       "hi": 1.9312,
-       "leagueDefense": 0.6476,
+       "hi": 1.9161,
+       "leagueDefense": 0.6401,
        "lo": 0,
-       "mean": 0.6817,
+       "mean": 0.6738,
        "source": "held-out errors, TE|reserve|available (n=46)",
        "text": "0.6 without this defense. DAL allows TEs a 84% catch rate versus 72% league."
       },
@@ -11842,10 +11842,10 @@
         "factor": 1.0229,
         "league": 7.007
        },
-       "hi": 26.9434,
-       "leagueDefense": 6.3299,
+       "hi": 26.7486,
+       "leagueDefense": 6.2562,
        "lo": 0,
-       "mean": 6.4746,
+       "mean": 6.3992,
        "source": "held-out errors, TE|reserve|available (n=46)",
        "text": "6 without this defense. DAL allows TEs 7.5 yards a target versus 7.0 league."
       },
@@ -11872,53 +11872,53 @@
       "uncertain": false
      },
      "band": [
-      0.0645,
-      0.4664
+      0.0631,
+      0.459
      ],
      "ceiling": 0.5,
-     "challenger": 0.1826,
+     "challenger": 0.1814,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1851,
+     "chance": 0.1814,
      "coldGoal": false,
      "components": {
-      "r0": 0.0118,
-      "r1": 0.1016,
-      "r2": 0.0703,
-      "r3": 0.0049,
-      "t0": 0.0119,
+      "r0": 0.0108,
+      "r1": 0.0996,
+      "r2": 0.0692,
+      "r3": 0.0048,
+      "t0": 0.0117,
       "t1": 0.002,
       "t2": 0.0015,
       "t3": 0.0007
      },
      "conversionNote": "0 of 4 red-zone carries scored.",
      "dist": {
-      "anytime": 0.1851,
-      "lambda": 0.2046,
-      "p0": 0.8149,
-      "p1": 0.1668,
-      "p2": 0.0171,
+      "anytime": 0.1814,
+      "lambda": 0.2001,
+      "p0": 0.8186,
+      "p1": 0.1638,
+      "p2": 0.0164,
       "p3plus": 0.0012,
-      "twoPlus": 0.0183
+      "twoPlus": 0.0175
      },
-     "edge": -0.4352,
+     "edge": -0.8066,
      "espn": "4427728",
-     "fair": 440,
-     "firstTd": 0.0358,
+     "fair": 451,
+     "firstTd": 0.0355,
      "gamesPlayed": 3,
-     "glShare": 0.1953,
-     "glShareRaw": 0.1953,
+     "glShare": 0.1921,
+     "glShareRaw": 0.1921,
      "gsis": "00-0037157",
-     "i10Exp": 0.2182,
+     "i10Exp": 0.215,
      "id": "8122",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.2046,
-     "lambdaRaw": 0.2546,
+     "lambda": 0.2001,
+     "lambdaRaw": 0.25,
      "lessonNotes": [
       "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
       "Blended 50% toward the published projection (18%) because of a thin sample; safety caps applied after."
@@ -11933,10 +11933,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.2078,
-     "preStack": 0.2257,
+     "preSafety": 0.2055,
+     "preStack": 0.2213,
      "pubBlend": {
-      "before": 0.2559,
+      "before": 0.2501,
       "weight": 0.5
      },
      "published": {
@@ -11953,9 +11953,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 2.9005258095217976,
-       "chance": 0.16856079934807888,
-       "targets": 1.098827746344119
+       "carries": 2.7175094660565198,
+       "chance": 0.16538905589589115,
+       "targets": 1.0864180792516247
       },
       "close": {
        "att": null,
@@ -11965,9 +11965,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 3.821869301958133,
-       "chance": 0.17863589565374438,
-       "targets": 0.8633646578418076
+       "carries": 3.5807183552744735,
+       "chance": 0.1714254796512431,
+       "targets": 0.8536142051262763
       },
       "limited": {
        "att": null,
@@ -11981,42 +11981,42 @@
      "segment": "RB|reserve|available",
      "spots": {
       "r0": {
-       "expected": 0.0146,
+       "expected": 0.0134,
        "looks": 14,
-       "opps": 2.4362,
+       "opps": 2.2371,
        "rate": 0.0053,
        "scores": 0
       },
       "r1": {
-       "expected": 0.1264,
+       "expected": 0.1244,
        "looks": 1,
-       "opps": 0.2606,
+       "opps": 0.2564,
        "rate": 0.3972,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0874,
+       "expected": 0.0864,
        "looks": 2,
-       "opps": 0.3478,
+       "opps": 0.3435,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
-       "expected": 0.0061,
+       "expected": 0.006,
        "looks": 1,
-       "opps": 0.3678,
+       "opps": 0.3601,
        "rate": 0.0132,
        "scores": 0
       },
       "t0": {
-       "expected": 0.0148,
+       "expected": 0.0146,
        "looks": 2,
-       "opps": 0.9674,
+       "opps": 0.9564,
        "rate": 0.0136,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0025,
+       "expected": 0.0024,
        "looks": 0,
        "opps": 0.0042,
        "rate": 0.5341,
@@ -12032,7 +12032,7 @@
       "t3": {
        "expected": 0.0009,
        "looks": 0,
-       "opps": 0.0054,
+       "opps": 0.0053,
        "rate": 0.13,
        "scores": 0
       }
@@ -12042,7 +12042,7 @@
      "tags": [],
      "tdConf": {
       "blocks": [
-       "80% band 6–47% is too wide."
+       "80% band 6–46% is too wide."
       ],
       "evidence": {
        "avgTouches": 6.666666666666667,
@@ -12052,7 +12052,7 @@
        "recentRz": 4,
        "repeat": false,
        "roleOk": true,
-       "width": 0.4019240848860003
+       "width": 0.39595818907177105
       },
       "level": "Med",
       "reasons": [
@@ -12067,10 +12067,10 @@
      "verifyReason": "On ARI nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 3.4124,
+      "carries": 3.1971,
       "rzRush": 0.7917,
       "rzTgt": 0.04,
-      "targets": 0.9811
+      "targets": 0.97
      },
      "volConf": {
       "rec": {
@@ -12105,10 +12105,10 @@
         "factor": 1.003,
         "league": 0.7768
        },
-       "hi": 2.1922,
-       "leagueDefense": 0.8191,
+       "hi": 2.1747,
+       "leagueDefense": 0.8096,
        "lo": 0,
-       "mean": 0.8215,
+       "mean": 0.812,
        "source": "held-out errors, RB|reserve|available (n=40)",
        "text": "0.8 without this defense. DAL allows RBs a 79% catch rate versus 78% league."
       },
@@ -12118,10 +12118,10 @@
         "factor": 0.9844,
         "league": 5.5098
        },
-       "hi": 25.5519,
-       "leagueDefense": 6.0713,
+       "hi": 25.368,
+       "leagueDefense": 6.0006,
        "lo": 0,
-       "mean": 5.9767,
+       "mean": 5.9071,
        "source": "held-out errors, RB|reserve|available (n=40)",
        "text": "6 without this defense. DAL allows RBs 5.2 yards a target versus 5.5 league."
       },
@@ -12131,12 +12131,12 @@
         "factor": 1.0302,
         "league": 4.0846
        },
-       "hi": 40.1484,
-       "leagueDefense": 15.7523,
+       "hi": 38.3575,
+       "leagueDefense": 14.7584,
        "lo": 0,
-       "mean": 16.2285,
+       "mean": 15.2045,
        "source": "held-out errors, RB|reserve|available (n=40)",
-       "text": "16 without this defense. DAL allows RBs 4.3 yards a carry versus 4.1 league."
+       "text": "15 without this defense. DAL allows RBs 4.3 yards a carry versus 4.1 league."
       }
      }
     },
@@ -12148,56 +12148,56 @@
       "uncertain": false
      },
      "band": [
-      0.0638,
-      0.3339
+      0.061,
+      0.3221
      ],
      "ceiling": 0.5,
-     "challenger": 0.0999,
+     "challenger": 0.0958,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.151,
+     "chance": 0.1448,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0238,
-      "t1": 0.0265,
-      "t2": 0.0704,
-      "t3": 0.043
+      "t0": 0.0212,
+      "t1": 0.0254,
+      "t2": 0.0681,
+      "t3": 0.0417
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.151,
-      "lambda": 0.1637,
-      "p0": 0.849,
-      "p1": 0.139,
-      "p2": 0.0114,
+      "anytime": 0.1448,
+      "lambda": 0.1564,
+      "p0": 0.8552,
+      "p1": 0.1338,
+      "p2": 0.0105,
       "p3plus": 0.0006,
-      "twoPlus": 0.012
+      "twoPlus": 0.011
      },
-     "edge": 3.7938,
+     "edge": 4.0631,
      "espn": "4692835",
-     "fair": 562,
-     "firstTd": 0.0286,
+     "fair": 591,
+     "firstTd": 0.0277,
      "gamesPlayed": 5,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0038640",
-     "i10Exp": 0.1332,
+     "i10Exp": 0.1325,
      "id": "11034",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1637,
-     "lambdaRaw": 0.225,
+     "lambda": 0.1564,
+     "lambdaRaw": 0.2216,
      "lessonNotes": [
       "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
-      "Blended 38% toward the published projection (11%) because of limited recent red-zone evidence; safety caps applied after."
+      "Blended 38% toward the published projection (10%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 1.1287,
      "name": "Jalen Brooks",
@@ -12209,15 +12209,15 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.17,
-     "preStack": 0.2024,
+     "preSafety": 0.1646,
+     "preStack": 0.1989,
      "pubBlend": {
-      "before": 0.2261,
+      "before": 0.2217,
       "weight": 0.375
      },
      "published": {
-      "expected": 0.12,
-      "probability": 0.11307956328284252,
+      "expected": 0.11,
+      "probability": 0.10416586470347178,
       "source": "Sleeper projections week 8"
      },
      "recentFinisher": false,
@@ -12243,8 +12243,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.15918525606915201,
-       "targets": 3.2941877244660893
+       "chance": 0.15295197322408338,
+       "targets": 3.084408005014802
       },
       "close": {
        "att": null,
@@ -12255,8 +12255,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.1296536633426677,
-       "targets": 2.5882903549376413
+       "chance": 0.12139103645403937,
+       "targets": 2.42346343251163
       },
       "limited": {
        "att": null,
@@ -12298,30 +12298,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0327,
+       "expected": 0.0301,
        "looks": 9,
-       "opps": 2.2791,
+       "opps": 2.0939,
        "rate": 0.0127,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0364,
+       "expected": 0.036,
        "looks": 0,
-       "opps": 0.0623,
+       "opps": 0.0616,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0968,
+       "expected": 0.0965,
        "looks": 1,
-       "opps": 0.2188,
+       "opps": 0.2181,
        "rate": 0.37,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0591,
+       "expected": 0.059,
        "looks": 1,
-       "opps": 0.3811,
+       "opps": 0.3803,
        "rate": 0.1181,
        "scores": 0
       }
@@ -12333,7 +12333,7 @@
      ],
      "tdConf": {
       "blocks": [
-       "80% band 6–33% is too wide."
+       "80% band 6–32% is too wide."
       ],
       "evidence": {
        "avgTouches": 3.3333333333333335,
@@ -12343,7 +12343,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.27000949180213696
+       "width": 0.261154383587096
       },
       "level": "Med",
       "reasons": [
@@ -12352,8 +12352,8 @@
      },
      "team": "ARI",
      "trendEffect": {
-      "after": 0.2015,
-      "before": 0.2015,
+      "after": 0.1988,
+      "before": 0.1988,
       "items": [
        {
         "family": "snap",
@@ -12402,7 +12402,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.4512,
-      "targets": 2.9412
+      "targets": 2.7539
      },
      "volConf": {
       "rec": {
@@ -12437,12 +12437,12 @@
         "factor": 1.0282,
         "league": 0.621
        },
-       "hi": 3.9921,
-       "leagueDefense": 1.6787,
+       "hi": 3.8081,
+       "leagueDefense": 1.5713,
        "lo": 0,
-       "mean": 1.726,
+       "mean": 1.6157,
        "source": "held-out errors, WR|reserve|available (n=87)",
-       "text": "1.7 without this defense. DAL allows WRs a 65% catch rate versus 62% league."
+       "text": "1.6 without this defense. DAL allows WRs a 65% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
@@ -12450,12 +12450,12 @@
         "factor": 1.084,
         "league": 8.1044
        },
-       "hi": 55.5249,
-       "leagueDefense": 22.4085,
+       "hi": 52.9539,
+       "leagueDefense": 20.9741,
        "lo": 0,
-       "mean": 24.2902,
+       "mean": 22.7353,
        "source": "held-out errors, WR|reserve|available (n=87)",
-       "text": "22 without this defense. DAL allows WRs 9.3 yards a target versus 8.1 league."
+       "text": "21 without this defense. DAL allows WRs 9.3 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
@@ -12480,53 +12480,53 @@
       "uncertain": false
      },
      "band": [
-      0.0762,
-      0.1848
+      0.0746,
+      0.1813
      ],
      "ceiling": 0.5,
-     "challenger": 0.1367,
+     "challenger": 0.1358,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1195,
+     "chance": 0.1171,
      "coldGoal": false,
      "components": {
-      "r0": 0.0069,
-      "r1": 0.0677,
-      "r2": 0.0161,
-      "r3": 0.0014,
+      "r0": 0.0064,
+      "r1": 0.0665,
+      "r2": 0.0156,
+      "r3": 0.0013,
       "t0": 0,
-      "t1": 0.0043,
-      "t2": 0.0293,
-      "t3": 0.0016
+      "t1": 0.0042,
+      "t2": 0.0291,
+      "t3": 0.0015
      },
      "conversionNote": "1 of 4 red-zone carries scored.",
      "dist": {
-      "anytime": 0.1195,
-      "lambda": 0.1273,
-      "p0": 0.8805,
-      "p1": 0.1121,
-      "p2": 0.0071,
+      "anytime": 0.1171,
+      "lambda": 0.1246,
+      "p0": 0.8829,
+      "p1": 0.11,
+      "p2": 0.0069,
       "p3plus": 0.0003,
-      "twoPlus": 0.0074
+      "twoPlus": 0.0071
      },
-     "edge": 2.4339,
+     "edge": 2.1961,
      "espn": "2578570",
-     "fair": 737,
-     "firstTd": 0.0223,
+     "fair": 754,
+     "firstTd": 0.0221,
      "gamesPlayed": 6,
-     "glShare": 0.1675,
-     "glShareRaw": 0.1675,
+     "glShare": 0.1655,
+     "glShareRaw": 0.1655,
      "gsis": "00-0033119",
-     "i10Exp": 0.1906,
+     "i10Exp": 0.1885,
      "id": "3257",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1273,
-     "lambdaRaw": 0.2066,
+     "lambda": 0.1246,
+     "lambdaRaw": 0.2036,
      "lessonNotes": [
       "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
       "Blended 58% toward the published projection (9%) because of limited recent red-zone evidence; safety caps applied after."
@@ -12536,7 +12536,7 @@
      "passTd": {
       "attemptShare": 0.9354,
       "display": "1.7",
-      "expected": 1.6968,
+      "expected": 1.6851,
       "interval": [
        0,
        3
@@ -12544,10 +12544,10 @@
       "level": "Med",
       "provisional": true,
       "reasons": [
-       "94% of projected team attempts (34.9) × team receiving-score total 1.81.",
+       "94% of projected team attempts (34.9) × team receiving-score total 1.80.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.814
+      "teamReceivingLambda": 1.8014
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/2578570.png",
@@ -12556,10 +12556,10 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.1349,
-     "preStack": 0.1875,
+     "preSafety": 0.1334,
+     "preStack": 0.1843,
      "pubBlend": {
-      "before": 0.2077,
+      "before": 0.2037,
       "weight": 0.5833
      },
      "published": {
@@ -12576,9 +12576,9 @@
      "scenarios": {
       "behind": {
        "att": 39.094770389884545,
-       "carries": 2.271890580970949,
-       "chance": 0.1112809566086983,
-       "targets": 0.14089399617137485
+       "carries": 2.1285396390425757,
+       "chance": 0.10923020556609575,
+       "targets": 0.13930280265297748
       },
       "close": {
        "att": null,
@@ -12588,9 +12588,9 @@
       },
       "lead": {
        "att": 30.71731959205214,
-       "carries": 2.993549941985251,
-       "chance": 0.11227499622953119,
-       "targets": 0.11070242556322307
+       "carries": 2.804663994973747,
+       "chance": 0.10767132353490494,
+       "targets": 0.10945220208448228
       },
       "limited": {
        "att": null,
@@ -12604,30 +12604,30 @@
      "segment": "QB|primary|available",
      "spots": {
       "r0": {
-       "expected": 0.0112,
+       "expected": 0.0104,
        "looks": 12,
-       "opps": 2.1619,
+       "opps": 2.0045,
        "rate": 0.0054,
        "scores": 0
       },
       "r1": {
-       "expected": 0.1099,
+       "expected": 0.1087,
        "looks": 2,
-       "opps": 0.2235,
+       "opps": 0.2208,
        "rate": 0.4717,
        "scores": 1
       },
       "r2": {
-       "expected": 0.0261,
+       "expected": 0.0254,
        "looks": 1,
-       "opps": 0.1217,
+       "opps": 0.1184,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
        "expected": 0.0022,
        "looks": 1,
-       "opps": 0.1657,
+       "opps": 0.1604,
        "rate": 0.0133,
        "scores": 0
       },
@@ -12639,23 +12639,23 @@
        "scores": 0
       },
       "t1": {
-       "expected": 0.0069,
+       "expected": 0.0068,
        "looks": 0,
-       "opps": 0.0139,
+       "opps": 0.0138,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
        "expected": 0.0476,
        "looks": 1,
-       "opps": 0.1342,
+       "opps": 0.134,
        "rate": 0.37,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0026,
+       "expected": 0.0025,
        "looks": 0,
-       "opps": 0.0176,
+       "opps": 0.0174,
        "rate": 0.13,
        "scores": 0
       }
@@ -12673,12 +12673,12 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.10859282848423735
+       "width": 0.10672101984521387
       },
       "level": "Med",
       "reasons": [
        "2 red-zone touches in his last three games.",
-       "80% band 8–18% is narrow enough."
+       "80% band 7–18% is narrow enough."
       ]
      },
      "team": "ARI",
@@ -12689,10 +12689,10 @@
      "verifyReason": "On ARI nflverse roster (week 7, ACT)",
      "vol": {
       "att": 34.906,
-      "carries": 2.6728,
+      "carries": 2.5042,
       "rzRush": 0.5487,
       "rzTgt": 0.1322,
-      "targets": 0.1258
+      "targets": 0.1244
      },
      "volConf": {
       "passYd": {
@@ -12748,10 +12748,10 @@
         "factor": 1,
         "league": 0.75
        },
-       "hi": 0.5963,
-       "leagueDefense": 0.1006,
+       "hi": 0.5924,
+       "leagueDefense": 0.0994,
        "lo": 0,
-       "mean": 0.0855,
+       "mean": 0.0845,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "0.1 without this defense."
       },
@@ -12761,10 +12761,10 @@
         "factor": 1,
         "league": 1.25
        },
-       "hi": 2.5716,
-       "leagueDefense": 0.1951,
+       "hi": 2.5557,
+       "leagueDefense": 0.1928,
        "lo": 0,
-       "mean": 0.1658,
+       "mean": 0.1639,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "0 without this defense."
       },
@@ -12774,12 +12774,12 @@
         "factor": 1.124,
         "league": 4.4461
        },
-       "hi": 17.2292,
-       "leagueDefense": 10.6519,
+       "hi": 16.3609,
+       "leagueDefense": 9.9798,
        "lo": 0,
-       "mean": 10.1772,
+       "mean": 9.5351,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "11 without this defense. DAL allows QBs 5.9 yards a carry versus 4.4 league."
+       "text": "10 without this defense. DAL allows QBs 5.9 yards a carry versus 4.4 league."
       }
      }
     },
@@ -12791,53 +12791,53 @@
       "uncertain": false
      },
      "band": [
-      0.0443,
-      0.1213
+      0.0437,
+      0.1198
      ],
      "ceiling": 0.5,
-     "challenger": 0.0732,
+     "challenger": 0.0729,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0737,
+     "chance": 0.0727,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0141,
-      "t1": 0.0462,
-      "t2": 0.0107,
-      "t3": 0.0056
+      "t0": 0.0138,
+      "t1": 0.0457,
+      "t2": 0.0105,
+      "t3": 0.0055
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0737,
-      "lambda": 0.0766,
-      "p0": 0.9263,
-      "p1": 0.0709,
-      "p2": 0.0027,
+      "anytime": 0.0727,
+      "lambda": 0.0755,
+      "p0": 0.9273,
+      "p1": 0.07,
+      "p2": 0.0026,
       "p3plus": 0.0001,
-      "twoPlus": 0.0028
+      "twoPlus": 0.0027
      },
-     "edge": 1.5498,
+     "edge": 1.4508,
      "espn": "4426844",
-     "fair": 1256,
+     "fair": 1275,
      "firstTd": 0.0134,
      "gamesPlayed": 5,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0039041",
-     "i10Exp": 0.0938,
+     "i10Exp": 0.0933,
      "id": "10231",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0766,
-     "lambdaRaw": 0.1263,
+     "lambda": 0.0755,
+     "lambdaRaw": 0.1255,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks).",
       "Blended 63% toward the published projection (5%) because of limited recent red-zone evidence; safety caps applied after."
@@ -12852,10 +12852,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0835,
-     "preStack": 0.1241,
+     "preSafety": 0.0832,
+     "preStack": 0.1233,
      "pubBlend": {
-      "before": 0.1325,
+      "before": 0.1316,
       "weight": 0.625
      },
      "published": {
@@ -12873,8 +12873,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.07635996383123111,
-       "targets": 2.3342028522707916
+       "chance": 0.07537726896784669,
+       "targets": 2.307841413529
       },
       "close": {
        "att": null,
@@ -12885,8 +12885,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.06441597532279608,
-       "targets": 1.834016526784193
+       "chance": 0.062146327411123914,
+       "targets": 1.8133039677727854
       },
       "limited": {
        "att": null,
@@ -12928,30 +12928,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0232,
+       "expected": 0.0229,
        "looks": 10,
-       "opps": 1.8398,
+       "opps": 1.8179,
        "rate": 0.0126,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0761,
+       "expected": 0.0759,
        "looks": 1,
-       "opps": 0.1355,
+       "opps": 0.135,
        "rate": 0.5797,
        "scores": 1
       },
       "t2": {
-       "expected": 0.0177,
+       "expected": 0.0175,
        "looks": 0,
-       "opps": 0.0474,
+       "opps": 0.0469,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0093,
+       "expected": 0.0092,
        "looks": 0,
-       "opps": 0.0614,
+       "opps": 0.0608,
        "rate": 0.13,
        "scores": 0
       }
@@ -12969,7 +12969,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.0769775236676602
+       "width": 0.07601692727242515
       },
       "level": "Low",
       "reasons": [
@@ -12979,8 +12979,8 @@
      },
      "team": "ARI",
      "trendEffect": {
-      "after": 0.1186,
-      "before": 0.1186,
+      "after": 0.1179,
+      "before": 0.1179,
       "items": [
        {
         "family": "snap",
@@ -13029,7 +13029,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.3779,
-      "targets": 2.0841
+      "targets": 2.0606
      },
      "volConf": {
       "rec": {
@@ -13064,12 +13064,12 @@
         "factor": 1.0526,
         "league": 0.7184
        },
-       "hi": 3.7738,
-       "leagueDefense": 1.7642,
+       "hi": 3.7428,
+       "leagueDefense": 1.7438,
        "lo": 0,
-       "mean": 1.5785,
+       "mean": 1.5602,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "1.8 without this defense. DAL allows TEs a 84% catch rate versus 72% league."
+       "text": "1.7 without this defense. DAL allows TEs a 84% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
@@ -13077,10 +13077,10 @@
         "factor": 1.0229,
         "league": 7.007
        },
-       "hi": 39.5574,
-       "leagueDefense": 18.3537,
+       "hi": 39.2338,
+       "leagueDefense": 18.1401,
        "lo": 0,
-       "mean": 15.9573,
+       "mean": 15.7716,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "18 without this defense. DAL allows TEs 7.5 yards a target versus 7.0 league."
       },
@@ -13107,51 +13107,51 @@
       "uncertain": false
      },
      "band": [
-      0.0199,
-      0.1074
+      0.019,
+      0.1025
      ],
      "ceiling": 0.5,
-     "challenger": 0.0467,
+     "challenger": 0.0445,
      "challengerLegs": [
       "model"
      ],
-     "chance": 0.0467,
+     "chance": 0.0445,
      "coldGoal": false,
      "components": {
-      "r0": 0.0088,
-      "r1": 0.0159,
-      "r2": 0.007,
-      "r3": 0.0007,
-      "t0": 0.0069,
-      "t1": 0.0041,
+      "r0": 0.0082,
+      "r1": 0.0151,
+      "r2": 0.0066,
+      "r3": 0.0006,
+      "t0": 0.0068,
+      "t1": 0.004,
       "t2": 0.0028,
       "t3": 0.0015
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0467,
-      "lambda": 0.0478,
-      "p0": 0.9533,
-      "p1": 0.0456,
-      "p2": 0.0011,
+      "anytime": 0.0445,
+      "lambda": 0.0455,
+      "p0": 0.9555,
+      "p1": 0.0435,
+      "p2": 0.001,
       "p3plus": 0,
-      "twoPlus": 0.0011
+      "twoPlus": 0.001
      },
      "edge": null,
      "espn": "4035470",
-     "fair": 2042,
-     "firstTd": 0.0084,
+     "fair": 2147,
+     "firstTd": 0.0081,
      "gamesPlayed": 0,
-     "glShare": 0.0272,
-     "glShareRaw": 0.0272,
+     "glShare": 0.0259,
+     "glShareRaw": 0.0259,
      "gsis": null,
-     "i10Exp": 0.0324,
+     "i10Exp": 0.0312,
      "id": "7103",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0478,
-     "lambdaRaw": 0.0519,
+     "lambda": 0.0455,
+     "lambdaRaw": 0.0499,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks)."
      ],
@@ -13165,22 +13165,22 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.053,
-     "preStack": 0.053,
+     "preSafety": 0.051,
+     "preStack": 0.051,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
      "recentRzLooks": 0,
      "replacing": null,
      "riser": null,
-     "role": "RB6",
+     "role": "RB7",
      "safetyNotes": [],
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 1.4947311566718873,
-       "chance": 0.042530766313732205,
-       "targets": 0.6393696277418505
+       "carries": 1.4004171430335066,
+       "chance": 0.040668818543393104,
+       "targets": 0.6321488743018989
       },
       "close": {
        "att": null,
@@ -13190,9 +13190,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 1.9695281123206045,
-       "chance": 0.04415635933329998,
-       "targets": 0.5023618503685967
+       "carries": 1.8452555296441502,
+       "chance": 0.04109843722501216,
+       "targets": 0.4966884012372062
       },
       "limited": {
        "att": null,
@@ -13206,58 +13206,58 @@
      "segment": "RB|reserve|available",
      "spots": {
       "r0": {
-       "expected": 0.0096,
+       "expected": 0.009,
        "looks": 0,
-       "opps": 1.6401,
+       "opps": 1.5348,
        "rate": 0.0058,
        "scores": 0
       },
       "r1": {
-       "expected": 0.0173,
+       "expected": 0.0165,
        "looks": 0,
-       "opps": 0.0362,
+       "opps": 0.0346,
        "rate": 0.4391,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0076,
+       "expected": 0.0073,
        "looks": 0,
-       "opps": 0.0341,
+       "opps": 0.0325,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
        "expected": 0.0007,
        "looks": 0,
-       "opps": 0.0481,
+       "opps": 0.0457,
        "rate": 0.0146,
        "scores": 0
       },
       "t0": {
-       "expected": 0.0075,
+       "expected": 0.0074,
        "looks": 0,
-       "opps": 0.5434,
+       "opps": 0.5372,
        "rate": 0.0139,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0044,
+       "expected": 0.0043,
        "looks": 0,
-       "opps": 0.0085,
+       "opps": 0.0084,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
        "expected": 0.0031,
        "looks": 0,
-       "opps": 0.0083,
+       "opps": 0.0082,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
        "expected": 0.0016,
        "looks": 0,
-       "opps": 0.0107,
+       "opps": 0.0106,
        "rate": 0.13,
        "scores": 0
       }
@@ -13277,12 +13277,12 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.08747123705450932
+       "width": 0.0835229056002551
       },
       "level": "Low",
       "reasons": [
        "unknown red-zone touches in his last three games (no red-zone data).",
-       "80% band 2–11% is narrow enough."
+       "80% band 2–10% is narrow enough."
       ]
      },
      "team": "ARI",
@@ -13293,10 +13293,10 @@
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
       "att": 0,
-      "carries": 1.7585,
+      "carries": 1.6475,
       "rzRush": 0.25,
       "rzTgt": 0.08,
-      "targets": 0.5709
+      "targets": 0.5644
      },
      "volConf": {
       "rec": {
@@ -13331,10 +13331,10 @@
         "factor": 1.003,
         "league": 0.7768
        },
-       "hi": 1.5026,
-       "leagueDefense": 0.4667,
+       "hi": 1.4912,
+       "leagueDefense": 0.4613,
        "lo": 0,
-       "mean": 0.4681,
+       "mean": 0.4626,
        "source": "held-out errors, RB|reserve|available (n=40)",
        "text": "0.5 without this defense. DAL allows RBs a 79% catch rate versus 78% league."
       },
@@ -13344,10 +13344,10 @@
         "factor": 0.9844,
         "league": 5.5098
        },
-       "hi": 17.9901,
-       "leagueDefense": 3.3981,
+       "hi": 17.8657,
+       "leagueDefense": 3.3586,
        "lo": 0,
-       "mean": 3.3452,
+       "mean": 3.3062,
        "source": "held-out errors, RB|reserve|available (n=40)",
        "text": "3 without this defense. DAL allows RBs 5.2 yards a target versus 5.5 league."
       },
@@ -13357,10 +13357,10 @@
         "factor": 1.0302,
         "league": 4.0846
        },
-       "hi": 23.1211,
-       "leagueDefense": 6.9835,
+       "hi": 22.1565,
+       "leagueDefense": 6.5428,
        "lo": 0,
-       "mean": 7.1946,
+       "mean": 6.7406,
        "source": "held-out errors, RB|reserve|available (n=40)",
        "text": "7 without this defense. DAL allows RBs 4.3 yards a carry versus 4.1 league."
       }
@@ -13374,52 +13374,318 @@
       "uncertain": false
      },
      "band": [
-      0.0094,
-      0.0288
+      0.019,
+      0.1025
      ],
      "ceiling": 0.5,
-     "challenger": 0.0201,
+     "challenger": 0.0641,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.0165,
+     "chance": 0.0445,
+     "coldGoal": false,
+     "components": {
+      "r0": 0.0082,
+      "r1": 0.0151,
+      "r2": 0.0066,
+      "r3": 0.0006,
+      "t0": 0.0068,
+      "t1": 0.004,
+      "t2": 0.0028,
+      "t3": 0.0015
+     },
+     "conversionNote": "",
+     "dist": {
+      "anytime": 0.0445,
+      "lambda": 0.0455,
+      "p0": 0.9555,
+      "p1": 0.0435,
+      "p2": 0.001,
+      "p3plus": 0,
+      "twoPlus": 0.001
+     },
+     "edge": null,
+     "espn": "4569609",
+     "fair": 2147,
+     "firstTd": 0.0081,
+     "gamesPlayed": 0,
+     "glShare": 0.0259,
+     "glShareRaw": 0.0259,
+     "gsis": "00-0038397",
+     "i10Exp": 0.0312,
+     "id": "9220",
+     "implied": 22.5,
+     "injury": null,
+     "insideFinisher": false,
+     "lambda": 0.0455,
+     "lambdaRaw": 0.0499,
+     "lessonNotes": [
+      "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks)."
+     ],
+     "matchupFactor": 1,
+     "name": "Evan Hull",
+     "passTd": null,
+     "photo": {
+      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4569609.png",
+      "initials": "EH",
+      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/9220.jpg"
+     },
+     "pos": "RB",
+     "practice": null,
+     "preSafety": 0.051,
+     "preStack": 0.051,
+     "pubBlend": null,
+     "published": null,
+     "recentFinisher": false,
+     "recentRzLooks": 0,
+     "replacing": null,
+     "riser": null,
+     "role": "RB5",
+     "safetyNotes": [],
+     "scenarios": {
+      "behind": {
+       "att": 0,
+       "carries": 1.4004171430335066,
+       "chance": 0.040668818543393104,
+       "targets": 0.6321488743018989
+      },
+      "close": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      },
+      "lead": {
+       "att": 0,
+       "carries": 1.8452555296441502,
+       "chance": 0.04109843722501216,
+       "targets": 0.4966884012372062
+      },
+      "limited": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      }
+     },
+     "scriptSensitive": false,
+     "secondOption": null,
+     "segment": "RB|reserve|available",
+     "spots": {
+      "r0": {
+       "expected": 0.009,
+       "looks": 0,
+       "opps": 1.5348,
+       "rate": 0.0058,
+       "scores": 0
+      },
+      "r1": {
+       "expected": 0.0165,
+       "looks": 0,
+       "opps": 0.0346,
+       "rate": 0.4391,
+       "scores": 0
+      },
+      "r2": {
+       "expected": 0.0073,
+       "looks": 0,
+       "opps": 0.0325,
+       "rate": 0.27,
+       "scores": 0
+      },
+      "r3": {
+       "expected": 0.0007,
+       "looks": 0,
+       "opps": 0.0457,
+       "rate": 0.0146,
+       "scores": 0
+      },
+      "t0": {
+       "expected": 0.0074,
+       "looks": 0,
+       "opps": 0.5372,
+       "rate": 0.0139,
+       "scores": 0
+      },
+      "t1": {
+       "expected": 0.0043,
+       "looks": 0,
+       "opps": 0.0084,
+       "rate": 0.5341,
+       "scores": 0
+      },
+      "t2": {
+       "expected": 0.0031,
+       "looks": 0,
+       "opps": 0.0082,
+       "rate": 0.3733,
+       "scores": 0
+      },
+      "t3": {
+       "expected": 0.0016,
+       "looks": 0,
+       "opps": 0.0106,
+       "rate": 0.13,
+       "scores": 0
+      }
+     },
+     "spread": 6.5,
+     "stacked": null,
+     "tags": [],
+     "tdConf": {
+      "blocks": [],
+      "evidence": {
+       "avgTouches": 0,
+       "baseline": false,
+       "latest": 0,
+       "narrow": true,
+       "recentRz": 0,
+       "repeat": false,
+       "roleOk": false,
+       "width": 0.0835229056002551
+      },
+      "level": "Low",
+      "reasons": [
+       "unknown red-zone touches in his last three games (no red-zone data).",
+       "80% band 2–10% is narrow enough."
+      ]
+     },
+     "team": "ARI",
+     "trendEffect": null,
+     "trendTags": [],
+     "usage": 0.092,
+     "verified": true,
+     "verifyReason": "On ARI nflverse roster (week 7, ACT)",
+     "vol": {
+      "att": 0,
+      "carries": 1.6475,
+      "rzRush": 0.25,
+      "rzTgt": 0.08,
+      "targets": 0.5644
+     },
+     "volConf": {
+      "rec": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "Near-zero projected targets (0.6)."
+       ]
+      },
+      "recYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "Near-zero projected targets (0.6)."
+       ]
+      },
+      "rushYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": false,
+       "reasons": [
+        "0 carries this season (High needs 20, Medium 8)."
+       ]
+      }
+     },
+     "volume": {
+      "rec": {
+       "defense": {
+        "allowed": 0.7857,
+        "factor": 1.003,
+        "league": 0.7768
+       },
+       "hi": 1.4912,
+       "leagueDefense": 0.4613,
+       "lo": 0,
+       "mean": 0.4626,
+       "source": "held-out errors, RB|reserve|available (n=40)",
+       "text": "0.5 without this defense. DAL allows RBs a 79% catch rate versus 78% league."
+      },
+      "recYd": {
+       "defense": {
+        "allowed": 5.1786,
+        "factor": 0.9844,
+        "league": 5.5098
+       },
+       "hi": 17.8657,
+       "leagueDefense": 3.3586,
+       "lo": 0,
+       "mean": 3.3062,
+       "source": "held-out errors, RB|reserve|available (n=40)",
+       "text": "3 without this defense. DAL allows RBs 5.2 yards a target versus 5.5 league."
+      },
+      "rushYd": {
+       "defense": {
+        "allowed": 4.2585,
+        "factor": 1.0302,
+        "league": 4.0846
+       },
+       "hi": 22.1565,
+       "leagueDefense": 6.5428,
+       "lo": 0,
+       "mean": 6.7406,
+       "source": "held-out errors, RB|reserve|available (n=40)",
+       "text": "7 without this defense. DAL allows RBs 4.3 yards a carry versus 4.1 league."
+      }
+     }
+    },
+    {
+     "avail": {
+      "factor": 1,
+      "label": "Available",
+      "status": "available",
+      "uncertain": false
+     },
+     "band": [
+      0.0092,
+      0.0282
+     ],
+     "ceiling": 0.5,
+     "challenger": 0.0199,
+     "challengerLegs": [
+      "model",
+      "usage"
+     ],
+     "chance": 0.0162,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0088,
-      "t1": 0.0038,
-      "t2": 0.0027,
+      "t0": 0.0086,
+      "t1": 0.0037,
+      "t2": 0.0026,
       "t3": 0.0014
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0165,
-      "lambda": 0.0167,
-      "p0": 0.9835,
-      "p1": 0.0164,
+      "anytime": 0.0162,
+      "lambda": 0.0163,
+      "p0": 0.9838,
+      "p1": 0.016,
       "p2": 0.0001,
       "p3plus": 0,
       "twoPlus": 0.0001
      },
      "edge": null,
      "espn": "4360739",
-     "fair": 5954,
+     "fair": 6084,
      "firstTd": 0.0029,
      "gamesPlayed": 3,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0036646",
-     "i10Exp": 0.007,
+     "i10Exp": 0.0069,
      "id": "7812",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0167,
-     "lambdaRaw": 0.0181,
+     "lambda": 0.0163,
+     "lambdaRaw": 0.0179,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks)."
      ],
@@ -13433,8 +13699,8 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0188,
-     "preStack": 0.0188,
+     "preSafety": 0.0186,
+     "preStack": 0.0186,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -13447,8 +13713,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.017946296957160213,
-       "targets": 0.799212034677313
+       "chance": 0.01758084896313772,
+       "targets": 0.7901860928773737
       },
       "close": {
        "att": null,
@@ -13459,8 +13725,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.013584998492198963,
-       "targets": 0.6279523129607458
+       "chance": 0.012994191411370482,
+       "targets": 0.6208605015465078
       },
       "limited": {
        "att": null,
@@ -13502,30 +13768,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0095,
+       "expected": 0.0094,
        "looks": 0,
-       "opps": 0.6878,
+       "opps": 0.68,
        "rate": 0.0139,
        "scores": 0
       },
       "t1": {
        "expected": 0.0041,
        "looks": 0,
-       "opps": 0.008,
+       "opps": 0.0079,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
        "expected": 0.0029,
        "looks": 0,
-       "opps": 0.0078,
+       "opps": 0.0077,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
        "expected": 0.0015,
        "looks": 0,
-       "opps": 0.0101,
+       "opps": 0.0099,
        "rate": 0.13,
        "scores": 0
       }
@@ -13543,7 +13809,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.019394931979788255
+       "width": 0.018990267086046897
       },
       "level": "Low",
       "reasons": [
@@ -13562,7 +13828,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.075,
-      "targets": 0.7136
+      "targets": 0.7055
      },
      "volConf": {
       "rec": {
@@ -13597,10 +13863,10 @@
         "factor": 1.0282,
         "league": 0.621
        },
-       "hi": 1.6738,
-       "leagueDefense": 0.4663,
+       "hi": 1.6614,
+       "leagueDefense": 0.4609,
        "lo": 0,
-       "mean": 0.4795,
+       "mean": 0.4739,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "0.5 without this defense. DAL allows WRs a 65% catch rate versus 62% league."
       },
@@ -13610,10 +13876,10 @@
         "factor": 1.084,
         "league": 8.1044
        },
-       "hi": 23.2656,
-       "leagueDefense": 6.2479,
+       "hi": 23.0904,
+       "leagueDefense": 6.1752,
        "lo": 0,
-       "mean": 6.7726,
+       "mean": 6.6937,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "6 without this defense. DAL allows WRs 9.3 yards a target versus 8.1 league."
       },
@@ -13640,51 +13906,51 @@
       "uncertain": false
      },
      "band": [
-      0.0068,
-      0.0377
+      0.0066,
+      0.0369
      ],
      "ceiling": 0.5,
-     "challenger": 0.016,
+     "challenger": 0.0157,
      "challengerLegs": [
       "model"
      ],
-     "chance": 0.016,
+     "chance": 0.0157,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0056,
-      "t1": 0.0051,
-      "t2": 0.0036,
-      "t3": 0.0019
+      "t0": 0.0055,
+      "t1": 0.005,
+      "t2": 0.0035,
+      "t3": 0.0018
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.016,
-      "lambda": 0.0161,
-      "p0": 0.984,
-      "p1": 0.0159,
+      "anytime": 0.0157,
+      "lambda": 0.0158,
+      "p0": 0.9843,
+      "p1": 0.0155,
       "p2": 0.0001,
       "p3plus": 0,
       "twoPlus": 0.0001
      },
      "edge": null,
      "espn": null,
-     "fair": 6150,
+     "fair": 6284,
      "firstTd": 0.0028,
      "gamesPlayed": 0,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": null,
-     "i10Exp": 0.0094,
+     "i10Exp": 0.0093,
      "id": "11381",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0161,
-     "lambdaRaw": 0.0175,
+     "lambda": 0.0158,
+     "lambdaRaw": 0.0173,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks)."
      ],
@@ -13698,8 +13964,8 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0182,
-     "preStack": 0.0182,
+     "preSafety": 0.018,
+     "preStack": 0.018,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -13712,8 +13978,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.017382685836550338,
-       "targets": 0.5328080231182087
+       "chance": 0.017030379960569664,
+       "targets": 0.5267907285849158
       },
       "close": {
        "att": null,
@@ -13724,8 +13990,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.01315743700915728,
-       "targets": 0.4186348753071639
+       "chance": 0.012586412856987694,
+       "targets": 0.4139070010310052
       },
       "limited": {
        "att": null,
@@ -13769,28 +14035,28 @@
       "t0": {
        "expected": 0.0061,
        "looks": 0,
-       "opps": 0.4414,
+       "opps": 0.4364,
        "rate": 0.0139,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0055,
+       "expected": 0.0054,
        "looks": 0,
-       "opps": 0.0106,
+       "opps": 0.0105,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0039,
+       "expected": 0.0038,
        "looks": 0,
-       "opps": 0.0103,
+       "opps": 0.0102,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
        "expected": 0.002,
        "looks": 0,
-       "opps": 0.0134,
+       "opps": 0.0133,
        "rate": 0.13,
        "scores": 0
       }
@@ -13810,7 +14076,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.030933455238976726
+       "width": 0.03029292479203849
       },
       "level": "Low",
       "reasons": [
@@ -13820,8 +14086,8 @@
      },
      "team": "ARI",
      "trendEffect": {
-      "after": 0.0173,
-      "before": 0.0173,
+      "after": 0.0172,
+      "before": 0.0172,
       "items": [
        {
         "family": "defense",
@@ -13853,7 +14119,7 @@
       "carries": 0,
       "rzRush": 0,
       "rzTgt": 0.1,
-      "targets": 0.4757
+      "targets": 0.4703
      },
      "volConf": {
       "rec": {
@@ -13888,10 +14154,10 @@
         "factor": 1.0526,
         "league": 0.7184
        },
-       "hi": 1.3097,
-       "leagueDefense": 0.3596,
+       "hi": 1.2999,
+       "leagueDefense": 0.3555,
        "lo": 0,
-       "mean": 0.3785,
+       "mean": 0.3742,
        "source": "held-out errors, TE|reserve|available (n=46)",
        "text": "0.4 without this defense. DAL allows TEs a 84% catch rate versus 72% league."
       },
@@ -13901,10 +14167,10 @@
         "factor": 1.0229,
         "league": 7.007
        },
-       "hi": 19.1226,
-       "leagueDefense": 3.6012,
+       "hi": 18.9896,
+       "leagueDefense": 3.5593,
        "lo": 0,
-       "mean": 3.6836,
+       "mean": 3.6407,
        "source": "held-out errors, TE|reserve|available (n=46)",
        "text": "4 without this defense. DAL allows TEs 7.5 yards a target versus 7.0 league."
       },
@@ -13932,10 +14198,10 @@
      },
      "band": [
       0.0036,
-      0.0211
+      0.0209
      ],
      "ceiling": 0.5,
-     "challenger": 0.0171,
+     "challenger": 0.017,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -13948,36 +14214,36 @@
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.002,
+      "t0": 0.0019,
       "t1": 0.002,
       "t2": 0.0039,
-      "t3": 0.0008
+      "t3": 0.0007
      },
      "conversionNote": "",
      "dist": {
       "anytime": 0.0087,
-      "lambda": 0.0088,
+      "lambda": 0.0087,
       "p0": 0.9913,
-      "p1": 0.0087,
+      "p1": 0.0086,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
-     "edge": -0.1203,
+     "edge": -0.129,
      "espn": "4869132",
-     "fair": 11332,
+     "fair": 11447,
      "firstTd": 0.0015,
      "gamesPlayed": 1,
      "glShare": 0.0008,
      "glShareRaw": 0.0008,
      "gsis": "00-0041070",
-     "i10Exp": 0.1075,
+     "i10Exp": 0.1068,
      "id": "13297",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0088,
-     "lambdaRaw": 0.1565,
+     "lambda": 0.0087,
+     "lambdaRaw": 0.1552,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks).",
       "Blended 100% toward the published projection (0%) because of a thin sample; safety caps applied after."
@@ -13993,9 +14259,9 @@
      "pos": "WR",
      "practice": null,
      "preSafety": 0.01,
-     "preStack": 0.1514,
+     "preStack": 0.1502,
      "pubBlend": {
-      "before": 0.1641,
+      "before": 0.1627,
       "weight": 1
      },
      "published": {
@@ -14012,9 +14278,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.056052418375195784,
-       "chance": 0.008492044636062901,
-       "targets": 3.344968769136114
+       "carries": 0.052515642863756505,
+       "chance": 0.00841363532847883,
+       "targets": 3.3071921940561015
       },
       "close": {
        "att": null,
@@ -14024,9 +14290,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.07385730421202268,
-       "chance": 0.008164775719664674,
-       "targets": 2.628189747178375
+       "carries": 0.06919708236165564,
+       "chance": 0.007898275535626387,
+       "targets": 2.5985081524726503
       },
       "limited": {
        "att": null,
@@ -14040,16 +14306,16 @@
      "segment": "WR|reserve|available",
      "spots": {
       "r0": {
-       "expected": 0.0004,
+       "expected": 0.0003,
        "looks": 0,
-       "opps": 0.0624,
+       "opps": 0.0584,
        "rate": 0.0058,
        "scores": 0
       },
       "r1": {
        "expected": 0.0005,
        "looks": 0,
-       "opps": 0.0011,
+       "opps": 0.001,
        "rate": 0.4391,
        "scores": 0
       },
@@ -14068,30 +14334,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0352,
+       "expected": 0.0347,
        "looks": 4,
-       "opps": 2.6373,
+       "opps": 2.606,
        "rate": 0.0133,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0364,
+       "expected": 0.036,
        "looks": 0,
-       "opps": 0.0703,
+       "opps": 0.0696,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0703,
+       "expected": 0.07,
        "looks": 1,
-       "opps": 0.1902,
+       "opps": 0.1894,
        "rate": 0.37,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0134,
+       "expected": 0.0133,
        "looks": 0,
-       "opps": 0.0888,
+       "opps": 0.0879,
        "rate": 0.13,
        "scores": 0
       }
@@ -14109,7 +14375,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.017436731301721853
+       "width": 0.01726951608056948
       },
       "level": "Low",
       "reasons": [
@@ -14125,10 +14391,10 @@
      "verifyReason": "On ARI nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.0659,
+      "carries": 0.0618,
       "rzRush": 0.0075,
       "rzTgt": 0.6625,
-      "targets": 2.9866
+      "targets": 2.9529
      },
      "volConf": {
       "rec": {
@@ -14163,10 +14429,10 @@
         "factor": 1.0282,
         "league": 0.621
        },
-       "hi": 4.2576,
-       "leagueDefense": 1.8359,
+       "hi": 4.222,
+       "leagueDefense": 1.8147,
        "lo": 0,
-       "mean": 1.8877,
+       "mean": 1.8659,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "1.8 without this defense. DAL allows WRs a 65% catch rate versus 62% league."
       },
@@ -14176,10 +14442,10 @@
         "factor": 1.084,
         "league": 8.1044
        },
-       "hi": 60.2431,
-       "leagueDefense": 25.0874,
+       "hi": 59.7337,
+       "leagueDefense": 24.7954,
        "lo": 0,
-       "mean": 27.194,
+       "mean": 26.8775,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "25 without this defense. DAL allows WRs 9.3 yards a target versus 8.1 league."
       },
@@ -14189,10 +14455,10 @@
         "factor": 1.0575,
         "league": 5.1048
        },
-       "hi": 3.1851,
-       "leagueDefense": 0.3273,
+       "hi": 3.0722,
+       "leagueDefense": 0.3066,
        "lo": 0,
-       "mean": 0.3461,
+       "mean": 0.3243,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "0 without this defense. DAL allows WRs 8.3 yards a carry versus 5.1 league."
       }
@@ -14207,7 +14473,7 @@
      },
      "band": [
       0.0037,
-      0.0206
+      0.0204
      ],
      "ceiling": 0.5,
      "challenger": 0.0165,
@@ -14231,28 +14497,28 @@
      "conversionNote": "",
      "dist": {
       "anytime": 0.0087,
-      "lambda": 0.0088,
+      "lambda": 0.0087,
       "p0": 0.9913,
-      "p1": 0.0087,
+      "p1": 0.0086,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
-     "edge": -0.1203,
+     "edge": -0.129,
      "espn": "4039050",
-     "fair": 11332,
+     "fair": 11447,
      "firstTd": 0.0015,
      "gamesPlayed": 0,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0036331",
-     "i10Exp": 0.014,
+     "i10Exp": 0.0139,
      "id": "6847",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0088,
-     "lambdaRaw": 0.0298,
+     "lambda": 0.0087,
+     "lambdaRaw": 0.0295,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks).",
       "Blended 100% toward the published projection (0%) because of a thin sample; safety caps applied after."
@@ -14268,9 +14534,9 @@
      "pos": "WR",
      "practice": null,
      "preSafety": 0.01,
-     "preStack": 0.0308,
+     "preStack": 0.0305,
      "pubBlend": {
-      "before": 0.0313,
+      "before": 0.0309,
       "weight": 1
      },
      "published": {
@@ -14287,9 +14553,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.007847338572527408,
-       "chance": 0.008492044636062901,
-       "targets": 1.0837315190224368
+       "carries": 0.007352190000925909,
+       "chance": 0.00841363532847883,
+       "targets": 1.0714923419417188
       },
       "close": {
        "att": null,
@@ -14299,9 +14565,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.010340022589683173,
-       "chance": 0.008164775719664674,
-       "targets": 0.8515033363747715
+       "carries": 0.009687591530631787,
+       "chance": 0.007898275535626387,
+       "targets": 0.8418868400970647
       },
       "limited": {
        "att": null,
@@ -14317,7 +14583,7 @@
       "r0": {
        "expected": 0.0001,
        "looks": 0,
-       "opps": 0.0092,
+       "opps": 0.0086,
        "rate": 0.0058,
        "scores": 0
       },
@@ -14343,30 +14609,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0127,
+       "expected": 0.0126,
        "looks": 0,
-       "opps": 0.9161,
+       "opps": 0.9057,
        "rate": 0.0139,
        "scores": 0
       },
       "t1": {
        "expected": 0.0082,
        "looks": 0,
-       "opps": 0.0159,
+       "opps": 0.0158,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0058,
+       "expected": 0.0057,
        "looks": 0,
-       "opps": 0.0155,
+       "opps": 0.0153,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
        "expected": 0.003,
        "looks": 0,
-       "opps": 0.0201,
+       "opps": 0.0199,
        "rate": 0.13,
        "scores": 0
       }
@@ -14384,7 +14650,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.016902489778472973
+       "width": 0.01673539861639839
       },
       "level": "Low",
       "reasons": [
@@ -14400,10 +14666,10 @@
      "verifyReason": "On ARI nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.0092,
+      "carries": 0.0086,
       "rzRush": 0,
       "rzTgt": 0.15,
-      "targets": 0.9676
+      "targets": 0.9567
      },
      "volConf": {
       "rec": {
@@ -14438,10 +14704,10 @@
         "factor": 1.0282,
         "league": 0.621
        },
-       "hi": 2.041,
-       "leagueDefense": 0.6323,
+       "hi": 2.0254,
+       "leagueDefense": 0.625,
        "lo": 0,
-       "mean": 0.6502,
+       "mean": 0.6426,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "0.6 without this defense. DAL allows WRs a 65% catch rate versus 62% league."
       },
@@ -14451,10 +14717,10 @@
         "factor": 1.084,
         "league": 8.1044
        },
-       "hi": 28.3893,
-       "leagueDefense": 8.4722,
+       "hi": 28.1702,
+       "leagueDefense": 8.3736,
        "lo": 0,
-       "mean": 9.1836,
+       "mean": 9.0767,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "8 without this defense. DAL allows WRs 9.3 yards a target versus 8.1 league."
       },
@@ -14464,10 +14730,10 @@
         "factor": 1.0575,
         "league": 5.1048
        },
-       "hi": 1.1107,
-       "leagueDefense": 0.0458,
+       "hi": 1.0736,
+       "leagueDefense": 0.0429,
        "lo": 0,
-       "mean": 0.0485,
+       "mean": 0.0454,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "0 without this defense. DAL allows WRs 8.3 yards a carry versus 5.1 league."
       }
@@ -14481,20 +14747,20 @@
       "uncertain": false
      },
      "band": [
-      0.0017,
-      0.0096
+      0.0016,
+      0.009
      ],
      "ceiling": 0.5,
-     "challenger": 0.012,
+     "challenger": 0.0116,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.004,
+     "chance": 0.0038,
      "coldGoal": false,
      "components": {
-      "r0": 0.0013,
-      "r1": 0.0018,
+      "r0": 0.0012,
+      "r1": 0.0017,
       "r2": 0.0008,
       "r3": 0.0001,
       "t0": 0,
@@ -14504,29 +14770,29 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.004,
-      "lambda": 0.004,
-      "p0": 0.996,
-      "p1": 0.004,
+      "anytime": 0.0038,
+      "lambda": 0.0038,
+      "p0": 0.9962,
+      "p1": 0.0038,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
      "edge": null,
      "espn": "4038524",
-     "fair": 24870,
+     "fair": 26498,
      "firstTd": 0.0007,
      "gamesPlayed": 0,
-     "glShare": 0.0033,
-     "glShareRaw": 0.0033,
+     "glShare": 0.0031,
+     "glShareRaw": 0.0031,
      "gsis": "00-0035289",
-     "i10Exp": 0.0029,
+     "i10Exp": 0.0027,
      "id": "6011",
      "implied": 22.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.004,
-     "lambdaRaw": 0.0044,
+     "lambda": 0.0038,
+     "lambdaRaw": 0.0041,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks)."
      ],
@@ -14535,7 +14801,7 @@
      "passTd": {
       "attemptShare": 0.0387,
       "display": "0.1",
-      "expected": 0.0703,
+      "expected": 0.0698,
       "interval": [
        0,
        0
@@ -14543,13 +14809,13 @@
       "level": "Low",
       "provisional": true,
       "reasons": [
-       "4% of projected team attempts (1.4) × team receiving-score total 1.81.",
+       "4% of projected team attempts (1.4) × team receiving-score total 1.80.",
        "Only 0 of the last three games with attempts.",
        "0 attempts this season (needs 60).",
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.814
+      "teamReceivingLambda": 1.8014
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4038524.png",
@@ -14558,8 +14824,8 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.0046,
-     "preStack": 0.0046,
+     "preSafety": 0.0043,
+     "preStack": 0.0043,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -14571,8 +14837,8 @@
      "scenarios": {
       "behind": {
        "att": 1.6194345880404515,
-       "carries": 0.22420967350078308,
-       "chance": 0.0033054938743682927,
+       "carries": 0.210062571455026,
+       "chance": 0.0031054894798393518,
        "targets": 0
       },
       "close": {
@@ -14583,8 +14849,8 @@
       },
       "lead": {
        "att": 1.272412890603212,
-       "carries": 0.29542921684809065,
-       "chance": 0.004028521252472106,
+       "carries": 0.2767883294466225,
+       "chance": 0.0036984755366538113,
        "targets": 0
       },
       "limited": {
@@ -14599,30 +14865,30 @@
      "segment": "QB|support|available",
      "spots": {
       "r0": {
-       "expected": 0.0014,
+       "expected": 0.0013,
        "looks": 0,
-       "opps": 0.2496,
+       "opps": 0.2336,
        "rate": 0.0058,
        "scores": 0
       },
       "r1": {
-       "expected": 0.002,
+       "expected": 0.0019,
        "looks": 0,
-       "opps": 0.0043,
+       "opps": 0.0042,
        "rate": 0.4391,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0009,
+       "expected": 0.0008,
        "looks": 0,
-       "opps": 0.0041,
+       "opps": 0.0039,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
        "expected": 0.0001,
        "looks": 0,
-       "opps": 0.0058,
+       "opps": 0.0055,
        "rate": 0.0146,
        "scores": 0
       },
@@ -14668,7 +14934,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.007966573868967597
+       "width": 0.007485135348221261
       },
       "level": "Low",
       "reasons": [
@@ -14684,7 +14950,7 @@
      "verifyReason": "On ARI nflverse roster (week 7, ACT)",
      "vol": {
       "att": 1.4459,
-      "carries": 0.2638,
+      "carries": 0.2471,
       "rzRush": 0.03,
       "rzTgt": 0,
       "targets": 0
@@ -14719,7 +14985,7 @@
        "level": "Low",
        "provisional": true,
        "reasons": [
-        "Near-zero projected carries (0.3)."
+        "Near-zero projected carries (0.2)."
        ]
       }
      },
@@ -14769,10 +15035,10 @@
         "factor": 1.124,
         "league": 4.4461
        },
-       "hi": 3.3967,
-       "leagueDefense": 1.1402,
+       "hi": 3.2539,
+       "leagueDefense": 1.0683,
        "lo": 0,
-       "mean": 1.0894,
+       "mean": 1.0207,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "1 without this defense. DAL allows QBs 5.9 yards a carry versus 4.4 league."
       }
@@ -14787,20 +15053,20 @@
      },
      "band": [
       0.0008,
-      0.0052
+      0.0048
      ],
      "ceiling": 0.5,
-     "challenger": 0.0158,
+     "challenger": 0.0153,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.0021,
+     "chance": 0.002,
      "coldGoal": false,
      "components": {
-      "r0": 0.0009,
+      "r0": 0.0008,
       "r1": 0.0008,
-      "r2": 0.0004,
+      "r2": 0.0003,
       "r3": 0,
       "t0": 0,
       "t1": 0,
@@ -14809,29 +15075,29 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0021,
-      "lambda": 0.0021,
-      "p0": 0.9979,
-      "p1": 0.0021,
+      "anytime": 0.002,
+      "lambda": 0.002,
+      "p0": 0.998,
+      "p1": 0.002,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
      "edge": null,
      "espn": "4430841",
-     "fair": 47878,
-     "firstTd": 0.0004,
+     "fair": 51099,
+     "firstTd": 0.0003,
      "gamesPlayed": 0,
      "glShare": 0.0014,
      "glShareRaw": 0.0014,
      "gsis": "00-0041561",
-     "i10Exp": 0.0013,
+     "i10Exp": 0.0012,
      "id": "13272",
      "implied": 22.5,
      "injury": "Questionable",
      "insideFinisher": false,
-     "lambda": 0.0021,
-     "lambdaRaw": 0.0023,
+     "lambda": 0.002,
+     "lambdaRaw": 0.0021,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks)."
      ],
@@ -14840,7 +15106,7 @@
      "passTd": {
       "attemptShare": 0.0258,
       "display": "0.0",
-      "expected": 0.0469,
+      "expected": 0.0465,
       "interval": [
        0,
        0
@@ -14848,14 +15114,14 @@
       "level": "Low",
       "provisional": true,
       "reasons": [
-       "3% of projected team attempts (1.0) × team receiving-score total 1.81.",
+       "3% of projected team attempts (1.0) × team receiving-score total 1.80.",
        "Only 0 of the last three games with attempts.",
        "0 attempts this season (needs 60).",
        "Fewer than 20 projected attempts.",
        "Availability uncertain.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.814
+      "teamReceivingLambda": 1.8014
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4430841.png",
@@ -14864,8 +15130,8 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.0024,
-     "preStack": 0.0024,
+     "preSafety": 0.0022,
+     "preStack": 0.0022,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -14877,8 +15143,8 @@
      "scenarios": {
       "behind": {
        "att": 1.0796230586936344,
-       "carries": 0.1494731156671887,
-       "chance": 0.0017200390345248895,
+       "carries": 0.14004171430335066,
+       "chance": 0.0016130121133474118,
        "targets": 0
       },
       "close": {
@@ -14889,8 +15155,8 @@
       },
       "lead": {
        "att": 0.8482752604021413,
-       "carries": 0.19695281123206043,
-       "chance": 0.0021084810489963024,
+       "carries": 0.184525552964415,
+       "chance": 0.001931778163767106,
        "targets": 0
       },
       "limited": {
@@ -14905,30 +15171,30 @@
      "segment": "QB|reserve|uncertain",
      "spots": {
       "r0": {
-       "expected": 0.001,
+       "expected": 0.0009,
        "looks": 0,
-       "opps": 0.1695,
+       "opps": 0.1587,
        "rate": 0.0058,
        "scores": 0
       },
       "r1": {
-       "expected": 0.0009,
+       "expected": 0.0008,
        "looks": 0,
-       "opps": 0.0019,
+       "opps": 0.0018,
        "rate": 0.4391,
        "scores": 0
       },
       "r2": {
        "expected": 0.0004,
        "looks": 0,
-       "opps": 0.0018,
+       "opps": 0.0017,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
        "expected": 0,
        "looks": 0,
-       "opps": 0.0026,
+       "opps": 0.0024,
        "rate": 0.0146,
        "scores": 0
       },
@@ -14976,23 +15242,23 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.004317550175881313
+       "width": 0.00404853219484036
       },
       "level": "Low",
       "reasons": [
        "unknown red-zone touches in his last three games (no red-zone data).",
-       "80% band 0–1% is narrow enough."
+       "80% band 0–0% is narrow enough."
       ]
      },
      "team": "ARI",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.1151,
+     "usage": 0.1152,
      "verified": true,
      "verifyReason": "On ARI nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0.9639,
-      "carries": 0.1759,
+      "carries": 0.1648,
       "rzRush": 0.02,
       "rzTgt": 0,
       "targets": 0
@@ -15077,10 +15343,10 @@
         "factor": 1.124,
         "league": 4.4461
        },
-       "hi": 2.6101,
-       "leagueDefense": 0.7602,
+       "hi": 2.5039,
+       "leagueDefense": 0.7122,
        "lo": 0,
-       "mean": 0.7263,
+       "mean": 0.6805,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "1 without this defense. DAL allows QBs 5.9 yards a carry versus 4.4 league."
       }
@@ -15094,8 +15360,8 @@
       "uncertain": false
      },
      "band": [
-      0.3251,
-      0.7054
+      0.3261,
+      0.704
      ],
      "ceiling": 0.5,
      "challenger": 0.4476,
@@ -15107,14 +15373,14 @@
      "chance": 0.5,
      "coldGoal": false,
      "components": {
-      "r0": 0.0021,
-      "r1": 0.0007,
+      "r0": 0.002,
+      "r1": 0.0008,
       "r2": 0.0003,
       "r3": 0,
-      "t0": 0.1302,
-      "t1": 0.2443,
-      "t2": 0.0709,
-      "t3": 0.2447
+      "t0": 0.1397,
+      "t1": 0.2393,
+      "t2": 0.0704,
+      "t3": 0.2407
      },
      "conversionNote": "3 of 10 red-zone targets converted: those targets are the score.",
      "dist": {
@@ -15129,18 +15395,18 @@
      "edge": 2.7292,
      "espn": "4241389",
      "fair": -100,
-     "firstTd": 0.1212,
+     "firstTd": 0.1229,
      "gamesPlayed": 6,
-     "glShare": 0.0004,
-     "glShareRaw": 0.0004,
+     "glShare": 0.0005,
+     "glShareRaw": 0.0005,
      "gsis": "00-0036358",
-     "i10Exp": 0.3478,
+     "i10Exp": 0.3512,
      "id": "6786",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
      "lambda": 0.6931,
-     "lambdaRaw": 0.7625,
+     "lambdaRaw": 0.7836,
      "lessonNotes": [
       "Learned from finished games: 50plus chances scaled ×0.99 (from the last three weeks).",
       "Blended 33% toward the published projection (47%) because of limited recent red-zone evidence; safety caps applied after."
@@ -15155,10 +15421,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.5107,
-     "preStack": 0.5287,
+     "preSafety": 0.5175,
+     "preStack": 0.5384,
      "pubBlend": {
-      "before": 0.7523,
+      "before": 0.7731,
       "weight": 0.3333
      },
      "published": {
@@ -15177,9 +15443,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.255513215564077,
-       "chance": 0.5,
-       "targets": 10.093157812540104
+       "carries": 0.25794469851907564,
+       "chance": 0.49856502283745185,
+       "targets": 10.94914015589492
       },
       "close": {
        "att": null,
@@ -15189,15 +15455,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.33667623697854865,
-       "chance": 0.35055252650550506,
-       "targets": 7.930338281281509
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "carries": 0.33988007334278203,
+       "chance": 0.3527665749893323,
+       "targets": 8.602895836774579
       }
      },
      "scriptSensitive": false,
@@ -15207,56 +15467,56 @@
       "r0": {
        "expected": 0.0023,
        "looks": 2,
-       "opps": 0.2968,
+       "opps": 0.2994,
        "rate": 0.0058,
        "scores": 0
       },
       "r1": {
        "expected": 0.0008,
        "looks": 0,
-       "opps": 0.0013,
+       "opps": 0.0014,
        "rate": 0.4391,
        "scores": 0
       },
       "r2": {
        "expected": 0.0003,
        "looks": 0,
-       "opps": 0.001,
+       "opps": 0.0011,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
        "expected": 0,
        "looks": 0,
-       "opps": 0.0015,
+       "opps": 0.0016,
        "rate": 0.0146,
        "scores": 0
       },
       "t0": {
-       "expected": 0.1432,
+       "expected": 0.1579,
        "looks": 59,
-       "opps": 7.2261,
+       "opps": 7.9713,
        "rate": 0.015,
        "scores": 1
       },
       "t1": {
-       "expected": 0.2687,
+       "expected": 0.2705,
        "looks": 3,
-       "opps": 0.3594,
+       "opps": 0.3617,
        "rate": 0.6,
        "scores": 2
       },
       "t2": {
-       "expected": 0.078,
+       "expected": 0.0795,
        "looks": 0,
-       "opps": 0.1495,
+       "opps": 0.1524,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
-       "expected": 0.2692,
+       "expected": 0.2721,
        "looks": 7,
-       "opps": 1.2767,
+       "opps": 1.2906,
        "rate": 0.1288,
        "scores": 1
       }
@@ -15268,7 +15528,7 @@
      ],
      "tdConf": {
       "blocks": [
-       "80% band 33–71% is too wide."
+       "80% band 33–70% is too wide."
       ],
       "evidence": {
        "avgTouches": 15,
@@ -15278,7 +15538,7 @@
        "recentRz": 7,
        "repeat": false,
        "roleOk": true,
-       "width": 0.38026539499822054
+       "width": 0.3779191057720641
       },
       "level": "Med",
       "reasons": [
@@ -15287,8 +15547,8 @@
      },
      "team": "DAL",
      "trendEffect": {
-      "after": 0.5335,
-      "before": 0.5335,
+      "after": 0.5432,
+      "before": 0.5432,
       "items": [
        {
         "family": "snap",
@@ -15334,10 +15594,10 @@
      "verifyReason": "On DAL nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.3006,
+      "carries": 0.3035,
       "rzRush": 0.0071,
       "rzTgt": 1.4266,
-      "targets": 9.0117
+      "targets": 9.776
      },
      "volConf": {
       "rec": {
@@ -15376,12 +15636,12 @@
         "factor": 0.9837,
         "league": 0.621
        },
-       "hi": 12.401,
-       "leagueDefense": 6.4088,
-       "lo": 1.4589,
-       "mean": 6.1151,
+       "hi": 13.4489,
+       "leagueDefense": 6.9504,
+       "lo": 1.5822,
+       "mean": 6.6319,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "6.4 without this defense. ARI allows WRs a 60% catch rate versus 62% league."
+       "text": "7.0 without this defense. ARI allows WRs a 60% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
@@ -15389,12 +15649,12 @@
         "factor": 1.1165,
         "league": 8.1044
        },
-       "hi": 198.0982,
-       "leagueDefense": 80.6544,
-       "lo": 12.2042,
-       "mean": 82.8439,
+       "hi": 214.8232,
+       "leagueDefense": 87.4638,
+       "lo": 13.2345,
+       "mean": 89.8382,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "81 without this defense. ARI allows WRs 9.9 yards a target versus 8.1 league."
+       "text": "87 without this defense. ARI allows WRs 9.9 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
@@ -15402,10 +15662,10 @@
         "factor": 1.0084,
         "league": 5.1048
        },
-       "hi": 3.5854,
-       "leagueDefense": 1.3791,
+       "hi": 3.608,
+       "leagueDefense": 1.3922,
        "lo": 0,
-       "mean": 1.182,
+       "mean": 1.1933,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "1 without this defense. ARI allows WRs 6.0 yards a carry versus 5.1 league."
       }
@@ -15419,8 +15679,8 @@
       "uncertain": false
      },
      "band": [
-      0.358,
-      0.6618
+      0.3582,
+      0.6615
      ],
      "ceiling": 0.5,
      "challenger": 0.6012,
@@ -15432,12 +15692,12 @@
      "chance": 0.5,
      "coldGoal": false,
      "components": {
-      "r0": 0.0164,
-      "r1": 0.5527,
-      "r2": 0.0773,
-      "r3": 0.0039,
-      "t0": 0.0147,
-      "t1": 0.0077,
+      "r0": 0.0161,
+      "r1": 0.5469,
+      "r2": 0.0835,
+      "r3": 0.004,
+      "t0": 0.0144,
+      "t1": 0.0078,
       "t2": 0.0061,
       "t3": 0.0143
      },
@@ -15454,18 +15714,18 @@
      "edge": -18.6514,
      "espn": "4361579",
      "fair": -100,
-     "firstTd": 0.1212,
+     "firstTd": 0.1229,
      "gamesPlayed": 6,
-     "glShare": 0.7686,
-     "glShareRaw": 0.7686,
+     "glShare": 0.772,
+     "glShareRaw": 0.772,
      "gsis": "00-0036997",
-     "i10Exp": 1.2106,
+     "i10Exp": 1.2298,
      "id": "7588",
      "implied": 29,
      "injury": null,
      "insideFinisher": true,
      "lambda": 0.6931,
-     "lambdaRaw": 1.3033,
+     "lambdaRaw": 1.323,
      "lessonNotes": [
       "Learned from finished games: 50plus chances scaled ×0.99 (from the last three weeks).",
       "Blended 33% toward the published projection (68%) because of limited recent red-zone evidence; safety caps applied after."
@@ -15480,10 +15740,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.7117,
-     "preStack": 0.7236,
+     "preSafety": 0.7155,
+     "preStack": 0.7289,
      "pubBlend": {
-      "before": 1.2859,
+      "before": 1.3053,
       "weight": 0.3333
      },
      "published": {
@@ -15502,9 +15762,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 9.58101351140874,
-       "chance": 0.5,
-       "targets": 2.8103776210578544
+       "carries": 9.672187155766714,
+       "chance": 0.49856502283745185,
+       "targets": 2.810377621057854
       },
       "close": {
        "att": null,
@@ -15514,15 +15774,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 12.624394273856224,
+       "carries": 12.744528958186729,
        "chance": 0.5,
        "targets": 2.208153845116885
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
       }
      },
      "scriptSensitive": false,
@@ -15532,56 +15786,56 @@
       "r0": {
        "expected": 0.0308,
        "looks": 61,
-       "opps": 7.1817,
+       "opps": 7.1763,
        "rate": 0.0042,
        "scores": 0
       },
       "r1": {
-       "expected": 1.0393,
+       "expected": 1.0439,
        "looks": 15,
-       "opps": 2.2882,
+       "opps": 2.2984,
        "rate": 0.4102,
        "scores": 6
       },
       "r2": {
-       "expected": 0.1454,
+       "expected": 0.1594,
        "looks": 2,
-       "opps": 0.4698,
+       "opps": 0.5147,
        "rate": 0.3463,
        "scores": 1
       },
       "r3": {
-       "expected": 0.0073,
+       "expected": 0.0076,
        "looks": 7,
-       "opps": 1.3321,
+       "opps": 1.3896,
        "rate": 0.0053,
        "scores": 0
       },
       "t0": {
-       "expected": 0.0276,
+       "expected": 0.0275,
        "looks": 19,
-       "opps": 2.2912,
+       "opps": 2.288,
        "rate": 0.0117,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0145,
+       "expected": 0.0148,
        "looks": 0,
-       "opps": 0.0279,
+       "opps": 0.0285,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0114,
+       "expected": 0.0117,
        "looks": 0,
-       "opps": 0.028,
+       "opps": 0.0285,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
-       "expected": 0.027,
+       "expected": 0.0273,
        "looks": 3,
-       "opps": 0.1622,
+       "opps": 0.1643,
        "rate": 0.1298,
        "scores": 1
       }
@@ -15605,7 +15859,7 @@
        "recentRz": 13,
        "repeat": true,
        "roleOk": true,
-       "width": 0.3037260900621619
+       "width": 0.30326934425341345
       },
       "level": "Med",
       "reasons": [
@@ -15615,8 +15869,8 @@
      },
      "team": "DAL",
      "trendEffect": {
-      "after": 0.7284,
-      "before": 0.7284,
+      "after": 0.7337,
+      "before": 0.7337,
       "items": [
        {
         "family": "usage",
@@ -15696,7 +15950,7 @@
      "verifyReason": "On DAL nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 11.2718,
+      "carries": 11.379,
       "rzRush": 2.78,
       "rzTgt": 0.315,
       "targets": 2.5093
@@ -15744,10 +15998,10 @@
         "factor": 0.9465,
         "league": 0.7768
        },
-       "hi": 4.6097,
-       "leagueDefense": 2.1586,
-       "lo": 0.0353,
-       "mean": 1.9819,
+       "hi": 4.6088,
+       "leagueDefense": 2.158,
+       "lo": 0.035,
+       "mean": 1.9813,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "2.2 without this defense. ARI allows RBs a 62% catch rate versus 78% league."
       },
@@ -15757,10 +16011,10 @@
         "factor": 0.9854,
         "league": 5.5098
        },
-       "hi": 31.9361,
-       "leagueDefense": 13.987,
+       "hi": 31.9285,
+       "leagueDefense": 13.9821,
        "lo": 0,
-       "mean": 11.7151,
+       "mean": 11.7109,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "14 without this defense. ARI allows RBs 5.2 yards a target versus 5.5 league."
       },
@@ -15770,12 +16024,12 @@
         "factor": 1.0293,
         "league": 4.0846
        },
-       "hi": 86.6739,
-       "leagueDefense": 42.116,
-       "lo": 13.2214,
-       "mean": 42.915,
+       "hi": 87.29,
+       "leagueDefense": 42.5168,
+       "lo": 13.4889,
+       "mean": 43.3234,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "42 without this defense. ARI allows RBs 4.3 yards a carry versus 4.1 league."
+       "text": "43 without this defense. ARI allows RBs 4.3 yards a carry versus 4.1 league."
       }
      }
     },
@@ -15787,53 +16041,53 @@
       "uncertain": false
      },
      "band": [
-      0.2324,
-      0.4928
+      0.2332,
+      0.494
      ],
      "ceiling": 0.5,
-     "challenger": 0.3491,
+     "challenger": 0.3495,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.3454,
+     "chance": 0.3465,
      "coldGoal": false,
      "components": {
       "r0": 0.0004,
       "r1": 0.0005,
       "r2": 0.0002,
       "r3": 0,
-      "t0": 0.0572,
-      "t1": 0.177,
-      "t2": 0.0787,
-      "t3": 0.1098
+      "t0": 0.0582,
+      "t1": 0.1764,
+      "t2": 0.0791,
+      "t3": 0.1106
      },
      "conversionNote": "1 of 6 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.3454,
-      "lambda": 0.4237,
-      "p0": 0.6546,
-      "p1": 0.2774,
-      "p2": 0.0588,
-      "p3plus": 0.0093,
-      "twoPlus": 0.068
+      "anytime": 0.3465,
+      "lambda": 0.4253,
+      "p0": 0.6535,
+      "p1": 0.278,
+      "p2": 0.0591,
+      "p3plus": 0.0094,
+      "twoPlus": 0.0685
      },
-     "edge": 5.0096,
+     "edge": 5.1138,
      "espn": "4426354",
-     "fair": 190,
-     "firstTd": 0.0741,
+     "fair": 189,
+     "firstTd": 0.0754,
      "gamesPlayed": 6,
      "glShare": 0.0005,
      "glShareRaw": 0.0005,
      "gsis": "00-0037247",
-     "i10Exp": 0.4712,
+     "i10Exp": 0.4742,
      "id": "8137",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.4237,
-     "lambdaRaw": 0.7789,
+     "lambda": 0.4253,
+     "lambdaRaw": 0.7874,
      "lessonNotes": [
       "Learned from finished games: 50plus chances scaled ×0.99 (from the last three weeks).",
       "Blended 33% toward the published projection (29%) because of limited recent red-zone evidence; safety caps applied after."
@@ -15848,10 +16102,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.4669,
-     "preStack": 0.5363,
+     "preSafety": 0.4699,
+     "preStack": 0.5402,
      "pubBlend": {
-      "before": 0.7685,
+      "before": 0.7769,
       "weight": 0.3333
      },
      "published": {
@@ -15864,7 +16118,7 @@
      "replacing": {
       "id": "8917",
       "name": "KaVontae Turpin",
-      "share": 0.33333333333333337
+      "share": 1
      },
      "riser": {
       "reason": "Rising, not the star: touch share 12% → 20%; ARI is soft to WRs; 3 red-zone looks in the last three weeks; next man up for KaVontae Turpin.",
@@ -15887,9 +16141,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.0772480215993704,
-       "chance": 0.35647444034700915,
-       "targets": 11.479157470152964
+       "carries": 0.07798311957624639,
+       "chance": 0.49856502283745185,
+       "targets": 11.744450606351437
       },
       "close": {
        "att": null,
@@ -15899,15 +16153,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.1017856284603469,
-       "chance": 0.33398640913830246,
-       "targets": 9.019338012263042
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "carries": 0.10275422814752466,
+       "chance": 0.3345991790821238,
+       "targets": 9.227782619276129
       }
      },
      "scriptSensitive": false,
@@ -15917,56 +16165,56 @@
       "r0": {
        "expected": 0.0007,
        "looks": 0,
-       "opps": 0.0867,
+       "opps": 0.0873,
        "rate": 0.0058,
        "scores": 0
       },
       "r1": {
        "expected": 0.0009,
        "looks": 0,
-       "opps": 0.0014,
+       "opps": 0.0015,
        "rate": 0.4391,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0003,
+       "expected": 0.0004,
        "looks": 0,
-       "opps": 0.001,
+       "opps": 0.0011,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
        "expected": 0,
        "looks": 0,
-       "opps": 0.0017,
+       "opps": 0.0018,
        "rate": 0.0146,
        "scores": 0
       },
       "t0": {
-       "expected": 0.1051,
+       "expected": 0.1078,
        "looks": 46,
-       "opps": 8.3813,
+       "opps": 8.5996,
        "rate": 0.0095,
        "scores": 0
       },
       "t1": {
-       "expected": 0.3253,
+       "expected": 0.3266,
        "looks": 3,
-       "opps": 0.6347,
+       "opps": 0.6369,
        "rate": 0.4114,
        "scores": 0
       },
       "t2": {
-       "expected": 0.1447,
+       "expected": 0.1464,
        "looks": 1,
-       "opps": 0.2789,
+       "opps": 0.2821,
        "rate": 0.371,
        "scores": 0
       },
       "t3": {
-       "expected": 0.2019,
+       "expected": 0.2047,
        "looks": 2,
-       "opps": 0.9543,
+       "opps": 0.9676,
        "rate": 0.1292,
        "scores": 1
       }
@@ -15987,7 +16235,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": true,
-       "width": 0.26035955599085725
+       "width": 0.2607787699896089
       },
       "level": "Med",
       "reasons": [
@@ -15997,8 +16245,8 @@
      },
      "team": "DAL",
      "trendEffect": {
-      "after": 0.5411,
-      "before": 0.5411,
+      "after": 0.545,
+      "before": 0.545,
       "items": [
        {
         "family": "usage",
@@ -16053,10 +16301,10 @@
      "verifyReason": "On DAL nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.0909,
+      "carries": 0.0917,
       "rzRush": 0.0052,
       "rzTgt": 1.222,
-      "targets": 10.2492
+      "targets": 10.4861
      },
      "volConf": {
       "rec": {
@@ -16095,12 +16343,12 @@
         "factor": 0.9837,
         "league": 0.621
        },
-       "hi": 11.8773,
-       "leagueDefense": 6.797,
-       "lo": 2.4916,
-       "mean": 6.4855,
+       "hi": 12.1484,
+       "leagueDefense": 6.9521,
+       "lo": 2.5485,
+       "mean": 6.6335,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "6.8 without this defense. ARI allows WRs a 60% catch rate versus 62% league."
+       "text": "7.0 without this defense. ARI allows WRs a 60% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
@@ -16108,12 +16356,12 @@
         "factor": 1.1165,
         "league": 8.1044
        },
-       "hi": 196.2271,
-       "leagueDefense": 90.6267,
-       "lo": 29.8721,
-       "mean": 93.087,
+       "hi": 200.6917,
+       "leagueDefense": 92.6887,
+       "lo": 30.5518,
+       "mean": 95.2049,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "91 without this defense. ARI allows WRs 9.9 yards a target versus 8.1 league."
+       "text": "93 without this defense. ARI allows WRs 9.9 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
@@ -16121,10 +16369,10 @@
         "factor": 1.0084,
         "league": 5.1048
        },
-       "hi": 1.761,
-       "leagueDefense": 0.451,
+       "hi": 1.7712,
+       "leagueDefense": 0.4553,
        "lo": 0,
-       "mean": 0.3866,
+       "mean": 0.3903,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "0 without this defense. ARI allows WRs 6.0 yards a carry versus 5.1 league."
       }
@@ -16138,53 +16386,53 @@
       "uncertain": false
      },
      "band": [
-      0.199,
-      0.4284
+      0.2,
+      0.4305
      ],
      "ceiling": 0.5,
-     "challenger": 0.2514,
+     "challenger": 0.2519,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.297,
+     "chance": 0.2984,
      "coldGoal": false,
      "components": {
       "r0": 0.0003,
       "r1": 0.0005,
       "r2": 0.0002,
       "r3": 0,
-      "t0": 0.0527,
-      "t1": 0.1007,
-      "t2": 0.1196,
-      "t3": 0.0784
+      "t0": 0.0524,
+      "t1": 0.1016,
+      "t2": 0.1202,
+      "t3": 0.0793
      },
      "conversionNote": "1 of 7 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.297,
-      "lambda": 0.3523,
-      "p0": 0.703,
-      "p1": 0.2477,
-      "p2": 0.0436,
-      "p3plus": 0.0056,
-      "twoPlus": 0.0492
+      "anytime": 0.2984,
+      "lambda": 0.3545,
+      "p0": 0.7016,
+      "p1": 0.2487,
+      "p2": 0.0441,
+      "p3plus": 0.0057,
+      "twoPlus": 0.0498
      },
-     "edge": 8.3581,
+     "edge": 8.5071,
      "espn": "5083754",
-     "fair": 237,
-     "firstTd": 0.0616,
+     "fair": 235,
+     "firstTd": 0.0628,
      "gamesPlayed": 6,
      "glShare": 0.0003,
      "glShareRaw": 0.0003,
      "gsis": "00-0039410",
-     "i10Exp": 0.248,
+     "i10Exp": 0.2501,
      "id": "11783",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3523,
-     "lambdaRaw": 0.3955,
+     "lambda": 0.3545,
+     "lambdaRaw": 0.3986,
      "lessonNotes": [
       "Learned from finished games: 25to35 chances scaled ×1.03 (from the last three weeks).",
       "Blended 33% toward the published projection (21%) because of limited recent red-zone evidence; safety caps applied after."
@@ -16199,10 +16447,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.297,
-     "preStack": 0.3354,
+     "preSafety": 0.2984,
+     "preStack": 0.3375,
      "pubBlend": {
-      "before": 0.4085,
+      "before": 0.4117,
       "weight": 0.3333
      },
      "published": {
@@ -16219,9 +16467,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 0.035557008840695105,
-       "chance": 0.3109054452285932,
-       "targets": 5.832647257651041
+       "carries": 0.035895372008079705,
+       "chance": 0.31140431149608294,
+       "targets": 5.832647257651039
       },
       "close": {
        "att": null,
@@ -16231,15 +16479,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 0.046851588119504156,
-       "chance": 0.2736922712649642,
-       "targets": 4.582794273868674
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "carries": 0.047297431351822676,
+       "chance": 0.2750511666827642,
+       "targets": 4.582794273868673
       }
      },
      "scriptSensitive": false,
@@ -16249,7 +16491,7 @@
       "r0": {
        "expected": 0.0003,
        "looks": 0,
-       "opps": 0.0394,
+       "opps": 0.0396,
        "rate": 0.0058,
        "scores": 0
       },
@@ -16263,42 +16505,42 @@
       "r2": {
        "expected": 0.0002,
        "looks": 0,
-       "opps": 0.0006,
+       "opps": 0.0007,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
        "expected": 0,
        "looks": 0,
-       "opps": 0.001,
+       "opps": 0.0011,
        "rate": 0.0146,
        "scores": 0
       },
       "t0": {
-       "expected": 0.0591,
+       "expected": 0.059,
        "looks": 29,
-       "opps": 4.1672,
+       "opps": 4.1558,
        "rate": 0.0107,
        "scores": 0
       },
       "t1": {
-       "expected": 0.113,
+       "expected": 0.1142,
        "looks": 1,
-       "opps": 0.1852,
+       "opps": 0.1871,
        "rate": 0.4897,
        "scores": 0
       },
       "t2": {
-       "expected": 0.1343,
+       "expected": 0.1352,
        "looks": 1,
-       "opps": 0.2227,
+       "opps": 0.2241,
        "rate": 0.4312,
        "scores": 1
       },
       "t3": {
-       "expected": 0.088,
+       "expected": 0.0892,
        "looks": 5,
-       "opps": 0.6326,
+       "opps": 0.6407,
        "rate": 0.085,
        "scores": 0
       }
@@ -16316,7 +16558,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": true,
-       "width": 0.22938213833076027
+       "width": 0.23053169959381237
       },
       "level": "Med",
       "reasons": [
@@ -16326,8 +16568,8 @@
      },
      "team": "DAL",
      "trendEffect": {
-      "after": 0.3267,
-      "before": 0.3267,
+      "after": 0.3287,
+      "before": 0.3287,
       "items": [
        {
         "family": "defense",
@@ -16356,7 +16598,7 @@
      "verifyReason": "On DAL nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 0.0418,
+      "carries": 0.0422,
       "rzRush": 0.004,
       "rzTgt": 0.8904,
       "targets": 5.2077
@@ -16399,10 +16641,10 @@
         "factor": 0.9837,
         "league": 0.621
        },
-       "hi": 6.5872,
-       "leagueDefense": 3.4611,
-       "lo": 0.222,
-       "mean": 3.4046,
+       "hi": 6.5858,
+       "leagueDefense": 3.4601,
+       "lo": 0.2215,
+       "mean": 3.4036,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "3.5 without this defense. ARI allows WRs a 60% catch rate versus 62% league."
       },
@@ -16412,10 +16654,10 @@
         "factor": 1.1165,
         "league": 8.1044
        },
-       "hi": 88.1179,
-       "leagueDefense": 40.6736,
-       "lo": 2.7033,
-       "mean": 45.4106,
+       "hi": 88.0945,
+       "leagueDefense": 40.6593,
+       "lo": 2.6949,
+       "mean": 45.3947,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "41 without this defense. ARI allows WRs 9.9 yards a target versus 8.1 league."
       },
@@ -16425,10 +16667,10 @@
         "factor": 1.0084,
         "league": 5.1048
        },
-       "hi": 2.4173,
-       "leagueDefense": 0.2076,
+       "hi": 2.4298,
+       "leagueDefense": 0.2096,
        "lo": 0,
-       "mean": 0.2093,
+       "mean": 0.2113,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "0 without this defense. ARI allows WRs 6.0 yards a carry versus 5.1 league."
       }
@@ -16442,53 +16684,53 @@
       "uncertain": false
      },
      "band": [
-      0.209,
-      0.4055
+      0.2092,
+      0.406
      ],
      "ceiling": 0.5,
-     "challenger": 0.3134,
+     "challenger": 0.3135,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2947,
+     "chance": 0.295,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0693,
-      "t1": 0.1186,
-      "t2": 0.1046,
-      "t3": 0.0565
+      "t0": 0.0687,
+      "t1": 0.1188,
+      "t2": 0.1048,
+      "t3": 0.0573
      },
      "conversionNote": "3 of 4 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.2947,
-      "lambda": 0.3491,
-      "p0": 0.7053,
-      "p1": 0.2462,
-      "p2": 0.043,
+      "anytime": 0.295,
+      "lambda": 0.3496,
+      "p0": 0.705,
+      "p1": 0.2465,
+      "p2": 0.0431,
       "p3plus": 0.0055,
-      "twoPlus": 0.0485
+      "twoPlus": 0.0486
      },
-     "edge": -4.8268,
+     "edge": -4.793,
      "espn": "4242355",
      "fair": 239,
-     "firstTd": 0.061,
+     "firstTd": 0.062,
      "gamesPlayed": 6,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0038041",
-     "i10Exp": 0.159,
+     "i10Exp": 0.1605,
      "id": "8110",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3491,
-     "lambdaRaw": 0.2487,
+     "lambda": 0.3496,
+     "lambdaRaw": 0.2509,
      "lessonNotes": [
       "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
       "Blended 58% toward the published projection (34%) because of limited recent red-zone evidence; safety caps applied after."
@@ -16503,10 +16745,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.2947,
-     "preStack": 0.2211,
+     "preSafety": 0.295,
+     "preStack": 0.222,
      "pubBlend": {
-      "before": 0.2499,
+      "before": 0.251,
       "weight": 0.5833
      },
      "published": {
@@ -16524,8 +16766,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.3034425556366901,
-       "targets": 5.48360202813681
+       "chance": 0.3027723122839392,
+       "targets": 5.483602028136809
       },
       "close": {
        "att": null,
@@ -16536,14 +16778,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.2858185553884445,
-       "targets": 4.308544450678921
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "chance": 0.2861189975230094,
+       "targets": 4.30854445067892
       }
      },
      "scriptSensitive": false,
@@ -16579,30 +16815,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0494,
+       "expected": 0.0493,
        "looks": 20,
-       "opps": 4.2738,
+       "opps": 4.2652,
        "rate": 0.0116,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0845,
+       "expected": 0.0853,
        "looks": 1,
-       "opps": 0.1837,
+       "opps": 0.1854,
        "rate": 0.4871,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0745,
+       "expected": 0.0752,
        "looks": 1,
-       "opps": 0.1738,
+       "opps": 0.1753,
        "rate": 0.4291,
        "scores": 1
       },
       "t3": {
-       "expected": 0.0403,
+       "expected": 0.0411,
        "looks": 2,
-       "opps": 0.2647,
+       "opps": 0.2702,
        "rate": 0.13,
        "scores": 2
       }
@@ -16622,7 +16858,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.19649742383125202
+       "width": 0.19680985204011436
       },
       "level": "Med",
       "reasons": [
@@ -16678,10 +16914,10 @@
         "factor": 1.0574,
         "league": 0.7184
        },
-       "hi": 7.3948,
-       "leagueDefense": 3.6759,
-       "lo": 1.0855,
-       "mean": 3.7703,
+       "hi": 7.3932,
+       "leagueDefense": 3.6748,
+       "lo": 1.0848,
+       "mean": 3.7692,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "3.7 without this defense. ARI allows TEs a 83% catch rate versus 72% league."
       },
@@ -16691,10 +16927,10 @@
         "factor": 1.0974,
         "league": 7.007
        },
-       "hi": 75.3839,
-       "leagueDefense": 31.8556,
-       "lo": 5.6706,
-       "mean": 32.1617,
+       "hi": 75.365,
+       "leagueDefense": 31.8445,
+       "lo": 5.664,
+       "mean": 32.1504,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "32 without this defense. ARI allows TEs 8.9 yards a target versus 7.0 league."
       },
@@ -16721,53 +16957,53 @@
       "uncertain": false
      },
      "band": [
-      0.1096,
-      0.2765
+      0.1112,
+      0.2804
      ],
      "ceiling": 0.5,
-     "challenger": 0.1116,
+     "challenger": 0.1122,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1762,
+     "chance": 0.1788,
      "coldGoal": false,
      "components": {
-      "r0": 0.0157,
-      "r1": 0.0682,
-      "r2": 0.0245,
-      "r3": 0.0064,
-      "t0": 0.0123,
-      "t1": 0.0142,
-      "t2": 0.0456,
-      "t3": 0.0069
+      "r0": 0.0155,
+      "r1": 0.0693,
+      "r2": 0.0268,
+      "r3": 0.0066,
+      "t0": 0.0122,
+      "t1": 0.0143,
+      "t2": 0.0452,
+      "t3": 0.0071
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.1762,
-      "lambda": 0.1938,
-      "p0": 0.8238,
-      "p1": 0.1597,
-      "p2": 0.0155,
+      "anytime": 0.1788,
+      "lambda": 0.1969,
+      "p0": 0.8212,
+      "p1": 0.1617,
+      "p2": 0.0159,
       "p3plus": 0.0011,
-      "twoPlus": 0.0165
+      "twoPlus": 0.017
      },
-     "edge": 6.3126,
+     "edge": 6.5679,
      "espn": "4429676",
-     "fair": 468,
-     "firstTd": 0.0339,
+     "fair": 459,
+     "firstTd": 0.0349,
      "gamesPlayed": 3,
-     "glShare": 0.0647,
-     "glShareRaw": 0.0647,
+     "glShare": 0.0666,
+     "glShareRaw": 0.0666,
      "gsis": "00-0037120",
-     "i10Exp": 0.2095,
+     "i10Exp": 0.2162,
      "id": "8207",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1938,
-     "lambdaRaw": 0.2664,
+     "lambda": 0.1969,
+     "lambdaRaw": 0.2737,
      "lessonNotes": [
       "Learned from finished games: 15to25 chances scaled ×1.00 (from the last three weeks).",
       "Blended 50% toward the published projection (11%) because of a thin sample; safety caps applied after."
@@ -16782,10 +17018,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.1762,
-     "preStack": 0.2348,
+     "preSafety": 0.1788,
+     "preStack": 0.2396,
      "pubBlend": {
-      "before": 0.2677,
+      "before": 0.2739,
       "weight": 0.5
      },
      "published": {
@@ -16802,9 +17038,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 4.112025877549906,
-       "chance": 0.1718010275897096,
-       "targets": 1.6577376496895058
+       "carries": 4.151156224720808,
+       "chance": 0.17335981803774003,
+       "targets": 1.6577376496895055
       },
       "close": {
        "att": null,
@@ -16814,15 +17050,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 5.418198803359878,
-       "chance": 0.17407813015419005,
-       "targets": 1.3025081533274687
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "carries": 5.469758790220359,
+       "chance": 0.17678825771080242,
+       "targets": 1.3025081533274685
       }
      },
      "scriptSensitive": false,
@@ -16832,56 +17062,56 @@
       "r0": {
        "expected": 0.0216,
        "looks": 9,
-       "opps": 3.7972,
+       "opps": 3.7939,
        "rate": 0.0055,
        "scores": 0
       },
       "r1": {
-       "expected": 0.0937,
+       "expected": 0.0964,
        "looks": 0,
-       "opps": 0.1927,
+       "opps": 0.1982,
        "rate": 0.4391,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0336,
+       "expected": 0.0372,
        "looks": 0,
-       "opps": 0.1392,
+       "opps": 0.154,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
-       "expected": 0.0088,
+       "expected": 0.0091,
        "looks": 2,
-       "opps": 0.7086,
+       "opps": 0.7376,
        "rate": 0.0121,
        "scores": 0
       },
       "t0": {
-       "expected": 0.017,
+       "expected": 0.0169,
        "looks": 4,
-       "opps": 1.2318,
+       "opps": 1.2291,
        "rate": 0.0133,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0195,
+       "expected": 0.0199,
        "looks": 0,
-       "opps": 0.0374,
+       "opps": 0.0381,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0627,
+       "expected": 0.0628,
        "looks": 1,
-       "opps": 0.1538,
+       "opps": 0.1539,
        "rate": 0.3728,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0095,
+       "expected": 0.0098,
        "looks": 0,
-       "opps": 0.0572,
+       "opps": 0.0589,
        "rate": 0.13,
        "scores": 0
       }
@@ -16899,7 +17129,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": false,
-       "width": 0.16694030124236292
+       "width": 0.16923247727991453
       },
       "level": "Med",
       "reasons": [
@@ -16915,7 +17145,7 @@
      "verifyReason": "On DAL nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 4.8377,
+      "carries": 4.8837,
       "rzRush": 0.9083,
       "rzTgt": 0.3167,
       "targets": 1.4801
@@ -16956,10 +17186,10 @@
         "factor": 0.9465,
         "league": 0.7768
        },
-       "hi": 2.5477,
-       "leagueDefense": 1.1122,
+       "hi": 2.5472,
+       "leagueDefense": 1.1119,
        "lo": 0,
-       "mean": 0.8948,
+       "mean": 0.8945,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "1.1 without this defense. ARI allows RBs a 62% catch rate versus 78% league."
       },
@@ -16969,10 +17199,10 @@
         "factor": 0.9854,
         "league": 5.5098
        },
-       "hi": 34.5928,
-       "leagueDefense": 7.7347,
+       "hi": 34.5806,
+       "leagueDefense": 7.732,
        "lo": 0,
-       "mean": 6.4783,
+       "mean": 6.476,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "8 without this defense. ARI allows RBs 5.2 yards a target versus 5.5 league."
       },
@@ -16982,333 +17212,12 @@
         "factor": 1.0293,
         "league": 4.0846
        },
-       "hi": 24.7474,
-       "leagueDefense": 18.2035,
+       "hi": 24.9408,
+       "leagueDefense": 18.3768,
        "lo": 0,
-       "mean": 15.9258,
+       "mean": 16.0774,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "18 without this defense. ARI allows RBs 4.3 yards a carry versus 4.1 league."
-      }
-     }
-    },
-    {
-     "avail": {
-      "factor": 0.6666666666666666,
-      "label": "Questionable, practice report unavailable: about two-thirds of usual work",
-      "status": "questionable",
-      "uncertain": true
-     },
-     "band": [
-      0.0454,
-      0.1773
-     ],
-     "ceiling": 0.5,
-     "challenger": 0.0955,
-     "challengerLegs": [
-      "model",
-      "sleeper",
-      "usage"
-     ],
-     "chance": 0.0908,
-     "coldGoal": false,
-     "components": {
-      "r0": 0,
-      "r1": 0.0152,
-      "r2": 0.035,
-      "r3": 0.0021,
-      "t0": 0.0161,
-      "t1": 0.0086,
-      "t2": 0.0068,
-      "t3": 0.0114
-     },
-     "conversionNote": "",
-     "dist": {
-      "anytime": 0.0908,
-      "lambda": 0.0952,
-      "p0": 0.9092,
-      "p1": 0.0866,
-      "p2": 0.0041,
-      "p3plus": 0.0001,
-      "twoPlus": 0.0043
-     },
-     "edge": 0.4748,
-     "espn": "3676833",
-     "fair": 1001,
-     "firstTd": 0.0166,
-     "gamesPlayed": 5,
-     "glShare": 0.0081,
-     "glShareRaw": 0.0081,
-     "gsis": "00-0037801",
-     "i10Exp": 0.0646,
-     "id": "8917",
-     "implied": 29,
-     "injury": "Questionable",
-     "insideFinisher": false,
-     "lambda": 0.0952,
-     "lambdaRaw": 0.0937,
-     "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks).",
-      "Blended 38% toward the published projection (8%) because of limited recent red-zone evidence; safety caps applied after."
-     ],
-     "matchupFactor": 1.32,
-     "name": "KaVontae Turpin",
-     "passTd": null,
-     "photo": {
-      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/3676833.png",
-      "initials": "KT",
-      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/8917.jpg"
-     },
-     "pos": "WR",
-     "practice": null,
-     "preSafety": 0.0908,
-     "preStack": 0.0937,
-     "pubBlend": {
-      "before": 0.0983,
-      "weight": 0.375
-     },
-     "published": {
-      "expected": 0.09000000000000001,
-      "probability": 0.08606881472877181,
-      "source": "Sleeper projections week 8"
-     },
-     "recentFinisher": false,
-     "recentRzLooks": 2,
-     "replacing": null,
-     "riser": null,
-     "role": "WR4",
-     "safetyNotes": [],
-     "scenarios": {
-      "behind": {
-       "att": 0,
-       "carries": 0.19666675427712255,
-       "chance": 0.08923286110212525,
-       "targets": 1.1212754795532924
-      },
-      "close": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      },
-      "lead": {
-       "att": 0,
-       "carries": 0.2591373703416204,
-       "chance": 0.09042681572447608,
-       "targets": 0.8810021625061581
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      }
-     },
-     "scriptSensitive": false,
-     "secondOption": null,
-     "segment": "WR|reserve|uncertain",
-     "spots": {
-      "r0": {
-       "expected": 0,
-       "looks": 0,
-       "opps": 0.0013,
-       "rate": 0.0058,
-       "scores": 0
-      },
-      "r1": {
-       "expected": 0.015,
-       "looks": 0,
-       "opps": 0.0241,
-       "rate": 0.4391,
-       "scores": 0
-      },
-      "r2": {
-       "expected": 0.0345,
-       "looks": 1,
-       "opps": 0.09,
-       "rate": 0.335,
-       "scores": 1
-      },
-      "r3": {
-       "expected": 0.002,
-       "looks": 1,
-       "opps": 0.1159,
-       "rate": 0.0133,
-       "scores": 0
-      },
-      "t0": {
-       "expected": 0.0158,
-       "looks": 6,
-       "opps": 0.9176,
-       "rate": 0.0131,
-       "scores": 0
-      },
-      "t1": {
-       "expected": 0.0085,
-       "looks": 0,
-       "opps": 0.0127,
-       "rate": 0.5341,
-       "scores": 0
-      },
-      "t2": {
-       "expected": 0.0067,
-       "looks": 0,
-       "opps": 0.0128,
-       "rate": 0.3733,
-       "scores": 0
-      },
-      "t3": {
-       "expected": 0.0112,
-       "looks": 1,
-       "opps": 0.058,
-       "rate": 0.1185,
-       "scores": 0
-      }
-     },
-     "spread": -6.5,
-     "stacked": null,
-     "tags": [
-      "Availability risk"
-     ],
-     "tdConf": {
-      "blocks": [
-       "80% band 5–18% is too wide."
-      ],
-      "evidence": {
-       "avgTouches": 2.3333333333333335,
-       "baseline": false,
-       "latest": 4,
-       "narrow": false,
-       "recentRz": 2,
-       "repeat": false,
-       "roleOk": false,
-       "width": 0.13186261002762056
-      },
-      "level": "Med",
-      "reasons": [
-       "2 red-zone touches in his last three games."
-      ]
-     },
-     "team": "DAL",
-     "trendEffect": {
-      "after": 0.0895,
-      "before": 0.0895,
-      "items": [
-       {
-        "family": "snap",
-        "id": "snap:8917",
-        "mult": 1,
-        "pp": 0,
-        "text": "KaVontae Turpin's snap share rose to 25% over his last 2 games from 13% (3 earlier games).",
-        "weight": 0
-       },
-       {
-        "family": "defense",
-        "id": "defense:ARI:WR",
-        "mult": 1,
-        "pp": 0,
-        "text": "ARI has allowed 1.3 WR touchdowns a game over its last 3 vs 2.0 before (3 earlier games): trending tight.",
-        "weight": 0
-       }
-      ],
-      "note": "before safety caps and the team TD budget"
-     },
-     "trendTags": [
-      {
-       "direction": "up",
-       "family": "snap",
-       "firstDetectedWeek": 8,
-       "id": "snap:8917",
-       "status": "new",
-       "strength": 0.36,
-       "type": "Snap share"
-      },
-      {
-       "direction": "down",
-       "family": "defense",
-       "firstDetectedWeek": 8,
-       "id": "defense:ARI:WR",
-       "status": "new",
-       "strength": -0.33,
-       "type": "Defense trend"
-      }
-     ],
-     "usage": 0.1112,
-     "verified": true,
-     "verifyReason": "On DAL nflverse roster (week 7, ACT)",
-     "vol": {
-      "att": 0,
-      "carries": 0.2314,
-      "rzRush": 0.157,
-      "rzTgt": 0.1489,
-      "targets": 1.0011
-     },
-     "volConf": {
-      "rec": {
-       "blocks": [],
-       "level": "Med",
-       "provisional": true,
-       "reasons": [
-        "7 targets this season (High needs 12, Medium 5).",
-        "Role-specific held-out coverage not yet available: provisional."
-       ]
-      },
-      "recYd": {
-       "blocks": [],
-       "level": "Low",
-       "provisional": true,
-       "reasons": [
-        "7 targets this season (High needs 18, Medium 8).",
-        "Role-specific held-out coverage not yet available: provisional."
-       ]
-      },
-      "rushYd": {
-       "blocks": [],
-       "level": "Low",
-       "provisional": true,
-       "reasons": [
-        "Near-zero projected carries (0.2)."
-       ]
-      }
-     },
-     "volume": {
-      "rec": {
-       "defense": {
-        "allowed": 0.6022,
-        "factor": 0.9837,
-        "league": 0.621
-       },
-       "hi": 1.8185,
-       "leagueDefense": 0.6428,
-       "lo": 0,
-       "mean": 0.5375,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "0.6 without this defense. ARI allows WRs a 60% catch rate versus 62% league."
-      },
-      "recYd": {
-       "defense": {
-        "allowed": 9.8602,
-        "factor": 1.1165,
-        "league": 8.1044
-       },
-       "hi": 24.3548,
-       "leagueDefense": 8.2474,
-       "lo": 0,
-       "mean": 7.8267,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "8 without this defense. ARI allows WRs 9.9 yards a target versus 8.1 league."
-      },
-      "rushYd": {
-       "defense": {
-        "allowed": 6,
-        "factor": 1.0084,
-        "league": 5.1048
-       },
-       "hi": 3.1752,
-       "leagueDefense": 1.1472,
-       "lo": 0,
-       "mean": 0.9833,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
-       "text": "1 without this defense. ARI allows WRs 6.0 yards a carry versus 5.1 league."
       }
      }
     },
@@ -17320,23 +17229,23 @@
       "uncertain": false
      },
      "band": [
-      0.0503,
-      0.1546
+      0.0514,
+      0.1578
      ],
      "ceiling": 0.5,
-     "challenger": 0.0868,
+     "challenger": 0.0874,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0889,
+     "chance": 0.0908,
      "coldGoal": false,
      "components": {
-      "r0": 0.0078,
-      "r1": 0.0556,
-      "r2": 0.0275,
-      "r3": 0.0022,
+      "r0": 0.0076,
+      "r1": 0.0557,
+      "r2": 0.0296,
+      "r3": 0.0023,
       "t0": 0,
       "t1": 0,
       "t2": 0,
@@ -17344,29 +17253,29 @@
      },
      "conversionNote": "0 of 3 red-zone carries scored.",
      "dist": {
-      "anytime": 0.0889,
-      "lambda": 0.0931,
-      "p0": 0.9111,
-      "p1": 0.0848,
-      "p2": 0.004,
+      "anytime": 0.0908,
+      "lambda": 0.0952,
+      "p0": 0.9092,
+      "p1": 0.0865,
+      "p2": 0.0041,
       "p3plus": 0.0001,
-      "twoPlus": 0.0041
+      "twoPlus": 0.0043
      },
-     "edge": 3.0681,
+     "edge": 3.255,
      "espn": "2577417",
-     "fair": 1025,
-     "firstTd": 0.0163,
+     "fair": 1001,
+     "firstTd": 0.0169,
      "gamesPlayed": 6,
-     "glShare": 0.0626,
-     "glShareRaw": 0.0626,
+     "glShare": 0.0635,
+     "glShareRaw": 0.0635,
      "gsis": "00-0033077",
-     "i10Exp": 0.1187,
+     "i10Exp": 0.1233,
      "id": "3294",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0931,
-     "lambdaRaw": 0.133,
+     "lambda": 0.0952,
+     "lambdaRaw": 0.1377,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks).",
       "Blended 58% toward the published projection (5%) because of limited recent red-zone evidence; safety caps applied after."
@@ -17376,7 +17285,7 @@
      "passTd": {
       "attemptShare": 0.962,
       "display": "2.1",
-      "expected": 2.1497,
+      "expected": 2.1137,
       "interval": [
        0,
        4
@@ -17384,10 +17293,10 @@
       "level": "Med",
       "provisional": true,
       "reasons": [
-       "96% of projected team attempts (41.1) × team receiving-score total 2.23.",
+       "96% of projected team attempts (41.1) × team receiving-score total 2.20.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 2.2347
+      "teamReceivingLambda": 2.1973
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/2577417.png",
@@ -17396,10 +17305,10 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.0889,
-     "preStack": 0.1302,
+     "preSafety": 0.0908,
+     "preStack": 0.1345,
      "pubBlend": {
-      "before": 0.1395,
+      "before": 0.1444,
       "weight": 0.5833
      },
      "published": {
@@ -17416,8 +17325,8 @@
      "scenarios": {
       "behind": {
        "att": 43.61835,
-       "carries": 2.243367202611852,
-       "chance": 0.08093889826853518,
+       "carries": 2.2647152534471546,
+       "chance": 0.08221500449386887,
        "targets": 0
       },
       "close": {
@@ -17428,15 +17337,9 @@
       },
       "lead": {
        "att": 36.15388331597979,
-       "carries": 2.955966196382676,
-       "chance": 0.09155464197898233,
+       "carries": 2.9840953927774274,
+       "chance": 0.09357320339631148,
        "targets": 0
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
       }
      },
      "scriptSensitive": false,
@@ -17446,28 +17349,28 @@
       "r0": {
        "expected": 0.0111,
        "looks": 11,
-       "opps": 2.0369,
+       "opps": 2.0327,
        "rate": 0.0054,
        "scores": 0
       },
       "r1": {
-       "expected": 0.0794,
+       "expected": 0.0806,
        "looks": 1,
-       "opps": 0.1864,
+       "opps": 0.1892,
        "rate": 0.3972,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0393,
+       "expected": 0.0428,
        "looks": 1,
-       "opps": 0.1747,
+       "opps": 0.19,
        "rate": 0.2704,
        "scores": 0
       },
       "r3": {
-       "expected": 0.0032,
+       "expected": 0.0033,
        "looks": 1,
-       "opps": 0.2413,
+       "opps": 0.2525,
        "rate": 0.0133,
        "scores": 0
       },
@@ -17513,18 +17416,18 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.10425668138942612
+       "width": 0.1064617303332277
       },
       "level": "Med",
       "reasons": [
        "1 red-zone touches in his last three games.",
-       "80% band 5–15% is narrow enough."
+       "80% band 5–16% is narrow enough."
       ]
      },
      "team": "DAL",
      "trendEffect": {
-      "after": 0.1245,
-      "before": 0.1245,
+      "after": 0.1287,
+      "before": 0.1287,
       "items": [
        {
         "family": "qbRush",
@@ -17553,7 +17456,7 @@
      "verifyReason": "On DAL nflverse roster (week 7, ACT)",
      "vol": {
       "att": 41.084,
-      "carries": 2.6393,
+      "carries": 2.6644,
       "rzRush": 0.4867,
       "rzTgt": 0,
       "targets": 0
@@ -17638,10 +17541,10 @@
         "factor": 1.094,
         "league": 4.4461
        },
-       "hi": 18.4442,
-       "leagueDefense": 11.9198,
+       "hi": 18.5846,
+       "leagueDefense": 12.0332,
        "lo": 0,
-       "mean": 11.0846,
+       "mean": 11.1901,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "12 without this defense. ARI allows QBs 8.0 yards a carry versus 4.4 league."
       }
@@ -17655,53 +17558,53 @@
       "uncertain": false
      },
      "band": [
-      0.0353,
-      0.1619
+      0.0356,
+      0.1632
      ],
      "ceiling": 0.5,
-     "challenger": 0.0618,
+     "challenger": 0.062,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0765,
+     "chance": 0.0772,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0118,
-      "t1": 0.0182,
-      "t2": 0.0136,
-      "t3": 0.0361
+      "t0": 0.0117,
+      "t1": 0.0185,
+      "t2": 0.0138,
+      "t3": 0.0364
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0765,
-      "lambda": 0.0796,
-      "p0": 0.9235,
-      "p1": 0.0735,
-      "p2": 0.0029,
+      "anytime": 0.0772,
+      "lambda": 0.0803,
+      "p0": 0.9228,
+      "p1": 0.0741,
+      "p2": 0.003,
       "p3plus": 0.0001,
-      "twoPlus": 0.003
+      "twoPlus": 0.0031
      },
-     "edge": 3.7319,
+     "edge": 3.7959,
      "espn": "4360967",
-     "fair": 1207,
-     "firstTd": 0.0139,
+     "fair": 1196,
+     "firstTd": 0.0142,
      "gamesPlayed": 6,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0039530",
-     "i10Exp": 0.0514,
+     "i10Exp": 0.0525,
      "id": "11593",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0796,
-     "lambdaRaw": 0.1288,
+     "lambda": 0.0803,
+     "lambdaRaw": 0.1304,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks).",
       "Blended 58% toward the published projection (3%) because of limited recent red-zone evidence; safety caps applied after."
@@ -17716,10 +17619,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0765,
-     "preStack": 0.1264,
+     "preSafety": 0.0772,
+     "preStack": 0.1278,
      "pubBlend": {
-      "before": 0.1351,
+      "before": 0.1367,
       "weight": 0.5833
      },
      "published": {
@@ -17737,8 +17640,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.08274595301754939,
-       "targets": 2.2949420351516823
+       "chance": 0.08312717141735682,
+       "targets": 2.294942035151682
       },
       "close": {
        "att": null,
@@ -17749,14 +17652,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.07027159611095257,
-       "targets": 1.803168741904893
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "chance": 0.07083829680870068,
+       "targets": 1.8031687419048925
       }
      },
      "scriptSensitive": false,
@@ -17792,30 +17689,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.019,
+       "expected": 0.0189,
        "looks": 10,
-       "opps": 1.5085,
+       "opps": 1.5012,
        "rate": 0.0126,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0295,
+       "expected": 0.0301,
        "looks": 0,
-       "opps": 0.0585,
+       "opps": 0.0597,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0219,
+       "expected": 0.0223,
        "looks": 0,
-       "opps": 0.0587,
+       "opps": 0.0599,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0583,
+       "expected": 0.059,
        "looks": 1,
-       "opps": 0.4233,
+       "opps": 0.4282,
        "rate": 0.1178,
        "scores": 0
       }
@@ -17837,7 +17734,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.12665371664400282
+       "width": 0.12761835345309325
       },
       "level": "Low",
       "reasons": [
@@ -17846,8 +17743,8 @@
      },
      "team": "DAL",
      "trendEffect": {
-      "after": 0.1208,
-      "before": 0.1208,
+      "after": 0.1223,
+      "before": 0.1223,
       "items": [
        {
         "family": "usage",
@@ -17914,10 +17811,10 @@
         "factor": 1.0574,
         "league": 0.7184
        },
-       "hi": 4.1489,
-       "leagueDefense": 1.495,
+       "hi": 4.1477,
+       "leagueDefense": 1.4945,
        "lo": 0,
-       "mean": 1.3437,
+       "mean": 1.3433,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "1.5 without this defense. ARI allows TEs a 83% catch rate versus 72% league."
       },
@@ -17927,10 +17824,10 @@
         "factor": 1.0974,
         "league": 7.007
        },
-       "hi": 39.7767,
-       "leagueDefense": 15.0214,
+       "hi": 39.7627,
+       "leagueDefense": 15.0161,
        "lo": 0,
-       "mean": 14.0118,
+       "mean": 14.0069,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "15 without this defense. ARI allows TEs 8.9 yards a target versus 7.0 league."
       },
@@ -17957,53 +17854,53 @@
       "uncertain": false
      },
      "band": [
-      0.035,
-      0.1195
+      0.0357,
+      0.121
      ],
      "ceiling": 0.5,
-     "challenger": 0.0597,
+     "challenger": 0.06,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0651,
+     "chance": 0.0662,
      "coldGoal": false,
      "components": {
-      "r0": 0.0041,
-      "r1": 0.0152,
-      "r2": 0.0052,
-      "r3": 0.0005,
-      "t0": 0.003,
-      "t1": 0.0082,
-      "t2": 0.0061,
-      "t3": 0.0251
+      "r0": 0.004,
+      "r1": 0.0155,
+      "r2": 0.0058,
+      "r3": 0.0006,
+      "t0": 0.0029,
+      "t1": 0.0083,
+      "t2": 0.0062,
+      "t3": 0.0252
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0651,
-      "lambda": 0.0673,
-      "p0": 0.9349,
-      "p1": 0.063,
-      "p2": 0.0021,
-      "p3plus": 0,
+      "anytime": 0.0662,
+      "lambda": 0.0684,
+      "p0": 0.9338,
+      "p1": 0.0639,
+      "p2": 0.0022,
+      "p3plus": 0.0001,
       "twoPlus": 0.0022
      },
-     "edge": 3.5574,
+     "edge": 3.6597,
      "espn": "4383396",
-     "fair": 1435,
-     "firstTd": 0.0118,
+     "fair": 1412,
+     "firstTd": 0.0121,
      "gamesPlayed": 5,
-     "glShare": 0.0199,
-     "glShareRaw": 0.0199,
+     "glShare": 0.0204,
+     "glShareRaw": 0.0204,
      "gsis": "00-0038738",
-     "i10Exp": 0.0636,
+     "i10Exp": 0.0659,
      "id": "11510",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0673,
-     "lambdaRaw": 0.1235,
+     "lambda": 0.0684,
+     "lambdaRaw": 0.1264,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks).",
       "Blended 63% toward the published projection (2%) because of limited recent red-zone evidence; safety caps applied after."
@@ -18018,10 +17915,10 @@
      },
      "pos": "FB",
      "practice": null,
-     "preSafety": 0.0651,
-     "preStack": 0.1215,
+     "preSafety": 0.0662,
+     "preStack": 0.1241,
      "pubBlend": {
-      "before": 0.1296,
+      "before": 0.1325,
       "weight": 0.625
      },
      "published": {
@@ -18038,9 +17935,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 1.2517973956759925,
-       "chance": 0.06602301587520809,
-       "targets": 0.8949632776826068
+       "carries": 1.263709593735801,
+       "chance": 0.0667126515071248,
+       "targets": 0.8949632776826065
       },
       "close": {
        "att": null,
@@ -18050,15 +17947,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 1.6494271566554257,
-       "chance": 0.0625207184846337,
+       "carries": 1.6651232293930553,
+       "chance": 0.0635508271316979,
        "targets": 0.7031854324649052
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
       }
      },
      "scriptSensitive": false,
@@ -18068,56 +17959,56 @@
       "r0": {
        "expected": 0.0075,
        "looks": 3,
-       "opps": 1.302,
+       "opps": 1.3054,
        "rate": 0.0057,
        "scores": 0
       },
       "r1": {
-       "expected": 0.0278,
+       "expected": 0.0286,
        "looks": 0,
-       "opps": 0.0591,
+       "opps": 0.0608,
        "rate": 0.4391,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0096,
+       "expected": 0.0106,
        "looks": 0,
-       "opps": 0.0427,
+       "opps": 0.0473,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
-       "expected": 0.001,
+       "expected": 0.0011,
        "looks": 0,
-       "opps": 0.0689,
+       "opps": 0.0732,
        "rate": 0.0146,
        "scores": 0
       },
       "t0": {
-       "expected": 0.0055,
+       "expected": 0.0054,
        "looks": 3,
-       "opps": 0.4048,
+       "opps": 0.4004,
        "rate": 0.0135,
        "scores": 0
       },
       "t1": {
-       "expected": 0.015,
+       "expected": 0.0153,
        "looks": 0,
-       "opps": 0.0298,
+       "opps": 0.0304,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0112,
+       "expected": 0.0114,
        "looks": 0,
-       "opps": 0.0299,
+       "opps": 0.0305,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
-       "expected": 0.046,
+       "expected": 0.0465,
        "looks": 1,
-       "opps": 0.3346,
+       "opps": 0.3379,
        "rate": 0.1176,
        "scores": 0
       }
@@ -18135,7 +18026,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.08447040755673318
+       "width": 0.08537669032732875
       },
       "level": "Low",
       "reasons": [
@@ -18151,7 +18042,7 @@
      "verifyReason": "On DAL nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 1.4727,
+      "carries": 1.4867,
       "rzRush": 0.2476,
       "rzTgt": 0.2241,
       "targets": 0.7991
@@ -18189,10 +18080,10 @@
         "factor": 0.9465,
         "league": 0.7768
        },
-       "hi": 1.838,
-       "leagueDefense": 0.6791,
+       "hi": 1.8377,
+       "leagueDefense": 0.6789,
        "lo": 0,
-       "mean": 0.5464,
+       "mean": 0.5462,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "0.7 without this defense. ARI allows FBs a 62% catch rate versus 78% league."
       },
@@ -18202,10 +18093,10 @@
         "factor": 0.9854,
         "league": 5.5098
        },
-       "hi": 15.1885,
-       "leagueDefense": 4.4763,
+       "hi": 15.1852,
+       "leagueDefense": 4.4747,
        "lo": 0,
-       "mean": 3.7492,
+       "mean": 3.7479,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "4 without this defense. ARI allows FBs 5.2 yards a target versus 5.5 league."
       },
@@ -18215,10 +18106,10 @@
         "factor": 1.0293,
         "league": 4.0846
        },
-       "hi": 10.1493,
-       "leagueDefense": 5.8733,
+       "hi": 10.2219,
+       "leagueDefense": 5.9292,
        "lo": 0,
-       "mean": 5.1384,
+       "mean": 5.1873,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "6 without this defense. ARI allows FBs 4.3 yards a carry versus 4.1 league."
       }
@@ -18232,51 +18123,51 @@
       "uncertain": false
      },
      "band": [
-      0.0273,
-      0.1459
+      0.0281,
+      0.1501
      ],
      "ceiling": 0.5,
-     "challenger": 0.0639,
+     "challenger": 0.0658,
      "challengerLegs": [
       "model"
      ],
-     "chance": 0.0639,
+     "chance": 0.0658,
      "coldGoal": false,
      "components": {
       "r0": 0.0108,
-      "r1": 0.0262,
-      "r2": 0.009,
-      "r3": 0.0009,
+      "r1": 0.0269,
+      "r2": 0.01,
+      "r3": 0.001,
       "t0": 0.0081,
-      "t1": 0.005,
-      "t2": 0.0037,
-      "t3": 0.0023
+      "t1": 0.0051,
+      "t2": 0.0038,
+      "t3": 0.0024
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0639,
-      "lambda": 0.0661,
-      "p0": 0.9361,
-      "p1": 0.0618,
-      "p2": 0.002,
-      "p3plus": 0,
-      "twoPlus": 0.0021
+      "anytime": 0.0658,
+      "lambda": 0.0681,
+      "p0": 0.9342,
+      "p1": 0.0636,
+      "p2": 0.0022,
+      "p3plus": 0.0001,
+      "twoPlus": 0.0022
      },
      "edge": null,
      "espn": "3123969",
-     "fair": 1464,
-     "firstTd": 0.0116,
+     "fair": 1419,
+     "firstTd": 0.0121,
      "gamesPlayed": 0,
-     "glShare": 0.0178,
-     "glShareRaw": 0.0178,
+     "glShare": 0.0183,
+     "glShareRaw": 0.0183,
      "gsis": "00-0034378",
-     "i10Exp": 0.0419,
+     "i10Exp": 0.0437,
      "id": "5004",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0661,
-     "lambdaRaw": 0.063,
+     "lambda": 0.0681,
+     "lambdaRaw": 0.065,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks)."
      ],
@@ -18290,8 +18181,8 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.0639,
-     "preStack": 0.0639,
+     "preSafety": 0.0658,
+     "preStack": 0.0658,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -18303,9 +18194,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 1.6279878103133907,
-       "chance": 0.05947806216017426,
-       "targets": 0.6610384956670604
+       "carries": 1.643479864620577,
+       "chance": 0.06091812023942034,
+       "targets": 0.6610384956670602
       },
       "close": {
        "att": null,
@@ -18315,15 +18206,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 2.1451133500599977,
-       "chance": 0.0641847315856654,
-       "targets": 0.5193873894526903
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "carries": 2.165526409852996,
+       "chance": 0.0661730854447814,
+       "targets": 0.5193873894526901
       }
      },
      "scriptSensitive": false,
@@ -18333,56 +18218,56 @@
       "r0": {
        "expected": 0.0103,
        "looks": 0,
-       "opps": 1.7622,
+       "opps": 1.7709,
        "rate": 0.0058,
        "scores": 0
       },
       "r1": {
-       "expected": 0.025,
+       "expected": 0.0257,
        "looks": 0,
-       "opps": 0.053,
+       "opps": 0.0546,
        "rate": 0.4391,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0086,
+       "expected": 0.0095,
        "looks": 0,
-       "opps": 0.0383,
+       "opps": 0.0424,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
-       "expected": 0.0009,
+       "expected": 0.001,
        "looks": 0,
-       "opps": 0.0618,
+       "opps": 0.0656,
        "rate": 0.0146,
        "scores": 0
       },
       "t0": {
        "expected": 0.0077,
        "looks": 0,
-       "opps": 0.5568,
+       "opps": 0.556,
        "rate": 0.0139,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0048,
+       "expected": 0.0049,
        "looks": 0,
-       "opps": 0.0094,
+       "opps": 0.0096,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0035,
+       "expected": 0.0036,
        "looks": 0,
-       "opps": 0.0095,
+       "opps": 0.0097,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0022,
+       "expected": 0.0023,
        "looks": 0,
-       "opps": 0.0144,
+       "opps": 0.0149,
        "rate": 0.13,
        "scores": 0
       }
@@ -18403,7 +18288,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.11858914410129706
+       "width": 0.12200585557764387
       },
       "level": "Low",
       "reasons": [
@@ -18418,7 +18303,7 @@
      "verifyReason": "Not found on current nflverse roster and no recent participation: membership pending",
      "vol": {
       "att": 0,
-      "carries": 1.9153,
+      "carries": 1.9335,
       "rzRush": 0.25,
       "rzTgt": 0.08,
       "targets": 0.5902
@@ -18456,10 +18341,10 @@
         "factor": 0.9465,
         "league": 0.7768
        },
-       "hi": 1.4786,
-       "leagueDefense": 0.4825,
+       "hi": 1.4783,
+       "leagueDefense": 0.4824,
        "lo": 0,
-       "mean": 0.4567,
+       "mean": 0.4566,
        "source": "held-out errors, RB|reserve|available (n=40)",
        "text": "0.5 without this defense. ARI allows RBs a 62% catch rate versus 78% league."
       },
@@ -18469,10 +18354,10 @@
         "factor": 0.9854,
         "league": 5.5098
        },
-       "hi": 18.3602,
-       "leagueDefense": 3.5133,
+       "hi": 18.3563,
+       "leagueDefense": 3.5121,
        "lo": 0,
-       "mean": 3.4619,
+       "mean": 3.4607,
        "source": "held-out errors, RB|reserve|available (n=40)",
        "text": "4 without this defense. ARI allows RBs 5.2 yards a target versus 5.5 league."
       },
@@ -18482,10 +18367,10 @@
         "factor": 1.0293,
         "league": 4.0846
        },
-       "hi": 24.4422,
-       "leagueDefense": 7.6061,
+       "hi": 24.5955,
+       "leagueDefense": 7.6784,
        "lo": 0,
-       "mean": 7.8286,
+       "mean": 7.9031,
        "source": "held-out errors, RB|reserve|available (n=40)",
        "text": "8 without this defense. ARI allows RBs 4.3 yards a carry versus 4.1 league."
       }
@@ -18499,52 +18384,52 @@
       "uncertain": false
      },
      "band": [
-      0.0173,
-      0.0927
+      0.0175,
+      0.0937
      ],
      "ceiling": 0.5,
-     "challenger": 0.0915,
+     "challenger": 0.0919,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.0404,
+     "chance": 0.0408,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0206,
-      "t1": 0.0094,
-      "t2": 0.007,
-      "t3": 0.0043
+      "t0": 0.0205,
+      "t1": 0.0096,
+      "t2": 0.0071,
+      "t3": 0.0045
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0404,
-      "lambda": 0.0412,
-      "p0": 0.9596,
-      "p1": 0.0395,
+      "anytime": 0.0408,
+      "lambda": 0.0416,
+      "p0": 0.9592,
+      "p1": 0.0399,
       "p2": 0.0008,
       "p3plus": 0,
       "twoPlus": 0.0008
      },
      "edge": null,
      "espn": "4808759",
-     "fair": 2378,
-     "firstTd": 0.0072,
+     "fair": 2353,
+     "firstTd": 0.0074,
      "gamesPlayed": 0,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0040930",
-     "i10Exp": 0.0156,
+     "i10Exp": 0.0159,
      "id": "13726",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0412,
-     "lambdaRaw": 0.0393,
+     "lambda": 0.0416,
+     "lambdaRaw": 0.0397,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks)."
      ],
@@ -18558,8 +18443,8 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0404,
-     "preStack": 0.0404,
+     "preSafety": 0.0408,
+     "preStack": 0.0408,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -18572,8 +18457,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.04508928745533347,
-       "targets": 1.652596239167651
+       "chance": 0.04536136321012085,
+       "targets": 1.6525962391676505
       },
       "close": {
        "att": null,
@@ -18584,14 +18469,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.03560165022735051,
-       "targets": 1.2984684736317256
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "chance": 0.03596355195544543,
+       "targets": 1.2984684736317254
       }
      },
      "scriptSensitive": false,
@@ -18629,28 +18508,28 @@
       "t0": {
        "expected": 0.0196,
        "looks": 0,
-       "opps": 1.413,
+       "opps": 1.4114,
        "rate": 0.0139,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0089,
+       "expected": 0.0091,
        "looks": 0,
-       "opps": 0.0177,
+       "opps": 0.0181,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0066,
+       "expected": 0.0068,
        "looks": 0,
-       "opps": 0.0178,
+       "opps": 0.0181,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0041,
+       "expected": 0.0042,
        "looks": 0,
-       "opps": 0.0271,
+       "opps": 0.0279,
        "rate": 0.13,
        "scores": 0
       }
@@ -18668,7 +18547,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.07546448415322748
+       "width": 0.07624455218416926
       },
       "level": "Low",
       "reasons": [
@@ -18678,8 +18557,8 @@
      },
      "team": "DAL",
      "trendEffect": {
-      "after": 0.0385,
-      "before": 0.0385,
+      "after": 0.0389,
+      "before": 0.0389,
       "items": [
        {
         "family": "defense",
@@ -18746,10 +18625,10 @@
         "factor": 0.9837,
         "league": 0.621
        },
-       "hi": 2.6284,
-       "leagueDefense": 0.9642,
+       "hi": 2.6279,
+       "leagueDefense": 0.964,
        "lo": 0,
-       "mean": 0.9485,
+       "mean": 0.9482,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "1.0 without this defense. ARI allows WRs a 60% catch rate versus 62% league."
       },
@@ -18759,10 +18638,10 @@
         "factor": 1.1165,
         "league": 8.1044
        },
-       "hi": 38.4934,
-       "leagueDefense": 12.9193,
+       "hi": 38.4841,
+       "leagueDefense": 12.9148,
        "lo": 0,
-       "mean": 14.424,
+       "mean": 14.4189,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "13 without this defense. ARI allows WRs 9.9 yards a target versus 8.1 league."
       },
@@ -18789,53 +18668,53 @@
       "uncertain": false
      },
      "band": [
-      0.0144,
-      0.0852
+      0.0145,
+      0.0859
      ],
      "ceiling": 0.5,
-     "challenger": 0.0258,
+     "challenger": 0.0259,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0353,
+     "chance": 0.0356,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0049,
-      "t1": 0.0068,
-      "t2": 0.005,
-      "t3": 0.0192
+      "t0": 0.0048,
+      "t1": 0.0069,
+      "t2": 0.0051,
+      "t3": 0.0194
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0353,
-      "lambda": 0.0359,
-      "p0": 0.9647,
-      "p1": 0.0346,
+      "anytime": 0.0356,
+      "lambda": 0.0362,
+      "p0": 0.9644,
+      "p1": 0.0349,
       "p2": 0.0006,
       "p3plus": 0,
       "twoPlus": 0.0006
      },
-     "edge": 2.5318,
+     "edge": 2.5628,
      "espn": "4426485",
-     "fair": 2735,
-     "firstTd": 0.0063,
+     "fair": 2711,
+     "firstTd": 0.0064,
      "gamesPlayed": 4,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0039062",
-     "i10Exp": 0.0284,
+     "i10Exp": 0.0289,
      "id": "10225",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0359,
-     "lambdaRaw": 0.0864,
+     "lambda": 0.0362,
+     "lambdaRaw": 0.0873,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks).",
       "Blended 68% toward the published projection (0%) because of limited recent red-zone evidence; safety caps applied after."
@@ -18850,10 +18729,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0353,
-     "preStack": 0.0866,
+     "preSafety": 0.0356,
+     "preStack": 0.0875,
      "pubBlend": {
-      "before": 0.0906,
+      "before": 0.0916,
       "weight": 0.6786
      },
      "published": {
@@ -18871,8 +18750,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.038633726379416755,
-       "targets": 1.4501206294435647
+       "chance": 0.03882101447075281,
+       "targets": 1.4501206294435645
       },
       "close": {
        "att": null,
@@ -18883,14 +18762,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.03189146105296181,
-       "targets": 1.1393804945628008
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "chance": 0.032164664612256866,
+       "targets": 1.1393804945628005
       }
      },
      "scriptSensitive": false,
@@ -18926,30 +18799,30 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0117,
+       "expected": 0.0116,
        "looks": 6,
-       "opps": 0.8951,
+       "opps": 0.8904,
        "rate": 0.0131,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0163,
+       "expected": 0.0166,
        "looks": 0,
-       "opps": 0.0323,
+       "opps": 0.0329,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0121,
+       "expected": 0.0123,
        "looks": 0,
-       "opps": 0.0324,
+       "opps": 0.033,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0463,
+       "expected": 0.0468,
        "looks": 1,
-       "opps": 0.335,
+       "opps": 0.3384,
        "rate": 0.1181,
        "scores": 0
       }
@@ -18967,7 +18840,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.07085199639735862
+       "width": 0.07142339140789389
       },
       "level": "Low",
       "reasons": [
@@ -18977,8 +18850,8 @@
      },
      "team": "DAL",
      "trendEffect": {
-      "after": 0.0827,
-      "before": 0.0827,
+      "after": 0.0836,
+      "before": 0.0836,
       "items": [
        {
         "family": "defense",
@@ -19045,10 +18918,10 @@
         "factor": 0.9837,
         "league": 0.621
        },
-       "hi": 2.2952,
-       "leagueDefense": 0.7888,
+       "hi": 2.2948,
+       "leagueDefense": 0.7885,
        "lo": 0,
-       "mean": 0.7759,
+       "mean": 0.7757,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "0.8 without this defense. ARI allows WRs a 60% catch rate versus 62% league."
       },
@@ -19058,10 +18931,10 @@
         "factor": 1.1165,
         "league": 8.1044
        },
-       "hi": 33.0469,
-       "leagueDefense": 10.3259,
+       "hi": 33.039,
+       "leagueDefense": 10.3223,
        "lo": 0,
-       "mean": 11.5285,
+       "mean": 11.5244,
        "source": "held-out errors, WR|reserve|available (n=87)",
        "text": "10 without this defense. ARI allows WRs 9.9 yards a target versus 8.1 league."
       },
@@ -19088,8 +18961,8 @@
       "uncertain": false
      },
      "band": [
-      0.0222,
-      0.0508
+      0.0223,
+      0.0509
      ],
      "ceiling": 0.5,
      "challenger": 0.0384,
@@ -19105,36 +18978,36 @@
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0203,
-      "t1": 0.0063,
+      "t0": 0.0202,
+      "t1": 0.0064,
       "t2": 0.0047,
-      "t3": 0.0029
+      "t3": 0.003
      },
      "conversionNote": "",
      "dist": {
       "anytime": 0.0337,
-      "lambda": 0.0342,
+      "lambda": 0.0343,
       "p0": 0.9663,
       "p1": 0.0331,
       "p2": 0.0006,
       "p3plus": 0,
       "twoPlus": 0.0006
      },
-     "edge": -0.5551,
+     "edge": -0.5517,
      "espn": "4372096",
-     "fair": 2871,
-     "firstTd": 0.006,
+     "fair": 2868,
+     "firstTd": 0.0061,
      "gamesPlayed": 3,
      "glShare": 0,
      "glShareRaw": 0,
      "gsis": "00-0038547",
-     "i10Exp": 0.0052,
+     "i10Exp": 0.0053,
      "id": "10871",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0342,
-     "lambdaRaw": 0.0162,
+     "lambda": 0.0343,
+     "lambdaRaw": 0.0163,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks).",
       "Blended 75% toward the published projection (3%) because of a thin sample; safety caps applied after."
@@ -19150,9 +19023,9 @@
      "pos": "TE",
      "practice": null,
      "preSafety": 0.0337,
-     "preStack": 0.0168,
+     "preStack": 0.017,
      "pubBlend": {
-      "before": 0.017,
+      "before": 0.0171,
       "weight": 0.75
      },
      "published": {
@@ -19170,8 +19043,8 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.03415103879369363,
-       "targets": 0.8224420616924344
+       "chance": 0.034050306715622924,
+       "targets": 0.8224420616924342
       },
       "close": {
        "att": null,
@@ -19182,14 +19055,8 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.03316789537069087,
-       "targets": 0.6462044770440555
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
+       "chance": 0.033197932585233625,
+       "targets": 0.6462044770440554
       }
      },
      "scriptSensitive": false,
@@ -19227,28 +19094,28 @@
       "t0": {
        "expected": 0.0096,
        "looks": 3,
-       "opps": 0.7135,
+       "opps": 0.713,
        "rate": 0.0135,
        "scores": 0
       },
       "t1": {
        "expected": 0.003,
        "looks": 0,
-       "opps": 0.0059,
+       "opps": 0.006,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0022,
+       "expected": 0.0023,
        "looks": 0,
-       "opps": 0.0059,
+       "opps": 0.006,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
        "expected": 0.0014,
        "looks": 0,
-       "opps": 0.009,
+       "opps": 0.0093,
        "rate": 0.13,
        "scores": 0
       }
@@ -19266,7 +19133,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.028535121181202827
+       "width": 0.02860849401919041
       },
       "level": "Low",
       "reasons": [
@@ -19320,10 +19187,10 @@
         "factor": 1.0574,
         "league": 0.7184
        },
-       "hi": 1.7953,
-       "leagueDefense": 0.5784,
+       "hi": 1.7949,
+       "leagueDefense": 0.5783,
        "lo": 0,
-       "mean": 0.6116,
+       "mean": 0.6115,
        "source": "held-out errors, TE|reserve|available (n=46)",
        "text": "0.6 without this defense. ARI allows TEs a 83% catch rate versus 72% league."
       },
@@ -19333,10 +19200,10 @@
         "factor": 1.0974,
         "league": 7.007
        },
-       "hi": 26.5876,
-       "leagueDefense": 5.7747,
+       "hi": 26.5818,
+       "leagueDefense": 5.7727,
        "lo": 0,
-       "mean": 6.3372,
+       "mean": 6.335,
        "source": "held-out errors, TE|reserve|available (n=46)",
        "text": "6 without this defense. ARI allows TEs 8.9 yards a target versus 7.0 league."
       },
@@ -19363,23 +19230,23 @@
       "uncertain": false
      },
      "band": [
-      0.015,
-      0.0487
+      0.0152,
+      0.0494
      ],
      "ceiling": 0.5,
-     "challenger": 0.0436,
+     "challenger": 0.0438,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0271,
+     "chance": 0.0275,
      "coldGoal": false,
      "components": {
       "r0": 0.0026,
       "r1": 0.0145,
-      "r2": 0.005,
-      "r3": 0.0011,
+      "r2": 0.0054,
+      "r3": 0.0012,
       "t0": 0.0016,
       "t1": 0.0012,
       "t2": 0.0009,
@@ -19387,29 +19254,29 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0271,
-      "lambda": 0.0274,
-      "p0": 0.9729,
-      "p1": 0.0267,
+      "anytime": 0.0275,
+      "lambda": 0.0278,
+      "p0": 0.9725,
+      "p1": 0.0271,
       "p2": 0.0004,
       "p3plus": 0,
       "twoPlus": 0.0004
      },
-     "edge": 0.7272,
+     "edge": 0.7654,
      "espn": "4362478",
-     "fair": 3594,
-     "firstTd": 0.0048,
+     "fair": 3542,
+     "firstTd": 0.0049,
      "gamesPlayed": 2,
-     "glShare": 0.0249,
-     "glShareRaw": 0.0249,
+     "glShare": 0.0257,
+     "glShareRaw": 0.0257,
      "gsis": "00-0038705",
-     "i10Exp": 0.052,
+     "i10Exp": 0.0544,
      "id": "11199",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0274,
-     "lambdaRaw": 0.0664,
+     "lambda": 0.0278,
+     "lambdaRaw": 0.0689,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks).",
       "Blended 85% toward the published projection (1%) because of a thin sample; safety caps applied after."
@@ -19424,10 +19291,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.0271,
-     "preStack": 0.0673,
+     "preSafety": 0.0275,
+     "preStack": 0.0697,
      "pubBlend": {
-      "before": 0.0696,
+      "before": 0.0723,
       "weight": 0.85
      },
      "published": {
@@ -19444,9 +19311,9 @@
      "scenarios": {
       "behind": {
        "att": 0,
-       "carries": 1.2380847297433337,
-       "chance": 0.025971993783375336,
-       "targets": 0.34263828692075965
+       "carries": 1.249866437043949,
+       "chance": 0.026195698737846773,
+       "targets": 0.34263828692075954
       },
       "close": {
        "att": null,
@@ -19456,15 +19323,9 @@
       },
       "lead": {
        "att": 0,
-       "carries": 1.6313587027206284,
-       "chance": 0.027286631713737797,
+       "carries": 1.6468828346932034,
+       "chance": 0.027689879424622754,
        "targets": 0.2692157968663111
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
       }
      },
      "scriptSensitive": false,
@@ -19474,56 +19335,56 @@
       "r0": {
        "expected": 0.0064,
        "looks": 4,
-       "opps": 1.1212,
+       "opps": 1.118,
        "rate": 0.0057,
        "scores": 0
       },
       "r1": {
-       "expected": 0.035,
+       "expected": 0.036,
        "looks": 0,
-       "opps": 0.0743,
+       "opps": 0.0764,
        "rate": 0.4391,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0121,
+       "expected": 0.0133,
        "looks": 0,
-       "opps": 0.0536,
+       "opps": 0.0593,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
-       "expected": 0.0027,
+       "expected": 0.0029,
        "looks": 1,
-       "opps": 0.2075,
+       "opps": 0.2167,
        "rate": 0.0133,
        "scores": 0
       },
       "t0": {
        "expected": 0.004,
        "looks": 0,
-       "opps": 0.2859,
+       "opps": 0.2854,
        "rate": 0.0139,
        "scores": 0
       },
       "t1": {
        "expected": 0.0029,
        "looks": 0,
-       "opps": 0.0057,
+       "opps": 0.0058,
        "rate": 0.5341,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0021,
+       "expected": 0.0022,
        "looks": 0,
-       "opps": 0.0057,
+       "opps": 0.0058,
        "rate": 0.3733,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0013,
+       "expected": 0.0014,
        "looks": 0,
-       "opps": 0.0087,
+       "opps": 0.0089,
        "rate": 0.13,
        "scores": 0
       }
@@ -19541,12 +19402,12 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.033730731893903965
+       "width": 0.03425364319394553
       },
       "level": "Low",
       "reasons": [
        "1 red-zone touches in his last three games.",
-       "80% band 1–5% is narrow enough."
+       "80% band 2–5% is narrow enough."
       ]
      },
      "team": "DAL",
@@ -19557,7 +19418,7 @@
      "verifyReason": "On DAL nflverse roster (week 7, ACT)",
      "vol": {
       "att": 0,
-      "carries": 1.4566,
+      "carries": 1.4704,
       "rzRush": 0.35,
       "rzTgt": 0.048,
       "targets": 0.3059
@@ -19595,8 +19456,8 @@
         "factor": 0.9465,
         "league": 0.7768
        },
-       "hi": 0.9725,
-       "leagueDefense": 0.2501,
+       "hi": 0.9723,
+       "leagueDefense": 0.25,
        "lo": 0,
        "mean": 0.2367,
        "source": "held-out errors, RB|reserve|available (n=40)",
@@ -19608,10 +19469,10 @@
         "factor": 0.9854,
         "league": 5.5098
        },
-       "hi": 12.5205,
-       "leagueDefense": 1.8211,
+       "hi": 12.518,
+       "leagueDefense": 1.8204,
        "lo": 0,
-       "mean": 1.7944,
+       "mean": 1.7938,
        "source": "held-out errors, RB|reserve|available (n=40)",
        "text": "2 without this defense. ARI allows RBs 5.2 yards a target versus 5.5 league."
       },
@@ -19621,10 +19482,10 @@
         "factor": 1.0293,
         "league": 4.0846
        },
-       "hi": 20.0508,
-       "leagueDefense": 5.6137,
+       "hi": 20.1735,
+       "leagueDefense": 5.6672,
        "lo": 0,
-       "mean": 5.778,
+       "mean": 5.833,
        "source": "held-out errors, RB|reserve|available (n=40)",
        "text": "6 without this defense. ARI allows RBs 4.3 yards a carry versus 4.1 league."
       }
@@ -19638,21 +19499,21 @@
       "uncertain": false
      },
      "band": [
-      0.0025,
-      0.0144
+      0.0026,
+      0.0149
      ],
      "ceiling": 0.5,
-     "challenger": 0.0318,
+     "challenger": 0.0323,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.006,
+     "chance": 0.0062,
      "coldGoal": false,
      "components": {
-      "r0": 0.0016,
-      "r1": 0.0031,
-      "r2": 0.0011,
+      "r0": 0.0017,
+      "r1": 0.0032,
+      "r2": 0.0012,
       "r3": 0.0001,
       "t0": 0,
       "t1": 0,
@@ -19661,29 +19522,29 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.006,
-      "lambda": 0.006,
-      "p0": 0.994,
-      "p1": 0.006,
+      "anytime": 0.0062,
+      "lambda": 0.0062,
+      "p0": 0.9938,
+      "p1": 0.0062,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
      "edge": null,
      "espn": "4426875",
-     "fair": 16651,
-     "firstTd": 0.001,
+     "fair": 16058,
+     "firstTd": 0.0011,
      "gamesPlayed": 0,
-     "glShare": 0.0021,
-     "glShareRaw": 0.0021,
+     "glShare": 0.0022,
+     "glShareRaw": 0.0022,
      "gsis": "00-0037077",
-     "i10Exp": 0.004,
+     "i10Exp": 0.0042,
      "id": "8162",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.006,
-     "lambdaRaw": 0.0057,
+     "lambda": 0.0062,
+     "lambdaRaw": 0.0059,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.05 (from the last three weeks)."
      ],
@@ -19692,7 +19553,7 @@
      "passTd": {
       "attemptShare": 0.038,
       "display": "0.1",
-      "expected": 0.085,
+      "expected": 0.0836,
       "interval": [
        0,
        0
@@ -19700,13 +19561,13 @@
       "level": "Low",
       "provisional": true,
       "reasons": [
-       "4% of projected team attempts (1.6) × team receiving-score total 2.23.",
+       "4% of projected team attempts (1.6) × team receiving-score total 2.20.",
        "Only 0 of the last three games with attempts.",
        "0 attempts this season (needs 60).",
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 2.2347
+      "teamReceivingLambda": 2.1973
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4426875.png",
@@ -19715,8 +19576,8 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.006,
-     "preStack": 0.006,
+     "preSafety": 0.0062,
+     "preStack": 0.0062,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -19728,8 +19589,8 @@
      "scenarios": {
       "behind": {
        "att": 1.7249999999999999,
-       "carries": 0.2441981715470086,
-       "chance": 0.005076667405608082,
+       "carries": 0.24652197969308653,
+       "chance": 0.005241212832623021,
        "targets": 0
       },
       "close": {
@@ -19740,15 +19601,9 @@
       },
       "lead": {
        "att": 1.4297984385027205,
-       "carries": 0.32176700250899964,
-       "chance": 0.006316977343062358,
+       "carries": 0.3248289614779494,
+       "chance": 0.006550183535282916,
        "targets": 0
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
       }
      },
      "scriptSensitive": false,
@@ -19758,28 +19613,28 @@
       "r0": {
        "expected": 0.0016,
        "looks": 0,
-       "opps": 0.2689,
+       "opps": 0.2705,
        "rate": 0.0058,
        "scores": 0
       },
       "r1": {
-       "expected": 0.003,
+       "expected": 0.0031,
        "looks": 0,
-       "opps": 0.0064,
+       "opps": 0.0065,
        "rate": 0.4391,
        "scores": 0
       },
       "r2": {
-       "expected": 0.001,
+       "expected": 0.0011,
        "looks": 0,
-       "opps": 0.0046,
+       "opps": 0.0051,
        "rate": 0.27,
        "scores": 0
       },
       "r3": {
        "expected": 0.0001,
        "looks": 0,
-       "opps": 0.0074,
+       "opps": 0.0079,
        "rate": 0.0146,
        "scores": 0
       },
@@ -19825,7 +19680,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.011941149874966861
+       "width": 0.01238783947386879
       },
       "level": "Low",
       "reasons": [
@@ -19841,7 +19696,7 @@
      "verifyReason": "On DAL nflverse roster (week 7, ACT)",
      "vol": {
       "att": 1.6248,
-      "carries": 0.2873,
+      "carries": 0.29,
       "rzRush": 0.03,
       "rzTgt": 0,
       "targets": 0
@@ -19926,10 +19781,10 @@
         "factor": 1.094,
         "league": 4.4461
        },
-       "hi": 3.5304,
-       "leagueDefense": 1.2419,
+       "hi": 3.5527,
+       "leagueDefense": 1.2537,
        "lo": 0,
-       "mean": 1.1549,
+       "mean": 1.1659,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "1 without this defense. ARI allows QBs 8.0 yards a carry versus 4.4 league."
       }
@@ -19997,6 +19852,12 @@
       "id": "7103",
       "team": "ARI",
       "verified": false
+     },
+     {
+      "gsis": "00-0038397",
+      "id": "9220",
+      "team": "ARI",
+      "verified": true
      },
      {
       "gsis": "00-0036646",
@@ -20109,6 +19970,29 @@
       "transfer": null
      },
      {
+      "id": "8917",
+      "name": "KaVontae Turpin",
+      "pos": "WR",
+      "reason": "Out",
+      "transfer": {
+       "fraction": 1,
+       "glTo": "8137",
+       "glToName": "George Pickens",
+       "to": "8137",
+       "toName": "George Pickens",
+       "vacated": {
+        "att": 0,
+        "carries": 0,
+        "rzRush": 0,
+        "rzTgt": 0,
+        "targets": 1.5266099300005551
+       },
+       "weeks": [
+        5
+       ]
+      }
+     },
+     {
       "id": "11508",
       "name": "Princeton Fant",
       "pos": "TE",
@@ -20157,12 +20041,6 @@
      {
       "gsis": "00-0037120",
       "id": "8207",
-      "team": "DAL",
-      "verified": true
-     },
-     {
-      "gsis": "00-0037801",
-      "id": "8917",
       "team": "DAL",
       "verified": true
      },
@@ -20260,7 +20138,7 @@
     "home": {
      "tdBudget": 3.4519078673785817,
      "team": "DAL",
-     "teamLambda": 3.251451492127219
+     "teamLambda": 3.17081515348933
     }
    },
    "week": 8,
