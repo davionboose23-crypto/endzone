@@ -3,16 +3,16 @@
   "learned": {
    "active": {
     "band": {
-     "15to25": 0.9964604943477458,
+     "15to25": 0.9609671501738853,
      "25to35": 1.0453004694050796,
      "35to50": 0.9432727312761813,
-     "50plus": 0.9547237485989228,
+     "50plus": 0.9338256653283311,
      "lt15": 1.1408886787993382
     },
     "basis": [
      {
       "applied": true,
-      "prospective": 232,
+      "prospective": 310,
       "reconstructed": 0,
       "week": 7
      },
@@ -31,17 +31,17 @@
     ],
     "label": "Learned from finished games, from the last three weeks",
     "spot": {
-     "r1": 1.1458763992571983,
-     "r2": 0.8469244353583592,
-     "r3": 1.1052965710866889,
-     "t1": 1.0526420434414645,
-     "t2": 0.970363600175205,
-     "t3": 1.178682828518352
+     "r1": 1.1233173651006938,
+     "r2": 0.8233242699257678,
+     "r3": 1.1317957521782525,
+     "t1": 1.0258105416501013,
+     "t2": 0.9661173643860762,
+     "t3": 1.2107401575649182
     },
     "vol": {
-     "passYd": 1.0223195064551664,
-     "rec": 1.029298304890127,
-     "recYd": 1.0403417102543713,
+     "passYd": 1.0195619670738725,
+     "rec": 1.030836924266546,
+     "recYd": 1.0404325730889274,
      "rushYd": 1.0355746310664393
     }
    },
@@ -52,24 +52,24 @@
     "recYd: +4%",
     "passYd: +2%",
     "lt15 chances: +14%",
+    "15to25 chances: -4%",
     "25to35 chances: +5%",
     "35to50 chances: -6%",
-    "50plus chances: -5%",
-    "r1 spot: +15%",
-    "r2 spot: -15%",
-    "r3 spot: +11%",
-    "t1 spot: +5%",
+    "50plus chances: -7%",
+    "r1 spot: +12%",
+    "r2 spot: -18%",
+    "r3 spot: +13%",
+    "t1 spot: +3%",
     "t2 spot: -3%",
-    "t3 spot: +18%"
+    "t3 spot: +21%"
    ],
    "inWeek": null,
    "promotion": {
     "promote": false,
     "reasons": [
-     "Needs ≥500 prospective paired players for endzone-4.6.0; have 207.",
-     "Needs ≥40 games; have 8.",
-     "Brier improvement not beyond game-level sampling uncertainty.",
-     "Material regression for contributors."
+     "Needs ≥500 prospective paired players for endzone-4.6.0; have 285.",
+     "Needs ≥40 games; have 11.",
+     "Brier improvement not beyond game-level sampling uncertainty."
     ]
    }
   },
@@ -77,14 +77,14 @@
   "season": 2026,
   "steps": [
    "lessons for weeks 1,2,3,4,5,6,7",
-   "saved 11 pregame frames, 3 skipped",
-   "outcomes inserted 0, revised 0, unchanged 734",
+   "saved 14 pregame frames, 0 skipped",
+   "outcomes inserted 0, revised 0, unchanged 832",
    "validation updated"
   ],
   "week": 8
  },
- "finished_at": "2026-10-25T23:30:16.285Z",
+ "finished_at": "2026-10-26T01:35:36.172Z",
  "kind": "refresh",
- "started_at": "2026-10-25T23:30:08.689Z",
+ "started_at": "2026-10-26T01:35:28.425Z",
  "status": "success"
 }
