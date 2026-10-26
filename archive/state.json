@@ -823,6 +823,24 @@
    }
   }
  ],
+ "drivesPromotion": {
+  "metrics": {
+   "games": 0,
+   "paired": 0
+  },
+  "monitor": {
+   "games": 0,
+   "moved": 0,
+   "n": 0,
+   "withDrives_vs_blend": null,
+   "withDrives_vs_model": null
+  },
+  "promote": false,
+  "reasons": [
+   "Needs ≥500 prospective paired players for endzone-4.6.0; have 0.",
+   "Needs ≥40 games; have 0."
+  ]
+ },
  "experiments": {
   "validation": {
    "modelVersion": "endzone-4.6.0",
@@ -848,6 +866,26 @@
       "version": 1,
       "week": 8
      }
+    },
+    "drivesMonitor": {
+     "games": 0,
+     "moved": 0,
+     "n": 0,
+     "withDrives_vs_blend": null,
+     "withDrives_vs_model": null
+    },
+    "drivesPromotion": {
+     "metrics": {
+      "games": 0,
+      "paired": 0
+     },
+     "note": "A new version is never labeled validated because an older version passed.",
+     "promote": false,
+     "reasons": [
+      "Needs ≥500 prospective paired players for endzone-4.6.0; have 0.",
+      "Needs ≥40 games; have 0."
+     ],
+     "rollback": "Champion retained; challenger stays shadow."
     },
     "monitor": {
      "live": {

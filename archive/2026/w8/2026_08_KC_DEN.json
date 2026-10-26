@@ -10230,16 +10230,16 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-26T03:29:56.115Z",
-  "fingerprint": "fe2fa7c06c7fde5d6dd990ec",
+  "capturedAt": "2026-10-26T04:00:05.893Z",
+  "fingerprint": "607de1e9b7a8115f109f7ca2",
   "payload": {
    "callIds": {
     "away": "8151",
     "home": "6806"
    },
-   "capturedAt": "2026-10-26T03:29:56.115Z",
+   "capturedAt": "2026-10-26T04:00:05.893Z",
    "challenger": {
-    "capturedCutoff": "2026-10-26T03:29:55.442Z",
+    "capturedCutoff": "2026-10-26T04:00:05.172Z",
     "reason": null,
     "status": "blend3",
     "trainingCount": 2884,
@@ -10261,32 +10261,32 @@
    "gameId": "2026_08_KC_DEN",
    "gameLambda": 3.80637318552606,
    "inputTimestamps": {
-    "ftn": "2026-10-26T03:29:50.295Z",
-    "history_2025": "2026-10-26T03:29:41.963Z",
-    "history_2026": "2026-10-26T03:29:50.165Z",
-    "idmap": "2026-10-26T03:29:50.079Z",
-    "pbp": "2026-10-26T03:29:51.107Z",
-    "players": "2026-10-26T03:29:49.602Z",
-    "proj_1": "2026-10-26T03:29:41.246Z",
-    "proj_2": "2026-10-26T03:29:41.235Z",
-    "proj_3": "2026-10-26T03:29:41.258Z",
-    "proj_4": "2026-10-26T03:29:41.283Z",
-    "proj_5": "2026-10-26T03:29:41.290Z",
-    "proj_6": "2026-10-26T03:29:41.299Z",
-    "proj_7": "2026-10-26T03:29:49.684Z",
-    "proj_8": "2026-10-26T03:29:49.709Z",
-    "roster": "2026-10-26T03:29:49.838Z",
-    "schedule": "2026-10-26T03:29:49.382Z",
-    "snaps": "2026-10-26T03:29:51.139Z",
-    "state": "2026-10-26T03:29:49.189Z",
-    "stats_1": "2026-10-26T03:29:41.093Z",
-    "stats_2": "2026-10-26T03:29:41.129Z",
-    "stats_3": "2026-10-26T03:29:41.145Z",
-    "stats_4": "2026-10-26T03:29:41.164Z",
-    "stats_5": "2026-10-26T03:29:41.201Z",
-    "stats_6": "2026-10-26T03:29:41.216Z",
-    "stats_7": "2026-10-26T03:29:49.660Z",
-    "stats_8": "2026-10-26T03:29:49.661Z"
+    "ftn": "2026-10-26T03:59:59.485Z",
+    "history_2025": "2026-10-26T03:59:50.189Z",
+    "history_2026": "2026-10-26T03:59:59.418Z",
+    "idmap": "2026-10-26T03:59:59.336Z",
+    "pbp": "2026-10-26T04:00:00.359Z",
+    "players": "2026-10-26T03:59:59.023Z",
+    "proj_1": "2026-10-26T03:59:49.179Z",
+    "proj_2": "2026-10-26T03:59:49.201Z",
+    "proj_3": "2026-10-26T03:59:49.213Z",
+    "proj_4": "2026-10-26T03:59:49.191Z",
+    "proj_5": "2026-10-26T03:59:49.227Z",
+    "proj_6": "2026-10-26T03:59:49.237Z",
+    "proj_7": "2026-10-26T03:59:59.079Z",
+    "proj_8": "2026-10-26T03:59:59.091Z",
+    "roster": "2026-10-26T03:59:59.137Z",
+    "schedule": "2026-10-26T03:59:58.811Z",
+    "snaps": "2026-10-26T04:00:00.383Z",
+    "state": "2026-10-26T03:59:58.611Z",
+    "stats_1": "2026-10-26T03:59:49.036Z",
+    "stats_2": "2026-10-26T03:59:49.084Z",
+    "stats_3": "2026-10-26T03:59:49.107Z",
+    "stats_4": "2026-10-26T03:59:49.064Z",
+    "stats_5": "2026-10-26T03:59:49.127Z",
+    "stats_6": "2026-10-26T03:59:49.145Z",
+    "stats_7": "2026-10-26T03:59:59.053Z",
+    "stats_8": "2026-10-26T03:59:59.053Z"
    },
    "kickoff": "2026-11-01T21:25:00.000Z",
    "lessons": "Learned from finished games, from the last three weeks",
@@ -10313,6 +10313,7 @@
       0.3572,
       0.6629
      ],
+     "blendDrives": 0.4929,
      "ceiling": 0.5,
      "challenger": 0.4929,
      "challengerLegs": [
@@ -10341,6 +10342,30 @@
       "p2": 0.1201,
       "p3plus": 0.0333,
       "twoPlus": 0.1534
+     },
+     "driveActive": null,
+     "driveAdj": {
+      "after": 0.4929,
+      "before": 0.4929,
+      "expDrives": 11.2,
+      "items": [
+       {
+        "ctx": 1,
+        "lift": 0.549,
+        "logm": 0,
+        "raw": -0.0823,
+        "rel": "strong",
+        "sub": "twoMin",
+        "tdShare": 0.137,
+        "text": "Only gets 18% of the team's touches on two-minute drives, vs 35% on other drives (n=40 drives, 191 team touches, strong)",
+        "why": null
+       }
+      ],
+      "logm": 0,
+      "opp": "DEN",
+      "pct": 0,
+      "raw": -0.0823,
+      "w": 0
      },
      "edge": -10.9372,
      "espn": "4567048",
@@ -10619,6 +10644,7 @@
       0.1363,
       0.3616
      ],
+     "blendDrives": 0.2595,
      "ceiling": 0.5,
      "challenger": 0.2595,
      "challengerLegs": [
@@ -10648,6 +10674,8 @@
       "p3plus": 0.0023,
       "twoPlus": 0.0278
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -3.2977,
      "espn": "15847",
      "fair": 342,
@@ -10892,6 +10920,7 @@
       0.1392,
       0.3165
      ],
+     "blendDrives": 0.2169,
      "ceiling": 0.5,
      "challenger": 0.2169,
      "challengerLegs": [
@@ -10921,6 +10950,8 @@
       "p3plus": 0.0019,
       "twoPlus": 0.0244
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -0.0924,
      "espn": "4683062",
      "fair": 371,
@@ -11208,6 +11239,7 @@
       0.0847,
       0.2526
      ],
+     "blendDrives": 0.1514,
      "ceiling": 0.5,
      "challenger": 0.1514,
      "challengerLegs": [
@@ -11237,6 +11269,8 @@
       "p3plus": 0.0006,
       "twoPlus": 0.0116
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -4.9148,
      "espn": "3139477",
      "fair": 574,
@@ -11513,6 +11547,7 @@
       0.0746,
       0.2005
      ],
+     "blendDrives": 0.0889,
      "ceiling": 0.5,
      "challenger": 0.0889,
      "challengerLegs": [
@@ -11542,6 +11577,8 @@
       "p3plus": 0.0003,
       "twoPlus": 0.0079
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 5.581,
      "espn": "4240472",
      "fair": 710,
@@ -11806,6 +11843,7 @@
       0.0635,
       0.1969
      ],
+     "blendDrives": 0.1249,
      "ceiling": 0.5,
      "challenger": 0.1249,
      "challengerLegs": [
@@ -11834,6 +11872,41 @@
       "p2": 0.0064,
       "p3plus": 0.0003,
       "twoPlus": 0.0066
+     },
+     "driveActive": null,
+     "driveAdj": {
+      "after": 0.1249,
+      "before": 0.1249,
+      "expDrives": 11.2,
+      "items": [
+       {
+        "ctx": 1,
+        "lift": 2.265,
+        "logm": 0,
+        "raw": 0.0613,
+        "rel": "moderate",
+        "sub": "lead2H",
+        "tdShare": 0.15,
+        "text": "Gets 22% of the team's touches on second-half drives when leading, vs 5% on other drives (n=17 drives, 71 team touches, moderate)",
+        "why": "P(leading) 50% from the spread"
+       },
+       {
+        "ctx": 0.92,
+        "lift": 0.265,
+        "logm": 0,
+        "raw": -0.3126,
+        "rel": "moderate",
+        "sub": "gtg",
+        "tdShare": 0.512,
+        "text": "Only gets 3% of the team's touches on goal-to-go drives, vs 15% on other drives (n=14 drives, 105 team touches, moderate)",
+        "why": "DEN allows the 6th-fewest goal-to-go TDs per trip; running backs score 44% of them (league 44%)"
+       }
+      ],
+      "logm": 0,
+      "opp": "DEN",
+      "pct": 0,
+      "raw": -0.2513,
+      "w": 0
      },
      "edge": -0.885,
      "espn": "4832955",
@@ -12101,6 +12174,7 @@
       0.0508,
       0.1502
      ],
+     "blendDrives": 0.072,
      "ceiling": 0.5,
      "challenger": 0.072,
      "challengerLegs": [
@@ -12130,6 +12204,8 @@
       "p3plus": 0.0001,
       "twoPlus": 0.004
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 3.92,
      "espn": "5082630",
      "fair": 1037,
@@ -12411,6 +12487,7 @@
       0.0206,
       0.1096
      ],
+     "blendDrives": 0.0479,
      "ceiling": 0.5,
      "challenger": 0.0479,
      "challengerLegs": [
@@ -12438,6 +12515,8 @@
       "p3plus": 0,
       "twoPlus": 0.0012
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "3042494",
      "fair": 1987,
@@ -12672,6 +12751,7 @@
       0.0177,
       0.0958
      ],
+     "blendDrives": 0.0938,
      "ceiling": 0.5,
      "challenger": 0.0938,
      "challengerLegs": [
@@ -12700,6 +12780,8 @@
       "p3plus": 0,
       "twoPlus": 0.0009
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "4685489",
      "fair": 2310,
@@ -12932,6 +13014,7 @@
       0.0094,
       0.0521
      ],
+     "blendDrives": 0.0256,
      "ceiling": 0.5,
      "challenger": 0.0256,
      "challengerLegs": [
@@ -12960,6 +13043,8 @@
       "p3plus": 0,
       "twoPlus": 0.0002
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "4372716",
      "fair": 4399,
@@ -13216,6 +13301,7 @@
       0.0121,
       0.0345
      ],
+     "blendDrives": 0.0259,
      "ceiling": 0.5,
      "challenger": 0.0259,
      "challengerLegs": [
@@ -13245,6 +13331,8 @@
       "p3plus": 0,
       "twoPlus": 0.0002
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 0.0674,
      "espn": "4912218",
      "fair": 4784,
@@ -13509,6 +13597,7 @@
       0.0085,
       0.0477
      ],
+     "blendDrives": 0.0324,
      "ceiling": 0.5,
      "challenger": 0.0324,
      "challengerLegs": [
@@ -13537,6 +13626,8 @@
       "p3plus": 0,
       "twoPlus": 0.0002
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "4430723",
      "fair": 4848,
@@ -13769,6 +13860,7 @@
       0.0085,
       0.0393
      ],
+     "blendDrives": 0.023,
      "ceiling": 0.5,
      "challenger": 0.023,
      "challengerLegs": [
@@ -13798,6 +13890,8 @@
       "p3plus": 0,
       "twoPlus": 0.0002
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -0.1417,
      "espn": "4431196",
      "fair": 5339,
@@ -14038,6 +14132,7 @@
       0.0041,
       0.024
      ],
+     "blendDrives": 0.0233,
      "ceiling": 0.5,
      "challenger": 0.0233,
      "challengerLegs": [
@@ -14067,6 +14162,8 @@
       "p3plus": 0,
       "twoPlus": 0
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 0,
      "espn": "5093923",
      "fair": 9950,
@@ -14331,6 +14428,7 @@
       0.0042,
       0.0235
      ],
+     "blendDrives": 0.0176,
      "ceiling": 0.5,
      "challenger": 0.0176,
      "challengerLegs": [
@@ -14360,6 +14458,8 @@
       "p3plus": 0,
       "twoPlus": 0
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 0,
      "espn": "3118892",
      "fair": 9950,
@@ -14624,6 +14724,7 @@
       0.0017,
       0.0096
      ],
+     "blendDrives": 0.0313,
      "ceiling": 0.5,
      "challenger": 0.0313,
      "challengerLegs": [
@@ -14652,6 +14753,8 @@
       "p3plus": 0,
       "twoPlus": 0
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "4362887",
      "fair": 24666,
@@ -14923,6 +15026,7 @@
       0.2024,
       0.4491
      ],
+     "blendDrives": 0.3267,
      "ceiling": 0.62,
      "challenger": 0.3267,
      "challengerLegs": [
@@ -14952,6 +15056,8 @@
       "p3plus": 0.0063,
       "twoPlus": 0.053
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -5.5066,
      "espn": "4241985",
      "fair": 225,
@@ -15330,6 +15436,7 @@
       0.1409,
       0.3313
      ],
+     "blendDrives": 0.2838,
      "ceiling": 0.5,
      "challenger": 0.2838,
      "challengerLegs": [
@@ -15359,6 +15466,8 @@
       "p3plus": 0.0021,
       "twoPlus": 0.026
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -11.7333,
      "espn": "4568490",
      "fair": 357,
@@ -15643,6 +15752,7 @@
       0.1157,
       0.2505
      ],
+     "blendDrives": 0.2032,
      "ceiling": 0.5,
      "challenger": 0.2032,
      "challengerLegs": [
@@ -15672,6 +15782,8 @@
       "p3plus": 0.001,
       "twoPlus": 0.0157
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -1.7761,
      "espn": "3128429",
      "fair": 483,
@@ -15951,6 +16063,7 @@
       0.1046,
       0.2408
      ],
+     "blendDrives": 0.189,
      "ceiling": 0.5,
      "challenger": 0.189,
      "challengerLegs": [
@@ -15980,6 +16093,8 @@
       "p3plus": 0.0008,
       "twoPlus": 0.0136
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -4.5355,
      "espn": "4426338",
      "fair": 525,
@@ -16311,6 +16426,7 @@
       0.0686,
       0.3479
      ],
+     "blendDrives": 0.0984,
      "ceiling": 0.5,
      "challenger": 0.0984,
      "challengerLegs": [
@@ -16340,6 +16456,8 @@
       "p3plus": 0.0008,
       "twoPlus": 0.0135
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 7.3931,
      "espn": "4383440",
      "fair": 525,
@@ -16589,6 +16707,7 @@
       0.0677,
       0.2904
      ],
+     "blendDrives": 0.1743,
      "ceiling": 0.5,
      "challenger": 0.1743,
      "challengerLegs": [
@@ -16618,6 +16737,8 @@
       "p3plus": 0.0006,
       "twoPlus": 0.0109
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -0.4194,
      "espn": "4702555",
      "fair": 596,
@@ -16889,6 +17010,7 @@
       0.0817,
       0.2017
      ],
+     "blendDrives": 0.1862,
      "ceiling": 0.5,
      "challenger": 0.1862,
      "challengerLegs": [
@@ -16918,6 +17040,8 @@
       "p3plus": 0.0004,
       "twoPlus": 0.0088
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -6.006,
      "espn": "4372016",
      "fair": 673,
@@ -17173,6 +17297,7 @@
       0.086,
       0.1917
      ],
+     "blendDrives": 0.1323,
      "ceiling": 0.5,
      "challenger": 0.1323,
      "challengerLegs": [
@@ -17202,6 +17327,8 @@
       "p3plus": 0.0004,
       "twoPlus": 0.0087
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -1.8676,
      "espn": "3051876",
      "fair": 674,
@@ -17482,6 +17609,7 @@
       0.057,
       0.1464
      ],
+     "blendDrives": 0.1001,
      "ceiling": 0.5,
      "challenger": 0.1001,
      "challengerLegs": [
@@ -17511,6 +17639,8 @@
       "p3plus": 0.0001,
       "twoPlus": 0.0044
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -1.2282,
      "espn": "4686472",
      "fair": 988,
@@ -17757,6 +17887,7 @@
       0.0474,
       0.1222
      ],
+     "blendDrives": 0.1033,
      "ceiling": 0.5,
      "challenger": 0.1033,
      "challengerLegs": [
@@ -17786,6 +17917,8 @@
       "p3plus": 0.0001,
       "twoPlus": 0.003
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -0.9562,
      "espn": "4431280",
      "fair": 1207,
@@ -18056,6 +18189,7 @@
       0.0292,
       0.0809
      ],
+     "blendDrives": 0.0605,
      "ceiling": 0.5,
      "challenger": 0.0605,
      "challengerLegs": [
@@ -18085,6 +18219,8 @@
       "p3plus": 0,
       "twoPlus": 0.0012
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -0.9453,
      "espn": "4039057",
      "fair": 1950,
@@ -18331,6 +18467,7 @@
       0.0193,
       0.0905
      ],
+     "blendDrives": 0.0486,
      "ceiling": 0.5,
      "challenger": 0.0486,
      "challengerLegs": [
@@ -18360,6 +18497,8 @@
       "p3plus": 0,
       "twoPlus": 0.0009
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 0.2875,
      "espn": "3911853",
      "fair": 2276,
@@ -18606,6 +18745,7 @@
       0.0131,
       0.0729
      ],
+     "blendDrives": 0.0388,
      "ceiling": 0.5,
      "challenger": 0.0388,
      "challengerLegs": [
@@ -18634,6 +18774,8 @@
       "p3plus": 0,
       "twoPlus": 0.0005
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "3929914",
      "fair": 3110,
@@ -18896,6 +19038,7 @@
       0.012,
       0.0648
      ],
+     "blendDrives": 0.028,
      "ceiling": 0.5,
      "challenger": 0.028,
      "challengerLegs": [
@@ -18923,6 +19066,8 @@
       "p3plus": 0,
       "twoPlus": 0.0004
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "16345",
      "fair": 3469,
@@ -19163,6 +19308,7 @@
       0.0014,
       0.0082
      ],
+     "blendDrives": 0.0155,
      "ceiling": 0.5,
      "challenger": 0.0155,
      "challengerLegs": [
@@ -19191,6 +19337,8 @@
       "p3plus": 0,
       "twoPlus": 0
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "3892775",
      "fair": 29156,

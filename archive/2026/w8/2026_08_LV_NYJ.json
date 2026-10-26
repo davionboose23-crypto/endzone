@@ -11020,16 +11020,16 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-26T03:29:56.043Z",
-  "fingerprint": "2d93f64248931f6f0387be4d",
+  "capturedAt": "2026-10-26T04:00:05.823Z",
+  "fingerprint": "8ce8dfef3d1f4f17cc5d0763",
   "payload": {
    "callIds": {
     "away": "12527",
     "home": "11576"
    },
-   "capturedAt": "2026-10-26T03:29:56.043Z",
+   "capturedAt": "2026-10-26T04:00:05.823Z",
    "challenger": {
-    "capturedCutoff": "2026-10-26T03:29:55.442Z",
+    "capturedCutoff": "2026-10-26T04:00:05.172Z",
     "reason": null,
     "status": "blend3",
     "trainingCount": 2884,
@@ -11051,32 +11051,32 @@
    "gameId": "2026_08_LV_NYJ",
    "gameLambda": 4.514867190789394,
    "inputTimestamps": {
-    "ftn": "2026-10-26T03:29:50.295Z",
-    "history_2025": "2026-10-26T03:29:41.963Z",
-    "history_2026": "2026-10-26T03:29:50.165Z",
-    "idmap": "2026-10-26T03:29:50.079Z",
-    "pbp": "2026-10-26T03:29:51.107Z",
-    "players": "2026-10-26T03:29:49.602Z",
-    "proj_1": "2026-10-26T03:29:41.246Z",
-    "proj_2": "2026-10-26T03:29:41.235Z",
-    "proj_3": "2026-10-26T03:29:41.258Z",
-    "proj_4": "2026-10-26T03:29:41.283Z",
-    "proj_5": "2026-10-26T03:29:41.290Z",
-    "proj_6": "2026-10-26T03:29:41.299Z",
-    "proj_7": "2026-10-26T03:29:49.684Z",
-    "proj_8": "2026-10-26T03:29:49.709Z",
-    "roster": "2026-10-26T03:29:49.838Z",
-    "schedule": "2026-10-26T03:29:49.382Z",
-    "snaps": "2026-10-26T03:29:51.139Z",
-    "state": "2026-10-26T03:29:49.189Z",
-    "stats_1": "2026-10-26T03:29:41.093Z",
-    "stats_2": "2026-10-26T03:29:41.129Z",
-    "stats_3": "2026-10-26T03:29:41.145Z",
-    "stats_4": "2026-10-26T03:29:41.164Z",
-    "stats_5": "2026-10-26T03:29:41.201Z",
-    "stats_6": "2026-10-26T03:29:41.216Z",
-    "stats_7": "2026-10-26T03:29:49.660Z",
-    "stats_8": "2026-10-26T03:29:49.661Z"
+    "ftn": "2026-10-26T03:59:59.485Z",
+    "history_2025": "2026-10-26T03:59:50.189Z",
+    "history_2026": "2026-10-26T03:59:59.418Z",
+    "idmap": "2026-10-26T03:59:59.336Z",
+    "pbp": "2026-10-26T04:00:00.359Z",
+    "players": "2026-10-26T03:59:59.023Z",
+    "proj_1": "2026-10-26T03:59:49.179Z",
+    "proj_2": "2026-10-26T03:59:49.201Z",
+    "proj_3": "2026-10-26T03:59:49.213Z",
+    "proj_4": "2026-10-26T03:59:49.191Z",
+    "proj_5": "2026-10-26T03:59:49.227Z",
+    "proj_6": "2026-10-26T03:59:49.237Z",
+    "proj_7": "2026-10-26T03:59:59.079Z",
+    "proj_8": "2026-10-26T03:59:59.091Z",
+    "roster": "2026-10-26T03:59:59.137Z",
+    "schedule": "2026-10-26T03:59:58.811Z",
+    "snaps": "2026-10-26T04:00:00.383Z",
+    "state": "2026-10-26T03:59:58.611Z",
+    "stats_1": "2026-10-26T03:59:49.036Z",
+    "stats_2": "2026-10-26T03:59:49.084Z",
+    "stats_3": "2026-10-26T03:59:49.107Z",
+    "stats_4": "2026-10-26T03:59:49.064Z",
+    "stats_5": "2026-10-26T03:59:49.127Z",
+    "stats_6": "2026-10-26T03:59:49.145Z",
+    "stats_7": "2026-10-26T03:59:59.053Z",
+    "stats_8": "2026-10-26T03:59:59.053Z"
    },
    "kickoff": "2026-11-01T18:00:00.000Z",
    "lessons": "Learned from finished games, from the last three weeks",
@@ -11103,6 +11103,7 @@
       0.3031,
       0.5521
      ],
+     "blendDrives": 0.4606,
      "ceiling": 0.5,
      "challenger": 0.4606,
      "challengerLegs": [
@@ -11131,6 +11132,30 @@
       "p2": 0.0847,
       "p3plus": 0.0175,
       "twoPlus": 0.1021
+     },
+     "driveActive": null,
+     "driveAdj": {
+      "after": 0.4606,
+      "before": 0.4606,
+      "expDrives": 10.7,
+      "items": [
+       {
+        "ctx": 1.088,
+        "lift": 0.712,
+        "logm": 0,
+        "raw": -0.0877,
+        "rel": "strong",
+        "sub": "trail2H",
+        "tdShare": 0.237,
+        "text": "Only gets 28% of the team's touches on second-half drives when trailing, vs 44% on other drives (n=73 drives, 377 team touches, strong)",
+        "why": "P(trailing) 54% from the spread"
+       }
+      ],
+      "logm": 0,
+      "opp": "NYJ",
+      "pct": 0,
+      "raw": -0.0877,
+      "w": 0
      },
      "edge": -9.19,
      "espn": "4890973",
@@ -11464,6 +11489,7 @@
       0.2124,
       0.4254
      ],
+     "blendDrives": 0.3019,
      "ceiling": 0.5,
      "challenger": 0.3019,
      "challengerLegs": [
@@ -11493,6 +11519,8 @@
       "p3plus": 0.0061,
       "twoPlus": 0.0521
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 3.8365,
      "espn": "4428718",
      "fair": 228,
@@ -11836,6 +11864,7 @@
       0.1882,
       0.3857
      ],
+     "blendDrives": 0.3657,
      "ceiling": 0.5,
      "challenger": 0.3657,
      "challengerLegs": [
@@ -11865,6 +11894,8 @@
       "p3plus": 0.0043,
       "twoPlus": 0.0412
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -21.0174,
      "espn": "4432665",
      "fair": 266,
@@ -12187,6 +12218,7 @@
       0.1566,
       0.3612
      ],
+     "blendDrives": 0.1993,
      "ceiling": 0.5,
      "challenger": 0.1993,
      "challengerLegs": [
@@ -12216,6 +12248,8 @@
       "p3plus": 0.0029,
       "twoPlus": 0.0318
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 1.2456,
      "espn": "4686658",
      "fair": 314,
@@ -12524,6 +12558,7 @@
       0.1116,
       0.2336
      ],
+     "blendDrives": 0.1593,
      "ceiling": 0.5,
      "challenger": 0.1593,
      "challengerLegs": [
@@ -12553,6 +12588,8 @@
       "p3plus": 0.0008,
       "twoPlus": 0.014
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -4.2873,
      "espn": "4241983",
      "fair": 515,
@@ -12852,6 +12889,7 @@
       0.0901,
       0.2351
      ],
+     "blendDrives": 0.1429,
      "ceiling": 0.5,
      "challenger": 0.1429,
      "challengerLegs": [
@@ -12881,6 +12919,8 @@
       "p3plus": 0.0006,
       "twoPlus": 0.0114
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 0.7797,
      "espn": "4382466",
      "fair": 580,
@@ -13155,6 +13195,7 @@
       0.0851,
       0.2189
      ],
+     "blendDrives": 0.1643,
      "ceiling": 0.5,
      "challenger": 0.1643,
      "challengerLegs": [
@@ -13184,6 +13225,8 @@
       "p3plus": 0.0005,
       "twoPlus": 0.01
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -4.347,
      "espn": "4429086",
      "fair": 626,
@@ -13458,6 +13501,7 @@
       0.0273,
       0.188
      ],
+     "blendDrives": 0.0394,
      "ceiling": 0.5,
      "challenger": 0.0394,
      "challengerLegs": [
@@ -13487,6 +13531,8 @@
       "p3plus": 0.0001,
       "twoPlus": 0.0027
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 5.3268,
      "espn": "5150247",
      "fair": 1269,
@@ -13775,6 +13821,7 @@
       0.0239,
       0.1593
      ],
+     "blendDrives": 0.0528,
      "ceiling": 0.5,
      "challenger": 0.0528,
      "challengerLegs": [
@@ -13804,6 +13851,8 @@
       "p3plus": 0,
       "twoPlus": 0.002
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 4.2973,
      "espn": "4366963",
      "fair": 1493,
@@ -14111,6 +14160,7 @@
       0.0224,
       0.0979
      ],
+     "blendDrives": 0.0624,
      "ceiling": 0.5,
      "challenger": 0.0624,
      "challengerLegs": [
@@ -14140,6 +14190,8 @@
       "p3plus": 0,
       "twoPlus": 0.0011
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -2.0411,
      "espn": "14880",
      "fair": 2019,
@@ -14448,6 +14500,7 @@
       0.0187,
       0.1
      ],
+     "blendDrives": 0.0436,
      "ceiling": 0.5,
      "challenger": 0.0436,
      "challengerLegs": [
@@ -14475,6 +14528,8 @@
       "p3plus": 0,
       "twoPlus": 0.001
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "2972091",
      "fair": 2195,
@@ -14739,6 +14794,7 @@
       0.01,
       0.0539
      ],
+     "blendDrives": 0.0332,
      "ceiling": 0.5,
      "challenger": 0.0332,
      "challengerLegs": [
@@ -14768,6 +14824,8 @@
       "p3plus": 0,
       "twoPlus": 0.0003
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -0.6277,
      "espn": "4241961",
      "fair": 4196,
@@ -15038,6 +15096,7 @@
       0.0083,
       0.0597
      ],
+     "blendDrives": 0.0294,
      "ceiling": 0.5,
      "challenger": 0.0294,
      "challengerLegs": [
@@ -15066,6 +15125,8 @@
       "p3plus": 0,
       "twoPlus": 0.0003
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "4837248",
      "fair": 4374,
@@ -15343,6 +15404,7 @@
       0.0068,
       0.0429
      ],
+     "blendDrives": 0.0212,
      "ceiling": 0.5,
      "challenger": 0.0212,
      "challengerLegs": [
@@ -15372,6 +15434,8 @@
       "p3plus": 0,
       "twoPlus": 0.0001
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -0.2602,
      "espn": "4401805",
      "fair": 5714,
@@ -15642,6 +15706,7 @@
       0.0092,
       0.0255
      ],
+     "blendDrives": 0.0261,
      "ceiling": 0.5,
      "challenger": 0.0261,
      "challengerLegs": [
@@ -15671,6 +15736,8 @@
       "p3plus": 0,
       "twoPlus": 0.0001
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -0.4509,
      "espn": "4045305",
      "fair": 6439,
@@ -15919,6 +15986,7 @@
       0.2309,
       0.4677
      ],
+     "blendDrives": 0.3195,
      "ceiling": 0.5,
      "challenger": 0.3195,
      "challengerLegs": [
@@ -15948,6 +16016,8 @@
       "p3plus": 0.0083,
       "twoPlus": 0.0634
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 8.2565,
      "espn": "4685247",
      "fair": 199,
@@ -16244,6 +16314,7 @@
       0.1917,
       0.4054
      ],
+     "blendDrives": 0.3434,
      "ceiling": 0.5,
      "challenger": 0.3434,
      "challengerLegs": [
@@ -16273,6 +16344,8 @@
       "p3plus": 0.0048,
       "twoPlus": 0.0444
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -10.4439,
      "espn": "4569618",
      "fair": 253,
@@ -16563,6 +16636,7 @@
       0.1568,
       0.3881
      ],
+     "blendDrives": 0.173,
      "ceiling": 0.5,
      "challenger": 0.173,
      "challengerLegs": [
@@ -16592,6 +16666,8 @@
       "p3plus": 0.0033,
       "twoPlus": 0.0346
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 16.5291,
      "espn": "4808766",
      "fair": 298,
@@ -16892,6 +16968,7 @@
       0.1158,
       0.3847
      ],
+     "blendDrives": 0.2295,
      "ceiling": 0.5,
      "challenger": 0.2295,
      "challengerLegs": [
@@ -16921,6 +16998,8 @@
       "p3plus": 0.002,
       "twoPlus": 0.0254
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -0.4337,
      "espn": "4723820",
      "fair": 361,
@@ -17207,6 +17286,7 @@
       0.1103,
       0.2694
      ],
+     "blendDrives": 0.1798,
      "ceiling": 0.5,
      "challenger": 0.1798,
      "challengerLegs": [
@@ -17236,6 +17316,8 @@
       "p3plus": 0.001,
       "twoPlus": 0.0162
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -6.2326,
      "espn": "5083315",
      "fair": 474,
@@ -17531,6 +17613,7 @@
       0.0815,
       0.3008
      ],
+     "blendDrives": 0.0634,
      "ceiling": 0.5,
      "challenger": 0.0634,
      "challengerLegs": [
@@ -17560,6 +17643,8 @@
       "p3plus": 0.0008,
       "twoPlus": 0.0135
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 15.005,
      "espn": "4695404",
      "fair": 525,
@@ -17874,6 +17959,7 @@
       0.0314,
       0.4145
      ],
+     "blendDrives": 0.0814,
      "ceiling": 0.5,
      "challenger": 0.0814,
      "challengerLegs": [
@@ -17902,6 +17988,8 @@
       "p3plus": 0.0003,
       "twoPlus": 0.0078
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "3125107",
      "fair": 716,
@@ -18159,6 +18247,7 @@
       0.054,
       0.2161
      ],
+     "blendDrives": 0.0877,
      "ceiling": 0.5,
      "challenger": 0.0877,
      "challengerLegs": [
@@ -18188,6 +18277,8 @@
       "p3plus": 0.0002,
       "twoPlus": 0.0063
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 3.2818,
      "espn": "4361372",
      "fair": 812,
@@ -18429,6 +18520,7 @@
       0.049,
       0.2218
      ],
+     "blendDrives": 0.1153,
      "ceiling": 0.5,
      "challenger": 0.1153,
      "challengerLegs": [
@@ -18457,6 +18549,30 @@
       "p2": 0.0056,
       "p3plus": 0.0002,
       "twoPlus": 0.0058
+     },
+     "driveActive": null,
+     "driveAdj": {
+      "after": 0.1153,
+      "before": 0.1153,
+      "expDrives": 10.9,
+      "items": [
+       {
+        "ctx": 1.141,
+        "lift": 0.549,
+        "logm": 0,
+        "raw": -0.5304,
+        "rel": "strong",
+        "sub": "rz",
+        "tdShare": 0.776,
+        "text": "Only gets 5% of the team's touches on red-zone drives, vs 13% on other drives (n=63 drives, 488 team touches, strong)",
+        "why": "LV allows the 2nd-most red-zone TDs per trip; wide receivers score 27% of them (league 31%)"
+       }
+      ],
+      "logm": 0,
+      "opp": "LV",
+      "pct": 0,
+      "raw": -0.5304,
+      "w": 0
      },
      "edge": 1.1036,
      "espn": "4597500",
@@ -18730,6 +18846,7 @@
       0.0426,
       0.1221
      ],
+     "blendDrives": 0.0852,
      "ceiling": 0.5,
      "challenger": 0.0852,
      "challengerLegs": [
@@ -18759,6 +18876,8 @@
       "p3plus": 0.0001,
       "twoPlus": 0.0027
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -1.3509,
      "espn": "15864",
      "fair": 1278,
@@ -19041,6 +19160,7 @@
       0.0144,
       0.0772
      ],
+     "blendDrives": 0.0335,
      "ceiling": 0.5,
      "challenger": 0.0335,
      "challengerLegs": [
@@ -19068,6 +19188,8 @@
       "p3plus": 0,
       "twoPlus": 0.0006
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": null,
      "fair": 2881,
@@ -19326,6 +19448,7 @@
       0.0185,
       0.0464
      ],
+     "blendDrives": 0.044,
      "ceiling": 0.5,
      "challenger": 0.044,
      "challengerLegs": [
@@ -19355,6 +19478,8 @@
       "p3plus": 0,
       "twoPlus": 0.0004
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": -0.0241,
      "espn": "3134353",
      "fair": 3311,
@@ -19619,6 +19744,7 @@
       0.0109,
       0.0401
      ],
+     "blendDrives": 0.0215,
      "ceiling": 0.5,
      "challenger": 0.0215,
      "challengerLegs": [
@@ -19648,6 +19774,8 @@
       "p3plus": 0,
       "twoPlus": 0.0002
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 1.097,
      "espn": "4241410",
      "fair": 4680,
@@ -19912,6 +20040,7 @@
       0.0105,
       0.0388
      ],
+     "blendDrives": 0.0278,
      "ceiling": 0.5,
      "challenger": 0.0278,
      "challengerLegs": [
@@ -19940,6 +20069,8 @@
       "p3plus": 0,
       "twoPlus": 0.0002
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "4682509",
      "fair": 4834,
@@ -20196,6 +20327,7 @@
       0.0109,
       0.0304
      ],
+     "blendDrives": 0.0293,
      "ceiling": 0.5,
      "challenger": 0.0293,
      "challengerLegs": [
@@ -20225,6 +20357,8 @@
       "p3plus": 0,
       "twoPlus": 0.0002
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": 0.8298,
      "espn": "4569371",
      "fair": 5380,
@@ -20525,6 +20659,7 @@
       0.0067,
       0.0377
      ],
+     "blendDrives": 0.016,
      "ceiling": 0.5,
      "challenger": 0.016,
      "challengerLegs": [
@@ -20552,6 +20687,8 @@
       "p3plus": 0,
       "twoPlus": 0.0001
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "2578377",
      "fair": 6151,
@@ -20786,6 +20923,7 @@
       0.0026,
       0.0148
      ],
+     "blendDrives": 0.0282,
      "ceiling": 0.5,
      "challenger": 0.0282,
      "challengerLegs": [
@@ -20814,6 +20952,8 @@
       "p3plus": 0,
       "twoPlus": 0
      },
+     "driveActive": null,
+     "driveAdj": null,
      "edge": null,
      "espn": "4685413",
      "fair": 16115,
