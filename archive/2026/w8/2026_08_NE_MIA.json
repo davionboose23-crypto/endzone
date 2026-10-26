@@ -10318,63 +10318,63 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-26T01:35:35.773Z",
-  "fingerprint": "0bbea213551bab1837bba8e5",
+  "capturedAt": "2026-10-26T03:29:56.133Z",
+  "fingerprint": "db5b8bed9e20428e880aaf23",
   "payload": {
    "callIds": {
     "away": "7611",
     "home": "12495"
    },
-   "capturedAt": "2026-10-26T01:35:35.773Z",
+   "capturedAt": "2026-10-26T03:29:56.133Z",
    "challenger": {
-    "capturedCutoff": "2026-10-26T01:35:35.052Z",
+    "capturedCutoff": "2026-10-26T03:29:55.442Z",
     "reason": null,
     "status": "blend3",
-    "trainingCount": 2855,
+    "trainingCount": 2884,
     "trainingCutoff": {
      "rule": "usage leg fit on player-games strictly before the target week; blend uses the final (post-cap) model chance and Sleeper as published",
      "season": 2026,
      "week": 8
     },
     "usage": {
-     "builtAt": "2026-10-25T15:54:10.144Z",
+     "builtAt": "2026-10-26T03:29:17.797Z",
      "players": 698,
      "season": 2026,
-     "trainRows": 15275,
+     "trainRows": 15480,
      "trainedOn": "player-games before 2026 week 8 (from 2024)",
      "version": 1,
      "week": 8
     }
    },
    "gameId": "2026_08_NE_MIA",
-   "gameLambda": 4.820959872930773,
+   "gameLambda": 4.820959872930772,
    "inputTimestamps": {
-    "ftn": "2026-10-26T01:35:29.571Z",
-    "history_2025": "2026-10-26T01:35:20.683Z",
-    "history_2026": "2026-10-26T01:35:29.472Z",
-    "idmap": "2026-10-26T01:35:29.346Z",
-    "pbp": "2026-10-26T01:35:30.433Z",
-    "players": "2026-10-26T01:35:28.877Z",
-    "proj_1": "2026-10-26T01:35:19.664Z",
-    "proj_2": "2026-10-26T01:35:19.685Z",
-    "proj_3": "2026-10-26T01:35:19.700Z",
-    "proj_4": "2026-10-26T01:35:19.707Z",
-    "proj_5": "2026-10-26T01:35:19.731Z",
-    "proj_6": "2026-10-26T01:35:19.741Z",
-    "proj_7": "2026-10-26T01:35:28.943Z",
-    "proj_8": "2026-10-26T01:35:28.991Z",
-    "roster": "2026-10-26T01:35:29.124Z",
-    "schedule": "2026-10-26T01:35:28.671Z",
-    "snaps": "2026-10-26T01:35:30.498Z",
-    "state": "2026-10-26T01:35:28.447Z",
-    "stats_1": "2026-10-26T01:35:19.509Z",
-    "stats_2": "2026-10-26T01:35:19.596Z",
-    "stats_3": "2026-10-26T01:35:19.557Z",
-    "stats_4": "2026-10-26T01:35:19.574Z",
-    "stats_5": "2026-10-26T01:35:19.614Z",
-    "stats_6": "2026-10-26T01:35:19.647Z",
-    "stats_7": "2026-10-26T01:35:28.915Z",
-    "stats_8": "2026-10-26T01:35:28.943Z"
+    "ftn": "2026-10-26T03:29:50.295Z",
+    "history_2025": "2026-10-26T03:29:41.963Z",
+    "history_2026": "2026-10-26T03:29:50.165Z",
+    "idmap": "2026-10-26T03:29:50.079Z",
+    "pbp": "2026-10-26T03:29:51.107Z",
+    "players": "2026-10-26T03:29:49.602Z",
+    "proj_1": "2026-10-26T03:29:41.246Z",
+    "proj_2": "2026-10-26T03:29:41.235Z",
+    "proj_3": "2026-10-26T03:29:41.258Z",
+    "proj_4": "2026-10-26T03:29:41.283Z",
+    "proj_5": "2026-10-26T03:29:41.290Z",
+    "proj_6": "2026-10-26T03:29:41.299Z",
+    "proj_7": "2026-10-26T03:29:49.684Z",
+    "proj_8": "2026-10-26T03:29:49.709Z",
+    "roster": "2026-10-26T03:29:49.838Z",
+    "schedule": "2026-10-26T03:29:49.382Z",
+    "snaps": "2026-10-26T03:29:51.139Z",
+    "state": "2026-10-26T03:29:49.189Z",
+    "stats_1": "2026-10-26T03:29:41.093Z",
+    "stats_2": "2026-10-26T03:29:41.129Z",
+    "stats_3": "2026-10-26T03:29:41.145Z",
+    "stats_4": "2026-10-26T03:29:41.164Z",
+    "stats_5": "2026-10-26T03:29:41.201Z",
+    "stats_6": "2026-10-26T03:29:41.216Z",
+    "stats_7": "2026-10-26T03:29:49.660Z",
+    "stats_8": "2026-10-26T03:29:49.661Z"
    },
    "kickoff": "2026-11-01T21:25:00.000Z",
    "lessons": "Learned from finished games, from the last three weeks",
@@ -10398,42 +10398,42 @@
       "uncertain": false
      },
      "band": [
-      0.3003,
-      0.5882
+      0.2972,
+      0.5837
      ],
      "ceiling": 0.5,
-     "challenger": 0.4231,
+     "challenger": 0.4222,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.4304,
+     "chance": 0.4264,
      "coldGoal": false,
      "components": {
-      "r0": 0.0362,
-      "r1": 0.3196,
-      "r2": 0.1006,
-      "r3": 0.0064,
-      "t0": 0.0416,
-      "t1": 0.0163,
-      "t2": 0.0106,
-      "t3": 0.0316
+      "r0": 0.0358,
+      "r1": 0.3157,
+      "r2": 0.0994,
+      "r3": 0.0063,
+      "t0": 0.041,
+      "t1": 0.0161,
+      "t2": 0.0104,
+      "t3": 0.0312
      },
      "conversionNote": "2 of 9 red-zone carries scored.",
      "dist": {
-      "anytime": 0.4304,
-      "lambda": 0.5629,
-      "p0": 0.5696,
-      "p1": 0.3206,
-      "p2": 0.0902,
-      "p3plus": 0.0196,
-      "twoPlus": 0.1098
+      "anytime": 0.4264,
+      "lambda": 0.5559,
+      "p0": 0.5736,
+      "p1": 0.3188,
+      "p2": 0.0886,
+      "p3plus": 0.019,
+      "twoPlus": 0.1076
      },
-     "edge": 5.5433,
+     "edge": 5.143,
      "espn": "4569173",
-     "fair": 132,
-     "firstTd": 0.1158,
+     "fair": 135,
+     "firstTd": 0.1144,
      "gamesPlayed": 7,
      "glShare": 0.4607,
      "glShareRaw": 0.4607,
@@ -10443,10 +10443,10 @@
      "implied": 26,
      "injury": null,
      "insideFinisher": true,
-     "lambda": 0.5629,
+     "lambda": 0.5559,
      "lambdaRaw": 0.7744,
      "lessonNotes": [
-      "Learned from finished games: 50plus chances scaled ×0.93 (from the last three weeks).",
+      "Learned from finished games: 50plus chances scaled ×0.91 (from the last three weeks).",
       "Blended 30% toward the published projection (37%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 1.188,
@@ -10459,10 +10459,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.4765,
-     "preStack": 0.5148,
+     "preSafety": 0.4711,
+     "preStack": 0.5076,
      "pubBlend": {
-      "before": 0.7231,
+      "before": 0.7084,
       "weight": 0.3
      },
      "published": {
@@ -10480,7 +10480,7 @@
       "behind": {
        "att": 0,
        "carries": 9.475206985001458,
-       "chance": 0.40619022906519564,
+       "chance": 0.40268429753600365,
        "targets": 3.1792584704154425
       },
       "close": {
@@ -10492,7 +10492,7 @@
       "lead": {
        "att": 0,
        "carries": 12.484978615531334,
-       "chance": 0.45231245296398204,
+       "chance": 0.4527028254023704,
        "targets": 2.4979887981835613
       }
      },
@@ -10573,13 +10573,13 @@
        "recentRz": 8,
        "repeat": true,
        "roleOk": true,
-       "width": 0.2879722388941599
+       "width": 0.28651655072323834
       },
       "level": "High",
       "reasons": [
        "8 red-zone touches in his last 3 games with stable work.",
        "Scored in 3 of his last 5 games, including 2 of the last three.",
-       "80% band 30–59% is narrow enough."
+       "80% band 30–58% is narrow enough."
       ]
      },
      "team": "NE",
@@ -10643,7 +10643,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.4669,
+     "usage": 0.4682,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -10694,11 +10694,11 @@
         "factor": 1.0292,
         "league": 0.7816
        },
-       "hi": 4.8741,
-       "leagueDefense": 2.3613,
+       "hi": 4.8621,
+       "leagueDefense": 2.362,
        "lo": 0,
-       "mean": 2.4301,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "mean": 2.4309,
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "2.4 without this defense. MIA allows RBs a 85% catch rate versus 78% league."
       },
       "recYd": {
@@ -10707,11 +10707,11 @@
         "factor": 1.074,
         "league": 5.6468
        },
-       "hi": 54.592,
-       "leagueDefense": 20.4224,
+       "hi": 54.3094,
+       "leagueDefense": 20.4298,
        "lo": 0,
-       "mean": 21.9332,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "mean": 21.9411,
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "20 without this defense. MIA allows RBs 6.9 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -10720,11 +10720,11 @@
         "factor": 1.0188,
         "league": 4.1316
        },
-       "hi": 74.8587,
+       "hi": 75.7405,
        "leagueDefense": 44.4253,
-       "lo": 15.6626,
+       "lo": 14.7808,
        "mean": 45.2606,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "44 without this defense. MIA allows RBs 4.2 yards a carry versus 4.1 league."
       }
      }
@@ -10737,42 +10737,42 @@
       "uncertain": false
      },
      "band": [
-      0.1837,
-      0.4504
+      0.1843,
+      0.4516
      ],
      "ceiling": 0.5,
-     "challenger": 0.1719,
+     "challenger": 0.1733,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2943,
+     "chance": 0.2952,
      "coldGoal": false,
      "components": {
-      "r0": 0.0278,
-      "r1": 0.1298,
-      "r2": 0.0943,
+      "r0": 0.0279,
+      "r1": 0.1302,
+      "r2": 0.0946,
       "r3": 0.0117,
       "t0": 0.0073,
-      "t1": 0.0197,
+      "t1": 0.0198,
       "t2": 0.0128,
-      "t3": 0.0453
+      "t3": 0.0455
      },
      "conversionNote": "0 of 7 red-zone carries scored.",
      "dist": {
-      "anytime": 0.2943,
-      "lambda": 0.3486,
-      "p0": 0.7057,
-      "p1": 0.246,
-      "p2": 0.0429,
-      "p3plus": 0.0054,
-      "twoPlus": 0.0483
+      "anytime": 0.2952,
+      "lambda": 0.3498,
+      "p0": 0.7048,
+      "p1": 0.2466,
+      "p2": 0.0431,
+      "p3plus": 0.0055,
+      "twoPlus": 0.0486
      },
-     "edge": 8.8859,
+     "edge": 8.9719,
      "espn": "4431431",
-     "fair": 240,
-     "firstTd": 0.0717,
+     "fair": 239,
+     "firstTd": 0.072,
      "gamesPlayed": 7,
      "glShare": 0.2404,
      "glShareRaw": 0.2404,
@@ -10782,7 +10782,7 @@
      "implied": 26,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3486,
+     "lambda": 0.3498,
      "lambdaRaw": 0.5025,
      "lessonNotes": [
       "Learned from finished games: 35to50 chances scaled ×0.94 (from the last three weeks).",
@@ -10819,7 +10819,7 @@
       "behind": {
        "att": 0,
        "carries": 6.8853369008343615,
-       "chance": 0.27845679510991217,
+       "chance": 0.2794628185294097,
        "targets": 1.2295527040037513
       },
       "close": {
@@ -10831,7 +10831,7 @@
       "lead": {
        "att": 0,
        "carries": 9.072443916393512,
-       "chance": 0.3010466347428288,
+       "chance": 0.3013430599475623,
        "targets": 0.9660771245743757
       }
      },
@@ -10911,7 +10911,7 @@
        "recentRz": 8,
        "repeat": false,
        "roleOk": false,
-       "width": 0.26673248350024514
+       "width": 0.26730291020968266
       },
       "level": "High",
       "reasons": [
@@ -10980,7 +10980,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0804,
+     "usage": 0.0821,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -11010,7 +11010,7 @@
       "rushYd": {
        "blocks": [
         "Unstable production (CV 0.90 > 0.85).",
-        "Held-out 80% ranges covered only 63% of comparable results."
+        "Held-out 80% ranges covered only 64% of comparable results."
        ],
        "level": "Med",
        "provisional": false,
@@ -11026,11 +11026,11 @@
         "factor": 1.0292,
         "league": 0.7816
        },
-       "hi": 2.4467,
-       "leagueDefense": 0.9029,
+       "hi": 2.4452,
+       "leagueDefense": 0.9031,
        "lo": 0,
-       "mean": 0.9292,
-       "source": "held-out errors, RB|support|available (n=32)",
+       "mean": 0.9295,
+       "source": "held-out errors, RB|support|available (n=33)",
        "text": "0.9 without this defense. MIA allows RBs a 85% catch rate versus 78% league."
       },
       "recYd": {
@@ -11039,11 +11039,11 @@
         "factor": 1.074,
         "league": 5.6468
        },
-       "hi": 25.7156,
-       "leagueDefense": 6.6178,
+       "hi": 25.6502,
+       "leagueDefense": 6.6202,
        "lo": 0,
-       "mean": 7.1074,
-       "source": "held-out errors, RB|support|available (n=32)",
+       "mean": 7.1099,
+       "source": "held-out errors, RB|support|available (n=33)",
        "text": "7 without this defense. MIA allows RBs 6.9 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -11052,11 +11052,11 @@
         "factor": 1.0188,
         "league": 4.1316
        },
-       "hi": 66.3973,
+       "hi": 66.6138,
        "leagueDefense": 35.3731,
-       "lo": 5.6792,
+       "lo": 5.4627,
        "mean": 36.0382,
-       "source": "held-out errors, RB|support|available (n=32)",
+       "source": "held-out errors, RB|support|available (n=33)",
        "text": "35 without this defense. MIA allows RBs 4.2 yards a carry versus 4.1 league."
       }
      }
@@ -11069,42 +11069,42 @@
       "uncertain": false
      },
      "band": [
-      0.1776,
-      0.4311
+      0.1782,
+      0.4322
      ],
      "ceiling": 0.5,
-     "challenger": 0.2118,
+     "challenger": 0.213,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2826,
+     "chance": 0.2834,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0332,
-      "t1": 0.1456,
-      "t2": 0.0645,
-      "t3": 0.0888
+      "t0": 0.0333,
+      "t1": 0.1461,
+      "t2": 0.0647,
+      "t3": 0.0891
      },
      "conversionNote": "1 of 5 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.2826,
-      "lambda": 0.3321,
-      "p0": 0.7174,
-      "p1": 0.2383,
-      "p2": 0.0396,
+      "anytime": 0.2834,
+      "lambda": 0.3333,
+      "p0": 0.7166,
+      "p1": 0.2388,
+      "p2": 0.0398,
       "p3plus": 0.0048,
-      "twoPlus": 0.0443
+      "twoPlus": 0.0446
      },
-     "edge": 10.1344,
+     "edge": 10.2178,
      "espn": "4831959",
-     "fair": 254,
-     "firstTd": 0.0683,
+     "fair": 253,
+     "firstTd": 0.0686,
      "gamesPlayed": 6,
      "glShare": 0,
      "glShareRaw": 0,
@@ -11114,7 +11114,7 @@
      "implied": 26,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3321,
+     "lambda": 0.3333,
      "lambdaRaw": 0.5013,
      "lessonNotes": [
       "Learned from finished games: 35to50 chances scaled ×0.94 (from the last three weeks).",
@@ -11151,7 +11151,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.30741762141678985,
+       "chance": 0.3085043782112654,
        "targets": 3.372909674454415
       },
       "close": {
@@ -11163,7 +11163,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.2583295181641204,
+       "chance": 0.2585919738836342,
        "targets": 2.650143315642754
       }
      },
@@ -11241,7 +11241,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": false,
-       "width": 0.2534985434148742
+       "width": 0.25405779975013953
       },
       "level": "Med",
       "reasons": [
@@ -11293,7 +11293,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1837,
+     "usage": 0.1863,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -11339,11 +11339,11 @@
         "factor": 1.1019,
         "league": 0.7208
        },
-       "hi": 4.9969,
-       "leagueDefense": 2.273,
-       "lo": 0.0124,
-       "mean": 2.5046,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "hi": 4.9769,
+       "leagueDefense": 2.2737,
+       "lo": 0.034,
+       "mean": 2.5054,
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "2.3 without this defense. MIA allows TEs a 92% catch rate versus 72% league."
       },
       "recYd": {
@@ -11352,11 +11352,11 @@
         "factor": 1.1204,
         "league": 7.0656
        },
-       "hi": 66.0989,
-       "leagueDefense": 25.8815,
+       "hi": 66.2474,
+       "leagueDefense": 25.8908,
        "lo": 0,
-       "mean": 28.9966,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "mean": 29.007,
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "26 without this defense. MIA allows TEs 9.3 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -11369,7 +11369,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -11382,42 +11382,42 @@
       "uncertain": false
      },
      "band": [
-      0.1885,
-      0.3999
+      0.1891,
+      0.401
      ],
      "ceiling": 0.5,
-     "challenger": 0.2922,
+     "challenger": 0.2938,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2786,
+     "chance": 0.2794,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0369,
-      "t1": 0.0749,
-      "t2": 0.1315,
-      "t3": 0.0832
+      "t0": 0.0371,
+      "t1": 0.0752,
+      "t2": 0.1319,
+      "t3": 0.0835
      },
      "conversionNote": "2 of 5 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.2786,
-      "lambda": 0.3266,
-      "p0": 0.7214,
-      "p1": 0.2356,
-      "p2": 0.0385,
+      "anytime": 0.2794,
+      "lambda": 0.3277,
+      "p0": 0.7206,
+      "p1": 0.2361,
+      "p2": 0.0387,
       "p3plus": 0.0046,
-      "twoPlus": 0.043
+      "twoPlus": 0.0433
      },
-     "edge": 1.9439,
+     "edge": 2.0263,
      "espn": "3046439",
-     "fair": 259,
-     "firstTd": 0.0672,
+     "fair": 258,
+     "firstTd": 0.0674,
      "gamesPlayed": 7,
      "glShare": 0,
      "glShareRaw": 0,
@@ -11427,7 +11427,7 @@
      "implied": 26,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3266,
+     "lambda": 0.3277,
      "lambdaRaw": 0.5742,
      "lessonNotes": [
       "Learned from finished games: 35to50 chances scaled ×0.94 (from the last three weeks).",
@@ -11479,7 +11479,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.2890351097150242,
+       "chance": 0.29007121051162366,
        "targets": 6.55874851127215
       },
       "close": {
@@ -11491,7 +11491,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.3078676160353917,
+       "chance": 0.3081691836796896,
        "targets": 5.153302401713831
       }
      },
@@ -11572,7 +11572,7 @@
        "recentRz": 4,
        "repeat": false,
        "roleOk": false,
-       "width": 0.21142502075807235
+       "width": 0.2119035737055609
       },
       "level": "Med",
       "reasons": [
@@ -11641,7 +11641,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.3439,
+     "usage": 0.3483,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -11684,11 +11684,11 @@
         "factor": 1.1019,
         "league": 0.7208
        },
-       "hi": 8.5059,
-       "leagueDefense": 4.7452,
-       "lo": 1.9516,
-       "mean": 5.2287,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "hi": 8.4801,
+       "leagueDefense": 4.7467,
+       "lo": 1.9806,
+       "mean": 5.2304,
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "4.7 without this defense. MIA allows TEs a 92% catch rate versus 72% league."
       },
       "recYd": {
@@ -11697,11 +11697,11 @@
         "factor": 1.1204,
         "league": 7.0656
        },
-       "hi": 100.4476,
-       "leagueDefense": 50.7368,
-       "lo": 13.2392,
-       "mean": 56.8434,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "hi": 100.1294,
+       "leagueDefense": 50.7551,
+       "lo": 13.5985,
+       "mean": 56.8639,
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "51 without this defense. MIA allows TEs 9.3 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -11714,7 +11714,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -11727,42 +11727,42 @@
       "uncertain": false
      },
      "band": [
-      0.1599,
-      0.4551
+      0.1604,
+      0.4563
      ],
      "ceiling": 0.5,
-     "challenger": 0.3451,
+     "challenger": 0.3444,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2777,
+     "chance": 0.2785,
      "coldGoal": false,
      "components": {
       "r0": 0.0007,
       "r1": 0.0008,
       "r2": 0.0003,
       "r3": 0,
-      "t0": 0.0783,
-      "t1": 0.071,
-      "t2": 0.0767,
-      "t3": 0.0974
+      "t0": 0.0785,
+      "t1": 0.0712,
+      "t2": 0.077,
+      "t3": 0.0978
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.2777,
-      "lambda": 0.3253,
-      "p0": 0.7223,
-      "p1": 0.2349,
-      "p2": 0.0382,
+      "anytime": 0.2785,
+      "lambda": 0.3264,
+      "p0": 0.7215,
+      "p1": 0.2355,
+      "p2": 0.0384,
       "p3plus": 0.0045,
-      "twoPlus": 0.0427
+      "twoPlus": 0.043
      },
-     "edge": -7.8301,
+     "edge": -7.7479,
      "espn": "4047646",
-     "fair": 260,
-     "firstTd": 0.0669,
+     "fair": 259,
+     "firstTd": 0.0672,
      "gamesPlayed": 3,
      "glShare": 0.0011,
      "glShareRaw": 0.0011,
@@ -11772,7 +11772,7 @@
      "implied": 26,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3253,
+     "lambda": 0.3264,
      "lambdaRaw": 0.2946,
      "lessonNotes": [
       "Learned from finished games: 25to35 chances scaled ×1.05 (from the last three weeks).",
@@ -11809,7 +11809,7 @@
       "behind": {
        "att": 0,
        "carries": 0.09173484148333193,
-       "chance": 0.29054968608754284,
+       "chance": 0.291590038297185,
        "targets": 7.889234039162417
       },
       "close": {
@@ -11821,7 +11821,7 @@
       "lead": {
        "att": 0,
        "carries": 0.12087414407215501,
-       "chance": 0.2587674696328396,
+       "chance": 0.2573715320399119,
        "targets": 6.198683887913327
       }
      },
@@ -11899,7 +11899,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": true,
-       "width": 0.2951949837551421
+       "width": 0.29583940711247747
       },
       "level": "Med",
       "reasons": [
@@ -11910,7 +11910,7 @@
      "team": "NE",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.4114,
+     "usage": 0.4078,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -11953,11 +11953,11 @@
         "factor": 1.0782,
         "league": 0.6197
        },
-       "hi": 6.6325,
-       "leagueDefense": 3.9522,
-       "lo": 1.8904,
-       "mean": 4.2614,
-       "source": "held-out errors, WR|primary|available (n=43)",
+       "hi": 6.634,
+       "leagueDefense": 3.9534,
+       "lo": 1.8916,
+       "mean": 4.2628,
+       "source": "held-out errors, WR|primary|available (n=44)",
        "text": "4.0 without this defense. MIA allows WRs a 72% catch rate versus 62% league."
       },
       "recYd": {
@@ -11966,11 +11966,11 @@
         "factor": 1.0486,
         "league": 8.0888
        },
-       "hi": 88.1695,
-       "leagueDefense": 50.3726,
-       "lo": 17.4689,
-       "mean": 52.8192,
-       "source": "held-out errors, WR|primary|available (n=43)",
+       "hi": 88.8226,
+       "leagueDefense": 50.3908,
+       "lo": 16.854,
+       "mean": 52.8383,
+       "source": "held-out errors, WR|primary|available (n=44)",
        "text": "50 without this defense. MIA allows WRs 8.9 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -11979,11 +11979,11 @@
         "factor": 0.9284,
         "league": 5.127
        },
-       "hi": 6.8807,
+       "hi": 7.1298,
        "leagueDefense": 0.573,
        "lo": 0,
        "mean": 0.532,
-       "source": "held-out errors, WR|primary|available (n=43)",
+       "source": "held-out errors, WR|primary|available (n=44)",
        "text": "1 without this defense. MIA allows WRs -0.8 yards a carry versus 5.1 league."
       }
      }
@@ -11996,42 +11996,42 @@
       "uncertain": false
      },
      "band": [
-      0.1854,
-      0.3882
+      0.186,
+      0.3892
      ],
      "ceiling": 0.62,
-     "challenger": 0.2192,
+     "challenger": 0.22,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.272,
+     "chance": 0.2728,
      "coldGoal": false,
      "components": {
       "r0": 0.0008,
       "r1": 0.0004,
       "r2": 0.0001,
       "r3": 0,
-      "t0": 0.0819,
-      "t1": 0.0551,
-      "t2": 0.1476,
-      "t3": 0.0315
+      "t0": 0.0822,
+      "t1": 0.0553,
+      "t2": 0.1481,
+      "t3": 0.0317
      },
      "conversionNote": "2 of 4 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.272,
-      "lambda": 0.3175,
-      "p0": 0.728,
-      "p1": 0.2311,
-      "p2": 0.0367,
-      "p3plus": 0.0042,
-      "twoPlus": 0.0409
+      "anytime": 0.2728,
+      "lambda": 0.3186,
+      "p0": 0.7272,
+      "p1": 0.2317,
+      "p2": 0.0369,
+      "p3plus": 0.0043,
+      "twoPlus": 0.0411
      },
-     "edge": 5.0798,
+     "edge": 5.1606,
      "espn": "4427095",
-     "fair": 268,
-     "firstTd": 0.0653,
+     "fair": 267,
+     "firstTd": 0.0655,
      "gamesPlayed": 7,
      "glShare": 0.0007,
      "glShareRaw": 0.0007,
@@ -12041,7 +12041,7 @@
      "implied": 26,
      "injury": null,
      "insideFinisher": true,
-     "lambda": 0.3175,
+     "lambda": 0.3186,
      "lambdaRaw": 0.3963,
      "lessonNotes": [
       "Learned from finished games: 25to35 chances scaled ×1.05 (from the last three weeks).",
@@ -12078,7 +12078,7 @@
       "behind": {
        "att": 0,
        "carries": 0.1318433527318776,
-       "chance": 0.2863084480734892,
+       "chance": 0.2873368602887716,
        "targets": 7.236168005748882
       },
       "close": {
@@ -12090,7 +12090,7 @@
       "lead": {
        "att": 0,
        "carries": 0.1737230059525917,
-       "chance": 0.24951742561342105,
+       "chance": 0.24977250524474248,
        "targets": 5.685560575945549
       }
      },
@@ -12170,7 +12170,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.20274673093748397
+       "width": 0.20321331450001667
       },
       "level": "Med",
       "reasons": [
@@ -12222,7 +12222,7 @@
        "type": "Model miss pattern"
       }
      ],
-     "usage": 0.1737,
+     "usage": 0.1753,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -12267,11 +12267,11 @@
         "factor": 1.0782,
         "league": 0.6197
        },
-       "hi": 7.1042,
-       "leagueDefense": 4.3452,
-       "lo": 2.2662,
-       "mean": 4.6852,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "hi": 7.0787,
+       "leagueDefense": 4.3466,
+       "lo": 2.2946,
+       "mean": 4.6867,
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "4.3 without this defense. MIA allows WRs a 72% catch rate versus 62% league."
       },
       "recYd": {
@@ -12280,11 +12280,11 @@
         "factor": 1.0486,
         "league": 8.0888
        },
-       "hi": 95.3519,
-       "leagueDefense": 52.376,
-       "lo": 14.488,
-       "mean": 54.9199,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "hi": 95.3537,
+       "leagueDefense": 52.3949,
+       "lo": 14.5258,
+       "mean": 54.9398,
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "52 without this defense. MIA allows WRs 8.9 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -12293,11 +12293,11 @@
         "factor": 0.9284,
         "league": 5.127
        },
-       "hi": 10.0741,
+       "hi": 9.9268,
        "leagueDefense": 0.8235,
        "lo": 0,
        "mean": 0.7645,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "1 without this defense. MIA allows WRs -0.8 yards a carry versus 5.1 league."
       }
      }
@@ -12310,22 +12310,22 @@
       "uncertain": false
      },
      "band": [
-      0.138,
-      0.3466
+      0.1385,
+      0.3476
      ],
      "ceiling": 0.62,
-     "challenger": 0.2219,
+     "challenger": 0.2231,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2223,
+     "chance": 0.223,
      "coldGoal": false,
      "components": {
-      "r0": 0.0261,
-      "r1": 0.1613,
-      "r2": 0.0615,
+      "r0": 0.0262,
+      "r1": 0.1619,
+      "r2": 0.0618,
       "r3": 0.0025,
       "t0": 0,
       "t1": 0,
@@ -12334,18 +12334,18 @@
      },
      "conversionNote": "2 of 5 red-zone carries scored.",
      "dist": {
-      "anytime": 0.2223,
-      "lambda": 0.2514,
-      "p0": 0.7777,
-      "p1": 0.1955,
-      "p2": 0.0246,
+      "anytime": 0.223,
+      "lambda": 0.2523,
+      "p0": 0.777,
+      "p1": 0.196,
+      "p2": 0.0247,
       "p3plus": 0.0022,
-      "twoPlus": 0.0268
+      "twoPlus": 0.0269
      },
-     "edge": -0.664,
+     "edge": -0.5956,
      "espn": "4431452",
-     "fair": 350,
-     "firstTd": 0.0517,
+     "fair": 348,
+     "firstTd": 0.0519,
      "gamesPlayed": 7,
      "glShare": 0.2785,
      "glShareRaw": 0.2785,
@@ -12355,7 +12355,7 @@
      "implied": 26,
      "injury": null,
      "insideFinisher": true,
-     "lambda": 0.2514,
+     "lambda": 0.2523,
      "lambdaRaw": 0.2885,
      "lessonNotes": [
       "Learned from finished games: 25to35 chances scaled ×1.05 (from the last three weeks).",
@@ -12366,7 +12366,7 @@
      "passTd": {
       "attemptShare": 0.93,
       "display": "1.7",
-      "expected": 1.7408,
+      "expected": 1.744,
       "interval": [
        0,
        3
@@ -12374,10 +12374,10 @@
       "level": "Med",
       "provisional": true,
       "reasons": [
-       "93% of projected team attempts (32.1) × team receiving-score total 1.87.",
+       "93% of projected team attempts (32.1) × team receiving-score total 1.88.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.8719
+      "teamReceivingLambda": 1.8753
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4431452.png",
@@ -12407,7 +12407,7 @@
       "behind": {
        "att": 35.98264483586565,
        "carries": 4.643083079302578,
-       "chance": 0.19153793363453975,
+       "chance": 0.1898550921945349,
        "targets": 0
       },
       "close": {
@@ -12419,7 +12419,7 @@
       "lead": {
        "att": 28.272078085323006,
        "carries": 6.117944763316338,
-       "chance": 0.23255929741669445,
+       "chance": 0.23279983850232688,
        "targets": 0
       }
      },
@@ -12500,7 +12500,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.2086074706599086
+       "width": 0.20913197416911844
       },
       "level": "Med",
       "reasons": [
@@ -12552,7 +12552,7 @@
        "type": "Model miss pattern"
       }
      ],
-     "usage": 0.2148,
+     "usage": 0.2176,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -12591,7 +12591,7 @@
        "blocks": [
         "Fewer than 6 projected carries.",
         "Very wide range.",
-        "Held-out 80% ranges covered only 67% of comparable results."
+        "Held-out 80% ranges covered only 69% of comparable results."
        ],
        "level": "Med",
        "provisional": false,
@@ -12607,12 +12607,12 @@
         "factor": 1.0692,
         "league": null
        },
-       "hi": 375.7991,
-       "leagueDefense": 261.5888,
-       "lo": 183.5885,
-       "mean": 279.6938,
-       "source": "held-out errors, QB|primary|available (n=46)",
-       "text": "262 without this defense; opponent factor 1.07 from how this offense uses WRs, TEs, and backs."
+       "hi": 374.3039,
+       "leagueDefense": 261.2627,
+       "lo": 184.3865,
+       "mean": 279.3452,
+       "source": "held-out errors, QB|primary|available (n=48)",
+       "text": "261 without this defense; opponent factor 1.07 from how this offense uses WRs, TEs, and backs."
       },
       "rec": {
        "defense": {
@@ -12624,7 +12624,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "0.0 without this defense."
       },
       "recYd": {
@@ -12637,7 +12637,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "0 without this defense."
       },
       "rushYd": {
@@ -12646,11 +12646,11 @@
         "factor": 0.858,
         "league": 4.3688
        },
-       "hi": 49.0629,
+       "hi": 48.7377,
        "leagueDefense": 27.9757,
        "lo": 0,
        "mean": 24.0038,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "28 without this defense. MIA allows QBs 2.1 yards a carry versus 4.4 league."
       }
      }
@@ -12663,42 +12663,42 @@
       "uncertain": false
      },
      "band": [
-      0.1261,
-      0.3027
+      0.1265,
+      0.3036
      ],
      "ceiling": 0.5,
-     "challenger": 0.252,
+     "challenger": 0.2538,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1978,
+     "chance": 0.1984,
      "coldGoal": false,
      "components": {
-      "r0": 0.0878,
+      "r0": 0.0881,
       "r1": 0.0202,
-      "r2": 0.0204,
+      "r2": 0.0205,
       "r3": 0.002,
       "t0": 0.0166,
       "t1": 0.0115,
-      "t2": 0.0077,
-      "t3": 0.0542
+      "t2": 0.0078,
+      "t3": 0.0544
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.1978,
-      "lambda": 0.2204,
-      "p0": 0.8022,
-      "p1": 0.1768,
-      "p2": 0.0195,
+      "anytime": 0.1984,
+      "lambda": 0.2212,
+      "p0": 0.8016,
+      "p1": 0.1773,
+      "p2": 0.0196,
       "p3plus": 0.0015,
-      "twoPlus": 0.021
+      "twoPlus": 0.0211
      },
-     "edge": -9.0417,
+     "edge": -8.9799,
      "espn": "4432710",
-     "fair": 406,
-     "firstTd": 0.0454,
+     "fair": 404,
+     "firstTd": 0.0455,
      "gamesPlayed": 6,
      "glShare": 0.0162,
      "glShareRaw": 0.0162,
@@ -12708,7 +12708,7 @@
      "implied": 26,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.2204,
+     "lambda": 0.2212,
      "lambdaRaw": 0.1159,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks).",
@@ -12745,7 +12745,7 @@
       "behind": {
        "att": 0,
        "carries": 4.067718399075576,
-       "chance": 0.19738571109209269,
+       "chance": 0.19813982727962032,
        "targets": 1.0019473200798779
       },
       "close": {
@@ -12757,7 +12757,7 @@
       "lead": {
        "att": 0,
        "carries": 5.359817184664289,
-       "chance": 0.19817436150159917,
+       "chance": 0.19838407026698568,
        "targets": 0.7872443229199039
       }
      },
@@ -12837,7 +12837,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": true,
-       "width": 0.1766461792738041
+       "width": 0.17711342332301616
       },
       "level": "Med",
       "reasons": [
@@ -12906,7 +12906,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.2786,
+     "usage": 0.2837,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -12953,11 +12953,11 @@
         "factor": 1.0292,
         "league": 0.7816
        },
-       "hi": 2.145,
-       "leagueDefense": 0.7072,
+       "hi": 2.1202,
+       "leagueDefense": 0.7074,
        "lo": 0,
-       "mean": 0.7278,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "mean": 0.7281,
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "0.7 without this defense. MIA allows RBs a 85% catch rate versus 78% league."
       },
       "recYd": {
@@ -12966,11 +12966,11 @@
         "factor": 1.074,
         "league": 5.6468
        },
-       "hi": 28.1007,
-       "leagueDefense": 5.3935,
+       "hi": 27.6754,
+       "leagueDefense": 5.3955,
        "lo": 0,
-       "mean": 5.7925,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "mean": 5.7946,
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "5 without this defense. MIA allows RBs 6.9 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -12979,11 +12979,11 @@
         "factor": 1.0188,
         "league": 4.1316
        },
-       "hi": 48.735,
+       "hi": 48.5807,
        "leagueDefense": 19.8373,
        "lo": 0,
        "mean": 20.2103,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "20 without this defense. MIA allows RBs 4.2 yards a carry versus 4.1 league."
       }
      }
@@ -12996,8 +12996,8 @@
       "uncertain": false
      },
      "band": [
-      0.0867,
-      0.2543
+      0.0863,
+      0.2531
      ],
      "ceiling": 0.5,
      "challenger": 0.1447,
@@ -13006,32 +13006,32 @@
       "sleeper",
       "usage"
      ],
-     "chance": 0.1505,
+     "chance": 0.1498,
      "coldGoal": false,
      "components": {
       "r0": 0.0004,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0509,
-      "t1": 0.0435,
-      "t2": 0.0571,
-      "t3": 0.0114
+      "t0": 0.0506,
+      "t1": 0.0432,
+      "t2": 0.0568,
+      "t3": 0.0113
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.1505,
-      "lambda": 0.1632,
-      "p0": 0.8495,
-      "p1": 0.1386,
-      "p2": 0.0113,
+      "anytime": 0.1498,
+      "lambda": 0.1622,
+      "p0": 0.8502,
+      "p1": 0.1379,
+      "p2": 0.0112,
       "p3plus": 0.0006,
-      "twoPlus": 0.0119
+      "twoPlus": 0.0118
      },
-     "edge": -1.4181,
+     "edge": -1.4959,
      "espn": "4695193",
-     "fair": 564,
-     "firstTd": 0.0336,
+     "fair": 568,
+     "firstTd": 0.0334,
      "gamesPlayed": 6,
      "glShare": 0,
      "glShareRaw": 0,
@@ -13041,10 +13041,10 @@
      "implied": 26,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1632,
+     "lambda": 0.1622,
      "lambdaRaw": 0.2063,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×0.96 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×0.94 (from the last three weeks).",
       "Blended 58% toward the published projection (16%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.9929,
@@ -13057,10 +13057,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.1711,
-     "preStack": 0.1798,
+     "preSafety": 0.1696,
+     "preStack": 0.1765,
      "pubBlend": {
-      "before": 0.1983,
+      "before": 0.1942,
       "weight": 0.5833
      },
      "published": {
@@ -13082,7 +13082,7 @@
       "behind": {
        "att": 0.07604069047789404,
        "carries": 0.06189978308423901,
-       "chance": 0.15870941804614436,
+       "chance": 0.15792124729480106,
        "targets": 3.9161468828459878
       },
       "close": {
@@ -13094,7 +13094,7 @@
       "lead": {
        "att": 0.05974625680405959,
        "carries": 0.081562067122762,
-       "chance": 0.14305413193882577,
+       "chance": 0.14209293675659518,
        "targets": 3.0769725508075614
       }
      },
@@ -13176,7 +13176,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.1675412835575506
+       "width": 0.16677799721240216
       },
       "level": "Low",
       "reasons": [
@@ -13237,7 +13237,7 @@
        "type": "Role vacuum"
       }
      ],
-     "usage": 0.1218,
+     "usage": 0.1226,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -13285,11 +13285,11 @@
         "factor": 1.0782,
         "league": 0.6197
        },
-       "hi": 5.0453,
-       "leagueDefense": 2.2972,
+       "hi": 5.026,
+       "leagueDefense": 2.2979,
        "lo": 0,
-       "mean": 2.4769,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 2.4777,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "2.3 without this defense. MIA allows WRs a 72% catch rate versus 62% league."
       },
       "recYd": {
@@ -13298,11 +13298,11 @@
         "factor": 1.0486,
         "league": 8.0888
        },
-       "hi": 66.5616,
-       "leagueDefense": 28.8338,
+       "hi": 66.3264,
+       "leagueDefense": 28.8442,
        "lo": 0,
-       "mean": 30.2342,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 30.2451,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "29 without this defense. MIA allows WRs 8.9 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -13311,11 +13311,11 @@
         "factor": 0.9284,
         "league": 5.127
        },
-       "hi": 3.2059,
+       "hi": 3.1266,
        "leagueDefense": 0.3809,
        "lo": 0,
        "mean": 0.3536,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. MIA allows WRs -0.8 yards a carry versus 5.1 league."
       }
      }
@@ -13328,42 +13328,42 @@
       "uncertain": false
      },
      "band": [
-      0.0631,
-      0.1314
+      0.0633,
+      0.1318
      ],
      "ceiling": 0.5,
-     "challenger": 0.1161,
+     "challenger": 0.1166,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0914,
+     "chance": 0.0917,
      "coldGoal": false,
      "components": {
       "r0": 0.0002,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0841,
+      "t0": 0.0844,
       "t1": 0.0053,
       "t2": 0.0036,
       "t3": 0.0026
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0914,
-      "lambda": 0.0958,
-      "p0": 0.9086,
-      "p1": 0.0871,
+      "anytime": 0.0917,
+      "lambda": 0.0961,
+      "p0": 0.9083,
+      "p1": 0.0873,
       "p2": 0.0042,
       "p3plus": 0.0001,
       "twoPlus": 0.0043
      },
-     "edge": -6.4979,
+     "edge": -6.4674,
      "espn": "4613202",
-     "fair": 995,
-     "firstTd": 0.0197,
+     "fair": 991,
+     "firstTd": 0.0198,
      "gamesPlayed": 7,
      "glShare": 0,
      "glShareRaw": 0,
@@ -13373,7 +13373,7 @@
      "implied": 26,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0958,
+     "lambda": 0.0961,
      "lambdaRaw": 0.0324,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks).",
@@ -13410,7 +13410,7 @@
       "behind": {
        "att": 0,
        "carries": 0.00668899885815962,
-       "chance": 0.09348293918454076,
+       "chance": 0.09386321849004786,
        "targets": 1.53035826609184
       },
       "close": {
@@ -13422,7 +13422,7 @@
       "lead": {
        "att": 0,
        "carries": 0.008813739671927969,
-       "chance": 0.08966859033572327,
+       "chance": 0.08976987053662078,
        "targets": 1.2024243519293025
       }
      },
@@ -13500,7 +13500,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.06827507800694455
+       "width": 0.06848942603618458
       },
       "level": "Low",
       "reasons": [
@@ -13511,7 +13511,7 @@
      "team": "NE",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.109,
+     "usage": 0.1101,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -13559,11 +13559,11 @@
         "factor": 1.0782,
         "league": 0.6197
        },
-       "hi": 2.4151,
-       "leagueDefense": 0.8182,
+       "hi": 2.4033,
+       "leagueDefense": 0.8185,
        "lo": 0,
-       "mean": 0.8822,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 0.8825,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.8 without this defense. MIA allows WRs a 72% catch rate versus 62% league."
       },
       "recYd": {
@@ -13572,11 +13572,11 @@
         "factor": 1.0486,
         "league": 8.0888
        },
-       "hi": 38.3998,
-       "leagueDefense": 13.1895,
+       "hi": 38.2383,
+       "leagueDefense": 13.1943,
        "lo": 0,
-       "mean": 13.8302,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 13.8352,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "13 without this defense. MIA allows WRs 8.9 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -13585,11 +13585,11 @@
         "factor": 0.9284,
         "league": 5.127
        },
-       "hi": 0.9835,
+       "hi": 0.9572,
        "leagueDefense": 0.0418,
        "lo": 0,
        "mean": 0.0388,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. MIA allows WRs -0.8 yards a carry versus 5.1 league."
       }
      }
@@ -13602,15 +13602,15 @@
       "uncertain": false
      },
      "band": [
-      0.0075,
-      0.0424
+      0.0076,
+      0.0425
      ],
      "ceiling": 0.5,
-     "challenger": 0.0179,
+     "challenger": 0.018,
      "challengerLegs": [
       "model"
      ],
-     "chance": 0.0179,
+     "chance": 0.018,
      "coldGoal": false,
      "components": {
       "r0": 0,
@@ -13624,9 +13624,9 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0179,
-      "lambda": 0.0181,
-      "p0": 0.9821,
+      "anytime": 0.018,
+      "lambda": 0.0182,
+      "p0": 0.982,
       "p1": 0.0178,
       "p2": 0.0002,
       "p3plus": 0,
@@ -13634,7 +13634,7 @@
      },
      "edge": null,
      "espn": "2576179",
-     "fair": 5475,
+     "fair": 5456,
      "firstTd": 0.0037,
      "gamesPlayed": 0,
      "glShare": 0,
@@ -13645,7 +13645,7 @@
      "implied": 26,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0181,
+     "lambda": 0.0182,
      "lambdaRaw": 0.0182,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks)."
@@ -13674,7 +13674,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.020192943277279607,
+       "chance": 0.020278389168135624,
        "targets": 0.5304994422711986
       },
       "close": {
@@ -13686,7 +13686,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.0157817326635854,
+       "chance": 0.01580027481103341,
        "targets": 0.41682099035594167
       }
      },
@@ -13766,7 +13766,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.03485934256508949
+       "width": 0.034978229717374965
       },
       "level": "Low",
       "reasons": [
@@ -13844,11 +13844,11 @@
         "factor": 1.1019,
         "league": 0.7208
        },
-       "hi": 1.3415,
-       "leagueDefense": 0.3519,
+       "hi": 1.3215,
+       "leagueDefense": 0.3521,
        "lo": 0,
-       "mean": 0.3878,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 0.3879,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0.4 without this defense. MIA allows TEs a 92% catch rate versus 72% league."
       },
       "recYd": {
@@ -13857,11 +13857,11 @@
         "factor": 1.1204,
         "league": 7.0656
        },
-       "hi": 19.1751,
-       "leagueDefense": 3.482,
+       "hi": 19.0504,
+       "leagueDefense": 3.4833,
        "lo": 0,
-       "mean": 3.9011,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 3.9025,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "3 without this defense. MIA allows TEs 9.3 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -13874,7 +13874,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -13888,10 +13888,10 @@
      },
      "band": [
       0.0057,
-      0.032
+      0.0321
      ],
      "ceiling": 0.5,
-     "challenger": 0.0278,
+     "challenger": 0.0283,
      "challengerLegs": [
       "model",
       "usage"
@@ -13903,7 +13903,7 @@
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0044,
+      "t0": 0.0045,
       "t1": 0.0042,
       "t2": 0.0028,
       "t3": 0.0021
@@ -13920,7 +13920,7 @@
      },
      "edge": null,
      "espn": "4683308",
-     "fair": 7316,
+     "fair": 7291,
      "firstTd": 0.0028,
      "gamesPlayed": 1,
      "glShare": 0,
@@ -13960,7 +13960,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.015183259818949635,
+       "chance": 0.015247672598314277,
        "targets": 0.39787458170339896
       },
       "close": {
@@ -13972,7 +13972,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.011859804080046055,
+       "chance": 0.01187376613879465,
        "targets": 0.31261574276695625
       }
      },
@@ -14050,7 +14050,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.02631070928466095
+       "width": 0.02640102477540973
       },
       "level": "Low",
       "reasons": [
@@ -14085,7 +14085,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0569,
+     "usage": 0.0587,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -14128,11 +14128,11 @@
         "factor": 1.1019,
         "league": 0.7208
        },
-       "hi": 1.1168,
+       "hi": 1.0994,
        "leagueDefense": 0.264,
        "lo": 0,
        "mean": 0.2909,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0.3 without this defense. MIA allows TEs a 92% catch rate versus 72% league."
       },
       "recYd": {
@@ -14141,11 +14141,11 @@
         "factor": 1.1204,
         "league": 7.0656
        },
-       "hi": 16.1535,
-       "leagueDefense": 2.6115,
+       "hi": 16.0454,
+       "leagueDefense": 2.6124,
        "lo": 0,
-       "mean": 2.9258,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 2.9269,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "3 without this defense. MIA allows TEs 9.3 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -14158,7 +14158,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -14175,13 +14175,13 @@
       0.0136
      ],
      "ceiling": 0.5,
-     "challenger": 0.0119,
+     "challenger": 0.012,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0083,
+     "chance": 0.0084,
      "coldGoal": false,
      "components": {
       "r0": 0,
@@ -14189,23 +14189,23 @@
       "r2": 0,
       "r3": 0,
       "t0": 0.0029,
-      "t1": 0.0025,
+      "t1": 0.0026,
       "t2": 0.0017,
       "t3": 0.0013
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0083,
+      "anytime": 0.0084,
       "lambda": 0.0084,
-      "p0": 0.9917,
+      "p0": 0.9916,
       "p1": 0.0083,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
-     "edge": -0.1601,
+     "edge": -0.1572,
      "espn": "4372026",
-     "fair": 11878,
+     "fair": 11836,
      "firstTd": 0.0017,
      "gamesPlayed": 5,
      "glShare": 0,
@@ -14253,7 +14253,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.008753995407801196,
+       "chance": 0.008791254753242161,
        "targets": 0.23938787332487838
       },
       "close": {
@@ -14265,7 +14265,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.007987608113433353,
+       "chance": 0.007997030054407106,
        "targets": 0.18809047189811867
       }
      },
@@ -14343,7 +14343,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.008455464371058263
+       "width": 0.008484774638417458
       },
       "level": "Low",
       "reasons": [
@@ -14378,7 +14378,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0201,
+     "usage": 0.0208,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -14421,11 +14421,11 @@
         "factor": 1.1019,
         "league": 0.7208
        },
-       "hi": 0.8156,
-       "leagueDefense": 0.1588,
+       "hi": 0.8022,
+       "leagueDefense": 0.1589,
        "lo": 0,
-       "mean": 0.175,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 0.1751,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0.2 without this defense. MIA allows TEs a 92% catch rate versus 72% league."
       },
       "recYd": {
@@ -14434,11 +14434,11 @@
         "factor": 1.1204,
         "league": 7.0656
        },
-       "hi": 12.0207,
-       "leagueDefense": 1.5713,
+       "hi": 11.9366,
+       "leagueDefense": 1.5718,
        "lo": 0,
-       "mean": 1.7604,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 1.761,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "2 without this defense. MIA allows TEs 9.3 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -14451,7 +14451,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -14468,7 +14468,7 @@
       0.0124
      ],
      "ceiling": 0.5,
-     "challenger": 0.0163,
+     "challenger": 0.0165,
      "challengerLegs": [
       "model",
       "usage"
@@ -14490,14 +14490,14 @@
       "anytime": 0.0053,
       "lambda": 0.0053,
       "p0": 0.9947,
-      "p1": 0.0052,
+      "p1": 0.0053,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
      "edge": null,
      "espn": "4240391",
-     "fair": 18940,
+     "fair": 18873,
      "firstTd": 0.0011,
      "gamesPlayed": 1,
      "glShare": 0.0024,
@@ -14518,7 +14518,7 @@
      "passTd": {
       "attemptShare": 0.07,
       "display": "0.1",
-      "expected": 0.1311,
+      "expected": 0.1313,
       "interval": [
        0,
        1
@@ -14526,13 +14526,13 @@
       "level": "Low",
       "provisional": true,
       "reasons": [
-       "7% of projected team attempts (2.4) × team receiving-score total 1.87.",
+       "7% of projected team attempts (2.4) × team receiving-score total 1.88.",
        "Only 1 of the last three games with attempts.",
        "5 attempts this season (needs 60).",
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.8719
+      "teamReceivingLambda": 1.8753
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4240391.png",
@@ -14555,7 +14555,7 @@
       "behind": {
        "att": 2.708949598274975,
        "carries": 0.4034634231905802,
-       "chance": 0.004494077346828718,
+       "chance": 0.0045132466206614374,
        "targets": 0
       },
       "close": {
@@ -14567,7 +14567,7 @@
       "lead": {
        "att": 2.128460398644623,
        "carries": 0.531622392909941,
-       "chance": 0.005761544935131813,
+       "chance": 0.005768348718055649,
        "targets": 0
       }
      },
@@ -14645,7 +14645,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.010139052960173256
+       "width": 0.01017427313548025
       },
       "level": "Low",
       "reasons": [
@@ -14656,7 +14656,7 @@
      "team": "NE",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.0499,
+     "usage": 0.0508,
      "verified": true,
      "verifyReason": "On NE nflverse roster (week 7, ACT)",
      "vol": {
@@ -14707,10 +14707,10 @@
         "factor": 1.0692,
         "league": null
        },
-       "hi": 89.9863,
-       "leagueDefense": 17.2299,
+       "hi": 89.9204,
+       "leagueDefense": 17.2085,
        "lo": 0,
-       "mean": 15.6591,
+       "mean": 15.6396,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "17 without this defense; opponent factor 1.07 from how this offense uses WRs, TEs, and backs."
       },
@@ -14763,42 +14763,42 @@
       "uncertain": false
      },
      "band": [
-      0.3129,
-      0.6992
+      0.3134,
+      0.6998
      ],
      "ceiling": 0.5,
-     "challenger": 0.3841,
+     "challenger": 0.3992,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.489,
+     "chance": 0.4896,
      "coldGoal": false,
      "components": {
-      "r0": 0.0556,
-      "r1": 0.4201,
-      "r2": 0.0955,
-      "r3": 0.047,
-      "t0": 0.0257,
-      "t1": 0.0114,
+      "r0": 0.0557,
+      "r1": 0.4208,
+      "r2": 0.0957,
+      "r3": 0.0471,
+      "t0": 0.0258,
+      "t1": 0.0115,
       "t2": 0.0087,
       "t3": 0.0074
      },
      "conversionNote": "4 of 20 red-zone carries scored.",
      "dist": {
-      "anytime": 0.489,
-      "lambda": 0.6715,
-      "p0": 0.511,
-      "p1": 0.3431,
-      "p2": 0.1152,
-      "p3plus": 0.0308,
-      "twoPlus": 0.1459
+      "anytime": 0.4896,
+      "lambda": 0.6726,
+      "p0": 0.5104,
+      "p1": 0.3433,
+      "p2": 0.1154,
+      "p3plus": 0.0309,
+      "twoPlus": 0.1463
      },
-     "edge": -6.1631,
+     "edge": -6.1045,
      "espn": "4711533",
      "fair": 104,
-     "firstTd": 0.1382,
+     "firstTd": 0.1384,
      "gamesPlayed": 5,
      "glShare": 0.7801,
      "glShareRaw": 0.7801,
@@ -14808,7 +14808,7 @@
      "implied": 18.5,
      "injury": null,
      "insideFinisher": true,
-     "lambda": 0.6715,
+     "lambda": 0.6726,
      "lambdaRaw": 0.6889,
      "lessonNotes": [
       "Blended 38% toward the published projection (55%) because of limited recent red-zone evidence; safety caps applied after."
@@ -14850,7 +14850,7 @@
       "behind": {
        "att": 0,
        "carries": 13.08812897019289,
-       "chance": 0.47743558068797654,
+       "chance": 0.4776433772946912,
        "targets": 2.5866387370887165
       },
       "close": {
@@ -14862,7 +14862,7 @@
       "lead": {
        "att": 0,
        "carries": 17.245534643077693,
-       "chance": 0.49497754524096205,
+       "chance": 0.49556580790963956,
        "targets": 2.0323590077125626
       },
       "limited": {
@@ -14953,7 +14953,7 @@
        "recentRz": 16,
        "repeat": true,
        "roleOk": true,
-       "width": 0.3862914070243123
+       "width": 0.38646797879993844
       },
       "level": "Med",
       "reasons": [
@@ -15065,7 +15065,7 @@
        "type": "Role vacuum"
       }
      ],
-     "usage": 0.191,
+     "usage": 0.2179,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -15110,11 +15110,11 @@
         "factor": 1.0141,
         "league": 0.7816
        },
-       "hi": 4.0116,
-       "leagueDefense": 1.8426,
+       "hi": 4.0009,
+       "leagueDefense": 1.8432,
        "lo": 0,
-       "mean": 1.8685,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "mean": 1.8691,
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "1.8 without this defense. NE allows RBs a 82% catch rate versus 78% league."
       },
       "recYd": {
@@ -15123,11 +15123,11 @@
         "factor": 1.0502,
         "league": 5.6468
        },
-       "hi": 36.5153,
-       "leagueDefense": 11.5973,
+       "hi": 36.3033,
+       "leagueDefense": 11.6015,
        "lo": 0,
-       "mean": 12.179,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "mean": 12.1834,
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "12 without this defense. NE allows RBs 6.5 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -15136,11 +15136,11 @@
         "factor": 0.9919,
         "league": 4.1316
        },
-       "hi": 108.3347,
+       "hi": 109.4408,
        "leagueDefense": 71.7924,
-       "lo": 34.0839,
+       "lo": 32.9778,
        "mean": 71.2093,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "72 without this defense. NE allows RBs 4.1 yards a carry versus 4.1 league."
       }
      }
@@ -15153,23 +15153,23 @@
       "uncertain": false
      },
      "band": [
-      0.1124,
-      0.3077
+      0.1115,
+      0.3055
      ],
      "ceiling": 0.62,
-     "challenger": 0.2049,
+     "challenger": 0.2002,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1889,
+     "chance": 0.1875,
      "coldGoal": false,
      "components": {
-      "r0": 0.0219,
-      "r1": 0.1664,
-      "r2": 0.0114,
-      "r3": 0.0097,
+      "r0": 0.0217,
+      "r1": 0.165,
+      "r2": 0.0113,
+      "r3": 0.0096,
       "t0": 0,
       "t1": 0,
       "t2": 0,
@@ -15177,18 +15177,18 @@
      },
      "conversionNote": "3 of 5 red-zone carries scored.",
      "dist": {
-      "anytime": 0.1889,
-      "lambda": 0.2093,
-      "p0": 0.8111,
-      "p1": 0.1698,
-      "p2": 0.0178,
+      "anytime": 0.1875,
+      "lambda": 0.2076,
+      "p0": 0.8125,
+      "p1": 0.1687,
+      "p2": 0.0175,
       "p3plus": 0.0013,
-      "twoPlus": 0.0191
+      "twoPlus": 0.0188
      },
-     "edge": -9.2191,
+     "edge": -9.3623,
      "espn": "4242512",
-     "fair": 429,
-     "firstTd": 0.0431,
+     "fair": 433,
+     "firstTd": 0.0427,
      "gamesPlayed": 6,
      "glShare": 0.1442,
      "glShareRaw": 0.1442,
@@ -15198,10 +15198,10 @@
      "implied": 18.5,
      "injury": null,
      "insideFinisher": true,
-     "lambda": 0.2093,
+     "lambda": 0.2076,
      "lambdaRaw": 0.1656,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×0.96 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×0.94 (from the last three weeks).",
       "Blended 33% toward the published projection (28%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.9453,
@@ -15209,7 +15209,7 @@
      "passTd": {
       "attemptShare": 0.9486,
       "display": "0.7",
-      "expected": 0.6666,
+      "expected": 0.6667,
       "interval": [
        0,
        2
@@ -15220,7 +15220,7 @@
        "95% of projected team attempts (24.4) × team receiving-score total 0.70.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 0.7027
+      "teamReceivingLambda": 0.7028
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4242512.png",
@@ -15229,10 +15229,10 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.1944,
-     "preStack": 0.1471,
+     "preSafety": 0.1926,
+     "preStack": 0.1443,
      "pubBlend": {
-      "before": 0.1592,
+      "before": 0.1559,
       "weight": 0.3333
      },
      "published": {
@@ -15250,7 +15250,7 @@
       "behind": {
        "att": 27.373363493191718,
        "carries": 3.21047189234387,
-       "chance": 0.18832773771132982,
+       "chance": 0.18843152039473166,
        "targets": 0
       },
       "close": {
@@ -15262,7 +15262,7 @@
       "lead": {
        "att": 21.507642744650635,
        "carries": 4.230268846382511,
-       "chance": 0.19415943588898066,
+       "chance": 0.19266689165855366,
        "targets": 0
       },
       "limited": {
@@ -15348,7 +15348,7 @@
        "recentRz": 4,
        "repeat": false,
        "roleOk": true,
-       "width": 0.19532618140097102
+       "width": 0.19406953682034145
       },
       "level": "Med",
       "reasons": [
@@ -15400,7 +15400,7 @@
        "type": "Model miss pattern"
       }
      ],
-     "usage": 0.1602,
+     "usage": 0.1503,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -15439,7 +15439,7 @@
        "blocks": [
         "Fewer than 6 projected carries.",
         "Very wide range.",
-        "Held-out 80% ranges covered only 67% of comparable results."
+        "Held-out 80% ranges covered only 69% of comparable results."
        ],
        "level": "Med",
        "provisional": false,
@@ -15455,11 +15455,11 @@
         "factor": 1.0387,
         "league": null
        },
-       "hi": 259.0579,
-       "leagueDefense": 174.8499,
-       "lo": 104.172,
-       "mean": 181.615,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "hi": 257.9076,
+       "leagueDefense": 174.6319,
+       "lo": 104.8696,
+       "mean": 181.3886,
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "175 without this defense; opponent factor 1.04 from how this offense uses WRs, TEs, and backs."
       },
       "rec": {
@@ -15472,7 +15472,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "0.0 without this defense."
       },
       "recYd": {
@@ -15485,7 +15485,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "0 without this defense."
       },
       "rushYd": {
@@ -15494,11 +15494,11 @@
         "factor": 0.9386,
         "league": 4.3688
        },
-       "hi": 42.0369,
+       "hi": 41.7441,
        "leagueDefense": 20.7434,
        "lo": 0,
        "mean": 19.4688,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "21 without this defense. NE allows QBs 3.3 yards a carry versus 4.4 league."
       }
      }
@@ -15511,22 +15511,22 @@
       "uncertain": false
      },
      "band": [
-      0.0952,
-      0.2482
+      0.0953,
+      0.2485
      ],
      "ceiling": 0.5,
-     "challenger": 0.079,
+     "challenger": 0.0791,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1554,
+     "chance": 0.1556,
      "coldGoal": false,
      "components": {
-      "r0": 0.0287,
-      "r1": 0.0736,
-      "r2": 0.0465,
+      "r0": 0.0288,
+      "r1": 0.0737,
+      "r2": 0.0466,
       "r3": 0.0049,
       "t0": 0.0068,
       "t1": 0.0035,
@@ -15535,17 +15535,17 @@
      },
      "conversionNote": "0 of 4 red-zone carries scored.",
      "dist": {
-      "anytime": 0.1554,
-      "lambda": 0.1689,
-      "p0": 0.8446,
-      "p1": 0.1427,
-      "p2": 0.012,
+      "anytime": 0.1556,
+      "lambda": 0.1692,
+      "p0": 0.8444,
+      "p1": 0.1429,
+      "p2": 0.0121,
       "p3plus": 0.0007,
       "twoPlus": 0.0128
      },
-     "edge": 10.6635,
+     "edge": 10.6879,
      "espn": "4685246",
-     "fair": 543,
+     "fair": 542,
      "firstTd": 0.0348,
      "gamesPlayed": 3,
      "glShare": 0.0395,
@@ -15556,7 +15556,7 @@
      "implied": 18.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1689,
+     "lambda": 0.1692,
      "lambdaRaw": 0.0573,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks).",
@@ -15593,7 +15593,7 @@
       "behind": {
        "att": 0,
        "carries": 1.623431381879695,
-       "chance": 0.1543013684428045,
+       "chance": 0.15438822102672423,
        "targets": 0.21038637908924335
       },
       "close": {
@@ -15605,7 +15605,7 @@
       "lead": {
        "att": 0,
        "carries": 2.1391095855355986,
-       "chance": 0.1578855173174023,
+       "chance": 0.15813236330164648,
        "targets": 0.16530358357011976
       },
       "limited": {
@@ -15689,7 +15689,7 @@
        "recentRz": 4,
        "repeat": false,
        "roleOk": false,
-       "width": 0.15298321956087768
+       "width": 0.15319521928117108
       },
       "level": "Med",
       "reasons": [
@@ -15700,7 +15700,7 @@
      "team": "MIA",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.064,
+     "usage": 0.0639,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -15743,11 +15743,11 @@
         "factor": 1.0141,
         "league": 0.7816
        },
-       "hi": 0.8043,
+       "hi": 0.7928,
        "leagueDefense": 0.1514,
        "lo": 0,
        "mean": 0.1535,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "0.2 without this defense. NE allows RBs a 82% catch rate versus 78% league."
       },
       "recYd": {
@@ -15756,11 +15756,11 @@
         "factor": 1.0502,
         "league": 5.6468
        },
-       "hi": 11.1375,
-       "leagueDefense": 1.1036,
+       "hi": 10.9467,
+       "leagueDefense": 1.104,
        "lo": 0,
-       "mean": 1.159,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "mean": 1.1594,
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "1 without this defense. NE allows RBs 6.5 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -15769,11 +15769,11 @@
         "factor": 0.9919,
         "league": 4.1316
        },
-       "hi": 25.4815,
+       "hi": 25.3857,
        "leagueDefense": 7.8454,
        "lo": 0,
        "mean": 7.7816,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "8 without this defense. NE allows RBs 4.1 yards a carry versus 4.1 league."
       }
      }
@@ -15786,42 +15786,42 @@
       "uncertain": false
      },
      "band": [
-      0.085,
-      0.1921
+      0.0852,
+      0.1924
      ],
      "ceiling": 0.5,
-     "challenger": 0.1537,
+     "challenger": 0.1485,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1286,
+     "chance": 0.1288,
      "coldGoal": false,
      "components": {
       "r0": 0.0035,
       "r1": 0.0065,
-      "r2": 0.0261,
+      "r2": 0.0262,
       "r3": 0.0008,
-      "t0": 0.0466,
+      "t0": 0.0467,
       "t1": 0.0157,
       "t2": 0.0119,
       "t3": 0.0265
      },
      "conversionNote": "0 of 3 red-zone carries scored.",
      "dist": {
-      "anytime": 0.1286,
-      "lambda": 0.1377,
-      "p0": 0.8714,
-      "p1": 0.12,
+      "anytime": 0.1288,
+      "lambda": 0.1379,
+      "p0": 0.8712,
+      "p1": 0.1201,
       "p2": 0.0083,
       "p3plus": 0.0004,
-      "twoPlus": 0.0086
+      "twoPlus": 0.0087
      },
-     "edge": -1.9244,
+     "edge": -1.9039,
      "espn": "4569603",
-     "fair": 678,
-     "firstTd": 0.0283,
+     "fair": 676,
+     "firstTd": 0.0284,
      "gamesPlayed": 6,
      "glShare": 0.0068,
      "glShareRaw": 0.0068,
@@ -15831,7 +15831,7 @@
      "implied": 18.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1377,
+     "lambda": 0.1379,
      "lambdaRaw": 0.1167,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks).",
@@ -15868,7 +15868,7 @@
       "behind": {
        "att": 0,
        "carries": 0.4777481692605265,
-       "chance": 0.13120751674662112,
+       "chance": 0.1312823984464756,
        "targets": 4.244049410551811
       },
       "close": {
@@ -15880,7 +15880,7 @@
       "lead": {
        "att": 0,
        "carries": 0.6295034700844585,
-       "chance": 0.12604466949259974,
+       "chance": 0.1262455264398481,
        "targets": 3.334610251147851
       },
       "limited": {
@@ -15966,7 +15966,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": true,
-       "width": 0.10705307809346798
+       "width": 0.10720876233961518
       },
       "level": "Med",
       "reasons": [
@@ -16018,7 +16018,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1901,
+     "usage": 0.1715,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -16065,11 +16065,11 @@
         "factor": 1.0426,
         "league": 0.6197
        },
-       "hi": 4.5067,
-       "leagueDefense": 2.5325,
-       "lo": 0.774,
-       "mean": 2.6404,
-       "source": "held-out errors, WR|primary|available (n=43)",
+       "hi": 4.5077,
+       "leagueDefense": 2.5333,
+       "lo": 0.7747,
+       "mean": 2.6412,
+       "source": "held-out errors, WR|primary|available (n=44)",
        "text": "2.5 without this defense. NE allows WRs a 66% catch rate versus 62% league."
       },
       "recYd": {
@@ -16078,11 +16078,11 @@
         "factor": 1.0537,
         "league": 8.0888
        },
-       "hi": 59.5288,
-       "leagueDefense": 30.3784,
-       "lo": 4.4903,
-       "mean": 32.0096,
-       "source": "held-out errors, WR|primary|available (n=43)",
+       "hi": 60.034,
+       "leagueDefense": 30.3893,
+       "lo": 4.0083,
+       "mean": 32.0211,
+       "source": "held-out errors, WR|primary|available (n=44)",
        "text": "30 without this defense. NE allows WRs 8.8 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -16091,11 +16091,11 @@
         "factor": 0.9561,
         "league": 5.127
        },
-       "hi": 17.431,
+       "hi": 18.0043,
        "leagueDefense": 2.9476,
        "lo": 0,
        "mean": 2.8182,
-       "source": "held-out errors, WR|primary|available (n=43)",
+       "source": "held-out errors, WR|primary|available (n=44)",
        "text": "3 without this defense. NE allows WRs 2.2 yards a carry versus 5.1 league."
       }
      }
@@ -16108,17 +16108,17 @@
       "uncertain": false
      },
      "band": [
-      0.0688,
-      0.1946
+      0.0689,
+      0.1949
      ],
      "ceiling": 0.5,
-     "challenger": 0.1006,
+     "challenger": 0.1019,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1168,
+     "chance": 0.117,
      "coldGoal": false,
      "components": {
       "r0": 0,
@@ -16126,23 +16126,23 @@
       "r2": 0,
       "r3": 0,
       "t0": 0.0304,
-      "t1": 0.0301,
+      "t1": 0.0302,
       "t2": 0.0229,
-      "t3": 0.0408
+      "t3": 0.0409
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.1168,
-      "lambda": 0.1242,
-      "p0": 0.8832,
-      "p1": 0.1097,
+      "anytime": 0.117,
+      "lambda": 0.1244,
+      "p0": 0.883,
+      "p1": 0.1099,
       "p2": 0.0068,
       "p3plus": 0.0003,
       "twoPlus": 0.0071
      },
-     "edge": 3.9914,
+     "edge": 4.0102,
      "espn": "4367209",
-     "fair": 756,
+     "fair": 755,
      "firstTd": 0.0256,
      "gamesPlayed": 5,
      "glShare": 0,
@@ -16153,7 +16153,7 @@
      "implied": 18.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1242,
+     "lambda": 0.1244,
      "lambdaRaw": 0.1377,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks).",
@@ -16190,7 +16190,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.12590699277774864,
+       "chance": 0.12597907343158943,
        "targets": 4.514484363989641
       },
       "close": {
@@ -16202,7 +16202,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.10840895223493074,
+       "chance": 0.1085834795147439,
        "targets": 3.5470948574204315
       },
       "limited": {
@@ -16286,7 +16286,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": false,
-       "width": 0.12584973877051486
+       "width": 0.12603441413946015
       },
       "level": "Med",
       "reasons": [
@@ -16321,7 +16321,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1131,
+     "usage": 0.1174,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -16368,11 +16368,11 @@
         "factor": 0.9861,
         "league": 0.7208
        },
-       "hi": 5.6796,
-       "leagueDefense": 3.1844,
-       "lo": 0.6005,
-       "mean": 3.1401,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "hi": 5.6594,
+       "leagueDefense": 3.1854,
+       "lo": 0.6227,
+       "mean": 3.141,
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "3.2 without this defense. NE allows TEs a 70% catch rate versus 72% league."
       },
       "recYd": {
@@ -16381,11 +16381,11 @@
         "factor": 0.9795,
         "league": 7.0656
        },
-       "hi": 67.0817,
-       "leagueDefense": 34.2733,
-       "lo": 0.0616,
-       "mean": 33.5717,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "hi": 66.8335,
+       "leagueDefense": 34.2857,
+       "lo": 0.3341,
+       "mean": 33.5838,
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "34 without this defense. NE allows TEs 6.7 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -16398,7 +16398,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "0 without this defense. NE allows TEs 2.0 yards a carry versus 1.9 league."
       }
      }
@@ -16411,42 +16411,42 @@
       "uncertain": false
      },
      "band": [
-      0.0644,
-      0.1994
+      0.064,
+      0.1983
      ],
      "ceiling": 0.5,
-     "challenger": 0.1235,
+     "challenger": 0.1328,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1146,
+     "chance": 0.1138,
      "coldGoal": false,
      "components": {
       "r0": 0.0002,
       "r1": 0.0001,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0522,
-      "t1": 0.0192,
-      "t2": 0.027,
-      "t3": 0.0229
+      "t0": 0.0519,
+      "t1": 0.019,
+      "t2": 0.0268,
+      "t3": 0.0228
      },
      "conversionNote": "1 of 2 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.1146,
-      "lambda": 0.1217,
-      "p0": 0.8854,
-      "p1": 0.1077,
-      "p2": 0.0066,
+      "anytime": 0.1138,
+      "lambda": 0.1209,
+      "p0": 0.8862,
+      "p1": 0.1071,
+      "p2": 0.0065,
       "p3plus": 0.0003,
-      "twoPlus": 0.0068
+      "twoPlus": 0.0067
      },
-     "edge": 1.9391,
+     "edge": 1.8679,
      "espn": "4869645",
-     "fair": 773,
-     "firstTd": 0.025,
+     "fair": 778,
+     "firstTd": 0.0249,
      "gamesPlayed": 3,
      "glShare": 0.0002,
      "glShareRaw": 0.0002,
@@ -16456,10 +16456,10 @@
      "implied": 18.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1217,
+     "lambda": 0.1209,
      "lambdaRaw": 0.2106,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×0.96 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×0.94 (from the last three weeks).",
       "Blended 75% toward the published projection (9%) because of a thin sample; safety caps applied after."
      ],
      "matchupFactor": 1,
@@ -16472,10 +16472,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.118,
-     "preStack": 0.1832,
+     "preSafety": 0.1171,
+     "preStack": 0.1798,
      "pubBlend": {
-      "before": 0.2024,
+      "before": 0.1982,
       "weight": 0.75
      },
      "published": {
@@ -16497,7 +16497,7 @@
       "behind": {
        "att": 0,
        "carries": 0.051912050001967004,
-       "chance": 0.11884478421991651,
+       "chance": 0.1179234058562223,
        "targets": 5.250893378102365
       },
       "close": {
@@ -16509,7 +16509,7 @@
       "lead": {
        "att": 0,
        "carries": 0.06840176000259182,
-       "chance": 0.11115054100074095,
+       "chance": 0.11052314299739696,
        "targets": 4.1257019399375725
       },
       "limited": {
@@ -16595,7 +16595,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.13507295682511922
+       "width": 0.13430693660981052
       },
       "level": "Med",
       "reasons": [
@@ -16639,7 +16639,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1715,
+     "usage": 0.213,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -16684,11 +16684,11 @@
         "factor": 1.0426,
         "league": 0.6197
        },
-       "hi": 5.2617,
-       "leagueDefense": 3.1151,
-       "lo": 1.2337,
-       "mean": 3.2477,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "hi": 5.2403,
+       "leagueDefense": 3.116,
+       "lo": 1.2572,
+       "mean": 3.2487,
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "3.1 without this defense. NE allows WRs a 66% catch rate versus 62% league."
       },
       "recYd": {
@@ -16697,11 +16697,11 @@
         "factor": 1.0537,
         "league": 8.0888
        },
-       "hi": 89.7958,
-       "leagueDefense": 48.2867,
-       "lo": 11.9632,
-       "mean": 50.8795,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "hi": 89.7969,
+       "leagueDefense": 48.3041,
+       "lo": 11.9989,
+       "mean": 50.8979,
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "48 without this defense. NE allows WRs 8.8 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -16710,11 +16710,11 @@
         "factor": 0.9561,
         "league": 5.127
        },
-       "hi": 6.2383,
+       "hi": 6.1445,
        "leagueDefense": 0.3243,
        "lo": 0,
        "mean": 0.31,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "0 without this defense. NE allows WRs 2.2 yards a carry versus 5.1 league."
       }
      }
@@ -16727,22 +16727,22 @@
       "uncertain": true
      },
      "band": [
-      0.0556,
-      0.1843
+      0.0557,
+      0.1846
      ],
      "ceiling": 0.5,
-     "challenger": 0.1198,
+     "challenger": 0.1217,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1023,
+     "chance": 0.1025,
      "coldGoal": false,
      "components": {
-      "r0": 0.0246,
+      "r0": 0.0247,
       "r1": 0.0192,
-      "r2": 0.0458,
+      "r2": 0.0459,
       "r3": 0.0045,
       "t0": 0.0104,
       "t1": 0.0015,
@@ -16751,18 +16751,18 @@
      },
      "conversionNote": "0 of 4 red-zone carries scored.",
      "dist": {
-      "anytime": 0.1023,
-      "lambda": 0.108,
-      "p0": 0.8977,
-      "p1": 0.0969,
+      "anytime": 0.1025,
+      "lambda": 0.1081,
+      "p0": 0.8975,
+      "p1": 0.0971,
       "p2": 0.0052,
       "p3plus": 0.0002,
       "twoPlus": 0.0054
      },
-     "edge": -7.0704,
+     "edge": -7.0538,
      "espn": "4682745",
-     "fair": 877,
-     "firstTd": 0.0222,
+     "fair": 876,
+     "firstTd": 0.0223,
      "gamesPlayed": 5,
      "glShare": 0.0143,
      "glShareRaw": 0.0143,
@@ -16772,7 +16772,7 @@
      "implied": 18.5,
      "injury": "Questionable",
      "insideFinisher": false,
-     "lambda": 0.108,
+     "lambda": 0.1081,
      "lambdaRaw": 0.0564,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks).",
@@ -16809,7 +16809,7 @@
       "behind": {
        "att": 0,
        "carries": 2.211984685747113,
-       "chance": 0.09757625825643013,
+       "chance": 0.09763303632398623,
        "targets": 0.4829881109018722
       },
       "close": {
@@ -16821,7 +16821,7 @@
       "lead": {
        "att": 0,
        "carries": 2.914615115337373,
-       "chance": 0.10645155435949627,
+       "chance": 0.10662312232956217,
        "targets": 0.3794906585657567
       },
       "limited": {
@@ -16910,7 +16910,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": true,
-       "width": 0.12865939686344263
+       "width": 0.12885115822131832
       },
       "level": "Med",
       "reasons": [
@@ -16944,7 +16944,7 @@
        "type": "Snap share"
       }
      ],
-     "usage": 0.0964,
+     "usage": 0.1009,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -16994,10 +16994,10 @@
         "factor": 1.0141,
         "league": 0.7816
        },
-       "hi": 1.2257,
-       "leagueDefense": 0.3341,
+       "hi": 1.2259,
+       "leagueDefense": 0.3342,
        "lo": 0,
-       "mean": 0.288,
+       "mean": 0.2881,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "0.3 without this defense. NE allows RBs a 82% catch rate versus 78% league."
       },
@@ -17007,10 +17007,10 @@
         "factor": 1.0502,
         "league": 5.6468
        },
-       "hi": 10.9287,
-       "leagueDefense": 2.4519,
+       "hi": 10.9311,
+       "leagueDefense": 2.4527,
        "lo": 0,
-       "mean": 2.1886,
+       "mean": 2.1894,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "2 without this defense. NE allows RBs 6.5 yards a target versus 5.6 league."
       },
@@ -17037,41 +17037,41 @@
       "uncertain": false
      },
      "band": [
-      0.0456,
-      0.1268
+      0.0457,
+      0.127
      ],
      "ceiling": 0.5,
-     "challenger": 0.0928,
+     "challenger": 0.0897,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0765,
+     "chance": 0.0766,
      "coldGoal": false,
      "components": {
       "r0": 0.0002,
       "r1": 0.0001,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0234,
+      "t0": 0.0235,
       "t1": 0.0292,
-      "t2": 0.0189,
-      "t3": 0.0077
+      "t2": 0.019,
+      "t3": 0.0078
      },
      "conversionNote": "1 of 2 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.0765,
-      "lambda": 0.0795,
-      "p0": 0.9235,
-      "p1": 0.0735,
+      "anytime": 0.0766,
+      "lambda": 0.0797,
+      "p0": 0.9234,
+      "p1": 0.0736,
       "p2": 0.0029,
       "p3plus": 0.0001,
       "twoPlus": 0.003
      },
-     "edge": 0.886,
+     "edge": 0.8986,
      "espn": "4685307",
-     "fair": 1208,
+     "fair": 1206,
      "firstTd": 0.0164,
      "gamesPlayed": 5,
      "glShare": 0.0001,
@@ -17082,7 +17082,7 @@
      "implied": 18.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0795,
+     "lambda": 0.0797,
      "lambdaRaw": 0.0897,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks).",
@@ -17119,7 +17119,7 @@
       "behind": {
        "att": 0,
        "carries": 0.024947015172202366,
-       "chance": 0.07994466129242306,
+       "chance": 0.07999163937876763,
        "targets": 2.6951643242022385
       },
       "close": {
@@ -17131,7 +17131,7 @@
       "lead": {
        "att": 0,
        "carries": 0.032871361168078414,
-       "chance": 0.07357602178346712,
+       "chance": 0.07369680407729629,
        "targets": 2.1176291118731876
       },
       "limited": {
@@ -17215,7 +17215,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.08125028236332676
+       "width": 0.0813766983496198
       },
       "level": "Med",
       "reasons": [
@@ -17267,7 +17267,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1528,
+     "usage": 0.1382,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -17320,11 +17320,11 @@
         "factor": 1.0426,
         "league": 0.6197
        },
-       "hi": 3.0444,
-       "leagueDefense": 1.1822,
+       "hi": 3.0306,
+       "leagueDefense": 1.1826,
        "lo": 0,
-       "mean": 1.2326,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 1.233,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "1.2 without this defense. NE allows WRs a 66% catch rate versus 62% league."
       },
       "recYd": {
@@ -17333,11 +17333,11 @@
         "factor": 1.0537,
         "league": 8.0888
        },
-       "hi": 41.1712,
-       "leagueDefense": 14.5352,
+       "hi": 41.0015,
+       "leagueDefense": 14.5404,
        "lo": 0,
-       "mean": 15.3157,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 15.3212,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "15 without this defense. NE allows WRs 8.8 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -17346,11 +17346,11 @@
         "factor": 0.9561,
         "league": 5.127
        },
-       "hi": 2.0004,
+       "hi": 1.9489,
        "leagueDefense": 0.1558,
        "lo": 0,
        "mean": 0.149,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. NE allows WRs 2.2 yards a carry versus 5.1 league."
       }
      }
@@ -17363,42 +17363,42 @@
       "uncertain": false
      },
      "band": [
-      0.0468,
-      0.111
+      0.0469,
+      0.1112
      ],
      "ceiling": 0.5,
-     "challenger": 0.1005,
+     "challenger": 0.0979,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0723,
+     "chance": 0.0725,
      "coldGoal": false,
      "components": {
       "r0": 0.0011,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0649,
+      "t0": 0.065,
       "t1": 0.0038,
       "t2": 0.0029,
       "t3": 0.0023
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0723,
-      "lambda": 0.0751,
-      "p0": 0.9277,
-      "p1": 0.0697,
+      "anytime": 0.0725,
+      "lambda": 0.0752,
+      "p0": 0.9275,
+      "p1": 0.0698,
       "p2": 0.0026,
       "p3plus": 0.0001,
       "twoPlus": 0.0027
      },
-     "edge": -3.1828,
+     "edge": -3.1709,
      "espn": "4869961",
-     "fair": 1282,
-     "firstTd": 0.0154,
+     "fair": 1280,
+     "firstTd": 0.0155,
      "gamesPlayed": 6,
      "glShare": 0,
      "glShareRaw": 0,
@@ -17408,7 +17408,7 @@
      "implied": 18.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0751,
+     "lambda": 0.0752,
      "lambdaRaw": 0.0281,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks).",
@@ -17445,7 +17445,7 @@
       "behind": {
        "att": 0,
        "carries": 0.054980083974202135,
-       "chance": 0.07317778643616168,
+       "chance": 0.0732209481284416,
        "targets": 2.368184305580286
       },
       "close": {
@@ -17457,7 +17457,7 @@
       "lead": {
        "att": 0,
        "carries": 0.07244434594247812,
-       "chance": 0.0721298441693432,
+       "chance": 0.07224834612626085,
        "targets": 1.860716240098796
       },
       "limited": {
@@ -17541,7 +17541,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.06419515552367727
+       "width": 0.06429592704445442
       },
       "level": "Low",
       "reasons": [
@@ -17593,7 +17593,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1341,
+     "usage": 0.1237,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -17646,11 +17646,11 @@
         "factor": 1.0426,
         "league": 0.6197
        },
-       "hi": 3.011,
-       "leagueDefense": 1.1638,
+       "hi": 2.9973,
+       "leagueDefense": 1.1642,
        "lo": 0,
-       "mean": 1.2134,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 1.2137,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "1.2 without this defense. NE allows WRs a 66% catch rate versus 62% league."
       },
       "recYd": {
@@ -17659,11 +17659,11 @@
         "factor": 1.0537,
         "league": 8.0888
        },
-       "hi": 44.2668,
-       "leagueDefense": 16.1477,
+       "hi": 44.0883,
+       "leagueDefense": 16.1536,
        "lo": 0,
-       "mean": 17.0148,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 17.021,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "16 without this defense. NE allows WRs 8.8 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -17672,11 +17672,11 @@
         "factor": 0.9561,
         "league": 5.127
        },
-       "hi": 3.2427,
+       "hi": 3.1625,
        "leagueDefense": 0.3775,
        "lo": 0,
        "mean": 0.3609,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. NE allows WRs 2.2 yards a carry versus 5.1 league."
       }
      }
@@ -17689,17 +17689,17 @@
       "uncertain": false
      },
      "band": [
-      0.0178,
-      0.0533
+      0.0179,
+      0.0534
      ],
      "ceiling": 0.5,
-     "challenger": 0.0399,
+     "challenger": 0.0398,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0309,
+     "chance": 0.031,
      "coldGoal": false,
      "components": {
       "r0": 0,
@@ -17709,21 +17709,21 @@
       "t0": 0.0134,
       "t1": 0.0076,
       "t2": 0.0058,
-      "t3": 0.0046
+      "t3": 0.0047
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0309,
+      "anytime": 0.031,
       "lambda": 0.0314,
-      "p0": 0.9691,
-      "p1": 0.0304,
+      "p0": 0.969,
+      "p1": 0.0305,
       "p2": 0.0005,
       "p3plus": 0,
       "twoPlus": 0.0005
      },
-     "edge": 0.1347,
+     "edge": 0.1399,
      "espn": "4880236",
-     "fair": 3136,
+     "fair": 3131,
      "firstTd": 0.0065,
      "gamesPlayed": 5,
      "glShare": 0,
@@ -17771,7 +17771,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.03219161521844349,
+       "chance": 0.032211021812358354,
        "targets": 1.4710089164161975
       },
       "close": {
@@ -17783,7 +17783,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.02986586313354378,
+       "chance": 0.029916046427803877,
        "targets": 1.1557927200412978
       },
       "limited": {
@@ -17867,7 +17867,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.03546749929310089
+       "width": 0.03552597783047262
       },
       "level": "Low",
       "reasons": [
@@ -17919,7 +17919,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0692,
+     "usage": 0.0687,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -17962,11 +17962,11 @@
         "factor": 0.9861,
         "league": 0.7208
        },
-       "hi": 2.4035,
-       "leagueDefense": 0.918,
+       "hi": 2.3913,
+       "leagueDefense": 0.9183,
        "lo": 0,
-       "mean": 0.9053,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "mean": 0.9055,
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "0.9 without this defense. NE allows TEs a 70% catch rate versus 72% league."
       },
       "recYd": {
@@ -17975,11 +17975,11 @@
         "factor": 0.9795,
         "league": 7.0656
        },
-       "hi": 29.1824,
-       "leagueDefense": 8.957,
+       "hi": 29.2614,
+       "leagueDefense": 8.9602,
        "lo": 0,
-       "mean": 8.7736,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "mean": 8.7768,
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "9 without this defense. NE allows TEs 6.7 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -17992,7 +17992,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "0 without this defense. NE allows TEs 2.0 yards a carry versus 1.9 league."
       }
      }
@@ -18006,7 +18006,7 @@
      },
      "band": [
       0.0124,
-      0.0669
+      0.067
      ],
      "ceiling": 0.5,
      "challenger": 0.029,
@@ -18020,8 +18020,8 @@
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0169,
-      "t1": 0.0052,
+      "t0": 0.017,
+      "t1": 0.0053,
       "t2": 0.004,
       "t3": 0.0032
      },
@@ -18030,15 +18030,15 @@
       "anytime": 0.029,
       "lambda": 0.0294,
       "p0": 0.971,
-      "p1": 0.0285,
+      "p1": 0.0286,
       "p2": 0.0004,
       "p3plus": 0,
       "twoPlus": 0.0004
      },
      "edge": null,
      "espn": "17177",
-     "fair": 3353,
-     "firstTd": 0.006,
+     "fair": 3347,
+     "firstTd": 0.0061,
      "gamesPlayed": 0,
      "glShare": 0,
      "glShareRaw": 0,
@@ -18077,7 +18077,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.032129643193248625,
+       "chance": 0.032149013051448794,
        "targets": 1.2933588878437092
       },
       "close": {
@@ -18089,7 +18089,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.025966346854334965,
+       "chance": 0.026010065996827647,
        "targets": 1.016210554734343
       },
       "limited": {
@@ -18175,7 +18175,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.05453159965791321
+       "width": 0.054621106252245144
       },
       "level": "Low",
       "reasons": [
@@ -18253,11 +18253,11 @@
         "factor": 1.0426,
         "league": 0.6197
        },
-       "hi": 2.2004,
-       "leagueDefense": 0.7377,
+       "hi": 2.1894,
+       "leagueDefense": 0.7379,
        "lo": 0,
-       "mean": 0.7691,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 0.7694,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.7 without this defense. NE allows WRs a 66% catch rate versus 62% league."
       },
       "recYd": {
@@ -18266,11 +18266,11 @@
         "factor": 1.0537,
         "league": 8.0888
        },
-       "hi": 31.3821,
-       "leagueDefense": 9.7185,
+       "hi": 31.2426,
+       "leagueDefense": 9.722,
        "lo": 0,
-       "mean": 10.2403,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 10.244,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "10 without this defense. NE allows WRs 8.8 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -18283,7 +18283,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. NE allows WRs 2.2 yards a carry versus 5.1 league."
       }
      }
@@ -18296,11 +18296,11 @@
       "uncertain": false
      },
      "band": [
-      0.01,
-      0.0498
+      0.0101,
+      0.0499
      ],
      "ceiling": 0.5,
-     "challenger": 0.0297,
+     "challenger": 0.0296,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -18316,21 +18316,21 @@
       "t0": 0.0118,
       "t1": 0.003,
       "t2": 0.0022,
-      "t3": 0.0057
+      "t3": 0.0058
      },
      "conversionNote": "",
      "dist": {
       "anytime": 0.0225,
-      "lambda": 0.0227,
+      "lambda": 0.0228,
       "p0": 0.9775,
       "p1": 0.0222,
       "p2": 0.0003,
       "p3plus": 0,
       "twoPlus": 0.0003
      },
-     "edge": 0.2662,
+     "edge": 0.27,
      "espn": "4430681",
-     "fair": 4352,
+     "fair": 4344,
      "firstTd": 0.0047,
      "gamesPlayed": 4,
      "glShare": 0,
@@ -18341,7 +18341,7 @@
      "implied": 18.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0227,
+     "lambda": 0.0228,
      "lambdaRaw": 0.0269,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks).",
@@ -18378,7 +18378,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.023405604383182177,
+       "chance": 0.023419778606166397,
        "targets": 1.3341230532185797
       },
       "close": {
@@ -18390,7 +18390,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.021707487829484617,
+       "chance": 0.02174411666878784,
        "targets": 1.0482395418145984
       },
       "limited": {
@@ -18474,7 +18474,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.039790713578409576
+       "width": 0.039856715541039645
       },
       "level": "Low",
       "reasons": [
@@ -18509,7 +18509,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0586,
+     "usage": 0.0579,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -18559,11 +18559,11 @@
         "factor": 1.0426,
         "league": 0.6197
        },
-       "hi": 2.0147,
-       "leagueDefense": 0.6469,
+       "hi": 2.0044,
+       "leagueDefense": 0.6471,
        "lo": 0,
-       "mean": 0.6745,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 0.6747,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.6 without this defense. NE allows WRs a 66% catch rate versus 62% league."
       },
       "recYd": {
@@ -18572,11 +18572,11 @@
         "factor": 1.0537,
         "league": 8.0888
        },
-       "hi": 30,
-       "leagueDefense": 9.0786,
+       "hi": 29.865,
+       "leagueDefense": 9.0819,
        "lo": 0,
-       "mean": 9.5661,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 9.5695,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "9 without this defense. NE allows WRs 8.8 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -18589,7 +18589,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. NE allows WRs 2.2 yards a carry versus 5.1 league."
       }
      }
@@ -18603,16 +18603,16 @@
      },
      "band": [
       0.0054,
-      0.08
+      0.0802
      ],
      "ceiling": 0.5,
-     "challenger": 0.035,
+     "challenger": 0.0349,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0209,
+     "chance": 0.021,
      "coldGoal": false,
      "components": {
       "r0": 0.0026,
@@ -18626,17 +18626,17 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0209,
+      "anytime": 0.021,
       "lambda": 0.0212,
-      "p0": 0.9791,
-      "p1": 0.0207,
+      "p0": 0.979,
+      "p1": 0.0208,
       "p2": 0.0002,
       "p3plus": 0,
       "twoPlus": 0.0002
      },
-     "edge": 0.1138,
+     "edge": 0.1174,
      "espn": "4685116",
-     "fair": 4676,
+     "fair": 4668,
      "firstTd": 0.0044,
      "gamesPlayed": 2,
      "glShare": 0.0136,
@@ -18684,7 +18684,7 @@
       "behind": {
        "att": 0,
        "carries": 0.5344459159933143,
-       "chance": 0.02059541793294406,
+       "chance": 0.020607908341889525,
        "targets": 0.7402324034758829
       },
       "close": {
@@ -18696,7 +18696,7 @@
       "lead": {
        "att": 0,
        "carries": 0.7042110893088377,
-       "chance": 0.021234160008035796,
+       "chance": 0.021269998875121265,
        "targets": 0.5816111741596223
       },
       "limited": {
@@ -18780,7 +18780,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.07469205791360134
+       "width": 0.07481423365572692
       },
       "level": "Low",
       "reasons": [
@@ -18791,7 +18791,7 @@
      "team": "MIA",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.1015,
+     "usage": 0.1005,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -18834,11 +18834,11 @@
         "factor": 1.0141,
         "league": 0.7816
        },
-       "hi": 1.6895,
-       "leagueDefense": 0.4998,
+       "hi": 1.6687,
+       "leagueDefense": 0.5,
        "lo": 0,
-       "mean": 0.5068,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "mean": 0.507,
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "0.5 without this defense. NE allows RBs a 82% catch rate versus 78% league."
       },
       "recYd": {
@@ -18847,11 +18847,11 @@
         "factor": 1.0502,
         "league": 5.6468
        },
-       "hi": 22.8713,
-       "leagueDefense": 3.9051,
+       "hi": 22.5132,
+       "leagueDefense": 3.9065,
        "lo": 0,
-       "mean": 4.1009,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "mean": 4.1024,
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "4 without this defense. NE allows RBs 6.5 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -18860,11 +18860,11 @@
         "factor": 0.9919,
         "league": 4.1316
        },
-       "hi": 13.033,
+       "hi": 12.9769,
        "leagueDefense": 2.6902,
        "lo": 0,
        "mean": 2.6683,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "3 without this defense. NE allows RBs 4.1 yards a carry versus 4.1 league."
       }
      }
@@ -18878,7 +18878,7 @@
      },
      "band": [
       0.0049,
-      0.0274
+      0.0275
      ],
      "ceiling": 0.5,
      "challenger": 0.0116,
@@ -18909,7 +18909,7 @@
      },
      "edge": null,
      "espn": null,
-     "fair": 8526,
+     "fair": 8511,
      "firstTd": 0.0024,
      "gamesPlayed": 0,
      "glShare": 0,
@@ -18949,7 +18949,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.012875899171411853,
+       "chance": 0.012883738778012188,
        "targets": 0.43111962928123637
       },
       "close": {
@@ -18961,7 +18961,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.01038620358825082,
+       "chance": 0.0104038306503198,
        "targets": 0.3387368515781143
       },
       "limited": {
@@ -19047,7 +19047,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.022570367455248874
+       "width": 0.022608353104989543
       },
       "level": "Low",
       "reasons": [
@@ -19125,11 +19125,11 @@
         "factor": 0.9861,
         "league": 0.7208
        },
-       "hi": 1.0953,
-       "leagueDefense": 0.286,
+       "hi": 1.0782,
+       "leagueDefense": 0.2861,
        "lo": 0,
-       "mean": 0.282,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 0.2821,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0.3 without this defense. NE allows TEs a 70% catch rate versus 72% league."
       },
       "recYd": {
@@ -19138,11 +19138,11 @@
         "factor": 0.9795,
         "league": 7.0656
        },
-       "hi": 15.6465,
-       "leagueDefense": 2.8297,
+       "hi": 15.5413,
+       "leagueDefense": 2.8307,
        "lo": 0,
-       "mean": 2.7718,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 2.7728,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "3 without this defense. NE allows TEs 6.7 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -19155,7 +19155,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0 without this defense. NE allows TEs 2.0 yards a carry versus 1.9 league."
       }
      }
@@ -19169,7 +19169,7 @@
      },
      "band": [
       0.004,
-      0.0229
+      0.023
      ],
      "ceiling": 0.5,
      "challenger": 0.0213,
@@ -19178,7 +19178,7 @@
       "sleeper",
       "usage"
      ],
-     "chance": 0.0096,
+     "chance": 0.0097,
      "coldGoal": false,
      "components": {
       "r0": 0,
@@ -19192,17 +19192,17 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0096,
+      "anytime": 0.0097,
       "lambda": 0.0097,
-      "p0": 0.9904,
+      "p0": 0.9903,
       "p1": 0.0096,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
      },
-     "edge": -0.031,
+     "edge": -0.0293,
      "espn": "4912052",
-     "fair": 10273,
+     "fair": 10255,
      "firstTd": 0.002,
      "gamesPlayed": 0,
      "glShare": 0,
@@ -19250,7 +19250,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.009566164530245391,
+       "chance": 0.009571998755837252,
        "targets": 0.364727206371926
       },
       "close": {
@@ -19262,7 +19262,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.009807396308122662,
+       "chance": 0.009824045924343383,
        "targets": 0.28657137643508473
       },
       "limited": {
@@ -19346,7 +19346,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.01889462942350484
+       "width": 0.018926517007924804
       },
       "level": "Low",
       "reasons": [
@@ -19381,7 +19381,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0982,
+     "usage": 0.0979,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -19424,11 +19424,11 @@
         "factor": 0.9861,
         "league": 0.7208
        },
-       "hi": 0.9867,
+       "hi": 0.9709,
        "leagueDefense": 0.242,
        "lo": 0,
-       "mean": 0.2386,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 0.2387,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0.2 without this defense. NE allows TEs a 70% catch rate versus 72% league."
       },
       "recYd": {
@@ -19437,11 +19437,11 @@
         "factor": 0.9795,
         "league": 7.0656
        },
-       "hi": 14.1869,
-       "leagueDefense": 2.3939,
+       "hi": 14.09,
+       "leagueDefense": 2.3948,
        "lo": 0,
-       "mean": 2.3449,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 2.3458,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "2 without this defense. NE allows TEs 6.7 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -19454,7 +19454,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0 without this defense. NE allows TEs 2.0 yards a carry versus 1.9 league."
       }
      }
@@ -19471,7 +19471,7 @@
       0.0289
      ],
      "ceiling": 0.5,
-     "challenger": 0.0182,
+     "challenger": 0.0197,
      "challengerLegs": [
       "model",
       "usage"
@@ -19500,7 +19500,7 @@
      },
      "edge": null,
      "espn": "4714379",
-     "fair": 13426,
+     "fair": 13403,
      "firstTd": 0.0015,
      "gamesPlayed": 2,
      "glShare": 0,
@@ -19540,7 +19540,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.008212592986932665,
+       "chance": 0.008217605123033711,
        "targets": 0.2983347834626156
       },
       "close": {
@@ -19552,7 +19552,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.006621574547678644,
+       "chance": 0.006632833849130715,
        "targets": 0.2344059012920551
       },
       "limited": {
@@ -19636,7 +19636,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.027017580101411087
+       "width": 0.027063086366266864
       },
       "level": "Low",
       "reasons": [
@@ -19671,7 +19671,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0447,
+     "usage": 0.0519,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -19714,11 +19714,11 @@
         "factor": 0.9861,
         "league": 0.7208
        },
-       "hi": 0.8511,
-       "leagueDefense": 0.1903,
+       "hi": 0.8371,
+       "leagueDefense": 0.1904,
        "lo": 0,
        "mean": 0.1877,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0.2 without this defense. NE allows TEs a 70% catch rate versus 72% league."
       },
       "recYd": {
@@ -19727,11 +19727,11 @@
         "factor": 0.9795,
         "league": 7.0656
        },
-       "hi": 12.3921,
-       "leagueDefense": 1.895,
+       "hi": 12.3058,
+       "leagueDefense": 1.8957,
        "lo": 0,
-       "mean": 1.8562,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 1.8569,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "2 without this defense. NE allows TEs 6.7 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -19744,7 +19744,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0 without this defense. NE allows TEs 2.0 yards a carry versus 1.9 league."
       }
      }
@@ -19758,10 +19758,10 @@
      },
      "band": [
       0.0011,
-      0.0062
+      0.0063
      ],
      "ceiling": 0.5,
-     "challenger": 0.0171,
+     "challenger": 0.017,
      "challengerLegs": [
       "model",
       "usage"
@@ -19781,7 +19781,7 @@
      "conversionNote": "",
      "dist": {
       "anytime": 0.0026,
-      "lambda": 0.0026,
+      "lambda": 0.0027,
       "p0": 0.9974,
       "p1": 0.0026,
       "p2": 0,
@@ -19790,7 +19790,7 @@
      },
      "edge": null,
      "espn": "4433971",
-     "fair": 37719,
+     "fair": 37654,
      "firstTd": 0.0005,
      "gamesPlayed": 0,
      "glShare": 0.0011,
@@ -19801,7 +19801,7 @@
      "implied": 18.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0026,
+     "lambda": 0.0027,
      "lambdaRaw": 0.0024,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks)."
@@ -19825,7 +19825,7 @@
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 0.7027
+      "teamReceivingLambda": 0.7028
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4433971.png",
@@ -19848,7 +19848,7 @@
       "behind": {
        "att": 1.4826064828679908,
        "carries": 0.18877109091624358,
-       "chance": 0.002230635285281335,
+       "chance": 0.0022320007448707324,
        "targets": 0
       },
       "close": {
@@ -19860,7 +19860,7 @@
       "lead": {
        "att": 1.164905093681993,
        "carries": 0.24873367273669747,
-       "chance": 0.0029212279692402143,
+       "chance": 0.0029262044808174847,
        "targets": 0
       },
       "limited": {
@@ -19944,7 +19944,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.005119942085934914
+       "width": 0.005128669678895803
       },
       "level": "Low",
       "reasons": [
@@ -19955,7 +19955,7 @@
      "team": "MIA",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.1058,
+     "usage": 0.1047,
      "verified": true,
      "verifyReason": "On MIA nflverse roster (week 7, ACT)",
      "vol": {
@@ -20006,10 +20006,10 @@
         "factor": 1.0387,
         "league": null
        },
-       "hi": 62.8343,
-       "leagueDefense": 9.5132,
+       "hi": 62.7899,
+       "leagueDefense": 9.5013,
        "lo": 0,
-       "mean": 8.3991,
+       "mean": 8.3886,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "10 without this defense; opponent factor 1.04 from how this offense uses WRs, TEs, and backs."
       },
@@ -20385,12 +20385,12 @@
     "away": {
      "tdBudget": 2.989051009194939,
      "team": "NE",
-     "teamLambda": 2.9890510091949394
+     "teamLambda": 2.9890510091949385
     },
     "home": {
      "tdBudget": 1.831908863735833,
      "team": "MIA",
-     "teamLambda": 1.8319088637358334
+     "teamLambda": 1.8319088637358336
     }
    },
    "week": 8,

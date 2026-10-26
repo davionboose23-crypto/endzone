@@ -10230,63 +10230,63 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-26T01:35:35.758Z",
-  "fingerprint": "1214758b7ff916819d3aa118",
+  "capturedAt": "2026-10-26T03:29:56.115Z",
+  "fingerprint": "fe2fa7c06c7fde5d6dd990ec",
   "payload": {
    "callIds": {
     "away": "8151",
     "home": "6806"
    },
-   "capturedAt": "2026-10-26T01:35:35.758Z",
+   "capturedAt": "2026-10-26T03:29:56.115Z",
    "challenger": {
-    "capturedCutoff": "2026-10-26T01:35:35.052Z",
+    "capturedCutoff": "2026-10-26T03:29:55.442Z",
     "reason": null,
     "status": "blend3",
-    "trainingCount": 2855,
+    "trainingCount": 2884,
     "trainingCutoff": {
      "rule": "usage leg fit on player-games strictly before the target week; blend uses the final (post-cap) model chance and Sleeper as published",
      "season": 2026,
      "week": 8
     },
     "usage": {
-     "builtAt": "2026-10-25T15:54:10.144Z",
+     "builtAt": "2026-10-26T03:29:17.797Z",
      "players": 698,
      "season": 2026,
-     "trainRows": 15275,
+     "trainRows": 15480,
      "trainedOn": "player-games before 2026 week 8 (from 2024)",
      "version": 1,
      "week": 8
     }
    },
    "gameId": "2026_08_KC_DEN",
-   "gameLambda": 3.8123314652263183,
+   "gameLambda": 3.80637318552606,
    "inputTimestamps": {
-    "ftn": "2026-10-26T01:35:29.571Z",
-    "history_2025": "2026-10-26T01:35:20.683Z",
-    "history_2026": "2026-10-26T01:35:29.472Z",
-    "idmap": "2026-10-26T01:35:29.346Z",
-    "pbp": "2026-10-26T01:35:30.433Z",
-    "players": "2026-10-26T01:35:28.877Z",
-    "proj_1": "2026-10-26T01:35:19.664Z",
-    "proj_2": "2026-10-26T01:35:19.685Z",
-    "proj_3": "2026-10-26T01:35:19.700Z",
-    "proj_4": "2026-10-26T01:35:19.707Z",
-    "proj_5": "2026-10-26T01:35:19.731Z",
-    "proj_6": "2026-10-26T01:35:19.741Z",
-    "proj_7": "2026-10-26T01:35:28.943Z",
-    "proj_8": "2026-10-26T01:35:28.991Z",
-    "roster": "2026-10-26T01:35:29.124Z",
-    "schedule": "2026-10-26T01:35:28.671Z",
-    "snaps": "2026-10-26T01:35:30.498Z",
-    "state": "2026-10-26T01:35:28.447Z",
-    "stats_1": "2026-10-26T01:35:19.509Z",
-    "stats_2": "2026-10-26T01:35:19.596Z",
-    "stats_3": "2026-10-26T01:35:19.557Z",
-    "stats_4": "2026-10-26T01:35:19.574Z",
-    "stats_5": "2026-10-26T01:35:19.614Z",
-    "stats_6": "2026-10-26T01:35:19.647Z",
-    "stats_7": "2026-10-26T01:35:28.915Z",
-    "stats_8": "2026-10-26T01:35:28.943Z"
+    "ftn": "2026-10-26T03:29:50.295Z",
+    "history_2025": "2026-10-26T03:29:41.963Z",
+    "history_2026": "2026-10-26T03:29:50.165Z",
+    "idmap": "2026-10-26T03:29:50.079Z",
+    "pbp": "2026-10-26T03:29:51.107Z",
+    "players": "2026-10-26T03:29:49.602Z",
+    "proj_1": "2026-10-26T03:29:41.246Z",
+    "proj_2": "2026-10-26T03:29:41.235Z",
+    "proj_3": "2026-10-26T03:29:41.258Z",
+    "proj_4": "2026-10-26T03:29:41.283Z",
+    "proj_5": "2026-10-26T03:29:41.290Z",
+    "proj_6": "2026-10-26T03:29:41.299Z",
+    "proj_7": "2026-10-26T03:29:49.684Z",
+    "proj_8": "2026-10-26T03:29:49.709Z",
+    "roster": "2026-10-26T03:29:49.838Z",
+    "schedule": "2026-10-26T03:29:49.382Z",
+    "snaps": "2026-10-26T03:29:51.139Z",
+    "state": "2026-10-26T03:29:49.189Z",
+    "stats_1": "2026-10-26T03:29:41.093Z",
+    "stats_2": "2026-10-26T03:29:41.129Z",
+    "stats_3": "2026-10-26T03:29:41.145Z",
+    "stats_4": "2026-10-26T03:29:41.164Z",
+    "stats_5": "2026-10-26T03:29:41.201Z",
+    "stats_6": "2026-10-26T03:29:41.216Z",
+    "stats_7": "2026-10-26T03:29:49.660Z",
+    "stats_8": "2026-10-26T03:29:49.661Z"
    },
    "kickoff": "2026-11-01T21:25:00.000Z",
    "lessons": "Learned from finished games, from the last three weeks",
@@ -10314,7 +10314,7 @@
       0.6629
      ],
      "ceiling": 0.5,
-     "challenger": 0.4923,
+     "challenger": 0.4929,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -10345,7 +10345,7 @@
      "edge": -10.9372,
      "espn": "4567048",
      "fair": 100,
-     "firstTd": 0.1778,
+     "firstTd": 0.1781,
      "gamesPlayed": 5,
      "glShare": 0.8811,
      "glShareRaw": 0.8811,
@@ -10358,7 +10358,7 @@
      "lambda": 0.6931,
      "lambdaRaw": 0.9333,
      "lessonNotes": [
-      "Learned from finished games: 50plus chances scaled ×0.93 (from the last three weeks).",
+      "Learned from finished games: 50plus chances scaled ×0.91 (from the last three weeks).",
       "Blended 38% toward the published projection (60%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.8571,
@@ -10371,10 +10371,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.5923,
-     "preStack": 0.5817,
+     "preSafety": 0.5877,
+     "preStack": 0.5742,
      "pubBlend": {
-      "before": 0.8715,
+      "before": 0.8538,
       "weight": 0.375
      },
      "published": {
@@ -10509,14 +10509,6 @@
         "pp": 0,
         "text": "Kenneth Walker III has scored in 3 of his last 4 games (weeks 3, 4, 6).",
         "weight": 0
-       },
-       {
-        "family": "miss",
-        "id": "miss:8151",
-        "mult": 1,
-        "pp": 0,
-        "text": "Under-predicted: the model expected 2.2 scoring games over his last 5 graded games; he had 4.",
-        "weight": 0
        }
       ],
       "note": "before safety caps and the team TD budget"
@@ -10530,18 +10522,9 @@
        "status": "continuing",
        "strength": 0.25,
        "type": "Scoring streak"
-      },
-      {
-       "direction": "up",
-       "family": "miss",
-       "firstDetectedWeek": 6,
-       "id": "miss:8151",
-       "status": "continuing",
-       "strength": 0.73,
-       "type": "Model miss pattern"
       }
      ],
-     "usage": 0.3799,
+     "usage": 0.3816,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -10590,11 +10573,11 @@
         "factor": 0.9624,
         "league": 0.7816
        },
-       "hi": 5.4419,
-       "leagueDefense": 2.9226,
-       "lo": 0.1833,
-       "mean": 2.8126,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "hi": 5.429,
+       "leagueDefense": 2.9235,
+       "lo": 0.198,
+       "mean": 2.8135,
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "2.9 without this defense. DEN allows RBs a 70% catch rate versus 78% league."
       },
       "recYd": {
@@ -10603,11 +10586,11 @@
         "factor": 0.9702,
         "league": 5.6468
        },
-       "hi": 51.8796,
-       "leagueDefense": 21.0176,
+       "hi": 51.6069,
+       "leagueDefense": 21.0252,
        "lo": 0,
-       "mean": 20.3904,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "mean": 20.3978,
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "21 without this defense. DEN allows RBs 5.2 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -10616,11 +10599,11 @@
         "factor": 1.0535,
         "league": 4.1316
        },
-       "hi": 146.5851,
+       "hi": 147.9097,
        "leagueDefense": 96.9418,
-       "lo": 57.6651,
+       "lo": 56.3406,
        "mean": 102.1251,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "97 without this defense. DEN allows RBs 4.4 yards a carry versus 4.1 league."
       }
      }
@@ -10633,42 +10616,42 @@
       "uncertain": false
      },
      "band": [
-      0.137,
-      0.3632
+      0.1363,
+      0.3616
      ],
      "ceiling": 0.5,
-     "challenger": 0.2601,
+     "challenger": 0.2595,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2273,
+     "chance": 0.2262,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0605,
-      "t1": 0.0518,
-      "t2": 0.0346,
-      "t3": 0.111
+      "t0": 0.0602,
+      "t1": 0.0515,
+      "t2": 0.0344,
+      "t3": 0.1104
      },
      "conversionNote": "2 of 3 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.2273,
-      "lambda": 0.2579,
-      "p0": 0.7727,
-      "p1": 0.1993,
-      "p2": 0.0257,
-      "p3plus": 0.0024,
-      "twoPlus": 0.0281
+      "anytime": 0.2262,
+      "lambda": 0.2564,
+      "p0": 0.7738,
+      "p1": 0.1984,
+      "p2": 0.0254,
+      "p3plus": 0.0023,
+      "twoPlus": 0.0278
      },
-     "edge": -3.1855,
+     "edge": -3.2977,
      "espn": "15847",
-     "fair": 340,
-     "firstTd": 0.0662,
+     "fair": 342,
+     "firstTd": 0.0659,
      "gamesPlayed": 5,
      "glShare": 0,
      "glShareRaw": 0,
@@ -10678,10 +10661,10 @@
      "implied": 22.25,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.2579,
+     "lambda": 0.2564,
      "lambdaRaw": 0.1954,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×0.96 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×0.94 (from the last three weeks).",
       "Blended 63% toward the published projection (25%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.9064,
@@ -10694,10 +10677,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.2273,
-     "preStack": 0.1712,
+     "preSafety": 0.2262,
+     "preStack": 0.1679,
      "pubBlend": {
-      "before": 0.1877,
+      "before": 0.1839,
       "weight": 0.625
      },
      "published": {
@@ -10715,7 +10698,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.2332812917746584,
+       "chance": 0.2320454323824046,
        "targets": 5.809439702476373
       },
       "close": {
@@ -10727,7 +10710,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.2207712706856012,
+       "chance": 0.21977558056154578,
        "targets": 4.719061475898855
       }
      },
@@ -10807,7 +10790,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.22618522987178724
+       "width": 0.22528198884358552
       },
       "level": "Med",
       "reasons": [
@@ -10818,7 +10801,7 @@
      "team": "KC",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.2975,
+     "usage": 0.2972,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -10863,11 +10846,11 @@
         "factor": 0.9975,
         "league": 0.7208
        },
-       "hi": 6.9095,
-       "leagueDefense": 4.0418,
-       "lo": 1.1541,
-       "mean": 4.0318,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "hi": 6.8868,
+       "leagueDefense": 4.043,
+       "lo": 1.1794,
+       "mean": 4.0331,
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "4.0 without this defense. DEN allows TEs a 72% catch rate versus 72% league."
       },
       "recYd": {
@@ -10876,11 +10859,11 @@
         "factor": 1.0334,
         "league": 7.0656
        },
-       "hi": 93.2671,
-       "leagueDefense": 50.0156,
-       "lo": 10.1078,
-       "mean": 51.6874,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "hi": 92.9627,
+       "leagueDefense": 50.0336,
+       "lo": 10.4495,
+       "mean": 51.7061,
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "50 without this defense. DEN allows TEs 7.6 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -10893,7 +10876,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -10906,42 +10889,42 @@
       "uncertain": false
      },
      "band": [
-      0.1402,
-      0.3185
+      0.1392,
+      0.3165
      ],
      "ceiling": 0.5,
-     "challenger": 0.2175,
+     "challenger": 0.2169,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2139,
+     "chance": 0.2124,
      "coldGoal": false,
      "components": {
       "r0": 0.0027,
       "r1": 0.0003,
       "r2": 0.0001,
       "r3": 0,
-      "t0": 0.0608,
-      "t1": 0.0994,
-      "t2": 0.0332,
-      "t3": 0.0441
+      "t0": 0.0603,
+      "t1": 0.0986,
+      "t2": 0.033,
+      "t3": 0.0437
      },
      "conversionNote": "1 of 4 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.2139,
-      "lambda": 0.2407,
-      "p0": 0.7861,
-      "p1": 0.1892,
-      "p2": 0.0228,
+      "anytime": 0.2124,
+      "lambda": 0.2388,
+      "p0": 0.7876,
+      "p1": 0.1881,
+      "p2": 0.0225,
       "p3plus": 0.0019,
-      "twoPlus": 0.0247
+      "twoPlus": 0.0244
      },
-     "edge": 0.0547,
+     "edge": -0.0924,
      "espn": "4683062",
-     "fair": 367,
-     "firstTd": 0.0617,
+     "fair": 371,
+     "firstTd": 0.0613,
      "gamesPlayed": 5,
      "glShare": 0.0005,
      "glShareRaw": 0.0005,
@@ -10951,10 +10934,10 @@
      "implied": 22.25,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.2407,
+     "lambda": 0.2388,
      "lambdaRaw": 0.2517,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×0.96 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×0.94 (from the last three weeks).",
       "Blended 63% toward the published projection (21%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.7835,
@@ -10967,10 +10950,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.2139,
-     "preStack": 0.2148,
+     "preSafety": 0.2124,
+     "preStack": 0.2109,
      "pubBlend": {
-      "before": 0.2419,
+      "before": 0.2369,
       "weight": 0.625
      },
      "published": {
@@ -10988,7 +10971,7 @@
       "behind": {
        "att": 0,
        "carries": 0.47439674074605565,
-       "chance": 0.22144898357404097,
+       "chance": 0.21983736226666728,
        "targets": 8.938542708333332
       },
       "close": {
@@ -11000,7 +10983,7 @@
       "lead": {
        "att": 0,
        "carries": 0.6250874701595087,
-       "chance": 0.2055326710595251,
+       "chance": 0.20422012927674227,
        "targets": 7.2608607208009825
       }
      },
@@ -11080,7 +11063,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.1782787634293692
+       "width": 0.17725549778462213
       },
       "level": "Low",
       "reasons": [
@@ -11132,7 +11115,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.2253,
+     "usage": 0.225,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -11179,11 +11162,11 @@
         "factor": 0.92,
         "league": 0.6197
        },
-       "hi": 7.8578,
-       "leagueDefense": 5.7479,
-       "lo": 2.7181,
-       "mean": 5.288,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "hi": 7.8309,
+       "leagueDefense": 5.7497,
+       "lo": 2.7483,
+       "mean": 5.2896,
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "5.7 without this defense. DEN allows WRs a 54% catch rate versus 62% league."
       },
       "recYd": {
@@ -11192,11 +11175,11 @@
         "factor": 0.9189,
         "league": 8.0888
        },
-       "hi": 102.2456,
-       "leagueDefense": 65.2812,
-       "lo": 17.7323,
-       "mean": 59.9889,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "hi": 102.2485,
+       "leagueDefense": 65.3048,
+       "lo": 17.7727,
+       "mean": 60.0106,
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "65 without this defense. DEN allows WRs 7.0 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -11205,11 +11188,11 @@
         "factor": 1.0673,
         "league": 5.127
        },
-       "hi": 22.0971,
+       "hi": 21.7975,
        "leagueDefense": 2.9632,
        "lo": 0,
        "mean": 3.1626,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "3 without this defense. DEN allows WRs 8.4 yards a carry versus 5.1 league."
       }
      }
@@ -11226,7 +11209,7 @@
       0.2526
      ],
      "ceiling": 0.5,
-     "challenger": 0.1511,
+     "challenger": 0.1514,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -11278,7 +11261,7 @@
      "passTd": {
       "attemptShare": 0.955,
       "display": "1.0",
-      "expected": 1.0353,
+      "expected": 1.0322,
       "interval": [
        0,
        2
@@ -11289,7 +11272,7 @@
        "96% of projected team attempts (30.9) × team receiving-score total 1.08.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.0841
+      "teamReceivingLambda": 1.0808
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/3139477.png",
@@ -11420,7 +11403,7 @@
      "team": "KC",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.1169,
+     "usage": 0.1178,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -11471,12 +11454,12 @@
         "factor": 0.9609,
         "league": null
        },
-       "hi": 326.6047,
-       "leagueDefense": 247.6447,
-       "lo": 149.3135,
-       "mean": 237.9591,
-       "source": "held-out errors, QB|primary|available (n=46)",
-       "text": "248 without this defense; opponent factor 0.96 from how this offense uses WRs, TEs, and backs."
+       "hi": 325.2505,
+       "leagueDefense": 247.336,
+       "lo": 150.0745,
+       "mean": 237.6625,
+       "source": "held-out errors, QB|primary|available (n=48)",
+       "text": "247 without this defense; opponent factor 0.96 from how this offense uses WRs, TEs, and backs."
       },
       "rec": {
        "defense": {
@@ -11488,7 +11471,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "0.0 without this defense."
       },
       "recYd": {
@@ -11501,7 +11484,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "0 without this defense."
       },
       "rushYd": {
@@ -11510,11 +11493,11 @@
         "factor": 1.0065,
         "league": 4.3688
        },
-       "hi": 33.7324,
+       "hi": 33.481,
        "leagueDefense": 14.2615,
        "lo": 0,
        "mean": 14.3542,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "14 without this defense. DEN allows QBs 4.4 yards a carry versus 4.4 league."
       }
      }
@@ -11609,7 +11592,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.11749688154379812,
+       "chance": 0.1156988370702402,
        "targets": 3.262547227688023
       },
       "close": {
@@ -11734,7 +11717,7 @@
        "type": "Snap share"
       }
      ],
-     "usage": 0.0838,
+     "usage": 0.0839,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -11777,11 +11760,11 @@
         "factor": 0.9975,
         "league": 0.7208
        },
-       "hi": 4.7252,
-       "leagueDefense": 2.3301,
+       "hi": 4.7059,
+       "leagueDefense": 2.3308,
        "lo": 0,
-       "mean": 2.3243,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "mean": 2.3251,
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "2.3 without this defense. DEN allows TEs a 72% catch rate versus 72% league."
       },
       "recYd": {
@@ -11790,11 +11773,11 @@
         "factor": 1.0334,
         "league": 7.0656
        },
-       "hi": 60.7039,
-       "leagueDefense": 24.9115,
+       "hi": 60.8432,
+       "leagueDefense": 24.9205,
        "lo": 0,
-       "mean": 25.7442,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "mean": 25.7535,
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "25 without this defense. DEN allows TEs 7.6 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -11807,7 +11790,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -11824,7 +11807,7 @@
       0.1969
      ],
      "ceiling": 0.5,
-     "challenger": 0.1246,
+     "challenger": 0.1249,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -12029,7 +12012,7 @@
        "type": "Touch share"
       }
      ],
-     "usage": 0.1402,
+     "usage": 0.1411,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -12072,11 +12055,11 @@
         "factor": 0.9624,
         "league": 0.7816
        },
-       "hi": 2.5354,
-       "leagueDefense": 1.0166,
+       "hi": 2.5339,
+       "leagueDefense": 1.0169,
        "lo": 0,
-       "mean": 0.9783,
-       "source": "held-out errors, RB|support|available (n=32)",
+       "mean": 0.9786,
+       "source": "held-out errors, RB|support|available (n=33)",
        "text": "1.0 without this defense. DEN allows RBs a 70% catch rate versus 78% league."
       },
       "recYd": {
@@ -12085,11 +12068,11 @@
         "factor": 0.9702,
         "league": 5.6468
        },
-       "hi": 28.8804,
-       "leagueDefense": 8.7758,
+       "hi": 28.809,
+       "leagueDefense": 8.7789,
        "lo": 0,
-       "mean": 8.5139,
-       "source": "held-out errors, RB|support|available (n=32)",
+       "mean": 8.517,
+       "source": "held-out errors, RB|support|available (n=33)",
        "text": "9 without this defense. DEN allows RBs 5.2 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -12098,11 +12081,11 @@
         "factor": 1.0535,
         "league": 4.1316
        },
-       "hi": 33.5118,
+       "hi": 33.6484,
        "leagueDefense": 13.6243,
        "lo": 0,
        "mean": 14.3528,
-       "source": "held-out errors, RB|support|available (n=32)",
+       "source": "held-out errors, RB|support|available (n=33)",
        "text": "14 without this defense. DEN allows RBs 4.4 yards a carry versus 4.1 league."
       }
      }
@@ -12119,7 +12102,7 @@
       0.1502
      ],
      "ceiling": 0.5,
-     "challenger": 0.0724,
+     "challenger": 0.072,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -12150,7 +12133,7 @@
      "edge": 3.92,
      "espn": "5082630",
      "fair": 1037,
-     "firstTd": 0.0236,
+     "firstTd": 0.0237,
      "gamesPlayed": 4,
      "glShare": 0,
      "glShareRaw": 0,
@@ -12197,7 +12180,7 @@
       "behind": {
        "att": 0,
        "carries": 0.018562197793305694,
-       "chance": 0.08472427764071644,
+       "chance": 0.08369356936800487,
        "targets": 2.3822469047619044
       },
       "close": {
@@ -12339,7 +12322,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.088,
+     "usage": 0.0867,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -12382,11 +12365,11 @@
         "factor": 0.92,
         "league": 0.6197
        },
-       "hi": 3.0866,
-       "leagueDefense": 1.3663,
+       "hi": 3.0726,
+       "leagueDefense": 1.3667,
        "lo": 0,
-       "mean": 1.257,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 1.2573,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "1.4 without this defense. DEN allows WRs a 54% catch rate versus 62% league."
       },
       "recYd": {
@@ -12395,11 +12378,11 @@
         "factor": 0.9189,
         "league": 8.0888
        },
-       "hi": 41.1273,
-       "leagueDefense": 16.641,
+       "hi": 40.9578,
+       "leagueDefense": 16.647,
        "lo": 0,
-       "mean": 15.2919,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 15.2974,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "17 without this defense. DEN allows WRs 7.0 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -12408,11 +12391,11 @@
         "factor": 1.0673,
         "league": 5.127
        },
-       "hi": 1.8111,
+       "hi": 1.7641,
        "leagueDefense": 0.1159,
        "lo": 0,
        "mean": 0.1237,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. DEN allows WRs 8.4 yards a carry versus 5.1 league."
       }
      }
@@ -12643,11 +12626,11 @@
         "factor": 0.9624,
         "league": 0.7816
        },
-       "hi": 1.6613,
-       "leagueDefense": 0.5132,
+       "hi": 1.6408,
+       "leagueDefense": 0.5134,
        "lo": 0,
-       "mean": 0.4939,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "mean": 0.494,
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "0.5 without this defense. DEN allows RBs a 70% catch rate versus 78% league."
       },
       "recYd": {
@@ -12656,11 +12639,11 @@
         "factor": 0.9702,
         "league": 5.6468
        },
-       "hi": 21.2909,
-       "leagueDefense": 3.742,
+       "hi": 20.9538,
+       "leagueDefense": 3.7434,
        "lo": 0,
-       "mean": 3.6303,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "mean": 3.6317,
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "4 without this defense. DEN allows RBs 5.2 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -12669,11 +12652,11 @@
         "factor": 1.0535,
         "league": 4.1316
        },
-       "hi": 27.3179,
+       "hi": 27.2169,
        "leagueDefense": 8.214,
        "lo": 0,
        "mean": 8.6532,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "8 without this defense. DEN allows RBs 4.4 yards a carry versus 4.1 league."
       }
      }
@@ -12690,7 +12673,7 @@
       0.0958
      ],
      "ceiling": 0.5,
-     "challenger": 0.0933,
+     "challenger": 0.0938,
      "challengerLegs": [
       "model",
       "usage"
@@ -12860,7 +12843,7 @@
      "team": "KC",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.2026,
+     "usage": 0.2045,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -12903,11 +12886,11 @@
         "factor": 0.9624,
         "league": 0.7816
        },
-       "hi": 1.3115,
-       "leagueDefense": 0.3545,
+       "hi": 1.2944,
+       "leagueDefense": 0.3546,
        "lo": 0,
-       "mean": 0.3412,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "mean": 0.3413,
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "0.4 without this defense. DEN allows RBs a 70% catch rate versus 78% league."
       },
       "recYd": {
@@ -12916,11 +12899,11 @@
         "factor": 0.9702,
         "league": 5.6468
        },
-       "hi": 17.1868,
-       "leagueDefense": 2.5851,
+       "hi": 16.9064,
+       "leagueDefense": 2.586,
        "lo": 0,
-       "mean": 2.508,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "mean": 2.5089,
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "3 without this defense. DEN allows RBs 5.2 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -12929,11 +12912,11 @@
         "factor": 1.0535,
         "league": 4.1316
        },
-       "hi": 21.0604,
+       "hi": 20.9777,
        "leagueDefense": 5.4972,
        "lo": 0,
        "mean": 5.7911,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "5 without this defense. DEN allows RBs 4.4 yards a carry versus 4.1 league."
       }
      }
@@ -12950,7 +12933,7 @@
       0.0521
      ],
      "ceiling": 0.5,
-     "challenger": 0.0255,
+     "challenger": 0.0256,
      "challengerLegs": [
       "model",
       "usage"
@@ -13144,7 +13127,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0293,
+     "usage": 0.0296,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -13187,11 +13170,11 @@
         "factor": 0.92,
         "league": 0.6197
        },
-       "hi": 1.5969,
-       "leagueDefense": 0.5149,
+       "hi": 1.5882,
+       "leagueDefense": 0.515,
        "lo": 0,
-       "mean": 0.4737,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 0.4738,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.5 without this defense. DEN allows WRs a 54% catch rate versus 62% league."
       },
       "recYd": {
@@ -13200,11 +13183,11 @@
         "factor": 0.9189,
         "league": 8.0888
        },
-       "hi": 22.7274,
-       "leagueDefense": 6.783,
+       "hi": 22.6179,
+       "leagueDefense": 6.7854,
        "lo": 0,
-       "mean": 6.2331,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 6.2353,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "7 without this defense. DEN allows WRs 7.0 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -13213,11 +13196,11 @@
         "factor": 1.0673,
         "league": 5.127
        },
-       "hi": 1.2034,
+       "hi": 1.1715,
        "leagueDefense": 0.0535,
        "lo": 0,
        "mean": 0.0571,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. DEN allows WRs 8.4 yards a carry versus 5.1 league."
       }
      }
@@ -13437,7 +13420,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0427,
+     "usage": 0.0425,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -13480,11 +13463,11 @@
         "factor": 0.92,
         "league": 0.6197
        },
-       "hi": 2.0601,
-       "leagueDefense": 0.758,
+       "hi": 2.0496,
+       "leagueDefense": 0.7582,
        "lo": 0,
-       "mean": 0.6973,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 0.6975,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.8 without this defense. DEN allows WRs a 54% catch rate versus 62% league."
       },
       "recYd": {
@@ -13493,11 +13476,11 @@
         "factor": 0.9189,
         "league": 8.0888
        },
-       "hi": 29.3303,
-       "leagueDefense": 10.0592,
+       "hi": 29.1975,
+       "leagueDefense": 10.0628,
        "lo": 0,
-       "mean": 9.2437,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 9.247,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "10 without this defense. DEN allows WRs 7.0 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -13510,7 +13493,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. DEN allows WRs 8.4 yards a carry versus 5.1 league."
       }
      }
@@ -13527,7 +13510,7 @@
       0.0477
      ],
      "ceiling": 0.5,
-     "challenger": 0.0321,
+     "challenger": 0.0324,
      "challengerLegs": [
       "model",
       "usage"
@@ -13697,7 +13680,7 @@
      "team": "KC",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.0508,
+     "usage": 0.0517,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -13740,11 +13723,11 @@
         "factor": 0.9975,
         "league": 0.7208
        },
-       "hi": 1.354,
-       "leagueDefense": 0.3944,
+       "hi": 1.3338,
+       "leagueDefense": 0.3945,
        "lo": 0,
-       "mean": 0.3934,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 0.3935,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0.4 without this defense. DEN allows TEs a 72% catch rate versus 72% league."
       },
       "recYd": {
@@ -13753,11 +13736,11 @@
         "factor": 1.0334,
         "league": 7.0656
        },
-       "hi": 19.5609,
-       "leagueDefense": 3.9018,
+       "hi": 19.4342,
+       "leagueDefense": 3.9032,
        "lo": 0,
-       "mean": 4.0323,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 4.0337,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "4 without this defense. DEN allows TEs 7.6 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -13770,7 +13753,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -13787,7 +13770,7 @@
       0.0393
      ],
      "ceiling": 0.5,
-     "challenger": 0.0228,
+     "challenger": 0.023,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -13966,7 +13949,7 @@
      "team": "KC",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.0325,
+     "usage": 0.0332,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -14009,11 +13992,11 @@
         "factor": 0.9975,
         "league": 0.7208
        },
-       "hi": 1.3787,
-       "leagueDefense": 0.4056,
+       "hi": 1.3583,
+       "leagueDefense": 0.4057,
        "lo": 0,
-       "mean": 0.4046,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 0.4047,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0.4 without this defense. DEN allows TEs a 72% catch rate versus 72% league."
       },
       "recYd": {
@@ -14022,11 +14005,11 @@
         "factor": 1.0334,
         "league": 7.0656
        },
-       "hi": 19.895,
-       "leagueDefense": 4.0128,
+       "hi": 19.7665,
+       "leagueDefense": 4.0143,
        "lo": 0,
-       "mean": 4.147,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 4.1485,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "4 without this defense. DEN allows TEs 7.6 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -14039,7 +14022,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -14259,7 +14242,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1233,
+     "usage": 0.1228,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -14302,11 +14285,11 @@
         "factor": 0.92,
         "league": 0.6197
        },
-       "hi": 2.1059,
-       "leagueDefense": 0.7833,
+       "hi": 2.0952,
+       "leagueDefense": 0.7835,
        "lo": 0,
-       "mean": 0.7206,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 0.7208,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.8 without this defense. DEN allows WRs a 54% catch rate versus 62% league."
       },
       "recYd": {
@@ -14315,11 +14298,11 @@
         "factor": 0.9189,
         "league": 8.0888
        },
-       "hi": 29.8661,
-       "leagueDefense": 10.3396,
+       "hi": 29.7316,
+       "leagueDefense": 10.3434,
        "lo": 0,
-       "mean": 9.5014,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 9.5048,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "10 without this defense. DEN allows WRs 7.0 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -14332,7 +14315,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. DEN allows WRs 8.4 yards a carry versus 5.1 league."
       }
      }
@@ -14595,11 +14578,11 @@
         "factor": 0.92,
         "league": 0.6197
        },
-       "hi": 1.9828,
-       "leagueDefense": 0.7158,
+       "hi": 1.9726,
+       "leagueDefense": 0.716,
        "lo": 0,
-       "mean": 0.6585,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 0.6587,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.7 without this defense. DEN allows WRs a 54% catch rate versus 62% league."
       },
       "recYd": {
@@ -14608,11 +14591,11 @@
         "factor": 0.9189,
         "league": 8.0888
        },
-       "hi": 28.113,
-       "leagueDefense": 9.4296,
+       "hi": 27.9844,
+       "leagueDefense": 9.433,
        "lo": 0,
-       "mean": 8.6651,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 8.6683,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "9 without this defense. DEN allows WRs 7.0 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -14625,7 +14608,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. DEN allows WRs 8.4 yards a carry versus 5.1 league."
       }
      }
@@ -14642,7 +14625,7 @@
       0.0096
      ],
      "ceiling": 0.5,
-     "challenger": 0.0311,
+     "challenger": 0.0313,
      "challengerLegs": [
       "model",
       "usage"
@@ -14692,7 +14675,7 @@
      "passTd": {
       "attemptShare": 0.045,
       "display": "0.0",
-      "expected": 0.0487,
+      "expected": 0.0486,
       "interval": [
        0,
        0
@@ -14706,7 +14689,7 @@
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.0841
+      "teamReceivingLambda": 1.0808
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4362887.png",
@@ -14830,7 +14813,7 @@
      "team": "KC",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.2189,
+     "usage": 0.221,
      "verified": true,
      "verifyReason": "On KC nflverse roster (week 7, ACT)",
      "vol": {
@@ -14881,10 +14864,10 @@
         "factor": 0.9609,
         "league": null
        },
-       "hi": 63.3809,
-       "leagueDefense": 10.4417,
+       "hi": 63.336,
+       "leagueDefense": 10.4287,
        "lo": 0,
-       "mean": 8.5283,
+       "mean": 8.5177,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "10 without this defense; opponent factor 0.96 from how this offense uses WRs, TEs, and backs."
       },
@@ -14941,7 +14924,7 @@
       0.4491
      ],
      "ceiling": 0.62,
-     "challenger": 0.3296,
+     "challenger": 0.3267,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -14972,7 +14955,7 @@
      "edge": -5.5066,
      "espn": "4241985",
      "fair": 225,
-     "firstTd": 0.0942,
+     "firstTd": 0.0943,
      "gamesPlayed": 7,
      "glShare": 0.5403,
      "glShareRaw": 0.5403,
@@ -15023,7 +15006,7 @@
       "behind": {
        "att": 0,
        "carries": 8.829714952411127,
-       "chance": 0.2749042038435886,
+       "chance": 0.2721120965720967,
        "targets": 2.0965347481918286
       },
       "close": {
@@ -15256,7 +15239,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.321,
+     "usage": 0.3124,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -15301,11 +15284,11 @@
         "factor": 1.0113,
         "league": 0.7816
        },
-       "hi": 3.5518,
-       "leagueDefense": 1.5631,
+       "hi": 3.5419,
+       "leagueDefense": 1.5635,
        "lo": 0,
-       "mean": 1.5807,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "mean": 1.5812,
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "1.6 without this defense. KC allows RBs a 81% catch rate versus 78% league."
       },
       "recYd": {
@@ -15314,11 +15297,11 @@
         "factor": 1.0195,
         "league": 5.6468
        },
-       "hi": 32.0497,
-       "leagueDefense": 9.8081,
+       "hi": 31.8571,
+       "leagueDefense": 9.8116,
        "lo": 0,
-       "mean": 9.9989,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "mean": 10.0025,
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "10 without this defense. KC allows RBs 6.0 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -15327,11 +15310,11 @@
         "factor": 0.863,
         "league": 4.1316
        },
-       "hi": 58.9603,
+       "hi": 59.7188,
        "leagueDefense": 38.8168,
-       "lo": 8.0344,
+       "lo": 7.2758,
        "mean": 33.4973,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "39 without this defense. KC allows RBs 3.2 yards a carry versus 4.1 league."
       }
      }
@@ -15348,7 +15331,7 @@
       0.3313
      ],
      "ceiling": 0.5,
-     "challenger": 0.2824,
+     "challenger": 0.2838,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -15379,7 +15362,7 @@
      "edge": -11.7333,
      "espn": "4568490",
      "fair": 357,
-     "firstTd": 0.0634,
+     "firstTd": 0.0635,
      "gamesPlayed": 6,
      "glShare": 0.0843,
      "glShareRaw": 0.0843,
@@ -15559,7 +15542,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.3027,
+     "usage": 0.3073,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -15614,11 +15597,11 @@
         "factor": 1.0113,
         "league": 0.7816
        },
-       "hi": 4.4629,
-       "leagueDefense": 2.0488,
+       "hi": 4.4212,
+       "leagueDefense": 2.0494,
        "lo": 0,
-       "mean": 2.0719,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "mean": 2.0725,
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "2.0 without this defense. KC allows RBs a 81% catch rate versus 78% league."
       },
       "recYd": {
@@ -15627,11 +15610,11 @@
         "factor": 1.0195,
         "league": 5.6468
        },
-       "hi": 54.6023,
-       "leagueDefense": 16.3925,
+       "hi": 53.8824,
+       "leagueDefense": 16.3984,
        "lo": 0,
-       "mean": 16.7114,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "mean": 16.7174,
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "16 without this defense. KC allows RBs 6.0 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -15640,11 +15623,11 @@
         "factor": 0.863,
         "league": 4.1316
        },
-       "hi": 33.6101,
+       "hi": 33.4921,
        "leagueDefense": 13.6824,
        "lo": 0,
        "mean": 11.8073,
-       "source": "held-out errors, RB|reserve|available (n=73)",
+       "source": "held-out errors, RB|reserve|available (n=76)",
        "text": "14 without this defense. KC allows RBs 3.2 yards a carry versus 4.1 league."
       }
      }
@@ -15657,42 +15640,42 @@
       "uncertain": false
      },
      "band": [
-      0.1173,
-      0.2535
+      0.1157,
+      0.2505
      ],
      "ceiling": 0.5,
-     "challenger": 0.2094,
+     "challenger": 0.2032,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1738,
+     "chance": 0.1717,
      "coldGoal": false,
      "components": {
       "r0": 0.0007,
       "r1": 0.0001,
       "r2": 0,
       "r3": 0,
-      "t0": 0.043,
-      "t1": 0.073,
-      "t2": 0.0414,
-      "t3": 0.0327
+      "t0": 0.0425,
+      "t1": 0.072,
+      "t2": 0.0408,
+      "t3": 0.0322
      },
      "conversionNote": "1 of 7 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.1738,
-      "lambda": 0.191,
-      "p0": 0.8262,
-      "p1": 0.1578,
-      "p2": 0.0151,
+      "anytime": 0.1717,
+      "lambda": 0.1883,
+      "p0": 0.8283,
+      "p1": 0.156,
+      "p2": 0.0147,
       "p3plus": 0.001,
-      "twoPlus": 0.0161
+      "twoPlus": 0.0157
      },
-     "edge": -1.5579,
+     "edge": -1.7761,
      "espn": "3128429",
-     "fair": 475,
-     "firstTd": 0.049,
+     "fair": 483,
+     "firstTd": 0.0484,
      "gamesPlayed": 7,
      "glShare": 0.0003,
      "glShareRaw": 0.0003,
@@ -15702,10 +15685,10 @@
      "implied": 22.25,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.191,
+     "lambda": 0.1883,
      "lambdaRaw": 0.1902,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×0.96 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×0.94 (from the last three weeks).",
       "Blended 30% toward the published projection (18%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.75,
@@ -15718,10 +15701,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.1738,
-     "preStack": 0.1671,
+     "preSafety": 0.1717,
+     "preStack": 0.1639,
      "pubBlend": {
-      "before": 0.1828,
+      "before": 0.179,
       "weight": 0.3
      },
      "published": {
@@ -15756,7 +15739,7 @@
       "behind": {
        "att": 0,
        "carries": 0.12294750030512692,
-       "chance": 0.1862975438138912,
+       "chance": 0.18389281657853607,
        "targets": 6.667417810426836
       },
       "close": {
@@ -15768,7 +15751,7 @@
       "lead": {
        "att": 0,
        "carries": 0.1620014121667555,
-       "chance": 0.16116531188519012,
+       "chance": 0.15921366423948546,
        "targets": 5.238685422478228
       },
       "limited": {
@@ -15854,7 +15837,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.13622754011407934
+       "width": 0.13472912016007754
       },
       "level": "Med",
       "reasons": [
@@ -15875,7 +15858,7 @@
        "type": "Role vacuum"
       }
      ],
-     "usage": 0.2764,
+     "usage": 0.2565,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -15922,11 +15905,11 @@
         "factor": 0.9332,
         "league": 0.6197
        },
-       "hi": 5.0801,
-       "leagueDefense": 3.3321,
-       "lo": 1.1388,
-       "mean": 3.1094,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "hi": 5.0591,
+       "leagueDefense": 3.3331,
+       "lo": 1.1617,
+       "mean": 3.1104,
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "3.3 without this defense. KC allows WRs a 54% catch rate versus 62% league."
       },
       "recYd": {
@@ -15935,11 +15918,11 @@
         "factor": 0.8943,
         "league": 8.0888
        },
-       "hi": 68.8919,
-       "leagueDefense": 40.3738,
-       "lo": 3.324,
-       "mean": 36.108,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "hi": 68.8904,
+       "leagueDefense": 40.3884,
+       "lo": 3.3516,
+       "mean": 36.121,
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "40 without this defense. KC allows WRs 6.4 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -15948,11 +15931,11 @@
         "factor": 0.9918,
         "league": 5.127
        },
-       "hi": 10.054,
+       "hi": 9.907,
        "leagueDefense": 0.768,
        "lo": 0,
        "mean": 0.7617,
-       "source": "held-out errors, WR|support|available (n=42)",
+       "source": "held-out errors, WR|support|available (n=44)",
        "text": "1 without this defense. KC allows WRs 4.7 yards a carry versus 5.1 league."
       }
      }
@@ -15969,7 +15952,7 @@
       0.2408
      ],
      "ceiling": 0.5,
-     "challenger": 0.1841,
+     "challenger": 0.189,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -16021,7 +16004,7 @@
      "passTd": {
       "attemptShare": 0.9553,
       "display": "1.1",
-      "expected": 1.0967,
+      "expected": 1.0942,
       "interval": [
        0,
        2
@@ -16032,7 +16015,7 @@
        "96% of projected team attempts (30.4) × team receiving-score total 1.15.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.148
+      "teamReceivingLambda": 1.1454
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4426338.png",
@@ -16212,7 +16195,7 @@
        "type": "Model miss pattern"
       }
      ],
-     "usage": 0.1893,
+     "usage": 0.2047,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -16253,7 +16236,7 @@
         "Unstable efficiency (CV 0.97 > 0.75).",
         "Unstable production (CV 1.45 > 0.85).",
         "Very wide range.",
-        "Held-out 80% ranges covered only 67% of comparable results."
+        "Held-out 80% ranges covered only 69% of comparable results."
        ],
        "level": "Med",
        "provisional": false,
@@ -16269,11 +16252,11 @@
         "factor": 0.9373,
         "league": null
        },
-       "hi": 255.7273,
-       "leagueDefense": 190.8346,
-       "lo": 102.0157,
-       "mean": 178.8715,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "hi": 254.5874,
+       "leagueDefense": 190.5967,
+       "lo": 102.7097,
+       "mean": 178.6485,
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "191 without this defense; opponent factor 0.94 from how this offense uses WRs, TEs, and backs."
       },
       "rec": {
@@ -16286,7 +16269,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "0.0 without this defense."
       },
       "recYd": {
@@ -16299,7 +16282,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "0 without this defense."
       },
       "rushYd": {
@@ -16308,11 +16291,11 @@
         "factor": 1.019,
         "league": 4.3688
        },
-       "hi": 36.7703,
+       "hi": 36.5033,
        "leagueDefense": 15.8889,
        "lo": 0,
        "mean": 16.1901,
-       "source": "held-out errors, QB|primary|available (n=46)",
+       "source": "held-out errors, QB|primary|available (n=48)",
        "text": "16 without this defense. KC allows QBs 4.7 yards a carry versus 4.4 league."
       }
      }
@@ -16329,7 +16312,7 @@
       0.3479
      ],
      "ceiling": 0.5,
-     "challenger": 0.0978,
+     "challenger": 0.0984,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -16360,7 +16343,7 @@
      "edge": 7.3931,
      "espn": "4383440",
      "fair": 525,
-     "firstTd": 0.0447,
+     "firstTd": 0.0448,
      "gamesPlayed": 3,
      "glShare": 0,
      "glShareRaw": 0,
@@ -16517,7 +16500,7 @@
      "team": "DEN",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.0671,
+     "usage": 0.0683,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -16560,11 +16543,11 @@
         "factor": 0.9789,
         "league": 0.7208
        },
-       "hi": 2.5603,
-       "leagueDefense": 1.0133,
+       "hi": 2.5475,
+       "leagueDefense": 1.0136,
        "lo": 0,
-       "mean": 0.9919,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "mean": 0.9922,
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "1.0 without this defense. KC allows TEs a 68% catch rate versus 72% league."
       },
       "recYd": {
@@ -16573,11 +16556,11 @@
         "factor": 0.962,
         "league": 7.0656
        },
-       "hi": 31.0547,
-       "leagueDefense": 10.0311,
+       "hi": 31.1378,
+       "leagueDefense": 10.0347,
        "lo": 0,
-       "mean": 9.6504,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "mean": 9.6539,
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "10 without this defense. KC allows TEs 6.4 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -16586,11 +16569,11 @@
         "factor": 1.0096,
         "league": 1.8947
        },
-       "hi": 4.2766,
+       "hi": 4.2376,
        "leagueDefense": 0.3026,
        "lo": 0,
        "mean": 0.3055,
-       "source": "held-out errors, TE|support|available (n=45)",
+       "source": "held-out errors, TE|support|available (n=46)",
        "text": "0 without this defense. KC allows TEs 3.0 yards a carry versus 1.9 league."
       }
      }
@@ -16607,7 +16590,7 @@
       0.2904
      ],
      "ceiling": 0.5,
-     "challenger": 0.1668,
+     "challenger": 0.1743,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -16817,7 +16800,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.217,
+     "usage": 0.2465,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -16860,11 +16843,11 @@
         "factor": 1.0113,
         "league": 0.7816
        },
-       "hi": 2.7986,
-       "leagueDefense": 1.1146,
+       "hi": 2.797,
+       "leagueDefense": 1.115,
        "lo": 0,
-       "mean": 1.1272,
-       "source": "held-out errors, RB|support|available (n=32)",
+       "mean": 1.1276,
+       "source": "held-out errors, RB|support|available (n=33)",
        "text": "1.1 without this defense. KC allows RBs a 81% catch rate versus 78% league."
       },
       "recYd": {
@@ -16873,11 +16856,11 @@
         "factor": 1.0195,
         "league": 5.6468
        },
-       "hi": 28.0719,
-       "leagueDefense": 7.9925,
+       "hi": 28.002,
+       "leagueDefense": 7.9953,
        "lo": 0,
-       "mean": 8.1479,
-       "source": "held-out errors, RB|support|available (n=32)",
+       "mean": 8.1509,
+       "source": "held-out errors, RB|support|available (n=33)",
        "text": "8 without this defense. KC allows RBs 6.0 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -16886,11 +16869,11 @@
         "factor": 0.863,
         "league": 4.1316
        },
-       "hi": 40.754,
+       "hi": 40.9105,
        "leagueDefense": 21.805,
        "lo": 0,
        "mean": 18.8169,
-       "source": "held-out errors, RB|support|available (n=32)",
+       "source": "held-out errors, RB|support|available (n=33)",
        "text": "22 without this defense. KC allows RBs 3.2 yards a carry versus 4.1 league."
       }
      }
@@ -16907,7 +16890,7 @@
       0.2017
      ],
      "ceiling": 0.5,
-     "challenger": 0.19,
+     "challenger": 0.1862,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -16938,7 +16921,7 @@
      "edge": -6.006,
      "espn": "4372016",
      "fair": 673,
-     "firstTd": 0.0355,
+     "firstTd": 0.0356,
      "gamesPlayed": 7,
      "glShare": 0.0004,
      "glShareRaw": 0.0004,
@@ -17094,7 +17077,7 @@
      "team": "DEN",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.2751,
+     "usage": 0.2597,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -17144,10 +17127,10 @@
         "factor": 0.9332,
         "league": 0.6197
        },
-       "hi": 5.6564,
-       "leagueDefense": 2.905,
-       "lo": 0.3874,
-       "mean": 2.6295,
+       "hi": 5.6577,
+       "leagueDefense": 2.9059,
+       "lo": 0.3878,
+       "mean": 2.6303,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "2.9 without this defense. KC allows WRs a 54% catch rate versus 62% league."
       },
@@ -17157,10 +17140,10 @@
         "factor": 0.8943,
         "league": 8.0888
        },
-       "hi": 68.5785,
-       "leagueDefense": 34.2067,
-       "lo": 3.3634,
-       "mean": 28.1451,
+       "hi": 68.596,
+       "leagueDefense": 34.2191,
+       "lo": 3.3691,
+       "mean": 28.1553,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "34 without this defense. KC allows WRs 6.4 yards a target versus 8.1 league."
       },
@@ -17191,7 +17174,7 @@
       0.1917
      ],
      "ceiling": 0.5,
-     "challenger": 0.1324,
+     "challenger": 0.1323,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -17400,7 +17383,7 @@
        "type": "Snap share"
       }
      ],
-     "usage": 0.1215,
+     "usage": 0.121,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -17453,11 +17436,11 @@
         "factor": 0.9789,
         "league": 0.7208
        },
-       "hi": 3.7321,
-       "leagueDefense": 1.845,
+       "hi": 3.7165,
+       "leagueDefense": 1.8456,
        "lo": 0,
-       "mean": 1.806,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "mean": 1.8066,
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "1.8 without this defense. KC allows TEs a 68% catch rate versus 72% league."
       },
       "recYd": {
@@ -17466,11 +17449,11 @@
         "factor": 0.962,
         "league": 7.0656
        },
-       "hi": 42.8127,
-       "leagueDefense": 18.8806,
+       "hi": 42.6278,
+       "leagueDefense": 18.8874,
        "lo": 0,
-       "mean": 18.164,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "mean": 18.1706,
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "19 without this defense. KC allows TEs 6.4 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -17483,7 +17466,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|primary|available (n=46)",
+       "source": "held-out errors, TE|primary|available (n=48)",
        "text": "0 without this defense. KC allows TEs 3.0 yards a carry versus 1.9 league."
       }
      }
@@ -17500,7 +17483,7 @@
       0.1464
      ],
      "ceiling": 0.5,
-     "challenger": 0.0977,
+     "challenger": 0.1001,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -17531,7 +17514,7 @@
      "edge": -1.2282,
      "espn": "4686472",
      "fair": 988,
-     "firstTd": 0.0247,
+     "firstTd": 0.0248,
      "gamesPlayed": 5,
      "glShare": 0.0007,
      "glShareRaw": 0.0007,
@@ -17685,7 +17668,7 @@
      "team": "DEN",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.0973,
+     "usage": 0.1049,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -17728,11 +17711,11 @@
         "factor": 0.9332,
         "league": 0.6197
        },
-       "hi": 4.4971,
-       "leagueDefense": 2.2725,
+       "hi": 4.4791,
+       "leagueDefense": 2.2732,
        "lo": 0,
-       "mean": 2.1206,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 2.1213,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "2.3 without this defense. KC allows WRs a 54% catch rate versus 62% league."
       },
       "recYd": {
@@ -17741,11 +17724,11 @@
         "factor": 0.8943,
         "league": 8.0888
        },
-       "hi": 59.6834,
-       "leagueDefense": 29.0687,
+       "hi": 59.4645,
+       "leagueDefense": 29.0792,
        "lo": 0,
-       "mean": 25.9974,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 26.0068,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "29 without this defense. KC allows WRs 6.4 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -17754,11 +17737,11 @@
         "factor": 0.9918,
         "league": 5.127
        },
-       "hi": 9.2563,
+       "hi": 9.0593,
        "leagueDefense": 2.1957,
        "lo": 0,
        "mean": 2.1777,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "2 without this defense. KC allows WRs 4.7 yards a carry versus 5.1 league."
       }
      }
@@ -17775,7 +17758,7 @@
       0.1222
      ],
      "ceiling": 0.5,
-     "challenger": 0.104,
+     "challenger": 0.1033,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -17984,7 +17967,7 @@
        "type": "Snap share"
       }
      ],
-     "usage": 0.169,
+     "usage": 0.1657,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -18027,11 +18010,11 @@
         "factor": 0.9332,
         "league": 0.6197
        },
-       "hi": 2.5031,
-       "leagueDefense": 0.9962,
+       "hi": 2.491,
+       "leagueDefense": 0.9965,
        "lo": 0,
-       "mean": 0.9296,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 0.9299,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "1.0 without this defense. KC allows WRs a 54% catch rate versus 62% league."
       },
       "recYd": {
@@ -18040,11 +18023,11 @@
         "factor": 0.8943,
         "league": 8.0888
        },
-       "hi": 34.5096,
-       "leagueDefense": 13.2025,
+       "hi": 34.36,
+       "leagueDefense": 13.2072,
        "lo": 0,
-       "mean": 11.8075,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 11.8118,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "13 without this defense. KC allows WRs 6.4 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -18053,11 +18036,11 @@
         "factor": 0.9918,
         "league": 5.127
        },
-       "hi": 3.3015,
+       "hi": 3.22,
        "leagueDefense": 0.3759,
        "lo": 0,
        "mean": 0.3728,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. KC allows WRs 4.7 yards a carry versus 5.1 league."
       }
      }
@@ -18074,7 +18057,7 @@
       0.0809
      ],
      "ceiling": 0.5,
-     "challenger": 0.0595,
+     "challenger": 0.0605,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -18259,7 +18242,7 @@
      "team": "DEN",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.074,
+     "usage": 0.0779,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -18302,11 +18285,11 @@
         "factor": 0.9332,
         "league": 0.6197
        },
-       "hi": 2.073,
-       "leagueDefense": 0.7543,
+       "hi": 2.0625,
+       "leagueDefense": 0.7545,
        "lo": 0,
-       "mean": 0.7039,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 0.7041,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.8 without this defense. KC allows WRs a 54% catch rate versus 62% league."
       },
       "recYd": {
@@ -18315,11 +18298,11 @@
         "factor": 0.8943,
         "league": 8.0888
        },
-       "hi": 27.7349,
-       "leagueDefense": 9.4902,
+       "hi": 27.6076,
+       "leagueDefense": 9.4936,
        "lo": 0,
-       "mean": 8.4875,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 8.4905,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "9 without this defense. KC allows WRs 6.4 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -18332,7 +18315,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. KC allows WRs 4.7 yards a carry versus 5.1 league."
       }
      }
@@ -18349,7 +18332,7 @@
       0.0905
      ],
      "ceiling": 0.5,
-     "challenger": 0.0502,
+     "challenger": 0.0486,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -18534,7 +18517,7 @@
      "team": "DEN",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.0765,
+     "usage": 0.0693,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -18577,11 +18560,11 @@
         "factor": 0.9789,
         "league": 0.7208
        },
-       "hi": 1.878,
-       "leagueDefense": 0.6605,
+       "hi": 1.8521,
+       "leagueDefense": 0.6607,
        "lo": 0,
-       "mean": 0.6465,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 0.6468,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0.7 without this defense. KC allows TEs a 68% catch rate versus 72% league."
       },
       "recYd": {
@@ -18590,11 +18573,11 @@
         "factor": 0.962,
         "league": 7.0656
        },
-       "hi": 25.1867,
-       "leagueDefense": 6.3354,
+       "hi": 25.0313,
+       "leagueDefense": 6.3377,
        "lo": 0,
-       "mean": 6.095,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "mean": 6.0972,
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "6 without this defense. KC allows TEs 6.4 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -18607,7 +18590,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=80)",
+       "source": "held-out errors, TE|reserve|available (n=84)",
        "text": "0 without this defense. KC allows TEs 3.0 yards a carry versus 1.9 league."
       }
      }
@@ -18624,7 +18607,7 @@
       0.0729
      ],
      "ceiling": 0.5,
-     "challenger": 0.0387,
+     "challenger": 0.0388,
      "challengerLegs": [
       "model",
       "usage"
@@ -18824,7 +18807,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.048,
+     "usage": 0.0483,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -18867,11 +18850,11 @@
         "factor": 1.0113,
         "league": 0.7816
        },
-       "hi": 1.1789,
-       "leagueDefense": 0.3049,
+       "hi": 1.1745,
+       "leagueDefense": 0.305,
        "lo": 0,
        "mean": 0.3084,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "0.3 without this defense. KC allows FBs a 81% catch rate versus 78% league."
       },
       "recYd": {
@@ -18880,11 +18863,11 @@
         "factor": 1.0195,
         "league": 5.6468
        },
-       "hi": 12.529,
-       "leagueDefense": 2.1538,
+       "hi": 12.4379,
+       "leagueDefense": 2.1546,
        "lo": 0,
-       "mean": 2.1957,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "mean": 2.1965,
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "2 without this defense. KC allows FBs 6.0 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -18893,11 +18876,11 @@
         "factor": 0.863,
         "league": 4.1316
        },
-       "hi": 15.5995,
+       "hi": 15.9037,
        "leagueDefense": 6.2432,
        "lo": 0,
        "mean": 5.3877,
-       "source": "held-out errors, RB|primary|available (n=50)",
+       "source": "held-out errors, RB|primary|available (n=52)",
        "text": "6 without this defense. KC allows FBs 3.2 yards a carry versus 4.1 league."
       }
      }
@@ -19134,11 +19117,11 @@
         "factor": 0.9332,
         "league": 0.6197
        },
-       "hi": 2.2569,
-       "leagueDefense": 0.8557,
+       "hi": 2.2457,
+       "leagueDefense": 0.856,
        "lo": 0,
-       "mean": 0.7986,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 0.7988,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.9 without this defense. KC allows WRs a 54% catch rate versus 62% league."
       },
       "recYd": {
@@ -19147,11 +19130,11 @@
         "factor": 0.8943,
         "league": 8.0888
        },
-       "hi": 31.0602,
-       "leagueDefense": 11.2733,
+       "hi": 30.9217,
+       "leagueDefense": 11.2774,
        "lo": 0,
-       "mean": 10.0822,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "mean": 10.0859,
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "11 without this defense. KC allows WRs 6.4 yards a target versus 8.1 league."
       },
       "rushYd": {
@@ -19164,7 +19147,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, WR|reserve|available (n=157)",
+       "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0 without this defense. KC allows WRs 4.7 yards a carry versus 5.1 league."
       }
      }
@@ -19181,7 +19164,7 @@
       0.0082
      ],
      "ceiling": 0.5,
-     "challenger": 0.0154,
+     "challenger": 0.0155,
      "challengerLegs": [
       "model",
       "usage"
@@ -19231,7 +19214,7 @@
      "passTd": {
       "attemptShare": 0.0447,
       "display": "0.1",
-      "expected": 0.0514,
+      "expected": 0.0512,
       "interval": [
        0,
        0
@@ -19245,7 +19228,7 @@
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.148
+      "teamReceivingLambda": 1.1454
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/3892775.png",
@@ -19375,7 +19358,7 @@
      "team": "DEN",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.0681,
+     "usage": 0.0684,
      "verified": true,
      "verifyReason": "On DEN nflverse roster (week 7, ACT)",
      "vol": {
@@ -19426,10 +19409,10 @@
         "factor": 0.9373,
         "league": null
        },
-       "hi": 61.7713,
-       "leagueDefense": 10.2293,
+       "hi": 61.7277,
+       "leagueDefense": 10.2165,
        "lo": 0,
-       "mean": 8.1498,
+       "mean": 8.1397,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "10 without this defense; opponent factor 0.94 from how this offense uses WRs, TEs, and backs."
       },
@@ -19824,12 +19807,12 @@
     "away": {
      "tdBudget": 2.410479936465386,
      "team": "KC",
-     "teamLambda": 1.893754231411429
+     "teamLambda": 1.8904336277799552
     },
     "home": {
      "tdBudget": 2.410479936465386,
      "team": "DEN",
-     "teamLambda": 1.9185772338148894
+     "teamLambda": 1.915939557746105
     }
    },
    "week": 8,
