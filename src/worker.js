@@ -46,11 +46,11 @@ async function loadArchive(season, week, signal) {
 }
 // endzone-4.6: the challenger is the 3-way blend (model, Sleeper, usage leg from the shipped weekly table);
 // legacy archives that still carry a logistic fit keep working.
-function challengerFn(a) { const c = a?.challenger; if (a?.usage || c?.kind === BLEND_KIND) return blendChallenger(a.usage || null); return c?.fit ? (p => challengerProbability({ fit: c.fit }, p, null, null)) : null; }
+function challengerFn(a) { const c = a?.challenger; if (a?.usage || c?.kind === BLEND_KIND) return blendChallenger(a.usage || null, a.drives || null); return c?.fit ? (p => challengerProbability({ fit: c.fit }, p, null, null)) : null; }
 
 function compute(weights) {
   const a = state.archive || {}; const cal = a.activeCalibration || {};
-  const common = { ix: state.ix, identity: state.identity, lessons: cal.active || null, lessonsUnplayed: cal.unplayed || null, errorModel: a.uncertainty?.errorModel || null, coverage: a.uncertainty?.coverage || null, challenger: challengerFn(a), useChallenger: !!componentState().challenger?.enabled, trendHistory: a.trendHistory || [], now: Date.now() };
+  const common = { ix: state.ix, identity: state.identity, lessons: cal.active || null, lessonsUnplayed: cal.unplayed || null, errorModel: a.uncertainty?.errorModel || null, coverage: a.uncertainty?.coverage || null, challenger: challengerFn(a), useChallenger: !!componentState().challenger?.enabled, drives: a.drives || null, useDrives: !!componentState().drives?.enabled, trendHistory: a.trendHistory || [], now: Date.now() };
   // production (default-weight) run supplies frozen/reconstructed started games
   if (!state.base) state.base = runEngine(state.prep, { ...common, weights: DEFAULT_WEIGHTS });
   const live = sameWeights(weights, DEFAULT_WEIGHTS) ? state.base : runEngine(state.prep, { ...common, weights });

@@ -17,10 +17,14 @@ export function identityFor(ix, prep, asOfWeek = null) {
   return buildIdentity({ players: prep.players, roster: prep.roster, idmap: prep.idmap, recentByGsis, recentBySleeper, currentWeek: asOfWeek != null ? Math.min(prep.currentWeek ?? 18, asOfWeek) : prep.currentWeek });
 }
 
-export function runEngine(prep, { weights, lessons = null, lessonsUnplayed = null, now = Date.now(), week = prep.week, errorModel = null, coverage = null, challenger = null, ix = null, identity = null, pubTdBlend, stackFit, budgetFit, volCal, exp, caps, useChallenger = false, trendWeights, trendHistory } = {}) {
+import { driveAdjustFor } from './drive-adjust.js';
+export function runEngine(prep, { weights, lessons = null, lessonsUnplayed = null, now = Date.now(), week = prep.week, errorModel = null, coverage = null, challenger = null, ix = null, identity = null, pubTdBlend, stackFit, budgetFit, volCal, exp, caps, useChallenger = false, trendWeights, trendHistory, drives = null, useDrives = false } = {}) {
+  // drive-pattern adjustment in the ACTIVE model only when the weekly gate enabled it (components.drives); weight = walk-forward model weight
+  const dW = useDrives ? (drives?.fit?.weight?.model || 0) : 0;
+  const driveAdjust = drives && dW > 0 ? (p, sc) => driveAdjustFor(drives, p, { opp: sc.opp, spread: sc.spread, weight: dW }) : null;
   ix = ix || buildIndex(prep);
   identity = identity || identityFor(ix, prep, week);
-  const fw = forecastWeek(ix, identity, { season: prep.season, week, weights, lessons, lessonsUnplayed, now, errorModel, coverage, pubTdBlend, stackFit, budgetFit, volCal, exp, caps, trendWeights, trendHistory });
+  const fw = forecastWeek(ix, identity, { season: prep.season, week, weights, lessons, lessonsUnplayed, now, errorModel, coverage, pubTdBlend, stackFit, budgetFit, volCal, exp, caps, trendWeights, trendHistory, driveAdjust });
   const games = fw.games.map(G => {
     const sides = {};
     for (const s of ['away', 'home']) {
@@ -29,8 +33,8 @@ export function runEngine(prep, { weights, lessons = null, lessonsUnplayed = nul
       for (const p of players) { p.sideImplied = S.implied ?? null; p.sideSpread = S.spread ?? null; }
       if (challenger) {
         // challenger may return a number (legacy logistic) or { p, legs, usage } (endzone-4.6 blend)
-        const ctx = { implied: S.implied ?? null, spread: S.spread ?? null, home: s === 'home' };
-        for (const p of players) { const c = challenger(p, ctx); if (c && typeof c === 'object') { p.challenger = c.p; p.challengerLegs = c.legs; p.usageProb = c.usage; } else p.challenger = c ?? null; }
+        const ctx = { implied: S.implied ?? null, spread: S.spread ?? null, home: s === 'home', opp: G.sides[s === 'home' ? 'away' : 'home']?.team ?? S.opp ?? null };
+        for (const p of players) { const c = challenger(p, ctx); if (c && typeof c === 'object') { p.challenger = c.p; p.challengerLegs = c.legs; p.usageProb = c.usage; p.blendDrives = c.drives?.after ?? null; p.driveAdj = c.drives?.adj ?? null; } else p.challenger = c ?? null; }
         // reapply the shared team scoring budget to the shadow probabilities (not for the blend: it is a calibrated
         // combination of three already-budgeted/published forecasts and was validated without re-scaling)
         if (!challenger.noBudget) {

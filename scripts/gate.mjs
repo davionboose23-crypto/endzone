@@ -5,7 +5,7 @@
 //    do not regress (point estimate). 2) Challenger: enabled only if promotionDecision (prospective pairs) passes.
 // 3) Refresh the team-budget and volume-band fits for the next week. Decisions are logged to archive/state.json
 //    and src/calibration-fits.json (components), which the engine and the Pages build read.
-import fs from 'node:fs'; import zlib from 'node:zlib';
+import fs from 'node:fs'; import zlib from 'node:zlib'; import path from 'node:path';
 import { loadSeason, gradeWeek } from './hist/build.mjs';
 import { pairedBoot, r4 } from './hist/metrics.mjs';
 import { fitBudget, fitVolCal, fitCaps } from '../src/calibration.js';
@@ -43,6 +43,13 @@ const allFit = fitCaps([...prior, ...fixedRows], { K: 100 }); const capsOn = rea
 const capsDecision = { enabled: capsOn, decidedAt: now, throughWeek: full, reason: capsOn ? `passed: Brier ${ev.all.dBrier} [${ev.all.dBrierCI}], log loss ${ev.all.dLogLoss} [${ev.all.dLogLossCI}] over ${ev.all.games} games` : `withheld: ${reasons.join('; ')}`, evaluation: ev, fit: allFit ? { pullT: allFit.pullT, pullS: allFit.pullS, ceil: allFit.ceil, cold: allFit.cold, fin: allFit.fin, floor: allFit.floor } : null };
 const A = await FileArchive.open(ARCH); const st = A.state(); const promo = st.promotion;
 const chDecision = { enabled: !!promo?.promote, decidedAt: now, reason: promo ? (promo.promote ? 'passed the prospective promotion rule' : `withheld: ${promo.reasons.join(' ')}`) : 'no prospective validation yet' };
+// 3b) drive patterns (app 4.8): the "blend + drives" challenger must pass the same prospective promotion rule AND the
+//     walk-forward fit (archive/drives/fit.json, refit every Tuesday) must give the model a positive weight. Only then does
+//     the active model apply the drive adjustment (before the safety caps); otherwise weight 0.
+const dPromo = st.drivesPromotion; let dFit = null; try { dFit = JSON.parse(fs.readFileSync(path.join(ARCH, 'drives', 'fit.json'), 'utf8')); } catch {}
+const dW = dFit?.weight?.model || 0; const dOn = !!dPromo?.promote && dW > 0;
+const drDecision = { enabled: dOn, decidedAt: now, weight: dOn ? dW : 0, fitWeight: dFit?.weight || null,
+  reason: dOn ? `enabled: passed the prospective promotion rule; walk-forward model weight ${dW}` : `withheld: ${[!dPromo ? 'no prospective blend + drives snapshots graded yet' : (dPromo.promote ? null : `prospective rule: ${(dPromo.reasons || []).join(' ')}`), dW > 0 ? null : 'walk-forward weight is 0 (drive patterns did not lower log loss on earlier weeks)'].filter(Boolean).join('; ')}` };
 // 4) trends agent: re-evaluate every family walk-forward (see scripts/trend-gate.mjs)
 const TG = process.env.ENDZONE_SKIP_TRENDS ? null : trendGate(S, full, gradeWeek, TW, { log: (...a) => console.log('trends', ...a) });
 const anyTrend = TG && Object.values(TG.weights).some(w => w > 0);
@@ -52,7 +59,7 @@ const FITS = readJson(FITS_FILE, { fits: [] });
 const train = [...prior, ...fixedRows];
 const entry = { season: yr, week: nextWeek, budget: fitBudget(train), volcal: fitVolCal(train), ...(capsOn ? { caps: capsDecision.fit } : {}), ...(anyTrend ? { trendWeights: TG.weights } : {}) };
 FITS.fits = FITS.fits.filter(f => !(f.season === yr && f.week === nextWeek)).concat(entry).sort((a, b) => a.season - b.season || a.week - b.week);
-FITS.components = { caps: { ...capsDecision, evaluation: undefined }, challenger: chDecision, ...(trDecision ? { trends: trDecision } : (FITS.components?.trends ? { trends: FITS.components.trends } : {})), modelVersion: MODEL_VERSION };
+FITS.components = { caps: { ...capsDecision, evaluation: undefined }, challenger: chDecision, drives: drDecision, ...(trDecision ? { trends: trDecision } : (FITS.components?.trends ? { trends: FITS.components.trends } : {})), modelVersion: MODEL_VERSION };
 writeJson(FITS_FILE, FITS);
 st.decisions = [{ at: now, season: yr, throughWeek: full, caps: { enabled: capsOn, reason: capsDecision.reason, evaluation: ev }, challenger: chDecision, trends: trDecision }, ...(st.decisions || [])].slice(0, 30);
 st.components = FITS.components; A.saveState(st);

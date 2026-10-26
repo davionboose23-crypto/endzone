@@ -2,7 +2,7 @@
 # Captures pregame snapshots strictly before kickoff (first + latest), grades finished games once official stats
 # exist, updates lessons/validation, runs the weekly auto-calibration gate (Tuesdays), commits archive/ changes
 # with GITHUB_TOKEN only, and rebuilds + redeploys Pages. The usage-model leg of the blend challenger is refit from
-# nflverse pre-game usage (scripts/usage/build.mjs) on the Tuesday run / manual runs, or whenever a week's table is missing. Drive patterns (scripts/drives/build.mjs, display-only) follow the same cadence. Times are UTC; GitHub may delay scheduled runs.
+# nflverse pre-game usage (scripts/usage/build.mjs) on the Tuesday run / manual runs, or whenever a week's table is missing. Drive patterns (scripts/drives/build.mjs) follow the same cadence; on Tuesdays (--fit) the drive-pattern adjustment is re-fit and re-tested walk-forward (archive/drives/fit.json) and the gate decides whether the active model uses it. Times are UTC; GitHub may delay scheduled runs.
 name: Archive, grade and redeploy
 on:
   schedule:
@@ -48,9 +48,11 @@ jobs:
             node scripts/usage/build.mjs --if-missing
           fi
       - name: Drive patterns (weekly rebuild; otherwise only when this or next week's file is missing)
-        continue-on-error: true   # display-only: if nflverse is down the app just shows last week's drive patterns
+        continue-on-error: true   # if nflverse is down the app keeps last week's drive file (and its weight)
         run: |
-          if [ "${{ github.event.schedule }}" = "0 12 * * 2" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "${{ github.event.schedule }}" = "0 12 * * 2" ] || [ "${{ inputs.gate }}" = "true" ]; then
+            node scripts/drives/build.mjs --fit   # Tuesday: re-fit + re-test the drive-pattern adjustment walk-forward
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             node scripts/drives/build.mjs
           else
             node scripts/drives/build.mjs --if-missing

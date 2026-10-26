@@ -19,7 +19,8 @@ const sum = (a, f) => a.reduce((s, x) => s + f(x), 0);
 export function chanceBandKey(p) { return p < 0.15 ? 'lt15' : p < 0.25 ? '15to25' : p < 0.35 ? '25to35' : p < 0.5 ? '35to50' : '50plus'; }
 
 // Week context shared by every game: league rates, matchup tables, team totals (all before cutoff).
-export function weekContext(ix, identity, { season, week, weights, lessons = null, now = Date.now(), errorModel = null, coverage = null, pubTdBlend, stackFit, budgetFit, volCal, exp = null, caps, trendWeights, trendHistory = null }) {
+import { compactDrive } from './drive-adjust.js';
+export function weekContext(ix, identity, { season, week, weights, lessons = null, now = Date.now(), errorModel = null, coverage = null, pubTdBlend, stackFit, budgetFit, volCal, exp = null, caps, trendWeights, trendHistory = null, driveAdjust = null }) {
   // endzone-4.2: shipped walk-forward fits (trained only on games before this week) unless the caller overrides; pass false to disable.
   const shipped = fitFor(season, week);
   if (budgetFit === undefined) budgetFit = shipped?.budget ? { ...shipped.budget, id: shipped.id } : null;
@@ -43,7 +44,7 @@ export function weekContext(ix, identity, { season, week, weights, lessons = nul
   for (const a of teamRz.values()) { a.rzRush /= a.n; a.rzTgt /= a.n; }
   const lgRzPg = lgN ? lgRz / lgN : null;
   const qbRows = rows.filter(r => r.pos === 'QB' && r.att > 0); const lgYpa = sum(qbRows, r => r.passYd) / Math.max(1, sum(qbRows, r => r.att)) || 6.6;
-  return { ix, identity, season, week, weights: sanitizeWeights(weights), lessons, now, league, T, teamTotals, byTeam, teamRz, defRz, lgRzPg, lgYpa, rows, errorModel, coverage, pubTdBlend: pubTdBlend ?? PUB_TD_BLEND, stackFit: stackFit || null, budgetFit: budgetFit || null, volCal: volCal || null, exp: exp || {}, caps: caps || null, capsEff: sanitizeCaps(caps), trendWeights: trendWeights || (shipped?.trendWeights ? { ...shippedTrendWeights(), ...shipped.trendWeights } : shippedTrendWeights()), trendHistory: trendHistory || [], defTrendCache: new Map() };
+  return { ix, identity, season, week, weights: sanitizeWeights(weights), lessons, now, league, T, teamTotals, byTeam, teamRz, defRz, lgRzPg, lgYpa, rows, errorModel, coverage, pubTdBlend: pubTdBlend ?? PUB_TD_BLEND, stackFit: stackFit || null, budgetFit: budgetFit || null, volCal: volCal || null, exp: exp || {}, caps: caps || null, capsEff: sanitizeCaps(caps), trendWeights: trendWeights || (shipped?.trendWeights ? { ...shippedTrendWeights(), ...shipped.trendWeights } : shippedTrendWeights()), trendHistory: trendHistory || [], defTrendCache: new Map(), driveAdjust: typeof driveAdjust === 'function' ? driveAdjust : null };
 }
 
 function sideContext(W, game, side) {
@@ -206,6 +207,9 @@ export function computeSide(W, game, side, { override = null, historical = false
     const recentFinisher = i10Season > 0 && i10Recent / i10Season >= 0.45 && i10RecentScores >= 2 && i10Recent > 0 && i10RecentScores / i10Recent >= 0.4;
     const insideFinisher = recentFinisher || (i10Season >= 4 && teamI10 > 0 && i10Season / teamI10 >= 0.2);
     let lam = rawLambda; const lessonNotes = [];
+    // drive-pattern adjustment (app 4.8): only when the weekly gate enabled it (weight 0 otherwise); BEFORE the safety caps
+    p.driveActive = null;
+    if (W.driveAdjust) { const a = W.driveAdjust(p, sc); if (a && a.logm) { const before = anytimeFromLambda(lam); lam *= a.mult; p.driveActive = compactDrive(a, before); } }
     const band0 = chanceBandKey(anytimeFromLambda(lam));
     const bscale = W.lessons?.band?.[band0];
     if (bscale && bscale !== 1 && !(band0 === '35to50' && insideFinisher)) { lam *= bscale; lessonNotes.push(`Learned from finished games: ${band0} chances scaled ×${bscale.toFixed(2)} (from the last three weeks).`); }
@@ -412,7 +416,7 @@ export function compactPrediction(p, side) {
     glShare: r(p.glShare), insideFinisher: p.insideFinisher, recentFinisher: p.recentFinisher, coldGoal: p.coldGoal, scriptSensitive: p.scriptSensitive,
     scenarios: p.scenarios, safetyNotes: p.safetyNotes, lessonNotes: p.lessonNotes, conversionNote: p.conversionNote, segment: p.segment,
     spots: Object.fromEntries(Object.entries(p.spots).map(([k, s]) => [k, { opps: r(s.opps), rate: r(s.rate), expected: r(s.expected), looks: s.looks, scores: s.scores }])),
-    matchupFactor: r(p.matchupFactor), challenger: r(p.challenger ?? null), challengerLegs: p.challengerLegs || null, usage: r(p.usageProb ?? null), implied: p.sideImplied ?? null, spread: p.sideSpread ?? null,
+    matchupFactor: r(p.matchupFactor), challenger: r(p.challenger ?? null), challengerLegs: p.challengerLegs || null, usage: r(p.usageProb ?? null), blendDrives: r(p.blendDrives ?? null), driveAdj: p.driveAdj || null, driveActive: p.driveActive || null, implied: p.sideImplied ?? null, spread: p.sideSpread ?? null,
     ceiling: p.ceiling ?? null, preSafety: r(p.preSafety), preStack: r(p.preStack), stacked: p.stacked ? { before: r(p.stacked.before), after: r(p.stacked.after), fit: p.stacked.fit } : null, glShareRaw: r(p.share?.r1 || 0), pubBlend: p.pubBlend ? { weight: r(p.pubBlend.weight), before: r(p.pubBlend.before) } : null, recentRzLooks: p.recentRzLooks ?? null, gamesPlayed: p.f?.n ?? null, i10Exp: r(p.i10Exp), lambdaRaw: r(p.lambdaRaw),
   };
 }

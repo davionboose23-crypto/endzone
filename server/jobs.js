@@ -7,6 +7,8 @@ import { buildIndex } from '../src/stats-index.js';
 import { gradeGame, snapshotFromGame } from '../src/grading.js';
 import { weeklyLesson, activeLessons, withInWeekNudge, describeLessons } from '../src/research.js';
 import { componentState } from '../src/calibration.js';
+import { DRIVES_KIND } from '../src/drive-adjust.js';
+import { pairedBoot as pairedBootLite } from '../src/drive-score.js';
 import { volumeErrorModel, promotionDecision } from '../src/validation.js';
 import { tdReport, volumeReport } from '../src/evaluation.js';
 import { MODEL_VERSION, DEFAULT_WEIGHTS } from '../src/model.js';
@@ -36,6 +38,11 @@ export function monitorState(archive, graded, season) {
   const live = P.filter(r => r.blendSource === 'live' && r.modelVersion === MODEL_VERSION).map(r => ({ ...r, challenger: r.blend }));
   const all = P.filter(r => r.blend != null).map(r => ({ ...r, challenger: r.blend }));
   return { live: monitorReport(live, { label: `prospective ${MODEL_VERSION} snapshots (counts toward the gate)` }), withBackfill: monitorReport(all, { label: 'all frozen snapshots; weeks before 4.6.0 scored with a walk-forward backfilled blend' }), retroWeeks: [...new Set(P.filter(r => r.blendSource === 'retro').map(r => r.week))].sort((a, b) => a - b) };
+}
+// Live scoreboard: prospective rows that recorded the "blend + drives" challenger (app 4.8+), vs the blend and the model.
+export function drivesMonitor(graded) {
+  const R = graded.filter(r => r.prospective && r.blendDrives != null && r.challenger != null && r.chance > 0);
+  return { n: R.length, games: new Set(R.map(r => r.gameId)).size, withDrives_vs_blend: pairedBootLite(R, 'blendDrives', 'challenger'), withDrives_vs_model: pairedBootLite(R, 'blendDrives', 'chance'), moved: R.filter(r => Math.abs(r.blendDrives - r.challenger) > 1e-6).length };
 }
 // Graded rows for earlier weeks: frozen snapshots preferred, otherwise reconstructed (labeled).
 export function gradedHistory(archive, prep, ix, season, uptoWeek, { lessonFree = true } = {}) {
@@ -73,10 +80,11 @@ export function calibrationState(archive, prep, ix, season, week) {
   // endzone-4.6 challenger: 3-way blend (model, Sleeper, nflverse usage leg); the old logistic challenger is retired
   const usage = typeof archive.usage === 'function' ? archive.usage(season, week) : null;
   const challenger = { ...blendStatus(usage, { season, week }), trainingCount: graded.length, modelVersion: MODEL_VERSION };
-  const challengerFn = blendChallenger(usage);
+  const drives = typeof archive.drives === 'function' ? archive.drives(season, week) : null;
+  const challengerFn = blendChallenger(usage, drives);
   const prosp = graded.filter(r => r.prospective);
   const vem = volumeErrorModel(prosp);
-  return { hist, cur, lessonsByWeek, active, inWeek, unplayedLessons: withInWeekNudge(active, inWeek), challenger, challengerFn, usage, errorModel: vem.errorModel, coverage: vem.coverage, graded, trendHistory: graded.map(r => ({ id: r.id, week: r.week, chance: r.chance, y: r.y })) };
+  return { hist, cur, lessonsByWeek, active, inWeek, unplayedLessons: withInWeekNudge(active, inWeek), challenger, challengerFn, usage, drives, errorModel: vem.errorModel, coverage: vem.coverage, graded, trendHistory: graded.map(r => ({ id: r.id, week: r.week, chance: r.chance, y: r.y })) };
 }
 
 async function runRefresh(archive, { season, week, now = () => Date.now(), prep: givenPrep = null } = {}) {
@@ -91,7 +99,7 @@ async function runRefresh(archive, { season, week, now = () => Date.now(), prep:
     for (const [w, L] of Object.entries(cal.lessonsByWeek)) archive.saveLesson(prep.season, +w, L);
     details.steps.push(`lessons for weeks ${Object.keys(cal.lessonsByWeek).join(',') || 'none'}`);
     const cutoffIso = new Date(now()).toISOString();
-    const res = runEngine(prep, { ix, week: prep.week, weights: DEFAULT_WEIGHTS, lessons: cal.active, lessonsUnplayed: cal.unplayedLessons, now: now(), errorModel: cal.errorModel, coverage: cal.coverage, challenger: cal.challengerFn, useChallenger: !!componentState().challenger?.enabled, trendHistory: cal.trendHistory });
+    const res = runEngine(prep, { ix, week: prep.week, weights: DEFAULT_WEIGHTS, lessons: cal.active, lessonsUnplayed: cal.unplayedLessons, now: now(), errorModel: cal.errorModel, coverage: cal.coverage, challenger: cal.challengerFn, useChallenger: !!componentState().challenger?.enabled, drives: cal.drives, useDrives: !!componentState().drives?.enabled, trendHistory: cal.trendHistory });
     let saved = 0, skipped = 0;
     const meta = { modelVersion: MODEL_VERSION, weights: res.weights, inputTimestamps: Object.fromEntries(Object.entries(prep.sources).map(([k, s]) => [k, s.fetchedAt])), sourceAvailability: Object.fromEntries(Object.entries(prep.sources).map(([k, s]) => [k, s.ok])),
       lessonsLabel: cal.active.label, challenger: { status: cal.challenger.status, reason: cal.challenger.reason, trainingCutoff: cal.challenger.cutoff, trainingCount: cal.challenger.trainingCount, usage: cal.challenger.usage, capturedCutoff: cutoffIso } };
@@ -109,10 +117,13 @@ async function runRefresh(archive, { season, week, now = () => Date.now(), prep:
     const report = tdReport(cal.graded); const vol = volumeReport(cal.graded);
     const pairs = cal.graded.filter(r => r.challenger != null).map(r => ({ ...r }));
     const promo = promotionDecision(pairs, { modelVersion: MODEL_VERSION, kind: BLEND_KIND });
+    // app 4.8: "blend + drives" second challenger, same prospective rule (its own kind; only snapshots that recorded it)
+    const dPairs = cal.graded.filter(r => r.blendDrives != null).map(r => ({ ...r, challenger: r.blendDrives, challengerKind: DRIVES_KIND }));
+    const drivesPromo = promotionDecision(dPairs, { modelVersion: MODEL_VERSION, kind: DRIVES_KIND });
     const monitor = monitorState(archive, cal.graded, prep.season);
-    archive.saveExperiment({ season: prep.season, week: prep.week, kind: 'validation', modelVersion: MODEL_VERSION, trainingCutoff: JSON.stringify(cal.challenger.cutoff), payload: { summary: summarizeReport(report), volume: vol, promotion: promo, challenger: cal.challenger, monitor } });
+    archive.saveExperiment({ season: prep.season, week: prep.week, kind: 'validation', modelVersion: MODEL_VERSION, trainingCutoff: JSON.stringify(cal.challenger.cutoff), payload: { summary: summarizeReport(report), volume: vol, promotion: promo, drivesPromotion: drivesPromo, challenger: cal.challenger, monitor, drivesMonitor: drivesMonitor(cal.graded) } });
     details.steps.push('validation updated');
-    details.learned = { active: { vol: cal.active.vol, band: cal.active.band, spot: cal.active.spot, basis: cal.active.basis, label: cal.active.label }, describe: describeLessons(cal.active), inWeek: cal.inWeek?.applied ? { confirmed: cal.inWeek.confirmed } : null, promotion: { promote: promo.promote, reasons: promo.reasons } };
+    details.learned = { active: { vol: cal.active.vol, band: cal.active.band, spot: cal.active.spot, basis: cal.active.basis, label: cal.active.label }, describe: describeLessons(cal.active), inWeek: cal.inWeek?.applied ? { confirmed: cal.inWeek.confirmed } : null, promotion: { promote: promo.promote, reasons: promo.reasons }, drivesPromotion: { promote: drivesPromo.promote, reasons: drivesPromo.reasons, metrics: drivesPromo.metrics, monitor: drivesMonitor(cal.graded) } };
     archive.finishRun(runId, details.partial.length ? 'partial' : 'success', details);
     return { ok: true, runId, status: details.partial.length ? 'partial' : 'success', details };
   } catch (e) {

@@ -5,6 +5,7 @@ import { sortPlayers, SORTS, SORT_GROUPS, compareDefault } from '/src/ranking.js
 import { teamLogo } from '/src/roster.js';
 import { snapshotPassTd } from '/src/passing-touchdowns.js';
 import { buildBrief, analyze, PROVIDERS } from '/src/analyst.js';
+import { driveAdjustFor, applyToChance, pLead } from '/src/drive-adjust.js';
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -108,12 +109,13 @@ function trendCard(t) {
    <footer class="small muted"><span>${esc(t.mode)}${t.mode === 'active' ? ` · weight ${t.weight}` : ''}</span><details><summary>Evidence</summary>${ev} · strength ${t.strength.toFixed(2)} · first detected week ${t.firstDetectedWeek ?? '—'}</details></footer></article>`;
 }
 // ---- Drive-trends agent (scripts/drives/build.mjs -> archive/drives/<season>/w<week>.json). Display-only unless
-// the walk-forward prediction test adopted it (D.prediction.adopted); the model's number never reads this section.
+// app 4.8: the model reads the patterns through src/drive-adjust.js (weight fitted walk-forward, gated; 0 = shown, moves nothing).
 const drivesData = () => S.slate?.drives || null;
 const driveRow = p => { const D = drivesData(); if (!D) return null; const g = p.gsis && D.players[p.gsis] ? p.gsis : D.bySleeper?.[p.id]; return g ? D.players[g] : null; };
 const relChip = r => `<span class="chip rel-${esc(r)}">${esc(r)}</span>`;
 const pct0 = x => (x == null ? '—' : `${Math.round(x * 100)}%`);
 function driveStatusLine(D) {
+  if (D?.fit) { const g = S.slate?.learned?.components?.drives; return g?.enabled ? `Used in the model at weight ${esc(String(g.weight))} (±10% cap, before the safety caps).` : `The model computes a drive-pattern adjustment for every player with a pattern; ${D.fit.weight.model || D.fit.weight.blend ? `the "blend + drives" challenger uses weight ${esc(String(D.fit.weight.blend))}` : 'the walk-forward weight is 0, so it moves chances by 0'} and the headline chance uses it only after the gate passes.`; }
   const P = D?.prediction; if (!P) return 'Display-only: drive patterns do not change any chance.';
   return P.adopted ? `Used in predictions: ${esc(P.note || '')}` : `Display-only: ${esc(P.note || 'drive features did not significantly improve walk-forward Brier / log loss, so they do not change any chance.')}`;
 }
@@ -136,7 +138,12 @@ function drivePanelHtml(p) {
     `Second-half touches per drive: <strong>${a.leadPerDrive.toFixed(1)}</strong> leading · <strong>${a.trailPerDrive.toFixed(1)}</strong> trailing`,
   ].filter(Boolean);
   const pats = r.patterns || [];
-  return `${driveChartHtml(r)}
+  const me = allPlayers().find(x => x.id === p.id); const gm = me && (S.slate.games || []).find(x => x.id === me.gameId);
+  const sp = gm?.sides.away.lines?.known ? (gm.sides.away.team === p.team ? gm.sides.away.lines.awaySpread : -gm.sides.away.lines.awaySpread) : null;
+  const gs = p.gsis && D.players[p.gsis] ? p.gsis : D.bySleeper?.[p.id];
+  const mv = me ? modelView(D, gs, { opp: me.opp, spread: sp, chance: p.chance ?? null, blend: p.challenger ?? null }) : null;
+  const seen = mv ? `<h4>What the model sees</h4><ul class="mvlist small">${modelViewHtml(D, mv, { name: false })}</ul>` : '<h4>What the model sees</h4><p class="small muted">No pattern or watch item for him: the drive adjustment is ×1.00.</p>';
+  return `${seen}${driveChartHtml(r)}
    <h4>Usage profile</h4><ul class="small dprof">${prof.map(x => `<li>${x}</li>`).join('')}</ul>
    <h4>Patterns that survived the checks</h4>${pats.length ? `<ul class="small dpats">${pats.map(t => `<li>${relChip(t.rel)} ${esc(t.text.replace(/, (strong|moderate)\)$/, ')'))}${t.own?.weeks && t.own.retention != null ? ` <span class="muted">· ${t.own.retention >= 1 ? 'fully held up' : t.own.retention > 0 ? `kept ${Math.round(t.own.retention * 100)}% of its edge` : 'did not hold up'} over ${t.own.weeks} later week${t.own.weeks > 1 ? 's' : ''}</span>` : ''}</li>`).join('')}</ul>`
      : `<p class="small">None for him. ${D.counts ? `League-wide only ${D.counts.drive.fdr} of ${D.counts.drive.tests.toLocaleString()} exact drive-number tests survived FDR (${D.counts.drive.raw05} hit p&lt;0.05 vs ${D.counts.drive.expectedByChance} expected by chance), so "N catches on the 3rd drive" style claims are almost always noise.` : ''}</p>`}
@@ -147,13 +154,181 @@ function drivesTrendsHtml() {
   const inSlate = new Map(); for (const g of S.slate.games || []) for (const sd of ['away', 'home']) for (const p of g.sides[sd].players) { const k = p.gsis && D.players[p.gsis] ? p.gsis : D.bySleeper?.[p.id]; if (k) inSlate.set(k, { g, p }); }
   const top = (D.top || []).filter(t => t.rel === 'strong' || t.rel === 'moderate').slice(0, 15); const C = D.counts, P = D.persistence;
   const ret = x => x?.retention != null ? `${Math.round(x.retention * 100)}% [${Math.round(x.ciLo * 100)}–${Math.round(x.ciHi * 100)}%]` : '—';
-  return `<div class="card drivescard" id="drivePatterns"><h2>Drive patterns · week ${D.week}</h2>
+  return `<div class="card drivescard" id="drivePatterns"><h2>Drive patterns · week ${D.week}</h2>${S.tab !== 'drives' ? '<p><button class="btn gold" data-act="gotab" data-tab="drives">Open the Drives section (team / matchup)</button></p>' : ''}
    <p class="small">Every team drive since ${D.season - 1}, per player: who gets the touches on which drive and in which game phase. ${driveStatusLine(D)}</p>
    <div class="kv small"><div>Exact drive-number patterns<br><strong>${C.drive.fdr} of ${C.drive.tests.toLocaleString()}</strong> survive FDR <span class="muted">(${C.drive.raw05} at p&lt;0.05, ${C.drive.expectedByChance} expected by chance)</span></div>
      <div>Phase patterns<br><strong>${C.phase.fdr} of ${C.phase.tests.toLocaleString()}</strong> survive FDR <span class="muted">(${C.phase.raw05} at p&lt;0.05, ${C.phase.expectedByChance} by chance)</span></div>
      <div>Out-of-sample lift kept<br>drive # <strong>${ret(P?.drive?.fdr)}</strong> · phase <strong>${ret(P?.phase?.fdr)}</strong></div></div>
    <ol class="dtop small">${top.map(t => { const s = inSlate.get(t.pid); const nm = s ? `<button class="plink" data-act="player" data-game="${esc(s.g.id)}" data-player="${esc(s.p.id)}">${esc(t.name)}</button>` : esc(t.name); return `<li>${relChip(t.rel)} <strong>${nm}</strong> <span class="muted">${esc(t.pos || '')} · ${esc(t.team)}</span><br>${esc(t.text.replace(/, (strong|moderate)\)$/, ')'))}</li>`; }).join('') || '<li class="muted">No pattern passed the reliability checks this week.</li>'}</ol>
-   <p class="small muted">${D.appVersion ? `App ${esc(D.appVersion)} · model ${esc(D.modelVersion || '')} (${D.prediction?.adopted ? 'drive features feed the usage leg' : 'unchanged: drive patterns are display-only'}). ` : ''}Out-of-sample lift kept: patterns found through week N, scored on week N+1 (100% = the pattern held fully, 0% = it was noise around his normal share).</p></div>`;
+   <p class="small muted">${D.appVersion ? `App ${esc(D.appVersion)} · model ${esc(D.modelVersion || '')} (${S.slate?.learned?.components?.drives?.enabled ? 'drive adjustment active in the headline chance' : D.fit ? `headline unchanged; drive adjustment runs as the "blend + drives" challenger at weight ${D.fit.weight.blend}` : 'unchanged: drive patterns are display-only'}). ` : ''}Out-of-sample lift kept: patterns found through week N, scored on week N+1 (100% = the pattern held fully, 0% = it was noise around his normal share).</p></div>`;
+}
+// ---------- Drives section (app 4.8): team or matchup picker over the weekly drive file (archive/drives/<s>/w<w>.json).
+// Everything here is pre-game (drives before this week). "What the model sees" = the drive-pattern adjustment the engine
+// computes (src/drive-adjust.js); it moves a chance only by the walk-forward weight the Tuesday gate allows.
+const LS_DRIVES = 'endzone.drives.v1';
+S.dv = Object.assign({ mode: 'team', team: 'DET', game: '', a: '', b: '', n: 6, who: '' }, load(LS_DRIVES, {}));
+const saveDv = () => save(LS_DRIVES, S.dv);
+const PHASE_ROWS = [
+  ['open', 'Opening script (drives 1–2)', d => d[0] <= 2], ['rz', 'Red zone', d => (d[3] & 4) > 0], ['gtg', 'Goal to go', d => (d[3] & 8) > 0],
+  ['lead', 'Leading', d => d[2] > 0], ['trail', 'Trailing', d => d[2] < 0], ['two', 'Two-minute', d => (d[3] & 2) > 0], ['all', 'All drives', () => true]];
+const RES_LBL = { TD: 'Touchdown', FG: 'Field goal', MFG: 'Missed field goal', Punt: 'Punt', TO: 'Turnover', Downs: 'Turnover on downs', Half: 'End of half', Safety: 'Safety' };
+const ppSigned = x => (x == null || !Number.isFinite(x) ? '—' : `${x >= 0 ? '+' : '−'}${Math.abs(x * 100).toFixed(1)} pp`);
+const pctSigned = x => `${x >= 0 ? '+' : '−'}${Math.abs(x * 100).toFixed(1)}%`;
+const ord = n => `${n}${n % 10 === 1 && n % 100 !== 11 ? 'st' : n % 10 === 2 && n % 100 !== 12 ? 'nd' : n % 10 === 3 && n % 100 !== 13 ? 'rd' : 'th'}`;
+const slateIndex = D => { const M = new Map(); for (const g of S.slate?.games || []) for (const sd of ['away', 'home']) for (const p of g.sides[sd].players) { const k = p.gsis && D.players[p.gsis] ? p.gsis : D.bySleeper?.[p.id]; if (k) M.set(k, { g, p, sd }); } return M; };
+const teamGames = (D, team, n) => { const G = D.teams?.[team]?.games || []; return n === 'season' ? G : G.slice(-n); };
+function teamTendencies(D, team, n) {
+  const T = D.teams?.[team]; if (!T) return null; const G = teamGames(D, team, n); const people = T.people;
+  const rows = PHASE_ROWS.map(([k, label, f]) => {
+    const ds = G.flatMap(g => g.d.filter(f)); const tgt = ds.reduce((s, d) => s + d[6], 0), car = ds.reduce((s, d) => s + d[7], 0);
+    const who = new Map(); for (const d of ds) for (const x of d[8]) who.set(x[0], (who.get(x[0]) || 0) + x[1] + x[4]);
+    const tot = tgt + car; const top = [...who.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([pi, c]) => ({ name: people[pi][1], pos: people[pi][2], share: tot ? c / tot : 0 }));
+    return { k, label, drives: ds.length, plays: ds.length ? ds.reduce((s, d) => s + d[4], 0) / ds.length : null, pass: tot ? tgt / tot : null, rz: ds.length ? ds.filter(d => d[3] & 4).length / ds.length : null, td: ds.length ? ds.filter(d => d[5] === 'TD').length / ds.length : null, top };
+  });
+  return { games: G.length, rows };
+}
+function tendTable(t, compact = false) {
+  if (!t) return '<p class="small muted">No drive history for this team yet.</p>';
+  return `<div class="tablewrap" tabindex="0" role="region" aria-label="Tendencies by phase"><table class="dtend"><thead><tr><th scope="col">Phase</th><th scope="col">Drives</th>${compact ? '' : '<th scope="col">Plays / drive</th>'}<th scope="col">Pass share</th><th scope="col">Red zone</th><th scope="col">TD</th><th scope="col">Who gets the ball</th></tr></thead><tbody>
+   ${t.rows.map(r => `<tr${r.k === 'all' ? ' class="tot"' : ''}><th scope="row">${esc(r.label)}</th><td>${r.drives}</td>${compact ? '' : `<td>${n1(r.plays)}</td>`}<td>${pct0(r.pass)}</td><td>${r.k === 'rz' || r.k === 'gtg' ? '—' : pct0(r.rz)}</td><td>${pct0(r.td)}</td><td class="who">${r.top.map(x => `${esc(x.name.split(' ').slice(-1)[0])} <span class="muted">${pct0(x.share)}</span>`).join(', ') || '—'}</td></tr>`).join('')}</tbody></table></div>
+   <p class="small muted">Pass share = targets ÷ (targets + carries). "Who gets the ball" = share of the team's targets + carries on those drives. Red-zone rate = drives that reached the opponent's 20.</p>`;
+}
+function driveGrid(D, team, n) {
+  const T = D.teams?.[team]; if (!T) return ''; const G = teamGames(D, team, n).slice().reverse(); if (!G.length) return '';
+  const who = S.dv.who && T.people.findIndex(x => x[0] === S.dv.who); const pi = who >= 0 && who !== '' ? who : -1;
+  const maxN = Math.max(...G.map(g => g.d.length)); const cols = Array.from({ length: maxN }, (_, i) => i + 1);
+  const cell = (g, d) => {
+    if (!d) return '<td class="dg na"></td>'; const rz = d[3] & 4, td = d[5] === 'TD';
+    let body; if (pi >= 0) { const x = d[8].find(y => y[0] === pi); body = x ? `${x[1] ? `<span>${x[1]}t ${x[2]}c ${x[3]}y</span>` : ''}${x[4] ? `<span>${x[4]}r ${x[5]}y</span>` : ''}${x[7] ? '<b>TD</b>' : ''}` || '·' : '<span class="muted">·</span>'; }
+    else body = `<b>${esc(d[5])}</b><span>${d[6]}t ${d[7]}r</span>`;
+    return `<td class="dg${td ? ' td' : ''}${rz ? ' rz' : ''}"><button class="dgb" data-act="dcell" data-w="${g.w}" data-n="${d[0]}" aria-label="Week ${g.w} drive ${d[0]}: ${esc(RES_LBL[d[5]] || d[5])}">${body}</button></td>`;
+  };
+  return `<div class="row small" role="group" aria-label="Grid player"><label>Show <select class="select" id="dvWho"><option value="">Team (result, targets, carries)</option>${T.people.map(p => `<option value="${esc(p[0])}" ${S.dv.who === p[0] ? 'selected' : ''}>${esc(p[1])} · ${esc(p[2])}</option>`).join('')}</select></label></div>
+   <div class="tablewrap drivegrid" tabindex="0" role="region" aria-label="Drive-by-drive grid"><table class="dgrid"><thead><tr><th scope="col">Game</th>${cols.map(c => `<th scope="col">${c}</th>`).join('')}</tr></thead><tbody>
+   ${G.map(g => `<tr><th scope="row">W${g.w} <span class="muted">${esc(g.opp)}</span></th>${cols.map(c => cell(g, g.d[c - 1])).join('')}</tr>`).join('')}</tbody></table></div>
+   <div id="dcellOut" class="small dcellout" aria-live="polite"><span class="muted">Tap a drive for every player's line.</span></div>
+   <p class="small muted">${pi >= 0 ? 't = targets, c = catches, r = carries, y = yards.' : 't = targets, r = carries; result code on top.'} Gold = touchdown drive; outlined = reached the red zone. Newest game first; the grid scrolls inside its box.</p>`;
+}
+function dcellHtml(D, team, w, n) {
+  const T = D.teams?.[team]; const g = T?.games.find(x => x.w === +w); const d = g?.d.find(x => x[0] === +n); if (!d) return '';
+  return `<strong>Week ${g.w} vs ${esc(g.opp)} · drive ${d[0]}</strong> · ${esc(RES_LBL[d[5]] || d[5])} · ${d[4]} plays · ${d[1] === 1 ? '1st' : '2nd'} half · score ${d[2] > 0 ? '+' : ''}${d[2]}${d[3] & 4 ? ' · red zone' : ''}${d[3] & 8 ? ' · goal to go' : ''}${d[3] & 2 ? ' · two-minute' : ''}
+   <ul>${d[8].map(x => `<li>${esc(T.people[x[0]][1])}: ${x[1] ? `${x[1]} tgt, ${x[2]} rec, ${x[3]} yds` : ''}${x[1] && x[4] ? ' · ' : ''}${x[4] ? `${x[4]} car, ${x[5]} yds` : ''}${x[6] ? ' · red zone' : ''}${x[7] ? ' · <strong>TD</strong>' : ''}</li>`).join('') || '<li class="muted">No targets or carries recorded.</li>'}</ul>`;
+}
+function offenseKv(D, team) {
+  const o = D.offense?.[team], L = D.league; if (!o) return '';
+  return `<div class="kv small"><div>Drives / game<br><strong>${n1(o.dpg)}</strong> <span class="muted">lg ${n1(L.dpg)}</span></div><div>Plays / drive<br><strong>${n1(o.playsPerDrive)}</strong></div>
+   <div>Reach red zone<br><strong>${pct0(o.rzPerDrive)}</strong> <span class="muted">lg ${pct0(L.rzPerDrive)}</span></div><div>TD per drive<br><strong>${pct0(o.tdPerDrive)}</strong> <span class="muted">lg ${pct0(L.tdPerDrive)}</span></div>
+   <div>TD per red-zone trip<br><strong>${pct0(o.rzTd)}</strong> <span class="muted">lg ${pct0(L.rzTd)}</span></div><div>Opening-script TD<br><strong>${pct0(o.openTd)}</strong> <span class="muted">lg ${pct0(L.openTd)}</span></div></div>
+   <p class="small muted">${D.season} season before week ${D.week} (${o.games ?? D.defense?.[team]?.games ?? '—'} games).</p>`;
+}
+// ---- the model's view of one player: patterns (strong / moderate), watch items, adjustment at the fitted weight and full weight
+function modelView(D, gsis, { opp = null, spread = null, chance = null, blend = null } = {}) {
+  const r = D.players[gsis]; if (!r) return null; const pats = r.patterns || [], watch = r.watch || [];
+  if (!pats.length && !watch.length) return null;
+  const pl = { gsis, team: r.team, pos: r.pos, id: gsis };
+  const wB = D.fit?.weight?.blend || 0, wM = S.slate?.learned?.components?.drives?.enabled ? (D.fit?.weight?.model || 0) : 0;
+  const a = opp ? driveAdjustFor(D, pl, { opp, spread, weight: wM }) : null; const full = opp ? driveAdjustFor(D, pl, { opp, spread, weight: 1 }) : null;
+  return { gsis, r, pats, watch, a, full, wB, wM, chance, blend, nowPP: a && chance != null ? applyToChance(chance, a.logm) - chance : null, fullPP: full && chance != null ? applyToChance(chance, full.logm) - chance : null };
+}
+function modelViewHtml(D, m, { name = true, link = '' } = {}) {
+  const ctxBits = (m.full?.items || []).map(x => x.why).filter(Boolean);
+  return `<li class="mv"><div class="mvhead">${name ? `<strong>${link || esc(m.r.name)}</strong> <span class="muted">${esc(m.r.pos)} · ${esc(m.r.team)}</span>` : ''}${m.chance != null ? ` <span class="mvnum">anytime <strong>${pc(m.chance, 1)}</strong>${m.blend != null ? ` · blend ${pc(m.blend, 1)}` : ''}</span>` : ''}</div>
+   ${m.pats.length ? `<ul class="mvp">${m.pats.map(t => `<li>${relChip(t.rel)} <span class="ptag">Pattern</span> ${esc(t.text.replace(/, (strong|moderate)\)$/, ')'))}</li>`).join('')}</ul>` : ''}
+   ${m.watch.length ? `<ul class="mvw">${m.watch.map(t => `<li><span class="chip rel-watch">worth watching</span> ${esc(t.text.replace(/, worth watching\)$/, ')'))} <span class="muted">— not a pattern: ${esc(t.why || `did not pass the reliability checks (q ${t.q})`)}</span></li>`).join('')}</ul>` : ''}
+   ${m.full && m.pats.length ? `<p class="mveff">This week: ${ctxBits.length ? esc(ctxBits.join('; ')) + '. ' : ''}Signal at full weight <strong>${pctSigned(Math.exp(m.full.logm) - 1)}</strong> on his TD intensity${m.fullPP != null ? ` (${ppSigned(m.fullPP)})` : ''}${m.full.capped ? ', capped at ±10%' : ''}. <strong>Applied now: ${m.nowPP != null ? ppSigned(m.nowPP) : pctSigned(Math.exp(m.a?.logm || 0) - 1)}</strong> <span class="muted">(weight ${m.wM}${m.wM ? '' : ' — walk-forward fit gave 0, see the scoreboard'})</span>.</p>` : m.pats.length ? '' : '<p class="mveff muted">Only "worth watching" items: they never move a number.</p>'}</li>`;
+}
+function playerPatternsHtml(D, team, opp = null, spread = null) {
+  const idx = slateIndex(D);
+  const ids = Object.entries(D.players).filter(([, r]) => r.team === team && ((r.patterns || []).length || (r.watch || []).length)).map(([g]) => g);
+  const L = ids.map(g => { const s = idx.get(g); return modelView(D, g, { opp, spread, chance: s?.p.chance ?? null, blend: s?.p.challenger ?? null }); }).filter(Boolean)
+    .sort((a, b) => b.pats.length - a.pats.length || (b.chance ?? 0) - (a.chance ?? 0));
+  if (!L.length) return `<p class="small">No player pattern for ${esc(team)} passed the reliability checks this week, and nothing is close enough to watch.</p>`;
+  return `<ul class="mvlist small">${L.map(m => { const s = idx.get(m.gsis); return modelViewHtml(D, m, { link: s ? `<button class="plink" data-act="player" data-game="${esc(s.g.id)}" data-player="${esc(s.p.id)}">${esc(m.r.name)}</button>` : '' }); }).join('')}</ul>`;
+}
+const DEF_ROWS = [['rzPer', 'Red-zone trips per drive', 'rzPerDrive'], ['tdPer', 'TDs per drive', 'tdPerDrive'], ['rzTd', 'TDs per red-zone trip', 'rzTd'], ['gtgTd', 'TDs per goal-to-go drive', 'gtgTd'], ['openTd', 'Opening-script TD rate', 'openTd']];
+function defenseHtml(D, team) {
+  const d = D.defense?.[team], L = D.league; if (!d) return '<p class="small muted">No defensive drive profile yet.</p>';
+  const sig = k => d.q[k] <= 0.10 ? `<span class="chip rel-strong">significant (q ${d.q[k].toFixed(2)})</span>` : `<span class="muted">rank only (q ${d.q[k].toFixed(2)})</span>`;
+  const pos = ['RB', 'WR', 'TE', 'QB'];
+  return `<div class="tablewrap" tabindex="0" role="region" aria-label="${esc(team)} defense drive profile allowed"><table class="ddef"><thead><tr><th scope="col">${esc(team)} D allowed</th><th scope="col">Rate</th><th scope="col">n</th><th scope="col">League</th><th scope="col">Rank</th><th scope="col">Test</th></tr></thead><tbody>
+   ${DEF_ROWS.map(([k, l, lk]) => `<tr><th scope="row">${l}</th><td>${pct0(d.rate[k])}</td><td>${d.n[k][0]}/${d.n[k][1]}</td><td>${pct0(L[lk])}</td><td>${d.rank[k]} of 32</td><td>${sig(k)}</td></tr>`).join('')}</tbody></table></div>
+   <div class="tablewrap" tabindex="0" role="region" aria-label="Who scores against ${esc(team)}"><table class="ddef"><thead><tr><th scope="col">TDs allowed by position</th>${pos.map(p => `<th scope="col">${p}</th>`).join('')}</tr></thead><tbody>
+   ${['rz', 'gtg'].map(s => `<tr><th scope="row">${s === 'rz' ? 'Red zone' : 'Goal to go'} <span class="muted">(${d.posIdx[s].tds} TDs)</span></th>${pos.map(p => `<td>${d.posTds[s][p] || 0} <span class="muted">${pct0(d.posShare[s][p])} · lg ${pct0(L.posShare[s][p])}</span></td>`).join('')}</tr>`).join('')}</tbody></table></div>
+   <p class="small muted">${d.games} games, ${d.drives} drives faced (${n1(d.dpg)} per game). Rank 1 = allowed the most. Rates are tested against the league (exact binomial, Benjamini–Hochberg across all 32 × 5 tests); "rank only" means the difference is not distinguishable from chance yet.</p>`;
+}
+function defenseSentences(D, team, offense) {
+  const d = D.defense?.[team]; if (!d) return [];
+  const out = []; const sigs = DEF_ROWS.filter(([k]) => d.q[k] <= 0.10);
+  for (const [k, l] of sigs) out.push({ rel: 'pattern', text: `${team}'s defense: ${(/^[A-Z][a-z]/.test(l) ? l[0].toLowerCase() + l.slice(1) : l)} ${pct0(d.rate[k])} vs league ${pct0(D.league[DEF_ROWS.find(x => x[0] === k)[2]])} — significant after the FDR check.` });
+  const ext = DEF_ROWS.filter(([k]) => d.q[k] > 0.10 && (d.rank[k] <= 3 || d.rank[k] >= 30));
+  for (const [k, l] of ext) out.push({ rel: 'watch', text: `${team}'s defense has the ${(r => r === 1 ? '' : ord(r) + '-')(d.rank[k] <= 3 ? d.rank[k] : 33 - d.rank[k])}${d.rank[k] <= 3 ? 'highest' : 'lowest'} rate of ${(/^[A-Z][a-z]/.test(l) ? l[0].toLowerCase() + l.slice(1) : l)} allowed (${pct0(d.rate[k])} vs league ${pct0(D.league[DEF_ROWS.find(x => x[0] === k)[2]])}, ${d.n[k][0]}/${d.n[k][1]}), but with ${d.games} games that is not distinguishable from chance (q ${d.q[k].toFixed(2)}).` });
+  const pr = d.rank.pos || {}; for (const [k, v] of Object.entries(pr)) if (v <= 2) { const s = k.slice(0, -2), p = k.slice(-2); out.push({ rel: 'watch', text: `${offense}'s ${p}s: ${team} has allowed ${pct0(d.posShare[s]?.[p])} of its ${s === 'rz' ? 'red-zone' : 'goal-to-go'} TDs to ${p}s (league ${pct0(D.league.posShare[s]?.[p])}; ${d.posTds[s]?.[p] || 0} of ${d.posIdx[s].tds}) — descriptive only.` }); }
+  return out;
+}
+function scoreboardHtml(D, where = 'drives') {
+  const F = D?.fit; if (!F) return '<p class="small muted">The walk-forward fit has not run yet (Tuesday auto run with --fit).</p>';
+  const gate = S.slate?.learned?.components?.drives; const pr = S.slate?.learned?.drivesPromotion; const mon = pr?.monitor;
+  const f = x => (x == null ? '—' : `${x > 0 ? '+' : ''}${x.toFixed(3)}`); const ci = a => (a ? `[${f(a[0])}, ${f(a[1])}]` : '');
+  const row = (lbl, x) => x ? `<tr><th scope="row">${lbl}</th><td>${x.n.toLocaleString()} / ${x.games}</td><td>${f(x.dBrier)} <span class="muted">${ci(x.dBrierCI)}</span></td><td>${f(x.dLogLoss)} <span class="muted">${ci(x.dLogLossCI)}</span></td></tr>` : '';
+  return `<div class="tablewrap" tabindex="0" role="region" aria-label="With vs without drive patterns"><table class="dscore"><thead><tr><th scope="col">With − without drive patterns</th><th scope="col">Players / games</th><th scope="col">ΔBrier ×1000</th><th scope="col">Δlog loss ×1000</th></tr></thead><tbody>
+   ${row('Blend + drives vs blend (walk-forward, all)', F.all?.blend)}${row('Model + drives vs model (walk-forward, all)', F.all?.model)}${row('Blend + drives vs blend (prospective snapshots)', F.prosp?.blend)}${mon?.withDrives_vs_blend ? row('Live: graded since 4.8 snapshots', mon.withDrives_vs_blend) : ''}</tbody></table></div>
+   <p class="small">Fitted weight: blend <strong>${F.weight.blend}</strong> · model <strong>${F.weight.model}</strong> (grid 0–3, chosen each week from earlier weeks only; ${F.rows.toLocaleString()} player-games, ${F.all?.n ? `${F.all.blend.n.toLocaleString()} scored` : ''}). ${esc(F.note || '')}</p>
+   <p class="small">Status: <strong>${gate?.enabled ? `active in the model (weight ${gate.weight})` : 'challenger only'}</strong>${gate?.reason ? ` — ${esc(gate.reason)}` : ' — the Tuesday gate has not decided yet; until it passes the headline chance never uses drive patterns.'}${pr ? ` Promotion check: ${pr.promote ? 'passes' : esc((pr.reasons || []).join(' '))}` : ''}</p>
+   ${F.movedPP ? `<p class="small muted">If the adjustment were applied at the walk-forward weights it would have moved a chance by a median ${F.movedPP.median.toFixed(2)} pp (90th pct ${F.movedPP.p90.toFixed(2)}, max ${F.movedPP.max.toFixed(2)}) on ${F.movedPP.n} player-games with patterns. Negative Δ = drive patterns helped. Intervals resample whole games. Refit every Tuesday.</p>` : ''}`;
+}
+function seesHtml(D, gA, gB, ctx) {
+  // ctx: {spreadA, spreadB}
+  const lines = [];
+  for (const [off, def, sp] of [[gA, gB, ctx.spreadA], [gB, gA, ctx.spreadB]]) {
+    const xd = (D.offense[off]?.dpg + D.defense[def]?.dpg) / 2;
+    lines.push(`<li><span class="ptag ctx">Context</span> ${esc(off)} offense vs ${esc(def)} defense: about <strong>${n1(xd)}</strong> expected drives (league ${n1(D.league.dpg)})${sp != null ? `; ${esc(off)} ${sp > 0 ? '+' : ''}${sp} → P(leading in the 2nd half) ${pct0(pLead(sp))}` : ''}.</li>`);
+    for (const s of defenseSentences(D, def, off)) lines.push(`<li>${s.rel === 'pattern' ? '<span class="chip rel-strong">pattern</span>' : '<span class="chip rel-watch">worth watching</span>'} ${esc(s.text)}</li>`);
+  }
+  const idx = slateIndex(D);
+  for (const [off, def, sp] of [[gA, gB, ctx.spreadA], [gB, gA, ctx.spreadB]]) for (const [gs, r] of Object.entries(D.players)) {
+    if (r.team !== off || !(r.patterns || []).length) continue; const s = idx.get(gs);
+    const m = modelView(D, gs, { opp: def, spread: sp, chance: s?.p.chance ?? null, blend: s?.p.challenger ?? null }); if (!m) continue;
+    const full = Math.exp(m.full.logm) - 1;
+    lines.push(`<li><span class="chip rel-${esc(m.pats[0].rel)}">pattern</span> <strong>${esc(r.name)}</strong> <span class="muted">${esc(r.pos)} · ${esc(off)}${m.chance != null ? ` · anytime ${pc(m.chance, 1)}${m.blend != null ? `, blend ${pc(m.blend, 1)}` : ''}` : ''}</span>: ${m.pats.map(t => esc(t.text.replace(/, (strong|moderate)\)$/, ')'))).join('; ')}. Against ${esc(def)} that is a ${full >= 0 ? 'boost' : 'cut'} of ${pctSigned(full)} at full weight${m.full.capped ? ' (at the cap: ×1.1 up, ÷1.1 down)' : ''}; applied now ${m.nowPP != null ? ppSigned(m.nowPP) : pctSigned(Math.exp(m.a.logm) - 1)}.</li>`);
+  }
+  return `<ul class="sees small">${lines.join('')}</ul>`;
+}
+function renderDrives() {
+  const v = $('#view-drives'); const D = drivesData();
+  if (!D) { v.innerHTML = `<div class="card"><h2>Drives</h2><p class="muted">The weekly drive file is not loaded for week ${S.week ?? ''} (it is built by the auto run; local copies without the archive cannot show it).</p></div>`; return; }
+  if (!D.teams) { v.innerHTML = `<div class="card"><h2>Drives</h2><p class="muted">This week's drive file predates the Drives section (app 4.8); team and matchup views need a rebuild.</p></div>${drivesTrendsHtml()}`; return; }
+  const teams = Object.keys(D.teams).sort(); const games = S.slate?.games || [];
+  if (!teams.includes(S.dv.team)) S.dv.team = teams[0];
+  if (S.dv.mode === 'matchup' && !S.dv.game && games[0] && !(S.dv.a && S.dv.b)) S.dv.game = games[0].id;
+  const g = S.dv.mode === 'matchup' && S.dv.game && S.dv.game !== 'custom' ? games.find(x => x.id === S.dv.game) : null;
+  const A = g ? g.sides.away.team : S.dv.a || teams[0], B = g ? g.sides.home.team : S.dv.b || teams[1];
+  const spreadA = g?.sides.away.lines?.known ? g.sides.away.lines.awaySpread : null, spreadB = spreadA != null ? -spreadA : null;
+  const tsel = (id, cur, lbl) => `<label class="small">${lbl} <select class="select" id="${id}">${teams.map(t => `<option ${t === cur ? 'selected' : ''}>${t}</option>`).join('')}</select></label>`;
+  const nBtns = `<div class="row" role="group" aria-label="Games window">${[[3, 'Last 3'], [6, 'Last 6'], ['season', 'Season']].map(([k, l]) => `<button class="btn ${S.dv.n === k ? 'gold' : ''}" data-act="dvn" data-n="${k}" aria-pressed="${S.dv.n === k}">${l}</button>`).join('')}</div>`;
+  const picker = `<div class="card dvpick"><h2>Drives · week ${D.week}</h2>
+   <div class="row dvctl"><div class="row" role="group" aria-label="View"><button class="btn ${S.dv.mode === 'team' ? 'gold' : ''}" data-act="dvmode" data-mode="team" aria-pressed="${S.dv.mode === 'team'}">Team</button><button class="btn ${S.dv.mode === 'matchup' ? 'gold' : ''}" data-act="dvmode" data-mode="matchup" aria-pressed="${S.dv.mode === 'matchup'}">Matchup</button></div>
+   <div class="row">${S.dv.mode === 'team' ? tsel('dvTeam', S.dv.team, 'Team') : `<label class="small">Game <select class="select" id="dvGame">${games.map(x => `<option value="${esc(x.id)}" ${S.dv.game === x.id ? 'selected' : ''}>${esc(x.sides.away.team)} @ ${esc(x.sides.home.team)}</option>`).join('')}<option value="custom" ${S.dv.game === 'custom' ? 'selected' : ''}>Any two teams…</option></select></label>${S.dv.game === 'custom' ? tsel('dvA', A, 'Team A') + tsel('dvB', B, 'Team B') : ''}`}</div>
+   ${nBtns}</div><p class="small muted">Pre-game: only drives before week ${D.week}. Your choice is saved on this device.</p></div>`;
+  const nLbl = S.dv.n === 'season' ? 'this season' : `last ${S.dv.n} games`;
+  let body;
+  if (S.dv.mode === 'team') {
+    const t = S.dv.team; const opp = (() => { for (const x of games) for (const sd of ['away', 'home']) if (x.sides[sd].team === t) return { opp: x.sides[sd === 'away' ? 'home' : 'away'].team, spread: x.sides.away.lines?.known ? (sd === 'away' ? x.sides.away.lines.awaySpread : -x.sides.away.lines.awaySpread) : null }; return null; })();
+    body = `<div class="card"><h2>${esc(t)} offense</h2>${offenseKv(D, t)}</div>
+     <div class="card"><h3>Drive by drive · ${nLbl}</h3>${driveGrid(D, t, S.dv.n)}</div>
+     <div class="card"><h3>Tendencies by phase · ${nLbl}</h3>${tendTable(teamTendencies(D, t, S.dv.n))}</div>
+     <div class="card"><h3>What the model sees · ${esc(t)} players${opp ? ` vs ${esc(opp.opp)}` : ''}</h3>${playerPatternsHtml(D, t, opp?.opp || null, opp?.spread ?? null)}<p class="small muted">Patterns = survived FDR (q ≤ 0.10), enough drives and held up out of sample; strong counts fully, moderate half. "Worth watching" = close but failed a check; never used.</p></div>
+     <div class="card"><h3>${esc(t)} defense: drives allowed</h3>${defenseHtml(D, t)}</div>`;
+  } else {
+    const GT = S.dv.gt === B ? B : A; S.dv.gridTeam = GT;
+    const col = (t, opp, sp) => `<div class="card dvcol"><h3>${esc(t)} offense</h3>${offenseKv(D, t)}<h4>Tendencies · ${nLbl}</h4>${tendTable(teamTendencies(D, t, S.dv.n), true)}<h4>What the model sees · ${esc(t)} players vs ${esc(opp)}</h4>${playerPatternsHtml(D, t, opp, sp)}<h4>${esc(opp)} defense: drives allowed</h4>${defenseHtml(D, opp)}</div>`;
+    body = `<div class="card"><h2>${esc(A)} @ ${esc(B)} · what the model sees</h2>${seesHtml(D, A, B, { spreadA, spreadB })}<p class="small muted">Only findings that pass the reliability checks are called patterns; everything else is labelled "worth watching" or "rank only" and never moves a number.</p></div>
+     <div class="dvcols">${col(A, B, spreadA)}${col(B, A, spreadB)}</div>
+     <div class="card"><h3>Drive by drive · ${nLbl}</h3><div class="row" role="group" aria-label="Grid team">${[A, B].map(t => `<button class="btn ${GT === t ? 'gold' : ''}" data-act="dvgt" data-team="${esc(t)}" aria-pressed="${GT === t}">${esc(t)}</button>`).join('')}</div>${driveGrid(D, GT, S.dv.n)}</div>`;
+  }
+  v.innerHTML = `${picker}${body}<div class="card" id="drivesScore"><h3>Scoreboard: with vs without drive patterns</h3>${scoreboardHtml(D)}</div>${drivesTrendsHtml()}`;
+  const on = (id, f) => v.querySelector('#' + id)?.addEventListener('change', e => { f(e.target.value); saveDv(); renderDrives(); });
+  on('dvTeam', x => { S.dv.team = x; S.dv.who = ''; }); on('dvGame', x => { S.dv.game = x; S.dv.who = ''; }); on('dvA', x => { S.dv.a = x; }); on('dvB', x => { S.dv.b = x; }); on('dvWho', x => { S.dv.who = x; });
+  if (S.dv.mode === 'team') S.dv.gridTeam = S.dv.team;
 }
 function renderTrends() {
   const v = $('#view-trends'); const T = S.slate?.trends; if (!T) { v.innerHTML = '<p class="muted">No trends loaded.</p>'; return; }
@@ -219,7 +394,7 @@ function aiSettingsHtml() {
 }
 function renderAll() {
   renderControls();
-  if (S.tab === 'slate') renderSlate(); else if (S.tab === 'board') renderBoard(); else if (S.tab === 'trends') renderTrends(); else renderLab();
+  if (S.tab === 'slate') renderSlate(); else if (S.tab === 'board') renderBoard(); else if (S.tab === 'trends') renderTrends(); else if (S.tab === 'drives') renderDrives(); else renderLab();
 }
 function renderControls() {
   $('#seasonLabel').textContent = S.slate ? `${S.slate.season} season` : '';
@@ -478,7 +653,7 @@ function learnedRepoHtml() {
   const dec = k => { const c = comp[k]; return c ? `<li><strong>${k}</strong>: ${c.enabled ? 'enabled' : 'off'} — ${esc(c.reason || '')}${c.decidedAt ? ` (${esc(c.decidedAt.slice(0, 10))})` : ''}</li>` : `<li><strong>${k}</strong>: not evaluated yet</li>`; };
   return `<h3>Shared archive (same on every device)</h3><p class="small">Current scales (week ${X.week ?? '—'}): ${esc(sc.join(' · ') || 'none')}</p>
    <p class="small">${ch ? `Latest change ${esc(new Date(ch.at).toLocaleString())} (week ${ch.week}): ${esc(ch.diff.map(d => `${d.group}.${d.key} ${pctc(d.from)} → ${pctc(d.to)}`).join(' · ') || 'basis updated, scales unchanged')}. ${esc(ch.why)}` : 'No change recorded yet.'}</p>
-   <h3>Auto-calibration decisions</h3><ul class="small">${dec('caps')}${dec('challenger')}${dec('trends')}</ul>${X.promotion ? `<p class="small muted">Challenger promotion check: ${X.promotion.promote ? 'passes' : esc(X.promotion.reasons.join(' '))}</p>` : ''}`;
+   <h3>Auto-calibration decisions</h3><ul class="small">${dec('caps')}${dec('challenger')}${dec('trends')}${dec('drives')}</ul>${X.promotion ? `<p class="small muted">Challenger promotion check: ${X.promotion.promote ? 'passes' : esc(X.promotion.reasons.join(' '))}</p>` : ''}`;
 }
 function blendMonitorHtml() {
   const R = S.slate.research; const M = R?.monitor; const B = S.slate.blendBaseline; const ch = S.slate.challenger;
@@ -514,7 +689,7 @@ function renderLab() {
   const sect = (id, title, body) => `<section class="labsec card" aria-labelledby="lab-${id}"><h2 id="lab-${id}">${title}</h2>${body}</section>`;
   const repo = learnedRepoHtml(); const cut = repo.indexOf('<h3>Auto-calibration decisions</h3>');
   const repoLearn = cut < 0 ? repo : repo.slice(0, cut), repoGates = cut < 0 ? '' : repo.slice(cut);
-  v.innerHTML = `<nav class="labnav small" aria-label="Lab sections">${[['weights', 'Weights'], ['results', 'Results & calibration'], ['learning', 'Learning'], ['trends', 'Trends'], ['gates', 'Model gates'], ['ai', 'AI analyst'], ['sources', 'Sources']].map(([k, l]) => `<a href="#lab-${k}">${l}</a>`).join('')}</nav>
+  v.innerHTML = `<nav class="labnav small" aria-label="Lab sections">${[['weights', 'Weights'], ['results', 'Results & calibration'], ['learning', 'Learning'], ['trends', 'Trends'], ['drives', 'Drive patterns'], ['gates', 'Model gates'], ['ai', 'AI analyst'], ['sources', 'Sources']].map(([k, l]) => `<a href="#lab-${k}">${l}</a>`).join('')}</nav>
    ${sect('weights', 'Weights', `<p class="small muted">Changes recalculate only unplayed games; finished predictions stay frozen. Saved on this device.</p>
     <div class="sliders">${Object.keys(labels).map(k => `<label class="small">${labels[k]} <strong id="wv-${k}">${W[k]}</strong><input type="range" data-weight="${k}" min="${WEIGHT_RANGES[k][0]}" max="${WEIGHT_RANGES[k][1]}" step="${k === 'shrinkGames' ? 1 : 0.01}" value="${W[k]}" aria-label="${labels[k]}"></label>`).join('')}</div>
     <button class="btn" data-act="reset">Reset weights</button>`)}
@@ -533,6 +708,7 @@ function renderLab() {
    ${sect('learning', 'Learning', `${L?.describe?.length ? `<p class="small">${esc(L.describe[0])}</p><details class="sec"><summary>All learned scales (${L.describe.length - 1})</summary><div class="secbody"><p class="small">${L.describe.slice(1).map(esc).join(' · ')}</p><p class="small muted">Basis: ${(L?.active?.basis || []).map(b => `week ${b.week}: ${b.applied ? `${b.prospective} prospective / ${b.reconstructed} reconstructed` : 'none'}`).join(' · ')}</p></div></details>` : '<p class="small muted">No lesson yet.</p>'}
      <p class="small">${L?.inWeek?.applied ? `In-week nudge from ${L.inWeek.confirmed} completed results this week, damped (scale+2)/3, unplayed games only.` : 'No in-week nudge (needs 8 completed results this week).'}</p>${repoLearn}`)}
    ${sect('trends', 'Trends', labTrendsHtml())}
+   ${sect('drives', 'Drive patterns: with vs without', drivesData() ? scoreboardHtml(drivesData(), 'lab') : '<p class="small muted">Drive file not loaded for this week.</p>')}
    ${sect('gates', 'Model gates', `${repoGates || '<p class="small muted">Gate decisions come from the shared archive (not loaded in this copy).</p>'}
      <h3>Champion / challenger</h3><p class="small">Challenger: ${esc(ch?.status || 'unknown')}${ch?.reason ? ' — ' + esc(ch.reason) : ''} · training rows ${ch?.trainingCount ?? 0}</p>
      ${R?.promotion ? `<p class="small">Promotion: <strong>${R.promotion.promote ? 'eligible' : 'withheld'}</strong>. ${esc(R.promotion.reasons.join(' '))} Paired ${R.promotion.metrics.paired} across ${R.promotion.metrics.games} games.</p>` : '<p class="small muted">No validation run yet.</p>'}
@@ -555,6 +731,11 @@ document.addEventListener('click', e => {
   else if (a === 'slateview') { S.resultsView = t.dataset.view === 'results'; renderSlate(); }
   else if (a === 'back') { const id = S.gameId; S.gameId = null; renderSlate(); document.querySelector(`[data-act=game][data-game="${CSS.escape(id)}"]`)?.focus(); }
   else if (a === 'player') openPlayer(t.dataset.game, t.dataset.player);
+  else if (a === 'gotab') document.getElementById('tab-' + t.dataset.tab)?.click();
+  else if (a === 'dvmode') { S.dv.mode = t.dataset.mode; S.dv.who = ''; save(LS_DRIVES, S.dv); renderDrives(); }
+  else if (a === 'dvn') { S.dv.n = t.dataset.n === 'season' ? 'season' : +t.dataset.n; save(LS_DRIVES, S.dv); renderDrives(); }
+  else if (a === 'dvgt') { S.dv.gt = t.dataset.team; S.dv.who = ''; save(LS_DRIVES, S.dv); renderDrives(); }
+  else if (a === 'dcell') { const o = $('#dcellOut'); if (o) o.innerHTML = dcellHtml(drivesData(), S.dv.gridTeam, t.dataset.w, t.dataset.n); }
   else if (a === 'close') closePanel();
   else if (a === 'ai') runAi();
   else if (a === 'aisave') { const cur = aiSettings(); const k = $('#aiKey').value.trim(); save(AI_LS, { provider: $('#aiProvider').value, baseUrl: $('#aiBase').value.trim(), model: $('#aiModel').value.trim(), key: k || cur.key }); $('#aiKey').value = ''; $('#aiState').textContent = aiSettings().key ? 'Key saved on this device.' : 'Settings saved (no key).'; }

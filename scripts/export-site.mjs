@@ -22,7 +22,7 @@ for (let week = 1; week <= Math.min(18, cur + 1); week++) {
     uncertainty: { errorModel: cal.errorModel, coverage: cal.coverage }, trendHistory: cal.trendHistory,
     challenger: cal.challenger, usage: cal.usage || null, drives: A.drives?.(season, week) || null,
     researchStatus: v ? v.payload : null, pickTracker: pickTracker(cal.cur.perWeek), lastRun: A.lastRun(),
-    learned: { ...(S.learned || {}), changes: S.changes || [], components: componentState(), decisions: S.decisions || [], promotion: S.promotion || null },
+    learned: { ...(S.learned || {}), changes: S.changes || [], components: componentState(), decisions: S.decisions || [], promotion: S.promotion || null, drivesPromotion: S.drivesPromotion || null },
     schedule: 'Shared archive: a scheduled GitHub Actions job captures pregame snapshots and grades finished games (about every 30 minutes in game windows; GitHub may delay scheduled runs).',
   });
   index.weeks.push(week); console.log('exported', season, week, A.snapshots(season, week).length, 'snapshots');

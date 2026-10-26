@@ -63,11 +63,16 @@ for (const w of [6, 7]) { const of = `archive/2026/outcomes-w${w}.json`; if (!fs
 const tablesU = new Map(); const look = (s, w) => { const k = `${s}|${w}`; if (!tablesU.has(k)) tablesU.set(k, usageLookup(buildWeek(C, s, w))); return tablesU.get(k); };
 let miss = 0;
 for (const r of rows) {
-  const u = look(r.season, r.week)(r, { implied: r.implied, spread: r.spread, home: r.side === 'home' }); const ud = u == null ? null : predictDrive(r); if (u == null || ud == null) miss++;
+  const u = look(r.season, r.week)(r, { implied: r.implied, spread: r.spread, home: r.side === 'home' }); const ud = u == null || process.argv.includes('--dump-only') ? null : predictDrive(r); if (u == null || ud == null) miss++;
   r.usage = u ?? r.published; r.usageD = u == null ? r.usage : (ud ?? u);
   r.blend3 = blendProbability({ chance: r.chance, published: r.published, usage: u }).p;
   r.blend3D = blendProbability({ chance: r.chance, published: r.published, usage: u == null ? null : (ud ?? u) }).p;
 }
+// --dump FILE: freeze the replayed-history rows (model, Sleeper, blend3, outcome) so the weekly drive-adjustment
+// fit (scripts/drives/adjust-fit.mjs) can run in CI without the replay inputs; prospective rows are read live there.
+if (arg('dump')) { const H = rows.filter(r => r.src === 'hist'); const cols = ['season', 'week', 'gameId', 'id', 'pos', 'side', 'spread', 'chance', 'published', 'blend3', 'y'];
+  fs.writeFileSync(arg('dump'), JSON.stringify({ kind: 'drive-eval-rows', builtAt: new Date().toISOString(), note: 'replayed endzone-4.6.0 history (pre-game) with the 3-way blend; outcome y = scored a TD', cols, rows: H.map(r => cols.map(c => typeof r[c] === 'number' && !Number.isInteger(r[c]) ? Math.round(r[c] * 1e5) / 1e5 : r[c] ?? null)) }));
+  console.error(`dumped ${H.length} rows`); if (process.argv.includes('--dump-only')) process.exit(0); }
 const k1000 = x => r4(x * 1000);
 const cmp = (R, a, b) => { const q = pairedBoot(R, a, b); return { n: q.n, games: q.games, dB: k1000(q.dBrier), dBci: q.dBrierCI.map(k1000), dLL: k1000(q.dLogLoss), dLLci: q.dLogLossCI.map(k1000) }; };
 const sets = { research: rows.filter(r => r.season === 2025 || (r.src === 'hist' && r.week <= 5) || (r.src === 'prosp' && r.week === 6)), hist2025: rows.filter(r => r.src === 'hist' && r.season === 2025), hist2026: rows.filter(r => r.src === 'hist' && r.season === 2026), prosp: rows.filter(r => r.src === 'prosp') };

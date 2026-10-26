@@ -173,6 +173,16 @@ Board → Sort now has three groups. **Touchdown**: *Model confidence (High › 
 - `tests/landscape.test.js` covers five landscape sizes: header under 25% of the height, no page-level horizontal overflow, panel scrollable, Close visible and at least 44 px, plus a rotation round-trip.
 - Screenshots: `SIZES=844x390,932x430 MOBILE=1 node scripts/ux-shots.mjs <dir> [url]` (`shots/` is git-ignored).
 
+## App 4.8.0 — Drives section and drive-pattern adjustment (challenger; model stays endzone-4.6.0)
+
+- **Drives tab** (top level, between Trends and Lab; the Trends block links to it). Picker: *Team* (any of 32) or *Matchup* (this week's games, or "Any two teams"); window Last 3 / Last 6 / Season. The choice is saved on the device (`localStorage endzone.drives.v1`).
+- **Team view:** drive-by-drive grid (team or per-player; targets/carries per drive, gold = TD, outlined = reached red zone; tap a cell for the drive), tendencies by phase (opening script, red zone, goal to go, leading, trailing, two-minute: plays/drive, run/pass, TD rate, who gets the ball), player patterns with n and reliability.
+- **Matchup view:** both offenses side by side, each defense's allowed drive profile (red-zone trips/drive, TDs/drive, TDs per red-zone trip and goal-to-go drive, rank, BH-tested against the league; which positions score red-zone / goal-to-go TDs against them), and **What the model sees** in plain words. Only findings that pass BH q ≤ .10 and hold up out of sample are called *patterns*; q ≤ .20 items are *worth watching* and never move a number.
+- **Adjustment** (`src/drive-adjust.js`): per player, raw = Σ reliability-weight × log(lift) × TD-share × this-week context (spread → P(leading), opponent's allowed drive profile, expected drives); log-multiplier = clamp(w × raw, ±log 1.1), applied to λ before the safety caps. A note on every player shows the full-weight signal and what is applied now.
+- **Weight fitted walk-forward** (`scripts/drives/adjust-fit.mjs`, `archive/drives/fit.json`; 7,559 player-games / 345 games, 788 with patterns). ΔBrier ×1e-3 (with − without, lower is better): blend+drives vs blend +0.025 [−0.071, 0.120]; model+drives vs model +0.032 [−0.028, 0.099]; Δlog loss +0.094 / +0.106 (CIs span 0). Fitted weight **0 / 0** → moves numbers by 0 today.
+- **Challenger** `blend3+drives` is snapshotted every run and gated by the same prospective promotion rules (`drivesPromotion` in the Lab); `components.drives` is enabled by gate.mjs only if that decision passes and the fitted weight is > 0. auto.yml re-fits every Tuesday (and on gate dispatches).
+- **Scoreboard:** "with vs without drive patterns" in the Lab and in Drives (paired bootstrap, `src/drive-score.js`).
+
 ## App 4.7.0 — drive patterns (display-only; model stays endzone-4.6.0)
 
 **What it is.** `scripts/drives/lib.mjs` turns nflverse play-by-play (last season + this season to date) into a per

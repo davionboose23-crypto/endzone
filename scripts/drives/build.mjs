@@ -6,11 +6,14 @@
 import fs from 'node:fs'; import path from 'node:path';
 import { loadDriveSeason } from './lib.mjs';
 import { walkForward } from './research.mjs';
+import { profiles } from './profile.mjs';
+import { fitAdjust, loadEvalRows } from './adjust-fit.mjs';
 import { detect, playerDrives, phaseSummary, reliability, describe, SUBSETS } from '../../src/drive-patterns.js';
 import { getState } from '../../server/prepare.js';
 import { stable } from '../../server/file-archive.js';
 const PKG = JSON.parse(fs.readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
 const BASE = JSON.parse(fs.readFileSync(new URL('../../src/drive-baseline.json', import.meta.url), 'utf8'));
+const readJ = f => { try { return JSON.parse(fs.readFileSync(f)); } catch { return null; } };
 const arg = k => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : undefined; };
 const dir = process.env.ENDZONE_ARCHIVE || 'archive';
 const LAST_GAMES = 6, PER_PLAYER = 4, TOP = 30;
@@ -30,7 +33,7 @@ export async function loadDriveTables(season, { tables = null, log = console.log
 const ownRecord = (inst, t) => { const L = inst.filter(x => x.pid === t.pid && x.sub === t.sub && x.metric === t.metric); if (!L.length) return null;
   let num = 0, den = 0; for (const x of L) { const sg = x.E1 >= x.E0 ? 1 : -1; num += sg * (x.O - x.E0); den += sg * (x.E1 - x.E0); }
   return { weeks: L.length, retention: den > 1e-9 ? +(num / den).toFixed(2) : null }; };
-export function buildPatterns(tables, season, week, { log = () => {} } = {}) {
+export function buildPatterns(tables, season, week, { log = () => {}, fit = null } = {}) {
   const targets = [...Array.from({ length: 14 }, (_, i) => [season - 1, i + 5]), ...Array.from({ length: Math.max(0, week - 2) }, (_, i) => [season, i + 2])];
   const WF = walkForward(tables, targets, { log });
   const fam = { drive: WF.fam.drive.fdr, phase: WF.fam.phase.fdr };
@@ -41,6 +44,9 @@ export function buildPatterns(tables, season, week, { log = () => {} } = {}) {
   const r3 = x => Math.round(x * 1000) / 1000;
   const pat = t => ({ fam: t.fam, sub: t.sub, metric: t.metric, rel: t.rel, q: +t.q.toPrecision(2), n: t.nS, opp: t.oS, shr: r3(t.shr), rest: r3(t.rest), base: r3(t.base), own: t.own || null, text: describe(t) });
   const byP = new Map(); for (const t of kept) { if (!byP.has(t.pid)) byP.set(t.pid, []); const L = byP.get(t.pid); if (L.length < PER_PLAYER && !L.some(x => x.sub === t.sub)) L.push(t); }
+  // "worth watching": close calls that are NOT patterns (q <= 0.20 but not surviving, or surviving FDR but failing the
+  // reliability gates). Shown labelled; never used by the adjustment.
+  const watchBy = new Map(); for (const t of tests.filter(t => !t.rel && t.q <= 0.20 && t.nS >= 10).sort((a, b) => a.q - b.q)) { if (!watchBy.has(t.pid)) watchBy.set(t.pid, []); const L = watchBy.get(t.pid); if (L.length < 2 && !L.some(x => x.sub === t.sub) && !(byP.get(t.pid) || []).some(x => x.sub === t.sub)) L.push(t); }
   const players = {}, bySleeper = {};
   for (const pid of I.byP.keys()) {
     const P = playerDrives(I, pid); const cur = P.filter(x => x.g.season === season); if (cur.length < 2) continue;
@@ -48,7 +54,7 @@ export function buildPatterns(tables, season, week, { log = () => {} } = {}) {
     const pe = I.people[pid] || {}; const last = P.slice(-LAST_GAMES);
     players[pid] = { name: pe.name || pid, pos: pe.pos || null, team: cur.at(-1).g.team, summary: phaseSummary(P), curSummary: phaseSummary(cur),
       games: last.map(x => ({ s: x.g.season, w: x.g.week, opp: x.g.opp, d: x.rows.map(({ r }) => [r.tgt, r.rec, r.car, r.recYd + r.rushYd, r.rz]) })),
-      patterns: (byP.get(pid) || []).map(pat) };
+      patterns: (byP.get(pid) || []).map(pat), watch: (watchBy.get(pid) || []).map(t => ({ ...pat({ ...t, rel: 'worth watching' }), rel: 'watch', why: t.q > 0.10 ? `q ${(Math.ceil(t.q * 1000) / 1000).toFixed(3)}, needs ≤ 0.100 (does not survive FDR)` : (t.nS < 10 ? 'too few drives' : 'did not hold up out of sample yet') })) };
     if (pe.sleeper) bySleeper[pe.sleeper] = pid;
   }
   const top = kept.filter(t => players[t.pid]).slice(0, TOP).map(t => ({ pid: t.pid, name: players[t.pid].name, team: players[t.pid].team, pos: players[t.pid].pos, ...pat(t) }));
@@ -60,7 +66,15 @@ export function buildPatterns(tables, season, week, { log = () => {} } = {}) {
     appVersion: PKG.version, modelVersion: BASE.modelVersion,
     prediction: { adopted: BASE.adopted, note: BASE.note, decidedAt: BASE.decidedAt, hist2026: BASE.results.hist2026?.usageD_vs_usage || null },
     persistence: { targets: targets.length, drive: WF.fam.drive, phase: WF.fam.phase }, subsets: Object.fromEntries(SUBSETS.map(S => [S.key, S.label])),
-    top, players, bySleeper };
+    top, players, bySleeper, ...profiles(I, season, week), fit: fitSummary(fit) };
+}
+// compact fit summary embedded in each weekly file (the challenger reads fit.weight.blend)
+export function fitSummary(F) {
+  if (!F) return { weight: { blend: 0, model: 0 }, note: 'No walk-forward fit yet: weight 0 (adjustment shown, moves nothing).' };
+  const a = F.results?.all, p = F.results?.prosp; const w = F.weight || { blend: 0, model: 0 };
+  return { builtAt: F.builtAt, weight: w, rows: F.rows, cap: F.cap, all: a ? { n: a.n, touched: a.touched, blend: a.blendDrives_vs_blend, model: a.modelDrives_vs_model } : null,
+    prosp: p ? { n: p.n, touched: p.touched, blend: p.blendDrives_vs_blend, model: p.modelDrives_vs_model } : null, movedPP: F.movedPP || null,
+    note: !(w.blend > 0) ? 'Walk-forward weight is 0: on past weeks, adding drive patterns to the forecast did not lower log loss, so the adjustment is computed and shown but moves chances by 0.' : `Walk-forward weight ${w.blend} (blend). Applied only in the "blend + drives" challenger until the weekly gate promotes it.` };
 }
 if (import.meta.url === `file://${process.argv[1]}`) {
   const st = await getState(); const season = Number(arg('season') || st.season); const cur = Number(st.display_week || st.week);
@@ -69,8 +83,11 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   if (process.argv.includes('--if-missing') && !missing.length) { console.log(`drive patterns present for ${season} w${weeks.join(',')}; skipping`); process.exit(0); }
   const tables = await loadDriveTables(season, { tables: arg('tables') });
   for (const T of tables.slice(1)) console.log(JSON.stringify({ table: T.season, drives: T.drives.length, written: writeIfChanged(path.join(dir, 'drives', String(T.season), 'table.json'), T, []) }));
+  const fitFile = path.join(dir, 'drives', 'fit.json');
+  if (process.argv.includes('--fit')) { const F = fitAdjust(tables, loadEvalRows({ dir, season }), { log: console.log }); console.log(JSON.stringify({ fit: F.weight, all: F.results.all?.blendDrives_vs_blend, written: writeIfChanged(fitFile, F) })); }
+  const fit = readJ(fitFile);
   for (const w of weeks) {
-    const P = buildPatterns(tables, season, w); const f = path.join(dir, 'drives', String(season), `w${w}.json`);
+    const P = buildPatterns(tables, season, w, { fit }); const f = path.join(dir, 'drives', String(season), `w${w}.json`);
     console.log(JSON.stringify({ season, week: w, players: Object.keys(P.players).length, counts: P.counts, persistence: { drive: P.persistence.drive, phase: P.persistence.phase }, written: writeIfChanged(f, P) }));
   }
 }

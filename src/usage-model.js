@@ -1,3 +1,4 @@
+import { driveAdjustFor, applyToChance, compactDrive } from './drive-adjust.js';
 // Usage model leg (endzone-4.6): a cloglog GLM on nflverse PRE-GAME usage only (EB-shrunk, recency-weighted
 // shares of carries / inside-5 / inside-10 / targets / end-zone targets / red-zone air yards, QB designed runs
 // and sneaks, snap share and trend, TD history, opponent TDs allowed by position, pace) plus the game lines.
@@ -35,9 +36,13 @@ export function blendProbability({ chance, published = null, usage = null }) {
 }
 const pubProb = p => (p.published && typeof p.published === 'object' ? p.published.probability : (typeof p.published === 'number' ? p.published : null));
 // Engine challenger: called with the player's FINAL (post-safety-cap, post-budget) chance.
-export function blendChallenger(U) {
-  const look = usageLookup(U);
-  const fn = (p, ctx = {}) => blendProbability({ chance: p.chance, published: pubProb(p), usage: look ? look(p, ctx) : null });
+// drives (app 4.8): the weekly drive file; adds the "blend + drives" second challenger (walk-forward weight fit.weight.blend,
+// +-10% of the blend's intensity, same 0.62 ceiling). Weight 0 -> blend + drives == blend (adjustment still reported).
+export function blendChallenger(U, drives = null) {
+  const look = usageLookup(U); const dw = drives?.fit?.weight?.blend || 0;
+  const fn = (p, ctx = {}) => { const b = blendProbability({ chance: p.chance, published: pubProb(p), usage: look ? look(p, ctx) : null }); if (!b || !drives) return b;
+    const a = driveAdjustFor(drives, p, { opp: ctx.opp ?? null, spread: ctx.spread ?? null, weight: dw });
+    return { ...b, drives: { after: Math.min(BLEND_CEILING, a ? applyToChance(b.p, a.logm) : b.p), adj: a?.hasPatterns ? compactDrive(a, b.p) : null } }; };
   fn.kind = BLEND_KIND; fn.noBudget = true; return fn;
 }
 

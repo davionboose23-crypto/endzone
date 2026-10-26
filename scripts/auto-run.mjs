@@ -25,6 +25,6 @@ if (scales && JSON.stringify(stable(scales)) !== JSON.stringify(stable(prev))) {
   for (const g of ['vol', 'band', 'spot']) for (const k of Object.keys(scales[g] || {})) { const a = prev?.[g]?.[k] ?? 1, b = scales[g][k]; if (Math.abs(a - b) >= 0.005) diff.push({ group: g, key: k, from: +a.toFixed(4), to: +b.toFixed(4) }); }
   if (diff.length || !prev) st.changes = [{ at: new Date().toISOString(), season: r.details.season, week: r.details.week, diff, why: 'Lessons recomputed after newly finished games (last-3-weeks rule; in-week nudge for later games).' }, ...(st.changes || [])].slice(0, 30);
 }
-st.promotion = L?.promotion || null; st.components = componentState();
+st.promotion = L?.promotion || null; st.drivesPromotion = L?.drivesPromotion || st.drivesPromotion || null; st.components = componentState();
 A.saveState(st);
 writeJson(`${dir}/index.json`, { seasons: Object.fromEntries(A.seasons().map(s => [s, A.weeks(s)])), modelVersion: MODEL_VERSION });
