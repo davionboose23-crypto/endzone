@@ -66,11 +66,12 @@ export function profiles(I, s, w) {
   const offense = {};
   for (const t of teams) { const A = O[t]; if (!A.games) continue; offense[t] = { games: A.games, drives: A.drives, dpg: r3(A.drives / A.games), playsPerDrive: r3(A.plays / A.drives), rzPerDrive: r3(A.rz / A.drives), tdPerDrive: r3(A.tds / A.drives), rzTd: A.rz ? r3(A.rzTd / A.rz) : null, openTd: A.open ? r3(A.openTd / A.open) : null }; }
   // ---- drive grids (this season), players indexed per team
+  // drive tuple: [n, half, scoreDiff, flags, plays, result, tgt, car, [[playerIdx, tgt, rec, recYd, car, rushYd, rzTouches, td]], qtr, startYardline100]
   const tm = {};
   for (const g of cur.slice().sort((a, b) => a.week - b.week)) { const T = tm[g.team] || (tm[g.team] = { people: [], idx: {}, games: [] });
     const pi = pid => { if (T.idx[pid] == null) { const pe = I.people[pid] || {}; T.idx[pid] = T.people.length; T.people.push([pid, pe.name || pid, pe.pos || null, pe.sleeper || null]); } return T.idx[pid]; };
     T.games.push({ w: g.week, opp: g.opp, d: g.drives.map(d => [d.n, d.half, d.sd, d.flags, d.plays, RES[d.result] || d.result, d.tgt, d.car,
-      (DR.get(g.key)?.get(d.n) || []).filter(o => o.tgt || o.car).map(o => [pi(o.pid), o.tgt, o.rec, o.recYd, o.car, o.rushYd, o.rz, o.td])]) }); }
+      (DR.get(g.key)?.get(d.n) || []).filter(o => o.tgt || o.car).map(o => [pi(o.pid), o.tgt, o.rec, o.recYd, o.car, o.rushYd, o.rz, o.td]), d.qtr ?? null, d.yl ?? null]) }); }
   for (const T of Object.values(tm)) delete T.idx;
   return { league, defense, offense, teams: tm, defenseMethod: 'Allowed this season; rates shrunk toward the league (20 pseudo-drives, 10 pseudo-trips for per-trip rates); exact binomial vs league with Benjamini-Hochberg across all teams and rates; rank 1 = most allowed. Only q <= 0.10 is called a real difference; other ranks are descriptive.' };
 }

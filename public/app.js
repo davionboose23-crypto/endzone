@@ -6,6 +6,7 @@ import { teamLogo } from '/src/roster.js';
 import { snapshotPassTd } from '/src/passing-touchdowns.js';
 import { buildBrief, analyze, PROVIDERS } from '/src/analyst.js';
 import { driveAdjustFor, applyToChance, pLead } from '/src/drive-adjust.js';
+import { STATS, PRESETS, thLabel, shortName, personName, ylText, statLine, cellText, playerDriveRows, hitSummary, meets, driveLabel } from '/src/drive-log.js';
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -166,7 +167,7 @@ function drivesTrendsHtml() {
 // Everything here is pre-game (drives before this week). "What the model sees" = the drive-pattern adjustment the engine
 // computes (src/drive-adjust.js); it moves a chance only by the walk-forward weight the Tuesday gate allows.
 const LS_DRIVES = 'endzone.drives.v1';
-S.dv = Object.assign({ mode: 'team', team: 'DET', game: '', a: '', b: '', n: 6, who: '' }, load(LS_DRIVES, {}));
+S.dv = Object.assign({ mode: 'team', team: 'DET', game: '', a: '', b: '', n: 6, who: '', lg: '', pl: '', st: 'rec', th: 1 }, load(LS_DRIVES, {}));
 const saveDv = () => save(LS_DRIVES, S.dv);
 const PHASE_ROWS = [
   ['open', 'Opening script (drives 1–2)', d => d[0] <= 2], ['rz', 'Red zone', d => (d[3] & 4) > 0], ['gtg', 'Goal to go', d => (d[3] & 8) > 0],
@@ -190,7 +191,7 @@ function teamTendencies(D, team, n) {
 function tendTable(t, compact = false) {
   if (!t) return '<p class="small muted">No drive history for this team yet.</p>';
   return `<div class="tablewrap" tabindex="0" role="region" aria-label="Tendencies by phase"><table class="dtend"><thead><tr><th scope="col">Phase</th><th scope="col">Drives</th>${compact ? '' : '<th scope="col">Plays / drive</th>'}<th scope="col">Pass share</th><th scope="col">Red zone</th><th scope="col">TD</th><th scope="col">Who gets the ball</th></tr></thead><tbody>
-   ${t.rows.map(r => `<tr${r.k === 'all' ? ' class="tot"' : ''}><th scope="row">${esc(r.label)}</th><td>${r.drives}</td>${compact ? '' : `<td>${n1(r.plays)}</td>`}<td>${pct0(r.pass)}</td><td>${r.k === 'rz' || r.k === 'gtg' ? '—' : pct0(r.rz)}</td><td>${pct0(r.td)}</td><td class="who">${r.top.map(x => `${esc(x.name.split(' ').slice(-1)[0])} <span class="muted">${pct0(x.share)}</span>`).join(', ') || '—'}</td></tr>`).join('')}</tbody></table></div>
+   ${t.rows.map(r => `<tr${r.k === 'all' ? ' class="tot"' : ''}><th scope="row">${esc(r.label)}</th><td>${r.drives}</td>${compact ? '' : `<td>${n1(r.plays)}</td>`}<td>${pct0(r.pass)}</td><td>${r.k === 'rz' || r.k === 'gtg' ? '—' : pct0(r.rz)}</td><td>${pct0(r.td)}</td><td class="who">${r.top.map(x => `${esc(shortName(x.name))} <span class="muted">${pct0(x.share)}</span>`).join(', ') || '—'}</td></tr>`).join('')}</tbody></table></div>
    <p class="small muted">Pass share = targets ÷ (targets + carries). "Who gets the ball" = share of the team's targets + carries on those drives. Red-zone rate = drives that reached the opponent's 20.</p>`;
 }
 function driveGrid(D, team, n) {
@@ -213,6 +214,48 @@ function dcellHtml(D, team, w, n) {
   const T = D.teams?.[team]; const g = T?.games.find(x => x.w === +w); const d = g?.d.find(x => x[0] === +n); if (!d) return '';
   return `<strong>Week ${g.w} vs ${esc(g.opp)} · drive ${d[0]}</strong> · ${esc(RES_LBL[d[5]] || d[5])} · ${d[4]} plays · ${d[1] === 1 ? '1st' : '2nd'} half · score ${d[2] > 0 ? '+' : ''}${d[2]}${d[3] & 4 ? ' · red zone' : ''}${d[3] & 8 ? ' · goal to go' : ''}${d[3] & 2 ? ' · two-minute' : ''}
    <ul>${d[8].map(x => `<li>${esc(T.people[x[0]][1])}: ${x[1] ? `${x[1]} tgt, ${x[2]} rec, ${x[3]} yds` : ''}${x[1] && x[4] ? ' · ' : ''}${x[4] ? `${x[4]} car, ${x[5]} yds` : ''}${x[6] ? ' · red zone' : ''}${x[7] ? ' · <strong>TD</strong>' : ''}</li>`).join('') || '<li class="muted">No targets or carries recorded.</li>'}</ul>`;
+}
+// ---- 4.8.1: drive-by-drive log (every drive, every player's line, nothing behind a tap) and the player-by-drive threshold table
+function driveLogHtml(D, team, n) {
+  const T = D.teams?.[team]; if (!T) return ''; const G = teamGames(D, team, n).slice().reverse(); if (!G.length) return '<p class="small muted">No drives yet.</p>';
+  const g = G.find(x => x.w === +S.dv.lg) || G[0];
+  const tds = g.d.filter(d => d[5] === 'TD').length, rz = g.d.filter(d => d[3] & 4).length;
+  const pl = (x, d) => { const nm = personName(D, T, x[0]); return `<span class="dlpl"><button class="plink" data-act="dvpl" data-pid="${esc(T.people[x[0]][0])}" title="${esc(nm)}: show by drive">${esc(shortName(nm))}</button> ${esc(statLine(x)).replace(', TD', ', <strong>TD</strong>')}</span>`; };
+  const rows = g.d.map(d => { const ps = d[8].slice().sort((a, b) => (b[2] + b[4]) - (a[2] + a[4]) || b[1] - a[1]);
+    return `<tr class="${d[5] === 'TD' ? 'td' : ''}${d[3] & 4 ? ' rz' : ''}"><td class="dln" data-l="Drive">${d[0]}</td><td data-l="">${d[9] ? (d[9] > 4 ? 'OT' : 'Q' + d[9]) : (d[1] === 1 ? '1st half' : '2nd half')}</td><td data-l="Start">${esc(ylText(d[10], team, g.opp))}</td><td data-l="Plays">${d[4]}</td><td class="dlres" data-l=""><b>${esc(RES_LBL[d[5]] || d[5])}</b>${d[3] & 8 ? ' <span class="muted">goal to go</span>' : d[3] & 4 ? ' <span class="muted">red zone</span>' : ''}</td>
+     <td class="dlp">${ps.length ? ps.map(x => pl(x, d)).join('<span class="dlsep"> · </span>') : '<span class="muted">No targets or carries (sacks, kneels or penalties only).</span>'}</td></tr>`; }).join('');
+  return `<div class="row small"><label>Game <select class="select" id="dvLogG">${G.map(x => `<option value="${x.w}" ${x === g ? 'selected' : ''}>Week ${x.w} vs ${esc(x.opp)}</option>`).join('')}</select></label></div>
+   <p class="small">${esc(team)} vs ${esc(g.opp)}, week ${g.w}: <strong>${g.d.length}</strong> drives · <strong>${tds}</strong> TD · ${rz} reached the red zone. Tap a name for that player's drive-by-drive table.</p>
+   <div class="tablewrap dlogwrap" tabindex="0" role="region" aria-label="Drive log, week ${g.w}"><table class="dlog"><thead><tr><th scope="col">Drive</th><th scope="col">Qtr</th><th scope="col">Start</th><th scope="col">Plays</th><th scope="col">Result</th><th scope="col">Who got the ball</th></tr></thead><tbody>${rows}</tbody></table></div>
+   <p class="small muted">rec = receptions, tgt = targets, car = carries; yards are receiving or rushing yards on that drive. Gold edge = touchdown drive. Start = yard line of the first snap.</p>`;
+}
+function playerByDriveHtml(D, team, n) {
+  const T = D.teams?.[team]; if (!T) return ''; const G = teamGames(D, team, n);
+  const inv = new Map(); for (const g of G) for (const d of g.d) for (const x of d[8]) inv.set(x[0], (inv.get(x[0]) || 0) + x[1] + x[4]);
+  const opts = T.people.map((p, i) => ({ pid: p[0], i, name: personName(D, T, i), pos: p[2], k: inv.get(i) || 0 })).filter(o => o.k > 0).sort((a, b) => b.k - a.k);
+  if (!opts.length) return '<p class="small muted">No player data in this window.</p>';
+  const pid = opts.some(o => o.pid === S.dv.pl) ? S.dv.pl : opts[0].pid; const me = opts.find(o => o.pid === pid);
+  const st = STATS[S.dv.st] ? S.dv.st : 'rec'; const th = Number.isFinite(+S.dv.th) && +S.dv.th >= 0 ? +S.dv.th : 1;
+  const R = playerDriveRows(T, pid, G); const H = hitSummary(R.rows, st, th, R.maxN); const P = D.players?.[pid];
+  const cols = Array.from({ length: R.maxN }, (_, i) => i + 1); const tl = thLabel(st, th);
+  const statBtns = Object.entries(STATS).map(([k, s]) => `<button class="btn ${k === st ? 'gold' : ''}" data-act="dvst" data-st="${k}" aria-pressed="${k === st}">${s.label}</button>`).join('');
+  const pre = PRESETS.map(([s, t]) => `<button class="btn ${s === st && t === th ? 'gold' : ''}" data-act="dvth" data-st="${s}" data-th="${t}" aria-pressed="${s === st && t === th}">${thLabel(s, t)}</button>`).join('');
+  const cell = (r, c) => { const has = c <= r.nDrives; if (!has) return '<td class="pbd na"></td>'; const x = r.by.get(c); const d = r.drives[c - 1]; const hit = meets(x, st, th);
+    return `<td class="pbd${hit ? ' hit' : ''}${d[5] === 'TD' ? ' td' : ''}" title="Drive ${c}: ${esc(RES_LBL[d[5]] || d[5])}">${esc(cellText(x, st))}${x?.[7] ? ' <b>TD</b>' : ''}</td>`; };
+  const grid = R.rows.length ? `<div class="tablewrap pbdwrap" tabindex="0" role="region" aria-label="${esc(me.name)} by drive"><table class="pbdt"><thead><tr><th scope="col">Game</th>${cols.map(c => `<th scope="col">D${c}</th>`).join('')}<th scope="col">Hit</th></tr></thead><tbody>
+   ${R.rows.map(r => { const h = r.drives.filter(d => meets(r.by.get(d[0]), st, th)).length; return `<tr><th scope="row">W${r.w} <span class="muted">${esc(r.opp)}</span></th>${cols.map(c => cell(r, c)).join('')}<td class="mid">${h}/${r.nDrives}</td></tr>`; }).join('')}</tbody></table></div>` : '';
+  const yLbl = STATS[st].fam === 'rec' ? 'rec yds' : STATS[st].fam === 'rush' ? 'rush yds' : 'yds';
+  const lbl = n2 => { const L = driveLabel(P, n2); return L.label === 'pattern' ? `<span class="chip rel-${esc(L.rel)}" title="${esc(L.text || '')}">pattern</span>` : `<span class="chip rel-chance" title="${esc(L.text ? 'Close but not reliable: ' + L.text : 'No drive-number test for this player passed FDR + persistence')}">small sample / likely chance</span>`; };
+  const summ = `<div class="tablewrap" tabindex="0" role="region" aria-label="Hit rate by drive number"><table class="pbds"><thead><tr><th scope="col">Drive</th><th scope="col">Hit rate</th><th scope="col">Avg ${yLbl}</th><th scope="col">Reliability</th></tr></thead><tbody>
+   ${H.byDrive.map(b => `<tr><th scope="row">Drive ${b.n}</th><td>${tl} in <strong>${b.hits} of ${b.games}</strong> games <span class="muted">${pct0(b.rate)}</span></td><td>${n1(b.avgYds)}</td><td class="rel">${lbl(b.n)}</td></tr>`).join('')}
+   <tr class="base"><th scope="row">Any drive</th><td>${tl} on <strong>${H.all.hits} of ${H.all.drives}</strong> drives <span class="muted">${pct0(H.all.rate)}</span></td><td>${n1(H.all.avgYds)}</td><td class="rel muted">baseline</td></tr></tbody></table></div>`;
+  const pats = (P?.patterns || []).filter(t => /^d\d+$/.test(t.sub));
+  return `<div class="row small"><label>Player <select class="select" id="dvPl">${opts.map(o => `<option value="${esc(o.pid)}" ${o.pid === pid ? 'selected' : ''}>${esc(o.name)} · ${esc(o.pos || '')}</option>`).join('')}</select></label></div>
+   <div class="row small" role="group" aria-label="Stat">${statBtns}</div>
+   <div class="row small dvth" role="group" aria-label="Threshold">${pre}<label>Custom ${esc(STATS[st].unit)} ≥ <input class="input dvthc" id="dvThC" type="number" inputmode="numeric" min="0" step="1" value="${th}"></label></div>
+   <p class="small"><strong>${esc(me.name)}</strong>: ${tl} on ${H.all.hits} of ${H.all.drives} drives (${pct0(H.all.rate)}) across ${R.rows.length} game${R.rows.length === 1 ? '' : 's'}${R.skipped ? ` <span class="muted">(${R.skipped} team game${R.skipped === 1 ? '' : 's'} without a target or carry left out)</span>` : ''}. Highlighted cells meet ${tl}.</p>
+   ${grid}<h4>By drive number</h4>${summ}
+   <p class="small muted">Labels come from the existing drive-number tests (his share of the team's touches on drive N vs his other drives, 2025–26, Benjamini–Hochberg q ≤ 0.10 and out-of-sample persistence). "pattern" only if that survives; everything else is "small sample / likely chance" — with ${R.rows.length} games, a drive at ${pct0(H.all.rate)} baseline will often show 0 of ${R.rows.length} or ${R.rows.length} of ${R.rows.length} by luck alone. Hit rates are this season before week ${D.week}.${pats.length ? ` Drive-number patterns on file: ${pats.map(t => esc(t.text)).join('; ')}.` : ''}</p>`;
 }
 function offenseKv(D, team) {
   const o = D.offense?.[team], L = D.league; if (!o) return '';
@@ -314,7 +357,9 @@ function renderDrives() {
   if (S.dv.mode === 'team') {
     const t = S.dv.team; const opp = (() => { for (const x of games) for (const sd of ['away', 'home']) if (x.sides[sd].team === t) return { opp: x.sides[sd === 'away' ? 'home' : 'away'].team, spread: x.sides.away.lines?.known ? (sd === 'away' ? x.sides.away.lines.awaySpread : -x.sides.away.lines.awaySpread) : null }; return null; })();
     body = `<div class="card"><h2>${esc(t)} offense</h2>${offenseKv(D, t)}</div>
-     <div class="card"><h3>Drive by drive · ${nLbl}</h3>${driveGrid(D, t, S.dv.n)}</div>
+     <div class="card" id="dvLog"><h3>Drive log · every drive, every touch</h3>${driveLogHtml(D, t, S.dv.n)}</div>
+     <div class="card" id="dvPbd"><h3>Player by drive · ${nLbl}</h3>${playerByDriveHtml(D, t, S.dv.n)}</div>
+     <div class="card"><h3>Drive grid · ${nLbl}</h3>${driveGrid(D, t, S.dv.n)}</div>
      <div class="card"><h3>Tendencies by phase · ${nLbl}</h3>${tendTable(teamTendencies(D, t, S.dv.n))}</div>
      <div class="card"><h3>What the model sees · ${esc(t)} players${opp ? ` vs ${esc(opp.opp)}` : ''}</h3>${playerPatternsHtml(D, t, opp?.opp || null, opp?.spread ?? null)}<p class="small muted">Patterns = survived FDR (q ≤ 0.10), enough drives and held up out of sample; strong counts fully, moderate half. "Worth watching" = close but failed a check; never used.</p></div>
      <div class="card"><h3>${esc(t)} defense: drives allowed</h3>${defenseHtml(D, t)}</div>`;
@@ -323,11 +368,12 @@ function renderDrives() {
     const col = (t, opp, sp) => `<div class="card dvcol"><h3>${esc(t)} offense</h3>${offenseKv(D, t)}<h4>Tendencies · ${nLbl}</h4>${tendTable(teamTendencies(D, t, S.dv.n), true)}<h4>What the model sees · ${esc(t)} players vs ${esc(opp)}</h4>${playerPatternsHtml(D, t, opp, sp)}<h4>${esc(opp)} defense: drives allowed</h4>${defenseHtml(D, opp)}</div>`;
     body = `<div class="card"><h2>${esc(A)} @ ${esc(B)} · what the model sees</h2>${seesHtml(D, A, B, { spreadA, spreadB })}<p class="small muted">Only findings that pass the reliability checks are called patterns; everything else is labelled "worth watching" or "rank only" and never moves a number.</p></div>
      <div class="dvcols">${col(A, B, spreadA)}${col(B, A, spreadB)}</div>
-     <div class="card"><h3>Drive by drive · ${nLbl}</h3><div class="row" role="group" aria-label="Grid team">${[A, B].map(t => `<button class="btn ${GT === t ? 'gold' : ''}" data-act="dvgt" data-team="${esc(t)}" aria-pressed="${GT === t}">${esc(t)}</button>`).join('')}</div>${driveGrid(D, GT, S.dv.n)}</div>`;
+     <div class="card"><h3>Drive by drive · ${nLbl}</h3><div class="row" role="group" aria-label="Grid team">${[A, B].map(t => `<button class="btn ${GT === t ? 'gold' : ''}" data-act="dvgt" data-team="${esc(t)}" aria-pressed="${GT === t}">${esc(t)}</button>`).join('')}</div>
+     <h4 id="dvLog">Drive log · every drive, every touch</h4>${driveLogHtml(D, GT, S.dv.n)}<h4 id="dvPbd">Player by drive</h4>${playerByDriveHtml(D, GT, S.dv.n)}<h4>Drive grid</h4>${driveGrid(D, GT, S.dv.n)}</div>`;
   }
   v.innerHTML = `${picker}${body}<div class="card" id="drivesScore"><h3>Scoreboard: with vs without drive patterns</h3>${scoreboardHtml(D)}</div>${drivesTrendsHtml()}`;
   const on = (id, f) => v.querySelector('#' + id)?.addEventListener('change', e => { f(e.target.value); saveDv(); renderDrives(); });
-  on('dvTeam', x => { S.dv.team = x; S.dv.who = ''; }); on('dvGame', x => { S.dv.game = x; S.dv.who = ''; }); on('dvA', x => { S.dv.a = x; }); on('dvB', x => { S.dv.b = x; }); on('dvWho', x => { S.dv.who = x; });
+  on('dvTeam', x => { S.dv.team = x; S.dv.who = ''; S.dv.lg = ''; }); on('dvGame', x => { S.dv.game = x; S.dv.who = ''; }); on('dvA', x => { S.dv.a = x; }); on('dvB', x => { S.dv.b = x; }); on('dvWho', x => { S.dv.who = x; }); on('dvLogG', x => { S.dv.lg = x; }); on('dvPl', x => { S.dv.pl = x; }); on('dvThC', x => { const v = Math.max(0, Math.round(+x)); if (Number.isFinite(v)) S.dv.th = v; });
   if (S.dv.mode === 'team') S.dv.gridTeam = S.dv.team;
 }
 function renderTrends() {
@@ -735,6 +781,9 @@ document.addEventListener('click', e => {
   else if (a === 'dvmode') { S.dv.mode = t.dataset.mode; S.dv.who = ''; save(LS_DRIVES, S.dv); renderDrives(); }
   else if (a === 'dvn') { S.dv.n = t.dataset.n === 'season' ? 'season' : +t.dataset.n; save(LS_DRIVES, S.dv); renderDrives(); }
   else if (a === 'dvgt') { S.dv.gt = t.dataset.team; S.dv.who = ''; save(LS_DRIVES, S.dv); renderDrives(); }
+  else if (a === 'dvst') { S.dv.st = t.dataset.st; if (S.dv.st === 'recYd' || S.dv.st === 'rushYd') { if (S.dv.th < 5) S.dv.th = S.dv.st === 'recYd' ? 20 : 10; } else if (S.dv.th > 6) S.dv.th = 1; save(LS_DRIVES, S.dv); renderDrives(); }
+  else if (a === 'dvth') { S.dv.st = t.dataset.st; S.dv.th = +t.dataset.th; save(LS_DRIVES, S.dv); renderDrives(); }
+  else if (a === 'dvpl') { S.dv.pl = t.dataset.pid; save(LS_DRIVES, S.dv); renderDrives(); $('#dvPbd')?.scrollIntoView({ block: 'start' }); }
   else if (a === 'dcell') { const o = $('#dcellOut'); if (o) o.innerHTML = dcellHtml(drivesData(), S.dv.gridTeam, t.dataset.w, t.dataset.n); }
   else if (a === 'close') closePanel();
   else if (a === 'ai') runAi();

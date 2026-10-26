@@ -173,6 +173,13 @@ Board → Sort now has three groups. **Touchdown**: *Model confidence (High › 
 - `tests/landscape.test.js` covers five landscape sizes: header under 25% of the height, no page-level horizontal overflow, panel scrollable, Close visible and at least 44 px, plus a rotation round-trip.
 - Screenshots: `SIZES=844x390,932x430 MOBILE=1 node scripts/ux-shots.mjs <dir> [url]` (`shots/` is git-ignored).
 
+## App 4.8.1 — Drive log and player-by-drive table (display only; model stays endzone-4.6.0)
+
+- **Drive log** (Drives → Team, and each team in Matchup): pick a game; every drive shows drive #, quarter, start yard line, plays, result, and one line per player who got the ball, e.g. `St. Brown 2 rec (3 tgt), 24 yds · Gibbs 3 car, 18 yds, TD`. QB pass stats are never listed as columns. Cards in portrait, a table in landscape.
+- **Player by drive**: choose a player from the dropdown or tap a name in the log. Rows are games in the window (last 3 / last 6 / season); columns are drives 1…N; cells read `2 rec / 24 yds` or `3 car / 18 yds`. Stat toggle: Receptions, Rec yds, Carries, Rush yds, Touches. Threshold presets (1+ rec, 2+ rec, 20+ rec yds, 10+ rush yds, 20+ rush yds) or a custom value; cells that meet it are highlighted.
+- **By drive number**: hit rate per drive ("Drive 3: 1+ rec in 4 of 6 games"), average yards, and a reliability label from the existing drive-number tests: "pattern" only if it survives BH q ≤ 0.10 and out-of-sample persistence, otherwise "small sample / likely chance". An "Any drive" row gives the baseline.
+- Data: the team drive tuple now also carries quarter and start yard line (`scripts/drives/profile.mjs`); week files are pre-game only, as before.
+
 ## App 4.8.0 — Drives section and drive-pattern adjustment (challenger; model stays endzone-4.6.0)
 
 - **Drives tab** (top level, between Trends and Lab; the Trends block links to it). Picker: *Team* (any of 32) or *Matchup* (this week's games, or "Any two teams"); window Last 3 / Last 6 / Season. The choice is saved on the device (`localStorage endzone.drives.v1`).
