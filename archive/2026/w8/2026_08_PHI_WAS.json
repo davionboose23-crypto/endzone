@@ -10129,63 +10129,63 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-26T07:57:26.595Z",
-  "fingerprint": "5f7c704a9dd800184fd11354",
+  "capturedAt": "2026-10-26T20:07:58.543Z",
+  "fingerprint": "e60785adbd43bddf5d8743f1",
   "payload": {
    "callIds": {
     "away": "5022",
     "home": "2449"
    },
-   "capturedAt": "2026-10-26T07:57:26.595Z",
+   "capturedAt": "2026-10-26T20:07:58.543Z",
    "challenger": {
-    "capturedCutoff": "2026-10-26T07:57:25.859Z",
+    "capturedCutoff": "2026-10-26T20:07:58.077Z",
     "reason": null,
     "status": "blend3",
-    "trainingCount": 2882,
+    "trainingCount": 2904,
     "trainingCutoff": {
      "rule": "usage leg fit on player-games strictly before the target week; blend uses the final (post-cap) model chance and Sleeper as published",
      "season": 2026,
      "week": 8
     },
     "usage": {
-     "builtAt": "2026-10-26T03:29:17.797Z",
+     "builtAt": "2026-10-26T20:07:29.957Z",
      "players": 698,
      "season": 2026,
-     "trainRows": 15480,
+     "trainRows": 15571,
      "trainedOn": "player-games before 2026 week 8 (from 2024)",
      "version": 1,
      "week": 8
     }
    },
    "gameId": "2026_08_PHI_WAS",
-   "gameLambda": 4.148430727425241,
+   "gameLambda": 4.147214905793334,
    "inputTimestamps": {
-    "ftn": "2026-10-26T07:57:20.548Z",
-    "history_2025": "2026-10-26T07:57:11.574Z",
-    "history_2026": "2026-10-26T07:57:20.486Z",
-    "idmap": "2026-10-26T07:57:20.411Z",
-    "pbp": "2026-10-26T07:57:21.322Z",
-    "players": "2026-10-26T07:57:20.114Z",
-    "proj_1": "2026-10-26T07:57:10.900Z",
-    "proj_2": "2026-10-26T07:57:10.916Z",
-    "proj_3": "2026-10-26T07:57:10.927Z",
-    "proj_4": "2026-10-26T07:57:10.937Z",
-    "proj_5": "2026-10-26T07:57:10.959Z",
-    "proj_6": "2026-10-26T07:57:10.966Z",
-    "proj_7": "2026-10-26T07:57:20.164Z",
-    "proj_8": "2026-10-26T07:57:20.184Z",
-    "roster": "2026-10-26T07:57:20.224Z",
-    "schedule": "2026-10-26T07:57:19.921Z",
-    "snaps": "2026-10-26T07:57:21.346Z",
-    "state": "2026-10-26T07:57:19.738Z",
-    "stats_1": "2026-10-26T07:57:10.752Z",
-    "stats_2": "2026-10-26T07:57:10.804Z",
-    "stats_3": "2026-10-26T07:57:10.787Z",
-    "stats_4": "2026-10-26T07:57:10.830Z",
-    "stats_5": "2026-10-26T07:57:10.848Z",
-    "stats_6": "2026-10-26T07:57:10.880Z",
-    "stats_7": "2026-10-26T07:57:20.143Z",
-    "stats_8": "2026-10-26T07:57:20.165Z"
+    "ftn": "2026-10-26T20:07:54.194Z",
+    "history_2025": "2026-10-26T20:07:47.372Z",
+    "history_2026": "2026-10-26T20:07:54.101Z",
+    "idmap": "2026-10-26T20:07:53.999Z",
+    "pbp": "2026-10-26T20:07:54.826Z",
+    "players": "2026-10-26T20:07:53.553Z",
+    "proj_1": "2026-10-26T20:07:46.435Z",
+    "proj_2": "2026-10-26T20:07:46.461Z",
+    "proj_3": "2026-10-26T20:07:46.482Z",
+    "proj_4": "2026-10-26T20:07:46.444Z",
+    "proj_5": "2026-10-26T20:07:46.455Z",
+    "proj_6": "2026-10-26T20:07:46.473Z",
+    "proj_7": "2026-10-26T20:07:53.639Z",
+    "proj_8": "2026-10-26T20:07:53.670Z",
+    "roster": "2026-10-26T20:07:53.814Z",
+    "schedule": "2026-10-26T20:07:53.351Z",
+    "snaps": "2026-10-26T20:07:54.885Z",
+    "state": "2026-10-26T20:07:53.183Z",
+    "stats_1": "2026-10-26T20:07:46.317Z",
+    "stats_2": "2026-10-26T20:07:46.361Z",
+    "stats_3": "2026-10-26T20:07:46.408Z",
+    "stats_4": "2026-10-26T20:07:46.341Z",
+    "stats_5": "2026-10-26T20:07:46.383Z",
+    "stats_6": "2026-10-26T20:07:46.395Z",
+    "stats_7": "2026-10-26T20:07:53.596Z",
+    "stats_8": "2026-10-26T20:07:53.615Z"
    },
    "kickoff": "2026-11-02T01:20:00.000Z",
    "lessons": "Learned from finished games, from the last three weeks",
@@ -10212,9 +10212,9 @@
       0.1982,
       0.478
      ],
-     "blendDrives": 0.3438,
+     "blendDrives": 0.3436,
      "ceiling": 0.5,
-     "challenger": 0.3438,
+     "challenger": 0.3436,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -10244,7 +10244,7 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -13.0306,
+     "edge": -13.0307,
      "espn": "3121023",
      "fair": 217,
      "firstTd": 0.0899,
@@ -10258,7 +10258,7 @@
      "injury": null,
      "insideFinisher": false,
      "lambda": 0.3789,
-     "lambdaRaw": 0.2624,
+     "lambdaRaw": 0.2623,
      "lessonNotes": [
       "Learned from finished games: 15to25 chances scaled ×0.94 (from the last three weeks).",
       "Blended 68% toward the published projection (44%) because of limited recent red-zone evidence; safety caps applied after."
@@ -10296,7 +10296,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.31843048282198416,
+       "chance": 0.31850000002597445,
        "targets": 5.7210891261610906
       },
       "close": {
@@ -10308,7 +10308,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.31329315935069446,
+       "chance": 0.31329256240142533,
        "targets": 4.495141456269428
       },
       "limited": {
@@ -10394,7 +10394,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": true,
-       "width": 0.27980406493977683
+       "width": 0.2798030485699493
       },
       "level": "Med",
       "reasons": [
@@ -10463,7 +10463,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.2842,
+     "usage": 0.2839,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -10508,10 +10508,10 @@
         "factor": 1.0182,
         "league": 0.7206
        },
-       "hi": 6.6153,
-       "leagueDefense": 3.7641,
-       "lo": 1.0495,
-       "mean": 3.8324,
+       "hi": 6.6021,
+       "leagueDefense": 3.7632,
+       "lo": 1.0611,
+       "mean": 3.8316,
        "source": "held-out errors, TE|primary|available (n=48)",
        "text": "3.8 without this defense. WAS allows TEs a 76% catch rate versus 72% league."
       },
@@ -10521,10 +10521,10 @@
         "factor": 1.1029,
         "league": 7.0822
        },
-       "hi": 80.0856,
-       "leagueDefense": 38.6402,
-       "lo": 5.1438,
-       "mean": 42.6147,
+       "hi": 79.8974,
+       "leagueDefense": 38.6334,
+       "lo": 5.3171,
+       "mean": 42.6072,
        "source": "held-out errors, TE|primary|available (n=48)",
        "text": "39 without this defense. WAS allows TEs 9.0 yards a target versus 7.1 league."
       },
@@ -10551,22 +10551,22 @@
       "uncertain": false
      },
      "band": [
-      0.196,
-      0.4682
+      0.1959,
+      0.468
      ],
-     "blendDrives": 0.2509,
+     "blendDrives": 0.2506,
      "ceiling": 0.5,
-     "challenger": 0.2509,
+     "challenger": 0.2506,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.31,
+     "chance": 0.3099,
      "coldGoal": false,
      "components": {
       "r0": 0.0281,
-      "r1": 0.2298,
+      "r1": 0.2296,
       "r2": 0.0465,
       "r3": 0.0059,
       "t0": 0.0173,
@@ -10576,31 +10576,31 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.31,
-      "lambda": 0.3711,
-      "p0": 0.69,
-      "p1": 0.2561,
+      "anytime": 0.3099,
+      "lambda": 0.371,
+      "p0": 0.6901,
+      "p1": 0.256,
       "p2": 0.0475,
       "p3plus": 0.0065,
-      "twoPlus": 0.054
+      "twoPlus": 0.0539
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 15.3712,
+     "edge": 15.361,
      "espn": "4360238",
      "fair": 223,
-     "firstTd": 0.0881,
+     "firstTd": 0.088,
      "gamesPlayed": 2,
      "glShare": 0.7758,
      "glShareRaw": 0.7758,
      "gsis": "00-0037258",
-     "i10Exp": 0.5998,
+     "i10Exp": 0.5994,
      "id": "8129",
      "implied": 18.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3711,
-     "lambdaRaw": 0.7355,
+     "lambda": 0.371,
+     "lambdaRaw": 0.735,
      "lessonNotes": [
       "Learned from finished games: 50plus chances scaled ×0.91 (from the last three weeks).",
       "Blended 60% toward the published projection (15%) because of a thin sample; safety caps applied after."
@@ -10615,10 +10615,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.31,
-     "preStack": 0.4897,
+     "preSafety": 0.3099,
+     "preStack": 0.4895,
      "pubBlend": {
-      "before": 0.6728,
+      "before": 0.6725,
       "weight": 0.6
      },
      "published": {
@@ -10640,7 +10640,7 @@
       "behind": {
        "att": 0,
        "carries": 10.088508996279995,
-       "chance": 0.29439282205851025,
+       "chance": 0.2943676182363436,
        "targets": 3.5441653927254455
       },
       "close": {
@@ -10652,7 +10652,7 @@
       "lead": {
        "att": 0,
        "carries": 13.293094206863055,
-       "chance": 0.32819141468043167,
+       "chance": 0.3280779191964719,
        "targets": 2.7847013799985643
       },
       "limited": {
@@ -10674,7 +10674,7 @@
        "scores": 0
       },
       "r1": {
-       "expected": 0.4553,
+       "expected": 0.455,
        "looks": 2,
        "opps": 0.9611,
        "rate": 0.44,
@@ -10739,7 +10739,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": true,
-       "width": 0.27216906095196536
+       "width": 0.27209499264158077
       },
       "level": "Med",
       "reasons": [
@@ -10749,8 +10749,8 @@
      },
      "team": "PHI",
      "trendEffect": {
-      "after": 0.5207,
-      "before": 0.5207,
+      "after": 0.5205,
+      "before": 0.5205,
       "items": [
        {
         "family": "defense",
@@ -10783,7 +10783,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.3175,
+     "usage": 0.3167,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -10828,10 +10828,10 @@
         "factor": 0.9705,
         "league": 0.7811
        },
-       "hi": 4.6809,
-       "leagueDefense": 2.38,
+       "hi": 4.6686,
+       "leagueDefense": 2.3795,
        "lo": 0,
-       "mean": 2.3099,
+       "mean": 2.3094,
        "source": "held-out errors, RB|primary|available (n=52)",
        "text": "2.4 without this defense. WAS allows RBs a 71% catch rate versus 78% league."
       },
@@ -10841,10 +10841,10 @@
         "factor": 0.9706,
         "league": 5.6492
        },
-       "hi": 40.9857,
-       "leagueDefense": 15.0249,
+       "hi": 40.8287,
+       "leagueDefense": 15.0222,
        "lo": 0,
-       "mean": 14.5831,
+       "mean": 14.5805,
        "source": "held-out errors, RB|primary|available (n=52)",
        "text": "15 without this defense. WAS allows RBs 5.2 yards a target versus 5.6 league."
       },
@@ -10854,9 +10854,9 @@
         "factor": 0.9508,
         "league": 4.1223
        },
-       "hi": 68.2211,
+       "hi": 68.1409,
        "leagueDefense": 41.7296,
-       "lo": 11.1309,
+       "lo": 11.2111,
        "mean": 39.676,
        "source": "held-out errors, RB|primary|available (n=52)",
        "text": "42 without this defense. WAS allows RBs 3.8 yards a carry versus 4.1 league."
@@ -10874,9 +10874,9 @@
       0.1598,
       0.416
      ],
-     "blendDrives": 0.15,
+     "blendDrives": 0.1498,
      "ceiling": 0.5,
-     "challenger": 0.15,
+     "challenger": 0.1498,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -10890,7 +10890,7 @@
       "r2": 0,
       "r3": 0,
       "t0": 0.1654,
-      "t1": 0.0614,
+      "t1": 0.0613,
       "t2": 0.058,
       "t3": 0.0212
      },
@@ -10906,7 +10906,7 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 13.3008,
+     "edge": 13.3003,
      "espn": "4715355",
      "fair": 279,
      "firstTd": 0.0726,
@@ -10956,7 +10956,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.2852154505156992,
+       "chance": 0.28527418545342065,
        "targets": 8.637915578200642
       },
       "close": {
@@ -10968,7 +10968,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.2403697804961744,
+       "chance": 0.24036485722426082,
        "targets": 6.78693366858622
       },
       "limited": {
@@ -11056,7 +11056,7 @@
        "recentRz": 3,
        "repeat": true,
        "roleOk": false,
-       "width": 0.25615158191997034
+       "width": 0.25614696867663733
       },
       "level": "Med",
       "reasons": [
@@ -11126,7 +11126,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0953,
+     "usage": 0.095,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -11171,10 +11171,10 @@
         "factor": 1.045,
         "league": 0.6197
        },
-       "hi": 8.4584,
-       "leagueDefense": 4.6706,
-       "lo": 1.3035,
-       "mean": 4.881,
+       "hi": 8.4481,
+       "leagueDefense": 4.6695,
+       "lo": 1.3117,
+       "mean": 4.8799,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "4.7 without this defense. WAS allows WRs a 67% catch rate versus 62% league."
       },
@@ -11184,10 +11184,10 @@
         "factor": 1.003,
         "league": 8.0783
        },
-       "hi": 122.4376,
-       "leagueDefense": 68.0256,
-       "lo": 14.0271,
-       "mean": 68.2324,
+       "hi": 122.2965,
+       "leagueDefense": 68.0137,
+       "lo": 14.1441,
+       "mean": 68.2203,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "68 without this defense. WAS allows WRs 8.1 yards a target versus 8.1 league."
       },
@@ -11215,21 +11215,21 @@
      },
      "band": [
       0.1327,
-      0.4202
+      0.4201
      ],
-     "blendDrives": 0.3124,
+     "blendDrives": 0.3122,
      "ceiling": 0.5,
-     "challenger": 0.3124,
+     "challenger": 0.3122,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2432,
+     "chance": 0.2431,
      "coldGoal": false,
      "components": {
       "r0": 0.0817,
-      "r1": 0.1151,
+      "r1": 0.115,
       "r2": 0.0259,
       "r3": 0.0133,
       "t0": 0.036,
@@ -11239,17 +11239,17 @@
      },
      "conversionNote": "0 of 5 red-zone carries scored.",
      "dist": {
-      "anytime": 0.2432,
-      "lambda": 0.2786,
-      "p0": 0.7568,
-      "p1": 0.2109,
+      "anytime": 0.2431,
+      "lambda": 0.2785,
+      "p0": 0.7569,
+      "p1": 0.2108,
       "p2": 0.0294,
       "p3plus": 0.0029,
       "twoPlus": 0.0323
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -16.2314,
+     "edge": -16.2409,
      "espn": "3929630",
      "fair": 311,
      "firstTd": 0.0661,
@@ -11262,7 +11262,7 @@
      "implied": 18.5,
      "injury": "Questionable",
      "insideFinisher": false,
-     "lambda": 0.2786,
+     "lambda": 0.2785,
      "lambdaRaw": 0.0855,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks).",
@@ -11278,10 +11278,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.2432,
-     "preStack": 0.093,
+     "preSafety": 0.2431,
+     "preStack": 0.0928,
      "pubBlend": {
-      "before": 0.0976,
+      "before": 0.0973,
       "weight": 0.4286
      },
      "published": {
@@ -11299,7 +11299,7 @@
       "behind": {
        "att": 0,
        "carries": 4.339609094701538,
-       "chance": 0.23769814519575116,
+       "chance": 0.237669932951869,
        "targets": 1.002188433273051
       },
       "close": {
@@ -11311,7 +11311,7 @@
       "lead": {
        "att": 0,
        "carries": 5.718073160077322,
-       "chance": 0.24461942549521853,
+       "chance": 0.24452200696481996,
        "targets": 0.7874337690002544
       },
       "limited": {
@@ -11397,7 +11397,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": false,
-       "width": 0.2875288474575153
+       "width": 0.2874347689672846
       },
       "level": "Med",
       "reasons": [
@@ -11407,8 +11407,8 @@
      },
      "team": "PHI",
      "trendEffect": {
-      "after": 0.082,
-      "before": 0.082,
+      "after": 0.0819,
+      "before": 0.0819,
       "items": [
        {
         "family": "miss",
@@ -11449,7 +11449,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.3042,
+     "usage": 0.3036,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -11497,10 +11497,10 @@
         "factor": 0.9705,
         "league": 0.7811
        },
-       "hi": 1.8669,
-       "leagueDefense": 0.6784,
+       "hi": 1.8666,
+       "leagueDefense": 0.6783,
        "lo": 0,
-       "mean": 0.5597,
+       "mean": 0.5595,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "0.7 without this defense. WAS allows RBs a 71% catch rate versus 78% league."
       },
@@ -11510,10 +11510,10 @@
         "factor": 0.9706,
         "league": 5.6492
        },
-       "hi": 15.3123,
-       "leagueDefense": 4.4672,
+       "hi": 15.3096,
+       "leagueDefense": 4.4664,
        "lo": 0,
-       "mean": 3.6855,
+       "mean": 3.6848,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "4 without this defense. WAS allows RBs 5.2 yards a target versus 5.6 league."
       },
@@ -11543,9 +11543,9 @@
       0.1452,
       0.3326
      ],
-     "blendDrives": 0.1794,
+     "blendDrives": 0.179,
      "ceiling": 0.5,
-     "challenger": 0.1794,
+     "challenger": 0.179,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -11575,7 +11575,7 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 5.7946,
+     "edge": 5.7941,
      "espn": "4870795",
      "fair": 349,
      "firstTd": 0.0598,
@@ -11607,7 +11607,7 @@
      "preSafety": 0.2227,
      "preStack": 0.2971,
      "pubBlend": {
-      "before": 0.3526,
+      "before": 0.3525,
       "weight": 0.5833
      },
      "published": {
@@ -11629,7 +11629,7 @@
       "behind": {
        "att": 0,
        "carries": 0.11000531203178512,
-       "chance": 0.23527942013777714,
+       "chance": 0.2353287637047845,
        "targets": 8.637915578200642
       },
       "close": {
@@ -11641,7 +11641,7 @@
       "lead": {
        "att": 0,
        "carries": 0.1449481758536463,
-       "chance": 0.20895246297479064,
+       "chance": 0.20894762165715464,
        "targets": 6.78693366858622
       },
       "limited": {
@@ -11727,7 +11727,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": true,
-       "width": 0.18742541663793832
+       "width": 0.18742135376210145
       },
       "level": "Med",
       "reasons": [
@@ -11788,7 +11788,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1568,
+     "usage": 0.1557,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -11835,10 +11835,10 @@
         "factor": 1.045,
         "league": 0.6197
        },
-       "hi": 7.7855,
-       "leagueDefense": 5.0255,
-       "lo": 2.7183,
-       "mean": 5.2519,
+       "hi": 7.769,
+       "leagueDefense": 5.0244,
+       "lo": 2.7324,
+       "mean": 5.2507,
        "source": "held-out errors, WR|support|available (n=44)",
        "text": "5.0 without this defense. WAS allows WRs a 67% catch rate versus 62% league."
       },
@@ -11848,10 +11848,10 @@
         "factor": 1.003,
         "league": 8.0783
        },
-       "hi": 90.3322,
-       "leagueDefense": 51.1177,
-       "lo": 12.2139,
-       "mean": 51.2731,
+       "hi": 90.1363,
+       "leagueDefense": 51.1087,
+       "lo": 12.3917,
+       "mean": 51.264,
        "source": "held-out errors, WR|support|available (n=44)",
        "text": "51 without this defense. WAS allows WRs 8.1 yards a target versus 8.1 league."
       },
@@ -11861,7 +11861,7 @@
         "factor": 0.9868,
         "league": 5.1484
        },
-       "hi": 9.0922,
+       "hi": 9.0077,
        "leagueDefense": 0.6568,
        "lo": 0,
        "mean": 0.6482,
@@ -11881,9 +11881,9 @@
       0.0277,
       0.1603
      ],
-     "blendDrives": 0.0588,
+     "blendDrives": 0.0586,
      "ceiling": 0.5,
-     "challenger": 0.0588,
+     "challenger": 0.0586,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -11937,7 +11937,7 @@
      "passTd": {
       "attemptShare": 0.7827,
       "display": "0.9",
-      "expected": 0.8857,
+      "expected": 0.8856,
       "interval": [
        0,
        2
@@ -11950,7 +11950,7 @@
        "45 attempts this season (needs 60).",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.1316
+      "teamReceivingLambda": 1.1315
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4685201.png",
@@ -11960,9 +11960,9 @@
      "pos": "QB",
      "practice": null,
      "preSafety": 0.0676,
-     "preStack": 0.123,
+     "preStack": 0.1227,
      "pubBlend": {
-      "before": 0.1312,
+      "before": 0.1309,
       "weight": 1
      },
      "published": {
@@ -11984,7 +11984,7 @@
       "behind": {
        "att": 26.959325642853237,
        "carries": 2.94889404132512,
-       "chance": 0.06733489370105439,
+       "chance": 0.06735239585851793,
        "targets": 0
       },
       "close": {
@@ -12084,7 +12084,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.13266142976145567
+       "width": 0.1326595913280052
       },
       "level": "Low",
       "reasons": [
@@ -12104,7 +12104,7 @@
        "type": "Role vacuum"
       }
      ],
-     "usage": 0.0443,
+     "usage": 0.0439,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -12155,12 +12155,12 @@
         "factor": 1.0179,
         "league": null
        },
-       "hi": 226.7678,
-       "leagueDefense": 152.8302,
-       "lo": 84.3776,
-       "mean": 155.5727,
+       "hi": 222.0463,
+       "leagueDefense": 151.2774,
+       "lo": 85.9379,
+       "mean": 153.9921,
        "source": "held-out errors, QB|primary|available (n=48)",
-       "text": "153 without this defense; opponent factor 1.02 from how this offense uses WRs, TEs, and backs."
+       "text": "151 without this defense; opponent factor 1.02 from how this offense uses WRs, TEs, and backs."
       },
       "rec": {
        "defense": {
@@ -12194,7 +12194,7 @@
         "factor": 1.0342,
         "league": 4.3856
        },
-       "hi": 36.0374,
+       "hi": 35.9228,
        "leagueDefense": 15.3718,
        "lo": 0,
        "mean": 15.8977,
@@ -12211,21 +12211,21 @@
       "uncertain": false
      },
      "band": [
-      0.0246,
-      0.1448
+      0.0245,
+      0.1444
      ],
-     "blendDrives": 0.046,
+     "blendDrives": 0.0457,
      "ceiling": 0.5,
-     "challenger": 0.046,
+     "challenger": 0.0457,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.0605,
+     "chance": 0.0603,
      "coldGoal": false,
      "components": {
       "r0": 0.0017,
-      "r1": 0.0383,
+      "r1": 0.0382,
       "r2": 0.0198,
       "r3": 0.0025,
       "t0": 0,
@@ -12235,10 +12235,10 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0605,
-      "lambda": 0.0624,
-      "p0": 0.9395,
-      "p1": 0.0586,
+      "anytime": 0.0603,
+      "lambda": 0.0622,
+      "p0": 0.9397,
+      "p1": 0.0585,
       "p2": 0.0018,
       "p3plus": 0,
       "twoPlus": 0.0019
@@ -12247,19 +12247,19 @@
      "driveAdj": null,
      "edge": null,
      "espn": "4360698",
-     "fair": 1553,
+     "fair": 1557,
      "firstTd": 0.0148,
      "gamesPlayed": 0,
      "glShare": 0.057,
      "glShareRaw": 0.057,
      "gsis": "00-0039398",
-     "i10Exp": 0.051,
+     "i10Exp": 0.0509,
      "id": "11557",
      "implied": 18.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0624,
-     "lambdaRaw": 0.0547,
+     "lambda": 0.0622,
+     "lambdaRaw": 0.0546,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks)."
      ],
@@ -12282,7 +12282,7 @@
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.1316
+      "teamReceivingLambda": 1.1315
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4360698.png",
@@ -12291,21 +12291,21 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.0605,
-     "preStack": 0.0605,
+     "preSafety": 0.0603,
+     "preStack": 0.0603,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
      "recentRzLooks": 0,
      "replacing": null,
      "riser": null,
-     "role": "QB3",
+     "role": "QB4",
      "safetyNotes": [],
      "scenarios": {
       "behind": {
        "att": 6.542716217007598,
        "carries": 0.42798993835069327,
-       "chance": 0.05143846459233781,
+       "chance": 0.05132549260953789,
        "targets": 0
       },
       "close": {
@@ -12317,7 +12317,7 @@
       "lead": {
        "att": 5.140705599077399,
        "carries": 0.5639396834738548,
-       "chance": 0.06325017550926315,
+       "chance": 0.06309611935751402,
        "targets": 0
       },
       "limited": {
@@ -12403,7 +12403,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.12020051571932366
+       "width": 0.1199245084114412
       },
       "level": "Low",
       "reasons": [
@@ -12413,7 +12413,7 @@
      "team": "PHI",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.0349,
+     "usage": 0.0345,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -12464,10 +12464,10 @@
         "factor": 1.0179,
         "league": null
        },
-       "hi": 149.4695,
-       "leagueDefense": 41.9544,
+       "hi": 148.5243,
+       "leagueDefense": 41.5281,
        "lo": 0,
-       "mean": 36.3012,
+       "mean": 35.9323,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "42 without this defense; opponent factor 1.02 from how this offense uses WRs, TEs, and backs."
       },
@@ -12521,32 +12521,32 @@
      },
      "band": [
       0.0133,
-      0.0741
+      0.074
      ],
-     "blendDrives": 0.0492,
+     "blendDrives": 0.049,
      "ceiling": 0.5,
-     "challenger": 0.0492,
+     "challenger": 0.049,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.0317,
+     "chance": 0.0316,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0105,
+      "t0": 0.0104,
       "t1": 0.0085,
-      "t2": 0.0085,
+      "t2": 0.0084,
       "t3": 0.0048
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0317,
-      "lambda": 0.0322,
-      "p0": 0.9683,
+      "anytime": 0.0316,
+      "lambda": 0.0321,
+      "p0": 0.9684,
       "p1": 0.0311,
       "p2": 0.0005,
       "p3plus": 0,
@@ -12556,7 +12556,7 @@
      "driveAdj": null,
      "edge": null,
      "espn": "3926231",
-     "fair": 3059,
+     "fair": 3065,
      "firstTd": 0.0076,
      "gamesPlayed": 0,
      "glShare": 0,
@@ -12567,7 +12567,7 @@
      "implied": 18.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0322,
+     "lambda": 0.0321,
      "lambdaRaw": 0.0282,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks)."
@@ -12582,8 +12582,8 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0317,
-     "preStack": 0.0317,
+     "preSafety": 0.0316,
+     "preStack": 0.0316,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -12596,7 +12596,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.035237646655435495,
+       "chance": 0.03518100638314636,
        "targets": 0.8155780515439914
       },
       "close": {
@@ -12608,7 +12608,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.02790712617248514,
+       "chance": 0.027854704965322274,
        "targets": 0.6408113262131361
       },
       "limited": {
@@ -12692,7 +12692,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.06080843431831673
+       "width": 0.06069770923304618
       },
       "level": "Low",
       "reasons": [
@@ -12727,7 +12727,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0762,
+     "usage": 0.0756,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -12770,10 +12770,10 @@
         "factor": 1.045,
         "league": 0.6197
        },
-       "hi": 1.6154,
-       "leagueDefense": 0.4653,
+       "hi": 1.6124,
+       "leagueDefense": 0.4652,
        "lo": 0,
-       "mean": 0.4863,
+       "mean": 0.4862,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.5 without this defense. WAS allows WRs a 67% catch rate versus 62% league."
       },
@@ -12783,10 +12783,10 @@
         "factor": 1.003,
         "league": 8.0783
        },
-       "hi": 22.4033,
-       "leagueDefense": 6.1227,
+       "hi": 22.3635,
+       "leagueDefense": 6.1216,
        "lo": 0,
-       "mean": 6.1413,
+       "mean": 6.1402,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "6 without this defense. WAS allows WRs 8.1 yards a target versus 8.1 league."
       },
@@ -12816,9 +12816,9 @@
       0.0159,
       0.0583
      ],
-     "blendDrives": 0.0329,
+     "blendDrives": 0.0327,
      "ceiling": 0.5,
-     "challenger": 0.0329,
+     "challenger": 0.0327,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -12831,7 +12831,7 @@
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0101,
+      "t0": 0.01,
       "t1": 0.0082,
       "t2": 0.0082,
       "t3": 0.0046
@@ -12848,9 +12848,9 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 0.1051,
+     "edge": 0.1028,
      "espn": "3052096",
-     "fair": 3167,
+     "fair": 3170,
      "firstTd": 0.0074,
      "gamesPlayed": 5,
      "glShare": 0,
@@ -12878,9 +12878,9 @@
      "pos": "TE",
      "practice": null,
      "preSafety": 0.0306,
-     "preStack": 0.0324,
+     "preStack": 0.0323,
      "pubBlend": {
-      "before": 0.0329,
+      "before": 0.0328,
       "weight": 0.625
      },
      "published": {
@@ -12898,7 +12898,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.031907743675384403,
+       "chance": 0.031890814784596766,
        "targets": 0.8747077095991169
       },
       "close": {
@@ -12910,7 +12910,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.02916936050680552,
+       "chance": 0.029149284493867667,
        "targets": 0.687270343256449
       },
       "limited": {
@@ -12994,7 +12994,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.04238494185347119
+       "width": 0.04235404028772061
       },
       "level": "Low",
       "reasons": [
@@ -13046,7 +13046,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0394,
+     "usage": 0.0388,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -13089,10 +13089,10 @@
         "factor": 1.0182,
         "league": 0.7206
        },
-       "hi": 1.7746,
-       "leagueDefense": 0.5719,
+       "hi": 1.7663,
+       "leagueDefense": 0.5718,
        "lo": 0,
-       "mean": 0.5823,
+       "mean": 0.5822,
        "source": "held-out errors, TE|support|available (n=46)",
        "text": "0.6 without this defense. WAS allows TEs a 76% catch rate versus 72% league."
       },
@@ -13102,10 +13102,10 @@
         "factor": 1.1029,
         "league": 7.0822
        },
-       "hi": 22.1921,
-       "leagueDefense": 5.1586,
+       "hi": 22.0794,
+       "leagueDefense": 5.1577,
        "lo": 0,
-       "mean": 5.6892,
+       "mean": 5.6882,
        "source": "held-out errors, TE|support|available (n=46)",
        "text": "5 without this defense. WAS allows TEs 9.0 yards a target versus 7.1 league."
       },
@@ -13135,9 +13135,9 @@
       0.0085,
       0.0458
      ],
-     "blendDrives": 0.0372,
+     "blendDrives": 0.0371,
      "ceiling": 0.5,
-     "challenger": 0.0372,
+     "challenger": 0.0371,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -13197,9 +13197,9 @@
      "pos": "WR",
      "practice": null,
      "preSafety": 0.0198,
-     "preStack": 0.051,
+     "preStack": 0.0509,
      "pubBlend": {
-      "before": 0.0523,
+      "before": 0.0522,
       "weight": 1
      },
      "published": {
@@ -13217,7 +13217,7 @@
       "behind": {
        "att": 0,
        "carries": 0.21916554130662938,
-       "chance": 0.019719850718058596,
+       "chance": 0.019725106664517433,
        "targets": 2.482127745591026
       },
       "close": {
@@ -13313,7 +13313,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.03727499869997786
+       "width": 0.037274975696606316
       },
       "level": "Low",
       "reasons": [
@@ -13348,7 +13348,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1269,
+     "usage": 0.1267,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -13391,10 +13391,10 @@
         "factor": 1.045,
         "league": 0.6197
        },
-       "hi": 3.4497,
-       "leagueDefense": 1.4161,
+       "hi": 3.4443,
+       "leagueDefense": 1.4158,
        "lo": 0,
-       "mean": 1.4799,
+       "mean": 1.4795,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "1.4 without this defense. WAS allows WRs a 67% catch rate versus 62% league."
       },
@@ -13404,10 +13404,10 @@
         "factor": 1.003,
         "league": 8.0783
        },
-       "hi": 47.0599,
-       "leagueDefense": 18.6337,
+       "hi": 46.9891,
+       "leagueDefense": 18.6304,
        "lo": 0,
-       "mean": 18.6903,
+       "mean": 18.687,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "19 without this defense. WAS allows WRs 8.1 yards a target versus 8.1 league."
       },
@@ -13417,7 +13417,7 @@
         "factor": 0.9868,
         "league": 5.1484
        },
-       "hi": 6.8242,
+       "hi": 6.7779,
        "leagueDefense": 1.3855,
        "lo": 0,
        "mean": 1.3672,
@@ -13437,9 +13437,9 @@
       0.0042,
       0.0235
      ],
-     "blendDrives": 0.0174,
+     "blendDrives": 0.0173,
      "ceiling": 0.5,
-     "challenger": 0.0174,
+     "challenger": 0.0173,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -13519,7 +13519,7 @@
       "behind": {
        "att": 0,
        "carries": 0.016345679640829284,
-       "chance": 0.009909019694684051,
+       "chance": 0.009911673972729518,
        "targets": 0.9041045315551003
       },
       "close": {
@@ -13615,7 +13615,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.01929867727539325
+       "width": 0.019298655196290038
       },
       "level": "Low",
       "reasons": [
@@ -13650,7 +13650,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0526,
+     "usage": 0.052,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -13693,10 +13693,10 @@
         "factor": 1.045,
         "league": 0.6197
        },
-       "hi": 1.7117,
-       "leagueDefense": 0.5084,
+       "hi": 1.7085,
+       "leagueDefense": 0.5083,
        "lo": 0,
-       "mean": 0.5313,
+       "mean": 0.5312,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.5 without this defense. WAS allows WRs a 67% catch rate versus 62% league."
       },
@@ -13706,10 +13706,10 @@
         "factor": 1.003,
         "league": 8.0783
        },
-       "hi": 23.2021,
-       "leagueDefense": 6.4681,
+       "hi": 23.1612,
+       "leagueDefense": 6.4669,
        "lo": 0,
-       "mean": 6.4877,
+       "mean": 6.4866,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "6 without this defense. WAS allows WRs 8.1 yards a target versus 8.1 league."
       },
@@ -13719,7 +13719,7 @@
         "factor": 0.9868,
         "league": 5.1484
        },
-       "hi": 1.5856,
+       "hi": 1.573,
        "leagueDefense": 0.1025,
        "lo": 0,
        "mean": 0.1012,
@@ -13739,9 +13739,9 @@
       0.0018,
       0.0105
      ],
-     "blendDrives": 0.0214,
+     "blendDrives": 0.0212,
      "ceiling": 0.5,
-     "challenger": 0.0214,
+     "challenger": 0.0212,
      "challengerLegs": [
       "model",
       "usage"
@@ -13772,7 +13772,7 @@
      "driveAdj": null,
      "edge": null,
      "espn": "4879250",
-     "fair": 22648,
+     "fair": 22700,
      "firstTd": 0.001,
      "gamesPlayed": 0,
      "glShare": 0.0025,
@@ -13807,7 +13807,7 @@
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.1316
+      "teamReceivingLambda": 1.1315
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4879250.png",
@@ -13824,13 +13824,13 @@
      "recentRzLooks": 0,
      "replacing": null,
      "riser": null,
-     "role": "QB4",
+     "role": "QB3",
      "safetyNotes": [],
      "scenarios": {
       "behind": {
        "att": 0.9426337637361273,
        "carries": 0.2001511792754606,
-       "chance": 0.003722358209066412,
+       "chance": 0.0037148871587556753,
        "targets": 0
       },
       "close": {
@@ -13842,7 +13842,7 @@
       "lead": {
        "att": 0.7406408143640999,
        "carries": 0.2637286126923717,
-       "chance": 0.00472168091387315,
+       "chance": 0.004711012571529949,
        "targets": 0
       },
       "limited": {
@@ -13926,7 +13926,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.008681167288396852
+       "width": 0.008661336061210223
       },
       "level": "Low",
       "reasons": [
@@ -13937,7 +13937,7 @@
      "team": "PHI",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.1004,
+     "usage": 0.0994,
      "verified": true,
      "verifyReason": "On PHI nflverse roster (week 7, ACT)",
      "vol": {
@@ -13988,10 +13988,10 @@
         "factor": 1.0179,
         "league": null
        },
-       "hi": 48.1854,
-       "leagueDefense": 6.0445,
+       "hi": 47.9135,
+       "leagueDefense": 5.9831,
        "lo": 0,
-       "mean": 5.23,
+       "mean": 5.1769,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "6 without this defense; opponent factor 1.02 from how this offense uses WRs, TEs, and backs."
       },
@@ -14047,9 +14047,9 @@
       0.2414,
       0.4719
      ],
-     "blendDrives": 0.2928,
+     "blendDrives": 0.2929,
      "ceiling": 0.5,
-     "challenger": 0.2928,
+     "challenger": 0.2929,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -14079,7 +14079,7 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 1.3302,
+     "edge": 1.3296,
      "espn": "2976212",
      "fair": 192,
      "firstTd": 0.0997,
@@ -14087,7 +14087,7 @@
      "glShare": 0.002,
      "glShareRaw": 0.002,
      "gsis": "00-0031588",
-     "i10Exp": 0.3517,
+     "i10Exp": 0.3516,
      "id": "2449",
      "implied": 22,
      "injury": null,
@@ -14111,7 +14111,7 @@
      "preSafety": 0.343,
      "preStack": 0.3646,
      "pubBlend": {
-      "before": 0.4535,
+      "before": 0.4534,
       "weight": 0.625
      },
      "published": {
@@ -14129,7 +14129,7 @@
       "behind": {
        "att": 0,
        "carries": 0.07659426067999735,
-       "chance": 0.30664451091665,
+       "chance": 0.30664205264906474,
        "targets": 8.231230176875648
       },
       "close": {
@@ -14141,7 +14141,7 @@
       "lead": {
        "att": 0,
        "carries": 0.10092420230776124,
-       "chance": 0.3403172776826213,
+       "chance": 0.34031090168047995,
        "targets": 6.467395138973722
       }
      },
@@ -14185,7 +14185,7 @@
        "scores": 0
       },
       "t1": {
-       "expected": 0.2367,
+       "expected": 0.2366,
        "looks": 2,
        "opps": 0.3589,
        "rate": 0.693,
@@ -14221,7 +14221,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": true,
-       "width": 0.2305105509479517
+       "width": 0.23050725009862527
       },
       "level": "Med",
       "reasons": [
@@ -14231,8 +14231,8 @@
      },
      "team": "WAS",
      "trendEffect": {
-      "after": 0.3817,
-      "before": 0.3817,
+      "after": 0.3816,
+      "before": 0.3816,
       "items": [
        {
         "family": "miss",
@@ -14256,7 +14256,7 @@
        "type": "Model miss pattern"
       }
      ],
-     "usage": 0.2192,
+     "usage": 0.2196,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -14301,12 +14301,12 @@
         "factor": 0.9803,
         "league": 0.6197
        },
-       "hi": 7.1367,
-       "leagueDefense": 4.7505,
-       "lo": 2.1776,
-       "mean": 4.6571,
+       "hi": 7.1235,
+       "leagueDefense": 4.7494,
+       "lo": 2.1886,
+       "mean": 4.6561,
        "source": "held-out errors, WR|primary|available (n=44)",
-       "text": "4.8 without this defense. PHI allows WRs a 60% catch rate versus 62% league."
+       "text": "4.7 without this defense. PHI allows WRs a 60% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
@@ -14314,10 +14314,10 @@
         "factor": 1.0217,
         "league": 8.0783
        },
-       "hi": 88.3135,
-       "leagueDefense": 51.3342,
-       "lo": 16.583,
-       "mean": 52.4482,
+       "hi": 88.1504,
+       "leagueDefense": 51.3251,
+       "lo": 16.7276,
+       "mean": 52.439,
        "source": "held-out errors, WR|primary|available (n=44)",
        "text": "51 without this defense. PHI allows WRs 8.4 yards a target versus 8.1 league."
       },
@@ -14327,7 +14327,7 @@
         "factor": 0.9959,
         "league": 5.1484
        },
-       "hi": 6.7427,
+       "hi": 6.6707,
        "leagueDefense": 0.4804,
        "lo": 0,
        "mean": 0.4785,
@@ -14355,7 +14355,7 @@
       "sleeper",
       "usage"
      ],
-     "chance": 0.2987,
+     "chance": 0.2986,
      "coldGoal": false,
      "components": {
       "r0": 0.0527,
@@ -14369,17 +14369,17 @@
      },
      "conversionNote": "0 of 4 red-zone carries scored. 2 of 3 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.2987,
-      "lambda": 0.3548,
-      "p0": 0.7013,
+      "anytime": 0.2986,
+      "lambda": 0.3547,
+      "p0": 0.7014,
       "p1": 0.2488,
       "p2": 0.0441,
       "p3plus": 0.0057,
-      "twoPlus": 0.0499
+      "twoPlus": 0.0498
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 3.9496,
+     "edge": 3.9464,
      "espn": "4697815",
      "fair": 235,
      "firstTd": 0.0842,
@@ -14387,13 +14387,13 @@
      "glShare": 0.2625,
      "glShareRaw": 0.2625,
      "gsis": "00-0037256",
-     "i10Exp": 0.3204,
+     "i10Exp": 0.3203,
      "id": "8136",
      "implied": 22,
      "injury": null,
      "insideFinisher": true,
-     "lambda": 0.3548,
-     "lambdaRaw": 0.4268,
+     "lambda": 0.3547,
+     "lambdaRaw": 0.4267,
      "lessonNotes": [
       "Learned from finished games: 25to35 chances scaled ×1.05 (from the last three weeks).",
       "Blended 63% toward the published projection (25%) because of limited recent red-zone evidence; safety caps applied after."
@@ -14408,10 +14408,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.2987,
-     "preStack": 0.3599,
+     "preSafety": 0.2986,
+     "preStack": 0.3598,
      "pubBlend": {
-      "before": 0.4461,
+      "before": 0.446,
       "weight": 0.625
      },
      "published": {
@@ -14446,7 +14446,7 @@
       "behind": {
        "att": 0,
        "carries": 11.794319995726687,
-       "chance": 0.2968929018468982,
+       "chance": 0.2968652259401774,
        "targets": 2.494678035466219
       },
       "close": {
@@ -14458,7 +14458,7 @@
       "lead": {
        "att": 0,
        "carries": 15.540751053192816,
-       "chance": 0.2973137668546697,
+       "chance": 0.29728017516198535,
        "targets": 1.9601041707234568
       }
      },
@@ -14474,14 +14474,14 @@
        "scores": 0
       },
       "r1": {
-       "expected": 0.0996,
+       "expected": 0.0995,
        "looks": 1,
        "opps": 0.2968,
        "rate": 0.3417,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0468,
+       "expected": 0.0467,
        "looks": 1,
        "opps": 0.2419,
        "rate": 0.2712,
@@ -14539,7 +14539,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": true,
-       "width": 0.22031233655528826
+       "width": 0.22028146348380295
       },
       "level": "Med",
       "reasons": [
@@ -14549,8 +14549,8 @@
      },
      "team": "WAS",
      "trendEffect": {
-      "after": 0.3474,
-      "before": 0.3474,
+      "after": 0.3473,
+      "before": 0.3473,
       "items": [
        {
         "family": "snap",
@@ -14666,10 +14666,10 @@
         "factor": 0.9772,
         "league": 0.7811
        },
-       "hi": 4.0392,
-       "leagueDefense": 1.9252,
+       "hi": 4.0215,
+       "leagueDefense": 1.9248,
        "lo": 0,
-       "mean": 1.8813,
+       "mean": 1.8809,
        "source": "held-out errors, RB|support|available (n=33)",
        "text": "1.9 without this defense. PHI allows RBs a 72% catch rate versus 78% league."
       },
@@ -14679,10 +14679,10 @@
         "factor": 0.9308,
         "league": 5.6492
        },
-       "hi": 36.3222,
-       "leagueDefense": 13.0069,
+       "hi": 36.0874,
+       "leagueDefense": 13.0046,
        "lo": 0,
-       "mean": 12.107,
+       "mean": 12.1049,
        "source": "held-out errors, RB|support|available (n=33)",
        "text": "13 without this defense. PHI allows RBs 4.3 yards a target versus 5.6 league."
       },
@@ -14692,9 +14692,9 @@
         "factor": 0.9752,
         "league": 4.1223
        },
-       "hi": 95.6543,
+       "hi": 95.4798,
        "leagueDefense": 58.5912,
-       "lo": 18.6223,
+       "lo": 18.7969,
        "mean": 57.1383,
        "source": "held-out errors, RB|support|available (n=33)",
        "text": "59 without this defense. PHI allows RBs 4.0 yards a carry versus 4.1 league."
@@ -14712,9 +14712,9 @@
       0.1736,
       0.4265
      ],
-     "blendDrives": 0.2288,
+     "blendDrives": 0.2285,
      "ceiling": 0.5,
-     "challenger": 0.2288,
+     "challenger": 0.2285,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -14724,7 +14724,7 @@
      "coldGoal": false,
      "components": {
       "r0": 0.0647,
-      "r1": 0.1595,
+      "r1": 0.1594,
       "r2": 0.0835,
       "r3": 0.0179,
       "t0": 0,
@@ -14735,7 +14735,7 @@
      "conversionNote": "0 of 6 red-zone carries scored.",
      "dist": {
       "anytime": 0.2779,
-      "lambda": 0.3256,
+      "lambda": 0.3255,
       "p0": 0.7221,
       "p1": 0.2351,
       "p2": 0.0383,
@@ -14744,7 +14744,7 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -1.0299,
+     "edge": -1.0368,
      "espn": "4426348",
      "fair": 260,
      "firstTd": 0.0773,
@@ -14752,13 +14752,13 @@
      "glShare": 0.2023,
      "glShareRaw": 0.2023,
      "gsis": "00-0039910",
-     "i10Exp": 0.2248,
+     "i10Exp": 0.2246,
      "id": "11566",
      "implied": 22,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.3256,
-     "lambdaRaw": 0.3012,
+     "lambda": 0.3255,
+     "lambdaRaw": 0.3011,
      "lessonNotes": [
       "Learned from finished games: 25to35 chances scaled ×1.05 (from the last three weeks).",
       "Blended 43% toward the published projection (28%) because of limited recent red-zone evidence; safety caps applied after."
@@ -14780,7 +14780,7 @@
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.4953
+      "teamReceivingLambda": 1.4952
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4426348.png",
@@ -14790,9 +14790,9 @@
      "pos": "QB",
      "practice": null,
      "preSafety": 0.2779,
-     "preStack": 0.2701,
+     "preStack": 0.27,
      "pubBlend": {
-      "before": 0.3149,
+      "before": 0.3147,
       "weight": 0.4286
      },
      "published": {
@@ -14810,7 +14810,7 @@
       "behind": {
        "att": 14.084093075428635,
        "carries": 3.628284082291959,
-       "chance": 0.24678884749126773,
+       "chance": 0.24673353806662557,
        "targets": 0
       },
       "close": {
@@ -14822,7 +14822,7 @@
       "lead": {
        "att": 11.066073130693926,
        "carries": 4.780797849608229,
-       "chance": 0.29026629248854285,
+       "chance": 0.29019242064241046,
        "targets": 0
       }
      },
@@ -14838,14 +14838,14 @@
        "scores": 2
       },
       "r1": {
-       "expected": 0.1475,
+       "expected": 0.1474,
        "looks": 0,
        "opps": 0.2287,
        "rate": 0.4282,
        "scores": 0
       },
       "r2": {
-       "expected": 0.0773,
+       "expected": 0.0772,
        "looks": 1,
        "opps": 0.2687,
        "rate": 0.27,
@@ -14902,7 +14902,7 @@
        "recentRz": 4,
        "repeat": false,
        "roleOk": true,
-       "width": 0.25293711880888936
+       "width": 0.2528866570808873
       },
       "level": "Med",
       "reasons": [
@@ -14912,8 +14912,8 @@
      },
      "team": "WAS",
      "trendEffect": {
-      "after": 0.2601,
-      "before": 0.2601,
+      "after": 0.26,
+      "before": 0.26,
       "items": [
        {
         "family": "snap",
@@ -14937,7 +14937,7 @@
        "type": "Snap share"
       }
      ],
-     "usage": 0.1466,
+     "usage": 0.1459,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -14995,11 +14995,11 @@
         "factor": 1.0061,
         "league": null
        },
-       "hi": 235.5041,
-       "leagueDefense": 86.4871,
+       "hi": 195.8397,
+       "leagueDefense": 85.6084,
        "lo": 0,
-       "mean": 73.965,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
+       "mean": 86.1335,
+       "source": "held-out errors, QB|support|available (n=41)",
        "text": "86 without this defense; opponent factor 1.01 from how this offense uses WRs, TEs, and backs."
       },
       "rec": {
@@ -15012,7 +15012,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
+       "source": "held-out errors, QB|support|available (n=41)",
        "text": "0.0 without this defense."
       },
       "recYd": {
@@ -15025,7 +15025,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
+       "source": "held-out errors, QB|support|available (n=41)",
        "text": "0 without this defense."
       },
       "rushYd": {
@@ -15034,11 +15034,11 @@
         "factor": 0.9681,
         "league": 4.3856
        },
-       "hi": 58.9255,
+       "hi": 59.6043,
        "leagueDefense": 26.4153,
-       "lo": 2.5097,
-       "mean": 25.3161,
-       "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
+       "lo": 0,
+       "mean": 25.5718,
+       "source": "held-out errors, QB|support|available (n=41)",
        "text": "26 without this defense. PHI allows QBs 3.9 yards a carry versus 4.4 league."
       }
      }
@@ -15051,7 +15051,7 @@
       "uncertain": false
      },
      "band": [
-      0.152,
+      0.1519,
       0.3895
      ],
      "blendDrives": 0.1825,
@@ -15086,7 +15086,7 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 9.181,
+     "edge": 9.1802,
      "espn": "4567156",
      "fair": 303,
      "firstTd": 0.0677,
@@ -15094,7 +15094,7 @@
      "glShare": 0.0012,
      "glShareRaw": 0.0012,
      "gsis": "00-0037742",
-     "i10Exp": 0.1795,
+     "i10Exp": 0.1794,
      "id": "8135",
      "implied": 22,
      "injury": null,
@@ -15136,7 +15136,7 @@
       "behind": {
        "att": 0,
        "carries": 0.08228381059518697,
-       "chance": 0.2676459876808671,
+       "chance": 0.2676377701313599,
        "targets": 4.811220795505619
       },
       "close": {
@@ -15148,7 +15148,7 @@
       "lead": {
        "att": 0,
        "carries": 0.1084210210195405,
-       "chance": 0.22808091928752416,
+       "chance": 0.2280739691743292,
        "targets": 3.7802449107544143
       }
      },
@@ -15229,7 +15229,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.2375843322625507
+       "width": 0.23757826648551894
       },
       "level": "Med",
       "reasons": [
@@ -15345,10 +15345,10 @@
         "factor": 0.9803,
         "league": 0.6197
        },
-       "hi": 5.1091,
-       "leagueDefense": 2.5831,
+       "hi": 5.1018,
+       "leagueDefense": 2.5825,
        "lo": 0,
-       "mean": 2.5323,
+       "mean": 2.5317,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "2.6 without this defense. PHI allows WRs a 60% catch rate versus 62% league."
       },
@@ -15358,10 +15358,10 @@
         "factor": 1.0217,
         "league": 8.0783
        },
-       "hi": 78.954,
-       "leagueDefense": 37.5139,
+       "hi": 78.8506,
+       "leagueDefense": 37.5072,
        "lo": 0,
-       "mean": 38.328,
+       "mean": 38.3213,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "38 without this defense. PHI allows WRs 8.4 yards a target versus 8.1 league."
       },
@@ -15371,7 +15371,7 @@
         "factor": 0.9959,
         "league": 5.1484
        },
-       "hi": 3.86,
+       "hi": 3.8316,
        "leagueDefense": 0.5161,
        "lo": 0,
        "mean": 0.514,
@@ -15391,9 +15391,9 @@
       0.1115,
       0.2698
      ],
-     "blendDrives": 0.1694,
+     "blendDrives": 0.1692,
      "ceiling": 0.5,
-     "challenger": 0.1694,
+     "challenger": 0.1692,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -15423,10 +15423,10 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -0.5889,
+     "edge": -0.5891,
      "espn": "5081432",
      "fair": 470,
-     "firstTd": 0.0457,
+     "firstTd": 0.0458,
      "gamesPlayed": 6,
      "glShare": 0.0005,
      "glShareRaw": 0.0005,
@@ -15477,7 +15477,7 @@
       "behind": {
        "att": 0.04489761460934372,
        "carries": 0.049373086877925215,
-       "chance": 0.18282024380377204,
+       "chance": 0.18281714864800924,
        "targets": 6.201504104320299
       },
       "close": {
@@ -15489,7 +15489,7 @@
       "lead": {
        "att": 0.035276697193055775,
        "carries": 0.06505630270973677,
-       "chance": 0.16786194297599777,
+       "chance": 0.16785943392624636,
        "targets": 4.872610367680233
       }
      },
@@ -15569,7 +15569,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.15827794478777835
+       "width": 0.15827539164654436
       },
       "level": "Low",
       "reasons": [
@@ -15613,7 +15613,7 @@
        "type": "Role vacuum"
       }
      ],
-     "usage": 0.1527,
+     "usage": 0.1522,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -15660,10 +15660,10 @@
         "factor": 0.9803,
         "league": 0.6197
        },
-       "hi": 5.7954,
-       "leagueDefense": 3.7495,
-       "lo": 1.5562,
-       "mean": 3.6758,
+       "hi": 5.7818,
+       "leagueDefense": 3.7487,
+       "lo": 1.5682,
+       "mean": 3.675,
        "source": "held-out errors, WR|support|available (n=44)",
        "text": "3.7 without this defense. PHI allows WRs a 60% catch rate versus 62% league."
       },
@@ -15673,10 +15673,10 @@
         "factor": 1.0217,
         "league": 8.0783
        },
-       "hi": 84.4469,
-       "leagueDefense": 46.0372,
-       "lo": 9.6258,
-       "mean": 47.0363,
+       "hi": 84.2597,
+       "leagueDefense": 46.0291,
+       "lo": 9.7964,
+       "mean": 47.0281,
        "source": "held-out errors, WR|support|available (n=44)",
        "text": "46 without this defense. PHI allows WRs 8.4 yards a target versus 8.1 league."
       },
@@ -15686,7 +15686,7 @@
         "factor": 0.9959,
         "league": 5.1484
        },
-       "hi": 6.1334,
+       "hi": 6.0751,
        "leagueDefense": 0.3097,
        "lo": 0,
        "mean": 0.3084,
@@ -15706,9 +15706,9 @@
       0.1048,
       0.2512
      ],
-     "blendDrives": 0.1774,
+     "blendDrives": 0.1772,
      "ceiling": 0.5,
-     "challenger": 0.1774,
+     "challenger": 0.1772,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -15738,7 +15738,7 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -0.918,
+     "edge": -0.9182,
      "espn": "4360635",
      "fair": 510,
      "firstTd": 0.0425,
@@ -15770,7 +15770,7 @@
      "preSafety": 0.1639,
      "preStack": 0.1441,
      "pubBlend": {
-      "before": 0.1557,
+      "before": 0.1556,
       "weight": 0.6786
      },
      "published": {
@@ -15788,7 +15788,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.16886536828796628,
+       "chance": 0.16886344139764675,
        "targets": 6.151424345121161
       },
       "close": {
@@ -15800,7 +15800,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.16664817166608326,
+       "chance": 0.16656340175537454,
        "targets": 4.8332619854523395
       }
      },
@@ -15880,7 +15880,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.1464262827843893
+       "width": 0.14642448621848092
       },
       "level": "Low",
       "reasons": [
@@ -15949,7 +15949,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1968,
+     "usage": 0.1961,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -15994,10 +15994,10 @@
         "factor": 1.002,
         "league": 0.7206
        },
-       "hi": 7.0643,
-       "leagueDefense": 4.1552,
-       "lo": 1.263,
-       "mean": 4.1636,
+       "hi": 7.0504,
+       "leagueDefense": 4.1543,
+       "lo": 1.275,
+       "mean": 4.1627,
        "source": "held-out errors, TE|primary|available (n=48)",
        "text": "4.2 without this defense. PHI allows TEs a 73% catch rate versus 72% league."
       },
@@ -16007,10 +16007,10 @@
         "factor": 1.0079,
         "league": 7.0822
        },
-       "hi": 78.8646,
-       "leagueDefense": 41.4406,
-       "lo": 4.6712,
-       "mean": 41.7679,
+       "hi": 78.6783,
+       "leagueDefense": 41.4333,
+       "lo": 4.8427,
+       "mean": 41.7605,
        "source": "held-out errors, TE|primary|available (n=48)",
        "text": "41 without this defense. PHI allows TEs 7.3 yards a target versus 7.1 league."
       },
@@ -16038,11 +16038,11 @@
      },
      "band": [
       0.0934,
-      0.2666
+      0.2665
      ],
-     "blendDrives": 0.1583,
+     "blendDrives": 0.1581,
      "ceiling": 0.5,
-     "challenger": 0.1583,
+     "challenger": 0.1581,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -16072,7 +16072,7 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -2.9391,
+     "edge": -2.9416,
      "espn": "3068267",
      "fair": 525,
      "firstTd": 0.0414,
@@ -16101,10 +16101,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.16,
-     "preStack": 0.1296,
+     "preSafety": 0.1599,
+     "preStack": 0.1293,
      "pubBlend": {
-      "before": 0.1388,
+      "before": 0.1385,
       "weight": 0.5
      },
      "published": {
@@ -16134,12 +16134,12 @@
       "lead": {
        "att": 0,
        "carries": 3.00599369477178,
-       "chance": 0.16002785376075002,
+       "chance": 0.16000000000000003,
        "targets": 0.8469638630736781
       }
      },
      "scriptSensitive": false,
-     "secondOption": null,
+     "secondOption": "Second genuine red-zone option (3 red-zone looks in 2 of his last three games): floor 16% before the team limit.",
      "segment": "RB|reserve|available",
      "spots": {
       "r0": {
@@ -16150,7 +16150,7 @@
        "scores": 0
       },
       "r1": {
-       "expected": 0.0373,
+       "expected": 0.0372,
        "looks": 0,
        "opps": 0.0864,
        "rate": 0.4282,
@@ -16212,7 +16212,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": false,
-       "width": 0.1731288013221126
+       "width": 0.17310991750112514
       },
       "level": "Med",
       "reasons": [
@@ -16247,7 +16247,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1305,
+     "usage": 0.1299,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -16290,11 +16290,11 @@
         "factor": 0.9772,
         "league": 0.7811
        },
-       "hi": 2.1842,
-       "leagueDefense": 0.7784,
+       "hi": 2.1694,
+       "leagueDefense": 0.7782,
        "lo": 0,
-       "mean": 0.7606,
-       "source": "held-out errors, RB|reserve|available (n=76)",
+       "mean": 0.7604,
+       "source": "held-out errors, RB|reserve|available (n=77)",
        "text": "0.8 without this defense. PHI allows RBs a 72% catch rate versus 78% league."
       },
       "recYd": {
@@ -16303,11 +16303,11 @@
         "factor": 0.9308,
         "league": 5.6492
        },
-       "hi": 26.2808,
-       "leagueDefense": 5.7092,
+       "hi": 26.113,
+       "leagueDefense": 5.7082,
        "lo": 0,
-       "mean": 5.3142,
-       "source": "held-out errors, RB|reserve|available (n=76)",
+       "mean": 5.3133,
+       "source": "held-out errors, RB|reserve|available (n=77)",
        "text": "6 without this defense. PHI allows RBs 4.3 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -16316,11 +16316,11 @@
         "factor": 0.9752,
         "league": 4.1223
        },
-       "hi": 32.0576,
+       "hi": 31.9725,
        "leagueDefense": 11.343,
        "lo": 0,
        "mean": 11.0617,
-       "source": "held-out errors, RB|reserve|available (n=76)",
+       "source": "held-out errors, RB|reserve|available (n=77)",
        "text": "11 without this defense. PHI allows RBs 4.0 yards a carry versus 4.1 league."
       }
      }
@@ -16333,22 +16333,22 @@
       "uncertain": false
      },
      "band": [
-      0.0464,
+      0.0463,
       0.2603
      ],
-     "blendDrives": 0.1185,
+     "blendDrives": 0.1183,
      "ceiling": 0.5,
-     "challenger": 0.1185,
+     "challenger": 0.1183,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1128,
+     "chance": 0.1127,
      "coldGoal": false,
      "components": {
       "r0": 0.0026,
-      "r1": 0.0866,
+      "r1": 0.0865,
       "r2": 0.0166,
       "r3": 0.0056,
       "t0": 0.0037,
@@ -16358,9 +16358,9 @@
      },
      "conversionNote": "0 of 3 red-zone carries scored.",
      "dist": {
-      "anytime": 0.1128,
+      "anytime": 0.1127,
       "lambda": 0.1196,
-      "p0": 0.8872,
+      "p0": 0.8873,
       "p1": 0.1061,
       "p2": 0.0063,
       "p3plus": 0.0003,
@@ -16368,7 +16368,7 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 1.7594,
+     "edge": 1.7568,
      "espn": "3127586",
      "fair": 787,
      "firstTd": 0.0284,
@@ -16376,13 +16376,13 @@
      "glShare": 0.31,
      "glShareRaw": 0.31,
      "gsis": "00-0033955",
-     "i10Exp": 0.1693,
+     "i10Exp": 0.1691,
      "id": "4219",
      "implied": 22,
      "injury": null,
      "insideFinisher": false,
      "lambda": 0.1196,
-     "lambdaRaw": 0.1897,
+     "lambdaRaw": 0.1896,
      "lessonNotes": [
       "Learned from finished games: 15to25 chances scaled ×0.94 (from the last three weeks).",
       "Blended 75% toward the published projection (9%) because of a thin sample; safety caps applied after."
@@ -16397,10 +16397,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.1128,
-     "preStack": 0.1635,
+     "preSafety": 0.1127,
+     "preStack": 0.1634,
      "pubBlend": {
-      "before": 0.1785,
+      "before": 0.1784,
       "weight": 0.75
      },
      "published": {
@@ -16418,7 +16418,7 @@
       "behind": {
        "att": 0,
        "carries": 1.6030068571115068,
-       "chance": 0.1075305410326931,
+       "chance": 0.10750891188335898,
        "targets": 0.5678772015484345
       },
       "close": {
@@ -16430,7 +16430,7 @@
       "lead": {
        "att": 0,
        "carries": 2.112197270546927,
-       "chance": 0.11990996316348324,
+       "chance": 0.11987959024458505,
        "targets": 0.44618922978805553
       }
      },
@@ -16446,7 +16446,7 @@
        "scores": 0
       },
       "r1": {
-       "expected": 0.1373,
+       "expected": 0.1372,
        "looks": 1,
        "opps": 0.3506,
        "rate": 0.3885,
@@ -16512,7 +16512,7 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": false,
-       "width": 0.2139872128792878
+       "width": 0.21394384258923516
       },
       "level": "Med",
       "reasons": [
@@ -16521,8 +16521,8 @@
      },
      "team": "WAS",
      "trendEffect": {
-      "after": 0.1728,
-      "before": 0.1728,
+      "after": 0.1727,
+      "before": 0.1727,
       "items": [
        {
         "family": "defense",
@@ -16546,7 +16546,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.1542,
+     "usage": 0.1537,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -16589,11 +16589,11 @@
         "factor": 0.9772,
         "league": 0.7811
        },
-       "hi": 1.4303,
-       "leagueDefense": 0.4084,
+       "hi": 1.4196,
+       "leagueDefense": 0.4083,
        "lo": 0,
-       "mean": 0.3991,
-       "source": "held-out errors, RB|reserve|available (n=76)",
+       "mean": 0.399,
+       "source": "held-out errors, RB|reserve|available (n=77)",
        "text": "0.4 without this defense. PHI allows RBs a 72% catch rate versus 78% league."
       },
       "recYd": {
@@ -16602,11 +16602,11 @@
         "factor": 0.9308,
         "league": 5.6492
        },
-       "hi": 17.9258,
-       "leagueDefense": 2.9812,
+       "hi": 17.8048,
+       "leagueDefense": 2.9807,
        "lo": 0,
-       "mean": 2.775,
-       "source": "held-out errors, RB|reserve|available (n=76)",
+       "mean": 2.7745,
+       "source": "held-out errors, RB|reserve|available (n=77)",
        "text": "3 without this defense. PHI allows RBs 4.3 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -16615,11 +16615,11 @@
         "factor": 0.9752,
         "league": 4.1223
        },
-       "hi": 24.8507,
+       "hi": 24.7805,
        "leagueDefense": 7.7204,
        "lo": 0,
        "mean": 7.529,
-       "source": "held-out errors, RB|reserve|available (n=76)",
+       "source": "held-out errors, RB|reserve|available (n=77)",
        "text": "8 without this defense. PHI allows RBs 4.0 yards a carry versus 4.1 league."
       }
      }
@@ -16633,21 +16633,21 @@
      },
      "band": [
       0.0297,
-      0.1655
+      0.1651
      ],
-     "blendDrives": 0.0776,
+     "blendDrives": 0.0771,
      "ceiling": 0.5,
-     "challenger": 0.0776,
+     "challenger": 0.0771,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.0712,
+     "chance": 0.0711,
      "coldGoal": false,
      "components": {
       "r0": 0.0148,
-      "r1": 0.0422,
-      "r2": 0.015,
+      "r1": 0.0421,
+      "r2": 0.0149,
       "r3": 0.0019,
       "t0": 0,
       "t1": 0,
@@ -16656,10 +16656,10 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0712,
-      "lambda": 0.0739,
-      "p0": 0.9288,
-      "p1": 0.0686,
+      "anytime": 0.0711,
+      "lambda": 0.0737,
+      "p0": 0.9289,
+      "p1": 0.0685,
       "p2": 0.0025,
       "p3plus": 0.0001,
       "twoPlus": 0.0026
@@ -16668,7 +16668,7 @@
      "driveAdj": null,
      "edge": null,
      "espn": "4432722",
-     "fair": 1304,
+     "fair": 1307,
      "firstTd": 0.0175,
      "gamesPlayed": 1,
      "glShare": 0.0687,
@@ -16679,8 +16679,8 @@
      "implied": 22,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0739,
-     "lambdaRaw": 0.0648,
+     "lambda": 0.0737,
+     "lambdaRaw": 0.0647,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks)."
      ],
@@ -16689,7 +16689,7 @@
      "passTd": {
       "attemptShare": 0.5955,
       "display": "0.9",
-      "expected": 0.8905,
+      "expected": 0.8904,
       "interval": [
        0,
        2
@@ -16703,7 +16703,7 @@
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.4953
+      "teamReceivingLambda": 1.4952
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4432722.png",
@@ -16712,8 +16712,8 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.0712,
-     "preStack": 0.0712,
+     "preSafety": 0.0711,
+     "preStack": 0.0711,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -16726,7 +16726,7 @@
       "behind": {
        "att": 22.224319231625138,
        "carries": 1.871214230091253,
-       "chance": 0.060869664176692595,
+       "chance": 0.06072697284644657,
        "targets": 0
       },
       "close": {
@@ -16738,7 +16738,7 @@
       "lead": {
        "att": 17.46196511056261,
        "carries": 2.4655999267084754,
-       "chance": 0.07745299542989559,
+       "chance": 0.07727345497484417,
        "targets": 0
       }
      },
@@ -16818,7 +16818,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.13577828001834313
+       "width": 0.13548149862510916
       },
       "level": "Low",
       "reasons": [
@@ -16828,7 +16828,7 @@
      "team": "WAS",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.0845,
+     "usage": 0.0837,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -16879,12 +16879,12 @@
         "factor": 1.0061,
         "league": null
        },
-       "hi": 201.3216,
-       "leagueDefense": 134.1775,
-       "lo": 68.6795,
-       "mean": 135.0006,
+       "hi": 197.0241,
+       "leagueDefense": 132.8142,
+       "lo": 70.2338,
+       "mean": 133.629,
        "source": "held-out errors, QB|primary|available (n=48)",
-       "text": "134 without this defense; opponent factor 1.01 from how this offense uses WRs, TEs, and backs."
+       "text": "133 without this defense; opponent factor 1.01 from how this offense uses WRs, TEs, and backs."
       },
       "rec": {
        "defense": {
@@ -16918,7 +16918,7 @@
         "factor": 0.9681,
         "league": 4.3856
        },
-       "hi": 25.657,
+       "hi": 25.5669,
        "leagueDefense": 10.1487,
        "lo": 0,
        "mean": 9.8247,
@@ -16936,32 +16936,32 @@
      },
      "band": [
       0.0235,
-      0.1274
+      0.1271
      ],
-     "blendDrives": 0.0554,
+     "blendDrives": 0.0553,
      "ceiling": 0.5,
-     "challenger": 0.0554,
+     "challenger": 0.0553,
      "challengerLegs": [
       "model"
      ],
-     "chance": 0.0554,
+     "chance": 0.0553,
      "coldGoal": false,
      "components": {
       "r0": 0.0081,
-      "r1": 0.0226,
+      "r1": 0.0225,
       "r2": 0.008,
       "r3": 0.001,
       "t0": 0.0065,
-      "t1": 0.0049,
+      "t1": 0.0048,
       "t2": 0.0037,
       "t3": 0.0022
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0554,
-      "lambda": 0.057,
-      "p0": 0.9446,
-      "p1": 0.0538,
+      "anytime": 0.0553,
+      "lambda": 0.0569,
+      "p0": 0.9447,
+      "p1": 0.0537,
       "p2": 0.0015,
       "p3plus": 0,
       "twoPlus": 0.0016
@@ -16970,7 +16970,7 @@
      "driveAdj": null,
      "edge": null,
      "espn": "3042429",
-     "fair": 1705,
+     "fair": 1709,
      "firstTd": 0.0135,
      "gamesPlayed": 0,
      "glShare": 0.0416,
@@ -16981,8 +16981,8 @@
      "implied": 22,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.057,
-     "lambdaRaw": 0.05,
+     "lambda": 0.0569,
+     "lambdaRaw": 0.0499,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks)."
      ],
@@ -16996,8 +16996,8 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.0554,
-     "preStack": 0.0554,
+     "preSafety": 0.0553,
+     "preStack": 0.0553,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -17010,7 +17010,7 @@
       "behind": {
        "att": 0,
        "carries": 1.1340692303583353,
-       "chance": 0.051721162011600263,
+       "chance": 0.05160886288229338,
        "targets": 0.5608663718996885
       },
       "close": {
@@ -17022,7 +17022,7 @@
       "lead": {
        "att": 0,
        "carries": 1.4943029858839245,
-       "chance": 0.056863350756837794,
+       "chance": 0.05673747640298776,
        "targets": 0.4406807207783265
       }
      },
@@ -17103,7 +17103,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.10386698977991171
+       "width": 0.1036488600480745
       },
       "level": "Low",
       "reasons": [
@@ -17180,11 +17180,11 @@
         "factor": 0.9772,
         "league": 0.7811
        },
-       "hi": 1.419,
-       "leagueDefense": 0.4034,
+       "hi": 1.4084,
+       "leagueDefense": 0.4033,
        "lo": 0,
-       "mean": 0.3942,
-       "source": "held-out errors, RB|reserve|available (n=76)",
+       "mean": 0.3941,
+       "source": "held-out errors, RB|reserve|available (n=77)",
        "text": "0.4 without this defense. PHI allows RBs a 72% catch rate versus 78% league."
       },
       "recYd": {
@@ -17193,11 +17193,11 @@
         "factor": 0.9308,
         "league": 5.6492
        },
-       "hi": 17.7978,
-       "leagueDefense": 2.9444,
+       "hi": 17.6774,
+       "leagueDefense": 2.9439,
        "lo": 0,
-       "mean": 2.7407,
-       "source": "held-out errors, RB|reserve|available (n=76)",
+       "mean": 2.7402,
+       "source": "held-out errors, RB|reserve|available (n=77)",
        "text": "3 without this defense. PHI allows RBs 4.3 yards a target versus 5.6 league."
       },
       "rushYd": {
@@ -17206,11 +17206,11 @@
         "factor": 0.9752,
         "league": 4.1223
        },
-       "hi": 20.4323,
+       "hi": 20.372,
        "leagueDefense": 5.6956,
        "lo": 0,
        "mean": 5.5544,
-       "source": "held-out errors, RB|reserve|available (n=76)",
+       "source": "held-out errors, RB|reserve|available (n=77)",
        "text": "6 without this defense. PHI allows RBs 4.0 yards a carry versus 4.1 league."
       }
      }
@@ -17224,33 +17224,33 @@
      },
      "band": [
       0.0245,
-      0.0831
+      0.083
      ],
-     "blendDrives": 0.0493,
+     "blendDrives": 0.0492,
      "ceiling": 0.5,
-     "challenger": 0.0493,
+     "challenger": 0.0492,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0454,
+     "chance": 0.0453,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0098,
+      "t0": 0.0097,
       "t1": 0.0099,
-      "t2": 0.0222,
+      "t2": 0.0221,
       "t3": 0.0046
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0454,
+      "anytime": 0.0453,
       "lambda": 0.0464,
-      "p0": 0.9546,
+      "p0": 0.9547,
       "p1": 0.0443,
       "p2": 0.001,
       "p3plus": 0,
@@ -17258,9 +17258,9 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 0.6146,
+     "edge": 0.6111,
      "espn": "4048228",
-     "fair": 2105,
+     "fair": 2106,
      "firstTd": 0.011,
      "gamesPlayed": 4,
      "glShare": 0,
@@ -17287,10 +17287,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0454,
-     "preStack": 0.0582,
+     "preSafety": 0.0453,
+     "preStack": 0.0581,
      "pubBlend": {
-      "before": 0.06,
+      "before": 0.0598,
       "weight": 0.6786
      },
      "published": {
@@ -17308,7 +17308,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.0475617367130442,
+       "chance": 0.04752245369889718,
        "targets": 1.1686515894933602
       },
       "close": {
@@ -17320,7 +17320,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.0431457284397595,
+       "chance": 0.043114720243850435,
        "targets": 0.9182262488876399
       }
      },
@@ -17398,7 +17398,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.05856500177499491
+       "width": 0.058521011702428516
       },
       "level": "Low",
       "reasons": [
@@ -17450,7 +17450,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0673,
+     "usage": 0.0669,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -17493,10 +17493,10 @@
         "factor": 1.002,
         "league": 0.7206
        },
-       "hi": 2.1983,
-       "leagueDefense": 0.7988,
+       "hi": 2.1886,
+       "leagueDefense": 0.7987,
        "lo": 0,
-       "mean": 0.8005,
+       "mean": 0.8003,
        "source": "held-out errors, TE|support|available (n=46)",
        "text": "0.8 without this defense. PHI allows TEs a 73% catch rate versus 72% league."
       },
@@ -17506,10 +17506,10 @@
         "factor": 1.0079,
         "league": 7.0822
        },
-       "hi": 25.9504,
-       "leagueDefense": 7.224,
+       "hi": 25.8229,
+       "leagueDefense": 7.2228,
        "lo": 0,
-       "mean": 7.2811,
+       "mean": 7.2798,
        "source": "held-out errors, TE|support|available (n=46)",
        "text": "7 without this defense. PHI allows TEs 7.3 yards a target versus 7.1 league."
       },
@@ -17555,14 +17555,14 @@
       "r2": 0,
       "r3": 0,
       "t0": 0.0123,
-      "t1": 0.0218,
+      "t1": 0.0217,
       "t2": 0.0028,
       "t3": 0.0017
      },
      "conversionNote": "",
      "dist": {
       "anytime": 0.0379,
-      "lambda": 0.0387,
+      "lambda": 0.0386,
       "p0": 0.9621,
       "p1": 0.0372,
       "p2": 0.0007,
@@ -17571,9 +17571,9 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 0.8373,
+     "edge": 0.8334,
      "espn": "4361577",
-     "fair": 2537,
+     "fair": 2539,
      "firstTd": 0.0092,
      "gamesPlayed": 6,
      "glShare": 0,
@@ -17584,7 +17584,7 @@
      "implied": 22,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0387,
+     "lambda": 0.0386,
      "lambdaRaw": 0.0445,
      "lessonNotes": [
       "Learned from finished games: lt15 chances scaled ×1.14 (from the last three weeks).",
@@ -17601,9 +17601,9 @@
      "pos": "WR",
      "practice": null,
      "preSafety": 0.0379,
-     "preStack": 0.0495,
+     "preStack": 0.0494,
      "pubBlend": {
-      "before": 0.0508,
+      "before": 0.0507,
       "weight": 0.5833
      },
      "published": {
@@ -17621,7 +17621,7 @@
       "behind": {
        "att": 0.04489761460934372,
        "carries": 0.00297693172969063,
-       "chance": 0.04036451811234254,
+       "chance": 0.040321013411642403,
        "targets": 1.4113968554534035
       },
       "close": {
@@ -17633,7 +17633,7 @@
       "lead": {
        "att": 0.035276697193055775,
        "carries": 0.0039225453379453015,
-       "chance": 0.035483054057083296,
+       "chance": 0.0354486889890705,
        "targets": 1.1089546721419596
       }
      },
@@ -17711,7 +17711,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.04346991846671244
+       "width": 0.04342625136715128
       },
       "level": "Low",
       "reasons": [
@@ -17722,7 +17722,7 @@
      "team": "WAS",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.0732,
+     "usage": 0.073,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -17771,10 +17771,10 @@
         "factor": 0.9803,
         "league": 0.6197
        },
-       "hi": 2.1735,
-       "leagueDefense": 0.7762,
+       "hi": 2.1697,
+       "leagueDefense": 0.7761,
        "lo": 0,
-       "mean": 0.761,
+       "mean": 0.7608,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.8 without this defense. PHI allows WRs a 60% catch rate versus 62% league."
       },
@@ -17784,10 +17784,10 @@
         "factor": 1.0217,
         "league": 8.0783
        },
-       "hi": 30.3397,
-       "leagueDefense": 9.5904,
+       "hi": 30.2891,
+       "leagueDefense": 9.5887,
        "lo": 0,
-       "mean": 9.7985,
+       "mean": 9.7968,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "10 without this defense. PHI allows WRs 8.4 yards a target versus 8.1 league."
       },
@@ -17797,7 +17797,7 @@
         "factor": 0.9959,
         "league": 5.1484
        },
-       "hi": 0.655,
+       "hi": 0.6496,
        "leagueDefense": 0.0187,
        "lo": 0,
        "mean": 0.0186,
@@ -17815,7 +17815,7 @@
      },
      "band": [
       0.0082,
-      0.0462
+      0.0461
      ],
      "blendDrives": 0.0195,
      "ceiling": 0.5,
@@ -17849,7 +17849,7 @@
      "driveAdj": null,
      "edge": null,
      "espn": "2580330",
-     "fair": 5026,
+     "fair": 5036,
      "firstTd": 0.0047,
      "gamesPlayed": 0,
      "glShare": 0,
@@ -17889,7 +17889,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.02182191750009943,
+       "chance": 0.021780714980559335,
        "targets": 0.4673886432497404
       },
       "close": {
@@ -17901,7 +17901,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.017186238679309573,
+       "chance": 0.017153711997236143,
        "targets": 0.36723393398193876
       }
      },
@@ -17981,7 +17981,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.037999423187077275
+       "width": 0.03792884241732353
       },
       "level": "Low",
       "reasons": [
@@ -18059,11 +18059,11 @@
         "factor": 1.002,
         "league": 0.7206
        },
-       "hi": 1.1466,
-       "leagueDefense": 0.3101,
+       "hi": 1.138,
+       "leagueDefense": 0.31,
        "lo": 0,
        "mean": 0.3107,
-       "source": "held-out errors, TE|reserve|available (n=84)",
+       "source": "held-out errors, TE|reserve|available (n=85)",
        "text": "0.3 without this defense. PHI allows TEs a 73% catch rate versus 72% league."
       },
       "recYd": {
@@ -18072,11 +18072,11 @@
         "factor": 1.0079,
         "league": 7.0822
        },
-       "hi": 16.6106,
-       "leagueDefense": 3.0761,
+       "hi": 16.4882,
+       "leagueDefense": 3.0755,
        "lo": 0,
-       "mean": 3.1004,
-       "source": "held-out errors, TE|reserve|available (n=84)",
+       "mean": 3.0998,
+       "source": "held-out errors, TE|reserve|available (n=85)",
        "text": "3 without this defense. PHI allows TEs 7.3 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -18089,7 +18089,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=84)",
+       "source": "held-out errors, TE|reserve|available (n=85)",
        "text": "0 without this defense. PHI allows TEs 1.0 yards a carry versus 1.8 league."
       }
      }
@@ -18105,9 +18105,9 @@
       0.0085,
       0.0392
      ],
-     "blendDrives": 0.0263,
+     "blendDrives": 0.0262,
      "ceiling": 0.5,
-     "challenger": 0.0263,
+     "challenger": 0.0262,
      "challengerLegs": [
       "model",
       "sleeper",
@@ -18137,9 +18137,9 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -0.1507,
+     "edge": -0.1513,
      "espn": "4690923",
-     "fair": 5366,
+     "fair": 5368,
      "firstTd": 0.0044,
      "gamesPlayed": 3,
      "glShare": 0,
@@ -18167,9 +18167,9 @@
      "pos": "TE",
      "practice": null,
      "preSafety": 0.0183,
-     "preStack": 0.0138,
+     "preStack": 0.0137,
      "pubBlend": {
-      "before": 0.0139,
+      "before": 0.0138,
       "weight": 0.75
      },
      "published": {
@@ -18187,7 +18187,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.018702357812524606,
+       "chance": 0.018695139142080097,
        "targets": 0.5507396179626108
       },
       "close": {
@@ -18199,7 +18199,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.017886253606026026,
+       "chance": 0.01788057708099866,
        "targets": 0.4327239855420512
       }
      },
@@ -18277,7 +18277,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.030703213902434467
+       "width": 0.030692516848890405
       },
       "level": "Low",
       "reasons": [
@@ -18312,7 +18312,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0497,
+     "usage": 0.0494,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -18355,11 +18355,11 @@
         "factor": 1.002,
         "league": 0.7206
        },
-       "hi": 1.2549,
-       "leagueDefense": 0.3571,
+       "hi": 1.2456,
+       "leagueDefense": 0.357,
        "lo": 0,
        "mean": 0.3578,
-       "source": "held-out errors, TE|reserve|available (n=84)",
+       "source": "held-out errors, TE|reserve|available (n=85)",
        "text": "0.4 without this defense. PHI allows TEs a 73% catch rate versus 72% league."
       },
       "recYd": {
@@ -18368,11 +18368,11 @@
         "factor": 1.0079,
         "league": 7.0822
        },
-       "hi": 17.9206,
-       "leagueDefense": 3.4941,
+       "hi": 17.7901,
+       "leagueDefense": 3.4935,
        "lo": 0,
-       "mean": 3.5217,
-       "source": "held-out errors, TE|reserve|available (n=84)",
+       "mean": 3.5211,
+       "source": "held-out errors, TE|reserve|available (n=85)",
        "text": "3 without this defense. PHI allows TEs 7.3 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -18385,7 +18385,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=84)",
+       "source": "held-out errors, TE|reserve|available (n=85)",
        "text": "0 without this defense. PHI allows TEs 1.0 yards a carry versus 1.8 league."
       }
      }
@@ -18399,7 +18399,7 @@
      },
      "band": [
       0.0055,
-      0.02
+      0.0199
      ],
      "blendDrives": 0.0133,
      "ceiling": 0.5,
@@ -18433,9 +18433,9 @@
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 0.0512,
+     "edge": 0.0504,
      "espn": "4361088",
-     "fair": 9458,
+     "fair": 9466,
      "firstTd": 0.0025,
      "gamesPlayed": 6,
      "glShare": 0,
@@ -18483,7 +18483,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.011018749338624123,
+       "chance": 0.011008912684241312,
        "targets": 0.46146838710191035
       },
       "close": {
@@ -18495,7 +18495,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.009906246634831417,
+       "chance": 0.009898509149095847,
        "targets": 0.3625823041515009
       }
      },
@@ -18573,7 +18573,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.014487567446156424
+       "width": 0.014475466923218439
       },
       "level": "Low",
       "reasons": [
@@ -18625,7 +18625,7 @@
        "type": "Defense trend"
       }
      ],
-     "usage": 0.0227,
+     "usage": 0.0224,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -18668,11 +18668,11 @@
         "factor": 1.002,
         "league": 0.7206
        },
-       "hi": 1.1067,
+       "hi": 1.0984,
        "leagueDefense": 0.2932,
        "lo": 0,
        "mean": 0.2938,
-       "source": "held-out errors, TE|reserve|available (n=84)",
+       "source": "held-out errors, TE|reserve|available (n=85)",
        "text": "0.3 without this defense. PHI allows TEs a 73% catch rate versus 72% league."
       },
       "recYd": {
@@ -18681,11 +18681,11 @@
         "factor": 1.0079,
         "league": 7.0822
        },
-       "hi": 15.9806,
-       "leagueDefense": 2.8816,
+       "hi": 15.8621,
+       "leagueDefense": 2.8811,
        "lo": 0,
-       "mean": 2.9044,
-       "source": "held-out errors, TE|reserve|available (n=84)",
+       "mean": 2.9039,
+       "source": "held-out errors, TE|reserve|available (n=85)",
        "text": "3 without this defense. PHI allows TEs 7.3 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -18698,7 +18698,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=84)",
+       "source": "held-out errors, TE|reserve|available (n=85)",
        "text": "0 without this defense. PHI allows TEs 1.0 yards a carry versus 1.8 league."
       }
      }
@@ -18886,7 +18886,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.01928211307439076
+       "width": 0.01928209134544956
       },
       "level": "Low",
       "reasons": [
@@ -18897,7 +18897,7 @@
      "team": "WAS",
      "trendEffect": null,
      "trendTags": [],
-     "usage": 0.0843,
+     "usage": 0.0842,
      "verified": true,
      "verifyReason": "On WAS nflverse roster (week 6, ACT)",
      "vol": {
@@ -18940,10 +18940,10 @@
         "factor": 0.9803,
         "league": 0.6197
        },
-       "hi": 1.6268,
-       "leagueDefense": 0.5014,
+       "hi": 1.6237,
+       "leagueDefense": 0.5013,
        "lo": 0,
-       "mean": 0.4915,
+       "mean": 0.4914,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "0.5 without this defense. PHI allows WRs a 60% catch rate versus 62% league."
       },
@@ -18953,10 +18953,10 @@
         "factor": 1.0217,
         "league": 8.0783
        },
-       "hi": 23.8761,
-       "leagueDefense": 6.64,
+       "hi": 23.8343,
+       "leagueDefense": 6.6389,
        "lo": 0,
-       "mean": 6.7841,
+       "mean": 6.7829,
        "source": "held-out errors, WR|reserve|available (n=166)",
        "text": "7 without this defense. PHI allows WRs 8.4 yards a target versus 8.1 league."
       },
@@ -19018,8 +19018,8 @@
      "driveAdj": null,
      "edge": null,
      "espn": null,
-     "fair": 17489,
-     "firstTd": 0.0014,
+     "fair": 17531,
+     "firstTd": 0.0013,
      "gamesPlayed": 0,
      "glShare": 0.005,
      "glShareRaw": 0.005,
@@ -19054,7 +19054,7 @@
        "Roster membership not verified.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.4953
+      "teamReceivingLambda": 1.4952
      },
      "photo": {
       "espn": null,
@@ -19077,7 +19077,7 @@
       "behind": {
        "att": 1.0101963287102336,
        "carries": 0.1701103845537503,
-       "chance": 0.004834585944725189,
+       "chance": 0.0048230723369608874,
        "targets": 0
       },
       "close": {
@@ -19089,7 +19089,7 @@
       "lead": {
        "att": 0.7937256868437549,
        "carries": 0.22414544788258867,
-       "chance": 0.006211300745789239,
+       "chance": 0.006196554993029513,
        "targets": 0
       }
      },
@@ -19169,7 +19169,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.0114509163806914
+       "width": 0.011423575271169106
       },
       "level": "Low",
       "reasons": [
@@ -19231,10 +19231,10 @@
         "factor": 1.0061,
         "league": null
        },
-       "hi": 49.7493,
-       "leagueDefense": 6.4778,
+       "hi": 49.4678,
+       "leagueDefense": 6.4119,
        "lo": 0,
-       "mean": 5.5399,
+       "mean": 5.4836,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w7)",
        "text": "6 without this defense; opponent factor 1.01 from how this offense uses WRs, TEs, and backs."
       },
@@ -19677,12 +19677,12 @@
     "away": {
      "tdBudget": 1.831908863735833,
      "team": "PHI",
-     "teamLambda": 1.8166019635509891
+     "teamLambda": 1.8160616198599824
     },
     "home": {
      "tdBudget": 2.371908531616749,
      "team": "WAS",
-     "teamLambda": 2.3318287638742516
+     "teamLambda": 2.3311532859333517
     }
    },
    "week": 8,
