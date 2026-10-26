@@ -172,3 +172,37 @@ Board → Sort now has three groups. **Touchdown**: *Model confidence (High › 
 - Rotation re-renders in place on breakpoint changes (no reload), keeping the selected game, open player, panel scroll, filters and page scroll.
 - `tests/landscape.test.js` covers five landscape sizes: header under 25% of the height, no page-level horizontal overflow, panel scrollable, Close visible and at least 44 px, plus a rotation round-trip.
 - Screenshots: `SIZES=844x390,932x430 MOBILE=1 node scripts/ux-shots.mjs <dir> [url]` (`shots/` is git-ignored).
+
+## App 4.7.0 — drive patterns (display-only; model stays endzone-4.6.0)
+
+**What it is.** `scripts/drives/lib.mjs` turns nflverse play-by-play (last season + this season to date) into a per
+team-game-drive table: for every player on every drive, targets, receptions, receiving yards, carries, rushing yards,
+red-zone and inside-10 touches, and TDs (`archive/drives/<season>/table.json`). `scripts/drives/build.mjs` writes a
+weekly pre-game file `archive/drives/<season>/w<week>.json` (games before that week only) with each player's last six
+games drive by drive, a descriptive phase profile, and the patterns that survive the checks. auto.yml rebuilds it on
+Tuesdays and manual runs, otherwise only when a week's file is missing (continue-on-error).
+
+**Pattern test.** For every player with 4+ games, each drive number (1st…10th) and each phase (opening script = drives
+1–2, first-half drives 3+, first drive after halftime, second-half leading / trailing, two-minute drives, red-zone and
+goal-to-go drives) × touch / target / carry SHARE of his team's volume on those drives vs his share on the team's
+other drives in the same games (exact two-sided binomial). Benjamini–Hochberg FDR q ≤ 0.10 across all ~15,000 tests,
+displayed shares shrunk toward his overall share (10 pseudo-opportunities), reliability from walk-forward persistence
+(found through week N, scored on week N+1; `scripts/drives/research.mjs`, 2025 w5–18 + 2026 w2–7). Raw per-drive
+rates are shown but not tested: they mostly rediscover that some drives are longer than others (a team effect).
+
+**What survived (2026 week 8).** Exact drive-number claims ("2 catches on the 3rd drive"): 431 of 8,314 tests hit
+p < 0.05 against 416 expected by pure chance; 18 survive FDR (8 strong, 8 moderate), almost all RB series rotations
+(e.g. Blake Corum 4% of the 1st-drive touches vs 18% otherwise). Those FDR survivors kept 50% [29–70%] of their edge
+the following week; unfiltered p < 0.05 drive-number hits kept 22%. Phase patterns are more real: 655 vs 337 by chance,
+77 survive FDR (47 strong), out-of-sample retention 61% [49–74%].
+
+**Predictions.** `scripts/drives/verify.mjs` adds red-zone, goal-to-go and opening-script share plus a game-script lean
+to the usage leg and runs the same walk-forward / prospective game-bootstrap as 4.6.0 (ΔBrier, Δlog loss ×1e-3,
+negative = better). Usage leg with drive features vs without: 2025 −0.25 [−0.41, −0.08] Brier, log loss −0.64
+[−1.36, 0.17]; 2026 held-out −0.17 [−0.42, 0.08], log loss −0.18 [−1.38, 1.10]; prospective −0.30 [−0.81, 0.15].
+Blend with vs without: −0.06 [−0.12, −0.01] in 2025, −0.04 [−0.12, 0.04] in 2026. The 2026 / prospective intervals
+include zero and log loss is never significant, so the features are **not adopted**: the drive section is display-only,
+MODEL_VERSION stays endzone-4.6.0 (so the 4.6.0 prospective gate keeps counting), and only the app version moves to
+4.7.0. The decision and numbers live in `src/drive-baseline.json` and are shown in the app.
+
+npm: `drives:build` (`--weeks 7,8`, `--season`, `--if-missing`), `drives:research`, `drives:verify`.

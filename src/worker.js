@@ -85,7 +85,7 @@ function slateMessage(reqId, extra = {}) {
   return { type: 'slate', reqId, season: state.prep.season, week: state.prep.week, currentWeek: state.prep.currentWeek, generatedAt: state.prep.generatedAt, sources: state.prep.sources,
     games: c.games, trends: trendsFeed(state.base), weekResults: weekResults(c.games), learned: state.archive?.learned || null, repoArchive: !!state.archive?.repoArchive, weeklyPickId: pick?.id || null, riserId: riser?.id || null, modelVersion: MODEL_VERSION, weights: state.weights,
     audit: { rejected: state.identity.rejected, unverified: state.identity.unverified, excluded: c.games.flatMap(g => [...g.sides.away.excluded, ...g.sides.home.excluded].map(e => ({ ...e, team: e.team }))) },
-    lessons: state.archive?.activeCalibration || null, archiveStale: !!state.archive?.stale, challenger: state.archive?.challenger || null, blendBaseline: BLEND_BASELINE, research: state.archive?.researchStatus || null, pickTracker: state.archive?.pickTracker || null, lastRun: state.archive?.lastRun || null, ...extra };
+    lessons: state.archive?.activeCalibration || null, archiveStale: !!state.archive?.stale, challenger: state.archive?.challenger || null, blendBaseline: BLEND_BASELINE, research: state.archive?.researchStatus || null, drives: state.archive?.drives || null, pickTracker: state.archive?.pickTracker || null, lastRun: state.archive?.lastRun || null, ...extra };
 }
 
 async function load(m) {

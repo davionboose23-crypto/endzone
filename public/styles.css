@@ -148,3 +148,17 @@ details.sec>.secbody{padding-bottom:var(--s3)}details.sec[open]>summary{border-b
 #blendMonitor .ok{color:#7fd18b}
 #blendMonitor .warn{color:#f2b84b}
 #blendMonitor table.monitor td,#blendMonitor table.monitor th{white-space:nowrap}
+/* endzone 4.7 drive patterns */
+.drivechart{max-width:100%;overflow-x:auto}
+.dtab{border-collapse:separate;border-spacing:2px;font-size:.78rem;min-width:0}
+.dtab th{font-weight:600;color:var(--muted);padding:2px 4px;white-space:nowrap;text-align:left}
+.dtab thead th{text-align:center}
+.dtab td.dc{width:26px;min-width:26px;height:26px;text-align:center;border-radius:5px;background:var(--surface2);color:var(--cream);font-weight:700;padding:0}
+.dtab td.dc.l1{background:#2f5a45}.dtab td.dc.l2{background:#3f8f6a}.dtab td.dc.l3{background:var(--gold);color:var(--goldText)}
+.dtab td.dc.rz{box-shadow:inset 0 0 0 2px var(--cream)}.dtab td.dc.na{background:transparent}
+.chip.rel-strong{background:var(--gold);color:var(--goldText);border-color:var(--gold)}.chip.rel-moderate{border-color:#6f8f7d}
+.dpats li,.dprof li,.dtop li{margin:6px 0}
+.dtop{padding-left:1.4em}
+.drivescard{margin:var(--s3) 0}
+@media (max-width:480px){.dtab td.dc{width:22px;min-width:22px;height:24px}.dtab{border-spacing:1px}.dtab th{padding:2px}}
+.dtop .plink{display:inline-flex;min-height:32px;vertical-align:middle;text-decoration:underline;text-underline-offset:3px}

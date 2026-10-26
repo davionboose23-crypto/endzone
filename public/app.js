@@ -107,6 +107,54 @@ function trendCard(t) {
    ${t.affected.length ? `<ul class="small affected">${t.affected.slice(0, 4).map(a => `<li><button class="plink" data-act="player" data-game="${esc(a.gameId)}" data-player="${esc(a.id)}">${esc(a.name)}</button> <span class="muted">${pc(a.chance, 1)}</span> <span class="pp">${ppTxt(a.pp)}</span></li>`).join('')}${t.affected.length > 4 ? `<li class="muted">+${t.affected.length - 4} more</li>` : ''}</ul>` : ''}
    <footer class="small muted"><span>${esc(t.mode)}${t.mode === 'active' ? ` · weight ${t.weight}` : ''}</span><details><summary>Evidence</summary>${ev} · strength ${t.strength.toFixed(2)} · first detected week ${t.firstDetectedWeek ?? '—'}</details></footer></article>`;
 }
+// ---- Drive-trends agent (scripts/drives/build.mjs -> archive/drives/<season>/w<week>.json). Display-only unless
+// the walk-forward prediction test adopted it (D.prediction.adopted); the model's number never reads this section.
+const drivesData = () => S.slate?.drives || null;
+const driveRow = p => { const D = drivesData(); if (!D) return null; const g = p.gsis && D.players[p.gsis] ? p.gsis : D.bySleeper?.[p.id]; return g ? D.players[g] : null; };
+const relChip = r => `<span class="chip rel-${esc(r)}">${esc(r)}</span>`;
+const pct0 = x => (x == null ? '—' : `${Math.round(x * 100)}%`);
+function driveStatusLine(D) {
+  const P = D?.prediction; if (!P) return 'Display-only: drive patterns do not change any chance.';
+  return P.adopted ? `Used in predictions: ${esc(P.note || '')}` : `Display-only: ${esc(P.note || 'drive features did not significantly improve walk-forward Brier / log loss, so they do not change any chance.')}`;
+}
+function driveChartHtml(r) {
+  const G = r.games || []; if (!G.length) return '';
+  const maxN = Math.max(...G.map(g => g.d.length)); const cols = Array.from({ length: maxN }, (_, i) => i + 1);
+  const cell = x => { const t = x[0] + x[2]; const lvl = t === 0 ? 0 : t === 1 ? 1 : t <= 3 ? 2 : 3; return `<td class="dc l${lvl}${x[4] ? ' rz' : ''}" title="${x[0]} tgt, ${x[1]} rec, ${x[2]} car, ${x[3]} yds${x[4] ? `, ${x[4]} red-zone` : ''}">${t || ''}</td>`; };
+  return `<div class="tablewrap drivechart" tabindex="0" role="region" aria-label="Touches by drive, last ${G.length} games"><table class="dtab"><thead><tr><th scope="col">Game</th>${cols.map(n => `<th scope="col">${n}</th>`).join('')}</tr></thead><tbody>
+   ${G.slice().reverse().map(g => `<tr><th scope="row">${g.s !== S.slate.season ? `'${String(g.s).slice(2)} ` : ''}W${g.w} <span class="muted">${esc(g.opp)}</span></th>${cols.map(n => g.d[n - 1] ? cell(g.d[n - 1]) : '<td class="dc na"></td>').join('')}</tr>`).join('')}</tbody></table></div>
+   <p class="small muted">Touches (targets + carries) on each of his team's drives, newest game first; outlined = he touched it in the red zone. Tap a cell for targets / receptions / carries / yards.</p>`;
+}
+function drivePanelHtml(p) {
+  const D = drivesData(); if (!D) return '<p class="small muted">Drive table not loaded for this week.</p>';
+  const r = driveRow(p); if (!r) return `<p class="small muted">No drive history for him in ${D.season - 1}–${D.season} before week ${D.week} (needs 2+ games this season).</p><p class="small muted">${driveStatusLine(D)}</p>`;
+  const a = r.summary, c = r.curSummary || a; const yr = D.season;
+  const prof = [
+    `Opening-script touches (drives 1–2): <strong>${c.openPerGame.toFixed(1)} per game</strong> in ${yr} <span class="muted">(${a.openPerGame.toFixed(1)} since ${yr - 1})</span>`,
+    a.rzTgtShare != null ? `Red-zone-drive targets: <strong>${pct0(a.rzTgtShare)}</strong> of the team's <span class="muted">(n=${a.rzDrives} drives)</span>` : null,
+    a.gtgTouchShare != null ? `Goal-to-go-drive touches: <strong>${pct0(a.gtgTouchShare)}</strong> of the team's <span class="muted">(n=${a.gtgDrives} drives)</span>` : null,
+    `Second-half touches per drive: <strong>${a.leadPerDrive.toFixed(1)}</strong> leading · <strong>${a.trailPerDrive.toFixed(1)}</strong> trailing`,
+  ].filter(Boolean);
+  const pats = r.patterns || [];
+  return `${driveChartHtml(r)}
+   <h4>Usage profile</h4><ul class="small dprof">${prof.map(x => `<li>${x}</li>`).join('')}</ul>
+   <h4>Patterns that survived the checks</h4>${pats.length ? `<ul class="small dpats">${pats.map(t => `<li>${relChip(t.rel)} ${esc(t.text.replace(/, (strong|moderate)\)$/, ')'))}${t.own?.weeks && t.own.retention != null ? ` <span class="muted">· ${t.own.retention >= 1 ? 'fully held up' : t.own.retention > 0 ? `kept ${Math.round(t.own.retention * 100)}% of its edge` : 'did not hold up'} over ${t.own.weeks} later week${t.own.weeks > 1 ? 's' : ''}</span>` : ''}</li>`).join('')}</ul>`
+     : `<p class="small">None for him. ${D.counts ? `League-wide only ${D.counts.drive.fdr} of ${D.counts.drive.tests.toLocaleString()} exact drive-number tests survived FDR (${D.counts.drive.raw05} hit p&lt;0.05 vs ${D.counts.drive.expectedByChance} expected by chance), so "N catches on the 3rd drive" style claims are almost always noise.` : ''}</p>`}
+   <p class="small muted">${driveStatusLine(D)} Shares are of his team's own volume on those drives vs his share on its other drives in the same games; rates are shrunk toward his overall share. Strong = FDR q ≤ 0.05, 20+ drives and the pattern family held up out of sample.</p>`;
+}
+function drivesTrendsHtml() {
+  const D = drivesData(); if (!D) return '';
+  const inSlate = new Map(); for (const g of S.slate.games || []) for (const sd of ['away', 'home']) for (const p of g.sides[sd].players) { const k = p.gsis && D.players[p.gsis] ? p.gsis : D.bySleeper?.[p.id]; if (k) inSlate.set(k, { g, p }); }
+  const top = (D.top || []).filter(t => t.rel === 'strong' || t.rel === 'moderate').slice(0, 15); const C = D.counts, P = D.persistence;
+  const ret = x => x?.retention != null ? `${Math.round(x.retention * 100)}% [${Math.round(x.ciLo * 100)}–${Math.round(x.ciHi * 100)}%]` : '—';
+  return `<div class="card drivescard" id="drivePatterns"><h2>Drive patterns · week ${D.week}</h2>
+   <p class="small">Every team drive since ${D.season - 1}, per player: who gets the touches on which drive and in which game phase. ${driveStatusLine(D)}</p>
+   <div class="kv small"><div>Exact drive-number patterns<br><strong>${C.drive.fdr} of ${C.drive.tests.toLocaleString()}</strong> survive FDR <span class="muted">(${C.drive.raw05} at p&lt;0.05, ${C.drive.expectedByChance} expected by chance)</span></div>
+     <div>Phase patterns<br><strong>${C.phase.fdr} of ${C.phase.tests.toLocaleString()}</strong> survive FDR <span class="muted">(${C.phase.raw05} at p&lt;0.05, ${C.phase.expectedByChance} by chance)</span></div>
+     <div>Out-of-sample lift kept<br>drive # <strong>${ret(P?.drive?.fdr)}</strong> · phase <strong>${ret(P?.phase?.fdr)}</strong></div></div>
+   <ol class="dtop small">${top.map(t => { const s = inSlate.get(t.pid); const nm = s ? `<button class="plink" data-act="player" data-game="${esc(s.g.id)}" data-player="${esc(s.p.id)}">${esc(t.name)}</button>` : esc(t.name); return `<li>${relChip(t.rel)} <strong>${nm}</strong> <span class="muted">${esc(t.pos || '')} · ${esc(t.team)}</span><br>${esc(t.text.replace(/, (strong|moderate)\)$/, ')'))}</li>`; }).join('') || '<li class="muted">No pattern passed the reliability checks this week.</li>'}</ol>
+   <p class="small muted">${D.appVersion ? `App ${esc(D.appVersion)} · model ${esc(D.modelVersion || '')} (${D.prediction?.adopted ? 'drive features feed the usage leg' : 'unchanged: drive patterns are display-only'}). ` : ''}Out-of-sample lift kept: patterns found through week N, scored on week N+1 (100% = the pattern held fully, 0% = it was noise around his normal share).</p></div>`;
+}
 function renderTrends() {
   const v = $('#view-trends'); const T = S.slate?.trends; if (!T) { v.innerHTML = '<p class="muted">No trends loaded.</p>'; return; }
   S.tf = S.tf || { family: 'all', team: 'all', status: 'all' };
@@ -116,6 +164,7 @@ function renderTrends() {
   const opt = (id, cur, list, lbl) => `<label class="small">${lbl} <select class="select" id="${id}" aria-label="${lbl}"><option value="all">All</option>${list.map(([k, l]) => `<option value="${esc(k)}" ${cur === k ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select></label>`;
   v.innerHTML = `<div class="card"><h2>Trends agent · week ${S.slate.week}</h2><p class="small">Detected only from games before this week. ${T.items.filter(t => t.status !== 'faded').length} live trends, ${T.items.filter(t => t.status === 'faded').length} faded. ${on.length ? `Families moving predictions: ${esc(on.join(', '))}.` : '<strong>No family has passed walk-forward validation yet, so every trend is tracking, not yet proven, and moves chances by ±0.0 pp.</strong>'} Effects are bounded (×0.85–1.15 per trend) and applied before the safety caps and team TD budget.</p>
    <div class="row" role="group" aria-label="Trend filters">${opt('tfFamily', S.tf.family, fams.map(f => [f, T.families[f]?.label || f]), 'Type')}${opt('tfTeam', S.tf.team, teams.map(t => [t, t]), 'Team')}${opt('tfStatus', S.tf.status, [['new', 'New'], ['continuing', 'Continuing'], ['faded', 'Faded']], 'Status')}</div></div>
+   ${drivesTrendsHtml()}
    <div class="trendgrid">${rows.map(trendCard).join('') || '<p class="muted">No trends match these filters.</p>'}</div>`;
   for (const [id, k] of [['tfFamily', 'family'], ['tfTeam', 'team'], ['tfStatus', 'status']]) v.querySelector('#' + id).addEventListener('change', e => { S.tf[k] = e.target.value; renderTrends(); });
 }
@@ -368,6 +417,7 @@ function renderPanel() {
    ${sec('Confidence by area', `<div class="row">${conf.map(([k, c]) => chip(c?.level || 'Low', k)).join(' ')}</div>${highs.length ? `<p class="small"><strong>Why High:</strong> ${highs.map(([k, c]) => `${esc(k)}: ${esc(c.reasons.join(' '))}`).join(' ')}</p>` : ''}${conf.map(([k, c]) => `<p class="small"><strong>${esc(k)} ${c?.level}:</strong> ${esc([...(c?.reasons || []), ...(c?.blocks || [])].join(' '))}</p>`).join('')}`)}
    ${sec('Volume forecasts', `<div class="kv small">${Object.entries(p.volume || {}).map(([k, v]) => `<div><strong>${esc({ rushYd: 'Rush yards', rec: 'Receptions', recYd: 'Receiving yards', passYd: 'Pass yards' }[k])}</strong> ${k === 'rec' ? n1(v.mean) : n0(v.mean)} <span class="muted">(${k === 'rec' ? n1(v.lo) : n0(v.lo)}–${k === 'rec' ? n1(v.hi) : n0(v.hi)})</span><br>${esc(v.text || '')}<br><span class="muted">${esc(v.source || '')}</span></div>`).join('')}</div>`)}
    ${p.pos === 'QB' ? sec('Passing touchdowns', `<p>${passTdCell(p)}</p><p class="small">${esc((p.passTd?.reasons || []).join(' '))} Passing TDs do not count toward his anytime chance.</p>`) : ''}
+   ${sec('Drive patterns', drivePanelHtml(p))}
    ${sec('Trends that moved his chance', panelTrendsHtml(p))}
    ${notes.length ? sec('Model notes', notes.map(t => `<p class="small">• ${esc(t)}</p>`).join('')) : ''}
    ${d ? h3ToDetails(detailBody(d, p, g)) : ''}</div></div>`;

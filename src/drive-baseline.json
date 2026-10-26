@@ -1,0 +1,141 @@
+{
+ "adopted": false,
+ "decidedAt": "2026-10-24",
+ "modelVersion": "endzone-4.6.0",
+ "note": "adding drive-phase features (red-zone / goal-to-go / opening-script share, game-script lean) to the usage leg did not give a significant held-out gain (2026 and prospective Brier and log-loss CIs include zero; log loss never significant), so drive patterns do not change any chance.",
+ "rule": "Adopt only if Brier and log loss both improve with 95% game-bootstrap CIs below zero on the 2026 held-out set and not worse prospectively.",
+ "features": [
+  "dz_rz",
+  "dz_gtg",
+  "dz_open",
+  "dz_script"
+ ],
+ "lastFitDriveCoef": {
+  "dz_rz": 0.0883,
+  "dz_gtg": 0.0217,
+  "dz_open": 0.0078,
+  "dz_script": 0.0188
+ },
+ "results": {
+  "research": {
+   "usageD_vs_usage": {
+    "n": 8023,
+    "games": 364,
+    "dBrier_x1e3": -0.2273,
+    "ci": [
+     -0.3603,
+     -0.0833
+    ],
+    "dLogLoss_x1e3": -0.5041,
+    "llci": [
+     -1.1459,
+     0.1229
+    ]
+   },
+   "blend3D_vs_blend3": {
+    "n": 8023,
+    "games": 364,
+    "dBrier_x1e3": -0.0559,
+    "ci": [
+     -0.103,
+     -0.0078
+    ],
+    "dLogLoss_x1e3": -0.146,
+    "llci": [
+     -0.3588,
+     0.0668
+    ]
+   }
+  },
+  "hist2025": {
+   "usageD_vs_usage": {
+    "n": 5946,
+    "games": 272,
+    "dBrier_x1e3": -0.2538,
+    "ci": [
+     -0.4122,
+     -0.0843
+    ],
+    "dLogLoss_x1e3": -0.6428,
+    "llci": [
+     -1.3605,
+     0.1728
+    ]
+   },
+   "blend3D_vs_blend3": {
+    "n": 5946,
+    "games": 272,
+    "dBrier_x1e3": -0.0634,
+    "ci": [
+     -0.1189,
+     -0.0051
+    ],
+    "dLogLoss_x1e3": -0.1789,
+    "llci": [
+     -0.4121,
+     0.0868
+    ]
+   }
+  },
+  "hist2026": {
+   "usageD_vs_usage": {
+    "n": 2119,
+    "games": 94,
+    "dBrier_x1e3": -0.1686,
+    "ci": [
+     -0.4159,
+     0.0835
+    ],
+    "dLogLoss_x1e3": -0.1759,
+    "llci": [
+     -1.3763,
+     1.0961
+    ]
+   },
+   "blend3D_vs_blend3": {
+    "n": 2119,
+    "games": 94,
+    "dBrier_x1e3": -0.041,
+    "ci": [
+     -0.1234,
+     0.0432
+    ],
+    "dLogLoss_x1e3": -0.0697,
+    "llci": [
+     -0.4808,
+     0.3759
+    ]
+   }
+  },
+  "prosp": {
+   "usageD_vs_usage": {
+    "n": 560,
+    "games": 25,
+    "dBrier_x1e3": -0.3042,
+    "ci": [
+     -0.8129,
+     0.1485
+    ],
+    "dLogLoss_x1e3": -1.3861,
+    "llci": [
+     -3.3265,
+     0.378
+    ]
+   },
+   "blend3D_vs_blend3": {
+    "n": 560,
+    "games": 25,
+    "dBrier_x1e3": -0.069,
+    "ci": [
+     -0.2461,
+     0.0944
+    ],
+    "dLogLoss_x1e3": -0.4258,
+    "llci": [
+     -1.0879,
+     0.1826
+    ]
+   }
+  }
+ }
+}

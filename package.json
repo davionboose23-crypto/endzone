@@ -1,6 +1,6 @@
 {
   "name": "endzone",
-  "version": "4.6.0",
+  "version": "4.7.0",
   "private": true,
   "type": "module",
   "description": "ENDZONE anytime-TD research model",
@@ -14,7 +14,10 @@
     "blend-folds": "node scripts/blend-folds.mjs",
     "lint": "node scripts/lint.mjs",
     "usage:build": "node scripts/usage/build.mjs",
-    "usage:verify": "node scripts/usage/verify.mjs"
+    "usage:verify": "node scripts/usage/verify.mjs",
+    "drives:build": "node scripts/drives/build.mjs",
+    "drives:research": "node scripts/drives/research.mjs",
+    "drives:verify": "node scripts/drives/verify.mjs"
   },
   "dependencies": {
     "sql.js": "^1.13.0"

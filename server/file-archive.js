@@ -23,6 +23,8 @@ export class FileArchive {
   static async open(dir) { return new FileArchive(dir); }
   // weekly usage-model table (scripts/usage/build.mjs): archive/usage/<season>/w<week>.json
   usage(season, week) { return readJson(path.join(this.dir, 'usage', String(season), `w${week}.json`), null); }
+  // weekly drive-trends patterns (scripts/drives/build.mjs): archive/drives/<season>/w<week>.json
+  drives(season, week) { return readJson(path.join(this.dir, 'drives', String(season), `w${week}.json`), null); }
   wk(season, week) { return path.join(this.dir, String(season), `w${week}`); }
   gameFile(season, week, gameId) { return path.join(this.wk(season, week), `${gameId}.json`); }
   // Save ONLY strictly before kickoff. "first" is never replaced; "latest" is replaced only when the forecast content changes.
