@@ -3,16 +3,16 @@
   "learned": {
    "active": {
     "band": {
-     "15to25": 0.9411589713735188,
+     "15to25": 0.9666847442139025,
      "25to35": 1.0453004694050796,
      "35to50": 0.9432727312761813,
-     "50plus": 0.9148570369912926,
-     "lt15": 1.1387614366908647
+     "50plus": 0.9332963844523402,
+     "lt15": 1.119196686602282
     },
     "basis": [
      {
       "applied": true,
-      "prospective": 359,
+      "prospective": 381,
       "reconstructed": 0,
       "week": 7
      },
@@ -39,9 +39,9 @@
      "t3": 1.199057385354272
     },
     "vol": {
-     "passYd": 1.0087123202762849,
-     "rec": 1.0309270203226777,
-     "recYd": 1.0406248571029832,
+     "passYd": 1.0083483976268848,
+     "rec": 1.0264586766016428,
+     "recYd": 1.0357886032079804,
      "rushYd": 1.0355746310664393
     }
    },
@@ -51,11 +51,11 @@
     "rec: +3%",
     "recYd: +4%",
     "passYd: +1%",
-    "lt15 chances: +14%",
-    "15to25 chances: -6%",
+    "lt15 chances: +12%",
+    "15to25 chances: -3%",
     "25to35 chances: +5%",
     "35to50 chances: -6%",
-    "50plus chances: -9%",
+    "50plus chances: -7%",
     "r1 spot: +11%",
     "r2 spot: -18%",
     "r3 spot: +13%",
@@ -65,28 +65,90 @@
    ],
    "drivesPromotion": {
     "metrics": {
-     "games": 0,
-     "paired": 0
+     "brierDiff": -0.0020865977272727346,
+     "challenger": {
+      "brier": 0.14095716090909088,
+      "ece": 0.1706363636363636,
+      "logLoss": 0.40587443421698116
+     },
+     "champion": {
+      "brier": 0.14304375863636362,
+      "ece": 0.16955,
+      "logLoss": 0.41292274353800534
+     },
+     "games": 1,
+     "interval": [
+      null,
+      null
+     ],
+     "paired": 22,
+     "protected": {
+      "contributors": {
+       "challenger": 0.22013359928571424,
+       "champion": 0.22345719785714283,
+       "n": 14,
+       "note": "Fewer than 80: tolerance check not decisive."
+      },
+      "highTd": {
+       "challenger": 0.4552200900000001,
+       "champion": 0.47389456,
+       "n": 1,
+       "note": "Fewer than 80: tolerance check not decisive."
+      },
+      "teamCalls": {
+       "challenger": 0.253830545,
+       "champion": 0.2921257,
+       "n": 2,
+       "note": "Fewer than 80: tolerance check not decisive."
+      }
+     }
     },
     "monitor": {
-     "games": 0,
+     "games": 1,
      "moved": 0,
-     "n": 0,
-     "withDrives_vs_blend": null,
-     "withDrives_vs_model": null
+     "n": 22,
+     "withDrives_vs_blend": {
+      "dBrier": 0,
+      "dBrierCI": [
+       0,
+       0
+      ],
+      "dLogLoss": 0,
+      "dLogLossCI": [
+       0,
+       0
+      ],
+      "games": 1,
+      "n": 22
+     },
+     "withDrives_vs_model": {
+      "dBrier": -2.087,
+      "dBrierCI": [
+       -2.087,
+       -2.087
+      ],
+      "dLogLoss": -7.048,
+      "dLogLossCI": [
+       -7.048,
+       -7.048
+      ],
+      "games": 1,
+      "n": 22
+     }
     },
     "promote": false,
     "reasons": [
-     "Needs ≥500 prospective paired players for endzone-4.6.0; have 0.",
-     "Needs ≥40 games; have 0."
+     "Needs ≥500 prospective paired players for endzone-4.6.0; have 22.",
+     "Needs ≥40 games; have 1.",
+     "Brier improvement not beyond game-level sampling uncertainty."
     ]
    },
    "inWeek": null,
    "promotion": {
     "promote": false,
     "reasons": [
-     "Needs ≥500 prospective paired players for endzone-4.6.0; have 334.",
-     "Needs ≥40 games; have 12.",
+     "Needs ≥500 prospective paired players for endzone-4.6.0; have 356.",
+     "Needs ≥40 games; have 13.",
      "Brier improvement not beyond game-level sampling uncertainty."
     ]
    }
@@ -96,13 +158,13 @@
   "steps": [
    "lessons for weeks 1,2,3,4,5,6,7",
    "saved 14 pregame frames, 0 skipped",
-   "outcomes inserted 0, revised 0, unchanged 864",
+   "outcomes inserted 0, revised 0, unchanged 891",
    "validation updated"
   ],
   "week": 8
  },
- "finished_at": "2026-10-27T01:49:12.909Z",
+ "finished_at": "2026-10-27T04:22:46.886Z",
  "kind": "refresh",
- "started_at": "2026-10-27T01:49:05.603Z",
+ "started_at": "2026-10-27T04:22:40.868Z",
  "status": "success"
 }
