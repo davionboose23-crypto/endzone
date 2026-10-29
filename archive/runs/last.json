@@ -3,13 +3,19 @@
   "learned": {
    "active": {
     "band": {
-     "15to25": 0.9659115389336251,
-     "25to35": 1.0453004694050796,
-     "35to50": 0.9432727312761813,
-     "50plus": 0.9332963844523402,
-     "lt15": 1.1197239613212133
+     "15to25": 0.9806283002773878,
+     "25to35": 0.99529115330105,
+     "35to50": 0.9266060646095146,
+     "50plus": 0.9066297177856736,
+     "lt15": 1.077013277712774
     },
     "basis": [
+     {
+      "applied": false,
+      "prospective": 0,
+      "reconstructed": 0,
+      "week": 8
+     },
      {
       "applied": true,
       "prospective": 383,
@@ -21,47 +27,38 @@
       "prospective": 362,
       "reconstructed": 29,
       "week": 6
-     },
-     {
-      "applied": true,
-      "prospective": 0,
-      "reconstructed": 400,
-      "week": 5
      }
     ],
     "label": "Learned from finished games, from the last three weeks",
     "spot": {
-     "r1": 1.1206944824731642,
-     "r2": 0.8324892254163191,
-     "r3": 1.1286540916984442,
-     "t1": 1.0136828125223856,
-     "t2": 0.9676751287821852,
-     "t3": 1.2032761057006605
+     "r1": 1.0206605708444052,
+     "r2": 0.9169146422333677,
+     "r3": 1.0520812257919434,
+     "t1": 0.9829250064217628,
+     "t2": 0.9949179142430674,
+     "t3": 1.1305980341736312
     },
     "vol": {
-     "passYd": 1.0063088442419248,
-     "rec": 1.0264586766016428,
-     "recYd": 1.0357886032079804,
-     "rushYd": 1.0355746310664393
+     "passYd": 0.9729755109085914,
+     "rec": 0.9929650704340052,
+     "recYd": 1.0022790962048906,
+     "rushYd": 1.0018432771459376
     }
    },
    "describe": [
     "Learned from finished games, from the last three weeks",
-    "rushYd: +4%",
-    "rec: +3%",
-    "recYd: +4%",
-    "passYd: +1%",
-    "lt15 chances: +12%",
-    "15to25 chances: -3%",
-    "25to35 chances: +5%",
-    "35to50 chances: -6%",
-    "50plus chances: -7%",
-    "r1 spot: +12%",
-    "r2 spot: -17%",
-    "r3 spot: +13%",
-    "t1 spot: +1%",
-    "t2 spot: -3%",
-    "t3 spot: +20%"
+    "rec: -1%",
+    "passYd: -3%",
+    "lt15 chances: +8%",
+    "15to25 chances: -2%",
+    "35to50 chances: -7%",
+    "50plus chances: -9%",
+    "r1 spot: +2%",
+    "r2 spot: -8%",
+    "r3 spot: +5%",
+    "t1 spot: -2%",
+    "t2 spot: -1%",
+    "t3 spot: +13%"
    ],
    "drivesPromotion": {
     "metrics": {
@@ -157,14 +154,14 @@
   "season": 2026,
   "steps": [
    "lessons for weeks 1,2,3,4,5,6,7",
-   "saved 14 pregame frames, 0 skipped",
+   "saved 15 pregame frames, 0 skipped",
    "outcomes inserted 0, revised 0, unchanged 891",
    "validation updated"
   ],
-  "week": 8
+  "week": 9
  },
- "finished_at": "2026-10-27T17:36:34.870Z",
+ "finished_at": "2026-10-29T18:56:14.304Z",
  "kind": "refresh",
- "started_at": "2026-10-27T17:36:28.787Z",
+ "started_at": "2026-10-29T18:56:06.852Z",
  "status": "success"
 }

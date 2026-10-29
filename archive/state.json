@@ -1,6 +1,98 @@
 {
  "changes": [
   {
+   "at": "2026-10-29T18:56:14.305Z",
+   "diff": [
+    {
+     "from": 1.0812,
+     "group": "vol",
+     "key": "rec",
+     "to": 1.0263
+    },
+    {
+     "from": 1.08,
+     "group": "vol",
+     "key": "recYd",
+     "to": 1.0356
+    },
+    {
+     "from": 1.0582,
+     "group": "vol",
+     "key": "passYd",
+     "to": 1.0063
+    },
+    {
+     "from": 1.1427,
+     "group": "band",
+     "key": "lt15",
+     "to": 1.1189
+    },
+    {
+     "from": 0.9956,
+     "group": "band",
+     "key": "15to25",
+     "to": 0.982
+    },
+    {
+     "from": 1.0333,
+     "group": "band",
+     "key": "25to35",
+     "to": 1.0453
+    },
+    {
+     "from": 0.9213,
+     "group": "band",
+     "key": "35to50",
+     "to": 0.9433
+    },
+    {
+     "from": 0.9658,
+     "group": "band",
+     "key": "50plus",
+     "to": 0.9333
+    },
+    {
+     "from": 1.2363,
+     "group": "spot",
+     "key": "r1",
+     "to": 1.1207
+    },
+    {
+     "from": 0.8108,
+     "group": "spot",
+     "key": "r2",
+     "to": 0.8323
+    },
+    {
+     "from": 1.1368,
+     "group": "spot",
+     "key": "r3",
+     "to": 1.1286
+    },
+    {
+     "from": 0.9809,
+     "group": "spot",
+     "key": "t1",
+     "to": 1.0136
+    },
+    {
+     "from": 1.0012,
+     "group": "spot",
+     "key": "t2",
+     "to": 0.9676
+    },
+    {
+     "from": 1.2223,
+     "group": "spot",
+     "key": "t3",
+     "to": 1.2033
+    }
+   ],
+   "season": 2026,
+   "week": 8,
+   "why": "Lessons recomputed after newly finished games (last-3-weeks rule; in-week nudge for later games)."
+  },
+  {
    "at": "2026-10-22T20:21:46.369Z",
    "diff": [
     {
@@ -1044,20 +1136,82 @@
  ],
  "drivesPromotion": {
   "metrics": {
-   "games": 0,
-   "paired": 0
+   "brierDiff": -0.0019061958333333401,
+   "challenger": {
+    "brier": 0.129321985,
+    "ece": 0.15940833333333332,
+    "logLoss": 0.3751003255170606
+   },
+   "champion": {
+    "brier": 0.13122818083333332,
+    "ece": 0.15776666666666667,
+    "logLoss": 0.38091249120457804
+   },
+   "games": 1,
+   "interval": [
+    null,
+    null
+   ],
+   "paired": 24,
+   "protected": {
+    "contributors": {
+     "challenger": 0.22013359928571424,
+     "champion": 0.22345719785714283,
+     "n": 14,
+     "note": "Fewer than 80: tolerance check not decisive."
+    },
+    "highTd": {
+     "challenger": 0.4552200900000001,
+     "champion": 0.47389456,
+     "n": 1,
+     "note": "Fewer than 80: tolerance check not decisive."
+    },
+    "teamCalls": {
+     "challenger": 0.253830545,
+     "champion": 0.2921257,
+     "n": 2,
+     "note": "Fewer than 80: tolerance check not decisive."
+    }
+   }
   },
   "monitor": {
-   "games": 0,
+   "games": 1,
    "moved": 0,
-   "n": 0,
-   "withDrives_vs_blend": null,
-   "withDrives_vs_model": null
+   "n": 24,
+   "withDrives_vs_blend": {
+    "dBrier": 0,
+    "dBrierCI": [
+     0,
+     0
+    ],
+    "dLogLoss": 0,
+    "dLogLossCI": [
+     0,
+     0
+    ],
+    "games": 1,
+    "n": 24
+   },
+   "withDrives_vs_model": {
+    "dBrier": -1.906,
+    "dBrierCI": [
+     -1.906,
+     -1.906
+    ],
+    "dLogLoss": -5.812,
+    "dLogLossCI": [
+     -5.812,
+     -5.812
+    ],
+    "games": 1,
+    "n": 24
+   }
   },
   "promote": false,
   "reasons": [
-   "Needs ≥500 prospective paired players for endzone-4.6.0; have 0.",
-   "Needs ≥40 games; have 0."
+   "Needs ≥500 prospective paired players for endzone-4.6.0; have 24.",
+   "Needs ≥40 games; have 1.",
+   "Brier improvement not beyond game-level sampling uncertainty."
   ]
  },
  "experiments": {
@@ -1068,7 +1222,7 @@
      "cutoff": {
       "rule": "usage leg fit on player-games strictly before the target week; blend uses the final (post-cap) model chance and Sleeper as published",
       "season": 2026,
-      "week": 8
+      "week": 9
      },
      "fit": null,
      "kind": "blend3",
@@ -1077,13 +1231,13 @@
      "status": "blend3",
      "trainingCount": 2916,
      "usage": {
-      "builtAt": "2026-10-27T17:35:53.120Z",
-      "players": 699,
+      "builtAt": "2026-10-29T18:55:34.978Z",
+      "players": 754,
       "season": 2026,
       "trainRows": 15594,
-      "trainedOn": "player-games before 2026 week 8 (from 2024)",
+      "trainedOn": "player-games before 2026 week 9 (from 2024)",
       "version": 1,
-      "week": 8
+      "week": 9
      }
     },
     "drivesMonitor": {
@@ -1794,15 +1948,15 @@
     },
     "summary": {
      "all": {
-      "brier": 0.10919023272633732,
+      "brier": 0.10916153827503415,
       "flat25Brier": 0.1369170096021948,
-      "logLoss": 0.35586218936495356,
+      "logLoss": 0.35577685937458103,
       "matched": {
-       "model": 0.13107440959226566,
-       "modelLogLoss": 0.42048093838131106,
-       "n": 2379,
-       "published": 0.1315101716124459,
-       "publishedLogLoss": 0.42114784288585905
+       "model": 0.1311492325410181,
+       "modelLogLoss": 0.42069328400897127,
+       "n": 2377,
+       "published": 0.13159723692477598,
+       "publishedLogLoss": 0.4213507438895493
       },
       "n": 2916,
       "prospectiveN": 745,
@@ -1828,19 +1982,19 @@
      "prospective": 745,
      "reconstructed": 2171,
      "teamCalls": {
-      "brier": 0.23605031859903375,
-      "flat25Brier": 0.2678140096618358,
-      "logLoss": 0.6653766485541575,
+      "brier": 0.23691435355769225,
+      "flat25Brier": 0.2668269230769231,
+      "logLoss": 0.6672624314840084,
       "matched": {
-       "model": 0.2368137061165048,
-       "modelLogLoss": 0.6670072305271931,
-       "n": 206,
-       "published": 0.23989852487058547,
-       "publishedLogLoss": 0.6737323555596048
+       "model": 0.2376782272946859,
+       "modelLogLoss": 0.6688942463119079,
+       "n": 207,
+       "published": 0.24056366457414802,
+       "publishedLogLoss": 0.6750659165769826
       },
-      "n": 207,
+      "n": 208,
       "prospectiveN": 53,
-      "reconstructedN": 154
+      "reconstructedN": 155
      }
     },
     "volume": {
@@ -1943,15 +2097,15 @@
         "n": 28
        },
        "Low": {
-        "bias": -0.15383363961204707,
+        "bias": -0.1541212863705975,
         "coverage": 0.8902501276161306,
-        "mae": 0.6729564573762122,
+        "mae": 0.6726694231750892,
         "n": 1959
        },
        "Med": {
-        "bias": -0.47599666307857874,
-        "coverage": 0.8083961248654468,
-        "mae": 1.7093684607104414,
+        "bias": -0.47604747039827766,
+        "coverage": 0.8073196986006459,
+        "mae": 1.710222282023681,
         "n": 929
        }
       },
@@ -1999,9 +2153,9 @@
         "n": 55
        },
        "RB|primary|uncertain": {
-        "bias": -0.5823572222222226,
+        "bias": -0.583742777777778,
         "coverage": 0.8222222222222222,
-        "mae": 1.2861505555555557,
+        "mae": 1.2862950000000004,
         "n": 180
        },
        "RB|reserve|available": {
@@ -2011,10 +2165,10 @@
         "n": 77
        },
        "RB|reserve|uncertain": {
-        "bias": -0.22902818181818188,
-        "coverage": 0.8409090909090909,
-        "mae": 0.643511818181818,
-        "n": 220
+        "bias": -0.21025296803652974,
+        "coverage": 0.8447488584474886,
+        "mae": 0.6304584474885845,
+        "n": 219
        },
        "RB|support|available": {
         "bias": -0.2050205882352941,
@@ -2023,9 +2177,9 @@
         "n": 34
        },
        "RB|support|uncertain": {
-        "bias": -0.47599714285714284,
-        "coverage": 0.85,
-        "mae": 1.0849399999999996,
+        "bias": -0.5090342857142857,
+        "coverage": 0.8428571428571429,
+        "mae": 1.0963099999999997,
         "n": 140
        },
        "TE|primary|available": {
@@ -2035,9 +2189,9 @@
         "n": 50
        },
        "TE|primary|uncertain": {
-        "bias": -0.7130845161290326,
-        "coverage": 0.7741935483870968,
-        "mae": 1.8593774193548374,
+        "bias": -0.7039980645161292,
+        "coverage": 0.7677419354838709,
+        "mae": 1.8676032258064508,
         "n": 155
        },
        "TE|reserve|available": {
@@ -2047,9 +2201,9 @@
         "n": 86
        },
        "TE|reserve|uncertain": {
-        "bias": -0.27255319148936175,
-        "coverage": 0.8553191489361702,
-        "mae": 0.6457982978723406,
+        "bias": -0.2599114893617022,
+        "coverage": 0.8595744680851064,
+        "mae": 0.6368570212765956,
         "n": 235
        },
        "TE|support|available": {
@@ -2059,9 +2213,9 @@
         "n": 48
        },
        "TE|support|uncertain": {
-        "bias": -0.21133287671232875,
-        "coverage": 0.8767123287671232,
-        "mae": 0.9358630136986303,
+        "bias": -0.24214863013698631,
+        "coverage": 0.8698630136986302,
+        "mae": 0.9495294520547946,
         "n": 146
        },
        "WR|primary|available": {
@@ -2071,9 +2225,9 @@
         "n": 45
        },
        "WR|primary|uncertain": {
-        "bias": -0.6155486842105266,
+        "bias": -0.6148453947368422,
         "coverage": 0.8486842105263158,
-        "mae": 2.144813157894737,
+        "mae": 2.146283552631579,
         "n": 152
        },
        "WR|reserve|available": {
@@ -2083,10 +2237,10 @@
         "n": 173
        },
        "WR|reserve|uncertain": {
-        "bias": -0.2749778000000001,
-        "coverage": 0.828,
-        "mae": 1.0392330000000007,
-        "n": 500
+        "bias": -0.2742015968063873,
+        "coverage": 0.8283433133732535,
+        "mae": 1.0383760479041926,
+        "n": 501
        },
        "WR|support|available": {
         "bias": 0.532082608695652,
@@ -2095,9 +2249,9 @@
         "n": 46
        },
        "WR|support|uncertain": {
-        "bias": -0.842939455782313,
+        "bias": -0.8441489795918368,
         "coverage": 0.7959183673469388,
-        "mae": 1.905563945578231,
+        "mae": 1.9063312925170062,
         "n": 147
        }
       },
@@ -2109,16 +2263,16 @@
         "n": 745
        },
        "reconstructed": {
-        "bias": -0.34610511285121975,
-        "coverage": 0.8585905112851221,
-        "mae": 1.0081266697374487,
+        "bias": -0.34638641179180024,
+        "coverage": 0.8581298940580377,
+        "mae": 1.0082330262551815,
         "n": 2171
        }
       },
       "overall": {
-       "bias": -0.24736553497942318,
-       "coverage": 0.8635116598079561,
-       "mae": 1.0134042866940995,
+       "bias": -0.24757496570644655,
+       "coverage": 0.8631687242798354,
+       "mae": 1.0134834705075422,
        "n": 2916
       },
       "prospective": {
@@ -2137,15 +2291,15 @@
         "n": 3
        },
        "Low": {
-        "bias": -1.8366616613418594,
-        "coverage": 0.8753993610223643,
-        "mae": 8.683023870378843,
+        "bias": -1.8413512551346458,
+        "coverage": 0.8758557736193519,
+        "mae": 8.681634230944791,
         "n": 2191
        },
        "Med": {
-        "bias": -6.63418961218836,
-        "coverage": 0.7991689750692521,
-        "mae": 24.551267451523536,
+        "bias": -6.632125484764537,
+        "coverage": 0.7977839335180056,
+        "mae": 24.545365650969515,
         "n": 722
        }
       },
@@ -2193,9 +2347,9 @@
         "n": 55
        },
        "RB|primary|uncertain": {
-        "bias": -4.336401666666666,
-        "coverage": 0.8055555555555556,
-        "mae": 12.163158333333334,
+        "bias": -4.351558333333334,
+        "coverage": 0.8,
+        "mae": 12.14747833333333,
         "n": 180
        },
        "RB|reserve|available": {
@@ -2205,10 +2359,10 @@
         "n": 77
        },
        "RB|reserve|uncertain": {
-        "bias": -1.1371181818181821,
-        "coverage": 0.8590909090909091,
-        "mae": 4.882930000000003,
-        "n": 220
+        "bias": -1.0901913242009136,
+        "coverage": 0.867579908675799,
+        "mae": 4.811063470319636,
+        "n": 219
        },
        "RB|support|available": {
         "bias": -3.2998205882352947,
@@ -2217,9 +2371,9 @@
         "n": 34
        },
        "RB|support|uncertain": {
-        "bias": -2.3696157142857137,
-        "coverage": 0.8357142857142857,
-        "mae": 8.900055714285713,
+        "bias": -2.4735971428571424,
+        "coverage": 0.8285714285714286,
+        "mae": 8.977931428571429,
         "n": 140
        },
        "TE|primary|available": {
@@ -2229,9 +2383,9 @@
         "n": 50
        },
        "TE|primary|uncertain": {
-        "bias": -8.153410967741937,
+        "bias": -8.08955741935484,
         "coverage": 0.7548387096774194,
-        "mae": 22.914158064516126,
+        "mae": 22.992847741935478,
         "n": 155
        },
        "TE|reserve|available": {
@@ -2241,9 +2395,9 @@
         "n": 86
        },
        "TE|reserve|uncertain": {
-        "bias": -2.2438829787234047,
-        "coverage": 0.8595744680851064,
-        "mae": 6.211092340425532,
+        "bias": -2.1637621276595747,
+        "coverage": 0.8638297872340426,
+        "mae": 6.16911531914894,
         "n": 235
        },
        "TE|support|available": {
@@ -2253,9 +2407,9 @@
         "n": 48
        },
        "TE|support|uncertain": {
-        "bias": -0.9358178082191781,
+        "bias": -1.1436020547945205,
         "coverage": 0.8767123287671232,
-        "mae": 10.533528767123281,
+        "mae": 10.482623972602736,
         "n": 146
        },
        "WR|primary|available": {
@@ -2265,9 +2419,9 @@
         "n": 45
        },
        "WR|primary|uncertain": {
-        "bias": -12.642033552631577,
-        "coverage": 0.8355263157894737,
-        "mae": 34.243453289473685,
+        "bias": -12.630488157894735,
+        "coverage": 0.8289473684210527,
+        "mae": 34.24235657894736,
         "n": 152
        },
        "WR|reserve|available": {
@@ -2277,10 +2431,10 @@
         "n": 173
        },
        "WR|reserve|uncertain": {
-        "bias": -3.7773185999999996,
-        "coverage": 0.798,
-        "mae": 14.297982599999997,
-        "n": 500
+        "bias": -3.7671181636726554,
+        "coverage": 0.7984031936127745,
+        "mae": 14.275896606786429,
+        "n": 501
        },
        "WR|support|available": {
         "bias": 4.214452173913044,
@@ -2289,9 +2443,9 @@
         "n": 46
        },
        "WR|support|uncertain": {
-        "bias": -13.722108163265306,
+        "bias": -13.751974149659864,
         "coverage": 0.782312925170068,
-        "mae": 26.889342176870763,
+        "mae": 26.93879319727892,
         "n": 147
        }
       },
@@ -2303,16 +2457,16 @@
         "n": 745
        },
        "reconstructed": {
-        "bias": -4.055486457853526,
+        "bias": -4.059532795946574,
         "coverage": 0.8479963150621833,
-        "mae": 12.424050253339463,
+        "mae": 12.42068507600183,
         "n": 2171
        }
       },
       "overall": {
-       "bias": -3.0022363854595344,
+       "bias": -3.005248936899867,
        "coverage": 0.8563100137174211,
-       "mae": 12.625379389574762,
+       "mae": 12.622873971193417,
        "n": 2916
       },
       "prospective": {
@@ -2331,15 +2485,15 @@
         "n": 6
        },
        "Low": {
-        "bias": -0.47628661575562836,
-        "coverage": 0.9055466237942122,
-        "mae": 2.687533400321539,
+        "bias": -0.47450225080385916,
+        "coverage": 0.9047427652733119,
+        "mae": 2.69857709003215,
         "n": 2488
        },
        "Med": {
-        "bias": -6.899143127962085,
-        "coverage": 0.7322274881516587,
-        "mae": 21.104851184834118,
+        "bias": -6.879373222748818,
+        "coverage": 0.7345971563981043,
+        "mae": 21.104602132701416,
         "n": 422
        }
       },
@@ -2351,9 +2505,9 @@
         "n": 50
        },
        "QB|primary|uncertain": {
-        "bias": -4.892880000000001,
+        "bias": -4.881416666666667,
         "coverage": 0.6333333333333333,
-        "mae": 12.00218933333333,
+        "mae": 12.020492666666664,
         "n": 150
        },
        "QB|reserve|available": {
@@ -2363,9 +2517,9 @@
         "n": 15
        },
        "QB|reserve|uncertain": {
-        "bias": -1.8565526315789471,
+        "bias": -1.882310526315789,
         "coverage": 0.8947368421052632,
-        "mae": 3.2546631578947363,
+        "mae": 3.2644157894736834,
         "n": 38
        },
        "QB|support|available": {
@@ -2375,9 +2529,9 @@
         "n": 42
        },
        "QB|support|uncertain": {
-        "bias": -1.6242636363636365,
+        "bias": -1.6170151515151516,
         "coverage": 0.8484848484848485,
-        "mae": 3.5070151515151515,
+        "mae": 3.502074242424243,
         "n": 132
        },
        "RB|primary|available": {
@@ -2387,9 +2541,9 @@
         "n": 55
        },
        "RB|primary|uncertain": {
-        "bias": -8.749960555555557,
-        "coverage": 0.8833333333333333,
-        "mae": 22.496868333333335,
+        "bias": -8.584166111111111,
+        "coverage": 0.8722222222222222,
+        "mae": 22.66072277777778,
         "n": 180
        },
        "RB|reserve|available": {
@@ -2399,10 +2553,10 @@
         "n": 77
        },
        "RB|reserve|uncertain": {
-        "bias": -2.1248750000000003,
-        "coverage": 0.7545454545454545,
-        "mae": 8.12819681818182,
-        "n": 220
+        "bias": -2.09077899543379,
+        "coverage": 0.7579908675799086,
+        "mae": 8.173356164383565,
+        "n": 219
        },
        "RB|support|available": {
         "bias": -1.48639705882353,
@@ -2411,9 +2565,9 @@
         "n": 34
        },
        "RB|support|uncertain": {
-        "bias": -5.016818571428573,
+        "bias": -5.227638571428572,
         "coverage": 0.6785714285714286,
-        "mae": 18.626484285714284,
+        "mae": 18.575545714285713,
         "n": 140
        },
        "TE|primary|available": {
@@ -2423,9 +2577,9 @@
         "n": 50
        },
        "TE|primary|uncertain": {
-        "bias": -0.058472903225806463,
+        "bias": -0.05710451612903226,
         "coverage": 0.967741935483871,
-        "mae": 0.15325870967741936,
+        "mae": 0.15417677419354836,
         "n": 155
        },
        "TE|reserve|available": {
@@ -2447,9 +2601,9 @@
         "n": 48
        },
        "TE|support|uncertain": {
-        "bias": -0.006069178082191782,
+        "bias": -0.0060972602739726035,
         "coverage": 0.9931506849315068,
-        "mae": 0.021328082191780822,
+        "mae": 0.021300000000000003,
         "n": 146
        },
        "WR|primary|available": {
@@ -2459,9 +2613,9 @@
         "n": 45
        },
        "WR|primary|uncertain": {
-        "bias": -0.47968947368421044,
+        "bias": -0.4786151315789475,
         "coverage": 0.8421052631578947,
-        "mae": 1.9636171052631566,
+        "mae": 1.9659940789473676,
         "n": 152
        },
        "WR|reserve|available": {
@@ -2471,10 +2625,10 @@
         "n": 173
        },
        "WR|reserve|uncertain": {
-        "bias": -0.21331539999999993,
-        "coverage": 0.942,
-        "mae": 0.5976802000000001,
-        "n": 500
+        "bias": -0.21191616766467056,
+        "coverage": 0.9421157684630739,
+        "mae": 0.5966075848303395,
+        "n": 501
        },
        "WR|support|available": {
         "bias": -0.6361,
@@ -2483,9 +2637,9 @@
         "n": 46
        },
        "WR|support|uncertain": {
-        "bias": -0.3576102040816326,
+        "bias": -0.35552993197278915,
         "coverage": 0.9115646258503401,
-        "mae": 1.4560945578231297,
+        "mae": 1.4576170068027212,
         "n": 147
        }
       },
@@ -2497,16 +2651,16 @@
         "n": 745
        },
        "reconstructed": {
-        "bias": -1.7601581298940576,
-        "coverage": 0.8793182865039152,
-        "mae": 5.268731598341772,
+        "bias": -1.7542703362505752,
+        "coverage": 0.878857669276831,
+        "mae": 5.281339428834632,
         "n": 2171
        }
       },
       "overall": {
-       "bias": -1.3583574759945143,
-       "coverage": 0.880315500685871,
-       "mae": 5.410053566529496,
+       "bias": -1.3539739368998636,
+       "coverage": 0.8799725651577504,
+       "mae": 5.419440260631005,
        "n": 2916
       },
       "prospective": {
@@ -2519,12 +2673,18 @@
     }
    },
    "season": 2026,
-   "trainingCutoff": "{\"season\":2026,\"week\":8,\"rule\":\"usage leg fit on player-games strictly before the target week; blend uses the final (post-cap) model chance and Sleeper as published\"}",
-   "week": 8
+   "trainingCutoff": "{\"season\":2026,\"week\":9,\"rule\":\"usage leg fit on player-games strictly before the target week; blend uses the final (post-cap) model chance and Sleeper as published\"}",
+   "week": 9
   }
  },
  "learned": {
   "basis": [
+   {
+    "applied": true,
+    "prospective": 383,
+    "reconstructed": 0,
+    "week": 7
+   },
    {
     "applied": true,
     "prospective": 362,
@@ -2534,68 +2694,63 @@
    {
     "applied": true,
     "prospective": 0,
-    "reconstructed": 400,
+    "reconstructed": 402,
     "week": 5
-   },
-   {
-    "applied": true,
-    "prospective": 0,
-    "reconstructed": 430,
-    "week": 4
    }
   ],
   "describe": [
    "Learned from finished games, from the last three weeks",
    "rushYd: +4%",
-   "rec: +8%",
-   "recYd: +8%",
-   "passYd: +6%",
-   "lt15 chances: +14%",
-   "25to35 chances: +3%",
-   "35to50 chances: -8%",
-   "50plus chances: -3%",
-   "r1 spot: +24%",
-   "r2 spot: -19%",
-   "r3 spot: +14%",
-   "t1 spot: -2%",
-   "t3 spot: +22%"
+   "rec: +3%",
+   "recYd: +4%",
+   "passYd: +1%",
+   "lt15 chances: +12%",
+   "15to25 chances: -2%",
+   "25to35 chances: +5%",
+   "35to50 chances: -6%",
+   "50plus chances: -7%",
+   "r1 spot: +12%",
+   "r2 spot: -17%",
+   "r3 spot: +13%",
+   "t1 spot: +1%",
+   "t2 spot: -3%",
+   "t3 spot: +20%"
   ],
-  "inWeek": {
-   "confirmed": 383
-  },
+  "inWeek": null,
   "label": "Learned from finished games, from the last three weeks",
   "modelVersion": "endzone-4.6.0",
   "scales": {
    "band": {
-    "15to25": 0.9956460715814569,
-    "25to35": 1.0333346971152892,
-    "35to50": 0.9212969952583517,
-    "50plus": 0.9658221694646997,
-    "lt15": 1.142710683608439
+    "15to25": 0.9819690884767782,
+    "25to35": 1.04529115330105,
+    "35to50": 0.9432727312761813,
+    "50plus": 0.9332963844523402,
+    "lt15": 1.1188618582416228
    },
    "spot": {
-    "r1": 1.2362624435888512,
-    "r2": 0.8108325992716052,
-    "r3": 1.1367626057413691,
-    "t1": 0.9808769391794194,
-    "t2": 1.0012278174054197,
-    "t3": 1.2222705869422354
+    "r1": 1.1206605708444053,
+    "r2": 0.8323499043525443,
+    "r3": 1.1286472779248389,
+    "t1": 1.0135548843200177,
+    "t2": 0.9675767120805082,
+    "t3": 1.2032736330368063
    },
    "vol": {
-    "passYd": 1.058205285234614,
-    "rec": 1.0812263934197943,
-    "recYd": 1.0799851877254507,
-    "rushYd": 1.0355746310664393
+    "passYd": 1.0063088442419248,
+    "rec": 1.0262984037673386,
+    "recYd": 1.035612429538224,
+    "rushYd": 1.035176610479271
    }
   },
   "season": 2026,
-  "week": 7
+  "week": 8
  },
  "promotion": {
   "promote": false,
   "reasons": [
-   "Needs ≥500 prospective paired players for endzone-4.6.0; have 0.",
-   "Needs ≥40 games; have 0."
+   "Needs ≥500 prospective paired players for endzone-4.6.0; have 358.",
+   "Needs ≥40 games; have 13.",
+   "Brier improvement not beyond game-level sampling uncertainty."
   ]
  }
 }
