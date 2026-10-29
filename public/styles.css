@@ -223,3 +223,14 @@ details.sec>.secbody{padding-bottom:var(--s3)}details.sec[open]>summary{border-b
 .simpl{border:1px solid var(--gold)}
 .dvcols>div{min-width:0}.simhists>*{min-width:0}
 @media (max-width:900px) and (orientation:portrait),(max-width:700px){.dvcols{grid-template-columns:minmax(0,1fr)}}
+/* 4.9.1: drive-N cards + TD-scorer patterns */
+.simdrvsel{gap:4px;flex-wrap:wrap;padding-bottom:4px;align-items:center}.simdrvsel .btn{min-width:40px;min-height:40px;padding:6px 10px}
+.simdrive{min-width:0}.simdrive h4{margin:10px 0 4px}.simdrive h5,.simtd h5{margin:10px 0 2px;font-size:.85rem}
+.simlead{font-weight:700;margin:4px 0 6px;line-height:1.35}
+.simresbar{display:flex;border-radius:8px;overflow:hidden;min-height:28px;font-size:.72rem;font-weight:700;margin:4px 0 6px}
+.simresbar span{display:flex;align-items:center;justify-content:center;padding:4px 3px;white-space:nowrap;overflow:hidden;min-width:2px;color:#fff}
+.simresbar .r-td{background:#2e8b57}.simresbar .r-fg{background:#4a7fb5}.simresbar .r-mfg{background:#7d93ad}.simresbar .r-punt{background:#6b6f78}.simresbar .r-to{background:#b5523b}.simresbar .r-downs{background:#a07a2c}.simresbar .r-half{background:#8a8f99}.simresbar .r-saf{background:#6d3a8c}
+.simpls{margin:4px 0;padding-left:1.1em;line-height:1.45}.simpls li{margin:3px 0}
+.simkey{margin:6px 0 10px;padding-left:1.4em;line-height:1.45}.simkey li{margin:5px 0}.simkey li:first-child{font-weight:700}
+.simcols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:700px) and (orientation:portrait){.simcols3{grid-template-columns:minmax(0,1fr)}}

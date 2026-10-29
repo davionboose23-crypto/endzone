@@ -14,7 +14,7 @@ const RI = Object.fromEntries(RESULTS.map((r, i) => [r, i])); const NR = RESULTS
 const TD = 0, FG = 1, MFG = 2, PUNT = 3, TO = 4, DOWNS = 5, HALF = 6, SAF = 7;
 export const SLOTS = 16;
 // per-drive histogram stats (bins 0..max, values above max fold into max)
-export const DSTATS = { tgt: 8, rec: 8, recYd: 60, car: 12, rushYd: 60, tch: 14, td: 1 };
+export const DSTATS = { tgt: 8, rec: 8, recYd: 60, car: 12, rushYd: 60, tch: 14, td: 1, recYdC: 60, rushYdC: 60 }; // *C = yards on drives where he caught / carried (4.9.1 medians)
 const DKEYS = Object.keys(DSTATS); const DOFF = {}; let NB = 0; for (const k of DKEYS) { DOFF[k] = NB; NB += DSTATS[k] + 1; }
 export const GSTATS = ['tgt', 'rec', 'recYd', 'car', 'rushYd', 'td', 'passTd'];
 export const STAT_LBL = { rec: 'Receptions', recYd: 'Rec yds', car: 'Carries', rushYd: 'Rush yds', tch: 'Touches', td: 'TDs', tgt: 'Targets' };
@@ -163,6 +163,7 @@ function patMult(pats, ctx, kind) {
   return m;
 }
 const LOGN = 400;
+const TDAGG = 8; // tdAgg layout: 0 rush, 1 receiving, 2-5 Q1-Q4, 6 OT, 7 two-minute drive
 export function simulate(I, { n = 10000, seed = 1, record = true, E = null } = {}) {
   E = E || makeEngine(I); const R = makeRng(seed); const L = I.league; const TT = E.T;
   const NP = TT[0].P + TT[1].P; const base = [0, TT[0].P];
@@ -172,12 +173,18 @@ export function simulate(I, { n = 10000, seed = 1, record = true, E = null } = {
   const score = new Int16Array(n * 2), half = new Int16Array(n * 2), drives = new Uint8Array(n * 2), tds = new Uint8Array(n * 2), fgs = new Uint8Array(n * 2);
   const firstTd = new Int16Array(n), firstScore = new Int8Array(n), ot = new Uint8Array(n), leadCh = new Uint8Array(n), q4trail = new Int8Array(n);
   const tdDriveSlot = new Uint8Array(n * 2); // team's first TD drive number (0 = none)
+  // 4.9.1: drive-N cards and TD-scorer patterns
+  const kick = new Uint8Array(n); // team (0 away / 1 home) that receives the opening kickoff (coin flip, 50/50)
+  const gRes = new Uint8Array(n * 2 * SLOTS).fill(255); // result of each team's drive N per game (255 = no such drive)
+  const ftdTeam = new Int16Array(n * 2).fill(-1); // each team's first TD scorer (player index j; -2 = TD with no listed scorer)
+  const slotPlays = new Float64Array(2 * SLOTS), slotYds = new Float64Array(2 * SLOTS); // summed plays / skill-player scrimmage yards by drive number
+  const tdAgg = new Uint32Array(NP * TDAGG); // per player: rushing TDs, receiving TDs, TDs by quarter (Q1..Q4, OT), two-minute-drive TDs
   const logs = [];
   const probs = [0, 1].map(k => [0, 1, 2, 3].map(b => probsFor(E, k, b)));
   const anyPats = TT.map(t => t.pl.some(p => p.pats?.length));
   const tmp = TT.map(t => ({ tgt: new Int16Array(t.P), rec: new Int16Array(t.P), recYd: new Int16Array(t.P), car: new Int16Array(t.P), rushYd: new Int16Array(t.P), td: new Int8Array(t.P), w1: new Float64Array(t.P), w2: new Float64Array(t.P) }));
   for (let gi = 0; gi < n; gi++) {
-    const sc = [0, 0], dn = [0, 0]; let hf = 1, tl = 1800, isOt = false; const recv0 = R() < 0.5 ? 0 : 1; let pos = recv0; const otPoss = [0, 0];
+    const sc = [0, 0], dn = [0, 0]; let hf = 1, tl = 1800, isOt = false; const recv0 = R() < 0.5 ? 0 : 1; kick[gi] = recv0; let pos = recv0; const otPoss = [0, 0];
     let ftd = -1, fsc = -1, lead = 0, lch = 0, first2H = false; const log = gi < LOGN ? [] : null; let safety = 0; let tdSlot = [0, 0];
     let trailedQ4 = 0;
     for (;;) {
@@ -219,23 +226,26 @@ export function simulate(I, { n = 10000, seed = 1, record = true, E = null } = {
         else { X.tgt[scorer]++; X.rec[scorer]++; X.recYd[scorer] += 2 + Math.round(gamma(R, 1) * 12); if (t.qbTot > 0) passer = pickW(t.qbs, t.qbTot, R); } }
       // points + next possession
       let next = o;
-      if (r === TD) { sc[k] += 6 + (R() < XP ? 1 : 0); if (ftd < 0) ftd = scorer >= 0 ? base[k] + scorer : -2 - k; if (!tdSlot[k]) tdSlot[k] = Math.min(255, dno); }
+      if (r === TD) { sc[k] += 6 + (R() < XP ? 1 : 0); if (ftd < 0) ftd = scorer >= 0 ? base[k] + scorer : -2 - k; if (ftdTeam[gi * 2 + k] === -1) ftdTeam[gi * 2 + k] = scorer >= 0 ? base[k] + scorer : -2;
+        if (scorer >= 0) { const a = (base[k] + scorer) * TDAGG; tdAgg[a + (rushTd ? 0 : 1)]++; tdAgg[a + 1 + qtr]++; if (two) tdAgg[a + 7]++; } if (!tdSlot[k]) tdSlot[k] = Math.min(255, dno); }
       else if (r === FG) sc[k] += 3; else if (r === SAF) sc[o] += 2;
       else if (r === TO && R() < DEF_TD_ON_TO) { sc[o] += 7; next = k; if (ftd < 0) ftd = -4 - o; }
       else if (r === PUNT && R() < RET_TD_ON_PUNT) { sc[o] += 7; next = k; if (ftd < 0) ftd = -4 - o; }
       if (fsc < 0 && (sc[0] || sc[1])) fsc = sc[0] > sc[1] ? 0 : 1;
       const ld = Math.sign(sc[0] - sc[1]); if (ld !== 0 && lead !== 0 && ld !== lead) lch++; if (ld !== 0) lead = ld;
       // record
-      slotN[k * SLOTS + slot]++; slotR[(k * SLOTS + slot) * NR + r]++;
+      slotN[k * SLOTS + slot]++; slotR[(k * SLOTS + slot) * NR + r]++; slotPlays[k * SLOTS + slot] += tp[0]; if (dno <= SLOTS) gRes[(gi * 2 + k) * SLOTS + slot] = r;
+      let dYds = 0;
       const lg = log ? [k, dno, qtr, tl0, r, tp[0], sc[0], sc[1], []] : null;
       for (const i of touched) {
         const gix = gi * NP + base[k] + i;
         G.tgt[gix] += X.tgt[i]; G.rec[gix] += X.rec[i]; G.recYd[gix] += X.recYd[i]; G.car[gix] += X.car[i]; G.rushYd[gix] += X.rushYd[i]; G.td[gix] += X.td[i];
         if (H) { const h = ((base[k] + i) * SLOTS + slot) * NB; const put = (key, v) => { H[h + DOFF[key] + clamp(v, 0, DSTATS[key])]++; };
-          put('tgt', X.tgt[i]); put('rec', X.rec[i]); put('recYd', X.recYd[i]); put('car', X.car[i]); put('rushYd', X.rushYd[i]); put('tch', X.rec[i] + X.car[i]); put('td', X.td[i]); }
+          put('tgt', X.tgt[i]); put('rec', X.rec[i]); put('recYd', X.recYd[i]); put('car', X.car[i]); put('rushYd', X.rushYd[i]); put('tch', X.rec[i] + X.car[i]); put('td', X.td[i]); if (X.rec[i]) put('recYdC', X.recYd[i]); if (X.car[i]) put('rushYdC', X.rushYd[i]); }
         if (lg) lg[8].push([i, X.tgt[i], X.rec[i], X.recYd[i], X.car[i], X.rushYd[i], X.td[i]]);
-        X.tgt[i] = X.rec[i] = X.recYd[i] = X.car[i] = X.rushYd[i] = X.td[i] = 0;
+        dYds += X.recYd[i] + X.rushYd[i]; X.tgt[i] = X.rec[i] = X.recYd[i] = X.car[i] = X.rushYd[i] = X.td[i] = 0;
       }
+      slotYds[k * SLOTS + slot] += dYds;
       if (passer >= 0) { G.passTd[gi * NP + base[k] + passer]++; if (lg) lg.push(passer); }
       if (log) log.push(lg);
       if (first2H) first2H = false;
@@ -247,7 +257,7 @@ export function simulate(I, { n = 10000, seed = 1, record = true, E = null } = {
     if (log) logs.push(log);
   }
   for (let gi = 0; gi < n; gi++) for (let k = 0; k < 2; k++) { let c = 0; for (let i = 0; i < TT[k].P; i++) c += G.td[gi * NP + base[k] + i]; tds[gi * 2 + k] = c; }
-  return { n, seed, NP, base, P: [TT[0].P, TT[1].P], G, H, slotN, slotR, score, half, drives, tds, firstTd, firstScore, ot, leadCh, q4trail, tdDriveSlot, logs, spp: E.spp,
+  return { n, seed, NP, base, P: [TT[0].P, TT[1].P], G, H, slotN, slotR, score, half, drives, tds, firstTd, firstScore, ot, leadCh, q4trail, tdDriveSlot, kick, gRes, ftdTeam, slotPlays, slotYds, tdAgg, logs, spp: E.spp,
     eng: { tdMul: TT.map(t => t.tdMul), touchMul: TT.map(t => t.touchMul), pfOdds: TT.map(t => t.pfOdds) } };
 }
 // pilot calibration: TD rate -> team lambda, clock -> expected drives, volumes / shares / catch rate / yards -> model means
@@ -344,9 +354,11 @@ export function summarize(S, I) {
   const modal = top[0]; let ex = -1; const medT = qt(Float64Array.from(tot).sort(), 0.5), medM = qt(Float64Array.from(mar).sort(), 0.5);
   for (let g = 0; g < S.logs.length && ex < 0; g++) { const a = S.score[g * 2], b = S.score[g * 2 + 1]; const key = a > b ? `${a}-${b}` : `${b}-${a}`; const w = a > b ? A : b > a ? B : 'tie'; if (modal && key === modal.score && w === modal.winner) ex = g; }
   if (ex < 0) { let best = 1e9; for (let g = 0; g < S.logs.length; g++) { const a = S.score[g * 2], b = S.score[g * 2 + 1]; const d = Math.abs(a + b - medT) + Math.abs(b - a - medM); if (d < best) { best = d; ex = g; } } }
-  return { n, seed: S.seed, away: A, home: B, version: SIM_VERSION, ms: S.ms, pilot: S.pilot, line, win: { away: wa / n, home: wb / n, tie: tie / n, ot: otN / n }, over, homeCover,
+  const out = { n, seed: S.seed, away: A, home: B, version: SIM_VERSION, ms: S.ms, pilot: S.pilot, line, win: { away: wa / n, home: wb / n, tie: tie / n, ot: otN / n }, over, homeCover,
     total: dist(tot), margin: dist(mar), totHist: hist(tot, 3), marHist: hist(mar, 3), top, team, players, firstTd, pairs: pairs.slice(0, 40), whenScores, scripts, combos,
     example: ex >= 0 ? { g: ex, score: [S.score[ex * 2], S.score[ex * 2 + 1]], drives: S.logs[ex] } : null, targetDrives: I.targetDrives, notes: I.teams.map(t => t.note).filter(Boolean) };
+  out.drive1 = [driveCard(S, out, 0, 0), driveCard(S, out, 1, 0)]; out.tdp = tdPatterns(S, out);
+  return out;
 }
 // auto-generated drive-number patterns from the sims (most likely drive per player for his main stat + biggest swings)
 export function simPatterns(S, sum, { max = 8 } = {}) {
@@ -358,5 +370,83 @@ export function simPatterns(S, sum, { max = 8 } = {}) {
     out.push({ j: p.j, name: p.name, team: p.team, stat: st, th, drive: best.n, p: best.pHit, given: best.pHitGiven, avg, happen: best.happen, swing: { drive: swing.n, given: swing.pHitGiven, happen: swing.happen } });
   }
   return out.sort((a, b) => b.p - a.p).slice(0, max);
+}
+
+// ---------- 4.9.1: drive-N cards and touchdown-scorer patterns (plain-sentence summaries of the raw sim arrays)
+export const pct = x => x == null || !Number.isFinite(x) ? '—' : x > 0 && x < 0.005 ? '<1%' : x < 1 && x > 0.995 ? '>99%' : `${Math.round(x * 100)}%`;
+const ORD = ['opening', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
+export const driveName = s => s === 0 ? 'opening drive' : s < ORD.length ? `${ORD[s]} drive` : `drive ${s + 1}`;
+const hMed = (S, h, from, max) => { let c = 0; for (let v = from; v <= max; v++) c += S.H[h + v]; if (!c) return null; let acc = 0; for (let v = from; v <= max; v++) { acc += S.H[h + v]; if (acc * 2 >= c) return v; } return max; };
+const hGe = (S, h, max, th) => { let c = 0; for (let v = th; v <= max; v++) c += S.H[h + v]; return c; };
+export const poss = nm => /s$/i.test(nm) ? `${nm}'` : `${nm}'s`;
+const nameOf = (sum, j) => sum.players.find(p => p.j === j)?.name || '—';
+// one team's drive N (0-based slot) across all sims: how it ends, length, who touches the ball, who scores, and what a TD there does to the game
+export function driveCard(S, sum, k, slot = 0) {
+  const n = S.n, T = k ? sum.home : sum.away, O = k ? sum.away : sum.home; const ks = k * SLOTS + slot; const hn = S.slotN[ks]; const dname = driveName(slot);
+  let recv = 0, first = 0; for (let g = 0; g < n; g++) { if (S.kick[g] === k) recv++; if (S.firstScore[g] === k) first++; }
+  const base = { team: T, opp: O, k, slot, drive: slot + 1, dname, happen: hn / n, recvKick: recv / n, scoresFirst: first / n };
+  if (!hn) return { ...base, res: null, players: [], scorers: [], links: [], headline: [`${T} never gets a ${dname} in these sims.`] };
+  const res = Object.fromEntries(RESULTS.map((r, ri) => [r, S.slotR[ks * NR + ri] / hn]));
+  const plays = S.slotPlays[ks] / hn, yds = S.slotYds[ks] / hn;
+  // TD rate on this drive when receiving vs kicking off, and what a TD here does to the game
+  let nR = 0, tdR = 0, nK = 0, tdK = 0, nTd = 0, winTd = 0, win = 0, firstTd = 0; const last = slot === SLOTS - 1;
+  const tdHere = new Uint8Array(n);
+  for (let g = 0; g < n; g++) { const r = last ? null : S.gRes[(g * 2 + k) * SLOTS + slot]; const my = S.score[g * 2 + k], th = S.score[g * 2 + 1 - k]; if (my > th) win++;
+    if (r === 255 || r === null) continue; const td = r === 0; if (S.kick[g] === k) { nR++; if (td) tdR++; } else { nK++; if (td) tdK++; }
+    if (td) { tdHere[g] = 1; nTd++; if (my > th) winTd++; if (S.firstScore[g] === k) firstTd++; } }
+  const players = sum.players.filter(p => p.k === k).map(p => { const h0 = (p.j * SLOTS + slot) * NB; const at = key => h0 + DOFF[key]; const f = (key, th) => hGe(S, at(key), DSTATS[key], th) / hn;
+    return { j: p.j, name: p.name, pos: p.pos, pTouch: f('tch', 1), pTgt: f('tgt', 1), pRec1: f('rec', 1), pRec2: f('rec', 2), pRecYd10: f('recYd', 10), pCar1: f('car', 1), pCar2: f('car', 2), pRush10: f('rushYd', 10), pTd: f('td', 1),
+      medRec: hMed(S, at('rec'), 1, DSTATS.rec), medRecYd: hMed(S, at('recYdC'), 0, DSTATS.recYdC), medCar: hMed(S, at('car'), 1, DSTATS.car), medRushYd: hMed(S, at('rushYdC'), 0, DSTATS.rushYdC) }; })
+    .filter(p => p.pTouch >= 0.02 || p.pTd >= 0.005).sort((a, b) => b.pTd - a.pTd || b.pTouch - a.pTouch);
+  const scorers = players.filter(p => p.pTd >= 0.005).slice(0, 5); const noName = Math.max(0, res.TD - players.reduce((s2, p) => s2 + p.pTd, 0));
+  // if this drive ends in a TD: each likely scorer's anytime TD (both teams), vs normally
+  const links = []; if (nTd >= 100 && !last) for (const p of sum.players.filter(x => x.anytime >= 0.08)) { const a = S.G.td; let c = 0; for (let g = 0; g < n; g++) if (tdHere[g] && a[g * S.NP + p.j] > 0) c++; const pi = c / nTd;
+    links.push({ j: p.j, name: p.name, team: p.team, same: p.k === k, pIf: pi, p: p.anytime, diff: pi - p.anytime }); }
+  links.sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff));
+  const top = scorers[0], rec = players.slice().sort((a, b) => b.pRec1 - a.pRec1)[0], car = players.slice().sort((a, b) => b.pCar1 - a.pCar1)[0];
+  const headline = [];
+  headline.push(`${T} scores a TD on its ${dname} in ${pct(res.TD)} of sims${slot ? ' where it gets one' : ''}${top ? ` — ${top.name} is the most likely scorer (${pct(top.pTd)})${scorers[1] ? `, then ${scorers[1].name} (${pct(scorers[1].pTd)})` : ''}` : ''}.`);
+  headline.push(`Otherwise it ends in a made field goal ${pct(res.FG)}, missed FG ${pct(res.MFG)}, punt ${pct(res.Punt)}, turnover ${pct(res.TO)}, on downs ${pct(res.Downs)}${res.Half >= 0.005 ? `, end of half ${pct(res.Half)}` : ''}; it averages ${plays.toFixed(1)} plays and ${Math.round(yds)} yards (skill-player catches and runs).`);
+  if (rec || car) headline.push(`${car && car.pCar1 >= 0.05 ? `${car.name} gets a carry on it in ${pct(car.pCar1)} (10+ rush yds ${pct(car.pRush10)})` : ''}${car && car.pCar1 >= 0.05 && rec ? '; ' : ''}${rec ? `${rec.name} is the likeliest to catch a pass (${pct(rec.pRec1)}${rec.medRecYd != null ? `, median ${rec.medRecYd} yd${rec.medRecYd === 1 ? '' : 's'} when he does` : ''})` : ''}.`);
+  if (slot === 0) headline.push(`${recv / n >= 0.5 ? T : O} receives the opening kickoff in ${pct(Math.max(recv / n, 1 - recv / n))} of sims (a coin flip; the other team gets the ball to start the 2nd half). ${T} opens with a TD in ${pct(nR ? tdR / nR : null)} when it receives vs ${pct(nK ? tdK / nK : null)} when it kicks off.`);
+  if (nTd >= 100 && !last) headline.push(`When ${T} scores a TD on its ${dname}, it wins ${pct(winTd / nTd)} (vs ${pct(win / n)} overall)${slot === 0 ? ` and has scored first in ${pct(firstTd / nTd)} of those games — ${T} scores first in ${pct(first / n)} overall` : ''}.`);
+  return { ...base, res, plays, yds, tdRecv: nR ? tdR / nR : null, tdKick: nK ? tdK / nK : null, winIfTd: nTd ? winTd / nTd : null, win: win / n, players, scorers, noName, links: links.slice(0, 8), headline, last };
+}
+// touchdown-scorer patterns: first TD (game / each team), anytime / 2+ / 3+, when and how each player's TDs come, ranked links
+export function tdPatterns(S, sum) {
+  const n = S.n, A = sum.away, B = sum.home;
+  const firstTeam = [0, 1].map(k => { const m = new Map(); for (let g = 0; g < n; g++) { const v = S.ftdTeam[g * 2 + k]; m.set(v, (m.get(v) || 0) + 1); }
+    return [...m.entries()].map(([j, c]) => ({ j, p: c / n, label: j >= 0 ? nameOf(sum, j) : j === -1 ? `No ${k ? B : A} offensive TD` : `${k ? B : A} (other player)` })).sort((x, y) => y.p - x.p); });
+  const fg = new Map(sum.firstTd.map(f => [f.j, f.p]));
+  const cand = sum.players.filter(p => p.anytime >= 0.05).sort((a, b) => b.anytime - a.anytime).slice(0, 12);
+  const players = cand.map(p => { const td = playerArr(S, p.j, 'td'); let three = 0, tot = 0; for (const v of td) { if (v >= 3) three++; tot += v; }
+    const a = p.j * TDAGG; const ag = i => S.tdAgg[a + i]; const t2 = ag(0) + ag(1) || 1; let d13 = 0; for (let s2 = 0; s2 < 3; s2++) d13 += S.H[(p.j * SLOTS + s2) * NB + DOFF.td + 1];
+    const ft = firstTeam[p.k].find(x => x.j === p.j);
+    return { j: p.j, name: p.name, team: p.team, k: p.k, pos: p.pos, anytime: p.anytime, twoPlus: p.twoPlus, threePlus: three / n, perGame: tot / n, first: fg.get(p.j) || 0, firstTeam: ft ? ft.p : 0,
+      rush: ag(0) / t2, recv: ag(1) / t2, half1: (ag(2) + ag(3)) / t2, q4: ag(5) / t2, ot: ag(6) / t2, two: ag(7) / t2, d13: d13 / t2, tds: tot }; });
+  // pair links (pairs come pre-sorted by |lift| from summarize)
+  const links = sum.pairs.filter(x => Math.abs(x.lift) >= 0.02).slice(0, 10).map(x => ({ ...x, text: `When ${x.a} scores, ${x.b} scores too in ${pct(x.pBgivenA)} of those games (vs ${pct(x.pB)} normally)${x.same ? ' — same team: each TD drive has one scorer, so teammates compete for the same TDs' : ' — opposite teams: a higher-scoring game lifts both'}.` }));
+  // both-score combos
+  const tdA = new Map(cand.map(p => [p.j, playerArr(S, p.j, 'td')])); const combos = [];
+  for (let x = 0; x < cand.length; x++) for (let y = x + 1; y < cand.length; y++) { const a = tdA.get(cand[x].j), b = tdA.get(cand[y].j); let c = 0; for (let g = 0; g < n; g++) if (a[g] > 0 && b[g] > 0) c++; combos.push({ a: cand[x].name, b: cand[y].name, same: cand[x].k === cand[y].k, p: c / n }); }
+  combos.sort((a, b) => b.p - a.p);
+  // opening-drive TD → anytime TD
+  const d1 = (sum.drive1 || []).map(c => ({ team: c.team, pTd: c.res?.TD ?? 0, links: c.links }));
+  const d1links = d1.flatMap(d => d.links.map(l => ({ ...l, dteam: d.team, text: `If ${d.team} scores a TD on its opening drive, ${poss(l.name)} chance of scoring at some point goes from ${pct(l.p)} to ${pct(l.pIf)}${l.same ? '' : ` (${l.team} is the other team)`}.` }))).sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff));
+  // scorer → win / total
+  const wl = sum.whenScores.map(w => ({ ...w, dWin: (w.winIf ?? 0) - w.win, text: `When ${w.name} scores, ${w.team} wins ${pct(w.winIf)} (vs ${pct(w.win)} overall) and the game total averages ${w.totalIf?.toFixed(1) ?? '—'} (vs ${w.totalIfNot?.toFixed(1) ?? '—'} when he doesn't).` })).sort((a, b) => Math.abs(b.dWin) - Math.abs(a.dWin));
+  // timing / type sentences
+  const timing = players.slice(0, 8).map(p => ({ ...p, text: `${pct(p.half1)} of ${poss(p.name)} TDs come in the first half and ${pct(p.d13)} on ${p.team} drives 1–3 (${pct(p.q4)} in the 4th quarter${p.ot >= 0.005 ? `, ${pct(p.ot)} in OT` : ''}); ${pct(p.rush)} are rushing, ${pct(p.recv)} receiving.` }));
+  // ranked key patterns
+  const key = []; const f = sum.firstTd.filter(x => x.j >= 0);
+  if (f.length) key.push(`${f[0].label} is the likeliest first TD scorer of the game (${pct(f[0].p)})${f[1] ? `, then ${f[1].label} (${pct(f[1].p)})` : ''}${f[2] ? ` and ${f[2].label} (${pct(f[2].p)})` : ''}.`);
+  for (const c of (sum.drive1 || []).slice().sort((a, b) => (b.res?.TD ?? 0) - (a.res?.TD ?? 0))) if (c.res) key.push(`${c.team} scores a TD on its opening drive in ${pct(c.res.TD)} of games${c.scorers[0] ? ` — ${c.scorers[0].name} is the most likely scorer (${pct(c.scorers[0].pTd)})` : ''}.`);
+  if (players[0]) { const p = players[0]; key.push(`${p.name} is the likeliest to score at any point (${pct(p.anytime)}); 2+ TDs ${pct(p.twoPlus)}, 3+ ${pct(p.threePlus)}.`); }
+  if (combos[0]) key.push(`${combos[0].a} + ${combos[0].b} both score in ${pct(combos[0].p)} of games — the most common TD pair.`);
+  if (links[0]) key.push(links[0].text);
+  if (d1links[0]) key.push(d1links[0].text);
+  if (wl[0]) key.push(wl[0].text);
+  if (timing[0]) key.push(timing[0].text);
+  return { firstTeam, players, links, combos: combos.slice(0, 8), d1links: d1links.slice(0, 8), winLinks: wl.slice(0, 8), timing, key };
 }
 export { RES_TXT as RESULT_TEXT };

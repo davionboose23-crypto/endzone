@@ -6,7 +6,7 @@ import { teamLogo } from '/src/roster.js';
 import { snapshotPassTd } from '/src/passing-touchdowns.js';
 import { buildBrief, analyze, PROVIDERS } from '/src/analyst.js';
 import { driveAdjustFor, applyToChance, pLead } from '/src/drive-adjust.js';
-import { buildSimInputs, runSim, summarize, playerGameStat, playerDriveTable, pAtLeast, simPatterns, hashSeed, GAME_PRESETS, SIM_PRESETS, STAT_LBL as SIM_LBL } from '/src/sim.js';
+import { buildSimInputs, runSim, summarize, playerGameStat, playerDriveTable, pAtLeast, simPatterns, driveCard, pct as simPct, hashSeed, GAME_PRESETS, SIM_PRESETS, STAT_LBL as SIM_LBL } from '/src/sim.js';
 import { STATS, PRESETS, thLabel, shortName, personName, ylText, statLine, cellText, playerDriveRows, hitSummary, meets, driveLabel } from '/src/drive-log.js';
 
 const $ = s => document.querySelector(s);
@@ -340,7 +340,7 @@ function seesHtml(D, gA, gB, ctx) {
 // ---------- 4.9.0: game simulator (Drives → Simulator). Research / UI only: plays the matchup out drive by drive 10,000
 // times from the model's pre-game inputs (src/sim.js) in a Web Worker. Never feeds the live chance or the gate.
 const SIM_N = 10000;
-S.sim = { key: '', status: 'idle', sum: null, raw: null, ms: null, err: null, team: 'both', st: 'rec', th: 4, pj: null, dst: 'rec', dth: 1, seed: null };
+S.sim = { key: '', status: 'idle', sum: null, raw: null, ms: null, err: null, team: 'both', st: 'rec', th: 4, pj: null, dst: 'rec', dth: 1, seed: null, ds: 0 };
 let simW = null, simSeq = 0;
 const simSideFor = t => { for (const x of S.slate?.games || []) for (const sd of ['away', 'home']) if (x.sides[sd].team === t) return x.sides[sd]; return null; };
 function simPick() {
@@ -382,6 +382,51 @@ function simPlayerDriveHtml(sum, raw) {
    ${rows.map(r => `<tr><th scope="row">${r.n}${r.last ? '+' : ''}</th><td>${pc(r.happen)}</td><td><strong>${pc(r.pHit)}</strong></td><td>${pc(r.pHitGiven)}</td><td>${pc(r.pTouch)}</td><td>${r.mean.toFixed(2)}</td><td>${pc(r.pTd, 1)}</td></tr>`).join('')}</tbody></table></div>
    <p class="small muted">Simulated: share of the ${sum.n.toLocaleString()} simulated games. "Drive happens" = his team had that many possessions; "(all sims)" counts every simulated game, so it falls on late drives that often never happen; the "if" columns are the rate on that drive when it happened. Game: anytime TD ${pc(p.anytime)} (model ${pc(p.model.chance)}), 2+ TDs ${pc(p.twoPlus)}.${p.pats.length ? ` Validated drive patterns applied to his touch share: ${p.pats.map(t => `${esc(t.sub)} ×${t.mult}`).join(', ')}.` : ''}</p></div>`;
 }
+// 4.9.1: "Drive N" cards (one per team) and the touchdown-scorer patterns section, written as sentences
+const SIM_RES_COL = [['TD', 'TD', 'td'], ['FG', 'FG', 'fg'], ['MFG', 'Missed FG', 'mfg'], ['Punt', 'Punt', 'punt'], ['TO', 'Turnover', 'to'], ['Downs', 'Downs', 'downs'], ['Half', 'End of half', 'half'], ['Safety', 'Safety', 'saf']];
+function simDriveTeamHtml(c) {
+  if (!c.res) return `<div class="simdrive"><h4>${esc(c.team)} · ${esc(c.dname)}</h4><p class="small muted">${esc(c.headline[0])}</p></div>`;
+  const segs = SIM_RES_COL.filter(([k]) => c.res[k] >= 0.005);
+  const bar = `<div class="simresbar" role="img" aria-label="${esc(c.team)} ${esc(c.dname)} results: ${segs.map(([k, l]) => `${l} ${simPct(c.res[k])}`).join(', ')}">${segs.map(([k, l, cl]) => `<span class="r-${cl}" style="flex:${c.res[k]}" title="${esc(l)} ${simPct(c.res[k])}">${c.res[k] >= (l.length + 4) * 0.012 ? `${esc(l)} ${simPct(c.res[k])}` : ''}</span>`).join('')}</div>`;
+  const part = (p, txt) => p >= 0.005 ? txt : '';
+  const pl = c.players.slice(0, 7).map(p => { const bits = [
+      part(p.pCar1, `gets a carry <strong>${simPct(p.pCar1)}</strong>${p.medRushYd != null ? ` (median ${p.medCar} carr${p.medCar === 1 ? 'y' : 'ies'}, ${p.medRushYd} yd${p.medRushYd === 1 ? '' : 's'} when he does)` : ''}${p.pRush10 >= 0.005 ? `, 10+ rush yds ${simPct(p.pRush10)}` : ''}`),
+      part(p.pRec1, `catches a pass <strong>${simPct(p.pRec1)}</strong>${p.pRec2 >= 0.005 ? ` (2+ catches ${simPct(p.pRec2)})` : ''}${p.medRecYd != null ? `, median ${p.medRecYd} yd${p.medRecYd === 1 ? '' : 's'} when he catches one` : ''}${p.pRecYd10 >= 0.005 ? `, 10+ rec yds ${simPct(p.pRecYd10)}` : ''}`),
+      `scores the drive's TD <strong>${simPct(p.pTd)}</strong>`].filter(Boolean);
+    return `<li><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.pos)}</span> — ${bits.join('; ')}.</li>`; }).join('');
+  const links = c.links.slice(0, 4).map(l => `<li>${esc(l.name)} <span class="muted">${esc(l.team)}</span>: scores at some point in <strong>${simPct(l.pIf)}</strong> of those games (vs ${simPct(l.p)} normally).</li>`).join('');
+  return `<div class="simdrive"><h4>${esc(c.team)} · ${esc(c.dname)} <span class="small muted">${c.slot ? `happens in ${simPct(c.happen)} of games` : 'every game'}</span></h4>
+   <p class="simlead">${esc(c.headline[0])}</p>${bar}<ul class="small sees">${c.headline.slice(1).map(h => `<li>${esc(h)}</li>`).join('')}</ul>
+   <h5>Who touches the ball on this drive</h5><ul class="small simpls">${pl}</ul>
+   ${links ? `<h5>If ${esc(c.team)} scores a TD on this drive <span class="chip rel-chance">Sim structure</span></h5><ul class="small simpls">${links}</ul><p class="small muted">"At some point" counts this drive's TD too, so the drive's likely scorers rise most.</p>` : ''}</div>`;
+}
+function simDriveCardHtml(s, raw) {
+  const ds = S.sim.ds || 0; const cards = ds === 0 && s.drive1 ? s.drive1 : [0, 1].map(k => driveCard(raw, s, k, ds));
+  const maxD = Math.max(...s.team.map(T => T.slots.filter(r => r.happen >= 0.05).length), 1);
+  const btns = Array.from({ length: Math.min(12, maxD) }, (_, i) => `<button class="btn ${ds === i ? 'gold' : ''}" data-act="simdrv" data-s="${i}" aria-pressed="${ds === i}">${i + 1}</button>`).join('');
+  return `<div class="card simdrvcard" id="simDrv"><h3>Drive ${ds + 1}: what happens <span class="chip rel-chance">Simulated</span></h3>
+   <div class="row simdrvsel" role="group" aria-label="Drive number"><span class="small muted">Drive</span>${btns}</div>
+   <div class="dvcols">${cards.map(simDriveTeamHtml).join('')}</div>
+   <p class="small muted">Each team's own drive ${ds + 1}, across all ${s.n.toLocaleString()} simulated games${ds ? ' that got that far' : ''}. Drive-level rates mostly reflect volume (how often a player gets the ball) and game state (score, clock, two-minute drives); they are not a measured "drive ${ds + 1}" skill. Who receives the opening kickoff is a 50/50 coin flip in the sim, and the other team gets the ball to start the second half.</p></div>`;
+}
+function simTdHtml(s) {
+  const t = s.tdp; if (!t) return '';
+  const firstL = (arr, ttl) => `<div><h5>${esc(ttl)}</h5><ol class="small simfirst">${arr.slice(0, 5).map(f => `<li>${esc(f.label)} <strong>${simPct(f.p)}</strong></li>`).join('')}</ol></div>`;
+  const pl = t.players.slice(0, 10).map(p => `<li><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.pos)} ${esc(p.team)}</span> scores in <strong>${simPct(p.anytime)}</strong> of games · 2+ TDs ${simPct(p.twoPlus)} · 3+ ${simPct(p.threePlus)} · first TD of the game ${simPct(p.first)} · first ${esc(p.team)} TD ${simPct(p.firstTeam)}.</li>`).join('');
+  const li = arr => arr.map(x => `<li>${esc(x.text)}</li>`).join('');
+  return `<div class="card simtd" id="simTd"><h3>Touchdown scorer patterns <span class="chip rel-chance">Simulated</span></h3>
+   <h4>Key patterns, ranked</h4><ol class="simkey">${t.key.map(k => `<li>${esc(k)}</li>`).join('')}</ol>
+   <h4>First touchdown</h4><div class="simcols3">${firstL(s.firstTd, 'First TD of the game')}${firstL(t.firstTeam[0], `First ${s.away} TD`)}${firstL(t.firstTeam[1], `First ${s.home} TD`)}</div>
+   <p class="small muted">Shares of all games. "No … TD" = that team never scored an offensive TD; defense / special-teams scores are listed separately.</p>
+   <h4>Anytime, 2+ and 3+</h4><ul class="small simpls">${pl}</ul>
+   <h4>When and how each player's TDs come</h4><ul class="small simpls">${li(t.timing)}</ul>
+   <h4>Most common TD pairs (both score)</h4><ul class="small simpls">${t.combos.slice(0, 6).map(c => `<li>${esc(c.a)} + ${esc(c.b)} both score: <strong>${simPct(c.p)}</strong>${c.same ? ' <span class="muted">same team</span>' : ''}</li>`).join('')}</ul>
+   <h4>Links between scorers, drives and results <span class="chip rel-chance">Sim structure</span></h4>
+   <p class="small muted">These links come from how the sim is built (one scorer per TD drive, each team's TD budget, score and clock), not from measured real-life player-to-player links. Biggest first.</p>
+   <h5>One player scores → another</h5><ul class="small simpls">${li(t.links.slice(0, 6))}</ul>
+   <h5>Opening-drive TD → anytime TD</h5><ul class="small simpls">${li(t.d1links.slice(0, 5))}</ul>
+   <h5>Scorer → win and total</h5><ul class="small simpls">${li(t.winLinks.slice(0, 5))}</ul></div>`;
+}
 function simResultHtml() {
   const s = S.sim.sum, raw = S.sim.raw; const A = s.away, B = s.home; const TA = s.team[0], TB = s.team[1];
   const wbar = `<div class="simwin" role="img" aria-label="${A} wins ${pc(s.win.away)}, ${B} wins ${pc(s.win.home)}, tie ${pc(s.win.tie, 1)}"><span style="flex:${s.win.away}">${esc(A)} ${pc(s.win.away)}</span>${s.win.tie >= 0.005 ? `<span class="tie" style="flex:${Math.max(s.win.tie, 0.04)}">T ${pc(s.win.tie, 0)}</span>` : ''}<span class="h" style="flex:${s.win.home}">${esc(B)} ${pc(s.win.home)}</span></div>`;
@@ -403,23 +448,15 @@ function simResultHtml() {
   const patHtml = pats.length ? `<ul class="sees small">${pats.map(x => `<li><strong>${esc(x.name)}</strong> gets ${esc(simPhrase(x.stat, x.th))} on ${esc(x.team)} drive ${x.drive} in <strong>${pc(x.p)}</strong> of sims${x.swing.drive !== x.drive && Math.abs(x.swing.given - x.avg) >= 0.03 ? `; his biggest swing is drive ${x.swing.drive} (${pc(x.swing.given)} when it happens vs ${pc(x.avg)} average)` : ''}.</li>`).join('')}</ul>` : '';
   const applied = s.players.filter(p => p.pats.length); const appliedHtml = applied.length ? `<p class="small">Validated real-drive patterns built into the sim (touch-share multipliers on matching drives): ${applied.map(p => `${esc(p.name)} ${p.pats.map(t => `<span class="chip rel-${t.rel}">${esc(t.sub)} ×${t.mult}</span>`).join(' ')}`).join(' · ')}</p>` : '<p class="small muted">No validated drive patterns for these players, so per-drive rates move only with game state (two-minute drives, leading or trailing).</p>';
   const slotTab = T => `<div class="tablewrap" tabindex="0" role="region" aria-label="${esc(T.team)} drive results by drive number"><table class="simtab"><thead><tr><th scope="col">${esc(T.team)} drive</th><th scope="col">Happens</th><th scope="col">TD</th><th scope="col">FG</th><th scope="col">Punt</th><th scope="col">Turnover</th><th scope="col">Downs</th><th scope="col">End of half</th></tr></thead><tbody>${T.slots.slice(0, 14).map(r => `<tr><th scope="row">${r.n}</th><td>${pc(r.happen)}</td><td><strong>${pc(r.TD)}</strong></td><td>${pc(r.FG)}</td><td>${pc(r.Punt)}</td><td>${pc(r.TO)}</td><td>${pc(r.Downs)}</td><td>${pc(r.Half)}</td></tr>`).join('')}</tbody></table></div><p class="small">${esc(T.team)} offensive TDs: ${T.tdDist.map((p, i) => `${i}${i === 6 ? '+' : ''}: ${pc(p)}`).join(' · ')}</p>`;
-  const first = `<ol class="small simfirst">${s.firstTd.slice(0, 8).map(f => `<li>${esc(f.label)} <strong>${pc(f.p, 1)}</strong></li>`).join('')}</ol>`;
-  // correlations
-  const pos = s.pairs.filter(x => x.lift > 0).slice(0, 5), neg = s.pairs.filter(x => x.lift < 0).slice(0, 5);
-  const pr = x => `<li>If <strong>${esc(x.a)}</strong> scores, <strong>${esc(x.b)}</strong> scores in ${pc(x.pBgivenA)} (vs ${pc(x.pBgivenNotA)} when he doesn't; ${pc(x.pB)} overall)${x.same ? ' <span class="muted">same team</span>' : ''}</li>`;
-  const ws = s.whenScores.slice(0, 8).map(w => `<tr><th scope="row">${esc(w.name)} <span class="small muted">${esc(w.team)}</span></th><td>${pc(w.p)}</td><td>${w.totalIf?.toFixed(1) ?? '—'}</td><td>${w.totalIfNot?.toFixed(1) ?? '—'}</td><td>${pc(w.winIf)}</td><td>${pc(w.win)}</td></tr>`).join('');
   const scripts = `<div class="simscripts small">${s.scripts.map(x => `<div><span>${esc(x.label)}</span><span class="bar"><i style="width:${(x.p * 100).toFixed(1)}%"></i></span><strong>${pc(x.p)}</strong></div>`).join('')}</div><h4>Most common game scripts</h4><ol class="small">${s.combos.map(c => `<li>${esc(c.label)} · <strong>${pc(c.p)}</strong></li>`).join('')}</ol>`;
   return `<div class="card simres"><h3>Result · ${s.n.toLocaleString()} simulated games <span class="chip rel-chance">Simulated</span></h3>${wbar}${vegas}${kv}
     <div class="simhists"><div>${simBars(s.marHist, `${B} margin`, b => sgn(b))}</div><div>${simBars(s.totHist, 'Total points', b => String(b))}</div></div>
     <h4>Most common final scores</h4>${top}</div>
+   ${simDriveCardHtml(s, raw)}${simTdHtml(s)}
    ${S.sim.pj != null ? simPlayerDriveHtml(s, raw) : ''}
    <div class="card"><h3>Players · simulated <span class="chip rel-chance">Simulated</span></h3>${players}</div>
    <div class="card"><h3>Drive-by-drive patterns in the sims <span class="chip rel-chance">Simulated</span></h3>${patHtml}${appliedHtml}
-    <h4>First touchdown scorer</h4>${first}
     <div class="dvcols"><div><h4>${esc(A)} scoring by drive number</h4>${slotTab(TA)}</div><div><h4>${esc(B)} scoring by drive number</h4>${slotTab(TB)}</div></div></div>
-   <div class="card"><h3>Correlations · if one player scores <span class="chip rel-chance">Simulated</span></h3><ul class="small sees">${pos.map(pr).join('')}${neg.map(pr).join('')}</ul>
-    <div class="tablewrap" tabindex="0" role="region" aria-label="Game total and win when a player scores"><table class="simtab"><thead><tr><th scope="col">When he scores</th><th scope="col">Scores</th><th scope="col">Total if he scores</th><th scope="col">Total if not</th><th scope="col">Team wins if he scores</th><th scope="col">Team wins overall</th></tr></thead><tbody>${ws}</tbody></table></div>
-    <p class="small muted">Links come only from the simulation's structure (shared drives, game script and clock), not from any measured player-to-player relationship.</p></div>
    <div class="card"><h3>Game scripts <span class="chip rel-chance">Simulated</span></h3>${scripts}</div>`;
 }
 function paintSim() {
@@ -888,6 +925,7 @@ document.addEventListener('click', e => {
   else if (a === 'simteam') { S.sim.team = t.dataset.team; paintSim(); }
   else if (a === 'simth') { S.sim.st = t.dataset.st; S.sim.th = +t.dataset.th; paintSim(); }
   else if (a === 'simdth') { S.sim.dst = t.dataset.st; S.sim.dth = +t.dataset.th; paintSim(); }
+  else if (a === 'simdrv') { S.sim.ds = +t.dataset.s || 0; paintSim(); $('#simDrv')?.scrollIntoView({ block: 'nearest' }); }
   else if (a === 'simpl') { S.sim.pj = t.dataset.j === '' ? null : +t.dataset.j; paintSim(); if (S.sim.pj != null) $('#simPl')?.scrollIntoView({ block: 'start' }); }
   else if (a === 'dcell') { const o = $('#dcellOut'); if (o) o.innerHTML = dcellHtml(drivesData(), S.dv.gridTeam, t.dataset.w, t.dataset.n); }
   else if (a === 'close') closePanel();
