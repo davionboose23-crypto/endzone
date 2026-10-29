@@ -173,6 +173,39 @@ Board → Sort now has three groups. **Touchdown**: *Model confidence (High › 
 - `tests/landscape.test.js` covers five landscape sizes: header under 25% of the height, no page-level horizontal overflow, panel scrollable, Close visible and at least 44 px, plus a rotation round-trip.
 - Screenshots: `SIZES=844x390,932x430 MOBILE=1 node scripts/ux-shots.mjs <dir> [url]` (`shots/` is git-ignored).
 
+## App 4.10.1 — Drive cards show every outcome, not "scores a TD" (UI / wording only; engines, live predictions and model unchanged, still endzone-4.6.0)
+
+**What was wrong.** On Drives → Simulator, the "Drive N: what happens" card was worded around the TD in both modes, Drive sim (the default) and Play-by-play (beta), for every drive in the 1–12 selector. Its lead line read "CAR scores a TD on its second drive in 25% of sims…", each player was listed as "scores the drive's TD", and the links section was titled "If CAR scores a TD on this drive". Click through drives 1, 2, 3… and the headline is a TD every time, even though a punt was the most likely result on each drive (35–44% for CAR @ GB). The simulated numbers were already realistic. An audit of all 14 week-8 matchups found no skipped or repeated possessions, no double counting, no OT loop, and the sample-game labels match the engine on every drive.
+
+**Fix.**
+- Each card now opens with the full outcome mix, most likely first: "CAR's second drive (when it gets one) — most likely result: punt (41%). All outcomes: punt 41% · touchdown 26% · field goal 13% · turnover 12% · …".
+- The bar is ordered most-to-least likely, and short segments are labelled (TO, Downs).
+- The TD gets its own line: "A TD on this drive: 26% — about 1 in 4".
+- The TD-scorer and win links are worded "if this drive ends in a TD".
+- The scoring-by-drive table gains a "Most likely" column.
+- A note quotes the real yardstick: 23% of 2025–26 drives end in a TD, and 0 of 758 team-games had TDs on 80%+ of drives.
+
+**Real vs simulated, week 8 2026** (all 14 matchups; drive sim 1,500 games each, play-by-play 600):
+
+| | Real 2025–26 (758 team-games) | Drive sim | Play-by-play |
+|---|---|---|---|
+| TD per drive | 23.1% | 23.1% | 21.8% |
+| Team-games with TDs on 80%+ of drives | 0% (max 75%) | 0.02% | 0.01% |
+| Team-games with TDs on 60%+ of drives | 0.8% | 0.9% | 0.4% |
+| 5+ TD games | 7.7% | 6.8% | 7.0% |
+| 6+ TD games | 2.1% | 1.6% | 1.9% |
+| Highest matchup TD per drive | — | DAL 0.294 | NE 0.291 |
+
+`tests/sim-realism.test.js` locks these in for both engines:
+- league TD per drive within ±3 points of real;
+- 80%+ TD-drive games no more common than real (+0.2 pts);
+- 60%+ TD-drive games at most 2× real;
+- 5+/6+ TD games near real;
+- no team in any matchup above 0.35 TD per drive;
+- the drive-card wording: outcome mix first, sorted, and never a TD as the most likely result.
+
+The engines did not change, so `validate-pbp` was not re-run.
+
 ## App 4.10.0 — Play-by-play simulator (beta; Drives → Simulator → "Play-by-play (beta)"; research / UI only, model stays endzone-4.6.0)
 
 - **Engine** (`src/sim-pbp.js`, params from `src/pbp-fit.js` → `archive/pbp/<season>/w<N>.json`, built by `scripts/pbp/build.mjs` from nflverse play-by-play): every snap tracks down, distance, yard line, clock, timeouts and score. It covers kickoffs and returns (touchbacks, onside, return TDs), punts with return spot, FG make chance by distance, PATs and two-point tries, sacks, interceptions and fumbles with return spot (defensive TDs), penalties, fourth-down go/FG/punt calls by field zone, distance and score, two-minute and end-of-half play, kneel-downs and overtime.

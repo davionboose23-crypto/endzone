@@ -403,6 +403,7 @@ export function simPatterns(S, sum, { max = 8 } = {}) {
 
 // ---------- 4.9.1: drive-N cards and touchdown-scorer patterns (plain-sentence summaries of the raw sim arrays)
 export const pct = x => x == null || !Number.isFinite(x) ? '—' : x > 0 && x < 0.005 ? '<1%' : x < 1 && x > 0.995 ? '>99%' : `${Math.round(x * 100)}%`;
+const DRIVE_MIX = [['Punt', 'punt'], ['TD', 'touchdown'], ['FG', 'field goal'], ['TO', 'turnover'], ['Downs', 'turnover on downs'], ['MFG', 'missed field goal'], ['Half', 'end of half'], ['Safety', 'safety']];
 const ORD = ['opening', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
 export const driveName = s => s === 0 ? 'opening drive' : s < ORD.length ? `${ORD[s]} drive` : `drive ${s + 1}`;
 const hMed = (S, h, from, max) => { let c = 0; for (let v = from; v <= max; v++) c += S.H[h + v]; if (!c) return null; let acc = 0; for (let v = from; v <= max; v++) { acc += S.H[h + v]; if (acc * 2 >= c) return v; } return max; };
@@ -434,12 +435,14 @@ export function driveCard(S, sum, k, slot = 0) {
   links.sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff));
   const top = scorers[0], rec = players.slice().sort((a, b) => b.pRec1 - a.pRec1)[0], car = players.slice().sort((a, b) => b.pCar1 - a.pCar1)[0];
   const headline = [];
-  headline.push(`${T} scores a TD on its ${dname} in ${pct(res.TD)} of sims${slot ? ' where it gets one' : ''}${top ? ` — ${top.name} is the most likely scorer (${pct(top.pTd)})${scorers[1] ? `, then ${scorers[1].name} (${pct(scorers[1].pTd)})` : ''}` : ''}.`);
-  headline.push(`Otherwise it ends in a made field goal ${pct(res.FG)}, missed FG ${pct(res.MFG)}, punt ${pct(res.Punt)}, turnover ${pct(res.TO)}, on downs ${pct(res.Downs)}${res.Half >= 0.005 ? `, end of half ${pct(res.Half)}` : ''}; it averages ${plays.toFixed(1)} plays and ${Math.round(yds)} yards (skill-player catches and runs).`);
+  // 4.10.1: lead with the whole outcome mix, most likely first — a TD is one outcome among several (about 1 drive in 4-5), never the headline
+  const mix = DRIVE_MIX.map(([r, l]) => ({ r, label: l, p: res[r] || 0 })).filter(x => x.p >= 0.005).sort((a, b) => b.p - a.p);
+  headline.push(`${poss(T)} ${dname}${slot ? ' (when it gets one)' : ''} — most likely result: ${mix[0].label} (${pct(mix[0].p)}). All outcomes: ${mix.map(x => `${x.label} ${pct(x.p)}`).join(' · ')}.`);
+  headline.push(`A TD on this drive: ${pct(res.TD)}${res.TD > 0 ? ` — about 1 in ${Math.max(1, Math.round(1 / res.TD))}` : ''}${top ? `; when it happens, ${top.name} is the likeliest scorer (${pct(top.pTd)} of sims${scorers[1] ? `, then ${scorers[1].name} ${pct(scorers[1].pTd)}` : ''})` : ''}. It averages ${plays.toFixed(1)} plays and ${Math.round(yds)} yards (skill-player catches and runs).`);
   if (rec || car) headline.push(`${car && car.pCar1 >= 0.05 ? `${car.name} gets a carry on it in ${pct(car.pCar1)} (10+ rush yds ${pct(car.pRush10)})` : ''}${car && car.pCar1 >= 0.05 && rec ? '; ' : ''}${rec ? `${rec.name} is the likeliest to catch a pass (${pct(rec.pRec1)}${rec.medRecYd != null ? `, median ${rec.medRecYd} yd${rec.medRecYd === 1 ? '' : 's'} when he does` : ''})` : ''}.`);
   if (slot === 0) headline.push(`${recv / n >= 0.5 ? T : O} receives the opening kickoff in ${pct(Math.max(recv / n, 1 - recv / n))} of sims (a coin flip; the other team gets the ball to start the 2nd half). ${T} opens with a TD in ${pct(nR ? tdR / nR : null)} when it receives vs ${pct(nK ? tdK / nK : null)} when it kicks off.`);
-  if (nTd >= 100 && !last) headline.push(`When ${T} scores a TD on its ${dname}, it wins ${pct(winTd / nTd)} (vs ${pct(win / n)} overall)${slot === 0 ? ` and has scored first in ${pct(firstTd / nTd)} of those games — ${T} scores first in ${pct(first / n)} overall` : ''}.`);
-  return { ...base, res, plays, yds, tdRecv: nR ? tdR / nR : null, tdKick: nK ? tdK / nK : null, winIfTd: nTd ? winTd / nTd : null, win: win / n, players, scorers, noName, links: links.slice(0, 8), headline, last };
+  if (nTd >= 100 && !last) headline.push(`In the ${pct(nTd / n)} of sims where this drive ends in a ${T} TD, ${T} wins ${pct(winTd / nTd)} (vs ${pct(win / n)} overall)${slot === 0 ? ` and scored first in ${pct(firstTd / nTd)} of those games — ${T} scores first in ${pct(first / n)} overall` : ''}.`);
+  return { ...base, res, mix, plays, yds, tdRecv: nR ? tdR / nR : null, tdKick: nK ? tdK / nK : null, winIfTd: nTd ? winTd / nTd : null, win: win / n, players, scorers, noName, links: links.slice(0, 8), headline, last };
 }
 // touchdown-scorer patterns: first TD (game / each team), anytime / 2+ / 3+, when and how each player's TDs come, ranked links
 export function tdPatterns(S, sum) {
