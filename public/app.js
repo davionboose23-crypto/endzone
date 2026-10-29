@@ -355,7 +355,7 @@ function simDone(m, key) {
 }
 function runSimUi(newSeed) {
   const D = drivesData(); if (!D) return; const { g, A, B, key } = simPick(); if (A === B) { S.sim = { ...S.sim, key, status: 'error', err: 'Pick two different teams.' }; paintSim(); return; }
-  const seed = newSeed ? (Math.random() * 2 ** 31) >>> 0 : hashSeed(key);
+  const seed = (Math.random() * 2 ** 31) >>> 0; // fresh 10,000 games every run
   const inputs = buildSimInputs(D, { away: A, home: B, sideFor: simSideFor, lines: g ? g.sides.away.lines || null : null, gameId: g?.id || `${A}@${B}` });
   Object.assign(S.sim, { key, status: 'running', sum: null, raw: null, err: null, seed, t0: performance.now(), inputs }); paintSim();
   const id = ++simSeq; const inPage = () => setTimeout(() => { try { const t0 = performance.now(); const R = runSim(inputs, { n: SIM_N, seed }); simDone({ id, ok: true, ms: Math.round(performance.now() - t0), sum: summarize(R, inputs), raw: R }, key); } catch (e) { simDone({ ok: false, error: String(e) }, key); } }, 30);
@@ -425,7 +425,7 @@ function simResultHtml() {
 function paintSim() {
   const o = document.getElementById('simOut'); if (!o) return; const { A, B, key } = simPick(); const sim = S.sim; const mine = sim.key === key;
   const head = `<p class="small">Plays <strong>${esc(A)} @ ${esc(B)}</strong> drive by drive ${SIM_N.toLocaleString()} times: possession alternation, score, quarter and clock, two-minute drives and overtime; every drive ends in a TD, FG, punt, turnover, downs or end of half with its plays, targets, carries, catches and yards, and who scored.</p>
-   <div class="row"><button class="btn gold" data-act="simrun" ${sim.status === 'running' ? 'disabled' : ''}>${sim.status === 'running' && mine ? 'Simulating…' : mine && sim.status === 'done' ? 'Run again (same seed)' : `Run ${SIM_N.toLocaleString()} games`}</button>${mine && sim.status === 'done' ? '<button class="btn" data-act="simrun" data-new="1">New seed</button>' : ''}<span class="small muted" aria-live="polite">${mine && sim.status === 'done' ? `${sim.sum.n.toLocaleString()} games in ${(sim.wall / 1000).toFixed(1)} s · seed ${sim.seed}` : mine && sim.status === 'running' ? 'Running in the background…' : ''}</span></div>`;
+   <div class="row"><button class="btn gold" data-act="simrun" ${sim.status === 'running' ? 'disabled' : ''}>${sim.status === 'running' && mine ? 'Simulating…' : mine && sim.status === 'done' ? `Run ${SIM_N.toLocaleString()} new games` : `Run ${SIM_N.toLocaleString()} games`}</button><span class="small muted" aria-live="polite">${mine && sim.status === 'done' ? `${sim.sum.n.toLocaleString()} games simulated in ${(sim.wall / 1000).toFixed(1)} s · run #${sim.seed}` : mine && sim.status === 'running' ? 'Running in the background…' : ''}</span></div>`;
   const notes = mine && sim.sum?.notes?.length ? `<p class="small simnote">${sim.sum.notes.map(esc).join('<br>')}</p>` : '';
   const err = mine && sim.status === 'error' ? `<p class="small" role="alert">Simulation failed: ${esc(sim.err)}</p>` : '';
   const disc = `<p class="small muted simdisc"><strong>Simulated, not a guarantee.</strong> Every number here comes from re-playing the model's own pre-game inputs (TD chances, projected targets, carries, catches and yards, the betting line through the team TD budgets) with real 2026 drive mixes for each offense and defense. The sim does not change any prediction on the board and is not part of the model or the challenger gate. Real-drive tables elsewhere in Drives keep their small-sample labels.</p>`;
