@@ -1,6 +1,6 @@
 {
   "name": "endzone",
-  "version": "4.9.1",
+  "version": "4.9.2",
   "private": true,
   "type": "module",
   "description": "ENDZONE anytime-TD research model",
@@ -18,7 +18,8 @@
     "drives:build": "node scripts/drives/build.mjs",
     "drives:research": "node scripts/drives/research.mjs",
     "drives:verify": "node scripts/drives/verify.mjs",
-    "sim:calibrate": "node scripts/sim/calibrate.mjs"
+    "sim:calibrate": "node scripts/sim/calibrate.mjs",
+    "sim:validate-teams": "node scripts/sim/validate-teams.mjs --sims 2000"
   },
   "dependencies": {
     "sql.js": "^1.13.0"

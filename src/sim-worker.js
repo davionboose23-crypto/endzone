@@ -1,4 +1,4 @@
-// ENDZONE simulator worker (app 4.9.0; 4.9.1 adds the drive-N / TD-pattern arrays): runs the pilot + N simulated games off the main thread and posts back the
+// ENDZONE simulator worker (app 4.9.0; 4.9.1 adds the drive-N / TD-pattern arrays; 4.9.2 free team-style mode via inputs.mode): runs the pilot + N simulated games off the main thread and posts back the
 // summary plus the raw per-game / per-drive arrays the UI needs for custom thresholds and per-drive tables.
 import { runSim, summarize } from './sim.js';
 self.onmessage = e => {

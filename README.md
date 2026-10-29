@@ -173,6 +173,45 @@ Board → Sort now has three groups. **Touchdown**: *Model confidence (High › 
 - `tests/landscape.test.js` covers five landscape sizes: header under 25% of the height, no page-level horizontal overflow, panel scrollable, Close visible and at least 44 px, plus a rotation round-trip.
 - Screenshots: `SIZES=844x390,932x430 MOBILE=1 node scripts/ux-shots.mjs <dir> [url]` (`shots/` is git-ignored).
 
+## App 4.9.2 — Simulator plays each team's own 2026 offense and defense, opponent-adjusted (research / UI only, model stays endzone-4.6.0)
+
+**Audit of 4.9.1 (what was wrong).** Non-TD drive outcomes came from raw 2026 offense and defense counts (shrunk, k = 60, combined by a square root) with **no schedule adjustment**. The TD rate was then **pinned to the model's team λ** (CAR @ GB w8: ×0.88 for CAR, ×1.17 for GB), and pass rate and volume were pinned to the model too (GB pass odds ×1.27). So the team's own TD identity was overwritten by the model. Plays per drive came from the offense only; game script, two-minute drives, red zone and explosives were league-wide.
+
+**What changed** (`src/team-strength.js`, `ts-1`). Every 2026 drive before the week is fitted jointly: offense effect + defense effect + game-state bucket, ridge-shrunk toward league average, recent games weighted more (half-life 6 weeks), combined as additive log-odds. That covers:
+- the TD / FG try / punt / turnover / downs mix (multinomial);
+- pass rate by script (neutral, leading 8+, trailing 8+ after half-time);
+- red-zone trip and red-zone TD rates;
+- quick-strike TDs (≤ 4 plays; a drive-level stand-in for explosive plays — there is no play-by-play);
+- points and yards per drive, plays per drive and drives per game;
+- two-minute scoring (offense).
+
+Shrinkage was tuned walk-forward on 2025 only (drive log loss): half-life 6, k = 20. Injuries and roles still come from the model's player projections, which decide who gets the targets, carries and TDs. In the default **free** mode, nothing is pinned to the model or the betting line: the sim may disagree with it, and the UI shows sim % next to model % with the gap and the biggest disagreements. New UI: **Top 4 TD scorers (sim)** and **How each team plays** profile cards. `anchored` mode keeps the 4.9.1 behaviour for comparison.
+
+**Walk-forward validation** (`npm run sim:validate-teams` → `archive/sim/team-validation-2026.json`; for week W, only drives before W are used):
+- Drive outcome log loss, 2025 W3–18 (240 games): league 1.6675, raw 4.9.1-style 1.6642, adjusted **1.6627**. 2026 W3–7 (75 games): league 1.6537, raw 1.6590, adjusted **1.6526**.
+- Full sims, 2026 W3–7, 2,000 sims a game:
+
+  | Variant | team TD MAE | team points MAE | margin MAE | total MAE | win log loss |
+  |---|---|---|---|---|---|
+  | old 4.9.1 | 1.115 | 7.29 | 9.76 | 10.91 | 0.737 |
+  | 4.9.2 free | **1.049** | 7.10 | **8.59** | 11.20 | **0.675** |
+  | league-average free | 1.073 | **7.01** | 8.97 | 11.14 | 0.695 |
+  | closing line | – | – | 8.49 | 10.31 | – |
+
+  The free team-style sim beats the old sim on team TDs, margin and win probability. It beats league average on TDs, margin and wins, but not on points or totals. It does **not** beat the closing line.
+- Player anytime TD, 2026 W6–7 (745 settled player-games; 604 also have Sleeper). Brier and log loss:
+
+  | Variant | Brier (all) | log loss (all) | Brier (Sleeper subset) |
+  |---|---|---|---|
+  | model | 0.1087 | 0.3508 | 0.1290 |
+  | Sleeper | – | – | 0.1322 |
+  | old 4.9.1 sim | 0.1091 | 0.3523 | 0.1295 |
+  | free sim | 0.1105 | 0.3553 | 0.1312 |
+  | anchored | 0.1084 | 0.3506 | 0.1286 |
+
+  The free sim is **worse than the model** on player TDs; it runs about 0.4 points high (mean 15.1% vs 14.8% actual). So it is **not** wired as a shadow challenger, and the board keeps the model. Anchored is level with the model (0.1084 vs 0.1087, within noise), which is expected because it is pinned to it.
+- Honest caveat: team effects are heavily shrunk. The spread of offensive TD rates across teams is 1.9 points adjusted vs 6.3 raw, and most of the raw spread is seven-game noise. 75 games is a small test.
+
 ## App 4.9.1 — Simulator: Drive 1 card and touchdown-scorer patterns (research / UI only, model stays endzone-4.6.0)
 - **Drive 1 card** (per team, plain sentences first): how the opening drive ends (TD / FG / missed FG / punt / turnover / downs / end of half as a stacked bar + %), average plays and yards, P(team scores first), the opening-kickoff coin flip (the other team gets the ball to start the 2nd half) and TD rate when receiving vs kicking. Per player: P(≥1 catch), P(2+ catches), P(10+ rec yds), P(a carry), P(10+ rush yds), median catches / yards *when he gets it*, and P(he scores this drive's TD); top scorers and "if X scores here" links. A drive selector (1 by default, then 2, 3 …) re-reads the same 10,000 games for later drives. Note: drive rates mostly reflect volume and game state.
 - **Touchdown scorer patterns**: ranked key patterns at the top; first TD scorer of the game and each team's first TD; anytime / 2+ / 3+; when TDs come (1st half, the team's drives 1–3) and rushing vs receiving split; ranked conditional links — scorer pairs, opening-drive TD → a player's anytime TD, scorer → win and total, both-score combos — labeled as **sim structure** (one scorer per TD drive, higher-scoring games lift both sides), not real-life correlations.

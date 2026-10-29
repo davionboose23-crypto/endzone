@@ -234,3 +234,12 @@ details.sec>.secbody{padding-bottom:var(--s3)}details.sec[open]>summary{border-b
 .simkey{margin:6px 0 10px;padding-left:1.4em;line-height:1.45}.simkey li{margin:5px 0}.simkey li:first-child{font-weight:700}
 .simcols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 @media (max-width:700px) and (orientation:portrait){.simcols3{grid-template-columns:minmax(0,1fr)}}
+/* 4.9.2 Top 4 TD scorers (sim), team profiles, sim vs model gaps */
+.simtop4{border:2px solid var(--gold,#c9a227)}
+.simtop4 .top4{list-style:none;margin:6px 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px}
+.simtop4 .top4 li{border:1px solid var(--border,#31443b);border-radius:10px;padding:8px 10px;min-width:0}
+.t4head{display:flex;align-items:center;gap:8px}.t4rank{flex:none;width:1.7em;height:1.7em;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;background:var(--gold);color:var(--goldText)}
+.t4name{flex:1;min-width:0;overflow-wrap:anywhere}.t4p{flex:none;font-size:1.35rem;font-weight:800}
+.t4nums{display:flex;flex-wrap:wrap;gap:4px 12px;margin:4px 0 2px}.t4line{margin:4px 0 0}
+.gap{color:#d9822b;font-weight:700}
+.simprof{min-width:0}.simprof h4{margin:8px 0 4px}.simprof h5{margin:8px 0 2px;font-size:.85rem}

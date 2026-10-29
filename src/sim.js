@@ -1,4 +1,4 @@
-// ENDZONE game simulator (app 4.9.0). Research / UI only: nothing here feeds the live anytime chance, MODEL_VERSION or the
+// ENDZONE game simulator (app 4.9.0; 4.9.2 = team-style, free-running by default — see below). Research / UI only: nothing here feeds the live anytime chance, MODEL_VERSION or the
 // challenger gate. Plays a matchup out drive by drive N times from PRE-GAME inputs only:
 //   - the model's per-player TD intensity (lambda, after budget + caps) and its projected targets / carries / receptions /
 //     yards (+ lead / behind scenario volumes) from this week's slate;
@@ -8,7 +8,13 @@
 // Game state: score, quarter + clock, two-minute drives, possession alternation (opening kick, 2nd-half kick), OT.
 // A short pilot (2 x 1,500 games) calibrates per team: TD rate -> model team lambda, seconds per play -> expected drives,
 // touch volume / per-player shares / catch rate / yards -> the model's projected means. Seeded PRNG = reproducible.
-export const SIM_VERSION = 'sim-1';
+// 4.9.2: each offense and each defense now comes from its own 2026 drives, opponent-adjusted (src/team-strength.js: ridge
+// log-odds fit, recency-weighted, pre-game only). Default mode 'free': drive results, pace, plays per drive, pass rate by game
+// script and two-minute scoring come from that fit and are NOT pinned to the model's TD budget / volumes — the model only
+// supplies who is on the field and how a team's targets / carries / TDs are shared (so injuries and roles carry through).
+// Mode 'anchored' keeps the 4.9.0/4.9.1 behaviour (TD rate -> model team lambda, volume / pass split -> model) for comparison.
+export const SIM_VERSION = 'sim-2';
+export const SIM_MODES = ['free', 'anchored'];
 export const RESULTS = ['TD', 'FG', 'MFG', 'Punt', 'TO', 'Downs', 'Half', 'Safety'];
 const RI = Object.fromEntries(RESULTS.map((r, i) => [r, i])); const NR = RESULTS.length;
 const TD = 0, FG = 1, MFG = 2, PUNT = 3, TO = 4, DOWNS = 5, HALF = 6, SAF = 7;
@@ -43,6 +49,7 @@ function pickW(w, tot, R) { let u = R() * tot; for (let i = 0; i < w.length; i++
 // ---------- league / team priors from the weekly drive file (cached per file object)
 export const bucketOfDrive = d => ((d[3] & 2) ? 1 : (d[9] >= 4 && d[2] >= 9) ? 2 : (d[9] >= 4 && d[2] <= -9) ? 3 : 0); // 0 normal, 1 two-minute, 2 Q4 up 9+, 3 Q4 down 9+
 const PRI = new WeakMap();
+import { teamStrength, matchup } from './team-strength.js';
 export function leaguePriors(D) {
   if (D && PRI.has(D)) return PRI.get(D);
   const bk = [0, 1, 2, 3].map(() => new Array(NR).fill(0)); const all = new Array(NR).fill(0); const pool = RESULTS.map(() => []);
@@ -68,7 +75,7 @@ export function leaguePriors(D) {
   if (D) PRI.set(D, L); return L;
 }
 // shrunk result-mix index (non-TD outcomes) for an offense or a defense: (count + k*league) / (n + k) / league
-function mixIdx(x, L, k = 60) { return RESULTS.map((_, r) => x && L.pAll[r] > 0 ? ((x.c[r] + k * L.pAll[r]) / (x.n + k)) / L.pAll[r] : 1); }
+export function mixIdx(x, L, k = 60) { return RESULTS.map((_, r) => x && L.pAll[r] > 0 ? ((x.c[r] + k * L.pAll[r]) / (x.n + k)) / L.pAll[r] : 1); }
 
 // ---------- inputs (main thread; plain JSON so they can be posted to the worker)
 const sum = (a, f) => a.reduce((s, x) => s + (f(x) || 0), 0);
@@ -103,8 +110,8 @@ function historyPlayers(D, team, L) {
       rushTd: DEFAULT_RUSH_TD[pe[2]] ?? 0.3, passShare: 0, passTdExp: null, lead: null, behind: null, pats: patternsFor(D, pe[0]), history: true }; });
 }
 // sideFor(team) -> { players, opp, teamLambda, tdBudget } from the slate (the team's own game this week) or null
-export function buildSimInputs(D, { away, home, sideFor = () => null, lines = null, gameId = null }) {
-  const L = leaguePriors(D); const teams = [away, home].map((team, k) => {
+export function buildSimInputs(D, { away, home, sideFor = () => null, lines = null, gameId = null, mode = 'free', tsOpts = null }) {
+  const L = leaguePriors(D); const TS = teamStrength(D, tsOpts || {}); const teams = [away, home].map((team, k) => {
     const opp = k ? away : home; const S = sideFor(team); let src = 'model', note = null; let players;
     if (S && S.players?.length) {
       players = S.players.filter(p => !(p.avail?.factor === 0) && ((p.vol?.targets || 0) + (p.vol?.carries || 0) > 0.05 || (p.lambda || 0) > 0.003 || p.pos === 'QB')).map(p => modelPlayer(p, D));
@@ -115,22 +122,23 @@ export function buildSimInputs(D, { away, home, sideFor = () => null, lines = nu
     } else { players = historyPlayers(D, team, L); src = 'history'; note = `${team} has no model inputs this week (bye or not on the slate): per-game volumes and TD rates from its last 6 games in the drive file, shrunk toward its team TD rate.`; }
     players = players.filter(p => p.tgt + p.car > 0.02 || p.lam > 0.002 || p.passShare > 0);
     const teamLambda = sum(players, p => p.lam);
-    const off = D?.offense?.[team], df = D?.defense?.[opp];
-    const dpg = off?.dpg != null && df?.dpg != null ? (off.dpg + df.dpg) / 2 : (L.dpg || 10.8);
+    const M = matchup(TS, team, opp); // opponent-adjusted: this offense vs this defense, by game state
     const pfOf = (sel) => { const t = sum(players, p => sel(p)?.t ?? p.tgt), c = sum(players, p => sel(p)?.c ?? p.car); return t + c > 0 ? t / (t + c) : L.passAll; };
-    const pf = [pfOf(() => null), pfOf(p => p.lead), pfOf(p => p.behind)];
-    return { team, opp, src, note, players, teamLambda, tdBudget: S?.tdBudget ?? null, modelTeamLambda: S?.teamLambda ?? null, dpg,
-      offIdx: mixIdx(L.off[team], L), defIdx: mixIdx(L.def[opp], L), pool: L.off[team]?.pool || RESULTS.map(() => []), pf,
+    const pfModel = [pfOf(() => null), pfOf(p => p.lead), pfOf(p => p.behind)];
+    return { team, opp, src, note, players, teamLambda, tdBudget: S?.tdBudget ?? null, modelTeamLambda: S?.teamLambda ?? null, dpg: M.dpg,
+      mix: M.mix, ppdF: M.ppdF, pf: mode === 'anchored' ? pfModel : M.pf, pfTeam: M.pf, pfModel, profile: TS.profiles[team] ? { off: TS.profiles[team].off, lines: TS.profiles[team].lines.off, raw: TS.profiles[team].raw.off } : null,
+      defProfile: TS.profiles[opp] ? { team: opp, def: TS.profiles[opp].def, lines: TS.profiles[opp].lines.def, raw: TS.profiles[opp].raw.def } : null,
       tgtTot: sum(players, p => p.tgt), carTot: sum(players, p => p.car) };
   });
-  // both teams get (nearly) the same number of possessions: target = mean of the two expected counts, shrunk toward league
-  const tgtDrives = 0.7 * (teams[0].dpg + teams[1].dpg) / 2 + 0.3 * (L.dpg || 10.8);
-  return { version: SIM_VERSION, gameId, away, home, lines, teams, targetDrives: +tgtDrives.toFixed(2),
+  // both teams get (nearly) the same number of possessions: target = mean of the two opponent-adjusted pace estimates (ridge-shrunk to league)
+  const tgtDrives = (teams[0].dpg + teams[1].dpg) / 2;
+  return { version: SIM_VERSION, mode, ts: { version: TS.version, maxW: TS.maxW, drives: TS.nDrives, opts: TS.opts }, gameId, away, home, lines, teams, targetDrives: +tgtDrives.toFixed(2),
     league: { bucket: L.bucket, pAll: L.pAll, pool: L.pool, rrRes: L.rrRes, rrBk: L.rrBk, dpg: L.dpg, ppd: L.ppd, tdPerGame: L.tdPerGame, fgPerGame: L.fgPerGame, passAll: L.passAll } };
 }
 
 // ---------- engine
 function makeEngine(I) {
+  const free = I.mode !== 'anchored';
   const T = I.teams.map(t => {
     const P = t.players.length; const pl = t.players;
     const wT = [pl.map(p => p.tgt), pl.map(p => p.lead?.t ?? p.tgt), pl.map(p => p.behind?.t ?? p.tgt)];
@@ -140,13 +148,14 @@ function makeEngine(I) {
     const ypr = pl.map(p => p.rec > 0.05 ? clamp(p.recYd / p.rec, 2, 30) : 9);
     const ypc = pl.map(p => p.car > 0.05 ? clamp(p.rushYd / p.car, -1, 12) : 4);
     return { P, pl, wT, wC, lamW, lamTot: lamW.reduce((a, b) => a + b, 0), qbs, qbTot: qbs.reduce((a, b) => a + b, 0), cr, ypr, ypc,
-      tdMul: clamp(t.teamLambda / Math.max(0.3, I.targetDrives * I.league.pAll[TD]), 0.15, 3), touchMul: 1, pfOdds: 1, ownW: t.pool.map(p => p.length / (p.length + 15)) };
+      tdMul: free ? 1 : clamp(t.teamLambda / Math.max(0.3, I.targetDrives * avgTd(t)), 0.15, 3), touchMul: t.ppdF || 1, pfOdds: 1, ppdF: t.ppdF || 1 };
   });
-  return { I, T, spp: 3600 / Math.max(60, 2 * I.targetDrives * I.league.ppd) * 0.97 };
+  return { I, T, free, spp: 3600 / Math.max(60, 2 * I.targetDrives * I.league.ppd) * 0.97 };
 }
-function probsFor(E, k, b) { // drive-result probabilities for team k in bucket b
-  const I = E.I, t = I.teams[k], base = I.league.bucket[b]; const p = new Array(NR); let rest = 0;
-  for (let r = 1; r < NR; r++) { p[r] = base[r] * (r === FG || r === MFG || r === PUNT || r === TO || r === DOWNS ? Math.sqrt(t.offIdx[r] * t.defIdx[r]) : 1); rest += p[r]; }
+const avgTd = t => t.mix ? (0.8 * t.mix[0][TD] + 0.2 * t.mix[1][TD]) : 0.23;
+function probsFor(E, k, b) { // drive-result probabilities for team k in bucket b: opponent-adjusted team mix (x tdMul in anchored mode only)
+  const t = E.I.teams[k], base = t.mix ? t.mix[b] : E.I.league.bucket[b]; const p = base.slice(); if (E.T[k].tdMul === 1) return p;
+  let rest = 0; for (let r = 1; r < NR; r++) rest += p[r];
   const pTd = clamp(base[TD] * E.T[k].tdMul, 0.01, 0.75); for (let r = 1; r < NR; r++) p[r] *= (1 - pTd) / rest; p[TD] = pTd; return p;
 }
 function sampleR(p, R) { let u = R(); for (let r = 0; r < NR; r++) { u -= p[r]; if (u < 0) return r; } return PUNT; }
@@ -203,7 +212,7 @@ export function simulate(I, { n = 10000, seed = 1, record = true, E = null } = {
       let r = sampleR(probs[k][b], R); let guard = 0;
       while (r === HALF && tl > 300 && guard++ < 20) r = sampleR(probs[k][b], R); // 'end of half' only when the clock can actually run out
       if (r === HALF && tl > 300) r = PUNT;
-      const own = ti.pool[r]; const pl = (own.length && R() < t.ownW[r]) ? own : L.pool[r]; const tp = pl.length ? pl[(R() * pl.length) | 0] : [6, 3, 3];
+      const pl = L.pool[r]; const tp0 = pl.length ? pl[(R() * pl.length) | 0] : [6, 3, 3]; const tp = [tp0[0] * t.ppdF, tp0[1], tp0[2]]; // league drive template for this result, stretched to the matchup's plays per drive
       const tl0 = tl; let secs = tp[0] * E.spp * (b === 1 ? 0.42 : b === 2 ? 1.2 : b === 3 ? 0.75 : 1) * (0.75 + 0.5 * R()) + 6;
       if (secs >= tl && r !== HALF) { if (b !== 1 && (r === TD || r === FG) ? R() < 0.4 : (r === TD || r === FG) ? R() < 0.75 : false) { /* scored before the clock ran out */ } else r = HALF; secs = tl; }
       tl -= secs; if (r === HALF) tl = 0;
@@ -258,23 +267,27 @@ export function simulate(I, { n = 10000, seed = 1, record = true, E = null } = {
   }
   for (let gi = 0; gi < n; gi++) for (let k = 0; k < 2; k++) { let c = 0; for (let i = 0; i < TT[k].P; i++) c += G.td[gi * NP + base[k] + i]; tds[gi * 2 + k] = c; }
   return { n, seed, NP, base, P: [TT[0].P, TT[1].P], G, H, slotN, slotR, score, half, drives, tds, firstTd, firstScore, ot, leadCh, q4trail, tdDriveSlot, kick, gRes, ftdTeam, slotPlays, slotYds, tdAgg, logs, spp: E.spp,
-    eng: { tdMul: TT.map(t => t.tdMul), touchMul: TT.map(t => t.touchMul), pfOdds: TT.map(t => t.pfOdds) } };
+    eng: { mode: E.free ? 'free' : 'anchored', tdMul: TT.map(t => t.tdMul), touchMul: TT.map(t => t.touchMul), pfOdds: TT.map(t => t.pfOdds) } };
 }
-// pilot calibration: TD rate -> team lambda, clock -> expected drives, volumes / shares / catch rate / yards -> model means
+// pilot calibration. Both modes: clock -> the matchup's expected drives (history), per-player SHARES of the team's targets /
+// carries and catch rate / yards per catch / per carry -> the model's projections. Anchored mode only (4.9.0/4.9.1):
+// team TD rate -> model team lambda, team touches + pass/run split -> model volumes. Free mode leaves team TDs, touches and
+// pass rate to the opponent-adjusted team fit.
 export function calibrate(I, { pilots = 2, n = 1500, seed = 7 } = {}) {
-  const E = makeEngine(I); const hist = [];
+  const E = makeEngine(I); const hist = []; const free = E.free;
   for (let it = 0; it < pilots; it++) {
     const S = simulate(I, { n, seed: seed + it * 101, record: false, E });
     const m = means(S); let dAvg = 0;
     for (let k = 0; k < 2; k++) {
       const t = E.T[k], ti = I.teams[k]; const st = m.team[k]; dAvg += st.drives / 2;
-      if (st.td > 0 && ti.teamLambda > 0) t.tdMul = clamp(t.tdMul * (ti.teamLambda / st.td), 0.05, 4);
-      const want = ti.tgtTot + ti.carTot, got = st.tgt + st.car; if (got > 0 && want > 0) t.touchMul = clamp(t.touchMul * want / got, 0.4, 2.5);
+      if (!free && st.td > 0 && ti.teamLambda > 0) t.tdMul = clamp(t.tdMul * (ti.teamLambda / st.td), 0.05, 4);
+      const want = ti.tgtTot + ti.carTot, got = st.tgt + st.car; if (!free && got > 0 && want > 0) t.touchMul = clamp(t.touchMul * want / got, 0.4, 2.5);
       // team pass/run split: the scenario mix (lead → run) can drift the split away from the model's projected volume; fix it in odds space
-      if (ti.tgtTot > 0.5 && ti.carTot > 0.5 && st.tgt > 0.5 && st.car > 0.5) t.pfOdds = clamp(t.pfOdds * (ti.tgtTot / ti.carTot) / (st.tgt / st.car), 0.4, 2.5);
+      if (!free && ti.tgtTot > 0.5 && ti.carTot > 0.5 && st.tgt > 0.5 && st.car > 0.5) t.pfOdds = clamp(t.pfOdds * (ti.tgtTot / ti.carTot) / (st.tgt / st.car), 0.4, 2.5);
       for (let i = 0; i < t.P; i++) {
         const p = t.pl[i], s = m.pl[S.base[k] + i]; const f = (want, got, lo = 0.4, hi = 2.5) => (want > 0.02 && got > 0.02) ? clamp(want / got, lo, hi) : 1;
-        const ft = f(p.tgt, s.tgt), fc = f(p.car, s.car); for (const w of t.wT) w[i] *= ft; for (const w of t.wC) w[i] *= fc;
+        // free mode: compare SHARES (player / team), so the team's total stays the sim's own
+        const ft = free ? f(ti.tgtTot > 0 ? p.tgt / ti.tgtTot : 0, st.tgt > 0 ? s.tgt / st.tgt : 0) : f(p.tgt, s.tgt), fc = free ? f(ti.carTot > 0 ? p.car / ti.carTot : 0, st.car > 0 ? s.car / st.car : 0) : f(p.car, s.car); for (const w of t.wT) w[i] *= ft; for (const w of t.wC) w[i] *= fc;
         if (p.tgt > 0.05 && s.tgt > 0.05) t.cr[i] = clamp(t.cr[i] * f(p.rec / p.tgt, s.rec / s.tgt, 0.7, 1.4), 0.1, 0.98);
         if (p.rec > 0.05 && s.rec > 0.05) t.ypr[i] = clamp(t.ypr[i] * f(p.recYd / p.rec, s.recYd / s.rec, 0.5, 1.8), 0.5, 40);
         if (p.car > 0.05 && s.car > 0.05) { const w = p.rushYd / p.car + 2.5, g = s.rushYd / s.car + 2.5; if (w > 0 && g > 0) t.ypc[i] = clamp((t.ypc[i] + 2.5) * clamp(w / g, 0.5, 1.8) - 2.5, -1.5, 15); }
@@ -291,7 +304,9 @@ export function means(S) {
   const team = [0, 1].map(k => { let pts = 0, dr = 0, td = 0, tg = 0, ca = 0; for (let g = 0; g < S.n; g++) { pts += S.score[g * 2 + k]; dr += S.drives[g * 2 + k]; td += S.tds[g * 2 + k]; } for (let i = 0; i < S.P[k]; i++) { tg += pl[S.base[k] + i].tgt; ca += pl[S.base[k] + i].car; } return { pts: pts / S.n, drives: dr / S.n, td: td / S.n, tgt: tg, car: ca }; });
   return { pl, team };
 }
-export function runSim(I, { n = 10000, seed = 1, pilots = 3, pilotN = 1200 } = {}) {
+export function runSim(I, { n = 10000, seed = 1, pilots = 3, pilotN = 1200, mode = null } = {}) {
+  if (mode && !SIM_MODES.includes(mode)) throw new Error(`unknown sim mode ${mode}`);
+  if (mode && mode !== I.mode) I = { ...I, mode };
   const t0 = Date.now(); const { E, pilots: ph } = calibrate(I, { pilots, n: pilotN, seed: seed + 9 }); const t1 = Date.now();
   const S = simulate(I, { n, seed, E }); S.pilot = ph; S.ms = { pilot: t1 - t0, sim: Date.now() - t1 }; return S;
 }
@@ -358,7 +373,21 @@ export function summarize(S, I) {
     total: dist(tot), margin: dist(mar), totHist: hist(tot, 3), marHist: hist(mar, 3), top, team, players, firstTd, pairs: pairs.slice(0, 40), whenScores, scripts, combos,
     example: ex >= 0 ? { g: ex, score: [S.score[ex * 2], S.score[ex * 2 + 1]], drives: S.logs[ex] } : null, targetDrives: I.targetDrives, notes: I.teams.map(t => t.note).filter(Boolean) };
   out.drive1 = [driveCard(S, out, 0, 0), driveCard(S, out, 1, 0)]; out.tdp = tdPatterns(S, out);
+  out.mode = I.mode === 'anchored' ? 'anchored' : 'free'; Object.assign(out, simVsModel(out, I));
   return out;
+}
+// 4.9.2: team profiles, team TDs sim vs model budget, Top 4 TD scorers and the biggest player disagreements with the model
+export function simVsModel(out, I) {
+  const teams = I.teams.map((t, k) => { const T = out.team[k]; const modelTd = t.modelTeamLambda ?? t.teamLambda; return { team: t.team, opp: t.opp, src: t.src, simTd: T.mean.td, modelTd, diffTd: modelTd != null ? T.mean.td - modelTd : null, simPts: T.mean.pts, simDrives: T.mean.drives,
+    passSim: T.mean.tgt + T.mean.car > 0 ? T.mean.tgt / (T.mean.tgt + T.mean.car) : null, passModel: t.pfModel?.[0] ?? null, off: t.profile, def: t.defProfile }; });
+  const firstOf = j => out.firstTd.find(f => f.j === j)?.p ?? 0;
+  const top4 = out.players.slice().sort((a, b) => b.anytime - a.anytime).slice(0, 4).map(p => { const T = teams[p.k]; const share = T.simTd > 0 ? p.td / T.simTd : 0; const d = p.anytime - p.model.chance;
+    const why = Math.abs(d) < 0.02 ? 'about where the model has him' : T.diffTd != null && Math.abs(T.diffTd) >= 0.15 && Math.sign(T.diffTd) === Math.sign(d) ? `${d > 0 ? 'higher' : 'lower'} than the model mostly because ${T.team} scores ${Math.abs(T.diffTd).toFixed(1)} ${d > 0 ? 'more' : 'fewer'} TDs a game here than the model's budget` : `${d > 0 ? 'higher' : 'lower'} than the model because of how often he gets the ball near the end zone in the sim`;
+    return { j: p.j, name: p.name, pos: p.pos, team: p.team, anytime: p.anytime, model: p.model.chance, diff: d, twoPlus: p.twoPlus, first: firstOf(p.j), share,
+      line: `${p.name} scores in ${pct(p.anytime)} of the ${out.n.toLocaleString()} sims (model ${pct(p.model.chance)}) — he finishes ${pct(share)} of ${poss(p.team)} ${T.simTd.toFixed(1)} TDs a game here; ${why}.` }; });
+  const gaps = out.players.filter(p => p.model.chance >= 0.05 || p.anytime >= 0.05).map(p => ({ j: p.j, name: p.name, pos: p.pos, team: p.team, anytime: p.anytime, model: p.model.chance, diff: p.anytime - p.model.chance }))
+    .sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff)).slice(0, 5).filter(g => Math.abs(g.diff) >= 0.03);
+  return { vs: { teams, top4, gaps } };
 }
 // auto-generated drive-number patterns from the sims (most likely drive per player for his main stat + biggest swings)
 export function simPatterns(S, sum, { max = 8 } = {}) {

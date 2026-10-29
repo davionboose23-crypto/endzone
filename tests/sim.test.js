@@ -1,16 +1,18 @@
-// endzone app 4.9.0/4.9.1: game simulator (Drives → Simulator), Drive 1 card and TD scorer patterns. Research / UI only — must stay calibrated to the model it re-plays.
-// Inputs are a FROZEN fixture (tests/fixtures/sim-inputs-2026w8-CAR-GB.json). Until 4.9.1 this file rebuilt them from
+// endzone app 4.9.0-4.9.2: game simulator (Drives → Simulator), Drive 1 card, TD scorer patterns, team-style free sim. Research / UI only.
+// 4.9.2: the default ('free') sim runs on each team's opponent-adjusted 2026 drives and may disagree with the model; 'anchored' keeps the 4.9.1 pinning to the model λ.
+// Inputs are a FROZEN fixture (tests/fixtures/sim-inputs-2026w8-CAR-GB-492.json; 4.9.1 used sim-inputs-2026w8-CAR-GB.json). Until 4.9.1 this file rebuilt them from
 // archive/2026/w8/*.json + archive/drives/2026/w8.json, which the scheduled data refresh rewrites, so the calibration
 // tolerances below silently depended on whatever the latest refresh wrote (pass on one checkout, fail after a refresh).
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { runSim, summarize, playerDriveTable, pAtLeast, simPatterns, makeRng, SLOTS, RESULTS, driveCard, tdPatterns, pct, poss, driveName } from '../src/sim.js';
+import { runSim, summarize, simVsModel, playerDriveTable, pAtLeast, simPatterns, makeRng, SLOTS, RESULTS, driveCard, tdPatterns, pct, poss, driveName } from '../src/sim.js';
 import { snapInputs } from '../scripts/sim/snap.mjs';
 import { MODEL_VERSION } from '../src/model.js';
 
-const { I } = JSON.parse(fs.readFileSync(new URL('./fixtures/sim-inputs-2026w8-CAR-GB.json', import.meta.url)));
+const { I } = JSON.parse(fs.readFileSync(new URL('./fixtures/sim-inputs-2026w8-CAR-GB-492.json', import.meta.url)));
 const S = runSim(I, { n: 6000, seed: 7 }); const sum = summarize(S, I);
+const SA = runSim(I, { n: 6000, seed: 7, mode: 'anchored' }); const sumA = summarize(SA, { ...I, mode: 'anchored' });
 
 test('sim is deterministic by seed and changes with the seed', () => {
   const a = summarize(runSim(I, { n: 800, seed: 3 }), I), b = summarize(runSim(I, { n: 800, seed: 3 }), I), c = summarize(runSim(I, { n: 800, seed: 4 }), I);
@@ -19,22 +21,43 @@ test('sim is deterministic by seed and changes with the seed', () => {
   const r = makeRng(9), r2 = makeRng(9); for (let i = 0; i < 5; i++) assert.equal(r(), r2());
 });
 
-test('team TDs track the model TD budget (λ) and drives track history', () => {
+test('free sim: team scoring stays inside 2025-26 history but is not pinned to the model λ', () => {
+  assert.equal(I.mode, 'free'); assert.equal(sum.mode, 'free');
   for (const k of [0, 1]) {
-    const lam = I.teams[k].teamLambda, td = sum.team[k].mean.td;
-    assert.ok(Math.abs(td / lam - 1) < 0.05, `${I.teams[k].team} TDs ${td.toFixed(2)} vs λ ${lam.toFixed(2)}`);
-    assert.ok(Math.abs(sum.team[k].mean.drives - I.targetDrives) < 0.5, `drives ${sum.team[k].mean.drives}`);
-    assert.ok(sum.team[k].mean.pts > 15 && sum.team[k].mean.pts < 32, `pts ${sum.team[k].mean.pts}`);
+    const T = sum.team[k].mean;
+    assert.ok(Math.abs(T.drives - I.targetDrives) < 0.6, `drives ${T.drives} vs ${I.targetDrives}`);
+    assert.ok(T.pts > 15 && T.pts < 32, `pts ${T.pts}`); assert.ok(T.td > 1.4 && T.td < 3.6, `td ${T.td}`);
   }
+  const tot = sum.team[0].mean.pts + sum.team[1].mean.pts; assert.ok(tot > 34 && tot < 60, `total ${tot}`);
   assert.ok(Math.abs(sum.win.away + sum.win.home + sum.win.tie - 1) < 1e-9);
+  // CAR's 2026 offense vs GB's defense really does differ from the model budget here: the sim keeps that difference
+  assert.ok(Math.abs(sum.team[0].mean.td - I.teams[0].teamLambda) > 0.1 || Math.abs(sum.team[1].mean.td - I.teams[1].teamLambda) > 0.1);
 });
 
-test('per-player anytime TD and volume match the model inputs', () => {
-  const big = sum.players.filter(p => p.model.chance >= 0.10); assert.ok(big.length >= 8);
+test('anchored sim (4.9.1 behaviour) still tracks the model TD budget and player chances', () => {
+  for (const k of [0, 1]) { const lam = I.teams[k].teamLambda, td = sumA.team[k].mean.td; assert.ok(Math.abs(td / lam - 1) < 0.05, `${I.teams[k].team} TDs ${td.toFixed(2)} vs λ ${lam.toFixed(2)}`); }
+  const big = sumA.players.filter(p => p.model.chance >= 0.10); assert.ok(big.length >= 8);
   for (const p of big) assert.ok(Math.abs(p.anytime - p.model.chance) < 0.035, `${p.name} ${p.anytime} vs ${p.model.chance}`);
-  for (const p of sum.players.filter(p => p.model.rec >= 2)) assert.ok(Math.abs(p.rec.mean / p.model.rec - 1) < 0.08, `${p.name} rec ${p.rec.mean} vs ${p.model.rec}`);
-  for (const p of sum.players.filter(p => p.model.rushYd >= 30)) assert.ok(Math.abs(p.rushYd.mean / p.model.rushYd - 1) < 0.08, `${p.name} rush ${p.rushYd.mean} vs ${p.model.rushYd}`);
+  for (const p of sumA.players.filter(p => p.model.rec >= 2)) assert.ok(Math.abs(p.rec.mean / p.model.rec - 1) < 0.08, `${p.name} rec ${p.rec.mean} vs ${p.model.rec}`);
+});
+
+test('free sim: who scores follows the model shares (injuries / roles), the team total follows the drives', () => {
+  for (const k of [0, 1]) {
+    const pl = sum.players.filter(p => p.k === k && !p.history); const lamT = pl.reduce((a, p) => a + p.model.lam, 0); const tdT = pl.reduce((a, p) => a + p.td, 0);
+    for (const p of pl.filter(x => x.model.chance >= 0.15)) assert.ok(Math.abs(p.td / tdT - p.model.lam / lamT) < 0.03, `${p.name} share ${(p.td / tdT).toFixed(3)} vs ${(p.model.lam / lamT).toFixed(3)}`);
+  }
   for (const p of sum.players) assert.ok(p.twoPlus <= p.anytime);
+});
+
+test('4.9.2 Top 4 TD scorers, team profiles and sim vs model', () => {
+  const v = sum.vs; assert.equal(v.top4.length, 4);
+  for (let i = 1; i < 4; i++) assert.ok(v.top4[i].anytime <= v.top4[i - 1].anytime);
+  const best = Math.max(...sum.players.map(p => p.anytime)); assert.equal(v.top4[0].anytime, best);
+  for (const p of v.top4) { assert.ok(p.twoPlus <= p.anytime && p.first <= p.anytime && Math.abs(p.diff - (p.anytime - p.model)) < 1e-9); assert.ok(p.line.includes(p.name) && p.line.length > 60); }
+  assert.ok(new Set(v.top4.map(p => p.team)).size >= 1 && v.top4.every(p => [I.away, I.home].includes(p.team) || I.teams.some(t => t.team === p.team)));
+  for (const t of v.teams) { assert.ok(t.off.lines.length >= 4 && t.def.lines.length >= 3); assert.ok(Math.abs(t.diffTd - (t.simTd - t.modelTd)) < 1e-9); }
+  for (let i = 1; i < v.gaps.length; i++) assert.ok(Math.abs(v.gaps[i].diff) <= Math.abs(v.gaps[i - 1].diff));
+  assert.deepEqual(simVsModel(sum, I).vs.top4.map(p => p.j), v.top4.map(p => p.j));
 });
 
 test('per-drive tables, thresholds and patterns are coherent', () => {

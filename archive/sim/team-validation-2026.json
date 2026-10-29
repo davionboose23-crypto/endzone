@@ -1,0 +1,477 @@
+{
+ "generated": "2026-10-29T21:26:48.125Z",
+ "simVersion": "sim-2",
+ "tsVersion": "ts-1",
+ "tsDefaults": {
+  "halfLife": 6,
+  "kMix": 20,
+  "kPass": 40,
+  "kScript": 400,
+  "kRz": 15,
+  "kGauss": 30,
+  "kPace": 4,
+  "kYpp": 150,
+  "kTwo": 25,
+  "iters": 30
+ },
+ "simsPerGame": 2000,
+ "tuning": {
+  "note": "grid on 2025 walk-forward weeks 3,5,...,17 only (drive-outcome log loss)",
+  "grid": [
+   {
+    "halfLife": 6,
+    "kMix": 20,
+    "driveLogLoss": 1.6435,
+    "teamTdMAE": 1.1449
+   },
+   {
+    "halfLife": null,
+    "kMix": 20,
+    "driveLogLoss": 1.6436,
+    "teamTdMAE": 1.1388
+   },
+   {
+    "halfLife": 3,
+    "kMix": 20,
+    "driveLogLoss": 1.6448,
+    "teamTdMAE": 1.1569
+   },
+   {
+    "halfLife": 6,
+    "kMix": 8,
+    "driveLogLoss": 1.645,
+    "teamTdMAE": 1.1365
+   },
+   {
+    "halfLife": 3,
+    "kMix": 8,
+    "driveLogLoss": 1.6455,
+    "teamTdMAE": 1.1396
+   },
+   {
+    "halfLife": null,
+    "kMix": 8,
+    "driveLogLoss": 1.6471,
+    "teamTdMAE": 1.1457
+   },
+   {
+    "halfLife": 3,
+    "kMix": 3,
+    "driveLogLoss": 1.6539,
+    "teamTdMAE": 1.154
+   },
+   {
+    "halfLife": 6,
+    "kMix": 3,
+    "driveLogLoss": 1.654,
+    "teamTdMAE": 1.1514
+   },
+   {
+    "halfLife": null,
+    "kMix": 3,
+    "driveLogLoss": 1.6575,
+    "teamTdMAE": 1.164
+   }
+  ],
+  "best": {
+   "halfLife": 6,
+   "kMix": 20
+  }
+ },
+ "partA": {
+  "note": "analytic, every game; team fit sees weeks < W only. raw = 4.9.1-style shrunk team rates (k=60) without schedule adjustment; adjusted = 4.9.2 ridge fit. Points = drives x (TD 6.95 + FG 3): offence-only proxy, so defensive / return scores make the bias negative.",
+  "season2025_w3to18": {
+   "league": {
+    "drives": 5060,
+    "driveLogLoss": 1.6675,
+    "tdDriveBrier": 0.1772,
+    "teamTdMAE_pregame": 1.1764,
+    "teamTdMAE_givenDrives": 1.2303,
+    "teamTdCorr_pregame": -0.056,
+    "games": 240,
+    "teamPtsMAE": 8.0329,
+    "teamPtsBias": -0.7384,
+    "teamPtsCorr": -0.0626,
+    "totalMAE": 10.9457,
+    "totalCorr": -0.0916,
+    "marginMAE": 11.4375,
+    "marginCorr": null,
+    "vsLines": {
+     "games": 240,
+     "totalCorrWithLine": 0.0866,
+     "marginCorrWithLine": null,
+     "lineTotalMAE": 10.1333,
+     "lineMarginMAE": 10.0771,
+     "totalEdgeCorr": -0.0335,
+     "marginEdgeCorr": -0.0613
+    }
+   },
+   "raw": {
+    "drives": 5060,
+    "driveLogLoss": 1.6642,
+    "tdDriveBrier": 0.1755,
+    "teamTdMAE_pregame": 1.1242,
+    "teamTdMAE_givenDrives": 1.1678,
+    "teamTdCorr_pregame": 0.2743,
+    "games": 240,
+    "teamPtsMAE": 7.6939,
+    "teamPtsBias": -0.7259,
+    "teamPtsCorr": 0.3152,
+    "totalMAE": 10.6961,
+    "totalCorr": 0.1967,
+    "marginMAE": 10.7312,
+    "marginCorr": 0.4142,
+    "vsLines": {
+     "games": 240,
+     "totalCorrWithLine": 0.7107,
+     "marginCorrWithLine": 0.8201,
+     "lineTotalMAE": 10.1333,
+     "lineMarginMAE": 10.0771,
+     "totalEdgeCorr": -0.044,
+     "marginEdgeCorr": -0.053
+    }
+   },
+   "adjusted": {
+    "drives": 5060,
+    "driveLogLoss": 1.6627,
+    "tdDriveBrier": 0.1752,
+    "teamTdMAE_pregame": 1.1146,
+    "teamTdMAE_givenDrives": 1.1766,
+    "teamTdCorr_pregame": 0.2864,
+    "games": 240,
+    "teamPtsMAE": 7.6891,
+    "teamPtsBias": -0.6894,
+    "teamPtsCorr": 0.3174,
+    "totalMAE": 10.7006,
+    "totalCorr": 0.2017,
+    "marginMAE": 10.6629,
+    "marginCorr": 0.4143,
+    "vsLines": {
+     "games": 240,
+     "totalCorrWithLine": 0.6105,
+     "marginCorrWithLine": 0.8227,
+     "lineTotalMAE": 10.1333,
+     "lineMarginMAE": 10.0771,
+     "totalEdgeCorr": -0.015,
+     "marginEdgeCorr": -0.0506
+    }
+   }
+  },
+  "season2026_w3to7_tuned": {
+   "league": {
+    "drives": 1623,
+    "driveLogLoss": 1.6537,
+    "tdDriveBrier": 0.1765,
+    "teamTdMAE_pregame": 1.0702,
+    "teamTdMAE_givenDrives": 1.065,
+    "teamTdCorr_pregame": -0.0793,
+    "games": 75,
+    "teamPtsMAE": 7.0525,
+    "teamPtsBias": -0.845,
+    "teamPtsCorr": -0.0581,
+    "totalMAE": 11.1313,
+    "totalCorr": -0.0781,
+    "marginMAE": 8.96,
+    "marginCorr": null,
+    "vsLines": {
+     "games": 75,
+     "totalCorrWithLine": 0.0477,
+     "marginCorrWithLine": null,
+     "lineTotalMAE": 10.3133,
+     "lineMarginMAE": 8.4867,
+     "totalEdgeCorr": -0.0411,
+     "marginEdgeCorr": 0.1533
+    }
+   },
+   "raw": {
+    "drives": 1623,
+    "driveLogLoss": 1.659,
+    "tdDriveBrier": 0.176,
+    "teamTdMAE_pregame": 1.0412,
+    "teamTdMAE_givenDrives": 1.0196,
+    "teamTdCorr_pregame": 0.1649,
+    "games": 75,
+    "teamPtsMAE": 7.0846,
+    "teamPtsBias": -0.7481,
+    "teamPtsCorr": 0.085,
+    "totalMAE": 11.3437,
+    "totalCorr": 0.0607,
+    "marginMAE": 8.6361,
+    "marginCorr": 0.1142,
+    "vsLines": {
+     "games": 75,
+     "totalCorrWithLine": 0.4588,
+     "marginCorrWithLine": 0.6369,
+     "lineTotalMAE": 10.3133,
+     "lineMarginMAE": 8.4867,
+     "totalEdgeCorr": -0.1005,
+     "marginEdgeCorr": 0.0974
+    }
+   },
+   "adjusted": {
+    "drives": 1623,
+    "driveLogLoss": 1.6526,
+    "tdDriveBrier": 0.1757,
+    "teamTdMAE_pregame": 1.0433,
+    "teamTdMAE_givenDrives": 1.0324,
+    "teamTdCorr_pregame": 0.1479,
+    "games": 75,
+    "teamPtsMAE": 7.1054,
+    "teamPtsBias": -0.8089,
+    "teamPtsCorr": 0.0831,
+    "totalMAE": 11.3437,
+    "totalCorr": 0.0632,
+    "marginMAE": 8.6403,
+    "marginCorr": 0.1075,
+    "vsLines": {
+     "games": 75,
+     "totalCorrWithLine": 0.4828,
+     "marginCorrWithLine": 0.639,
+     "lineTotalMAE": 10.3133,
+     "lineMarginMAE": 8.4867,
+     "totalEdgeCorr": -0.1167,
+     "marginEdgeCorr": 0.0845
+    }
+   }
+  },
+  "season2026_w3to7_shippedDefaults": {
+   "league": {
+    "drives": 1623,
+    "driveLogLoss": 1.6537,
+    "tdDriveBrier": 0.1765,
+    "teamTdMAE_pregame": 1.0702,
+    "teamTdMAE_givenDrives": 1.065,
+    "teamTdCorr_pregame": -0.0793,
+    "games": 75,
+    "teamPtsMAE": 7.0525,
+    "teamPtsBias": -0.845,
+    "teamPtsCorr": -0.0581,
+    "totalMAE": 11.1313,
+    "totalCorr": -0.0781,
+    "marginMAE": 8.96,
+    "marginCorr": null,
+    "vsLines": {
+     "games": 75,
+     "totalCorrWithLine": 0.0477,
+     "marginCorrWithLine": null,
+     "lineTotalMAE": 10.3133,
+     "lineMarginMAE": 8.4867,
+     "totalEdgeCorr": -0.0411,
+     "marginEdgeCorr": 0.1533
+    }
+   },
+   "raw": {
+    "drives": 1623,
+    "driveLogLoss": 1.659,
+    "tdDriveBrier": 0.176,
+    "teamTdMAE_pregame": 1.0412,
+    "teamTdMAE_givenDrives": 1.0196,
+    "teamTdCorr_pregame": 0.1649,
+    "games": 75,
+    "teamPtsMAE": 7.0846,
+    "teamPtsBias": -0.7481,
+    "teamPtsCorr": 0.085,
+    "totalMAE": 11.3437,
+    "totalCorr": 0.0607,
+    "marginMAE": 8.6361,
+    "marginCorr": 0.1142,
+    "vsLines": {
+     "games": 75,
+     "totalCorrWithLine": 0.4588,
+     "marginCorrWithLine": 0.6369,
+     "lineTotalMAE": 10.3133,
+     "lineMarginMAE": 8.4867,
+     "totalEdgeCorr": -0.1005,
+     "marginEdgeCorr": 0.0974
+    }
+   },
+   "adjusted": {
+    "drives": 1623,
+    "driveLogLoss": 1.6526,
+    "tdDriveBrier": 0.1757,
+    "teamTdMAE_pregame": 1.0433,
+    "teamTdMAE_givenDrives": 1.0324,
+    "teamTdCorr_pregame": 0.1479,
+    "games": 75,
+    "teamPtsMAE": 7.1054,
+    "teamPtsBias": -0.8089,
+    "teamPtsCorr": 0.0831,
+    "totalMAE": 11.3437,
+    "totalCorr": 0.0632,
+    "marginMAE": 8.6403,
+    "marginCorr": 0.1075,
+    "vsLines": {
+     "games": 75,
+     "totalCorrWithLine": 0.4828,
+     "marginCorrWithLine": 0.639,
+     "lineTotalMAE": 10.3133,
+     "lineMarginMAE": 8.4867,
+     "totalEdgeCorr": -0.1167,
+     "marginEdgeCorr": 0.0845
+    }
+   }
+  }
+ },
+ "partB": {
+  "note": "2026 W3-W7 full sims. old491 = git 36a97f3 engine (TD rate pinned to model λ when a snapshot exists, else to a history λ); free = 4.9.2 default; anchored = 4.9.2 inputs with the 4.9.1 pinning; leagueFree = 4.9.2 engine with every team set to league average. Player rows: W6-W7 pre-game snapshots with settled outcomes.",
+  "team": {
+   "old491": {
+    "games": 75,
+    "teamPtsMAE": 7.286,
+    "teamPtsBias": -0.9304,
+    "teamTdMAE": 1.1146,
+    "teamTdBias": -0.102,
+    "totalMAE": 10.905,
+    "marginMAE": 9.7582,
+    "marginCorr": 0.1303,
+    "winLogLoss": 0.7374,
+    "totalEdgeCorr": 0.0175,
+    "marginEdgeCorr": -0.0804,
+    "totalCorrWithLine": 0.6605,
+    "marginCorrWithLine": 0.6507
+   },
+   "free": {
+    "games": 75,
+    "teamPtsMAE": 7.1001,
+    "teamPtsBias": -0.2009,
+    "teamTdMAE": 1.0485,
+    "teamTdBias": 0.0156,
+    "totalMAE": 11.2017,
+    "marginMAE": 8.5892,
+    "marginCorr": 0.1311,
+    "winLogLoss": 0.6748,
+    "totalEdgeCorr": -0.1223,
+    "marginEdgeCorr": 0.1,
+    "totalCorrWithLine": 0.4687,
+    "marginCorrWithLine": 0.6812
+   },
+   "anchored": {
+    "games": 75,
+    "teamPtsMAE": 7.2954,
+    "teamPtsBias": -0.9007,
+    "teamTdMAE": 1.1148,
+    "teamTdBias": -0.0955,
+    "totalMAE": 11.0048,
+    "marginMAE": 9.7695,
+    "marginCorr": 0.1297,
+    "winLogLoss": 0.7353,
+    "totalEdgeCorr": -0.0012,
+    "marginEdgeCorr": -0.0848,
+    "totalCorrWithLine": 0.6477,
+    "marginCorrWithLine": 0.6594
+   },
+   "leagueFree": {
+    "games": 75,
+    "teamPtsMAE": 7.0075,
+    "teamPtsBias": -0.2538,
+    "teamTdMAE": 1.0725,
+    "teamTdBias": 0.0082,
+    "totalMAE": 11.1423,
+    "marginMAE": 8.9653,
+    "marginCorr": -0.0227,
+    "winLogLoss": 0.6947,
+    "totalEdgeCorr": -0.0501,
+    "marginEdgeCorr": 0.1506,
+    "totalCorrWithLine": 0.0099,
+    "marginCorrWithLine": 0.0581
+   },
+   "closingLine": {
+    "games": 75,
+    "totalMAE": 10.3133,
+    "marginMAE": 8.4867
+   }
+  },
+  "players": {
+   "model": {
+    "all": {
+     "n": 745,
+     "brier": 0.1087,
+     "logLoss": 0.3508,
+     "meanP": 0.1412,
+     "rate": 0.1477
+    },
+    "withSleeper": {
+     "n": 604,
+     "brier": 0.129,
+     "logLoss": 0.4062,
+     "meanP": 0.1684,
+     "rate": 0.1772
+    }
+   },
+   "sleeper": {
+    "all": null,
+    "withSleeper": {
+     "n": 604,
+     "brier": 0.1322,
+     "logLoss": 0.415,
+     "meanP": 0.18,
+     "rate": 0.1772
+    }
+   },
+   "old491": {
+    "all": {
+     "n": 745,
+     "brier": 0.1091,
+     "logLoss": 0.3523,
+     "meanP": 0.1432,
+     "rate": 0.1477
+    },
+    "withSleeper": {
+     "n": 604,
+     "brier": 0.1295,
+     "logLoss": 0.4085,
+     "meanP": 0.1709,
+     "rate": 0.1772
+    }
+   },
+   "free": {
+    "all": {
+     "n": 745,
+     "brier": 0.1105,
+     "logLoss": 0.3553,
+     "meanP": 0.1513,
+     "rate": 0.1477
+    },
+    "withSleeper": {
+     "n": 604,
+     "brier": 0.1312,
+     "logLoss": 0.4118,
+     "meanP": 0.1805,
+     "rate": 0.1772
+    }
+   },
+   "anchored": {
+    "all": {
+     "n": 745,
+     "brier": 0.1084,
+     "logLoss": 0.3506,
+     "meanP": 0.1438,
+     "rate": 0.1477
+    },
+    "withSleeper": {
+     "n": 604,
+     "brier": 0.1286,
+     "logLoss": 0.4053,
+     "meanP": 0.1716,
+     "rate": 0.1772
+    }
+   },
+   "leagueFree": {
+    "all": {
+     "n": 745,
+     "brier": 0.1103,
+     "logLoss": 0.355,
+     "meanP": 0.1513,
+     "rate": 0.1477
+    },
+    "withSleeper": {
+     "n": 604,
+     "brier": 0.131,
+     "logLoss": 0.4115,
+     "meanP": 0.1802,
+     "rate": 0.1772
+    }
+   }
+  }
+ }
+}
