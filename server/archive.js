@@ -97,6 +97,7 @@ export class Archive {
   finishRun(id, status, details) { this.tx(() => this.run('UPDATE runs SET finished_at=?, status=?, details=? WHERE id=?', [new Date().toISOString(), status, JSON.stringify(details), id])); }
   // usage tables live in the repo archive (scripts/usage/build.mjs), not in SQLite
   drives(season, week) { try { return JSON.parse(fs.readFileSync(path.join(process.env.ENDZONE_DRIVES_DIR || path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'archive', 'drives'), String(season), `w${week}.json`), 'utf8')); } catch { return null; } }
+  pbp(season, week) { try { return JSON.parse(fs.readFileSync(path.join(process.env.ENDZONE_PBP_DIR || path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'archive', 'pbp'), String(season), `w${week}.json`), 'utf8')); } catch { return null; } }
   usage(season, week) { try { return JSON.parse(fs.readFileSync(path.join(process.env.ENDZONE_USAGE_DIR || path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'archive', 'usage'), String(season), `w${week}.json`), 'utf8')); } catch { return null; } }
   lastRun() { const r = this.get('SELECT * FROM runs ORDER BY id DESC LIMIT 1'); return r ? { ...r, details: r.details ? JSON.parse(r.details) : null } : null; }
   saveExperiment(e) { this.tx(() => this.run('INSERT INTO experiments (season,week,kind,model_version,training_cutoff,payload,created_at) VALUES (?,?,?,?,?,?,?)', [e.season, e.week, e.kind, e.modelVersion, e.trainingCutoff || null, JSON.stringify(e.payload), new Date().toISOString()])); }

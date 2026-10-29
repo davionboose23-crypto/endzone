@@ -82,7 +82,7 @@ export async function createServer({ dbFile = DEFAULT_DB, log = console.log } = 
       snapshots: archive.snapshots(season, week, 'latest'), firstSnapshots: archive.snapshots(season, week, 'first').map(s => ({ gameId: s.gameId, capturedAt: s.capturedAt, modelVersion: s.modelVersion })),
       lessons: archive.lessons(season), activeCalibration: { active: cal.active, inWeek: cal.inWeek, unplayed: cal.unplayedLessons, describe: describeLessons(cal.active) },
       uncertainty: { errorModel: cal.errorModel, coverage: cal.coverage }, trendHistory: cal.trendHistory,
-      challenger: cal.challenger, usage: cal.usage || null, drives: typeof archive.drives === 'function' ? archive.drives(season, week) : null,
+      challenger: cal.challenger, usage: cal.usage || null, drives: typeof archive.drives === 'function' ? archive.drives(season, week) : null, pbp: typeof archive.pbp === 'function' ? archive.pbp(season, week) : null,
     researchStatus: validation ? validation.payload : null, pickTracker: pickTracker(cal.cur.perWeek), lastRun: archive.lastRun(), schedule: 'Scheduled refreshes are paused: initial load and manual Refresh only.',
     });
   }

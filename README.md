@@ -173,6 +173,28 @@ Board → Sort now has three groups. **Touchdown**: *Model confidence (High › 
 - `tests/landscape.test.js` covers five landscape sizes: header under 25% of the height, no page-level horizontal overflow, panel scrollable, Close visible and at least 44 px, plus a rotation round-trip.
 - Screenshots: `SIZES=844x390,932x430 MOBILE=1 node scripts/ux-shots.mjs <dir> [url]` (`shots/` is git-ignored).
 
+## App 4.10.0 — Play-by-play simulator (beta; Drives → Simulator → "Play-by-play (beta)"; research / UI only, model stays endzone-4.6.0)
+
+- **Engine** (`src/sim-pbp.js`, params from `src/pbp-fit.js` → `archive/pbp/<season>/w<N>.json`, built by `scripts/pbp/build.mjs` from nflverse play-by-play): every snap tracks down, distance, yard line, clock, timeouts and score. It covers kickoffs and returns (touchbacks, onside, return TDs), punts with return spot, FG make chance by distance, PATs and two-point tries, sacks, interceptions and fumbles with return spot (defensive TDs), penalties, fourth-down go/FG/punt calls by field zone, distance and score, two-minute and end-of-half play, kneel-downs and overtime.
+- **Per-team rates**: pass rate, completion, explosive plays, run and completion yards, sacks, turnovers, red-zone and goal-to-go play calling and TD rates, and pace. They come from 2026 plays before the week being simulated (2025 as the prior), are opponent-adjusted (offense vs the opponent's defense), and are shrunk toward league average on small samples. Team spread scale `SIM_PBP_TUNE.spread = 4` was tuned on 2025 only.
+- **Player usage**: carries and targets by down and field zone (red zone, inside 10, inside 5) from 2026 pbp, blended with the model's projections. Each TD is credited to the player who scored on that play.
+- **UI**:
+  - Runs in a Web Worker with a live "Simulated X / 10,000 games" counter. Partial results include points, win % and the Top 4.
+  - "Open a sample game" replays one of the 10,000 games deterministically, with a drive-by-drive and play-by-play log.
+  - A red-zone patterns card shows RZ trips, RZ TD % and the goal-line usage table.
+  - The Drive 1 and TD cards gain field position.
+  - The Top 4 card is kept.
+- **Speed** (10,000 games, CAR @ GB, Chrome on the 8-core box): worker 1.8 s. The same engine in-page under CPU throttle took 6.8 s at 4x and 10.1 s at 6x. Chrome cannot throttle workers, so the throttled numbers use the in-page fallback.
+- **Walk-forward, 2026 weeks 3–7** (`scripts/sim/validate-pbp.mjs` → `archive/sim/pbp-validation-2026.json`, 2,000 sims per game, inputs from weeks < W only):
+  - Team metrics: pbp vs 4.9.2 drive sim:
+    - Points MAE 7.03 vs 7.10
+    - TD MAE 1.031 vs 1.049
+    - Total MAE 10.95 vs 11.20
+    - Margin MAE 8.90 vs 8.59
+    - Win log loss 0.693 vs 0.675 (closing line 0.673)
+  - Player anytime TD (weeks 6–7), Brier: model .1087, drive .1105, pbp .1122.
+  - **Decision:** pbp does not beat 4.9.2 on both team and player metrics, so it ships as the selectable **beta**. The drive sim stays the default. It does not beat the model on player anytime TD, so no shadow challenger is added.
+
 ## App 4.9.2 — Simulator plays each team's own 2026 offense and defense, opponent-adjusted (research / UI only, model stays endzone-4.6.0)
 
 **Audit of 4.9.1 (what was wrong).** Non-TD drive outcomes came from raw 2026 offense and defense counts (shrunk, k = 60, combined by a square root) with **no schedule adjustment**. The TD rate was then **pinned to the model's team λ** (CAR @ GB w8: ×0.88 for CAR, ×1.17 for GB), and pass rate and volume were pinned to the model too (GB pass odds ×1.27). So the team's own TD identity was overwritten by the model. Plays per drive came from the offense only; game script, two-minute drives, red zone and explosives were league-wide.

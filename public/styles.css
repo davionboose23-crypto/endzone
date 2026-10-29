@@ -243,3 +243,16 @@ details.sec>.secbody{padding-bottom:var(--s3)}details.sec[open]>summary{border-b
 .t4nums{display:flex;flex-wrap:wrap;gap:4px 12px;margin:4px 0 2px}.t4line{margin:4px 0 0}
 .gap{color:#d9822b;font-weight:700}
 .simprof{min-width:0}.simprof h4{margin:8px 0 4px}.simprof h5{margin:8px 0 2px;font-size:.85rem}
+/* 4.10.0 play-by-play simulator */
+.simmode{margin:4px 0 8px}
+.simprog{margin:8px 0}.simprog progress{width:100%;height:12px;accent-color:var(--gold,#c9a227)}
+.simfp{margin:4px 0}
+.simgame .pdrives{list-style:none;margin:6px 0;padding:0}
+.simgame .pdrv{border-top:1px solid var(--border,#31443b);padding:4px 0}
+.simgame summary{cursor:pointer;font-size:.92em;line-height:1.4}
+.simgame .plays{list-style:none;margin:4px 0 6px;padding:0 0 0 6px}
+.simgame .plays li{display:grid;grid-template-columns:5.2em minmax(0,9em) minmax(0,1fr) auto;gap:6px;padding:2px 0;align-items:baseline}
+.simgame .plays li.hi .ptxt{font-weight:700;color:var(--gold,#c9a227)}
+.simgame .plays li.note .ptxt{font-style:italic;opacity:.75}
+.simgame .pclk,.simgame .psc{opacity:.7;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.simgame .plays li{grid-template-columns:4.4em minmax(0,1fr) auto}.simgame .plays li .pdd{grid-column:2/4;order:-1;opacity:.75}.simgame .plays li .pclk{grid-row:span 2}}

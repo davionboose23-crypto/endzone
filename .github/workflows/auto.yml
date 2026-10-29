@@ -57,6 +57,14 @@ jobs:
           else
             node scripts/drives/build.mjs --if-missing
           fi
+      - name: Play-by-play simulator params (this + next week; refit weekly, otherwise only when missing)
+        continue-on-error: true   # if nflverse is down the app keeps last week's params (play-by-play mode falls back to the drive sim)
+        run: |
+          if [ "${{ github.event.schedule }}" = "0 12 * * 2" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            node scripts/pbp/build.mjs
+          else
+            node scripts/pbp/build.mjs --if-missing
+          fi
       - name: Capture snapshots, grade, update lessons and validation
         run: node scripts/auto-run.mjs
       - name: Weekly auto-calibration gate
