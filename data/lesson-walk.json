@@ -1,0 +1,320 @@
+{
+ "ranAt": "2026-10-29T18:49:47.137Z",
+ "seasons": {
+  "2025": {
+   "weeks": "2-18",
+   "configs": {
+    "off": {
+     "n": 6960,
+     "games": 256,
+     "brier": 0.1093,
+     "logLoss": 0.3516,
+     "gapPts": -1.6362,
+     "vsCurrent": {
+      "dBrierX1000": 0.0975,
+      "dBrierCI": [
+       -0.0839,
+       0.2781
+      ],
+      "dLogLossX1000": 0.1772,
+      "dLogLossCI": [
+       -0.2851,
+       0.6263
+      ]
+     }
+    },
+    "current": {
+     "n": 6960,
+     "games": 256,
+     "brier": 0.1092,
+     "logLoss": 0.3514,
+     "gapPts": -1.5994,
+     "vsCurrent": {
+      "dBrierX1000": 0,
+      "dBrierCI": [
+       0,
+       0
+      ],
+      "dLogLossX1000": 0,
+      "dLogLossCI": [
+       0,
+       0
+      ]
+     }
+    },
+    "bandOff": {
+     "n": 6960,
+     "games": 256,
+     "brier": 0.1093,
+     "logLoss": 0.3515,
+     "gapPts": -1.6159,
+     "vsCurrent": {
+      "dBrierX1000": 0.0492,
+      "dBrierCI": [
+       -0.0784,
+       0.1722
+      ],
+      "dLogLossX1000": 0.1141,
+      "dLogLossCI": [
+       -0.2363,
+       0.4307
+      ]
+     }
+    },
+    "k10": {
+     "n": 6960,
+     "games": 256,
+     "brier": 0.1092,
+     "logLoss": 0.3514,
+     "gapPts": -1.6004,
+     "vsCurrent": {
+      "dBrierX1000": 0.0177,
+      "dBrierCI": [
+       -0.0321,
+       0.0637
+      ],
+      "dLogLossX1000": 0.0373,
+      "dLogLossCI": [
+       -0.084,
+       0.1503
+      ]
+     }
+    },
+    "k25": {
+     "n": 6960,
+     "games": 256,
+     "brier": 0.1092,
+     "logLoss": 0.3514,
+     "gapPts": -1.6047,
+     "vsCurrent": {
+      "dBrierX1000": -0.0119,
+      "dBrierCI": [
+       -0.093,
+       0.0592
+      ],
+      "dLogLossX1000": -0.0314,
+      "dLogLossCI": [
+       -0.2324,
+       0.1392
+      ]
+     }
+    },
+    "pooled3k10": {
+     "n": 6960,
+     "games": 256,
+     "brier": 0.1092,
+     "logLoss": 0.3515,
+     "gapPts": -1.5974,
+     "vsCurrent": {
+      "dBrierX1000": 0.0223,
+      "dBrierCI": [
+       -0.0651,
+       0.1095
+      ],
+      "dLogLossX1000": 0.1009,
+      "dLogLossCI": [
+       -0.1062,
+       0.3157
+      ]
+     }
+    },
+    "pooledAllk10": {
+     "n": 6960,
+     "games": 256,
+     "brier": 0.1093,
+     "logLoss": 0.3517,
+     "gapPts": -1.5889,
+     "vsCurrent": {
+      "dBrierX1000": 0.1276,
+      "dBrierCI": [
+       0.0115,
+       0.2346
+      ],
+      "dLogLossX1000": 0.3391,
+      "dLogLossCI": [
+       0.0342,
+       0.6162
+      ]
+     }
+    },
+    "pooledAllk25": {
+     "n": 6960,
+     "games": 256,
+     "brier": 0.1093,
+     "logLoss": 0.3516,
+     "gapPts": -1.5902,
+     "vsCurrent": {
+      "dBrierX1000": 0.0549,
+      "dBrierCI": [
+       -0.0419,
+       0.1531
+      ],
+      "dLogLossX1000": 0.1885,
+      "dLogLossCI": [
+       -0.0673,
+       0.4404
+      ]
+     }
+    }
+   }
+  },
+  "2026": {
+   "weeks": "2-7",
+   "configs": {
+    "off": {
+     "n": 2531,
+     "games": 91,
+     "brier": 0.1065,
+     "logLoss": 0.3497,
+     "gapPts": -0.9526,
+     "vsCurrent": {
+      "dBrierX1000": -0.0741,
+      "dBrierCI": [
+       -0.3068,
+       0.1534
+      ],
+      "dLogLossX1000": -0.1685,
+      "dLogLossCI": [
+       -0.8408,
+       0.4897
+      ]
+     }
+    },
+    "current": {
+     "n": 2531,
+     "games": 91,
+     "brier": 0.1066,
+     "logLoss": 0.3499,
+     "gapPts": -0.8799,
+     "vsCurrent": {
+      "dBrierX1000": 0,
+      "dBrierCI": [
+       0,
+       0
+      ],
+      "dLogLossX1000": 0,
+      "dLogLossCI": [
+       0,
+       0
+      ]
+     }
+    },
+    "bandOff": {
+     "n": 2531,
+     "games": 91,
+     "brier": 0.1066,
+     "logLoss": 0.3499,
+     "gapPts": -0.8881,
+     "vsCurrent": {
+      "dBrierX1000": 0.005,
+      "dBrierCI": [
+       -0.1874,
+       0.1994
+      ],
+      "dLogLossX1000": -0.0177,
+      "dLogLossCI": [
+       -0.5531,
+       0.5416
+      ]
+     }
+    },
+    "k10": {
+     "n": 2531,
+     "games": 91,
+     "brier": 0.1066,
+     "logLoss": 0.3501,
+     "gapPts": -0.8719,
+     "vsCurrent": {
+      "dBrierX1000": 0.0712,
+      "dBrierCI": [
+       -0.0386,
+       0.184
+      ],
+      "dLogLossX1000": 0.1759,
+      "dLogLossCI": [
+       -0.1218,
+       0.4839
+      ]
+     }
+    },
+    "k25": {
+     "n": 2531,
+     "games": 91,
+     "brier": 0.1066,
+     "logLoss": 0.35,
+     "gapPts": -0.8601,
+     "vsCurrent": {
+      "dBrierX1000": 0.0632,
+      "dBrierCI": [
+       -0.0869,
+       0.233
+      ],
+      "dLogLossX1000": 0.1141,
+      "dLogLossCI": [
+       -0.2469,
+       0.5
+      ]
+     }
+    },
+    "pooled3k10": {
+     "n": 2531,
+     "games": 91,
+     "brier": 0.1066,
+     "logLoss": 0.3501,
+     "gapPts": -0.8567,
+     "vsCurrent": {
+      "dBrierX1000": 0.0782,
+      "dBrierCI": [
+       -0.0331,
+       0.1985
+      ],
+      "dLogLossX1000": 0.2215,
+      "dLogLossCI": [
+       -0.0799,
+       0.5653
+      ]
+     }
+    },
+    "pooledAllk10": {
+     "n": 2531,
+     "games": 91,
+     "brier": 0.1067,
+     "logLoss": 0.3503,
+     "gapPts": -0.8542,
+     "vsCurrent": {
+      "dBrierX1000": 0.1508,
+      "dBrierCI": [
+       0.0232,
+       0.2741
+      ],
+      "dLogLossX1000": 0.3864,
+      "dLogLossCI": [
+       0.0542,
+       0.7401
+      ]
+     }
+    },
+    "pooledAllk25": {
+     "n": 2531,
+     "games": 91,
+     "brier": 0.1068,
+     "logLoss": 0.3503,
+     "gapPts": -0.8494,
+     "vsCurrent": {
+      "dBrierX1000": 0.1859,
+      "dBrierCI": [
+       0.0332,
+       0.3542
+      ],
+      "dLogLossX1000": 0.4382,
+      "dLogLossCI": [
+       0.0414,
+       0.8406
+      ]
+     }
+    }
+   }
+  }
+ },
+ "note": "Reconstructed walk-forward (point-in-time rosters, no pregame injuries). Lessons built only from earlier weeks of the same season. 2026 and 2025 run separately; pooled omitted."
+}

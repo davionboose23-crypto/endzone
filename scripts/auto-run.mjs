@@ -12,8 +12,9 @@ const r = await refresh(A, { season: arg('season'), week: arg('week') });
 console.log(JSON.stringify({ week: r.details.week, status: r.status, steps: r.details.steps, partial: r.details.partial, error: r.details.error }, null, 1));
 if (!r.ok) process.exit(1);
 // also capture the next week's first/latest pregame frames (strictly before kickoff) unless a week was pinned
+let n = null;
 if (!arg('week') && r.details.week < 18) {
-  const n = await refresh(A, { season: r.details.season, week: r.details.week + 1 });
+  n = await refresh(A, { season: r.details.season, week: r.details.week + 1 });
   console.log(JSON.stringify({ week: n.details.week, status: n.status, steps: n.details.steps, error: n.details.error }, null, 1));
 }
 const st = A.state(); const L = r.details.learned;
@@ -25,6 +26,9 @@ if (scales && JSON.stringify(stable(scales)) !== JSON.stringify(stable(prev))) {
   for (const g of ['vol', 'band', 'spot']) for (const k of Object.keys(scales[g] || {})) { const a = prev?.[g]?.[k] ?? 1, b = scales[g][k]; if (Math.abs(a - b) >= 0.005) diff.push({ group: g, key: k, from: +a.toFixed(4), to: +b.toFixed(4) }); }
   if (diff.length || !prev) st.changes = [{ at: new Date().toISOString(), season: r.details.season, week: r.details.week, diff, why: 'Lessons recomputed after newly finished games (last-3-weeks rule; in-week nudge for later games).' }, ...(st.changes || [])].slice(0, 30);
 }
-st.promotion = L?.promotion || null; st.drivesPromotion = L?.drivesPromotion || st.drivesPromotion || null; st.components = componentState();
+// Gate counts come from whichever refresh graded the most recent finished week: on Tuesdays the current week is still
+// the one just played, so its refresh only grades the weeks before it; the next-week refresh also grades that week.
+const G = (n?.ok && n.details.learned) ? n.details.learned : L;
+st.promotion = G?.promotion || null; st.drivesPromotion = G?.drivesPromotion || st.drivesPromotion || null; st.components = componentState();
 A.saveState(st);
 writeJson(`${dir}/index.json`, { seasons: Object.fromEntries(A.seasons().map(s => [s, A.weeks(s)])), modelVersion: MODEL_VERSION });
