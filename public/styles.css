@@ -208,3 +208,18 @@ details.sec>.secbody{padding-bottom:var(--s3)}details.sec[open]>summary{border-b
 @media (max-width:600px),(orientation:portrait) and (max-width:900px){.dlog td:first-child{background:transparent}.dlog td.dlres{white-space:normal}}
 .dlog td.dlst,.dlog td:nth-child(3){white-space:nowrap}.pbds th,.pbds td{position:static;background:transparent}.pbds td:nth-child(2){min-width:9.5em}.pbds .chip{white-space:normal;line-height:1.25}
 @media (max-width:600px),(orientation:portrait) and (max-width:900px){.pbds th,.pbds td{padding:6px 5px}.pbds th[scope=row]{white-space:nowrap}.pbds td:nth-child(2){min-width:7.2em}.pbds td.rel{min-width:6.2em}.pbds td.rel .chip{font-size:.7rem;padding:2px 6px;border-radius:8px;display:inline-block}}
+/* 4.9.0 game simulator (Drives → Simulator) */
+.simwin{display:flex;border-radius:10px;overflow:hidden;font-weight:700;font-size:.9rem;margin:8px 0;min-height:34px}
+.simwin span{display:flex;align-items:center;padding:6px 8px;background:#2d5b8a;color:#fff;white-space:nowrap;min-width:0;overflow:hidden}
+.simwin span.h{background:var(--green);justify-content:flex-end}.simwin span.tie{background:var(--surface2);color:var(--muted);justify-content:center;font-size:.75rem;padding:6px 2px}
+.simhists{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}.simhist{width:100%;height:70px;display:block;background:var(--surface2);border-radius:8px}.simhist rect{fill:var(--gold)}
+@media (max-width:560px){.simhists{grid-template-columns:1fr}}
+.simtop{gap:6px;flex-wrap:wrap}.simtab{min-width:0}.simtab td,.simtab th{padding:6px 8px}.simtab tbody th{text-align:left;white-space:normal}
+.simplayers{min-width:640px}.simplayers tbody th{min-width:10em}
+.simscripts>div{display:grid;grid-template-columns:minmax(0,1.6fr) 1fr 3.2em;gap:8px;align-items:center;padding:3px 0}
+.simscripts .bar{height:10px;background:var(--surface2);border-radius:6px;overflow:hidden}.simscripts .bar i{display:block;height:100%;background:var(--gold)}
+.simdisc{border-left:3px solid var(--gold);padding-left:8px}.simnote{color:var(--gold)}.simfirst{columns:2;column-gap:24px}
+@media (max-width:420px){.simfirst{columns:1}}
+.simpl{border:1px solid var(--gold)}
+.dvcols>div{min-width:0}.simhists>*{min-width:0}
+@media (max-width:900px) and (orientation:portrait),(max-width:700px){.dvcols{grid-template-columns:minmax(0,1fr)}}

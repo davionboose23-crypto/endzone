@@ -1,6 +1,6 @@
 {
   "name": "endzone",
-  "version": "4.8.1",
+  "version": "4.9.0",
   "private": true,
   "type": "module",
   "description": "ENDZONE anytime-TD research model",
@@ -17,7 +17,8 @@
     "usage:verify": "node scripts/usage/verify.mjs",
     "drives:build": "node scripts/drives/build.mjs",
     "drives:research": "node scripts/drives/research.mjs",
-    "drives:verify": "node scripts/drives/verify.mjs"
+    "drives:verify": "node scripts/drives/verify.mjs",
+    "sim:calibrate": "node scripts/sim/calibrate.mjs"
   },
   "dependencies": {
     "sql.js": "^1.13.0"
