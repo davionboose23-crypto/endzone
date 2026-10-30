@@ -256,3 +256,7 @@ details.sec>.secbody{padding-bottom:var(--s3)}details.sec[open]>summary{border-b
 .simgame .plays li.note .ptxt{font-style:italic;opacity:.75}
 .simgame .pclk,.simgame .psc{opacity:.7;font-variant-numeric:tabular-nums}
 @media (max-width:520px){.simgame .plays li{grid-template-columns:4.4em minmax(0,1fr) auto}.simgame .plays li .pdd{grid-column:2/4;order:-1;opacity:.75}.simgame .plays li .pclk{grid-row:span 2}}
+/* 4.12.0 sim top-4 track record */
+.t4tab{width:100%;min-width:0;font-size:.85rem}.t4tab td:first-child,.t4tab th:first-child{text-align:left;white-space:normal}.t4tab td,.t4tab th{padding:4px 6px}.t4tab .num{text-align:right;white-space:nowrap}.t4tab tr.t4me td{font-weight:700;color:var(--gold)}
+.t4wk{margin:6px 0}.t4wk summary{cursor:pointer;padding:6px 0;font-weight:600}.t4list{list-style:none;padding:0;margin:0}.t4list li{padding:8px 0;border-top:1px solid rgba(127,127,127,.2)}
+.t4hit{color:var(--good,#2e9d5b);white-space:nowrap}.t4miss{opacity:.75;white-space:nowrap}

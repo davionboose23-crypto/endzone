@@ -279,7 +279,7 @@ export function finish(W, E) { W.eng = { mode: 'pbp', version: E.V ? SIM_PBP_VER
 // replay one game (same seed + index as the run) with every play logged
 export function replayGame(E, seed, g) { const log = []; playGame(E, makeRng(gameSeed(seed, g)), g, null, log); return log; }
 // pilot: per-player target / carry shares, catch rate and yards per catch / carry -> the model's projections (team volume stays the sim's own)
-export function calibratePbp(I, { pilots = 2, n = 800, seed = 7 } = {}) {
+export function calibratePbp(I, { pilots = 2, n = 800, seed = 7, tdPilots = 2 } = {}) {
   const E = makePbpEngine(I); const hist = [];
   for (let it = 0; it < pilots; it++) {
     cellTotals(E); const W = alloc(E, n, false); for (let g = 0; g < n; g++) playGame(E, makeRng(gameSeed(seed + it * 101, g)), g, W, null);
@@ -294,6 +294,16 @@ export function calibratePbp(I, { pilots = 2, n = 800, seed = 7 } = {}) {
         if (p.car > 0.5 && st.car > 0.05 && p.rushYd > 0 && st.rushYd > 0) t.cF[i] = clamp(t.cF[i] * Math.pow(f(p.rushYd / p.car, st.rushYd / st.car, 0.7, 1.4), 0.8), 0.5, 1.8);
       } }
     let pts = 0; for (let g = 0; g < n; g++) pts += W.score[g * 2] + W.score[g * 2 + 1]; hist.push({ pts: +(pts / n).toFixed(2) });
+  }
+  // 4.12.0 TD-share pilot (sim-pbp-2 only, when the inputs carry td-share-1 splits): each player's share of his team's simulated TDs
+  // is steered toward the blended target split by scaling his red-zone usage cells (inside the 20), not his volume between the 20s
+  if (E.V && I.teams.some(t => t.tdShare)) for (let it = 0; it < tdPilots; it++) {
+    cellTotals(E); const W = alloc(E, n, false); for (let g = 0; g < n; g++) playGame(E, makeRng(gameSeed(seed + 500 + it * 101, g)), g, W, null);
+    for (let k = 0; k < 2; k++) { const t = E.T[k], ti = I.teams[k]; if (!ti.tdShare) continue; const lt = ti.players.reduce((s, p) => s + (p.lam || 0), 0); if (!(lt > 0)) continue;
+      const got = new Float64Array(t.P); let tot = 0; for (let i = 0; i < t.P; i++) { for (let g = 0; g < n; g++) got[i] += W.G.td[g * W.NP + W.base[k] + i]; tot += got[i]; } if (tot < 20) continue;
+      for (let i = 0; i < t.P; i++) { const want = (t.pl[i].lam || 0) / lt, have = (got[i] + 0.5 * want) / (tot + 0.5); if (want < 0.002) continue;
+        const a = clamp(Math.pow(want / have, 0.85), 0.5, 2); for (let c = 2; c < 8; c++) { t.wT[i * 8 + c] *= a; t.wC[i * 8 + c] *= a; } } }
+    hist.push({ tdPilot: it + 1 });
   }
   return { E, pilots: hist };
 }

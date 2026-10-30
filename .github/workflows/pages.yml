@@ -1,9 +1,13 @@
 # Builds the standalone single-file app with FRESH nflverse data (fetched server-side on the
 # runner, where browser CORS does not apply) and publishes it to GitHub Pages as index.html.
-# Triggers: manual "Run workflow" button and pushes to main. The scheduled archive job lives in auto.yml.
+# Triggers: manual "Run workflow" button, pushes to main, and (app 4.12.0) a daily 15:00 UTC (10 AM CT) refresh so rosters,
+# snap shares and injury designations in the bundle never go more than a day stale between game days. The scheduled
+# archive/grade job lives in auto.yml. Live Sleeper team/injury/practice status is still re-read at every page load.
 name: Refresh data and deploy Pages
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 15 * * *'   # daily roster / injury / snaps refresh
   push:
     branches: [main]
     paths-ignore: ['archive/**']

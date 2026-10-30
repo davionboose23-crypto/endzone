@@ -75,6 +75,9 @@ function compute(weights) {
 }
 const sameWeights = (a, b) => Object.keys(DEFAULT_WEIGHTS).every(k => Math.abs((a[k] ?? 0) - (b[k] ?? 0)) < 1e-9);
 
+// app 4.12.0: current team + injury / practice / status for every rostered skill player (Sleeper, read at load), keyed by gsis and Sleeper id;
+// the simulators use it for teams without model inputs this week so departed and out / IR players never appear
+function rosterNow() { const o = {}; for (const p of state.prep?.players || []) { if (!p.team) continue; const v = [p.team, p.injury || null, p.practice || null, p.status || null]; o[p.id] = v; if (p.gsis) o[p.gsis] = v; } return o; }
 function slateMessage(reqId, extra = {}) {
   const c = compute(state.weights);
   const all = c.games.flatMap(g => [...g.sides.away.players, ...g.sides.home.players]);
@@ -85,7 +88,7 @@ function slateMessage(reqId, extra = {}) {
   return { type: 'slate', reqId, season: state.prep.season, week: state.prep.week, currentWeek: state.prep.currentWeek, generatedAt: state.prep.generatedAt, sources: state.prep.sources,
     games: c.games, trends: trendsFeed(state.base), weekResults: weekResults(c.games), learned: state.archive?.learned || null, repoArchive: !!state.archive?.repoArchive, weeklyPickId: pick?.id || null, riserId: riser?.id || null, modelVersion: MODEL_VERSION, weights: state.weights,
     audit: { rejected: state.identity.rejected, unverified: state.identity.unverified, excluded: c.games.flatMap(g => [...g.sides.away.excluded, ...g.sides.home.excluded].map(e => ({ ...e, team: e.team }))) },
-    lessons: state.archive?.activeCalibration || null, archiveStale: !!state.archive?.stale, challenger: state.archive?.challenger || null, blendBaseline: BLEND_BASELINE, research: state.archive?.researchStatus || null, drives: state.archive?.drives || null, pbp: state.archive?.pbp || null, pickTracker: state.archive?.pickTracker || null, lastRun: state.archive?.lastRun || null, ...extra };
+    lessons: state.archive?.activeCalibration || null, archiveStale: !!state.archive?.stale, challenger: state.archive?.challenger || null, blendBaseline: BLEND_BASELINE, research: state.archive?.researchStatus || null, drives: state.archive?.drives || null, pbp: state.archive?.pbp || null, simTop4: state.archive?.simTop4 || null, rosterNow: rosterNow(), pickTracker: state.archive?.pickTracker || null, lastRun: state.archive?.lastRun || null, ...extra };
 }
 
 async function load(m) {
