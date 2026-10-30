@@ -11,7 +11,8 @@
 // TDs are credited to the player who carried or caught the ball on the scoring play (passing TDs to the QB who threw it).
 // Output uses the same raw structure as the drive sim (src/sim.js) so summarize / driveCard / tdPatterns work unchanged,
 // plus field-position and red-zone arrays (S.pbp). Every game has its own seeded RNG, so any game can be replayed play by play.
-import { makeRng, SLOTS, DSTATS, GSTATS, RESULTS, summarize } from './sim.js';
+import { makeRng, SLOTS, DSTATS, GSTATS, RESULTS, summarize, gamma } from './sim.js';
+import { dispFor, temper, anchorFor } from './usage-var.js';
 import { zoneOf, distB, scriptOf, passCell, ylB10, togoB4, uzOf, ucell, PBP_VERSION } from './pbp-common.js';
 // sim-pbp-2 (app 4.11.0) adds, when the params carry the X2 block (src/pbp-fit.js): offense-vs-defense rates with a home-field
 // term, the starting QB's own sack / scramble / interception / completion / explosive / yards effects, team fourth-down
@@ -79,12 +80,18 @@ export function makePbpEngine(I) {
       yF[i] = p.rec > 0.3 && p.recYd > 0 ? clamp(Math.pow((p.recYd / p.rec) / (POS_YPR[p.pos] ?? 11), 0.7), 0.7, 1.4) : 1; cF[i] = p.car > 0.5 && Number.isFinite(p.rushYd) ? clamp(Math.pow(Math.max(1, p.rushYd / p.car) / (POS_YPC[p.pos] ?? 4.3), 0.6), 0.7, 1.35) : 1; }
     const qbs = pl.map(p => p.passShare || 0); let qbTot = qbs.reduce((a, b) => a + b, 0); if (qbTot <= 0) { const j = pl.findIndex(p => p.pos === 'QB'); if (j >= 0) { qbs[j] = 1; qbTot = 1; } }
     const V = X.x2; const v2 = V ? { qbFx: V.qbFx[k], go: V.go[k] || 0, fg: V.fg[k] || 0, sneak: V.sneak[k], penO: L.pen.off * V.pen[k][0], penD: L.pen.def * V.pen[k][1] } : null;
-    return { P, pl, pPass, pSack, pScr, pInt, lCmp, pExpP, pExpR, pRzTd, pGl, dR: s.ydsR || 0, dC: s.ydsC || 0, wT, wC, cOff, yF, cF, qbs, qbTot, pace: s.pace, fT: new Float64Array(P).fill(1), fC: new Float64Array(P).fill(1), v2 };
+    return { P, pl, pPass, pSack, pScr, pInt, lCmp, pExpP, pExpR, pRzTd, pGl, dR: s.ydsR || 0, dC: s.ydsC || 0, wT, wC, cOff, yF, cF, qbs, qbTot, pace: s.pace, fT: new Float64Array(P).fill(1), fC: new Float64Array(P).fill(1), lvl: 0, v2 };
   });
   return { I, T, L, V: X.x2 || null, totW: null };
 }
 function cellTotals(E) { for (const t of E.T) { t.sT = new Float64Array(8); t.sC = new Float64Array(8); t.uT = new Float64Array(t.P * 8); t.uC = new Float64Array(t.P * 8);
-  for (let c = 0; c < 8; c++) for (let i = 0; i < t.P; i++) { const a = t.wT[i * 8 + c] * t.fT[i], b = t.wC[i * 8 + c] * t.fC[i]; t.uT[c * t.P + i] = a; t.uC[c * t.P + i] = b; t.sT[c] += a; t.sC[c] += b; } } }
+  for (let c = 0; c < 8; c++) for (let i = 0; i < t.P; i++) { const a = t.wT[i * 8 + c] * t.fT[i], b = t.wC[i * 8 + c] * t.fC[i]; t.uT[c * t.P + i] = a; t.uC[c * t.P + i] = b; t.sT[c] += a; t.sC[c] += b; }
+  const dp = dispFor(E.I, 'pbp'); t.kap = E.V ? dp.kappa : Infinity; t.dS = temper(t.pl.map(p => p.lam || 0), 1); if (isFinite(t.kap)) { t.uT0 = t.uT.slice(); t.uC0 = t.uC.slice(); } } }
+// 4.13.0 usage-var-1: this game's red-zone usage (cells inside the 20) gets a per-player multiplier Gamma(kappa*s)/(kappa*s), s = his
+// share of the team's TDs, so each simulated game has its own scorer split (Dirichlet-like around the mean); between the 20s is untouched
+function perturbGame(E, R) { for (const t of E.T) { if (!isFinite(t.kap) || !t.uT0) continue; const P = t.P;
+  for (let c = 2; c < 8; c++) { t.sT[c] = 0; t.sC[c] = 0; }
+  for (let i = 0; i < P; i++) { const a = t.kap * t.dS[i]; const m = a > 0 ? gamma(R, a) / a : 1; for (let c = 2; c < 8; c++) { const j = c * P + i; const x = t.uT0[j] * m, y = t.uC0[j] * m; t.uT[j] = x; t.uC[j] = y; t.sT[c] += x; t.sC[c] += y; } } } }
 const q = (arr, R) => arr[(R() * arr.length) | 0];
 const adj = (p, a) => (a === 0 || !(p > 0 && p < 1) ? p : sig(Math.log(p / (1 - p)) + a));
 const gauss = R => { let u = 0; while (u === 0) u = R(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * R()); }; // shift a precomputed probability on the logit scale (form / QB)
@@ -95,6 +102,7 @@ const SI = Object.fromEntries(SIT.map((k, i) => [k, i])); const NS = SIT.length;
 function pickCell(u, s, c, P, R) { if (!(s > 0)) return -1; let x = R() * s; const o = c * P; for (let i = 0; i < P; i++) { x -= u[o + i]; if (x < 0) return i; } return P - 1; }
 // ---------- one game. W = output writer (arrays for the whole run) or null; log = array for a play-by-play replay or null
 function playGame(E, R, gi, W, log) {
+  perturbGame(E, R);
   const I = E.I, L = E.L, TT = E.T; const NP = TT[0].P + TT[1].P; const base = [0, TT[0].P];
   const sc = [0, 0], dn = [0, 0], to = [3, 3]; let hf = 1, tl = 1800, tmw = false; const recv0 = R() < 0.5 ? 0 : 1; let pos = recv0; const otPoss = [0, 0];
   const qbG = TT.map(t => { if (!(t.qbTot > 0)) return -1; let x = R() * t.qbTot; for (let i = 0; i < t.P; i++) { x -= t.qbs[i]; if (x < 0) return i; } return t.P - 1; });
@@ -174,13 +182,13 @@ function playGame(E, R, gi, W, log) {
       if (R() < passP) {
         if (R() < adj(t.pSack[((Math.min(4, down) - 1) * 4 + db) * 6 + z], A.sack)) { sacked = true; kind = 3; yds = q(L.sackY, R); if (R() < L.fum.sack) turnover = 2; st(k, 'sack'); }
         else if (R() < adj(t.pScr[db * 6 + z], A.scr)) { kind = 2; j = qbG[k];
-          if (z >= 3) { if (R() < adj(z === 5 ? t.pGl[2 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3 + 2], A.rz)) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3 + 2], R), yl - 1); } else { yds = q(L.scrO, R); if (yds >= yl) { yds = yl; td = true; } }
+          if (z >= 3) { if (R() < adj(z === 5 ? t.pGl[2 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3 + 2], A.rz + t.lvl)) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3 + 2], R), yl - 1); } else { yds = q(L.scrO, R); if (yds >= yl) { yds = yl; td = true; } }
           if (!td && R() < L.fum.scr) turnover = 2; }
         else { kind = 1; j = pickCell(t.uT, t.sT[c8], c8, t.P, R);
           if (R() < adj(t.pInt[(db * 6 + z) * 4 + S], A.int)) { turnover = 1; }
           else if (R() < (L.noTgt ?? 0.043)) { j = -1; cat = 1; } // thrown away / no intended receiver
           else if (R() < sig(t.lCmp[db * 6 + z] + (j >= 0 ? t.cOff[j] : 0) + A.cmp)) {
-            if (z >= 3) { if (R() < adj(z === 5 ? t.pGl[1 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3 + 1], A.rz)) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3 + 1], R), yl - 1); }
+            if (z >= 3) { if (R() < adj(z === 5 ? t.pGl[1 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3 + 1], A.rz + t.lvl)) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3 + 1], R), yl - 1); }
             else { const ex = R() < adj(t.pExpP[z], A.expP); if (ex) st(k, 'expP'); yds = ex ? q(L.cmpX[z], R) : q(L.cmpN[z], R) + Math.floor(t.dC + A.dC + R()); if (yds > 0 && j >= 0) yds = Math.round(yds * t.yF[j]); if (yds >= yl) { yds = yl; td = true; } }
             kind = 4; if (!td && R() < L.fum.cmp) turnover = 2;
           } else { cat = 1; }
@@ -188,7 +196,7 @@ function playGame(E, R, gi, W, log) {
       } else if (V && togo <= 1 && qbG[k] >= 0 && R() < t.v2.sneak) { // sim-pbp-2: QB sneak on 1-to-go (league sneak yards; a TD if he crosses the line)
         kind = 0; j = qbG[k]; sneak = true; st(k, 'sneak'); yds = q(V.sneakY, R); if (yds >= yl) { yds = yl; td = true; } if (yds >= togo) st(k, 'sneakC'); if (!td && R() < L.fum.run) turnover = 2;
       } else { kind = 0; j = pickCell(t.uC, t.sC[c8], c8, t.P, R);
-        if (z >= 3) { if (R() < adj(z === 5 ? t.pGl[0 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3], A.rz)) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3], R), yl - 1); }
+        if (z >= 3) { if (R() < adj(z === 5 ? t.pGl[0 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3], A.rz + t.lvl)) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3], R), yl - 1); }
         else if (V && togo <= 2) { yds = q(V.runSY[z], R) + Math.floor(t.dR + R()); if (yds > 0 && j >= 0) yds = Math.round(yds * t.cF[j]); if (yds >= yl) { yds = yl; td = true; } } // short yardage: stacked-box run pool
         else { const ex = R() < adj(t.pExpR[z], A.expR); if (ex) st(k, 'expR'); yds = ex ? q(L.runX[z], R) : q(L.runN[z], R) + Math.floor(t.dR + R()); if (yds > 0 && j >= 0) yds = Math.round(yds * t.cF[j]); if (yds >= yl) { yds = yl; td = true; } }
         if (!td && R() < L.fum.run) turnover = 2; }
@@ -297,11 +305,16 @@ export function calibratePbp(I, { pilots = 2, n = 800, seed = 7, tdPilots = 2 } 
   }
   // 4.12.0 TD-share pilot (sim-pbp-2 only, when the inputs carry td-share-1 splits): each player's share of his team's simulated TDs
   // is steered toward the blended target split by scaling his red-zone usage cells (inside the 20), not his volume between the 20s
-  if (E.V && I.teams.some(t => t.tdShare)) for (let it = 0; it < tdPilots; it++) {
+  // 4.13.0 TD-level anchor (usage-var-1): each team's simulated offensive TDs -> the model's pre-game TD budget (implied points x 0.7 / 6.9),
+  // by a logit shift on its red-zone / goal-line TD chance. Walk-forward: the sims' scorer SPLIT was already calibrated; the miss was the team total
+  const anc = anchorFor(I, 'pbp'); const doLvl = E.V && anc > 0 && I.teams.some(t => t.tdBudget > 0);
+  if (E.V && (doLvl || I.teams.some(t => t.tdShare))) for (let it = 0; it < tdPilots + (doLvl ? 2 : 0); it++) {
     cellTotals(E); const W = alloc(E, n, false); for (let g = 0; g < n; g++) playGame(E, makeRng(gameSeed(seed + 500 + it * 101, g)), g, W, null);
-    for (let k = 0; k < 2; k++) { const t = E.T[k], ti = I.teams[k]; if (!ti.tdShare) continue; const lt = ti.players.reduce((s, p) => s + (p.lam || 0), 0); if (!(lt > 0)) continue;
+    for (let k = 0; k < 2; k++) { const t = E.T[k], ti = I.teams[k];
+      if (doLvl && ti.tdBudget > 0) { let tt = 0; for (let g = 0; g < n; g++) for (let i = 0; i < t.P; i++) tt += W.G.td[g * W.NP + W.base[k] + i]; const m = (tt + 0.5) / n; t.lvl = clamp(t.lvl + 2.5 * anc * Math.log(ti.tdBudget / Math.max(0.2, m)), -2.5, 2.5); }
+      if (!ti.tdShare || it >= tdPilots) continue; const lt = ti.players.reduce((s, p) => s + (p.lam || 0), 0); if (!(lt > 0)) continue; const tw = temper(t.pl.map(p => p.lam || 0), dispFor(I, 'pbp').tau); // 4.13.0: tempered target split
       const got = new Float64Array(t.P); let tot = 0; for (let i = 0; i < t.P; i++) { for (let g = 0; g < n; g++) got[i] += W.G.td[g * W.NP + W.base[k] + i]; tot += got[i]; } if (tot < 20) continue;
-      for (let i = 0; i < t.P; i++) { const want = (t.pl[i].lam || 0) / lt, have = (got[i] + 0.5 * want) / (tot + 0.5); if (want < 0.002) continue;
+      for (let i = 0; i < t.P; i++) { const want = tw[i], have = (got[i] + 0.5 * want) / (tot + 0.5); if (want < 0.002) continue;
         const a = clamp(Math.pow(want / have, 0.85), 0.5, 2); for (let c = 2; c < 8; c++) { t.wT[i * 8 + c] *= a; t.wC[i * 8 + c] *= a; } } }
     hist.push({ tdPilot: it + 1 });
   }

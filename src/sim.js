@@ -52,6 +52,7 @@ const PRI = new WeakMap();
 import { blendShares, TD_BLEND, TD_SHARE_VERSION } from './td-share.js';
 import { teamStrength, matchup } from './team-strength.js';
 import { availability } from './roster.js';
+import { dispFor, temper, anchorFor, surprise, DISP_VERSION } from './usage-var.js';
 export function leaguePriors(D) {
   if (D && PRI.has(D)) return PRI.get(D);
   const bk = [0, 1, 2, 3].map(() => new Array(NR).fill(0)); const all = new Array(NR).fill(0); const pool = RESULTS.map(() => []);
@@ -121,7 +122,7 @@ export function rosterCheck(p, team, rosterNow) {
   const f = av.factor; return { ...p, lam: p.lam * f, chance: 1 - Math.exp(-p.lam * f), tgt: p.tgt * f, car: p.car * f, rec: p.rec * f, recYd: p.recYd * f, rushYd: p.rushYd * f, avail: av.status };
 }
 // sideFor(team) -> { players, opp, teamLambda, tdBudget } from the slate (the team's own game this week) or null
-export function buildSimInputs(D, { away, home, sideFor = () => null, lines = null, gameId = null, mode = 'free', tsOpts = null, tdShare = null, tdBlend = null, rosterNow = null }) {
+export function buildSimInputs(D, { away, home, sideFor = () => null, lines = null, gameId = null, mode = 'free', tsOpts = null, tdShare = null, tdBlend = null, rosterNow = null, disp = null }) {
   const L = leaguePriors(D); const TS = teamStrength(D, tsOpts || {}); const teams = [away, home].map((team, k) => {
     const opp = k ? away : home; const S = sideFor(team); let src = 'model', note = null; let players;
     if (S && S.players?.length) {
@@ -149,7 +150,7 @@ export function buildSimInputs(D, { away, home, sideFor = () => null, lines = nu
   });
   // both teams get (nearly) the same number of possessions: target = mean of the two opponent-adjusted pace estimates (ridge-shrunk to league)
   const tgtDrives = (teams[0].dpg + teams[1].dpg) / 2;
-  return { version: SIM_VERSION, mode, ts: { version: TS.version, maxW: TS.maxW, drives: TS.nDrives, opts: TS.opts }, gameId, away, home, lines, teams, targetDrives: +tgtDrives.toFixed(2),
+  return { version: SIM_VERSION, mode, disp, dispVersion: DISP_VERSION, ts: { version: TS.version, maxW: TS.maxW, drives: TS.nDrives, opts: TS.opts }, gameId, away, home, lines, teams, targetDrives: +tgtDrives.toFixed(2),
     league: { bucket: L.bucket, pAll: L.pAll, pool: L.pool, rrRes: L.rrRes, rrBk: L.rrBk, dpg: L.dpg, ppd: L.ppd, tdPerGame: L.tdPerGame, fgPerGame: L.fgPerGame, passAll: L.passAll } };
 }
 
@@ -160,11 +161,12 @@ function makeEngine(I) {
     const P = t.players.length; const pl = t.players;
     const wT = [pl.map(p => p.tgt), pl.map(p => p.lead?.t ?? p.tgt), pl.map(p => p.behind?.t ?? p.tgt)];
     const wC = [pl.map(p => p.car), pl.map(p => p.lead?.c ?? p.car), pl.map(p => p.behind?.c ?? p.car)];
-    const lamW = pl.map(p => p.lam); const qbs = pl.map(p => p.passShare || 0);
+    const lam0 = pl.map(p => p.lam), lt0 = lam0.reduce((a, b) => a + b, 0); const dp = dispFor(I, 'drive'); const lamS = temper(lam0, dp.tau); // 4.13.0 usage-var-1
+    const lamW = lamS.map(x => x * lt0); const qbs = pl.map(p => p.passShare || 0);
     const cr = pl.map(p => p.tgt > 0 ? clamp(p.rec / p.tgt, 0.2, 0.95) : 0.65);
     const ypr = pl.map(p => p.rec > 0.05 ? clamp(p.recYd / p.rec, 2, 30) : 9);
     const ypc = pl.map(p => p.car > 0.05 ? clamp(p.rushYd / p.car, -1, 12) : 4);
-    return { P, pl, wT, wC, lamW, lamTot: lamW.reduce((a, b) => a + b, 0), qbs, qbTot: qbs.reduce((a, b) => a + b, 0), cr, ypr, ypc,
+    return { P, pl, wT, wC, lamW, lamTot: lamW.reduce((a, b) => a + b, 0), lamS, kap: dp.kappa, qbs, qbTot: qbs.reduce((a, b) => a + b, 0), cr, ypr, ypc,
       tdMul: free ? 1 : clamp(t.teamLambda / Math.max(0.3, I.targetDrives * avgTd(t)), 0.15, 3), touchMul: t.ppdF || 1, pfOdds: 1, ppdF: t.ppdF || 1 };
   });
   return { I, T, free, spp: 3600 / Math.max(60, 2 * I.targetDrives * I.league.ppd) * 0.97 };
@@ -173,7 +175,10 @@ const avgTd = t => t.mix ? (0.8 * t.mix[0][TD] + 0.2 * t.mix[1][TD]) : 0.23;
 function probsFor(E, k, b) { // drive-result probabilities for team k in bucket b: opponent-adjusted team mix (x tdMul in anchored mode only)
   const t = E.I.teams[k], base = t.mix ? t.mix[b] : E.I.league.bucket[b]; const p = base.slice(); if (E.T[k].tdMul === 1) return p;
   let rest = 0; for (let r = 1; r < NR; r++) rest += p[r];
-  const pTd = clamp(base[TD] * E.T[k].tdMul, 0.01, 0.75); for (let r = 1; r < NR; r++) p[r] *= (1 - pTd) / rest; p[TD] = pTd; return p;
+  // 4.13.0: when the TD-level anchor scales a bucket up, its TD chance stays under 36% and never becomes the single likeliest result (realism ceiling)
+  const up = E.T[k].tdMul > 1; let pTd = clamp(base[TD] * E.T[k].tdMul, 0.01, up ? Math.max(base[TD], 0.36) : 0.75);
+  if (up) { let pm = 0; for (let r = 1; r < NR; r++) pm = Math.max(pm, p[r]); if (base[TD] < pm) pTd = Math.min(pTd, Math.max(base[TD], 0.98 * pm / (rest + pm))); }
+  for (let r = 1; r < NR; r++) p[r] *= (1 - pTd) / rest; p[TD] = pTd; return p;
 }
 function sampleR(p, R) { let u = R(); for (let r = 0; r < NR; r++) { u -= p[r]; if (u < 0) return r; } return PUNT; }
 // pattern multiplier for one player on one drive context
@@ -208,8 +213,10 @@ export function simulate(I, { n = 10000, seed = 1, record = true, E = null } = {
   const logs = [];
   const probs = [0, 1].map(k => [0, 1, 2, 3].map(b => probsFor(E, k, b)));
   const anyPats = TT.map(t => t.pl.some(p => p.pats?.length));
-  const tmp = TT.map(t => ({ tgt: new Int16Array(t.P), rec: new Int16Array(t.P), recYd: new Int16Array(t.P), car: new Int16Array(t.P), rushYd: new Int16Array(t.P), td: new Int8Array(t.P), w1: new Float64Array(t.P), w2: new Float64Array(t.P) }));
+  const tmp = TT.map(t => ({ tgt: new Int16Array(t.P), rec: new Int16Array(t.P), recYd: new Int16Array(t.P), car: new Int16Array(t.P), rushYd: new Int16Array(t.P), td: new Int8Array(t.P), w1: new Float64Array(t.P), w2: new Float64Array(t.P), lw: new Float64Array(t.P), lt: 0 }));
   for (let gi = 0; gi < n; gi++) {
+    // 4.13.0: this game's TD-scorer split ~ Dirichlet(kappa * share) (usage-var-1); Infinity keeps the fixed split
+    for (let k = 0; k < 2; k++) { const t = TT[k], X = tmp[k]; if (!isFinite(t.kap) || !(t.lamTot > 0)) continue; let s = 0; for (let i = 0; i < t.P; i++) { const v = t.lamS[i] > 0 ? gamma(R, t.kap * t.lamS[i]) : 0; X.lw[i] = v; s += v; } X.lt = s; }
     const sc = [0, 0], dn = [0, 0]; let hf = 1, tl = 1800, isOt = false; const recv0 = R() < 0.5 ? 0 : 1; kick[gi] = recv0; let pos = recv0; const otPoss = [0, 0];
     let ftd = -1, fsc = -1, lead = 0, lch = 0, first2H = false; const log = gi < LOGN ? [] : null; let safety = 0; let tdSlot = [0, 0];
     let trailedQ4 = 0;
@@ -237,7 +244,7 @@ export function simulate(I, { n = 10000, seed = 1, record = true, E = null } = {
       let tt = sround((tp[1] + tp[2]) * t.touchMul, R); const pf0 = clamp(ti.pf[scn] * L.rrRes[r] * L.rrBk[b], 0.05, 0.95), pf = pf0 * t.pfOdds / (1 - pf0 + pf0 * t.pfOdds);
       let ng = 0; for (let i = 0; i < tt; i++) if (R() < pf) ng++; let nc = tt - ng;
       let scorer = -1, rushTd = false;
-      if (r === TD && t.lamTot > 0) { scorer = pickW(t.lamW, t.lamTot, R); rushTd = R() < t.pl[scorer].rushTd; if (rushTd) { if (nc === 0) { nc = 1; if (ng > 0) ng--; } nc--; } else { if (ng === 0) { ng = 1; if (nc > 0) nc--; } ng--; } }
+      if (r === TD && t.lamTot > 0) { scorer = isFinite(t.kap) && tmp[k].lt > 0 ? pickW(tmp[k].lw, tmp[k].lt, R) : pickW(t.lamW, t.lamTot, R); rushTd = R() < t.pl[scorer].rushTd; if (rushTd) { if (nc === 0) { nc = 1; if (ng > 0) ng--; } nc--; } else { if (ng === 0) { ng = 1; if (nc > 0) nc--; } ng--; } }
       const X = tmp[k]; const touched = [];
       const ctx = { n: dno, half: hf, first2H, diff, two };
       let wT = t.wT[scn], wC = t.wC[scn];
@@ -291,13 +298,15 @@ export function simulate(I, { n = 10000, seed = 1, record = true, E = null } = {
 // team TD rate -> model team lambda, team touches + pass/run split -> model volumes. Free mode leaves team TDs, touches and
 // pass rate to the opponent-adjusted team fit.
 export function calibrate(I, { pilots = 2, n = 1500, seed = 7 } = {}) {
-  const E = makeEngine(I); const hist = []; const free = E.free;
+  const E = makeEngine(I); const hist = []; const free = E.free; const anc = anchorFor(I, 'drive');
   for (let it = 0; it < pilots; it++) {
     const S = simulate(I, { n, seed: seed + it * 101, record: false, E });
     const m = means(S); let dAvg = 0;
     for (let k = 0; k < 2; k++) {
       const t = E.T[k], ti = I.teams[k]; const st = m.team[k]; dAvg += st.drives / 2;
       if (!free && st.td > 0 && ti.teamLambda > 0) t.tdMul = clamp(t.tdMul * (ti.teamLambda / st.td), 0.05, 4);
+      // 4.13.0 TD-level anchor (free mode, usage-var-1): the team's simulated offensive (player-credited) TDs -> the model's pre-game TD budget
+      if (free && anc > 0 && ti.tdBudget > 0) { let got = 0; for (let i = 0; i < t.P; i++) got += m.pl[S.base[k] + i].td; if (got > 0.2) { const prev = t.tdMul, tpd = st.drives > 0 ? st.td / st.drives : 0; let nx = clamp(prev * Math.pow(ti.tdBudget / got, anc), 0.25, 4); if (tpd > 0 && nx > prev) nx = Math.min(nx, Math.max(prev, prev * 0.33 / tpd)); t.tdMul = nx; } } // never past 0.33 TD per drive
       const want = ti.tgtTot + ti.carTot, got = st.tgt + st.car; if (!free && got > 0 && want > 0) t.touchMul = clamp(t.touchMul * want / got, 0.4, 2.5);
       // team pass/run split: the scenario mix (lead → run) can drift the split away from the model's projected volume; fix it in odds space
       if (!free && ti.tgtTot > 0.5 && ti.carTot > 0.5 && st.tgt > 0.5 && st.car > 0.5) t.pfOdds = clamp(t.pfOdds * (ti.tgtTot / ti.carTot) / (st.tgt / st.car), 0.4, 2.5);
@@ -363,6 +372,8 @@ export function summarize(S, I) {
   const players = []; for (let k = 0; k < 2; k++) for (let i = 0; i < S.P[k]; i++) { const j = S.base[k] + i; const p = I.teams[k].players[i]; const m = M.pl[j];
     players.push({ j, k, team: k ? B : A, id: p.id, gsis: p.gsis, name: p.name, pos: p.pos, model: { chance: p.chance, lam: p.lam, tgt: p.tgt, car: p.car, rec: p.rec, recYd: p.recYd, rushYd: p.rushYd, passTd: p.passTdExp }, history: !!p.history,
       anytime: m.anytime, twoPlus: m.twoPlus, td: m.td, passTd: p.pos === 'QB' ? m.passTd : null, rec: dist(playerArr(S, j, 'rec')), recYd: dist(playerArr(S, j, 'recYd')), car: dist(playerArr(S, j, 'car')), rushYd: dist(playerArr(S, j, 'rushYd')), tgt: m.tgt, pats: p.pats || [] }); }
+  // 4.13.0: "surprise scorer" - chance a TD in this game comes from outside the sim's top 4 by anytime chance, and the likeliest longshots
+  const surp = surprise(S, players, { top: 4, longshots: 3 });
   // first TD scorer
   const ft = new Map(); for (let g = 0; g < n; g++) ft.set(S.firstTd[g], (ft.get(S.firstTd[g]) || 0) + 1);
   const firstTd = [...ft.entries()].map(([j, c]) => ({ j, p: c / n, label: j >= 0 ? players.find(x => x.j === j)?.name : j === -1 ? 'No touchdown' : j <= -4 ? `${j === -4 ? A : B} defense / special teams` : `${j === -2 ? A : B} (other)` })).sort((x, y) => y.p - x.p);
@@ -387,7 +398,7 @@ export function summarize(S, I) {
   for (let g = 0; g < S.logs.length && ex < 0; g++) { const a = S.score[g * 2], b = S.score[g * 2 + 1]; const key = a > b ? `${a}-${b}` : `${b}-${a}`; const w = a > b ? A : b > a ? B : 'tie'; if (modal && key === modal.score && w === modal.winner) ex = g; }
   if (ex < 0) { let best = 1e9; for (let g = 0; g < S.logs.length; g++) { const a = S.score[g * 2], b = S.score[g * 2 + 1]; const d = Math.abs(a + b - medT) + Math.abs(b - a - medM); if (d < best) { best = d; ex = g; } } }
   const out = { n, seed: S.seed, away: A, home: B, version: SIM_VERSION, ms: S.ms, pilot: S.pilot, line, win: { away: wa / n, home: wb / n, tie: tie / n, ot: otN / n }, over, homeCover,
-    total: dist(tot), margin: dist(mar), totHist: hist(tot, 3), marHist: hist(mar, 3), top, team, players, firstTd, pairs: pairs.slice(0, 40), whenScores, scripts, combos,
+    total: dist(tot), margin: dist(mar), totHist: hist(tot, 3), marHist: hist(mar, 3), top, team, players, surprise: surp, firstTd, pairs: pairs.slice(0, 40), whenScores, scripts, combos,
     example: ex >= 0 ? { g: ex, score: [S.score[ex * 2], S.score[ex * 2 + 1]], drives: S.logs[ex] } : null, targetDrives: I.targetDrives, notes: I.teams.map(t => t.note).filter(Boolean) };
   out.drive1 = [driveCard(S, out, 0, 0), driveCard(S, out, 1, 0)]; out.tdp = tdPatterns(S, out);
   out.mode = I.mode === 'anchored' ? 'anchored' : 'free'; Object.assign(out, simVsModel(out, I));

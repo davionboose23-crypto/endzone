@@ -484,7 +484,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.12.0';
+const APP_VERSION = '4.13.0';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
@@ -549,8 +549,15 @@ function simTop4Html(s) {
   return `<div class="card simtop4" id="simTop4"><h3>Top 4 TD scorers (sim) <span class="chip rel-chance">Simulated</span></h3>
    <ol class="top4">${t.map((p, i) => `<li><div class="t4head"><span class="t4rank">${i + 1}</span><span class="t4name"><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.team)} ${esc(p.pos)}</span></span><span class="t4p">${simPct(p.anytime)}</span></div>
     <div class="t4nums small"><span>Model <strong>${simPct(p.model)}</strong> <span class="${Math.abs(p.diff) >= 0.03 ? 'gap' : 'muted'}">(${sdiff(p.diff)} pts)</span></span><span>2+ TDs <strong>${simPct(p.twoPlus)}</strong></span><span>First TD <strong>${simPct(p.first)}</strong></span></div>
-    <p class="small t4line">${esc(p.line)}</p></li>`).join('')}</ol>
-   <p class="small muted">Ranked by anytime TD across both teams in this run of ${s.n.toLocaleString()} simulated games. The sim runs on each team's own opponent-adjusted 2026 ${simPick().mode === 'pbp' ? 'plays' : 'drives'} and is not forced to match the model, so the two can differ.</p></div>`;
+    <p class="small t4line">${esc(p.line)}</p></li>`).join('')}</ol>${simSurpriseHtml(s)}
+   <p class="small muted">Ranked by anytime TD across both teams in this run of ${s.n.toLocaleString()} simulated games. The sim runs on each team's own opponent-adjusted 2026 ${simPick().mode === 'pbp' ? 'plays' : 'drives'}. Each team's TD count is pulled to the model's pre-game TD budget (that beat a free-running count in 2025–26 walk-forward tests); who scores those TDs, the points and the drives are the sim's own, so player chances can still differ from the model.</p></div>`;
+}
+// 4.13.0: it's not always the favourite - how often a TD comes from outside the sim's top 4, and the likeliest longshots
+function simSurpriseHtml(s) {
+  const u = s.surprise; if (!u || u.pOutside == null) return '';
+  const ls = (u.longshots || []).map(x => `<strong>${esc(x.name)}</strong> <span class="muted">${esc(x.team)} ${esc(x.pos)}</span> ${simPct(x.p)}`).join(' · ');
+  return `<div class="surprise small" id="simSurprise"><p><strong>Surprise scorer:</strong> in <strong>${simPct(u.pOutside)}</strong> of simulated games at least one TD comes from someone outside these four (${simPct(u.shareOutside)} of all TDs).${ls ? ` Likeliest longshots: ${ls}.` : ''}</p>
+   <p class="muted">Real games back this up: in 2025–26 (364 games, re-run week by week) someone outside the sim's top 4 scored in 94–95% of games, and about 6 in 10 rushing and receiving TDs (58–61%) came from outside the top 4. The sim expected the same (95% of games and 59% of TDs on average in 2026). Picking the right top 4 still matters, but most games have a surprise scorer.</p></div>`;
 }
 function simProfileHtml(s) {
   const T = s.vs?.teams; if (!T?.length || !T[0].off) return '';
@@ -604,20 +611,23 @@ function simTrackHtml() {
   const T = S.slate?.simTop4; const s = T?.season2026; if (!s?.top4) return '';
   const t = s.top4, sim = t.driveNew || t.model, f2 = x => x == null ? '—' : x.toFixed(2), pcx = x => x == null ? '—' : `${Math.round(x * 100)}%`;
   const row = (lbl, x, strong) => x ? `<tr${strong ? ' class="t4me"' : ''}><td>${lbl}</td><td class="num">${f2(x.hitsPerGame)}</td><td class="num">${pcx(x.ge1)}</td><td class="num">${pcx(x.ge2)}</td></tr>` : '';
-  const old = t.driveOld ? row('Drive sim before (4.11)', t.driveOld) : '';
+  const old = (t.drive412 ? row('Drive sim before (4.12)', t.drive412) : '') + (t.driveOld ? row('Drive sim before (4.11)', t.driveOld) : '');
   const tab = `<table class="t4tab"><thead><tr><th>Top-4 picks from</th><th class="num">Scored / game</th><th class="num">≥1 hit</th><th class="num">≥2 hits</th></tr></thead><tbody>
     ${row('Drive sim (now)', t.driveNew, true)}${old}${row('Play-by-play sim', t.pbp2New)}${row('Model chance', t.model)}${row('Sportsbook price (Sleeper)', t.sleeper)}${row('Season TD leaders', t.naive)}</tbody></table>`;
   const s25 = T.season2025?.top4; const oos = s25 ? `<p class="small muted">2025 check (${T.season2025.games} games, same rules): drive sim ${f2((s25.driveNew || s25.model).hitsPerGame)}, model ${f2(s25.model?.hitsPerGame)}, sportsbook ${f2(s25.sleeper?.hitsPerGame)}, TD leaders ${f2(s25.naive?.hitsPerGame)} scored per game.</p>` : '';
   const byW = {}; for (const g of T.games2026 || []) (byW[g.w] ||= []).push(g);
+  const lsTot = (() => { const nk = n => String(n || '').toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\b\.?/g, '').replace(/[^a-z]/g, ''); let ls = 0, all = 0, p = 0, ng = 0; for (const g of T.games2026 || []) { const pk = new Set((g.sim || []).map(x => nk(x.n))); for (const a of g.actual || []) { all++; if (!pk.has(nk(a.n))) ls++; } if (g.sur) { p += g.sur.p; ng++; } } return all && ng ? { ls, all, p: p / ng } : null; })();
   const games = Object.keys(byW).map(Number).sort((a, b) => b - a).map(w => `<details class="t4wk"${w === Math.max(...Object.keys(byW).map(Number)) ? ' open' : ''}><summary>Week ${w} · ${byW[w].reduce((a, g) => a + (g.simHits || 0), 0)} of ${byW[w].length * 4} picks scored</summary><ul class="t4list">${byW[w].map(g => {
     const nk = n => String(n || '').toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\b\.?/g, '').replace(/[^a-z]/g, ''); const pk = new Set((g.sim || []).filter(p => p.hit).map(p => nk(p.n))); const picked = { has: n => pk.has(nk(n)) };
-    const act = (g.actual || []).map(a => `${picked.has(a.n) ? '<strong>' : ''}${esc(a.n)}${a.td > 1 ? ` ×${a.td}` : ''}${picked.has(a.n) ? '</strong>' : ''}`).join(', ') || '<span class="muted">no offensive TDs</span>';
+    const lsN = new Map((g.sur?.ls || []).map((x, i) => [nk(x.n), i + 1]));
+    const act = (g.actual || []).map(a => picked.has(a.n) ? `<strong>${esc(a.n)}${a.td > 1 ? ` ×${a.td}` : ''}</strong>` : `<span class="t4ls" title="Scored from outside the sim's top 4">◆ ${esc(a.n)}${a.td > 1 ? ` ×${a.td}` : ''}${lsN.has(nk(a.n)) ? ` <span class="muted">(longshot #${lsN.get(nk(a.n))})</span>` : ''}</span>`).join(', ') || '<span class="muted">no offensive TDs</span>';
+    const nLs = (g.actual || []).filter(a => !picked.has(a.n)).length;
     return `<li><div class="row between"><strong>${esc(g.a)} @ ${esc(g.h)}</strong><span class="small muted">${g.sc ? `${g.sc[0]}–${g.sc[1]}` : ''} · <strong>${g.simHits}/4</strong></span></div>
       <div class="small">Picks: ${(g.sim || []).map(p => `<span class="${p.hit ? 't4hit' : 't4miss'}">${p.hit ? '✓' : '✗'} ${esc(p.n)}${p.pr != null ? ` <span class="muted">${Math.round(p.pr * 100)}%</span>` : ''}</span>`).join(' · ')}</div>
-      <div class="small muted">Scored: ${act}</div></li>`; }).join('')}</ul></details>`).join('');
+      <div class="small muted">Scored: ${act}</div>${g.sur ? `<div class="small muted">Sim said ${Math.round(g.sur.p * 100)}% for a TD from outside its top 4${nLs ? ` · <span class="t4ls">◆ ${nLs} longshot scorer${nLs > 1 ? 's' : ''}</span>` : ''}</div>` : ''}</li>`; }).join('')}</ul></details>`).join('');
   return `<div class="card t4card" id="simTrack"><h3>Sim top-4 track record <span class="chip rel-chance">Backtest</span></h3>
     <p class="small">Every 2026 game so far (${s.games} games, weeks ${s.weeks[0]}–${s.weeks[s.weeks.length - 1]}), re-run as if before kickoff: only data from earlier weeks and that week's injury report. A hit is a top-4 pick who scored a rushing or receiving TD.</p>
-    ${tab}<p class="small muted">Averages move about ±${f2(sim.se)} by luck alone over this many games, so small gaps are not real differences.</p>${oos}${games}</div>`;
+    ${tab}${lsTot ? `<p class="small"><span class="t4ls">◆</span> marks a scorer from outside the sim's top 4: ${lsTot.ls} of ${lsTot.all} TD scorers this season (${Math.round(lsTot.ls / lsTot.all * 100)}%). The sim expects this: it put the chance of at least one such scorer at ${Math.round(lsTot.p * 100)}% per game on average.</p>` : ''}<p class="small muted">Averages move about ±${f2(sim.se)} by luck alone over this many games, so small gaps are not real differences.</p>${oos}${games}</div>`;
 }
 function paintSim() {
   const o = document.getElementById('simOut'); if (!o) return; const { A, B, key, mode } = simPick(); const sim = S.sim; const mine = sim.key === key;
@@ -628,7 +638,7 @@ function paintSim() {
   const notes = mine && sim.sum?.notes?.length ? `<p class="small simnote">${sim.sum.notes.map(esc).join('<br>')}</p>` : '';
   const err = mine && sim.status === 'error' ? `<p class="small" role="alert">Simulation failed: ${esc(sim.err)}</p>` : '';
   const discP = `<p class="small muted simdisc"><strong>Simulated, not a guarantee. Beta · engine sim-pbp-2 · app ${APP_VERSION}.</strong> Every rate (play calls, sacks, picks, explosives, red-zone TDs, fourth downs, kicking, sneaks, penalties, pace) comes from 2026 plays before this week (2025 as the prior): this offense against this defense, with home field, the starting QB and a game-day form swing. Walk-forward on 2026 weeks 3–8 (76 games) it beat the old play-by-play engine but not the drive sim on win probability (log loss 0.682 vs 0.673) or player TDs (Brier 0.1121 vs 0.1100), so the drive sim stays the default. It never changes the board, the model or the challenger gate.</p>`;
-  const disc = mode === 'pbp' ? discP : `<p class="small muted simdisc"><strong>Simulated, not a guarantee.</strong> How often each drive ends in a TD, FG, punt, turnover or downs, pace, pass rate by game script, red-zone finishing and two-minute scoring all come from each team's own 2026 drives, adjusted for the opponents it has played (offense vs this defense, defense vs this offense). Who gets the ball (targets, carries, TD shares, injuries) comes from the model's player projections. The sim runs free: it is not forced to match the model's TD chances or the betting line, so it can disagree. It does not change any prediction on the board and is not part of the model or the challenger gate.</p>`;
+  const disc = mode === 'pbp' ? discP : `<p class="small muted simdisc"><strong>Simulated, not a guarantee.</strong> How often each drive ends in a TD, FG, punt, turnover or downs, pace, pass rate by game script, red-zone finishing and two-minute scoring all come from each team's own 2026 drives, adjusted for the opponents it has played (offense vs this defense, defense vs this offense). Who gets the ball (targets, carries, TD shares, injuries) comes from the model's player projections. Since 4.13.0 each team's TD count is pulled to the model's pre-game TD budget, because that beat a free-running count in 2025 and 2026 walk-forward tests; who scores, points and the betting line are not forced, so it can still disagree with the model's player chances. It does not change any prediction on the board and is not part of the model or the challenger gate.</p>`;
   const tdB = S.slate?.pbp?.td; const tdNote = tdB ? `<p class="small muted">Who scores the touchdowns (4.12.0): the model's split blended with each player's red-zone, inside-10 and goal-line share of his team's plays (2026 weeks 1–${tdB.through}, recent games weighted more, 2025 as the prior), with tight ends nudged up because the model under-counted their TDs. Out and IR players are left out; doubtful and questionable players are scaled down. A team with no model inputs this week uses its last 6 games, checked against today's roster and injury report so players who left or are out or on IR are dropped.</p>` : '';
   o.innerHTML = `<div class="card simhead"><h2>Game simulator <span class="chip rel-chance">Simulated</span></h2>${head}${ctl}${notes}${err}${disc}${tdNote}</div>${mine && sim.status === 'done' ? simResultHtml() : ''}${simTrackHtml()}`;
   const on = (id, f) => o.querySelector('#' + id)?.addEventListener('change', e => { f(e.target.value); paintSim(); });

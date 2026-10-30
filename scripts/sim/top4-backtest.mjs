@@ -19,6 +19,7 @@ import { fitPbp } from '../../src/pbp-fit.js';
 import { buildPbpInputs, runPbp, summarizePbp, SIM_PBP_VERSION } from '../../src/sim-pbp.js';
 import { tallyGames, buildTdShare, fitBlend, blendShares, TD_SHARE_VERSION, TD_BLEND } from '../../src/td-share.js';
 import { availability } from '../../src/roster.js';
+import { surprise } from '../../src/usage-var.js';
 import { loadPbpSeason } from '../pbp/lib.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
@@ -46,7 +47,7 @@ const scorersOf = (S, W, team) => { const T = tallies.find(x => x.season === S &
 const naiveOf = (S, W) => { const m = new Map(); for (const T of tallies) { const cur = T.season === S && T.week < W, prev = T.season === S - 1 && W <= 2; if (!cur && !prev) continue;
   for (const x of T.pl.values()) { const a = m.get(x.id) || { td: 0, rz: 0 }; a.td += x.v[7] * (cur ? 1 : 0.1); a.rz += (x.v[2] + x.v[5]) * (cur ? 1 : 0.1); m.set(x.id, a); } } return m; };
 const clampP = p => Math.min(0.995, Math.max(0.005, p));
-const KS = ['driveNew', 'pbp2New', 'driveOld', 'pbp2Old', 'model', 'naive', 'sleeper'];
+const KS = ['driveNew', 'pbp2New', 'drive412', 'pbp412', 'driveOld', 'pbp2Old', 'model', 'naive', 'sleeper']; // driveNew / pbp2New = current engines (4.13.0 usage-var-1)
 async function season(S, weeks, priorDetail) {
   const rowsAll = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'hist', `t412-${S}.json`))); const T = SIMS ? loadTable(ROOT, S) : null;
   const games = [], players = [], detail = [], blends = [];
@@ -63,19 +64,24 @@ async function season(S, weeks, priorDetail) {
         return { id: String(r.id), gsis, name: r.name, pos: r.pos, team: r.team, avail: { factor: f, status: av.status }, chance: f ? 1 - Math.exp(-(r.lambda || 0) * f) : 0, lambda: (r.lambda || 0) * f, components: r.components,
           vol: { ...r.vol, targets: sc(r.vol?.targets || 0), carries: sc(r.vol?.carries || 0) }, volume: r.volume, published: r.published, y: r.y ? 1 : 0, td: r.td || 0, teamLambda: r.teamLambda, tdBudget: r.tdBudget }; });
       const sideFor = t => { const pl = P.filter(p => p.team === t); return pl.length ? { players: pl, opp: t === gm.away ? gm.home : gm.away, teamLambda: pl[0].teamLambda, tdBudget: pl[0].tdBudget } : null; };
-      const live = P.filter(p => p.avail.factor > 0); const prob = {}; for (const p of live) prob[p.id] = { model: p.chance, sleeper: p.published ?? null, naive: (naive.get(p.gsis)?.td || 0) + 0.001 * (naive.get(p.gsis)?.rz || 0) };
+      const live = P.filter(p => p.avail.factor > 0); const sur = {}; const prob = {}; for (const p of live) prob[p.id] = { model: p.chance, sleeper: p.published ?? null, naive: (naive.get(p.gsis)?.td || 0) + 0.001 * (naive.get(p.gsis)?.rz || 0) };
       // blend split (for the allocation check, all candidates of each team) + detail for later weeks' blend fits
       for (const t of [gm.away, gm.home]) { const pl = live.filter(p => p.team === t).map(p => ({ gsis: p.gsis, pos: p.pos, lam: p.lambda, tgt: p.vol.targets, car: p.vol.carries }));
         const bs = blendShares(pl, td, t === gm.away ? gm.home : gm.away, { alpha: 1, beta: {} }); if (!bs) continue; const lv = live.filter(p => p.team === t);
         detail.push({ S, W, team: t, tds: lv.reduce((a, p) => a + p.td, 0), c: lv.map((p, i) => [p.pos === 'FB' ? 'RB' : p.pos, bs[i].model, bs[i].td, p.td]) }); }
       if (SIMS) {
-        const In0 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid }); const In1 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, tdShare: td, tdBlend: B.fitted ? B : { alpha: 0, beta: {} } });
-        const run = { driveOld: () => summarize(runSim(In0, { n: NS, seed: 11, mode: 'free' }), In0), driveNew: () => summarize(runSim(In1, { n: NS, seed: 11, mode: 'free' }), In1),
-          pbp2Old: () => { const I = buildPbpInputs(In0, PP); return summarizePbp(runPbp(I, { n: NS, seed: 11 }), I); }, pbp2New: () => { const I = buildPbpInputs(In1, PP); return summarizePbp(runPbp(I, { n: NS, seed: 11 }), I); } };
-        for (const [k, f] of Object.entries(run)) { const s = f(); for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime; }
+        const In0 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid }); const In1 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, tdShare: td, tdBlend: B.fitted ? B : { alpha: 0, beta: {} }, disp: false }); const In2 = { ...In1, disp: null };
+        const keep = (S0, I0, sm) => Object.assign(sm, { __S: S0, __I: I0 });
+        const dr = I0 => { const S0 = runSim(I0, { n: NS, seed: 11, mode: 'free' }); return keep(S0, I0, summarize(S0, I0)); };
+        const pb = I0 => { const I = buildPbpInputs(I0, PP); const S0 = runPbp(I, { n: NS, seed: 11 }); return keep(S0, I, summarizePbp(S0, I)); };
+        const run = { driveOld: () => dr({ ...In0, disp: false }), drive412: () => dr(In1), driveNew: () => dr(In2), pbp2Old: () => pb({ ...In0, disp: false }), pbp412: () => pb(In1), pbp2New: () => pb(In2) };
+        for (const [k, f] of Object.entries(run)) { if (ENG && !ENG.includes(k)) continue; const s = f(); for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime;
+          if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live);
+          if (k === 'driveNew' || k === 'pbp2New') { const su = surprise(s.__S, s.players); sur[k] = { p: r3(su.pOutside), share: r3(su.shareOutside), ls: su.longshots.map(x => ({ n: x.name, t: x.team, p: x.pos, pr: r3(x.p) })) }; } }
       }
       const act = [...scorersOf(S, W, gm.away).map(x => ({ ...x, team: gm.away })), ...scorersOf(S, W, gm.home).map(x => ({ ...x, team: gm.home }))];
-      const scored = new Set(live.filter(p => p.y).map(p => p.id)); const rec = { gid, w: W, away: gm.away, home: gm.home, score: [gm.as, gm.hs], picks: {}, hits: {}, actual: act.map(x => ({ n: x.name, t: x.team, p: x.pos, td: x.td })), out: P.filter(p => p.avail.factor === 0 && (p.lambda > 0 || p.vol.targets + p.vol.carries > 3)).length };
+      if (DUMP) DUMP.push({ S, W, gid, eng: 'actual', act: act.map(x => ({ id: x.id, team: x.team, pos: x.pos, td: x.td, n: x.name })) });
+      const scored = new Set(live.filter(p => p.y).map(p => p.id)); const rec = { gid, w: W, away: gm.away, home: gm.home, score: [gm.as, gm.hs], picks: {}, hits: {}, actual: act.map(x => ({ n: x.name, t: x.team, p: x.pos, td: x.td })), out: P.filter(p => p.avail.factor === 0 && (p.lambda > 0 || p.vol.targets + p.vol.carries > 3)).length, surprise: sur };
       for (const k of KS) { const cand = live.filter(p => prob[p.id][k] != null && (k !== 'sleeper' || prob[p.id][k] > 0)); if (cand.length < 4 || (k === 'sleeper' && cand.length < 8)) continue;
         const top = cand.sort((a, b) => prob[b.id][k] - prob[a.id][k] || b.lambda - a.lambda).slice(0, 4); rec.picks[k] = top.map(p => ({ id: p.id, n: p.name, t: p.team, p: p.pos, pr: k === 'naive' ? null : r3(prob[p.id][k]), hit: scored.has(p.id) ? 1 : 0 })); rec.hits[k] = top.filter(p => scored.has(p.id)).length; }
       games.push(rec);
@@ -107,6 +113,15 @@ const posMix = (detail, blends) => { const E = { model: {}, blend: {}, actual: {
   for (const k of Object.keys(E)) for (const p of Object.keys(E[k])) E[k][p] = Math.round(E[k][p]); return E; };
 const t0 = Date.now();
 const wk = S => [...new Set([...G.values()].filter(g => g.season === S).map(g => g.week))].sort((a, b) => a - b);
+const ENG = process.env.ENGINES ? process.env.ENGINES.split(',') : null;
+const DUMP = process.env.DUMP ? [] : null;
+// per team-game: sim TD count distribution, each player's share of the team's simulated TDs, his sim anytime chance, depth role, actual TDs
+function dumpTeams(out, S, W, gid, eng, Sim, I, live) {
+  for (let k = 0; k < 2; k++) { const T = I.teams[k]; const P = Sim.P[k], b = Sim.base[k]; const tot = new Float64Array(P), any = new Float64Array(P); const hist = new Array(12).fill(0);
+    for (let g = 0; g < Sim.n; g++) { let c = 0; for (let i = 0; i < P; i++) { const v = Sim.G.td[g * Sim.NP + b + i]; tot[i] += v; if (v > 0) any[i]++; c += v; } hist[Math.min(11, c)]++; }
+    const ttot = tot.reduce((a, x) => a + x, 0) || 1; const byId = new Map(T.players.map((p, i) => [String(p.id), i]));
+    const lv = live.filter(p => p.team === T.team);
+    out.push({ S, W, gid, eng, team: T.team, hist: hist.map(x => x / Sim.n), pl: lv.map(p => { const i = byId.get(p.id); return { id: p.id, n: p.name, pos: p.pos, tgt: p.vol.targets, car: p.vol.carries, lam: p.lambda, sh: i == null ? 0 : tot[i] / ttot, any: i == null ? 0 : any[i] / Sim.n, td: p.td }; }) }); } }
 const ONLY = arg('--weeks', null)?.split(',').map(Number);
 const B25 = DO25 ? await season(2025, wk(2025).filter(w => w >= 2), []) : { games: [], players: [], detail: [], blends: [] };
 const B26 = await season(2026, wk(2026).filter(w => !ONLY || ONLY.includes(w)), B25.detail);
@@ -114,9 +129,9 @@ const summ = B => ({ games: B.games.length, weeks: [...new Set(B.games.map(g => 
 const best = s => Object.entries(s.top4).filter(([k]) => KS.includes(k)).sort((a, b) => b[1].hitsPerGame - a[1].hitsPerGame)[0]?.[0];
 const S26 = summ(B26), S25 = DO25 ? summ(B25) : null;
 const out = { generated: new Date().toISOString(), tdShareVersion: TD_SHARE_VERSION, simPbpVersion: SIM_PBP_VERSION, simsPerGame: SIMS ? NS : 0, seconds: Math.round((Date.now() - t0) / 1000), shippedBlend: TD_BLEND,
-  note: 'Walk-forward: every input for week W (model rows, injuries, team / play-by-play / td-share fits, blend) uses data before W only. Hit = a top-4 pick scored a rushing or receiving TD. driveNew / pbp2New = 4.12.0 engines with td-share-1; driveOld / pbp2Old = 4.11.0. model = shipped anytime chance; sleeper = published price (games with >= 8 priced players); naive = season TD leaders.',
+  note: 'Walk-forward: every input for week W (model rows, injuries, team / play-by-play / td-share fits, blend) uses data before W only. Hit = a top-4 pick scored a rushing or receiving TD. driveNew / pbp2New = 4.13.0 engines (td-share-1 + usage-var-1 TD-level anchor); drive412 / pbp412 = 4.12.0; driveOld / pbp2Old = 4.11.0. model = shipped anytime chance; sleeper = published price (games with >= 8 priced players); naive = season TD leaders.',
   season2026: { ...S26, best: best(S26) }, season2025: S25 ? { ...S25, best: best(S25) } : null,
-  games2026: B26.games.map(g => ({ gid: g.gid, w: g.w, a: g.away, h: g.home, sc: g.score, sim: g.picks.driveNew || g.picks.model, simHits: g.hits.driveNew ?? g.hits.model, pbp: g.picks.pbp2New ? g.picks.pbp2New.map(p => p.n) : null, pbpHits: g.hits.pbp2New ?? null, modelHits: g.hits.model, sleeperHits: g.hits.sleeper ?? null, naiveHits: g.hits.naive, oldHits: g.hits.driveOld ?? null, actual: g.actual, out: g.out })) };
-fs.mkdirSync(path.join(ROOT, 'archive', 'sim'), { recursive: true }); fs.writeFileSync(path.join(ROOT, 'archive', 'sim', 'top4-backtest-2026.json'), JSON.stringify(out));
-fs.writeFileSync('/tmp/top4-detail.json', JSON.stringify({ B25, B26 }));
+  games2026: B26.games.map(g => ({ gid: g.gid, w: g.w, a: g.away, h: g.home, sc: g.score, sim: g.picks.driveNew || g.picks.model, simHits: g.hits.driveNew ?? g.hits.model, pbp: g.picks.pbp2New ? g.picks.pbp2New.map(p => p.n) : null, pbpHits: g.hits.pbp2New ?? null, modelHits: g.hits.model, sleeperHits: g.hits.sleeper ?? null, naiveHits: g.hits.naive, oldHits: g.hits.driveOld ?? null, v412Hits: g.hits.drive412 ?? null, actual: g.actual, out: g.out, sur: g.surprise?.driveNew || null, pbpSur: g.surprise?.pbp2New || null })) };
+if (!process.env.NO_WRITE) { fs.mkdirSync(path.join(ROOT, 'archive', 'sim'), { recursive: true }); fs.writeFileSync(path.join(ROOT, 'archive', 'sim', 'top4-backtest-2026.json'), JSON.stringify(out)); }
+fs.writeFileSync(process.env.DETAIL || '/tmp/top4-detail.json', JSON.stringify({ B25, B26 })); if (DUMP) fs.writeFileSync(process.env.DUMP, JSON.stringify(DUMP));
 console.log(JSON.stringify({ ...out, games2026: out.games2026.length }, null, 1));
