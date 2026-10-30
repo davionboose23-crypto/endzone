@@ -39,7 +39,7 @@ const tallies = Object.values(TAB).flatMap(tallyGames);
 const s2g = new Map(); for (const T of Object.values(TAB)) for (const [i, p] of Object.entries(T.people)) if (p.sleeper) s2g.set(String(p.sleeper), T.pids[i]);
 const inj = new Map(); for (const s of [2025, 2026]) for (const r of csv(await cached(`${NFLV}/injuries/injuries_${s}.csv`, `/tmp/nfl_injuries_${s}.csv`))) if (r.game_type === 'REG' || !r.game_type) inj.set(`${s}|${r.week}|${r.gsis_id}`, r);
 function availOf(s, w, g) { const r = g && inj.get(`${s}|${w}|${g}`); if (!r || !r.report_status) return { factor: 1, status: null };
-  const pr = (r.practice_status || '').toLowerCase(); const a = availability({ injury_status: r.report_status, practice_participation: pr.includes('did not') ? 'DNP' : pr.includes('limited') ? 'Limited' : pr.includes('full') ? 'Full' : null });
+  const pr = (r.practice_status || '').toLowerCase(); const a = availability({ injury: r.report_status, practice: pr.includes('did not') ? 'DNP' : pr.includes('limited') ? 'Limited' : pr.includes('full') ? 'Full' : '' }); // 4.13.1: keys fixed (injury / practice); before, the report was silently ignored
   return { factor: a.factor, status: r.report_status }; }
 // actual offensive rush/rec TD scorers per game & team (pbp)
 const scorersOf = (S, W, team) => { const T = tallies.find(x => x.season === S && x.week === W && x.off === team); return T ? [...T.pl.values()].filter(x => x.v[7] > 0).map(x => ({ id: x.id, name: x.name, pos: x.pos, td: x.v[7] })) : []; };
@@ -47,7 +47,11 @@ const scorersOf = (S, W, team) => { const T = tallies.find(x => x.season === S &
 const naiveOf = (S, W) => { const m = new Map(); for (const T of tallies) { const cur = T.season === S && T.week < W, prev = T.season === S - 1 && W <= 2; if (!cur && !prev) continue;
   for (const x of T.pl.values()) { const a = m.get(x.id) || { td: 0, rz: 0 }; a.td += x.v[7] * (cur ? 1 : 0.1); a.rz += (x.v[2] + x.v[5]) * (cur ? 1 : 0.1); m.set(x.id, a); } } return m; };
 const clampP = p => Math.min(0.995, Math.max(0.005, p));
-const KS = ['driveNew', 'pbp2New', 'drive412', 'pbp412', 'driveOld', 'pbp2Old', 'model', 'naive', 'sleeper']; // driveNew / pbp2New = current engines (4.13.0 usage-var-1)
+const KS = ['driveNew', 'pbp2New', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.13.1: driveNew / pbp2New = model-independent sims (data players); drive413 / pbp413 = 4.13.0 (model players + TD anchor)
+const DATA_ALPHA = process.env.DATA_ALPHA != null ? +process.env.DATA_ALPHA : null; // research override of the data-player td-share blend
+// injury report for week W as a rosterNow map (gsis -> [team, injury, practice, status]) for the model-free sims
+const rosterOf = (S, W) => { const o = {}; for (const [k, r] of inj) { const [s, w, g] = k.split('|'); if (+s !== S || +w !== W || !r.report_status) continue; const pr = (r.practice_status || '').toLowerCase();
+  o[g] = [null, r.report_status, pr.includes('did not') ? 'DNP' : pr.includes('limited') ? 'Limited' : pr.includes('full') ? 'Full' : '', null]; } return o; };
 async function season(S, weeks, priorDetail) {
   const rowsAll = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'hist', `t412-${S}.json`))); const T = SIMS ? loadTable(ROOT, S) : null;
   const games = [], players = [], detail = [], blends = [];
@@ -70,12 +74,15 @@ async function season(S, weeks, priorDetail) {
         const bs = blendShares(pl, td, t === gm.away ? gm.home : gm.away, { alpha: 1, beta: {} }); if (!bs) continue; const lv = live.filter(p => p.team === t);
         detail.push({ S, W, team: t, tds: lv.reduce((a, p) => a + p.td, 0), c: lv.map((p, i) => [p.pos === 'FB' ? 'RB' : p.pos, bs[i].model, bs[i].td, p.td]) }); }
       if (SIMS) {
-        const In0 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid }); const In1 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, tdShare: td, tdBlend: B.fitted ? B : { alpha: 0, beta: {} }, disp: false }); const In2 = { ...In1, disp: null };
+        const In1 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, source: 'model', tdShare: td, tdBlend: B.fitted ? B : { alpha: 0, beta: {} }, disp: false });
+        const In2 = { ...In1, disp: { drive: { anchor: 1 }, pbp: { anchor: 1 } } }; // 4.13.0 as shipped
+        const InD = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, tdShare: td, rosterNow: rosterOf(S, W), ...(DATA_ALPHA != null ? { tdBlend: { alpha: DATA_ALPHA, beta: { TE: 0.1 } } } : {}) }); // app default: model-free
+        if (InD.source !== 'data' || InD.teams.some(t => t.tdBudget != null)) throw new Error('model leak in default sim inputs');
         const keep = (S0, I0, sm) => Object.assign(sm, { __S: S0, __I: I0 });
         const dr = I0 => { const S0 = runSim(I0, { n: NS, seed: 11, mode: 'free' }); return keep(S0, I0, summarize(S0, I0)); };
         const pb = I0 => { const I = buildPbpInputs(I0, PP); const S0 = runPbp(I, { n: NS, seed: 11 }); return keep(S0, I, summarizePbp(S0, I)); };
-        const run = { driveOld: () => dr({ ...In0, disp: false }), drive412: () => dr(In1), driveNew: () => dr(In2), pbp2Old: () => pb({ ...In0, disp: false }), pbp412: () => pb(In1), pbp2New: () => pb(In2) };
-        for (const [k, f] of Object.entries(run)) { if (ENG && !ENG.includes(k)) continue; const s = f(); for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime;
+        const run = { drive413: () => dr(In2), driveNew: () => dr(InD), pbp413: () => pb(In2), pbp2New: () => pb(InD) };
+        for (const [k, f] of Object.entries(run)) { if (ENG && !ENG.includes(k)) continue; const s = f(); for (const p of live) prob[p.id][k] = 0; for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime; else if (x.gsis) { const m = live.find(p => p.gsis === x.gsis); if (m) prob[m.id][k] = x.anytime; }
           if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live);
           if (k === 'driveNew' || k === 'pbp2New') { const su = surprise(s.__S, s.players); sur[k] = { p: r3(su.pOutside), share: r3(su.shareOutside), ls: su.longshots.map(x => ({ n: x.name, t: x.team, p: x.pos, pr: r3(x.p) })) }; } }
       }
