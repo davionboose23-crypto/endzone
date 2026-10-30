@@ -12,7 +12,7 @@
     "basis": [
      {
       "applied": true,
-      "prospective": 28,
+      "prospective": 26,
       "reconstructed": 0,
       "week": 8
      },
@@ -31,18 +31,18 @@
     ],
     "label": "Learned from finished games, from the last three weeks",
     "spot": {
-     "r1": 1.0206605708444052,
-     "r2": 0.9169146422333677,
-     "r3": 1.0520812257919434,
-     "t1": 0.9829250064217628,
-     "t2": 0.9949179142430674,
-     "t3": 1.1305980341736312
+     "r1": 1.0506300231351808,
+     "r2": 0.9028110713292451,
+     "r3": 1.0497411037878457,
+     "t1": 0.9845082484142119,
+     "t2": 0.9722892902610137,
+     "t3": 1.1421744599051535
     },
     "vol": {
-     "passYd": 0.9686178440016163,
+     "passYd": 0.9743931829420766,
      "rec": 1.0202570678068656,
-     "recYd": 1.0015926780813154,
-     "rushYd": 0.9892457357315717
+     "recYd": 1.0018961880404484,
+     "rushYd": 0.991100953399552
     }
    },
    "describe": [
@@ -55,32 +55,32 @@
     "25to35 chances: +5%",
     "35to50 chances: -6%",
     "50plus chances: -9%",
-    "r1 spot: +2%",
-    "r2 spot: -8%",
+    "r1 spot: +5%",
+    "r2 spot: -10%",
     "r3 spot: +5%",
     "t1 spot: -2%",
-    "t2 spot: -1%",
-    "t3 spot: +13%"
+    "t2 spot: -3%",
+    "t3 spot: +14%"
    ],
    "drivesPromotion": {
     "metrics": {
-     "brierDiff": 0.0011681486904761874,
+     "brierDiff": 0.0013249932371794844,
      "challenger": {
-      "brier": 0.1073886540384615,
-      "ece": 0.1357057692307692,
-      "logLoss": 0.32132732153046367
+      "brier": 0.11167680419999997,
+      "ece": 0.140618,
+      "logLoss": 0.3336606777570667
      },
      "champion": {
-      "brier": 0.10598401730769227,
-      "ece": 0.1293,
-      "logLoss": 0.31723383169418057
+      "brier": 0.11022256339999999,
+      "ece": 0.134294,
+      "logLoss": 0.3297447763822635
      },
      "games": 2,
      "interval": [
-      -0.004857566576190487,
-      0.0071938639571428615
+      -0.0050081373410256515,
+      0.00765812381538462
      ],
-     "paired": 52,
+     "paired": 50,
      "protected": {
       "contributors": {
        "challenger": 0.19103840137931033,
@@ -105,7 +105,7 @@
     "monitor": {
      "games": 2,
      "moved": 0,
-     "n": 52,
+     "n": 50,
      "withDrives_vs_blend": {
       "dBrier": 0,
       "dBrierCI": [
@@ -118,26 +118,26 @@
        0
       ],
       "games": 2,
-      "n": 52
+      "n": 50
      },
      "withDrives_vs_model": {
-      "dBrier": 1.405,
+      "dBrier": 1.454,
       "dBrierCI": [
        -1.906,
-       4.242
+       4.556
       ],
-      "dLogLoss": 4.093,
+      "dLogLoss": 3.916,
       "dLogLossCI": [
        -5.812,
-       12.584
+       12.896
       ],
       "games": 2,
-      "n": 52
+      "n": 50
      }
     },
     "promote": false,
     "reasons": [
-     "Needs ≥500 prospective paired players for endzone-4.6.0; have 52.",
+     "Needs ≥500 prospective paired players for endzone-4.6.0; have 50.",
      "Needs ≥40 games; have 2.",
      "Brier improvement not beyond game-level sampling uncertainty.",
      "Log loss not lower.",
@@ -148,7 +148,7 @@
    "promotion": {
     "promote": false,
     "reasons": [
-     "Needs ≥500 prospective paired players for endzone-4.6.0; have 386.",
+     "Needs ≥500 prospective paired players for endzone-4.6.0; have 384.",
      "Needs ≥40 games; have 14.",
      "Brier improvement not beyond game-level sampling uncertainty."
     ]
@@ -164,8 +164,8 @@
   ],
   "week": 9
  },
- "finished_at": "2026-10-30T03:54:11.732Z",
+ "finished_at": "2026-10-30T10:40:46.229Z",
  "kind": "refresh",
- "started_at": "2026-10-30T03:54:04.412Z",
+ "started_at": "2026-10-30T10:40:38.805Z",
  "status": "success"
 }

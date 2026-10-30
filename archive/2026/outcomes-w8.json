@@ -1,9 +1,30 @@
 {
  "2026_08_CAR_GB|10212": {
-  "fingerprint": "1e0a437e595c1da3004e05c6",
+  "fingerprint": "9d8ea0bc47b2e5f33e5acbc8",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0038589",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "1e0a437e595c1da3004e05c6",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -13,21 +34,60 @@
    "recYd": 0,
    "rushYd": 0,
    "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 0,
    "td": 0
   },
   "playerId": "10212",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|11157": {
-  "fingerprint": "8e3cd73a533352ff946ceaa9",
+  "fingerprint": "ad11bbe37252ba3ac4441760",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0038840",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "8e3cd73a533352ff946ceaa9",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 1,
+     "recYd": 11,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 1,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -36,22 +96,61 @@
    "rec": 1,
    "recYd": 11,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 1,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 1,
    "td": 0
   },
   "playerId": "11157",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|11581": {
-  "fingerprint": "79933a8d3f6fa7ac9146de60",
+  "fingerprint": "20c260f20ea18394ce402d9b",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0039811",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "79933a8d3f6fa7ac9146de60",
+    "payload": {
+     "att": 0,
+     "carries": 3,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 1,
+     "recYd": 9,
+     "rushYd": 7,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 1,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 3,
@@ -60,16 +159,34 @@
    "rec": 1,
    "recYd": 9,
    "rushYd": 7,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 3,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 1,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 1,
    "td": 0
   },
   "playerId": "11581",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|11600": {
   "fingerprint": "94c80c571a9d0835e69e9624",
@@ -84,34 +201,94 @@
   "version": 1
  },
  "2026_08_CAR_GB|11646": {
-  "fingerprint": "c4ee28fd9147c450790ee625",
+  "fingerprint": "55a1090056d6bd3186248a2f",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0039491",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "c4ee28fd9147c450790ee625",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 2,
+     "recYd": 35,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed",
+     "targets": 5,
+     "td": 1
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
    "passTd": 0,
    "passYd": 0,
    "rec": 2,
-   "recYd": 35,
+   "recYd": 36,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 4,
+    "t1": 0,
+    "t2": 0,
+    "t3": 1
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 1,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed",
    "targets": 5,
    "td": 1
   },
   "playerId": "11646",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|12473": {
-  "fingerprint": "37660e867a8acd2a74f4bd02",
+  "fingerprint": "13eae552646f994ea18892c8",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0040187",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "37660e867a8acd2a74f4bd02",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 2,
+     "recYd": 22,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 2,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -120,22 +297,61 @@
    "rec": 2,
    "recYd": 22,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 1,
+    "t1": 0,
+    "t2": 0,
+    "t3": 1
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 2,
    "td": 0
   },
   "playerId": "12473",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|12482": {
-  "fingerprint": "c0d3c290de933b65efdc8c5d",
+  "fingerprint": "ecd22c016bfbb677cc3bd3cc",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0040009",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "c0d3c290de933b65efdc8c5d",
+    "payload": {
+     "att": 0,
+     "carries": 1,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 1,
+     "recYd": 5,
+     "rushYd": 18,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 2,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 1,
@@ -144,22 +360,61 @@
    "rec": 1,
    "recYd": 5,
    "rushYd": 18,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 1,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 2,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 2,
    "td": 0
   },
   "playerId": "12482",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|12501": {
-  "fingerprint": "b828644c0e723d370ee9378d",
+  "fingerprint": "0e4c05624d985f14c5540a31",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0040667",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "b828644c0e723d370ee9378d",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 7,
+     "recYd": 79,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed",
+     "targets": 13,
+     "td": 1
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -168,16 +423,34 @@
    "rec": 7,
    "recYd": 79,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 12,
+    "t1": 0,
+    "t2": 0,
+    "t3": 1
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 1,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed",
    "targets": 13,
    "td": 1
   },
   "playerId": "12501",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|12504": {
   "fingerprint": "94c80c571a9d0835e69e9624",
@@ -192,10 +465,31 @@
   "version": 1
  },
  "2026_08_CAR_GB|12526": {
-  "fingerprint": "dc27c104c6da8427c3f9fc59",
+  "fingerprint": "ca132716df32ade70eeb784c",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0040124",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "dc27c104c6da8427c3f9fc59",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 6,
+     "recYd": 58,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 11,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -204,22 +498,61 @@
    "rec": 6,
    "recYd": 58,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 11,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 11,
    "td": 0
   },
   "playerId": "12526",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|12531": {
-  "fingerprint": "ad6c8924a9d4b7cbdcadd6b6",
+  "fingerprint": "324354a0e78685ad6b93c0cf",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0040644",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "ad6c8924a9d4b7cbdcadd6b6",
+    "payload": {
+     "att": 0,
+     "carries": 1,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 1,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 1,
@@ -228,22 +561,61 @@
    "rec": 0,
    "recYd": 0,
    "rushYd": 1,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 1,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 0,
    "td": 0
   },
   "playerId": "12531",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|12829": {
-  "fingerprint": "1e0a437e595c1da3004e05c6",
+  "fingerprint": "0b2ee425dae57160f53f60d4",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0040352",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "1e0a437e595c1da3004e05c6",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -252,22 +624,61 @@
    "rec": 0,
    "recYd": 0,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 0,
    "td": 0
   },
   "playerId": "12829",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|12939": {
-  "fingerprint": "1e0a437e595c1da3004e05c6",
+  "fingerprint": "0b2ee425dae57160f53f60d4",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0040394",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "1e0a437e595c1da3004e05c6",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -276,22 +687,61 @@
    "rec": 0,
    "recYd": 0,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 0,
    "td": 0
   },
   "playerId": "12939",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|13013": {
-  "fingerprint": "1e0a437e595c1da3004e05c6",
+  "fingerprint": "9d8ea0bc47b2e5f33e5acbc8",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0040598",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "1e0a437e595c1da3004e05c6",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -301,15 +751,33 @@
    "recYd": 0,
    "rushYd": 0,
    "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 0,
    "td": 0
   },
   "playerId": "13013",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|13415": {
   "fingerprint": "94c80c571a9d0835e69e9624",
@@ -324,10 +792,31 @@
   "version": 1
  },
  "2026_08_CAR_GB|13770": {
-  "fingerprint": "89fadf4c01e9dbe0a982b6fa",
+  "fingerprint": "5d25fd1155406180c875b88e",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0040948",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "89fadf4c01e9dbe0a982b6fa",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 1,
+     "recYd": 16,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 1,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -336,22 +825,61 @@
    "rec": 1,
    "recYd": 16,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 1,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 1,
    "td": 0
   },
   "playerId": "13770",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|2505": {
-  "fingerprint": "cc2c3c2e4ff83f5b0c1bda7d",
+  "fingerprint": "b6364021b77b2be3bf001ca8",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0031610",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "cc2c3c2e4ff83f5b0c1bda7d",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 1,
+     "recYd": 11,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 2,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -360,16 +888,34 @@
    "rec": 1,
    "recYd": 11,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 2,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 2,
    "td": 0
   },
   "playerId": "2505",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|3239": {
   "fingerprint": "94c80c571a9d0835e69e9624",
@@ -396,10 +942,31 @@
   "version": 1
  },
  "2026_08_CAR_GB|4274": {
-  "fingerprint": "1e0a437e595c1da3004e05c6",
+  "fingerprint": "0b2ee425dae57160f53f60d4",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0033589",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "1e0a437e595c1da3004e05c6",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -408,16 +975,34 @@
    "rec": 0,
    "recYd": 0,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 0,
    "td": 0
   },
   "playerId": "4274",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|4490": {
   "fingerprint": "94c80c571a9d0835e69e9624",
@@ -432,10 +1017,31 @@
   "version": 1
  },
  "2026_08_CAR_GB|5850": {
-  "fingerprint": "a27b47a927d38a15c00d9d3b",
+  "fingerprint": "57a649f3943c7153b745bbc6",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0035700",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "a27b47a927d38a15c00d9d3b",
+    "payload": {
+     "att": 0,
+     "carries": 21,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 6,
+     "recYd": 13,
+     "rushYd": 39,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed",
+     "targets": 6,
+     "td": 2
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 21,
@@ -444,16 +1050,34 @@
    "rec": 6,
    "recYd": 13,
    "rushYd": 39,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 15,
+    "r1": 2,
+    "r2": 1,
+    "r3": 3,
+    "t0": 3,
+    "t1": 2,
+    "t2": 0,
+    "t3": 1
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 1,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 1,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed",
    "targets": 6,
    "td": 2
   },
   "playerId": "5850",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|6175": {
   "fingerprint": "94c80c571a9d0835e69e9624",
@@ -468,10 +1092,31 @@
   "version": 1
  },
  "2026_08_CAR_GB|6804": {
-  "fingerprint": "6d5914c835bb26dd2b68ecb5",
+  "fingerprint": "ea102194096e33fb519bb8e9",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0036264",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "6d5914c835bb26dd2b68ecb5",
+    "payload": {
+     "att": 41,
+     "carries": 0,
+     "passTd": 3,
+     "passYd": 288,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 41,
    "carries": 0,
@@ -480,16 +1125,34 @@
    "rec": 0,
    "recYd": 0,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 0,
    "td": 0
   },
   "playerId": "6804",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|6828": {
   "fingerprint": "94c80c571a9d0835e69e9624",
@@ -504,10 +1167,31 @@
   "version": 1
  },
  "2026_08_CAR_GB|7531": {
-  "fingerprint": "1e0a437e595c1da3004e05c6",
+  "fingerprint": "9d8ea0bc47b2e5f33e5acbc8",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0036825",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "1e0a437e595c1da3004e05c6",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -517,21 +1201,60 @@
    "recYd": 0,
    "rushYd": 0,
    "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 0,
    "td": 0
   },
   "playerId": "7531",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|7594": {
-  "fingerprint": "49563817b59b179306c1be16",
+  "fingerprint": "35d0b643783550a1a1432166",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0036555",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "49563817b59b179306c1be16",
+    "payload": {
+     "att": 0,
+     "carries": 22,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 7,
+     "recYd": 38,
+     "rushYd": 81,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed",
+     "targets": 8,
+     "td": 1
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 22,
@@ -540,16 +1263,34 @@
    "rec": 7,
    "recYd": 38,
    "rushYd": 81,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 18,
+    "r1": 1,
+    "r2": 2,
+    "r3": 1,
+    "t0": 7,
+    "t1": 0,
+    "t2": 0,
+    "t3": 1
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 1,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed",
    "targets": 8,
    "td": 1
   },
   "playerId": "7594",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|7618": {
   "fingerprint": "94c80c571a9d0835e69e9624",
@@ -564,10 +1305,31 @@
   "version": 1
  },
  "2026_08_CAR_GB|7694": {
-  "fingerprint": "5a8e599851a6c19c2b21ada0",
+  "fingerprint": "42b4b05f07f498e219f502c5",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0037005",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "5a8e599851a6c19c2b21ada0",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 1,
+     "recYd": 19,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 3,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -576,16 +1338,34 @@
    "rec": 1,
    "recYd": 19,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 3,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 3,
    "td": 0
   },
   "playerId": "7694",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|7868": {
   "fingerprint": "94c80c571a9d0835e69e9624",
@@ -600,10 +1380,31 @@
   "version": 1
  },
  "2026_08_CAR_GB|8116": {
-  "fingerprint": "5fa7d437cfd347cf64966a32",
+  "fingerprint": "36c828b60df0823990be9fe6",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0038098",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "5fa7d437cfd347cf64966a32",
+    "payload": {
+     "att": 0,
+     "carries": 1,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 2,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 1,
@@ -612,22 +1413,61 @@
    "rec": 0,
    "recYd": 0,
    "rushYd": 2,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 1,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 0,
    "td": 0
   },
   "playerId": "8116",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|8147": {
-  "fingerprint": "e3df808ccd5dfc77e291d149",
+  "fingerprint": "ebbbe7d6243c8fb2ec48c8ce",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0037614",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "e3df808ccd5dfc77e291d149",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 3,
+     "recYd": 14,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 3,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -636,46 +1476,94 @@
    "rec": 3,
    "recYd": 14,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 2,
+    "t1": 0,
+    "t2": 0,
+    "t3": 1
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 3,
    "td": 0
   },
   "playerId": "8147",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|8160": {
-  "fingerprint": "1e0a437e595c1da3004e05c6",
+  "fingerprint": "94c80c571a9d0835e69e9624",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0038102",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "1e0a437e595c1da3004e05c6",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
-   "att": 0,
-   "carries": 0,
-   "passTd": 0,
-   "passYd": 0,
-   "rec": 0,
-   "recYd": 0,
-   "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
-   "status": "confirmed-zero",
-   "targets": 0,
-   "td": 0
+   "note": "No stat or snap record: excluded from grading.",
+   "status": "missing"
   },
   "playerId": "8160",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|8167": {
-  "fingerprint": "81e3e9f548e9de28e569d3aa",
+  "fingerprint": "101d7bb80f98dd7eb3255c7a",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0038124",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "81e3e9f548e9de28e569d3aa",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 8,
+     "recYd": 113,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 10,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -684,22 +1572,61 @@
    "rec": 8,
    "recYd": 113,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 10,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 10,
    "td": 0
   },
   "playerId": "8167",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|8204": {
-  "fingerprint": "1e0a437e595c1da3004e05c6",
+  "fingerprint": "0b2ee425dae57160f53f60d4",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0037091",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "1e0a437e595c1da3004e05c6",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -708,70 +1635,157 @@
    "rec": 0,
    "recYd": 0,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 0,
    "td": 0
   },
   "playerId": "8204",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|827": {
-  "fingerprint": "1e0a437e595c1da3004e05c6",
+  "fingerprint": "94c80c571a9d0835e69e9624",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0028118",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "1e0a437e595c1da3004e05c6",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
-   "att": 0,
-   "carries": 0,
-   "passTd": 0,
-   "passYd": 0,
-   "rec": 0,
-   "recYd": 0,
-   "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
-   "status": "confirmed-zero",
-   "targets": 0,
-   "td": 0
+   "note": "No stat or snap record: excluded from grading.",
+   "status": "missing"
   },
   "playerId": "827",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|9228": {
-  "fingerprint": "7220f82fb99e69f028ac5e30",
+  "fingerprint": "ef7c4ff811fc6d3918c9c66b",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0039150",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "7220f82fb99e69f028ac5e30",
+    "payload": {
+     "att": 41,
+     "carries": 0,
+     "passTd": 1,
+     "passYd": 208,
+     "rec": 0,
+     "recYd": 0,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed-zero",
+     "targets": 0,
+     "td": 0
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 41,
    "carries": 0,
    "passTd": 1,
-   "passYd": 208,
+   "passYd": 209,
    "rec": 0,
    "recYd": 0,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 0
+   },
    "status": "confirmed-zero",
    "targets": 0,
    "td": 0
   },
   "playerId": "9228",
-  "version": 1
+  "version": 2
  },
  "2026_08_CAR_GB|9484": {
-  "fingerprint": "fc2ab4087dd0010a3698bc4f",
+  "fingerprint": "e1291e0fe3deb074d261e80f",
   "gameId": "2026_08_CAR_GB",
   "gsis": "00-0038996",
-  "history": [],
+  "history": [
+   {
+    "fingerprint": "fc2ab4087dd0010a3698bc4f",
+    "payload": {
+     "att": 0,
+     "carries": 0,
+     "passTd": 0,
+     "passYd": 0,
+     "rec": 6,
+     "recYd": 53,
+     "rushYd": 0,
+     "source": "sleeper",
+     "spotKnown": false,
+     "spotLooks": null,
+     "spotTd": null,
+     "status": "confirmed",
+     "targets": 6,
+     "td": 1
+    },
+    "version": 1
+   }
+  ],
   "payload": {
    "att": 0,
    "carries": 0,
@@ -780,15 +1794,33 @@
    "rec": 6,
    "recYd": 53,
    "rushYd": 0,
-   "source": "sleeper",
-   "spotKnown": false,
-   "spotLooks": null,
-   "spotTd": null,
+   "source": "nflverse",
+   "spotKnown": true,
+   "spotLooks": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 5,
+    "t1": 0,
+    "t2": 0,
+    "t3": 1
+   },
+   "spotTd": {
+    "r0": 0,
+    "r1": 0,
+    "r2": 0,
+    "r3": 0,
+    "t0": 0,
+    "t1": 0,
+    "t2": 0,
+    "t3": 1
+   },
    "status": "confirmed",
    "targets": 6,
    "td": 1
   },
   "playerId": "9484",
-  "version": 1
+  "version": 2
  }
 }
