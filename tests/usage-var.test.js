@@ -1,4 +1,4 @@
-// endzone app 4.13.0: usage-var-1 — "it's not always the favourite who scores" (src/usage-var.js). Sim-only: the board,
+// endzone app 4.13.0-4.13.1: usage-var-1 (4.13.1: the sims are model-independent again, the TD-level anchor is an opt-in research knob, default OFF) — "it's not always the favourite who scores" (src/usage-var.js). Sim-only: the board,
 // MODEL_VERSION and the challenger gate do not move. Inputs are FROZEN fixtures (the 4.9.2 CAR @ GB sim inputs + week-8 pbp params).
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -11,9 +11,10 @@ import { MODEL_VERSION } from '../src/model.js';
 const { I: I0 } = JSON.parse(fs.readFileSync(new URL('./fixtures/sim-inputs-2026w8-CAR-GB-492.json', import.meta.url)));
 const PP = JSON.parse(fs.readFileSync(new URL('./fixtures/pbp-params-2026w8-v2.json', import.meta.url)));
 
-test('defaults: anchor on, tempering and per-game usage noise off (walk-forward picked them), model untouched', () => {
+test('defaults: anchor OFF (sims independent from the model), tempering and per-game usage noise off, model untouched', () => {
   assert.equal(MODEL_VERSION, 'endzone-4.6.0');
-  assert.equal(anchorFor({}, 'drive'), 1); assert.equal(anchorFor({}, 'pbp'), 1); assert.equal(anchorFor({ disp: false }, 'drive'), 0);
+  assert.equal(anchorFor({}, 'drive'), 0); assert.equal(anchorFor({}, 'pbp'), 0); assert.equal(anchorFor({ disp: false }, 'drive'), 0);
+  assert.equal(anchorFor({ disp: { drive: { anchor: 1 } } }, 'drive'), 1);
   assert.equal(anchorFor({ disp: { drive: { anchor: 0.5 } } }, 'drive'), 0.5);
   assert.equal(dispFor({}, 'drive').tau, DISP_DEFAULT.drive.tau); assert.equal(dispFor({}, 'drive').tau, 1); assert.equal(dispFor({}, 'pbp').kappa, Infinity);
 });
@@ -24,14 +25,15 @@ test('temper keeps the total, tau 1 is the identity, tau < 1 flattens toward the
 });
 
 const tdErr = s => s.team.reduce((a, t, k) => a + Math.abs(t.mean.td - I0.teams[k].tdBudget), 0);
-test('drive sim: the TD-level anchor pulls each team toward the model TD budget', () => {
-  const off = summarize(runSim({ ...I0, disp: false }, { n: 2500, seed: 3 }), I0), on = summarize(runSim(I0, { n: 2500, seed: 3 }), I0);
+const ON = { drive: { anchor: 1 }, pbp: { anchor: 1 } };
+test('drive sim (opt-in research knob): the TD-level anchor pulls each team toward the model TD budget', () => {
+  const off = summarize(runSim(I0, { n: 2500, seed: 3 }), I0), on = summarize(runSim({ ...I0, disp: ON }, { n: 2500, seed: 3 }), I0);
   assert.ok(tdErr(on) < tdErr(off), `anchored ${tdErr(on)} vs free ${tdErr(off)}`); assert.ok(tdErr(on) < 0.35);
 });
 
-test('play-by-play sim: the TD-level anchor pulls each team toward the model TD budget', () => {
+test('play-by-play sim (opt-in research knob): the TD-level anchor pulls each team toward the model TD budget', () => {
   const run = I1 => { const I = buildPbpInputs(I1, PP); const { E } = calibratePbp(I, { seed: 21 }); return summarizePbp(simulatePbp(I, { n: 2000, seed: 5, E }), I); };
-  const off = run({ ...I0, disp: false }), on = run(I0); assert.ok(tdErr(on) < tdErr(off), `anchored ${tdErr(on)} vs free ${tdErr(off)}`); assert.ok(tdErr(on) < 0.5);
+  const off = run(I0), on = run({ ...I0, disp: ON }); assert.ok(tdErr(on) < tdErr(off), `anchored ${tdErr(on)} vs free ${tdErr(off)}`); assert.ok(tdErr(on) < 0.5);
 });
 
 test('surprise: chance a TD comes from outside the top 4, longshots ranked just below them', () => {

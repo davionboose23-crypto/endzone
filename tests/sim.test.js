@@ -30,12 +30,10 @@ test('free sim: team scoring stays inside 2025-26 history but is not pinned to t
   }
   const tot = sum.team[0].mean.pts + sum.team[1].mean.pts; assert.ok(tot > 34 && tot < 60, `total ${tot}`);
   assert.ok(Math.abs(sum.win.away + sum.win.home + sum.win.tie - 1) < 1e-9);
-  // 4.12 and earlier (disp: false): CAR's 2026 offense vs GB's defense differs from the model budget and the free sim kept that difference.
-  // 4.13.0 (usage-var-1): walk-forward on 2025 + 2026, anchoring each team's TD level to the model budget beat the free level, so the default
-  // now pulls the TD count to the budget; points, drives, the pass/run mix and who scores stay the sim's own.
+  // 4.13.1: the default is free-running again (no pull to the model's TD budget): identical to disp: false, and the TD count is the sim's own.
   const S0 = summarize(runSim({ ...I, disp: false }, { n: 6000, seed: 7 }), I);
+  assert.deepEqual([S0.team[0].mean.td, S0.team[1].mean.td], [sum.team[0].mean.td, sum.team[1].mean.td]);
   assert.ok(Math.abs(S0.team[0].mean.td - I.teams[0].teamLambda) > 0.1 || Math.abs(S0.team[1].mean.td - I.teams[1].teamLambda) > 0.1);
-  const err = x => [0, 1].reduce((a, k) => a + Math.abs(x.team[k].mean.td - I.teams[k].tdBudget), 0); assert.ok(err(sum) < err(S0));
 });
 
 test('anchored sim (4.9.1 behaviour) still tracks the model TD budget and player chances', () => {

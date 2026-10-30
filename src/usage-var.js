@@ -12,6 +12,9 @@ export const DISP_VERSION = 'usage-var-1';
 // switched on explicitly (disp: { drive: { anchor: 1 } }) for research; with data players (the free-mode default) there is no budget to pull to.
 export const DISP_DEFAULT = { drive: { tau: 1, kappa: Infinity, anchor: 0 }, pbp: { tau: 1, kappa: Infinity, anchor: 0 } };
 export function anchorFor(I, eng) { const d = I && I.disp; if (d === false) return 0; const o = (d && d[eng]) || DISP_DEFAULT[eng]; return o.anchor ?? DISP_DEFAULT[eng].anchor; }
+// 4.13.1 data level (pbp only, model-free): pull the play-by-play sim's team TD count toward the drive data's own opponent-adjusted
+// expectation (drives per game x TD share of drives from team-strength on real drives) - fixes its TD shortfall without any model number.
+export function dataLevelFor(I, eng) { const d = I && I.disp; if (d === false) return 0; const o = (d && d[eng]) || DISP_DEFAULT[eng]; return o.dataLevel ?? DISP_DEFAULT[eng].dataLevel ?? 0; }
 export function dispFor(I, eng) { const d = I && I.disp; if (d === false) return { tau: 1, kappa: Infinity }; const o = (d && d[eng]) || DISP_DEFAULT[eng]; return { tau: o.tau ?? 1, kappa: o.kappa ?? Infinity }; }
 // tempered shares (sum 1) of non-negative weights
 export function temper(w, tau) { const s0 = w.reduce((a, b) => a + (b > 0 ? b : 0), 0); if (!(s0 > 0)) return w.map(() => 0); if (tau === 1) return w.map(x => (x > 0 ? x / s0 : 0));

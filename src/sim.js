@@ -107,7 +107,7 @@ function modelPlayer(p, D) {
 // scenarios or TD budget). Recency-weighted per-game means over the team's last 8 games (weight 0.8^age), players whose latest game
 // in the file was for another team are dropped, QB pass share from recent appearances, then rosterNow (Sleeper roster / injury report)
 // drops players who left or are out and scales doubtful / questionable ones. TD rate = half own TD/g, half team TD/g x touch share.
-const HIST_N = 8, HIST_DECAY = 0.8; const lastTeamCache = new WeakMap();
+const HIST_N = +(globalThis.process?.env?.HIST_N || 8), HIST_DECAY = +(globalThis.process?.env?.HIST_DECAY || 0.8); const lastTeamCache = new WeakMap();
 function lastTeams(D) {
   let m = lastTeamCache.get(D); if (m) return m; m = new Map();
   for (const [tm, T] of Object.entries(D?.teams || {})) T.games.forEach(gm => { for (const d of gm.d) for (const x of d[8]) { const g = T.people[x[0]]?.[0]; if (!g) continue; const c = m.get(g); if (!c || gm.w > c.w || (gm.w === c.w && c.t !== tm && (gm.game || '') > (c.game || ''))) m.set(g, { t: tm, w: gm.w, game: gm.game }); } });
@@ -162,7 +162,7 @@ export function buildSimInputs(D, { away, home, sideFor = () => null, lines = nu
     const M = matchup(TS, team, opp); // opponent-adjusted: this offense vs this defense, by game state
     const pfOf = (sel) => { const t = sum(players, p => sel(p)?.t ?? p.tgt), c = sum(players, p => sel(p)?.c ?? p.car); return t + c > 0 ? t / (t + c) : L.passAll; };
     const pfModel = [pfOf(() => null), pfOf(p => p.lead), pfOf(p => p.behind)];
-    return { team, opp, src, note, players, teamLambda, tdShare: tdInfo, tdBudget: src0 === 'data' ? null : (S?.tdBudget ?? null), modelTeamLambda: S?.teamLambda ?? null, source: src0, dpg: M.dpg,
+    return { team, opp, src, note, players, teamLambda, tdShare: tdInfo, tdBudget: src0 === 'data' ? null : (S?.tdBudget ?? null), tdData: +(M.dpg * [0, 1, 2, 3].reduce((a, b) => a + (TS.league.bShare?.[b] ?? (b ? 0 : 1)) * M.mix[b][0], 0)).toFixed(3), modelTeamLambda: S?.teamLambda ?? null, source: src0, dpg: M.dpg,
       mix: M.mix, ppdF: M.ppdF, pf: mode === 'anchored' ? pfModel : M.pf, pfTeam: M.pf, pfModel: src0 === 'data' ? null : pfModel, profile: TS.profiles[team] ? { off: TS.profiles[team].off, lines: TS.profiles[team].lines.off, raw: TS.profiles[team].raw.off } : null,
       defProfile: TS.profiles[opp] ? { team: opp, def: TS.profiles[opp].def, lines: TS.profiles[opp].lines.def, raw: TS.profiles[opp].raw.def } : null,
       tgtTot: sum(players, p => p.tgt), carTot: sum(players, p => p.car) };

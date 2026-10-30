@@ -47,7 +47,7 @@ const scorersOf = (S, W, team) => { const T = tallies.find(x => x.season === S &
 const naiveOf = (S, W) => { const m = new Map(); for (const T of tallies) { const cur = T.season === S && T.week < W, prev = T.season === S - 1 && W <= 2; if (!cur && !prev) continue;
   for (const x of T.pl.values()) { const a = m.get(x.id) || { td: 0, rz: 0 }; a.td += x.v[7] * (cur ? 1 : 0.1); a.rz += (x.v[2] + x.v[5]) * (cur ? 1 : 0.1); m.set(x.id, a); } } return m; };
 const clampP = p => Math.min(0.995, Math.max(0.005, p));
-const KS = ['driveNew', 'pbp2New', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.13.1: driveNew / pbp2New = model-independent sims (data players); drive413 / pbp413 = 4.13.0 (model players + TD anchor)
+const KS = ['driveNew', 'pbp2New', 'pbpData', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.13.1: driveNew / pbp2New = model-independent sims (data players); drive413 / pbp413 = 4.13.0 (model players + TD anchor)
 const DATA_ALPHA = process.env.DATA_ALPHA != null ? +process.env.DATA_ALPHA : null; // research override of the data-player td-share blend
 // injury report for week W as a rosterNow map (gsis -> [team, injury, practice, status]) for the model-free sims
 const rosterOf = (S, W) => { const o = {}; for (const [k, r] of inj) { const [s, w, g] = k.split('|'); if (+s !== S || +w !== W || !r.report_status) continue; const pr = (r.practice_status || '').toLowerCase();
@@ -76,12 +76,12 @@ async function season(S, weeks, priorDetail) {
       if (SIMS) {
         const In1 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, source: 'model', tdShare: td, tdBlend: B.fitted ? B : { alpha: 0, beta: {} }, disp: false });
         const In2 = { ...In1, disp: { drive: { anchor: 1 }, pbp: { anchor: 1 } } }; // 4.13.0 as shipped
-        const InD = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, tdShare: td, rosterNow: rosterOf(S, W), ...(DATA_ALPHA != null ? { tdBlend: { alpha: DATA_ALPHA, beta: { TE: 0.1 } } } : {}) }); // app default: model-free
+        const InD = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, tdShare: td, rosterNow: rosterOf(S, W), ...(DATA_ALPHA != null ? { tdBlend: { alpha: DATA_ALPHA, beta: process.env.DATA_NOBETA ? {} : { TE: 0.1 } } } : {}) }); // app default: model-free
         if (InD.source !== 'data' || InD.teams.some(t => t.tdBudget != null)) throw new Error('model leak in default sim inputs');
         const keep = (S0, I0, sm) => Object.assign(sm, { __S: S0, __I: I0 });
         const dr = I0 => { const S0 = runSim(I0, { n: NS, seed: 11, mode: 'free' }); return keep(S0, I0, summarize(S0, I0)); };
         const pb = I0 => { const I = buildPbpInputs(I0, PP); const S0 = runPbp(I, { n: NS, seed: 11 }); return keep(S0, I, summarizePbp(S0, I)); };
-        const run = { drive413: () => dr(In2), driveNew: () => dr(InD), pbp413: () => pb(In2), pbp2New: () => pb(InD) };
+        const run = { drive413: () => dr(In2), driveNew: () => dr(InD), pbp413: () => pb(In2), pbp2New: () => pb(InD), pbpData: () => pb({ ...InD, disp: { pbp: { dataLevel: 1 } } }) };
         for (const [k, f] of Object.entries(run)) { if (ENG && !ENG.includes(k)) continue; const s = f(); for (const p of live) prob[p.id][k] = 0; for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime; else if (x.gsis) { const m = live.find(p => p.gsis === x.gsis); if (m) prob[m.id][k] = x.anytime; }
           if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live);
           if (k === 'driveNew' || k === 'pbp2New') { const su = surprise(s.__S, s.players); sur[k] = { p: r3(su.pOutside), share: r3(su.shareOutside), ls: su.longshots.map(x => ({ n: x.name, t: x.team, p: x.pos, pr: r3(x.p) })) }; } }
@@ -132,7 +132,7 @@ function dumpTeams(out, S, W, gid, eng, Sim, I, live) {
 const ONLY = arg('--weeks', null)?.split(',').map(Number);
 const B25 = DO25 ? await season(2025, wk(2025).filter(w => w >= 2), []) : { games: [], players: [], detail: [], blends: [] };
 const B26 = await season(2026, wk(2026).filter(w => !ONLY || ONLY.includes(w)), B25.detail);
-const summ = B => ({ games: B.games.length, weeks: [...new Set(B.games.map(g => g.w))], top4: top4Table(B.games), anytime: brierTable(B.players), scorerSplit: allocLL(B.detail, B.blends), tdsByPosition: posMix(B.detail, B.blends), blendByWeek: B.blends });
+const summ = B => ({ games: B.games.length, weeks: [...new Set(B.games.map(g => g.w))], top4: top4Table(B.games), anytime: brierTable(B.players), scorerSplit: allocLL(B.detail, B.blends), tdsByPosition: posMix(B.detail, B.blends), blendByWeek: B.blends, ...(process.env.BYWEEK ? { byWeek: Object.fromEntries([...new Set(B.players.map(r => r.w))].map(w => [w, brierTable(B.players.filter(r => r.w === w)).all])) } : {}) });
 const best = s => Object.entries(s.top4).filter(([k]) => KS.includes(k)).sort((a, b) => b[1].hitsPerGame - a[1].hitsPerGame)[0]?.[0];
 const S26 = summ(B26), S25 = DO25 ? summ(B25) : null;
 const out = { generated: new Date().toISOString(), tdShareVersion: TD_SHARE_VERSION, simPbpVersion: SIM_PBP_VERSION, simsPerGame: SIMS ? NS : 0, seconds: Math.round((Date.now() - t0) / 1000), shippedBlend: TD_BLEND,

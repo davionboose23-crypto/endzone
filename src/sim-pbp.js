@@ -12,7 +12,7 @@
 // Output uses the same raw structure as the drive sim (src/sim.js) so summarize / driveCard / tdPatterns work unchanged,
 // plus field-position and red-zone arrays (S.pbp). Every game has its own seeded RNG, so any game can be replayed play by play.
 import { makeRng, SLOTS, DSTATS, GSTATS, RESULTS, summarize, gamma } from './sim.js';
-import { dispFor, temper, anchorFor } from './usage-var.js';
+import { dispFor, temper, anchorFor, dataLevelFor } from './usage-var.js';
 import { zoneOf, distB, scriptOf, passCell, ylB10, togoB4, uzOf, ucell, PBP_VERSION } from './pbp-common.js';
 // sim-pbp-2 (app 4.11.0) adds, when the params carry the X2 block (src/pbp-fit.js): offense-vs-defense rates with a home-field
 // term, the starting QB's own sack / scramble / interception / completion / explosive / yards effects, team fourth-down
@@ -307,11 +307,11 @@ export function calibratePbp(I, { pilots = 2, n = 800, seed = 7, tdPilots = 2 } 
   // is steered toward the blended target split by scaling his red-zone usage cells (inside the 20), not his volume between the 20s
   // 4.13.0 TD-level anchor (usage-var-1): each team's simulated offensive TDs -> the model's pre-game TD budget (implied points x 0.7 / 6.9),
   // by a logit shift on its red-zone / goal-line TD chance. Walk-forward: the sims' scorer SPLIT was already calibrated; the miss was the team total
-  const anc = anchorFor(I, 'pbp'); const doLvl = E.V && anc > 0 && I.teams.some(t => t.tdBudget > 0);
+  const anc0 = anchorFor(I, 'pbp'), dl = dataLevelFor(I, 'pbp'); const useB = anc0 > 0 && I.teams.some(t => t.tdBudget > 0); const anc = useB ? anc0 : dl; const tgtOf = ti => useB ? ti.tdBudget : ti.tdData; const doLvl = E.V && anc > 0 && I.teams.some(t => tgtOf(t) > 0);
   if (E.V && (doLvl || I.teams.some(t => t.tdShare))) for (let it = 0; it < tdPilots + (doLvl ? 2 : 0); it++) {
     cellTotals(E); const W = alloc(E, n, false); for (let g = 0; g < n; g++) playGame(E, makeRng(gameSeed(seed + 500 + it * 101, g)), g, W, null);
     for (let k = 0; k < 2; k++) { const t = E.T[k], ti = I.teams[k];
-      if (doLvl && ti.tdBudget > 0) { let tt = 0; for (let g = 0; g < n; g++) for (let i = 0; i < t.P; i++) tt += W.G.td[g * W.NP + W.base[k] + i]; const m = (tt + 0.5) / n; t.lvl = clamp(t.lvl + 2.5 * anc * Math.log(ti.tdBudget / Math.max(0.2, m)), -2.5, 2.5); }
+      if (doLvl && tgtOf(ti) > 0) { let tt = 0; for (let g = 0; g < n; g++) for (let i = 0; i < t.P; i++) tt += W.G.td[g * W.NP + W.base[k] + i]; const m = (tt + 0.5) / n; t.lvl = clamp(t.lvl + 2.5 * anc * Math.log(tgtOf(ti) / Math.max(0.2, m)), -2.5, 2.5); }
       if (!ti.tdShare || it >= tdPilots) continue; const lt = ti.players.reduce((s, p) => s + (p.lam || 0), 0); if (!(lt > 0)) continue; const tw = temper(t.pl.map(p => p.lam || 0), dispFor(I, 'pbp').tau); // 4.13.0: tempered target split
       const got = new Float64Array(t.P); let tot = 0; for (let i = 0; i < t.P; i++) { for (let g = 0; g < n; g++) got[i] += W.G.td[g * W.NP + W.base[k] + i]; tot += got[i]; } if (tot < 20) continue;
       for (let i = 0; i < t.P; i++) { const want = tw[i], have = (got[i] + 0.5 * want) / (tot + 0.5); if (want < 0.002) continue;
