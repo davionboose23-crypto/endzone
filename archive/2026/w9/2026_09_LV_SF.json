@@ -10202,19 +10202,19 @@
   }
  },
  "latest": {
-  "capturedAt": "2026-10-30T02:19:13.892Z",
-  "fingerprint": "8925c41074ce70502527b673",
+  "capturedAt": "2026-10-30T03:54:11.253Z",
+  "fingerprint": "6062dde785e496d9a268b990",
   "payload": {
    "callIds": {
     "away": "10213",
     "home": "4217"
    },
-   "capturedAt": "2026-10-30T02:19:13.892Z",
+   "capturedAt": "2026-10-30T03:54:11.253Z",
    "challenger": {
-    "capturedCutoff": "2026-10-30T02:19:13.081Z",
+    "capturedCutoff": "2026-10-30T03:54:10.314Z",
     "reason": null,
     "status": "blend3",
-    "trainingCount": 2916,
+    "trainingCount": 2944,
     "trainingCutoff": {
      "rule": "usage leg fit on player-games strictly before the target week; blend uses the final (post-cap) model chance and Sleeper as published",
      "season": 2026,
@@ -10231,36 +10231,36 @@
     }
    },
    "gameId": "2026_09_LV_SF",
-   "gameLambda": 4.364572372022756,
+   "gameLambda": 4.318315773252593,
    "inputTimestamps": {
-    "ftn": "2026-10-30T02:19:07.850Z",
-    "history_2025": "2026-10-30T02:18:58.172Z",
-    "history_2026": "2026-10-30T02:19:07.782Z",
-    "idmap": "2026-10-30T02:19:07.706Z",
-    "pbp": "2026-10-30T02:19:08.613Z",
-    "players": "2026-10-30T02:19:07.409Z",
-    "proj_1": "2026-10-30T02:18:57.491Z",
-    "proj_2": "2026-10-30T02:18:57.503Z",
-    "proj_3": "2026-10-30T02:18:57.535Z",
-    "proj_4": "2026-10-30T02:18:57.514Z",
-    "proj_5": "2026-10-30T02:18:57.541Z",
-    "proj_6": "2026-10-30T02:18:57.563Z",
-    "proj_7": "2026-10-30T02:18:57.557Z",
-    "proj_8": "2026-10-30T02:19:07.448Z",
-    "proj_9": "2026-10-30T02:19:07.468Z",
-    "roster": "2026-10-30T02:19:07.518Z",
-    "schedule": "2026-10-30T02:19:07.203Z",
-    "snaps": "2026-10-30T02:19:08.641Z",
-    "state": "2026-10-30T02:19:07.035Z",
-    "stats_1": "2026-10-30T02:18:57.340Z",
-    "stats_2": "2026-10-30T02:18:57.375Z",
-    "stats_3": "2026-10-30T02:18:57.410Z",
-    "stats_4": "2026-10-30T02:18:57.392Z",
-    "stats_5": "2026-10-30T02:18:57.428Z",
-    "stats_6": "2026-10-30T02:18:57.449Z",
-    "stats_7": "2026-10-30T02:18:57.465Z",
-    "stats_8": "2026-10-30T02:19:07.424Z",
-    "stats_9": "2026-10-30T02:19:07.448Z"
+    "ftn": "2026-10-30T03:54:05.282Z",
+    "history_2025": "2026-10-30T03:53:56.158Z",
+    "history_2026": "2026-10-30T03:54:05.212Z",
+    "idmap": "2026-10-30T03:54:05.133Z",
+    "pbp": "2026-10-30T03:54:05.972Z",
+    "players": "2026-10-30T03:54:04.802Z",
+    "proj_1": "2026-10-30T03:53:55.211Z",
+    "proj_2": "2026-10-30T03:53:55.223Z",
+    "proj_3": "2026-10-30T03:53:55.265Z",
+    "proj_4": "2026-10-30T03:53:55.234Z",
+    "proj_5": "2026-10-30T03:53:55.277Z",
+    "proj_6": "2026-10-30T03:53:55.288Z",
+    "proj_7": "2026-10-30T03:53:55.294Z",
+    "proj_8": "2026-10-30T03:54:04.864Z",
+    "proj_9": "2026-10-30T03:54:04.896Z",
+    "roster": "2026-10-30T03:54:04.950Z",
+    "schedule": "2026-10-30T03:54:04.600Z",
+    "snaps": "2026-10-30T03:54:06.004Z",
+    "state": "2026-10-30T03:54:04.428Z",
+    "stats_1": "2026-10-30T03:53:55.062Z",
+    "stats_2": "2026-10-30T03:53:55.097Z",
+    "stats_3": "2026-10-30T03:53:55.132Z",
+    "stats_4": "2026-10-30T03:53:55.114Z",
+    "stats_5": "2026-10-30T03:53:55.152Z",
+    "stats_6": "2026-10-30T03:53:55.171Z",
+    "stats_7": "2026-10-30T03:53:55.185Z",
+    "stats_8": "2026-10-30T03:54:04.826Z",
+    "stats_9": "2026-10-30T03:54:04.874Z"
    },
    "kickoff": "2026-11-08T21:05:00.000Z",
    "lessons": "Learned from finished games, from the last three weeks",
@@ -10284,399 +10284,43 @@
       "uncertain": false
      },
      "band": [
-      0.2329,
-      0.4538
+      0.2412,
+      0.4548
      ],
-     "blendDrives": 0.2879,
+     "blendDrives": 0.411,
      "ceiling": 0.5,
-     "challenger": 0.2879,
+     "challenger": 0.411,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.33,
+     "chance": 0.3358,
      "coldGoal": false,
      "components": {
-      "r0": 0.002,
-      "r1": 0.0004,
-      "r2": 0.0001,
-      "r3": 0,
-      "t0": 0.1758,
-      "t1": 0.0504,
-      "t2": 0.0673,
-      "t3": 0.1045
-     },
-     "conversionNote": "1 of 6 red-zone targets converted: those targets are the score.",
-     "dist": {
-      "anytime": 0.33,
-      "lambda": 0.4005,
-      "p0": 0.67,
-      "p1": 0.2683,
-      "p2": 0.0537,
-      "p3plus": 0.008,
-      "twoPlus": 0.0617
-     },
-     "driveActive": null,
-     "driveAdj": null,
-     "edge": 11.6639,
-     "espn": "4428718",
-     "fair": 203,
-     "firstTd": 0.0906,
-     "gamesPlayed": 7,
-     "glShare": 0.001,
-     "glShareRaw": 0.001,
-     "gsis": "00-0038563",
-     "i10Exp": 0.1494,
-     "id": "10213",
-     "implied": 19.5,
-     "injury": null,
-     "insideFinisher": false,
-     "lambda": 0.4005,
-     "lambdaRaw": 0.5064,
-     "lessonNotes": [
-      "Learned from finished games: 35to50 chances scaled ×0.93 (from the last three weeks).",
-      "Blended 30% toward the published projection (21%) because of limited recent red-zone evidence; safety caps applied after."
-     ],
-     "matchupFactor": 0.9775,
-     "name": "Tre Tucker",
-     "passTd": null,
-     "photo": {
-      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4428718.png",
-      "initials": "TT",
-      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/10213.jpg"
-     },
-     "pos": "WR",
-     "practice": null,
-     "preSafety": 0.33,
-     "preStack": 0.3745,
-     "pubBlend": {
-      "before": 0.4693,
-      "weight": 0.3
-     },
-     "published": {
-      "expected": 0.24000000000000002,
-      "probability": 0.21337213893344664,
-      "source": "Sleeper projections week 9"
-     },
-     "recentFinisher": false,
-     "recentRzLooks": 4,
-     "replacing": null,
-     "riser": {
-      "reason": "Rising, not the star: touch share 10% → 16%; 4 red-zone looks in the last three weeks; scored in week 7.",
-      "trend": {
-       "direction": "rising",
-       "earlyShare": 0.10263772544474299,
-       "lateShare": 0.1593220338983051,
-       "nEarly": 3,
-       "nLate": 2,
-       "rawDelta": 0.05668430845356211,
-       "seasonShare": 0.11540756570133051,
-       "shrunkDelta": 0.045347446762849686,
-       "stable": true
-      }
-     },
-     "role": "WR1",
-     "safetyNotes": [],
-     "scenarios": {
-      "behind": {
-       "att": 0,
-       "carries": 0.33806536898602163,
-       "chance": 0.3064423634597637,
-       "targets": 8.865640308527823
-      },
-      "close": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      },
-      "lead": {
-       "att": 0,
-       "carries": 0.44545083913452266,
-       "chance": 0.3033988985974704,
-       "targets": 6.965860242414716
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      }
-     },
-     "scriptSensitive": false,
-     "secondOption": null,
-     "segment": "WR|primary|available",
-     "spots": {
-      "r0": {
-       "expected": 0.0025,
-       "looks": 2,
-       "opps": 0.3946,
-       "rate": 0.0066,
-       "scores": 0
-      },
-      "r1": {
-       "expected": 0.0005,
-       "looks": 0,
-       "opps": 0.0011,
-       "rate": 0.4289,
-       "scores": 0
-      },
-      "r2": {
-       "expected": 0.0002,
-       "looks": 0,
-       "opps": 0.0007,
-       "rate": 0.27,
-       "scores": 0
-      },
-      "r3": {
-       "expected": 0,
-       "looks": 0,
-       "opps": 0.0013,
-       "rate": 0.0164,
-       "scores": 0
-      },
-      "t0": {
-       "expected": 0.2223,
-       "looks": 41,
-       "opps": 6.5825,
-       "rate": 0.0346,
-       "scores": 3
-      },
-      "t1": {
-       "expected": 0.0638,
-       "looks": 0,
-       "opps": 0.1193,
-       "rate": 0.5368,
-       "scores": 0
-      },
-      "t2": {
-       "expected": 0.0851,
-       "looks": 2,
-       "opps": 0.242,
-       "rate": 0.37,
-       "scores": 0
-      },
-      "t3": {
-       "expected": 0.1321,
-       "looks": 4,
-       "opps": 0.972,
-       "rate": 0.13,
-       "scores": 1
-      }
-     },
-     "spread": 9.5,
-     "stacked": null,
-     "tags": [
-      "Rising role",
-      "Recurring scorer"
-     ],
-     "tdConf": {
-      "blocks": [],
-      "evidence": {
-       "avgTouches": 8.666666666666666,
-       "baseline": false,
-       "latest": 12,
-       "narrow": true,
-       "recentRz": 5,
-       "repeat": false,
-       "roleOk": true,
-       "width": 0.22090110245615147
-      },
-      "level": "Med",
-      "reasons": [
-       "5 red-zone touches in his last three games.",
-       "80% band 23–45% is narrow enough."
-      ]
-     },
-     "team": "LV",
-     "trendEffect": {
-      "after": 0.3974,
-      "before": 0.3974,
-      "items": [
-       {
-        "family": "snap",
-        "id": "snap:10213",
-        "mult": 1,
-        "pp": 0,
-        "text": "Tre Tucker's snap share rose to 76% over his last 2 games from 66% (3 earlier games).",
-        "weight": 0
-       },
-       {
-        "family": "usage",
-        "id": "usage:10213",
-        "mult": 1,
-        "pp": 0,
-        "text": "Tre Tucker's share of team carries + targets rose to 16% (last 2) from 10% (3 earlier games).",
-        "weight": 0
-       },
-       {
-        "family": "redzone",
-        "id": "redzone:10213",
-        "mult": 1,
-        "pp": 0,
-        "text": "Tre Tucker is averaging 2.0 red-zone looks over his last 2 games vs 0.3 before (3 earlier games).",
-        "weight": 0
-       }
-      ],
-      "note": "before safety caps and the team TD budget"
-     },
-     "trendTags": [
-      {
-       "direction": "up",
-       "family": "snap",
-       "firstDetectedWeek": 6,
-       "id": "snap:10213",
-       "status": "continuing",
-       "strength": 0.29,
-       "type": "Snap share"
-      },
-      {
-       "direction": "up",
-       "family": "usage",
-       "firstDetectedWeek": 9,
-       "id": "usage:10213",
-       "status": "new",
-       "strength": 0.28,
-       "type": "Touch share"
-      },
-      {
-       "direction": "up",
-       "family": "redzone",
-       "firstDetectedWeek": 7,
-       "id": "redzone:10213",
-       "status": "continuing",
-       "strength": 0.5,
-       "type": "Red-zone role"
-      }
-     ],
-     "usage": 0.3346,
-     "verified": true,
-     "verifyReason": "On LV nflverse roster (week 8, ACT)",
-     "vol": {
-      "att": 0,
-      "carries": 0.3977,
-      "rzRush": 0.0099,
-      "rzTgt": 1.4941,
-      "targets": 7.9158
-     },
-     "volConf": {
-      "rec": {
-       "blocks": [
-        "Defense allows 0.61 vs league 0.62."
-       ],
-       "level": "Med",
-       "provisional": false,
-       "reasons": [
-        "47 targets this season (High needs 12, Medium 5)."
-       ]
-      },
-      "recYd": {
-       "blocks": [
-        "Defense allows 7.44 vs league 8.08."
-       ],
-       "level": "Med",
-       "provisional": false,
-       "reasons": [
-        "47 targets this season (High needs 18, Medium 8)."
-       ]
-      },
-      "rushYd": {
-       "blocks": [],
-       "level": "Low",
-       "provisional": true,
-       "reasons": [
-        "Near-zero projected carries (0.4)."
-       ]
-      }
-     },
-     "volume": {
-      "rec": {
-       "defense": {
-        "allowed": 0.6148,
-        "factor": 0.9953,
-        "league": 0.6196
-       },
-       "hi": 7.3315,
-       "leagueDefense": 4.8568,
-       "lo": 2.3365,
-       "mean": 4.834,
-       "source": "held-out errors, WR|primary|available (n=45)",
-       "text": "4.9 without this defense. SF allows WRs a 61% catch rate versus 62% league."
-      },
-      "recYd": {
-       "defense": {
-        "allowed": 7.4426,
-        "factor": 0.9525,
-        "league": 8.0783
-       },
-       "hi": 111.2974,
-       "leagueDefense": 73.8098,
-       "lo": 29.3069,
-       "mean": 70.3021,
-       "source": "held-out errors, WR|primary|available (n=45)",
-       "text": "74 without this defense. SF allows WRs 7.4 yards a target versus 8.1 league."
-      },
-      "rushYd": {
-       "defense": {
-        "allowed": 9.3333,
-        "factor": 1.0387,
-        "league": 5.1484
-       },
-       "hi": 14.7726,
-       "leagueDefense": 1.8968,
-       "lo": 0,
-       "mean": 1.9702,
-       "source": "held-out errors, WR|primary|available (n=45)",
-       "text": "2 without this defense. SF allows WRs 9.3 yards a carry versus 5.1 league."
-      }
-     }
-    },
-    {
-     "avail": {
-      "factor": 1,
-      "label": "Available",
-      "status": "available",
-      "uncertain": false
-     },
-     "band": [
-      0.2355,
-      0.4456
-     ],
-     "blendDrives": 0.4081,
-     "ceiling": 0.5,
-     "challenger": 0.4081,
-     "challengerLegs": [
-      "model",
-      "sleeper",
-      "usage"
-     ],
-     "chance": 0.3283,
-     "coldGoal": false,
-     "components": {
-      "r0": 0.0306,
-      "r1": 0.1668,
-      "r2": 0.0316,
-      "r3": 0.0055,
-      "t0": 0.0307,
-      "t1": 0.0247,
-      "t2": 0.0163,
-      "t3": 0.0917
+      "r0": 0.0315,
+      "r1": 0.1715,
+      "r2": 0.0325,
+      "r3": 0.0056,
+      "t0": 0.0316,
+      "t1": 0.0254,
+      "t2": 0.0167,
+      "t3": 0.0943
      },
      "conversionNote": "1 of 21 red-zone carries scored. 3 of 10 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.3283,
-      "lambda": 0.398,
-      "p0": 0.6717,
-      "p1": 0.2673,
-      "p2": 0.0532,
-      "p3plus": 0.0078,
-      "twoPlus": 0.061
+      "anytime": 0.3358,
+      "lambda": 0.4092,
+      "p0": 0.6642,
+      "p1": 0.2718,
+      "p2": 0.0556,
+      "p3plus": 0.0084,
+      "twoPlus": 0.064
      },
      "driveActive": null,
      "driveAdj": {
-      "after": 0.4081,
-      "before": 0.4081,
+      "after": 0.411,
+      "before": 0.411,
       "expDrives": 10.7,
       "items": [
        {
@@ -10697,10 +10341,10 @@
       "raw": -0.1219,
       "w": 0
      },
-     "edge": -11.1781,
+     "edge": -10.4266,
      "espn": "4890973",
-     "fair": 205,
-     "firstTd": 0.09,
+     "fair": 198,
+     "firstTd": 0.0935,
      "gamesPlayed": 7,
      "glShare": 0.5795,
      "glShareRaw": 0.5795,
@@ -10710,10 +10354,10 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": true,
-     "lambda": 0.398,
+     "lambda": 0.4092,
      "lambdaRaw": 0.3215,
      "lessonNotes": [
-      "Learned from finished games: 25to35 chances scaled ×1.00 (from the last three weeks).",
+      "Learned from finished games: 25to35 chances scaled ×1.05 (from the last three weeks).",
       "Blended 30% toward the published projection (44%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.75,
@@ -10726,10 +10370,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.3283,
-     "preStack": 0.2738,
+     "preSafety": 0.3358,
+     "preStack": 0.2854,
      "pubBlend": {
-      "before": 0.32,
+      "before": 0.336,
       "weight": 0.3
      },
      "published": {
@@ -10747,7 +10391,7 @@
       "behind": {
        "att": 0,
        "carries": 7.919594423140139,
-       "chance": 0.3224060429992406,
+       "chance": 0.32969223089221933,
        "targets": 4.494671670382969
       },
       "close": {
@@ -10759,7 +10403,7 @@
       "lead": {
        "att": 0,
        "carries": 10.43523029872583,
-       "chance": 0.3355199164818835,
+       "chance": 0.343310138031204,
        "targets": 3.5315277410151893
       },
       "limited": {
@@ -10848,7 +10492,7 @@
        "recentRz": 10,
        "repeat": false,
        "roleOk": true,
-       "width": 0.21017041815139348
+       "width": 0.21355847738223066
       },
       "level": "Med",
       "reasons": [
@@ -10948,41 +10592,41 @@
       "rec": {
        "defense": {
         "allowed": 0.8909,
-        "factor": 1.057,
-        "league": 0.7816
+        "factor": 1.0559,
+        "league": 0.7834
        },
-       "hi": 6.0791,
-       "leagueDefense": 3.092,
-       "lo": 0.4573,
-       "mean": 3.2682,
-       "source": "held-out errors, RB|primary|available (n=55)",
-       "text": "3.1 without this defense. SF allows RBs a 89% catch rate versus 78% league."
+       "hi": 6.2891,
+       "leagueDefense": 3.1797,
+       "lo": 0.4258,
+       "mean": 3.3575,
+       "source": "held-out errors, RB|primary|available (n=57)",
+       "text": "3.2 without this defense. SF allows RBs a 89% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
         "allowed": 6.4364,
-        "factor": 1.0572,
-        "league": 5.6438
+        "factor": 1.0588,
+        "league": 5.624
        },
-       "hi": 63.7031,
-       "leagueDefense": 26.1617,
+       "hi": 63.0001,
+       "leagueDefense": 26.1115,
        "lo": 0,
-       "mean": 27.6584,
-       "source": "held-out errors, RB|primary|available (n=55)",
+       "mean": 27.6481,
+       "source": "held-out errors, RB|primary|available (n=57)",
        "text": "26 without this defense. SF allows RBs 6.4 yards a target versus 5.6 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 3.5948,
-        "factor": 0.9059,
-        "league": 4.1368
+        "factor": 0.9081,
+        "league": 4.1225
        },
-       "hi": 54.9605,
-       "leagueDefense": 31.5495,
-       "lo": 2.2,
-       "mean": 28.5803,
-       "source": "held-out errors, RB|primary|available (n=55)",
-       "text": "32 without this defense. SF allows RBs 3.6 yards a carry versus 4.1 league."
+       "hi": 54.2637,
+       "leagueDefense": 31.1167,
+       "lo": 2.2475,
+       "mean": 28.2556,
+       "source": "held-out errors, RB|primary|available (n=57)",
+       "text": "31 without this defense. SF allows RBs 3.6 yards a carry versus 4.1 league."
       }
      }
     },
@@ -10994,45 +10638,401 @@
       "uncertain": false
      },
      "band": [
-      0.173,
-      0.3496
+      0.236,
+      0.4587
      ],
-     "blendDrives": 0.3292,
+     "blendDrives": 0.2891,
      "ceiling": 0.5,
-     "challenger": 0.3292,
+     "challenger": 0.2891,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2486,
+     "chance": 0.334,
+     "coldGoal": false,
+     "components": {
+      "r0": 0.002,
+      "r1": 0.0004,
+      "r2": 0.0001,
+      "r3": 0,
+      "t0": 0.1784,
+      "t1": 0.0512,
+      "t2": 0.0683,
+      "t3": 0.1061
+     },
+     "conversionNote": "1 of 6 red-zone targets converted: those targets are the score.",
+     "dist": {
+      "anytime": 0.334,
+      "lambda": 0.4064,
+      "p0": 0.666,
+      "p1": 0.2707,
+      "p2": 0.055,
+      "p3plus": 0.0083,
+      "twoPlus": 0.0633
+     },
+     "driveActive": null,
+     "driveAdj": null,
+     "edge": 12.0615,
+     "espn": "4428718",
+     "fair": 199,
+     "firstTd": 0.0929,
+     "gamesPlayed": 7,
+     "glShare": 0.001,
+     "glShareRaw": 0.001,
+     "gsis": "00-0038563",
+     "i10Exp": 0.1495,
+     "id": "10213",
+     "implied": 19.5,
+     "injury": null,
+     "insideFinisher": false,
+     "lambda": 0.4064,
+     "lambdaRaw": 0.5065,
+     "lessonNotes": [
+      "Learned from finished games: 35to50 chances scaled ×0.94 (from the last three weeks).",
+      "Blended 30% toward the published projection (21%) because of limited recent red-zone evidence; safety caps applied after."
+     ],
+     "matchupFactor": 0.9776,
+     "name": "Tre Tucker",
+     "passTd": null,
+     "photo": {
+      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4428718.png",
+      "initials": "TT",
+      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/10213.jpg"
+     },
+     "pos": "WR",
+     "practice": null,
+     "preSafety": 0.334,
+     "preStack": 0.3798,
+     "pubBlend": {
+      "before": 0.4778,
+      "weight": 0.3
+     },
+     "published": {
+      "expected": 0.24000000000000002,
+      "probability": 0.21337213893344664,
+      "source": "Sleeper projections week 9"
+     },
+     "recentFinisher": false,
+     "recentRzLooks": 4,
+     "replacing": null,
+     "riser": {
+      "reason": "Rising, not the star: touch share 10% → 16%; 4 red-zone looks in the last three weeks; scored in week 7.",
+      "trend": {
+       "direction": "rising",
+       "earlyShare": 0.10263772544474299,
+       "lateShare": 0.1593220338983051,
+       "nEarly": 3,
+       "nLate": 2,
+       "rawDelta": 0.05668430845356211,
+       "seasonShare": 0.11540756570133051,
+       "shrunkDelta": 0.045347446762849686,
+       "stable": true
+      }
+     },
+     "role": "WR1",
+     "safetyNotes": [],
+     "scenarios": {
+      "behind": {
+       "att": 0,
+       "carries": 0.33806536898602163,
+       "chance": 0.30793885963398027,
+       "targets": 8.865640308527823
+      },
+      "close": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      },
+      "lead": {
+       "att": 0,
+       "carries": 0.44545083913452266,
+       "chance": 0.3070441825752287,
+       "targets": 6.965860242414716
+      },
+      "limited": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      }
+     },
+     "scriptSensitive": false,
+     "secondOption": null,
+     "segment": "WR|primary|available",
+     "spots": {
+      "r0": {
+       "expected": 0.0025,
+       "looks": 2,
+       "opps": 0.3946,
+       "rate": 0.0066,
+       "scores": 0
+      },
+      "r1": {
+       "expected": 0.0005,
+       "looks": 0,
+       "opps": 0.0011,
+       "rate": 0.4289,
+       "scores": 0
+      },
+      "r2": {
+       "expected": 0.0002,
+       "looks": 0,
+       "opps": 0.0007,
+       "rate": 0.27,
+       "scores": 0
+      },
+      "r3": {
+       "expected": 0,
+       "looks": 0,
+       "opps": 0.0013,
+       "rate": 0.0164,
+       "scores": 0
+      },
+      "t0": {
+       "expected": 0.2223,
+       "looks": 41,
+       "opps": 6.5825,
+       "rate": 0.0346,
+       "scores": 3
+      },
+      "t1": {
+       "expected": 0.0638,
+       "looks": 0,
+       "opps": 0.1193,
+       "rate": 0.5368,
+       "scores": 0
+      },
+      "t2": {
+       "expected": 0.0851,
+       "looks": 2,
+       "opps": 0.242,
+       "rate": 0.37,
+       "scores": 0
+      },
+      "t3": {
+       "expected": 0.1322,
+       "looks": 4,
+       "opps": 0.972,
+       "rate": 0.13,
+       "scores": 1
+      }
+     },
+     "spread": 9.5,
+     "stacked": null,
+     "tags": [
+      "Rising role",
+      "Recurring scorer"
+     ],
+     "tdConf": {
+      "blocks": [],
+      "evidence": {
+       "avgTouches": 8.666666666666666,
+       "baseline": false,
+       "latest": 12,
+       "narrow": true,
+       "recentRz": 5,
+       "repeat": false,
+       "roleOk": true,
+       "width": 0.22277154299904678
+      },
+      "level": "Med",
+      "reasons": [
+       "5 red-zone touches in his last three games.",
+       "80% band 24–46% is narrow enough."
+      ]
+     },
+     "team": "LV",
+     "trendEffect": {
+      "after": 0.3974,
+      "before": 0.3974,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:10213",
+        "mult": 1,
+        "pp": 0,
+        "text": "Tre Tucker's snap share rose to 76% over his last 2 games from 66% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "usage",
+        "id": "usage:10213",
+        "mult": 1,
+        "pp": 0,
+        "text": "Tre Tucker's share of team carries + targets rose to 16% (last 2) from 10% (3 earlier games).",
+        "weight": 0
+       },
+       {
+        "family": "redzone",
+        "id": "redzone:10213",
+        "mult": 1,
+        "pp": 0,
+        "text": "Tre Tucker is averaging 2.0 red-zone looks over his last 2 games vs 0.3 before (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "snap",
+       "firstDetectedWeek": 6,
+       "id": "snap:10213",
+       "status": "continuing",
+       "strength": 0.29,
+       "type": "Snap share"
+      },
+      {
+       "direction": "up",
+       "family": "usage",
+       "firstDetectedWeek": 9,
+       "id": "usage:10213",
+       "status": "new",
+       "strength": 0.28,
+       "type": "Touch share"
+      },
+      {
+       "direction": "up",
+       "family": "redzone",
+       "firstDetectedWeek": 7,
+       "id": "redzone:10213",
+       "status": "continuing",
+       "strength": 0.5,
+       "type": "Red-zone role"
+      }
+     ],
+     "usage": 0.3346,
+     "verified": true,
+     "verifyReason": "On LV nflverse roster (week 8, ACT)",
+     "vol": {
+      "att": 0,
+      "carries": 0.3977,
+      "rzRush": 0.0099,
+      "rzTgt": 1.4941,
+      "targets": 7.9158
+     },
+     "volConf": {
+      "rec": {
+       "blocks": [
+        "Defense allows 0.61 vs league 0.62."
+       ],
+       "level": "Med",
+       "provisional": false,
+       "reasons": [
+        "47 targets this season (High needs 12, Medium 5)."
+       ]
+      },
+      "recYd": {
+       "blocks": [
+        "Defense allows 7.44 vs league 8.07."
+       ],
+       "level": "Med",
+       "provisional": false,
+       "reasons": [
+        "47 targets this season (High needs 18, Medium 8)."
+       ]
+      },
+      "rushYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "Near-zero projected carries (0.4)."
+       ]
+      }
+     },
+     "volume": {
+      "rec": {
+       "defense": {
+        "allowed": 0.6148,
+        "factor": 0.9952,
+        "league": 0.6197
+       },
+       "hi": 7.4988,
+       "leagueDefense": 4.9906,
+       "lo": 2.4344,
+       "mean": 4.9666,
+       "source": "held-out errors, WR|primary|available (n=46)",
+       "text": "5.0 without this defense. SF allows WRs a 61% catch rate versus 62% league."
+      },
+      "recYd": {
+       "defense": {
+        "allowed": 7.4426,
+        "factor": 0.9532,
+        "league": 8.0681
+       },
+       "hi": 110.9915,
+       "leagueDefense": 73.7278,
+       "lo": 29.5602,
+       "mean": 70.2758,
+       "source": "held-out errors, WR|primary|available (n=46)",
+       "text": "74 without this defense. SF allows WRs 7.4 yards a target versus 8.1 league."
+      },
+      "rushYd": {
+       "defense": {
+        "allowed": 9.3333,
+        "factor": 1.0371,
+        "league": 5.2481
+       },
+       "hi": 14.6396,
+       "leagueDefense": 1.9103,
+       "lo": 0,
+       "mean": 1.9811,
+       "source": "held-out errors, WR|primary|available (n=46)",
+       "text": "2 without this defense. SF allows WRs 9.3 yards a carry versus 5.2 league."
+      }
+     }
+    },
+    {
+     "avail": {
+      "factor": 1,
+      "label": "Available",
+      "status": "available",
+      "uncertain": false
+     },
+     "band": [
+      0.1699,
+      0.3441
+     ],
+     "blendDrives": 0.3274,
+     "ceiling": 0.5,
+     "challenger": 0.3274,
+     "challengerLegs": [
+      "model",
+      "sleeper",
+      "usage"
+     ],
+     "chance": 0.2444,
      "coldGoal": false,
      "components": {
       "r0": 0.0005,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.083,
-      "t1": 0.0734,
-      "t2": 0.0482,
-      "t3": 0.0806
+      "t0": 0.0814,
+      "t1": 0.072,
+      "t2": 0.0473,
+      "t3": 0.0791
      },
      "conversionNote": "3 of 7 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.2486,
-      "lambda": 0.2858,
-      "p0": 0.7514,
-      "p1": 0.2148,
-      "p2": 0.0307,
-      "p3plus": 0.0031,
-      "twoPlus": 0.0338
+      "anytime": 0.2444,
+      "lambda": 0.2802,
+      "p0": 0.7556,
+      "p1": 0.2117,
+      "p2": 0.0297,
+      "p3plus": 0.003,
+      "twoPlus": 0.0326
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -15.6886,
+     "edge": -16.1122,
      "espn": "4432665",
-     "fair": 302,
-     "firstTd": 0.0647,
+     "fair": 309,
+     "firstTd": 0.064,
      "gamesPlayed": 5,
      "glShare": 0,
      "glShareRaw": 0,
@@ -11042,10 +11042,10 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.2858,
+     "lambda": 0.2802,
      "lambdaRaw": 0.1349,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 38% toward the published projection (40%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.75,
@@ -11058,10 +11058,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.2486,
-     "preStack": 0.1352,
+     "preSafety": 0.2444,
+     "preStack": 0.1274,
      "pubBlend": {
-      "before": 0.1453,
+      "before": 0.1363,
       "weight": 0.375
      },
      "published": {
@@ -11096,7 +11096,7 @@
       "behind": {
        "att": 0,
        "carries": 0.042461385812367906,
-       "chance": 0.25670336357326695,
+       "chance": 0.2520112617486674,
        "targets": 6.689613243906689
       },
       "close": {
@@ -11108,7 +11108,7 @@
       "lead": {
        "att": 0,
        "carries": 0.055949120129237716,
-       "chance": 0.2403911290222992,
+       "chance": 0.23662252864758204,
        "targets": 5.256124691640969
       },
       "limited": {
@@ -11197,12 +11197,12 @@
        "recentRz": 3,
        "repeat": false,
        "roleOk": true,
-       "width": 0.17663816443071756
+       "width": 0.1742069801145124
       },
       "level": "Med",
       "reasons": [
        "3 red-zone touches in his last three games.",
-       "80% band 17–35% is narrow enough."
+       "80% band 17–34% is narrow enough."
       ]
      },
      "team": "LV",
@@ -11336,27 +11336,27 @@
       "rec": {
        "defense": {
         "allowed": 0.7636,
-        "factor": 1.0246,
-        "league": 0.7201
+        "factor": 1.0244,
+        "league": 0.7205
        },
-       "hi": 7.0651,
-       "leagueDefense": 4.0581,
-       "lo": 1.2511,
-       "mean": 4.1581,
-       "source": "held-out errors, TE|primary|available (n=50)",
-       "text": "4.1 without this defense. SF allows TEs a 76% catch rate versus 72% league."
+       "hi": 7.2367,
+       "leagueDefense": 4.1704,
+       "lo": 1.3078,
+       "mean": 4.2722,
+       "source": "held-out errors, TE|primary|available (n=52)",
+       "text": "4.2 without this defense. SF allows TEs a 76% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
         "allowed": 5.5455,
-        "factor": 0.9121,
-        "league": 7.0706
+        "factor": 0.9118,
+        "league": 7.0786
        },
-       "hi": 83.2434,
-       "leagueDefense": 49.3048,
-       "lo": 6.7006,
-       "mean": 44.972,
-       "source": "held-out errors, TE|primary|available (n=50)",
+       "hi": 82.904,
+       "leagueDefense": 49.2887,
+       "lo": 6.9751,
+       "mean": 44.9395,
+       "source": "held-out errors, TE|primary|available (n=52)",
        "text": "49 without this defense. SF allows TEs 5.5 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -11365,11 +11365,11 @@
         "factor": 1.0107,
         "league": 1.8182
        },
-       "hi": 2.2255,
-       "leagueDefense": 0.091,
+       "hi": 2.1342,
+       "leagueDefense": 0.0898,
        "lo": 0,
-       "mean": 0.092,
-       "source": "held-out errors, TE|primary|available (n=50)",
+       "mean": 0.0908,
+       "source": "held-out errors, TE|primary|available (n=52)",
        "text": "0 without this defense. SF allows TEs 3.0 yards a carry versus 1.8 league."
       }
      }
@@ -11382,45 +11382,45 @@
       "uncertain": false
      },
      "band": [
-      0.112,
-      0.2633
+      0.1083,
+      0.2553
      ],
-     "blendDrives": 0.1587,
+     "blendDrives": 0.157,
      "ceiling": 0.5,
-     "challenger": 0.1587,
+     "challenger": 0.157,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1735,
+     "chance": 0.1679,
      "coldGoal": false,
      "components": {
-      "r0": 0.0401,
-      "r1": 0.0921,
-      "r2": 0.028,
-      "r3": 0.0065,
-      "t0": 0.0135,
-      "t1": 0.005,
-      "t2": 0.0033,
-      "t3": 0.0021
+      "r0": 0.0387,
+      "r1": 0.0888,
+      "r2": 0.027,
+      "r3": 0.0062,
+      "t0": 0.013,
+      "t1": 0.0048,
+      "t2": 0.0032,
+      "t3": 0.002
      },
      "conversionNote": "0 of 8 red-zone carries scored.",
      "dist": {
-      "anytime": 0.1735,
-      "lambda": 0.1905,
-      "p0": 0.8265,
-      "p1": 0.1575,
-      "p2": 0.015,
-      "p3plus": 0.001,
-      "twoPlus": 0.016
+      "anytime": 0.1679,
+      "lambda": 0.1838,
+      "p0": 0.8321,
+      "p1": 0.153,
+      "p2": 0.0141,
+      "p3plus": 0.0009,
+      "twoPlus": 0.015
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -1.5946,
+     "edge": -2.1495,
      "espn": "4686658",
-     "fair": 476,
-     "firstTd": 0.0431,
+     "fair": 496,
+     "firstTd": 0.042,
      "gamesPlayed": 7,
      "glShare": 0.2741,
      "glShareRaw": 0.2741,
@@ -11430,10 +11430,10 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1905,
+     "lambda": 0.1838,
      "lambdaRaw": 0.1858,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×0.98 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×0.93 (from the last three weeks).",
       "Blended 30% toward the published projection (18%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.75,
@@ -11446,10 +11446,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.1735,
-     "preStack": 0.1665,
+     "preSafety": 0.1679,
+     "preStack": 0.1585,
      "pubBlend": {
-      "before": 0.1822,
+      "before": 0.1726,
       "weight": 0.3
      },
      "published": {
@@ -11467,7 +11467,7 @@
       "behind": {
        "att": 0,
        "carries": 5.132343707149911,
-       "chance": 0.1611283738369933,
+       "chance": 0.15615254799931289,
        "targets": 1.5565716068081203
       },
       "close": {
@@ -11479,7 +11479,7 @@
       "lead": {
        "att": 0,
        "carries": 6.7626175905975305,
-       "chance": 0.1784846098205901,
+       "chance": 0.17270457220798807,
        "targets": 1.22302054820638
       },
       "limited": {
@@ -11565,7 +11565,7 @@
        "recentRz": 4,
        "repeat": false,
        "roleOk": true,
-       "width": 0.15125757616278812
+       "width": 0.14702171181592105
       },
       "level": "Med",
       "reasons": [
@@ -11664,7 +11664,7 @@
       "rushYd": {
        "blocks": [
         "Very wide range.",
-        "Held-out 80% ranges covered only 62% of comparable results."
+        "Held-out 80% ranges covered only 63% of comparable results."
        ],
        "level": "Med",
        "provisional": false,
@@ -11677,40 +11677,40 @@
       "rec": {
        "defense": {
         "allowed": 0.8909,
-        "factor": 1.057,
-        "league": 0.7816
+        "factor": 1.0559,
+        "league": 0.7834
        },
-       "hi": 2.67,
-       "leagueDefense": 1.0034,
+       "hi": 2.7278,
+       "leagueDefense": 1.0331,
        "lo": 0,
-       "mean": 1.0606,
-       "source": "held-out errors, RB|support|available (n=34)",
+       "mean": 1.0908,
+       "source": "held-out errors, RB|support|available (n=35)",
        "text": "1.0 without this defense. SF allows RBs a 89% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
         "allowed": 6.4364,
-        "factor": 1.0572,
-        "league": 5.6438
+        "factor": 1.0588,
+        "league": 5.624
        },
-       "hi": 26.0057,
-       "leagueDefense": 6.977,
+       "hi": 25.7519,
+       "leagueDefense": 6.9492,
        "lo": 0,
-       "mean": 7.3762,
-       "source": "held-out errors, RB|support|available (n=34)",
+       "mean": 7.3582,
+       "source": "held-out errors, RB|support|available (n=35)",
        "text": "7 without this defense. SF allows RBs 6.4 yards a target versus 5.6 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 3.5948,
-        "factor": 0.9059,
-        "league": 4.1368
+        "factor": 0.9081,
+        "league": 4.1225
        },
-       "hi": 50.3798,
-       "leagueDefense": 27.2569,
+       "hi": 49.9219,
+       "leagueDefense": 26.8715,
        "lo": 0,
-       "mean": 24.6917,
-       "source": "held-out errors, RB|support|available (n=34)",
+       "mean": 24.4007,
+       "source": "held-out errors, RB|support|available (n=35)",
        "text": "27 without this defense. SF allows RBs 3.6 yards a carry versus 4.1 league."
       }
      }
@@ -11723,45 +11723,45 @@
       "uncertain": false
      },
      "band": [
-      0.0841,
-      0.1765
+      0.0806,
+      0.1696
      ],
-     "blendDrives": 0.1178,
+     "blendDrives": 0.1162,
      "ceiling": 0.5,
-     "challenger": 0.1178,
+     "challenger": 0.1162,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1225,
+     "chance": 0.1175,
      "coldGoal": false,
      "components": {
       "r0": 0.0002,
       "r1": 0.0001,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0205,
-      "t1": 0.066,
-      "t2": 0.0109,
-      "t3": 0.0329
+      "t0": 0.0196,
+      "t1": 0.0632,
+      "t2": 0.0104,
+      "t3": 0.0315
      },
      "conversionNote": "3 of 6 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.1225,
-      "lambda": 0.1306,
-      "p0": 0.8775,
-      "p1": 0.1146,
-      "p2": 0.0075,
+      "anytime": 0.1175,
+      "lambda": 0.125,
+      "p0": 0.8825,
+      "p1": 0.1103,
+      "p2": 0.0069,
       "p3plus": 0.0003,
-      "twoPlus": 0.0078
+      "twoPlus": 0.0072
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 0.0562,
+     "edge": -0.442,
      "espn": "4241983",
-     "fair": 717,
-     "firstTd": 0.0296,
+     "fair": 751,
+     "firstTd": 0.0286,
      "gamesPlayed": 7,
      "glShare": 0.0002,
      "glShareRaw": 0.0002,
@@ -11771,13 +11771,13 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1306,
+     "lambda": 0.125,
      "lambdaRaw": 0.1216,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 30% toward the published projection (12%) because of limited recent red-zone evidence; safety caps applied after."
      ],
-     "matchupFactor": 0.9775,
+     "matchupFactor": 0.9776,
      "name": "Cody White",
      "passTd": null,
      "photo": {
@@ -11787,10 +11787,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.1225,
-     "preStack": 0.1227,
+     "preSafety": 0.1175,
+     "preStack": 0.1156,
      "pubBlend": {
-      "before": 0.1309,
+      "before": 0.1228,
       "weight": 0.3
      },
      "published": {
@@ -11808,7 +11808,7 @@
       "behind": {
        "att": 0,
        "carries": 0.01984704814906265,
-       "chance": 0.13201495722239465,
+       "chance": 0.12649702459570622,
        "targets": 2.200821312643487
       },
       "close": {
@@ -11820,7 +11820,7 @@
       "lead": {
        "att": 0,
        "carries": 0.026151404619941376,
-       "chance": 0.11280166719770457,
+       "chance": 0.10836836945352957,
        "targets": 1.729216745648454
       },
       "limited": {
@@ -11904,12 +11904,12 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.09238602708462229
+       "width": 0.08892085663693339
       },
       "level": "Med",
       "reasons": [
        "2 red-zone touches in his last three games.",
-       "80% band 8–18% is narrow enough."
+       "80% band 8–17% is narrow enough."
       ]
      },
      "team": "LV",
@@ -11989,41 +11989,41 @@
       "rec": {
        "defense": {
         "allowed": 0.6148,
-        "factor": 0.9953,
-        "league": 0.6196
+        "factor": 0.9952,
+        "league": 0.6197
        },
-       "hi": 2.664,
-       "leagueDefense": 1.0416,
+       "hi": 2.7026,
+       "leagueDefense": 1.0704,
        "lo": 0,
-       "mean": 1.0367,
-       "source": "held-out errors, WR|reserve|available (n=173)",
-       "text": "1.0 without this defense. SF allows WRs a 61% catch rate versus 62% league."
+       "mean": 1.0653,
+       "source": "held-out errors, WR|reserve|available (n=180)",
+       "text": "1.1 without this defense. SF allows WRs a 61% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
         "allowed": 7.4426,
-        "factor": 0.9525,
-        "league": 8.0783
+        "factor": 0.9532,
+        "league": 8.0681
        },
-       "hi": 37.4521,
-       "leagueDefense": 14.2426,
+       "hi": 37.2331,
+       "leagueDefense": 14.2206,
        "lo": 0,
-       "mean": 13.5658,
-       "source": "held-out errors, WR|reserve|available (n=173)",
+       "mean": 13.5548,
+       "source": "held-out errors, WR|reserve|available (n=180)",
        "text": "14 without this defense. SF allows WRs 7.4 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 9.3333,
-        "factor": 1.0387,
-        "league": 5.1484
+        "factor": 1.0371,
+        "league": 5.2481
        },
-       "hi": 1.7585,
-       "leagueDefense": 0.1204,
+       "hi": 1.8384,
+       "leagueDefense": 0.1212,
        "lo": 0,
-       "mean": 0.1251,
-       "source": "held-out errors, WR|reserve|available (n=173)",
-       "text": "0 without this defense. SF allows WRs 9.3 yards a carry versus 5.1 league."
+       "mean": 0.1257,
+       "source": "held-out errors, WR|reserve|available (n=180)",
+       "text": "0 without this defense. SF allows WRs 9.3 yards a carry versus 5.2 league."
       }
      }
     },
@@ -12035,45 +12035,45 @@
       "uncertain": false
      },
      "band": [
-      0.0739,
-      0.195
+      0.0706,
+      0.187
      ],
-     "blendDrives": 0.1127,
+     "blendDrives": 0.1111,
      "ceiling": 0.5,
-     "challenger": 0.1127,
+     "challenger": 0.1111,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1211,
+     "chance": 0.1159,
      "coldGoal": false,
      "components": {
       "r0": 0.0007,
       "r1": 0.0002,
       "r2": 0.0001,
       "r3": 0,
-      "t0": 0.0359,
-      "t1": 0.0287,
-      "t2": 0.0189,
-      "t3": 0.0445
+      "t0": 0.0343,
+      "t1": 0.0274,
+      "t2": 0.0181,
+      "t3": 0.0424
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.1211,
-      "lambda": 0.129,
-      "p0": 0.8789,
-      "p1": 0.1134,
-      "p2": 0.0073,
+      "anytime": 0.1159,
+      "lambda": 0.1231,
+      "p0": 0.8841,
+      "p1": 0.1089,
+      "p2": 0.0067,
       "p3plus": 0.0003,
-      "twoPlus": 0.0076
+      "twoPlus": 0.007
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 3.4985,
+     "edge": 2.9796,
      "espn": "4382466",
-     "fair": 726,
-     "firstTd": 0.0292,
+     "fair": 763,
+     "firstTd": 0.0281,
      "gamesPlayed": 5,
      "glShare": 0.0004,
      "glShareRaw": 0.0004,
@@ -12083,13 +12083,13 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.129,
+     "lambda": 0.1231,
      "lambdaRaw": 0.1416,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 38% toward the published projection (8%) because of limited recent red-zone evidence; safety caps applied after."
      ],
-     "matchupFactor": 0.9775,
+     "matchupFactor": 0.9776,
      "name": "Jalen Nailor",
      "passTd": null,
      "photo": {
@@ -12099,10 +12099,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.1211,
-     "preStack": 0.1414,
+     "preSafety": 0.1159,
+     "preStack": 0.1333,
      "pubBlend": {
-      "before": 0.1525,
+      "before": 0.143,
       "weight": 0.375
      },
      "published": {
@@ -12120,7 +12120,7 @@
       "behind": {
        "att": 0,
        "carries": 0.10284695910645891,
-       "chance": 0.1308790656369212,
+       "chance": 0.125140879668586,
        "targets": 4.477921270374768
       },
       "close": {
@@ -12132,7 +12132,7 @@
       "lead": {
        "att": 0,
        "carries": 0.13551599317556942,
-       "chance": 0.11108842792931317,
+       "chance": 0.10646328236641989,
        "targets": 3.5183667124373175
       },
       "limited": {
@@ -12216,12 +12216,12 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.12117692205073127
+       "width": 0.11641793022232017
       },
       "level": "Med",
       "reasons": [
        "2 red-zone touches in his last three games.",
-       "80% band 7–20% is narrow enough."
+       "80% band 7–19% is narrow enough."
       ]
      },
      "team": "LV",
@@ -12295,41 +12295,41 @@
       "rec": {
        "defense": {
         "allowed": 0.6148,
-        "factor": 0.9953,
-        "league": 0.6196
+        "factor": 0.9952,
+        "league": 0.6197
        },
-       "hi": 3.6494,
-       "leagueDefense": 2.0723,
-       "lo": 0.4757,
-       "mean": 2.0626,
-       "source": "held-out errors, WR|support|available (n=46)",
+       "hi": 3.7337,
+       "leagueDefense": 2.1295,
+       "lo": 0.5049,
+       "mean": 2.1193,
+       "source": "held-out errors, WR|support|available (n=48)",
        "text": "2.1 without this defense. SF allows WRs a 61% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
         "allowed": 7.4426,
-        "factor": 0.9525,
-        "league": 8.0783
+        "factor": 0.9532,
+        "league": 8.0681
        },
-       "hi": 50.5474,
-       "leagueDefense": 25.4339,
+       "hi": 49.9705,
+       "leagueDefense": 25.392,
        "lo": 0,
-       "mean": 24.2252,
-       "source": "held-out errors, WR|support|available (n=46)",
+       "mean": 24.2031,
+       "source": "held-out errors, WR|support|available (n=48)",
        "text": "25 without this defense. SF allows WRs 7.4 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 9.3333,
-        "factor": 1.0387,
-        "league": 5.1484
+        "factor": 1.0371,
+        "league": 5.2481
        },
-       "hi": 9.0826,
-       "leagueDefense": 0.6241,
+       "hi": 8.8726,
+       "leagueDefense": 0.6282,
        "lo": 0,
-       "mean": 0.6482,
-       "source": "held-out errors, WR|support|available (n=46)",
-       "text": "1 without this defense. SF allows WRs 9.3 yards a carry versus 5.1 league."
+       "mean": 0.6515,
+       "source": "held-out errors, WR|support|available (n=48)",
+       "text": "1 without this defense. SF allows WRs 9.3 yards a carry versus 5.2 league."
       }
      }
     },
@@ -12341,45 +12341,45 @@
       "uncertain": false
      },
      "band": [
-      0.0653,
-      0.1695
+      0.0639,
+      0.166
      ],
-     "blendDrives": 0.1315,
+     "blendDrives": 0.1305,
      "ceiling": 0.5,
-     "challenger": 0.1315,
+     "challenger": 0.1305,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.106,
+     "chance": 0.1037,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0459,
-      "t1": 0.0462,
-      "t2": 0.0102,
-      "t3": 0.0097
+      "t0": 0.0449,
+      "t1": 0.0451,
+      "t2": 0.01,
+      "t3": 0.0095
      },
      "conversionNote": "1 of 2 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.106,
-      "lambda": 0.112,
-      "p0": 0.894,
-      "p1": 0.1002,
-      "p2": 0.0056,
+      "anytime": 0.1037,
+      "lambda": 0.1095,
+      "p0": 0.8963,
+      "p1": 0.0982,
+      "p2": 0.0054,
       "p3plus": 0.0002,
-      "twoPlus": 0.0058
+      "twoPlus": 0.0056
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -1.5928,
+     "edge": -1.8174,
      "espn": "4429086",
-     "fair": 844,
-     "firstTd": 0.0253,
+     "fair": 864,
+     "firstTd": 0.025,
      "gamesPlayed": 7,
      "glShare": 0,
      "glShareRaw": 0,
@@ -12389,10 +12389,10 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.112,
+     "lambda": 0.1095,
      "lambdaRaw": 0.0836,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 55% toward the published projection (12%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.75,
@@ -12405,10 +12405,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.106,
-     "preStack": 0.0861,
+     "preSafety": 0.1037,
+     "preStack": 0.081,
      "pubBlend": {
-      "before": 0.0901,
+      "before": 0.0845,
       "weight": 0.55
      },
      "published": {
@@ -12426,7 +12426,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.11031315202919445,
+       "chance": 0.10781018915255036,
        "targets": 5.2092904273619896
       },
       "close": {
@@ -12438,7 +12438,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.1016182771472105,
+       "chance": 0.0996330417204001,
        "targets": 4.093013907212991
       },
       "limited": {
@@ -12522,12 +12522,12 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.10414514608003123
+       "width": 0.10209967974091338
       },
       "level": "Low",
       "reasons": [
        "0 red-zone touches in his last three games.",
-       "80% band 7–17% is narrow enough."
+       "80% band 6–17% is narrow enough."
       ]
      },
      "team": "LV",
@@ -12601,27 +12601,27 @@
       "rec": {
        "defense": {
         "allowed": 0.7636,
-        "factor": 1.0246,
-        "league": 0.7201
+        "factor": 1.0244,
+        "league": 0.7205
        },
-       "hi": 6.7243,
-       "leagueDefense": 3.6502,
-       "lo": 0.756,
-       "mean": 3.7402,
-       "source": "held-out errors, TE|support|available (n=48)",
-       "text": "3.7 without this defense. SF allows TEs a 76% catch rate versus 72% league."
+       "hi": 6.8518,
+       "leagueDefense": 3.7513,
+       "lo": 0.8339,
+       "mean": 3.8428,
+       "source": "held-out errors, TE|support|available (n=49)",
+       "text": "3.8 without this defense. SF allows TEs a 76% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
         "allowed": 5.5455,
-        "factor": 0.9121,
-        "league": 7.0706
+        "factor": 0.9118,
+        "league": 7.0786
        },
-       "hi": 71.1245,
-       "leagueDefense": 35.4932,
+       "hi": 70.5564,
+       "leagueDefense": 35.4855,
        "lo": 0,
-       "mean": 32.3741,
-       "source": "held-out errors, TE|support|available (n=48)",
+       "mean": 32.3543,
+       "source": "held-out errors, TE|support|available (n=49)",
        "text": "35 without this defense. SF allows TEs 5.5 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -12634,7 +12634,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|support|available (n=48)",
+       "source": "held-out errors, TE|support|available (n=49)",
        "text": "0 without this defense. SF allows TEs 3.0 yards a carry versus 1.8 league."
       }
      }
@@ -12647,23 +12647,23 @@
       "uncertain": false
      },
      "band": [
-      0.0203,
-      0.088
+      0.02,
+      0.0867
      ],
-     "blendDrives": 0.0572,
+     "blendDrives": 0.0569,
      "ceiling": 0.5,
-     "challenger": 0.0572,
+     "challenger": 0.0569,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0425,
+     "chance": 0.0419,
      "coldGoal": false,
      "components": {
-      "r0": 0.0212,
-      "r1": 0.016,
-      "r2": 0.0056,
+      "r0": 0.0208,
+      "r1": 0.0158,
+      "r2": 0.0055,
       "r3": 0.0007,
       "t0": 0,
       "t1": 0,
@@ -12672,19 +12672,19 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0425,
-      "lambda": 0.0435,
-      "p0": 0.9575,
-      "p1": 0.0416,
+      "anytime": 0.0419,
+      "lambda": 0.0428,
+      "p0": 0.9581,
+      "p1": 0.041,
       "p2": 0.0009,
       "p3plus": 0,
       "twoPlus": 0.0009
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -1.5712,
+     "edge": -1.6335,
      "espn": "14880",
-     "fair": 2252,
+     "fair": 2287,
      "firstTd": 0.0098,
      "gamesPlayed": 7,
      "glShare": 0.018,
@@ -12695,18 +12695,18 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0435,
+     "lambda": 0.0428,
      "lambdaRaw": 0.0216,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 55% toward the published projection (5%) because of limited recent red-zone evidence; safety caps applied after."
      ],
-     "matchupFactor": 0.92,
+     "matchupFactor": 0.9197,
      "name": "Kirk Cousins",
      "passTd": {
       "attemptShare": 0.8823,
       "display": "1.2",
-      "expected": 1.1886,
+      "expected": 1.1757,
       "interval": [
        0,
        3
@@ -12714,10 +12714,10 @@
       "level": "Med",
       "provisional": true,
       "reasons": [
-       "88% of projected team attempts (31.7) × team receiving-score total 1.35.",
+       "88% of projected team attempts (31.7) × team receiving-score total 1.33.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.3471
+      "teamReceivingLambda": 1.3326
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/14880.png",
@@ -12726,10 +12726,10 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.0425,
-     "preStack": 0.023,
+     "preSafety": 0.0419,
+     "preStack": 0.0215,
      "pubBlend": {
-      "before": 0.0232,
+      "before": 0.0218,
       "weight": 0.55
      },
      "published": {
@@ -12747,7 +12747,7 @@
       "behind": {
        "att": 35.44993879528546,
        "carries": 1.5748579343562934,
-       "chance": 0.04102056242666363,
+       "chance": 0.04049023674585828,
        "targets": 0
       },
       "close": {
@@ -12759,7 +12759,7 @@
       "lead": {
        "att": 27.853523339152858,
        "carries": 2.0751069252694694,
-       "chance": 0.04339737197699123,
+       "chance": 0.04272056787316947,
        "targets": 0
       },
       "limited": {
@@ -12845,7 +12845,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.06768947634119749
+       "width": 0.06673207983474427
       },
       "level": "Med",
       "reasons": [
@@ -12904,15 +12904,15 @@
       "passYd": {
        "defense": {
         "allowed": null,
-        "factor": 0.9608,
+        "factor": 0.9613,
         "league": null
        },
-       "hi": 281.2677,
-       "leagueDefense": 211.8836,
-       "lo": 125.8843,
-       "mean": 203.576,
-       "source": "held-out errors, QB|primary|available (n=50)",
-       "text": "212 without this defense; opponent factor 0.96 from how this offense uses WRs, TEs, and backs."
+       "hi": 279.0054,
+       "leagueDefense": 210.8564,
+       "lo": 126.3922,
+       "mean": 202.6988,
+       "source": "held-out errors, QB|primary|available (n=52)",
+       "text": "211 without this defense; opponent factor 0.96 from how this offense uses WRs, TEs, and backs."
       },
       "rec": {
        "defense": {
@@ -12924,7 +12924,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=50)",
+       "source": "held-out errors, QB|primary|available (n=52)",
        "text": "0.0 without this defense."
       },
       "recYd": {
@@ -12937,7 +12937,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=50)",
+       "source": "held-out errors, QB|primary|available (n=52)",
        "text": "0 without this defense."
       },
       "rushYd": {
@@ -12946,11 +12946,11 @@
         "factor": 0.8591,
         "league": 4.3804
        },
-       "hi": 16.745,
-       "leagueDefense": 6.0484,
+       "hi": 16.5207,
+       "leagueDefense": 5.9723,
        "lo": 0,
-       "mean": 5.1962,
-       "source": "held-out errors, QB|primary|available (n=50)",
+       "mean": 5.1309,
+       "source": "held-out errors, QB|primary|available (n=52)",
        "text": "6 without this defense. SF allows QBs 2.0 yards a carry versus 4.4 league."
       }
      }
@@ -12963,34 +12963,34 @@
       "uncertain": false
      },
      "band": [
-      0.0125,
-      0.067
+      0.0117,
+      0.063
      ],
-     "blendDrives": 0.0445,
+     "blendDrives": 0.0432,
      "ceiling": 0.5,
-     "challenger": 0.0445,
+     "challenger": 0.0432,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.0291,
+     "chance": 0.0273,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0187,
-      "t1": 0.0051,
-      "t2": 0.0035,
-      "t3": 0.0022
+      "t0": 0.0176,
+      "t1": 0.0048,
+      "t2": 0.0033,
+      "t3": 0.0021
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0291,
-      "lambda": 0.0295,
-      "p0": 0.9709,
-      "p1": 0.0287,
+      "anytime": 0.0273,
+      "lambda": 0.0277,
+      "p0": 0.9727,
+      "p1": 0.027,
       "p2": 0.0004,
       "p3plus": 0,
       "twoPlus": 0.0004
@@ -12999,8 +12999,8 @@
      "driveAdj": null,
      "edge": null,
      "espn": "4432775",
-     "fair": 3336,
-     "firstTd": 0.0067,
+     "fair": 3559,
+     "firstTd": 0.0063,
      "gamesPlayed": 0,
      "glShare": 0,
      "glShareRaw": 0,
@@ -13010,12 +13010,12 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0295,
+     "lambda": 0.0277,
      "lambdaRaw": 0.0274,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks)."
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks)."
      ],
-     "matchupFactor": 0.9775,
+     "matchupFactor": 0.9776,
      "name": "Dont'e Thornton Jr.",
      "passTd": null,
      "photo": {
@@ -13025,8 +13025,8 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0291,
-     "preStack": 0.0291,
+     "preSafety": 0.0273,
+     "preStack": 0.0273,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -13039,7 +13039,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.03253911349506455,
+       "chance": 0.030560013486487625,
        "targets": 1.4787124664100748
       },
       "close": {
@@ -13051,7 +13051,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.02565677501320729,
+       "chance": 0.024091048793761227,
        "targets": 1.1618455093222015
       },
       "limited": {
@@ -13135,12 +13135,12 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.05444999552057661
+       "width": 0.05121484621317851
       },
       "level": "Low",
       "reasons": [
        "unknown red-zone touches in his last three games (no red-zone data).",
-       "80% band 1–7% is narrow enough."
+       "80% band 1–6% is narrow enough."
       ]
      },
      "team": "LV",
@@ -13186,41 +13186,41 @@
       "rec": {
        "defense": {
         "allowed": 0.6148,
-        "factor": 0.9953,
-        "league": 0.6196
+        "factor": 0.9952,
+        "league": 0.6197
        },
-       "hi": 2.2454,
-       "leagueDefense": 0.8122,
+       "hi": 2.2767,
+       "leagueDefense": 0.8347,
        "lo": 0,
-       "mean": 0.8084,
-       "source": "held-out errors, WR|reserve|available (n=173)",
+       "mean": 0.8307,
+       "source": "held-out errors, WR|reserve|available (n=180)",
        "text": "0.8 without this defense. SF allows WRs a 61% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
         "allowed": 7.4426,
-        "factor": 0.9525,
-        "league": 8.0783
+        "factor": 0.9532,
+        "league": 8.0681
        },
-       "hi": 30.8757,
-       "leagueDefense": 10.6899,
+       "hi": 30.6791,
+       "leagueDefense": 10.6691,
        "lo": 0,
-       "mean": 10.1819,
-       "source": "held-out errors, WR|reserve|available (n=173)",
+       "mean": 10.1695,
+       "source": "held-out errors, WR|reserve|available (n=180)",
        "text": "11 without this defense. SF allows WRs 7.4 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 9.3333,
-        "factor": 1.0387,
-        "league": 5.1484
+        "factor": 1.0371,
+        "league": 5.2481
        },
        "hi": 0,
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, WR|reserve|available (n=173)",
-       "text": "0 without this defense. SF allows WRs 9.3 yards a carry versus 5.1 league."
+       "source": "held-out errors, WR|reserve|available (n=180)",
+       "text": "0 without this defense. SF allows WRs 9.3 yards a carry versus 5.2 league."
       }
      }
     },
@@ -13232,43 +13232,43 @@
       "uncertain": false
      },
      "band": [
-      0.0119,
-      0.0643
+      0.0112,
+      0.0605
      ],
-     "blendDrives": 0.0278,
+     "blendDrives": 0.0261,
      "ceiling": 0.5,
-     "challenger": 0.0278,
+     "challenger": 0.0261,
      "challengerLegs": [
       "model"
      ],
-     "chance": 0.0278,
+     "chance": 0.0261,
      "coldGoal": false,
      "components": {
-      "r0": 0.0078,
-      "r1": 0.0074,
-      "r2": 0.0026,
+      "r0": 0.0073,
+      "r1": 0.0069,
+      "r2": 0.0024,
       "r3": 0.0003,
-      "t0": 0.0057,
-      "t1": 0.0021,
-      "t2": 0.0014,
-      "t3": 0.0009
+      "t0": 0.0053,
+      "t1": 0.002,
+      "t2": 0.0013,
+      "t3": 0.0008
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0278,
-      "lambda": 0.0282,
-      "p0": 0.9722,
-      "p1": 0.0274,
-      "p2": 0.0004,
+      "anytime": 0.0261,
+      "lambda": 0.0265,
+      "p0": 0.9739,
+      "p1": 0.0258,
+      "p2": 0.0003,
       "p3plus": 0,
-      "twoPlus": 0.0004
+      "twoPlus": 0.0003
      },
      "driveActive": null,
      "driveAdj": null,
      "edge": null,
      "espn": "2972091",
-     "fair": 3496,
-     "firstTd": 0.0064,
+     "fair": 3730,
+     "firstTd": 0.006,
      "gamesPlayed": 0,
      "glShare": 0.0191,
      "glShareRaw": 0.0191,
@@ -13278,10 +13278,10 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0282,
+     "lambda": 0.0265,
      "lambdaRaw": 0.0262,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks)."
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks)."
      ],
      "matchupFactor": 0.75,
      "name": "Jalen Richard",
@@ -13293,8 +13293,8 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.0278,
-     "preStack": 0.0278,
+     "preSafety": 0.0261,
+     "preStack": 0.0261,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -13307,7 +13307,7 @@
       "behind": {
        "att": 0,
        "carries": 1.2786214070412254,
-       "chance": 0.026352194056043943,
+       "chance": 0.02474135737256744,
        "targets": 0.5914849865640299
       },
       "close": {
@@ -13319,7 +13319,7 @@
       "lead": {
        "att": 0,
        "carries": 1.6847717363366737,
-       "chance": 0.0281004835065386,
+       "chance": 0.026384233189122086,
        "targets": 0.4647382037288806
       },
       "limited": {
@@ -13405,7 +13405,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.05242189893997129
+       "width": 0.049295809676665026
       },
       "level": "Low",
       "reasons": [
@@ -13456,40 +13456,40 @@
       "rec": {
        "defense": {
         "allowed": 0.8909,
-        "factor": 1.057,
-        "league": 0.7816
+        "factor": 1.0559,
+        "league": 0.7834
        },
-       "hi": 1.4961,
-       "leagueDefense": 0.4099,
+       "hi": 1.5101,
+       "leagueDefense": 0.4221,
        "lo": 0,
-       "mean": 0.4332,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 0.4457,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "0.4 without this defense. SF allows RBs a 89% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
         "allowed": 6.4364,
-        "factor": 1.0572,
-        "league": 5.6438
+        "factor": 1.0588,
+        "league": 5.624
        },
-       "hi": 19.1529,
-       "leagueDefense": 2.9874,
+       "hi": 18.8235,
+       "leagueDefense": 2.9748,
        "lo": 0,
-       "mean": 3.1583,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 3.1499,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "3 without this defense. SF allows RBs 6.4 yards a target versus 5.6 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 3.5948,
-        "factor": 0.9059,
-        "league": 4.1368
+        "factor": 0.9081,
+        "league": 4.1225
        },
-       "hi": 20.7351,
-       "leagueDefense": 6.2343,
+       "hi": 20.3897,
+       "leagueDefense": 6.1346,
        "lo": 0,
-       "mean": 5.6475,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 5.5705,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "6 without this defense. SF allows RBs 3.6 yards a carry versus 4.1 league."
       }
      }
@@ -13502,45 +13502,45 @@
       "uncertain": false
      },
      "band": [
-      0.0102,
-      0.0685
+      0.0097,
+      0.0653
      ],
-     "blendDrives": 0.0306,
+     "blendDrives": 0.0301,
      "ceiling": 0.5,
-     "challenger": 0.0306,
+     "challenger": 0.0301,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0266,
+     "chance": 0.0253,
      "coldGoal": false,
      "components": {
-      "r0": 0.0026,
-      "r1": 0.0169,
-      "r2": 0.0022,
+      "r0": 0.0024,
+      "r1": 0.016,
+      "r2": 0.0021,
       "r3": 0.0003,
-      "t0": 0.0035,
-      "t1": 0.0008,
+      "t0": 0.0033,
+      "t1": 0.0007,
       "t2": 0.0005,
       "t3": 0.0003
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0266,
-      "lambda": 0.027,
-      "p0": 0.9734,
-      "p1": 0.0262,
-      "p2": 0.0004,
+      "anytime": 0.0253,
+      "lambda": 0.0257,
+      "p0": 0.9747,
+      "p1": 0.025,
+      "p2": 0.0003,
       "p3plus": 0,
-      "twoPlus": 0.0004
+      "twoPlus": 0.0003
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 1.6655,
+     "edge": 1.5381,
      "espn": "4366963",
-     "fair": 3659,
-     "firstTd": 0.0061,
+     "fair": 3848,
+     "firstTd": 0.0059,
      "gamesPlayed": 6,
      "glShare": 0.0729,
      "glShareRaw": 0.0729,
@@ -13550,10 +13550,10 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.027,
+     "lambda": 0.0257,
      "lambdaRaw": 0.0471,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 58% toward the published projection (0%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.75,
@@ -13566,10 +13566,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.0266,
-     "preStack": 0.0495,
+     "preSafety": 0.0253,
+     "preStack": 0.0465,
      "pubBlend": {
-      "before": 0.0507,
+      "before": 0.0476,
       "weight": 0.5833
      },
      "published": {
@@ -13587,7 +13587,7 @@
       "behind": {
        "att": 0,
        "carries": 0.8999470221675747,
-       "chance": 0.024568105251266736,
+       "chance": 0.023417717818526973,
        "targets": 0.7025034325143953
       },
       "close": {
@@ -13599,7 +13599,7 @@
       "lead": {
        "att": 0,
        "carries": 1.1858125468560985,
-       "chance": 0.02699765509373786,
+       "chance": 0.025699743568098676,
        "targets": 0.5519669826898819
       },
       "limited": {
@@ -13685,7 +13685,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.05836055077688518
+       "width": 0.055638266909512346
       },
       "level": "Low",
       "reasons": [
@@ -13777,40 +13777,40 @@
       "rec": {
        "defense": {
         "allowed": 0.8909,
-        "factor": 1.057,
-        "league": 0.7816
+        "factor": 1.0559,
+        "league": 0.7834
        },
-       "hi": 1.7149,
-       "leagueDefense": 0.5056,
+       "hi": 1.7314,
+       "leagueDefense": 0.5205,
        "lo": 0,
-       "mean": 0.5344,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 0.5496,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "0.5 without this defense. SF allows RBs a 89% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
         "allowed": 6.4364,
-        "factor": 1.0572,
-        "league": 5.6438
+        "factor": 1.0588,
+        "league": 5.624
        },
-       "hi": 20.6866,
-       "leagueDefense": 3.408,
+       "hi": 20.3376,
+       "leagueDefense": 3.3947,
        "lo": 0,
-       "mean": 3.603,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 3.5945,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "3 without this defense. SF allows RBs 6.4 yards a target versus 5.6 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 3.5948,
-        "factor": 0.9059,
-        "league": 4.1368
+        "factor": 0.9081,
+        "league": 4.1225
        },
-       "hi": 15.9796,
-       "leagueDefense": 4.1125,
+       "hi": 15.7125,
+       "leagueDefense": 4.0475,
        "lo": 0,
-       "mean": 3.7255,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 3.6753,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "4 without this defense. SF allows RBs 3.6 yards a carry versus 4.1 league."
       }
      }
@@ -13823,45 +13823,45 @@
       "uncertain": false
      },
      "band": [
-      0.0112,
-      0.0619
+      0.0107,
+      0.0589
      ],
-     "blendDrives": 0.0202,
+     "blendDrives": 0.0199,
      "ceiling": 0.5,
-     "challenger": 0.0202,
+     "challenger": 0.0199,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0265,
+     "chance": 0.0252,
      "coldGoal": false,
      "components": {
       "r0": 0.0001,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0037,
-      "t1": 0.0066,
-      "t2": 0.0045,
-      "t3": 0.0119
+      "t0": 0.0035,
+      "t1": 0.0063,
+      "t2": 0.0043,
+      "t3": 0.0113
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0265,
-      "lambda": 0.0268,
-      "p0": 0.9735,
-      "p1": 0.0261,
-      "p2": 0.0004,
+      "anytime": 0.0252,
+      "lambda": 0.0255,
+      "p0": 0.9748,
+      "p1": 0.0249,
+      "p2": 0.0003,
       "p3plus": 0,
-      "twoPlus": 0.0004
+      "twoPlus": 0.0003
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 1.6521,
+     "edge": 1.5238,
      "espn": "5150247",
-     "fair": 3678,
-     "firstTd": 0.0061,
+     "fair": 3870,
+     "firstTd": 0.0058,
      "gamesPlayed": 7,
      "glShare": 0,
      "glShareRaw": 0,
@@ -13871,13 +13871,13 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0268,
+     "lambda": 0.0255,
      "lambdaRaw": 0.044,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 55% toward the published projection (0%) because of limited recent red-zone evidence; safety caps applied after."
      ],
-     "matchupFactor": 0.9775,
+     "matchupFactor": 0.9776,
      "name": "Malik Benson",
      "passTd": null,
      "photo": {
@@ -13887,10 +13887,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0265,
-     "preStack": 0.0463,
+     "preSafety": 0.0252,
+     "preStack": 0.0435,
      "pubBlend": {
-      "before": 0.0474,
+      "before": 0.0445,
       "weight": 0.55
      },
      "published": {
@@ -13908,7 +13908,7 @@
       "behind": {
        "att": 0,
        "carries": 0.029840730596103454,
-       "chance": 0.028930861317861156,
+       "chance": 0.027498612592996685,
        "targets": 0.8080568983891865
       },
       "close": {
@@ -13920,7 +13920,7 @@
       "lead": {
        "att": 0,
        "carries": 0.039319550903101026,
-       "chance": 0.02400220663392405,
+       "chance": 0.022868335951349628,
        "targets": 0.6349018487343606
       },
       "limited": {
@@ -14004,7 +14004,7 @@
        "recentRz": 4,
        "repeat": false,
        "roleOk": false,
-       "width": 0.050680307708957484
+       "width": 0.04827980089739892
       },
       "level": "Med",
       "reasons": [
@@ -14055,343 +14055,41 @@
       "rec": {
        "defense": {
         "allowed": 0.6148,
-        "factor": 0.9953,
-        "league": 0.6196
+        "factor": 0.9952,
+        "league": 0.6197
        },
-       "hi": 1.3347,
-       "leagueDefense": 0.3685,
+       "hi": 1.3508,
+       "leagueDefense": 0.3787,
        "lo": 0,
-       "mean": 0.3668,
-       "source": "held-out errors, WR|reserve|available (n=173)",
+       "mean": 0.3769,
+       "source": "held-out errors, WR|reserve|available (n=180)",
        "text": "0.4 without this defense. SF allows WRs a 61% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
         "allowed": 7.4426,
-        "factor": 0.9525,
-        "league": 8.0783
+        "factor": 0.9532,
+        "league": 8.0681
        },
-       "hi": 18.2368,
-       "leagueDefense": 4.716,
+       "hi": 18.1097,
+       "leagueDefense": 4.7071,
        "lo": 0,
-       "mean": 4.4919,
-       "source": "held-out errors, WR|reserve|available (n=173)",
+       "mean": 4.4867,
+       "source": "held-out errors, WR|reserve|available (n=180)",
        "text": "5 without this defense. SF allows WRs 7.4 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 9.3333,
-        "factor": 1.0387,
-        "league": 5.1484
+        "factor": 1.0371,
+        "league": 5.2481
        },
-       "hi": 2.1159,
-       "leagueDefense": 0.1698,
+       "hi": 2.2118,
+       "leagueDefense": 0.171,
        "lo": 0,
-       "mean": 0.1764,
-       "source": "held-out errors, WR|reserve|available (n=173)",
-       "text": "0 without this defense. SF allows WRs 9.3 yards a carry versus 5.1 league."
-      }
-     }
-    },
-    {
-     "avail": {
-      "factor": 1,
-      "label": "Available",
-      "status": "available",
-      "uncertain": false
-     },
-     "band": [
-      0.007,
-      0.0378
-     ],
-     "blendDrives": 0.0244,
-     "ceiling": 0.5,
-     "challenger": 0.0244,
-     "challengerLegs": [
-      "model",
-      "sleeper",
-      "usage"
-     ],
-     "chance": 0.0163,
-     "coldGoal": false,
-     "components": {
-      "r0": 0.0041,
-      "r1": 0.0038,
-      "r2": 0.0013,
-      "r3": 0.0002,
-      "t0": 0.0047,
-      "t1": 0.0011,
-      "t2": 0.0007,
-      "t3": 0.0005
-     },
-     "conversionNote": "",
-     "dist": {
-      "anytime": 0.0163,
-      "lambda": 0.0164,
-      "p0": 0.9837,
-      "p1": 0.0162,
-      "p2": 0.0001,
-      "p3plus": 0,
-      "twoPlus": 0.0001
-     },
-     "driveActive": null,
-     "driveAdj": null,
-     "edge": -0.3505,
-     "espn": "4241961",
-     "fair": 6036,
-     "firstTd": 0.0037,
-     "gamesPlayed": 7,
-     "glShare": 0.0073,
-     "glShareRaw": 0.0073,
-     "gsis": "00-0037304",
-     "i10Exp": 0.0048,
-     "id": "8181",
-     "implied": 19.5,
-     "injury": null,
-     "insideFinisher": false,
-     "lambda": 0.0164,
-     "lambdaRaw": 0.0112,
-     "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
-      "Blended 55% toward the published projection (1%) because of limited recent red-zone evidence; safety caps applied after."
-     ],
-     "matchupFactor": 0.75,
-     "name": "Connor Heyward",
-     "passTd": null,
-     "photo": {
-      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4241961.png",
-      "initials": "CH",
-      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/8181.jpg"
-     },
-     "pos": "RB",
-     "practice": null,
-     "preSafety": 0.0163,
-     "preStack": 0.012,
-     "pubBlend": {
-      "before": 0.0121,
-      "weight": 0.55
-     },
-     "published": {
-      "expected": 0.02,
-      "probability": 0.019801326693244747,
-      "source": "Sleeper projections week 9"
-     },
-     "recentFinisher": false,
-     "recentRzLooks": 0,
-     "replacing": null,
-     "riser": null,
-     "role": "RB4",
-     "safetyNotes": [],
-     "scenarios": {
-      "behind": {
-       "att": 0,
-       "carries": 0.5117682181682505,
-       "chance": 0.016106293963876195,
-       "targets": 0.3588670854592095
-      },
-      "close": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      },
-      "lead": {
-       "att": 0,
-       "carries": 0.6743298874687537,
-       "chance": 0.016283771216064613,
-       "targets": 0.28196699571795025
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      }
-     },
-     "scriptSensitive": false,
-     "secondOption": null,
-     "segment": "RB|reserve|available",
-     "spots": {
-      "r0": {
-       "expected": 0.0028,
-       "looks": 4,
-       "opps": 0.5793,
-       "rate": 0.0065,
-       "scores": 0
-      },
-      "r1": {
-       "expected": 0.0026,
-       "looks": 0,
-       "opps": 0.008,
-       "rate": 0.4289,
-       "scores": 0
-      },
-      "r2": {
-       "expected": 0.0009,
-       "looks": 0,
-       "opps": 0.0052,
-       "rate": 0.27,
-       "scores": 0
-      },
-      "r3": {
-       "expected": 0.0001,
-       "looks": 0,
-       "opps": 0.0095,
-       "rate": 0.0164,
-       "scores": 0
-      },
-      "t0": {
-       "expected": 0.0032,
-       "looks": 2,
-       "opps": 0.3136,
-       "rate": 0.0135,
-       "scores": 0
-      },
-      "t1": {
-       "expected": 0.0007,
-       "looks": 0,
-       "opps": 0.0019,
-       "rate": 0.5368,
-       "scores": 0
-      },
-      "t2": {
-       "expected": 0.0005,
-       "looks": 0,
-       "opps": 0.0019,
-       "rate": 0.37,
-       "scores": 0
-      },
-      "t3": {
-       "expected": 0.0003,
-       "looks": 0,
-       "opps": 0.003,
-       "rate": 0.13,
-       "scores": 0
-      }
-     },
-     "spread": 9.5,
-     "stacked": null,
-     "tags": [],
-     "tdConf": {
-      "blocks": [],
-      "evidence": {
-       "avgTouches": 0.3333333333333333,
-       "baseline": false,
-       "latest": 1,
-       "narrow": true,
-       "recentRz": 0,
-       "repeat": false,
-       "roleOk": false,
-       "width": 0.03085302892706354
-      },
-      "level": "Low",
-      "reasons": [
-       "0 red-zone touches in his last three games.",
-       "80% band 1–4% is narrow enough."
-      ]
-     },
-     "team": "LV",
-     "trendEffect": {
-      "after": 0.0111,
-      "before": 0.0111,
-      "items": [
-       {
-        "family": "snap",
-        "id": "snap:8181",
-        "mult": 1,
-        "pp": 0,
-        "text": "Connor Heyward's snap share fell to 15% over his last 2 games from 24% (3 earlier games).",
-        "weight": 0
-       }
-      ],
-      "note": "before safety caps and the team TD budget"
-     },
-     "trendTags": [
-      {
-       "direction": "down",
-       "family": "snap",
-       "firstDetectedWeek": 9,
-       "id": "snap:8181",
-       "status": "new",
-       "strength": -0.27,
-       "type": "Snap share"
-      }
-     ],
-     "usage": 0.045,
-     "verified": true,
-     "verifyReason": "On LV nflverse roster (week 8, ACT)",
-     "vol": {
-      "att": 0,
-      "carries": 0.6021,
-      "rzRush": 0.095,
-      "rzTgt": 0.0304,
-      "targets": 0.3204
-     },
-     "volConf": {
-      "rec": {
-       "blocks": [],
-       "level": "Low",
-       "provisional": true,
-       "reasons": [
-        "Near-zero projected targets (0.3)."
-       ]
-      },
-      "recYd": {
-       "blocks": [],
-       "level": "Low",
-       "provisional": true,
-       "reasons": [
-        "Near-zero projected targets (0.3)."
-       ]
-      },
-      "rushYd": {
-       "blocks": [],
-       "level": "Low",
-       "provisional": true,
-       "reasons": [
-        "Near-zero projected carries (0.6)."
-       ]
-      }
-     },
-     "volume": {
-      "rec": {
-       "defense": {
-        "allowed": 0.8909,
-        "factor": 1.057,
-        "league": 0.7816
-       },
-       "hi": 1.1047,
-       "leagueDefense": 0.2538,
-       "lo": 0,
-       "mean": 0.2683,
-       "source": "held-out errors, RB|reserve|available (n=77)",
-       "text": "0.3 without this defense. SF allows RBs a 89% catch rate versus 78% league."
-      },
-      "recYd": {
-       "defense": {
-        "allowed": 6.4364,
-        "factor": 1.0572,
-        "league": 5.6438
-       },
-       "hi": 14.8526,
-       "leagueDefense": 1.92,
-       "lo": 0,
-       "mean": 2.0299,
-       "source": "held-out errors, RB|reserve|available (n=77)",
-       "text": "2 without this defense. SF allows RBs 6.4 yards a target versus 5.6 league."
-      },
-      "rushYd": {
-       "defense": {
-        "allowed": 3.5948,
-        "factor": 0.9059,
-        "league": 4.1368
-       },
-       "hi": 11.0759,
-       "leagueDefense": 2.241,
-       "lo": 0,
-       "mean": 2.0301,
-       "source": "held-out errors, RB|reserve|available (n=77)",
-       "text": "2 without this defense. SF allows RBs 3.6 yards a carry versus 4.1 league."
+       "mean": 0.1774,
+       "source": "held-out errors, WR|reserve|available (n=180)",
+       "text": "0 without this defense. SF allows WRs 9.3 yards a carry versus 5.2 league."
       }
      }
     },
@@ -14403,44 +14101,44 @@
       "uncertain": true
      },
      "band": [
-      0.0097,
-      0.027
+      0.0096,
+      0.0267
      ],
-     "blendDrives": 0.0256,
+     "blendDrives": 0.0255,
      "ceiling": 0.5,
-     "challenger": 0.0256,
+     "challenger": 0.0255,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0162,
+     "chance": 0.0161,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0143,
+      "t0": 0.0141,
       "t1": 0.001,
       "t2": 0.0007,
       "t3": 0.0004
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0162,
-      "lambda": 0.0164,
-      "p0": 0.9838,
-      "p1": 0.0161,
+      "anytime": 0.0161,
+      "lambda": 0.0162,
+      "p0": 0.9839,
+      "p1": 0.0159,
       "p2": 0.0001,
       "p3plus": 0,
       "twoPlus": 0.0001
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": -0.3554,
+     "edge": -0.3725,
      "espn": "4045305",
-     "fair": 6055,
+     "fair": 6120,
      "firstTd": 0.0037,
      "gamesPlayed": 4,
      "glShare": 0,
@@ -14451,10 +14149,10 @@
      "implied": 19.5,
      "injury": "Questionable",
      "insideFinisher": false,
-     "lambda": 0.0164,
+     "lambda": 0.0162,
      "lambdaRaw": 0.0081,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 68% toward the published projection (1%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 0.75,
@@ -14467,10 +14165,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0162,
-     "preStack": 0.0087,
+     "preSafety": 0.0161,
+     "preStack": 0.0082,
      "pubBlend": {
-      "before": 0.0087,
+      "before": 0.0082,
       "weight": 0.6786
      },
      "published": {
@@ -14488,7 +14186,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.016578708317053104,
+       "chance": 0.016387167180284434,
        "targets": 0.4705435193377499
       },
       "close": {
@@ -14500,7 +14198,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.01591546678536715,
+       "chance": 0.01576487182206343,
        "targets": 0.3697127651939463
       },
       "limited": {
@@ -14586,7 +14284,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.01727400442484117
+       "width": 0.01709400447225906
       },
       "level": "Low",
       "reasons": [
@@ -14661,26 +14359,26 @@
       "rec": {
        "defense": {
         "allowed": 0.7636,
-        "factor": 1.0246,
-        "league": 0.7201
+        "factor": 1.0244,
+        "league": 0.7205
        },
-       "hi": 1.2009,
-       "leagueDefense": 0.3199,
+       "hi": 1.2213,
+       "leagueDefense": 0.3288,
        "lo": 0,
-       "mean": 0.2786,
+       "mean": 0.2863,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w8)",
        "text": "0.3 without this defense. SF allows TEs a 76% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
         "allowed": 5.5455,
-        "factor": 0.9121,
-        "league": 7.0706
+        "factor": 0.9118,
+        "league": 7.0786
        },
-       "hi": 11.9506,
-       "leagueDefense": 3.2739,
+       "hi": 11.9491,
+       "leagueDefense": 3.2745,
        "lo": 0,
-       "mean": 2.5382,
+       "mean": 2.5377,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w8)",
        "text": "3 without this defense. SF allows TEs 5.5 yards a target versus 7.1 league."
       },
@@ -14707,23 +14405,325 @@
       "uncertain": false
      },
      "band": [
-      0.0064,
-      0.039
+      0.0068,
+      0.0371
      ],
-     "blendDrives": 0.0235,
+     "blendDrives": 0.0243,
      "ceiling": 0.5,
-     "challenger": 0.0235,
+     "challenger": 0.0243,
+     "challengerLegs": [
+      "model",
+      "sleeper",
+      "usage"
+     ],
+     "chance": 0.016,
+     "coldGoal": false,
+     "components": {
+      "r0": 0.004,
+      "r1": 0.0038,
+      "r2": 0.0013,
+      "r3": 0.0002,
+      "t0": 0.0046,
+      "t1": 0.0011,
+      "t2": 0.0007,
+      "t3": 0.0005
+     },
+     "conversionNote": "",
+     "dist": {
+      "anytime": 0.016,
+      "lambda": 0.0161,
+      "p0": 0.984,
+      "p1": 0.0158,
+      "p2": 0.0001,
+      "p3plus": 0,
+      "twoPlus": 0.0001
+     },
+     "driveActive": null,
+     "driveAdj": null,
+     "edge": -0.3836,
+     "espn": "4241961",
+     "fair": 6163,
+     "firstTd": 0.0037,
+     "gamesPlayed": 7,
+     "glShare": 0.0073,
+     "glShareRaw": 0.0073,
+     "gsis": "00-0037304",
+     "i10Exp": 0.0048,
+     "id": "8181",
+     "implied": 19.5,
+     "injury": null,
+     "insideFinisher": false,
+     "lambda": 0.0161,
+     "lambdaRaw": 0.0112,
+     "lessonNotes": [
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
+      "Blended 55% toward the published projection (1%) because of limited recent red-zone evidence; safety caps applied after."
+     ],
+     "matchupFactor": 0.75,
+     "name": "Connor Heyward",
+     "passTd": null,
+     "photo": {
+      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4241961.png",
+      "initials": "CH",
+      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/8181.jpg"
+     },
+     "pos": "RB",
+     "practice": null,
+     "preSafety": 0.016,
+     "preStack": 0.0113,
+     "pubBlend": {
+      "before": 0.0113,
+      "weight": 0.55
+     },
+     "published": {
+      "expected": 0.02,
+      "probability": 0.019801326693244747,
+      "source": "Sleeper projections week 9"
+     },
+     "recentFinisher": false,
+     "recentRzLooks": 0,
+     "replacing": null,
+     "riser": null,
+     "role": "RB4",
+     "safetyNotes": [],
+     "scenarios": {
+      "behind": {
+       "att": 0,
+       "carries": 0.5117682181682505,
+       "chance": 0.015787270338722847,
+       "targets": 0.3588670854592095
+      },
+      "close": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      },
+      "lead": {
+       "att": 0,
+       "carries": 0.6743298874687537,
+       "chance": 0.01595381673806795,
+       "targets": 0.28196699571795025
+      },
+      "limited": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      }
+     },
+     "scriptSensitive": false,
+     "secondOption": null,
+     "segment": "RB|reserve|available",
+     "spots": {
+      "r0": {
+       "expected": 0.0028,
+       "looks": 4,
+       "opps": 0.5793,
+       "rate": 0.0065,
+       "scores": 0
+      },
+      "r1": {
+       "expected": 0.0026,
+       "looks": 0,
+       "opps": 0.008,
+       "rate": 0.4289,
+       "scores": 0
+      },
+      "r2": {
+       "expected": 0.0009,
+       "looks": 0,
+       "opps": 0.0052,
+       "rate": 0.27,
+       "scores": 0
+      },
+      "r3": {
+       "expected": 0.0001,
+       "looks": 0,
+       "opps": 0.0095,
+       "rate": 0.0164,
+       "scores": 0
+      },
+      "t0": {
+       "expected": 0.0032,
+       "looks": 2,
+       "opps": 0.3136,
+       "rate": 0.0135,
+       "scores": 0
+      },
+      "t1": {
+       "expected": 0.0007,
+       "looks": 0,
+       "opps": 0.0019,
+       "rate": 0.5368,
+       "scores": 0
+      },
+      "t2": {
+       "expected": 0.0005,
+       "looks": 0,
+       "opps": 0.0019,
+       "rate": 0.37,
+       "scores": 0
+      },
+      "t3": {
+       "expected": 0.0003,
+       "looks": 0,
+       "opps": 0.003,
+       "rate": 0.13,
+       "scores": 0
+      }
+     },
+     "spread": 9.5,
+     "stacked": null,
+     "tags": [],
+     "tdConf": {
+      "blocks": [],
+      "evidence": {
+       "avgTouches": 0.3333333333333333,
+       "baseline": false,
+       "latest": 1,
+       "narrow": true,
+       "recentRz": 0,
+       "repeat": false,
+       "roleOk": false,
+       "width": 0.030235846789217202
+      },
+      "level": "Low",
+      "reasons": [
+       "0 red-zone touches in his last three games.",
+       "80% band 1–4% is narrow enough."
+      ]
+     },
+     "team": "LV",
+     "trendEffect": {
+      "after": 0.0111,
+      "before": 0.0111,
+      "items": [
+       {
+        "family": "snap",
+        "id": "snap:8181",
+        "mult": 1,
+        "pp": 0,
+        "text": "Connor Heyward's snap share fell to 15% over his last 2 games from 24% (3 earlier games).",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "down",
+       "family": "snap",
+       "firstDetectedWeek": 9,
+       "id": "snap:8181",
+       "status": "new",
+       "strength": -0.27,
+       "type": "Snap share"
+      }
+     ],
+     "usage": 0.045,
+     "verified": true,
+     "verifyReason": "On LV nflverse roster (week 8, ACT)",
+     "vol": {
+      "att": 0,
+      "carries": 0.6021,
+      "rzRush": 0.095,
+      "rzTgt": 0.0304,
+      "targets": 0.3204
+     },
+     "volConf": {
+      "rec": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "Near-zero projected targets (0.3)."
+       ]
+      },
+      "recYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "Near-zero projected targets (0.3)."
+       ]
+      },
+      "rushYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "Near-zero projected carries (0.6)."
+       ]
+      }
+     },
+     "volume": {
+      "rec": {
+       "defense": {
+        "allowed": 0.8909,
+        "factor": 1.0559,
+        "league": 0.7834
+       },
+       "hi": 1.1135,
+       "leagueDefense": 0.2613,
+       "lo": 0,
+       "mean": 0.276,
+       "source": "held-out errors, RB|reserve|available (n=80)",
+       "text": "0.3 without this defense. SF allows RBs a 89% catch rate versus 78% league."
+      },
+      "recYd": {
+       "defense": {
+        "allowed": 6.4364,
+        "factor": 1.0588,
+        "league": 5.624
+       },
+       "hi": 14.5933,
+       "leagueDefense": 1.9127,
+       "lo": 0,
+       "mean": 2.0253,
+       "source": "held-out errors, RB|reserve|available (n=80)",
+       "text": "2 without this defense. SF allows RBs 6.4 yards a target versus 5.6 league."
+      },
+      "rushYd": {
+       "defense": {
+        "allowed": 3.5948,
+        "factor": 0.9081,
+        "league": 4.1225
+       },
+       "hi": 10.887,
+       "leagueDefense": 2.2051,
+       "lo": 0,
+       "mean": 2.0023,
+       "source": "held-out errors, RB|reserve|available (n=80)",
+       "text": "2 without this defense. SF allows RBs 3.6 yards a carry versus 4.1 league."
+      }
+     }
+    },
+    {
+     "avail": {
+      "factor": 1,
+      "label": "Available",
+      "status": "available",
+      "uncertain": false
+     },
+     "band": [
+      0.006,
+      0.0366
+     ],
+     "blendDrives": 0.0228,
+     "ceiling": 0.5,
+     "challenger": 0.0228,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.0158,
+     "chance": 0.0148,
      "coldGoal": false,
      "components": {
-      "r0": 0.0017,
-      "r1": 0.0099,
-      "r2": 0.0035,
-      "r3": 0.0009,
+      "r0": 0.0016,
+      "r1": 0.0093,
+      "r2": 0.0032,
+      "r3": 0.0008,
       "t0": 0,
       "t1": 0,
       "t2": 0,
@@ -14731,10 +14731,10 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0158,
-      "lambda": 0.0159,
-      "p0": 0.9842,
-      "p1": 0.0157,
+      "anytime": 0.0148,
+      "lambda": 0.015,
+      "p0": 0.9852,
+      "p1": 0.0147,
       "p2": 0.0001,
       "p3plus": 0,
       "twoPlus": 0.0001
@@ -14743,8 +14743,8 @@
      "driveAdj": null,
      "edge": null,
      "espn": "4837248",
-     "fair": 6222,
-     "firstTd": 0.0036,
+     "fair": 6638,
+     "firstTd": 0.0034,
      "gamesPlayed": 1,
      "glShare": 0.0208,
      "glShareRaw": 0.0208,
@@ -14754,17 +14754,17 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0159,
+     "lambda": 0.015,
      "lambdaRaw": 0.0148,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks)."
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks)."
      ],
-     "matchupFactor": 0.92,
+     "matchupFactor": 0.9197,
      "name": "Fernando Mendoza",
      "passTd": {
       "attemptShare": 0.0795,
       "display": "0.1",
-      "expected": 0.1071,
+      "expected": 0.106,
       "interval": [
        0,
        1
@@ -14772,13 +14772,13 @@
       "level": "Low",
       "provisional": true,
       "reasons": [
-       "8% of projected team attempts (2.9) × team receiving-score total 1.35.",
+       "8% of projected team attempts (2.9) × team receiving-score total 1.33.",
        "Only 1 of the last three games with attempts.",
        "8 attempts this season (needs 60).",
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.3471
+      "teamReceivingLambda": 1.3326
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4837248.png",
@@ -14787,8 +14787,8 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.0158,
-     "preStack": 0.0158,
+     "preSafety": 0.0148,
+     "preStack": 0.0148,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -14801,7 +14801,7 @@
       "behind": {
        "att": 3.1953309444932763,
        "carries": 0.30367258417229104,
-       "chance": 0.013460663651874816,
+       "chance": 0.012628463540866997,
        "targets": 0
       },
       "close": {
@@ -14813,7 +14813,7 @@
       "lead": {
        "att": 2.5106171706732883,
        "carries": 0.40013328737995996,
-       "chance": 0.016836922130996412,
+       "chance": 0.015797662619670305,
        "targets": 0
       },
       "limited": {
@@ -14897,7 +14897,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.032654811954572205
+       "width": 0.030666918883611283
       },
       "level": "Low",
       "reasons": [
@@ -14956,14 +14956,14 @@
       "passYd": {
        "defense": {
         "allowed": null,
-        "factor": 0.9608,
+        "factor": 0.9613,
         "league": null
        },
-       "hi": 66.8802,
-       "leagueDefense": 18.329,
+       "hi": 66.1338,
+       "leagueDefense": 18.2199,
        "lo": 0,
-       "mean": 17.6104,
-       "source": "held-out errors, QB|support|available (n=42)",
+       "mean": 17.515,
+       "source": "held-out errors, QB|support|available (n=44)",
        "text": "18 without this defense; opponent factor 0.96 from how this offense uses WRs, TEs, and backs."
       },
       "rec": {
@@ -14976,7 +14976,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|support|available (n=42)",
+       "source": "held-out errors, QB|support|available (n=44)",
        "text": "0.0 without this defense."
       },
       "recYd": {
@@ -14989,7 +14989,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|support|available (n=42)",
+       "source": "held-out errors, QB|support|available (n=44)",
        "text": "0 without this defense."
       },
       "rushYd": {
@@ -14998,11 +14998,11 @@
         "factor": 0.8591,
         "league": 4.3804
        },
-       "hi": 9.3061,
-       "leagueDefense": 1.5558,
+       "hi": 9.0774,
+       "leagueDefense": 1.5362,
        "lo": 0,
-       "mean": 1.3366,
-       "source": "held-out errors, QB|support|available (n=42)",
+       "mean": 1.3198,
+       "source": "held-out errors, QB|support|available (n=44)",
        "text": "2 without this defense. SF allows QBs 2.0 yards a carry versus 4.4 league."
       }
      }
@@ -15015,45 +15015,45 @@
       "uncertain": false
      },
      "band": [
-      0.0045,
-      0.0283
+      0.0044,
+      0.0275
      ],
-     "blendDrives": 0.0137,
+     "blendDrives": 0.0136,
      "ceiling": 0.5,
-     "challenger": 0.0137,
+     "challenger": 0.0136,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0113,
+     "chance": 0.011,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0076,
+      "t0": 0.0074,
       "t1": 0.0018,
       "t2": 0.0012,
       "t3": 0.0008
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0113,
-      "lambda": 0.0114,
-      "p0": 0.9887,
-      "p1": 0.0113,
+      "anytime": 0.011,
+      "lambda": 0.0111,
+      "p0": 0.989,
+      "p1": 0.011,
       "p2": 0.0001,
       "p3plus": 0,
       "twoPlus": 0.0001
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 0.1391,
+     "edge": 0.1076,
      "espn": "4401805",
-     "fair": 8718,
-     "firstTd": 0.0026,
+     "fair": 8970,
+     "firstTd": 0.0025,
      "gamesPlayed": 5,
      "glShare": 0,
      "glShareRaw": 0,
@@ -15063,13 +15063,13 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0114,
+     "lambda": 0.0111,
      "lambdaRaw": 0.0128,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 63% toward the published projection (0%) because of limited recent red-zone evidence; safety caps applied after."
      ],
-     "matchupFactor": 0.9775,
+     "matchupFactor": 0.9776,
      "name": "Dareke Young",
      "passTd": null,
      "photo": {
@@ -15079,10 +15079,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0113,
-     "preStack": 0.0137,
+     "preSafety": 0.011,
+     "preStack": 0.0128,
      "pubBlend": {
-      "before": 0.0137,
+      "before": 0.0129,
       "weight": 0.625
      },
      "published": {
@@ -15100,7 +15100,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.011952252048209933,
+       "chance": 0.011599741106082084,
        "targets": 0.7416153772509417
       },
       "close": {
@@ -15112,7 +15112,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.01072894412945491,
+       "chance": 0.010451638923665296,
        "targets": 0.5826977964114541
       },
       "limited": {
@@ -15196,7 +15196,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.023796137606541423
+       "width": 0.023142358961873555
       },
       "level": "Low",
       "reasons": [
@@ -15247,41 +15247,41 @@
       "rec": {
        "defense": {
         "allowed": 0.6148,
-        "factor": 0.9953,
-        "league": 0.6196
+        "factor": 0.9952,
+        "league": 0.6197
        },
-       "hi": 1.4305,
-       "leagueDefense": 0.4107,
+       "hi": 1.4482,
+       "leagueDefense": 0.422,
        "lo": 0,
-       "mean": 0.4088,
-       "source": "held-out errors, WR|reserve|available (n=173)",
+       "mean": 0.42,
+       "source": "held-out errors, WR|reserve|available (n=180)",
        "text": "0.4 without this defense. SF allows WRs a 61% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
         "allowed": 7.4426,
-        "factor": 0.9525,
-        "league": 8.0783
+        "factor": 0.9532,
+        "league": 8.0681
        },
-       "hi": 20.3068,
-       "leagueDefense": 5.5979,
+       "hi": 20.1691,
+       "leagueDefense": 5.5879,
        "lo": 0,
-       "mean": 5.3319,
-       "source": "held-out errors, WR|reserve|available (n=173)",
+       "mean": 5.3263,
+       "source": "held-out errors, WR|reserve|available (n=180)",
        "text": "6 without this defense. SF allows WRs 7.4 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 9.3333,
-        "factor": 1.0387,
-        "league": 5.1484
+        "factor": 1.0371,
+        "league": 5.2481
        },
        "hi": 0,
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, WR|reserve|available (n=173)",
-       "text": "0 without this defense. SF allows WRs 9.3 yards a carry versus 5.1 league."
+       "source": "held-out errors, WR|reserve|available (n=180)",
+       "text": "0 without this defense. SF allows WRs 9.3 yards a carry versus 5.2 league."
       }
      }
     },
@@ -15294,20 +15294,20 @@
      },
      "band": [
       0.0012,
-      0.007
+      0.0066
      ],
-     "blendDrives": 0.0158,
+     "blendDrives": 0.0153,
      "ceiling": 0.5,
-     "challenger": 0.0158,
+     "challenger": 0.0153,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.003,
+     "chance": 0.0028,
      "coldGoal": false,
      "components": {
       "r0": 0.0014,
-      "r1": 0.0011,
+      "r1": 0.001,
       "r2": 0.0004,
       "r3": 0,
       "t0": 0,
@@ -15317,10 +15317,10 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.003,
-      "lambda": 0.003,
-      "p0": 0.997,
-      "p1": 0.003,
+      "anytime": 0.0028,
+      "lambda": 0.0028,
+      "p0": 0.9972,
+      "p1": 0.0028,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
@@ -15329,8 +15329,8 @@
      "driveAdj": null,
      "edge": null,
      "espn": "4260394",
-     "fair": 33746,
-     "firstTd": 0.0007,
+     "fair": 35988,
+     "firstTd": 0.0006,
      "gamesPlayed": 0,
      "glShare": 0.0023,
      "glShareRaw": 0.0023,
@@ -15340,17 +15340,17 @@
      "implied": 19.5,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.003,
+     "lambda": 0.0028,
      "lambdaRaw": 0.0027,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks)."
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks)."
      ],
-     "matchupFactor": 0.92,
+     "matchupFactor": 0.9197,
      "name": "Aidan O'Connell",
      "passTd": {
       "attemptShare": 0.0382,
       "display": "0.1",
-      "expected": 0.0514,
+      "expected": 0.0509,
       "interval": [
        0,
        0
@@ -15358,13 +15358,13 @@
       "level": "Low",
       "provisional": true,
       "reasons": [
-       "4% of projected team attempts (1.4) × team receiving-score total 1.35.",
+       "4% of projected team attempts (1.4) × team receiving-score total 1.33.",
        "Only 0 of the last three games with attempts.",
        "0 attempts this season (needs 60).",
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.3471
+      "teamReceivingLambda": 1.3326
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4260394.png",
@@ -15373,8 +15373,8 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.003,
-     "preStack": 0.003,
+     "preSafety": 0.0028,
+     "preStack": 0.0028,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -15387,7 +15387,7 @@
       "behind": {
        "att": 1.5337588533567725,
        "carries": 0.1917932110561838,
-       "chance": 0.0025119461289156986,
+       "chance": 0.0023558391404759904,
        "targets": 0
       },
       "close": {
@@ -15399,7 +15399,7 @@
       "lead": {
        "att": 1.2050962419231783,
        "carries": 0.25271576045050104,
-       "chance": 0.0032123472332787895,
+       "chance": 0.0030127790065026527,
        "targets": 0
       },
       "limited": {
@@ -15483,7 +15483,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.0057686844237681
+       "width": 0.0054111545218389345
       },
       "level": "Low",
       "reasons": [
@@ -15542,13 +15542,13 @@
       "passYd": {
        "defense": {
         "allowed": null,
-        "factor": 0.9608,
+        "factor": 0.9613,
         "league": null
        },
-       "hi": 57.974,
-       "leagueDefense": 8.9182,
+       "hi": 57.793,
+       "leagueDefense": 8.864,
        "lo": 0,
-       "mean": 7.2833,
+       "mean": 7.2429,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w8)",
        "text": "9 without this defense; opponent factor 0.96 from how this offense uses WRs, TEs, and backs."
       },
@@ -15584,10 +15584,10 @@
         "factor": 0.8591,
         "league": 4.3804
        },
-       "hi": 2.6028,
-       "leagueDefense": 0.9902,
+       "hi": 2.5819,
+       "leagueDefense": 0.9778,
        "lo": 0,
-       "mean": 0.7231,
+       "mean": 0.714,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w8)",
        "text": "1 without this defense. SF allows QBs 2.0 yards a carry versus 4.4 league."
       }
@@ -15639,7 +15639,7 @@
      "edge": 10.0496,
      "espn": "3040151",
      "fair": -100,
-     "firstTd": 0.1568,
+     "firstTd": 0.1584,
      "gamesPlayed": 7,
      "glShare": 0,
      "glShareRaw": 0,
@@ -15859,7 +15859,7 @@
       },
       "recYd": {
        "blocks": [
-        "Defense allows 6.53 vs league 7.07."
+        "Defense allows 6.53 vs league 7.08."
        ],
        "level": "Med",
        "provisional": false,
@@ -15880,27 +15880,27 @@
       "rec": {
        "defense": {
         "allowed": 0.8226,
-        "factor": 1.0622,
-        "league": 0.7201
+        "factor": 1.0619,
+        "league": 0.7205
        },
-       "hi": 9.8018,
-       "leagueDefense": 5.8753,
-       "lo": 2.6793,
-       "mean": 6.2405,
-       "source": "held-out errors, TE|primary|available (n=50)",
-       "text": "5.9 without this defense. LV allows TEs a 82% catch rate versus 72% league."
+       "hi": 10.0433,
+       "leagueDefense": 6.038,
+       "lo": 2.78,
+       "mean": 6.4116,
+       "source": "held-out errors, TE|primary|available (n=52)",
+       "text": "6.0 without this defense. LV allows TEs a 82% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
         "allowed": 6.5323,
-        "factor": 0.9668,
-        "league": 7.0706
+        "factor": 0.9663,
+        "league": 7.0786
        },
-       "hi": 111.8528,
-       "leagueDefense": 67.8788,
-       "lo": 19.3917,
-       "mean": 65.6223,
-       "source": "held-out errors, TE|primary|available (n=50)",
+       "hi": 111.4295,
+       "leagueDefense": 67.8577,
+       "lo": 19.7127,
+       "mean": 65.5711,
+       "source": "held-out errors, TE|primary|available (n=52)",
        "text": "68 without this defense. LV allows TEs 6.5 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -15913,7 +15913,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|primary|available (n=50)",
+       "source": "held-out errors, TE|primary|available (n=52)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -15964,23 +15964,23 @@
      "edge": -17.6967,
      "espn": "3117251",
      "fair": -100,
-     "firstTd": 0.1568,
+     "firstTd": 0.1584,
      "gamesPlayed": 7,
      "glShare": 0.2911,
      "glShareRaw": 0.2911,
      "gsis": "00-0033280",
-     "i10Exp": 0.6925,
+     "i10Exp": 0.6909,
      "id": "4034",
      "implied": 29,
      "injury": "Questionable",
      "insideFinisher": true,
      "lambda": 0.6931,
-     "lambdaRaw": 0.8383,
+     "lambdaRaw": 0.8363,
      "lessonNotes": [
       "Learned from finished games: 50plus chances scaled ×0.91 (from the last three weeks).",
       "Blended 30% toward the published projection (67%) because of limited recent red-zone evidence; safety caps applied after."
      ],
-     "matchupFactor": 1.1425,
+     "matchupFactor": 1.1399,
      "name": "Christian McCaffrey",
      "passTd": null,
      "photo": {
@@ -15990,10 +15990,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.5815,
-     "preStack": 0.5323,
+     "preSafety": 0.581,
+     "preStack": 0.5315,
      "pubBlend": {
-      "before": 0.76,
+      "before": 0.7583,
       "weight": 0.3
      },
      "published": {
@@ -16040,35 +16040,35 @@
      "segment": "RB|primary|uncertain",
      "spots": {
       "r0": {
-       "expected": 0.0404,
+       "expected": 0.0403,
        "looks": 64,
        "opps": 7.5872,
        "rate": 0.0047,
        "scores": 0
       },
       "r1": {
-       "expected": 0.5422,
+       "expected": 0.541,
        "looks": 12,
        "opps": 0.7964,
        "rate": 0.5565,
        "scores": 7
       },
       "r2": {
-       "expected": 0.0455,
+       "expected": 0.0454,
        "looks": 1,
        "opps": 0.1705,
        "rate": 0.2711,
        "scores": 0
       },
       "r3": {
-       "expected": 0.0326,
+       "expected": 0.0325,
        "looks": 7,
        "opps": 0.737,
        "rate": 0.0347,
        "scores": 1
       },
       "t0": {
-       "expected": 0.0318,
+       "expected": 0.0317,
        "looks": 36,
        "opps": 2.7392,
        "rate": 0.0102,
@@ -16082,14 +16082,14 @@
        "scores": 0
       },
       "t2": {
-       "expected": 0.0712,
+       "expected": 0.071,
        "looks": 1,
        "opps": 0.1623,
        "rate": 0.3701,
        "scores": 0
       },
       "t3": {
-       "expected": 0.041,
+       "expected": 0.0409,
        "looks": 5,
        "opps": 0.5225,
        "rate": 0.0574,
@@ -16114,7 +16114,7 @@
        "recentRz": 11,
        "repeat": true,
        "roleOk": true,
-       "width": 0.31855504969525983
+       "width": 0.31855504969525994
       },
       "level": "Med",
       "reasons": [
@@ -16124,8 +16124,8 @@
      },
      "team": "SF",
      "trendEffect": {
-      "after": 0.5675,
-      "before": 0.5675,
+      "after": 0.5667,
+      "before": 0.5667,
       "items": [
        {
         "family": "snap",
@@ -16269,41 +16269,41 @@
       "rec": {
        "defense": {
         "allowed": 0.9333,
-        "factor": 1.053,
-        "league": 0.7816
+        "factor": 1.0522,
+        "league": 0.7834
        },
-       "hi": 5.9506,
-       "leagueDefense": 2.7585,
-       "lo": 0.4965,
-       "mean": 2.8174,
+       "hi": 6.0714,
+       "leagueDefense": 2.8367,
+       "lo": 0.5425,
+       "mean": 2.8952,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w8)",
        "text": "2.8 without this defense. LV allows RBs a 93% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
         "allowed": 8.7333,
-        "factor": 1.1493,
-        "league": 5.6438
+        "factor": 1.1508,
+        "league": 5.624
        },
-       "hi": 46.2063,
-       "leagueDefense": 20.3408,
+       "hi": 46.1796,
+       "leagueDefense": 20.298,
        "lo": 0,
-       "mean": 19.8709,
+       "mean": 19.8548,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w8)",
        "text": "20 without this defense. LV allows RBs 8.7 yards a target versus 5.6 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 5.1716,
-        "factor": 1.1846,
-        "league": 4.1368
+        "factor": 1.1878,
+        "league": 4.1225
        },
-       "hi": 97.1487,
-       "leagueDefense": 41.6221,
-       "lo": 17.1445,
-       "mean": 48.8128,
+       "hi": 96.3504,
+       "leagueDefense": 41.0563,
+       "lo": 16.7846,
+       "mean": 48.2794,
        "source": "player variability shrunk to position defaults (provisional); recalibrated on held-out 2024–26 errors (fit 2026-w8)",
-       "text": "42 without this defense. LV allows RBs 5.2 yards a carry versus 4.1 league."
+       "text": "41 without this defense. LV allows RBs 5.2 yards a carry versus 4.1 league."
       }
      }
     },
@@ -16315,61 +16315,61 @@
       "uncertain": false
      },
      "band": [
-      0.2349,
-      0.4996
+      0.2347,
+      0.4993
      ],
-     "blendDrives": 0.2546,
+     "blendDrives": 0.2545,
      "ceiling": 0.46,
-     "challenger": 0.2546,
+     "challenger": 0.2545,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.3498,
+     "chance": 0.3496,
      "coldGoal": true,
      "components": {
       "r0": 0.0511,
-      "r1": 0.2216,
-      "r2": 0.0543,
+      "r1": 0.2214,
+      "r2": 0.0542,
       "r3": 0.01,
-      "t0": 0.0195,
-      "t1": 0.0234,
-      "t2": 0.0278,
+      "t0": 0.0194,
+      "t1": 0.0233,
+      "t2": 0.0277,
       "t3": 0.023
      },
      "conversionNote": "0 of 12 red-zone carries scored.",
      "dist": {
-      "anytime": 0.3498,
-      "lambda": 0.4305,
-      "p0": 0.6502,
-      "p1": 0.2799,
-      "p2": 0.0603,
-      "p3plus": 0.0097,
-      "twoPlus": 0.0699
+      "anytime": 0.3496,
+      "lambda": 0.4301,
+      "p0": 0.6504,
+      "p1": 0.2798,
+      "p2": 0.0602,
+      "p3plus": 0.0096,
+      "twoPlus": 0.0698
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 16.8562,
+     "edge": 16.8312,
      "espn": "4696044",
      "fair": 186,
-     "firstTd": 0.0974,
+     "firstTd": 0.0983,
      "gamesPlayed": 7,
      "glShare": 0.5798,
      "glShareRaw": 0.5798,
      "gsis": "00-0041052",
-     "i10Exp": 0.7096,
+     "i10Exp": 0.7079,
      "id": "13414",
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.4305,
-     "lambdaRaw": 0.9344,
+     "lambda": 0.4301,
+     "lambdaRaw": 0.9322,
      "lessonNotes": [
       "Learned from finished games: 50plus chances scaled ×0.91 (from the last three weeks).",
       "Blended 30% toward the published projection (18%) because of limited recent red-zone evidence; safety caps applied after."
      ],
-     "matchupFactor": 1.1425,
+     "matchupFactor": 1.1399,
      "name": "Kaelon Black",
      "passTd": null,
      "photo": {
@@ -16379,10 +16379,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.4795,
-     "preStack": 0.5714,
+     "preSafety": 0.4788,
+     "preStack": 0.5705,
      "pubBlend": {
-      "before": 0.8471,
+      "before": 0.8452,
       "weight": 0.3
      },
      "published": {
@@ -16419,7 +16419,7 @@
       "behind": {
        "att": 0,
        "carries": 11.364995146233632,
-       "chance": 0.3395148412761305,
+       "chance": 0.339275326268073,
        "targets": 3.635166421387291
       },
       "close": {
@@ -16431,7 +16431,7 @@
       "lead": {
        "att": 0,
        "carries": 14.975052427978433,
-       "chance": 0.45999999999999996,
+       "chance": 0.4600000000000001,
        "targets": 2.9330014793467822
       },
       "limited": {
@@ -16446,21 +16446,21 @@
      "segment": "RB|support|available",
      "spots": {
       "r0": {
-       "expected": 0.111,
+       "expected": 0.1107,
        "looks": 45,
        "opps": 9.4816,
        "rate": 0.0102,
        "scores": 1
       },
       "r1": {
-       "expected": 0.4808,
+       "expected": 0.4797,
        "looks": 3,
        "opps": 1.5862,
        "rate": 0.2477,
        "scores": 0
       },
       "r2": {
-       "expected": 0.1178,
+       "expected": 0.1175,
        "looks": 1,
        "opps": 0.4424,
        "rate": 0.2704,
@@ -16474,28 +16474,28 @@
        "scores": 0
       },
       "t0": {
-       "expected": 0.0422,
+       "expected": 0.0421,
        "looks": 6,
        "opps": 2.8361,
        "rate": 0.013,
        "scores": 0
       },
       "t1": {
-       "expected": 0.0507,
+       "expected": 0.0506,
        "looks": 0,
        "opps": 0.0793,
        "rate": 0.5368,
        "scores": 0
       },
       "t2": {
-       "expected": 0.0602,
+       "expected": 0.0601,
        "looks": 0,
        "opps": 0.1374,
        "rate": 0.37,
        "scores": 0
       },
       "t3": {
-       "expected": 0.0499,
+       "expected": 0.0497,
        "looks": 0,
        "opps": 0.2801,
        "rate": 0.13,
@@ -16521,7 +16521,7 @@
        "recentRz": 5,
        "repeat": false,
        "roleOk": true,
-       "width": 0.26474115491575434
+       "width": 0.2646146642940821
       },
       "level": "Med",
       "reasons": [
@@ -16531,8 +16531,8 @@
      },
      "team": "SF",
      "trendEffect": {
-      "after": 0.6072,
-      "before": 0.6072,
+      "after": 0.6063,
+      "before": 0.6063,
       "items": [
        {
         "family": "snap",
@@ -16628,7 +16628,7 @@
       },
       "rushYd": {
        "blocks": [
-        "Held-out 80% ranges covered only 62% of comparable results."
+        "Held-out 80% ranges covered only 63% of comparable results."
        ],
        "level": "Med",
        "provisional": false,
@@ -16641,41 +16641,41 @@
       "rec": {
        "defense": {
         "allowed": 0.9333,
-        "factor": 1.053,
-        "league": 0.7816
+        "factor": 1.0522,
+        "league": 0.7834
        },
-       "hi": 5.0212,
-       "leagueDefense": 2.4063,
-       "lo": 0.0462,
-       "mean": 2.5337,
-       "source": "held-out errors, RB|support|available (n=34)",
-       "text": "2.4 without this defense. LV allows RBs a 93% catch rate versus 78% league."
+       "hi": 5.1373,
+       "leagueDefense": 2.4774,
+       "lo": 0.0762,
+       "mean": 2.6067,
+       "source": "held-out errors, RB|support|available (n=35)",
+       "text": "2.5 without this defense. LV allows RBs a 93% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
         "allowed": 8.7333,
-        "factor": 1.1493,
-        "league": 5.6438
+        "factor": 1.1508,
+        "league": 5.624
        },
-       "hi": 47.9737,
-       "leagueDefense": 16.0825,
+       "hi": 47.5425,
+       "leagueDefense": 16.0162,
        "lo": 0,
-       "mean": 18.4835,
-       "source": "held-out errors, RB|support|available (n=34)",
+       "mean": 18.4312,
+       "source": "held-out errors, RB|support|available (n=35)",
        "text": "16 without this defense. LV allows RBs 8.7 yards a target versus 5.6 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 5.1716,
-        "factor": 1.1846,
-        "league": 4.1368
+        "factor": 1.1878,
+        "league": 4.1225
        },
-       "hi": 106.9235,
-       "leagueDefense": 55.0269,
-       "lo": 23.4474,
-       "mean": 65.1854,
-       "source": "held-out errors, RB|support|available (n=34)",
-       "text": "55 without this defense. LV allows RBs 5.2 yards a carry versus 4.1 league."
+       "hi": 105.9235,
+       "leagueDefense": 54.257,
+       "lo": 22.9706,
+       "mean": 64.447,
+       "source": "held-out errors, RB|support|available (n=35)",
+       "text": "54 without this defense. LV allows RBs 5.2 yards a carry versus 4.1 league."
       }
      }
     },
@@ -16687,24 +16687,24 @@
       "uncertain": false
      },
      "band": [
-      0.1247,
-      0.3278
+      0.1202,
+      0.3174
      ],
-     "blendDrives": 0.2172,
+     "blendDrives": 0.2147,
      "ceiling": 0.5,
-     "challenger": 0.2172,
+     "challenger": 0.2147,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.2055,
+     "chance": 0.1984,
      "coldGoal": false,
      "components": {
-      "r0": 0.0224,
-      "r1": 0.163,
-      "r2": 0.0372,
-      "r3": 0.0075,
+      "r0": 0.0215,
+      "r1": 0.1567,
+      "r2": 0.0358,
+      "r3": 0.0072,
       "t0": 0,
       "t1": 0,
       "t2": 0,
@@ -16712,20 +16712,20 @@
      },
      "conversionNote": "1 of 5 red-zone carries scored.",
      "dist": {
-      "anytime": 0.2055,
-      "lambda": 0.2301,
-      "p0": 0.7945,
-      "p1": 0.1828,
-      "p2": 0.021,
-      "p3plus": 0.0017,
-      "twoPlus": 0.0227
+      "anytime": 0.1984,
+      "lambda": 0.2211,
+      "p0": 0.8016,
+      "p1": 0.1773,
+      "p2": 0.0196,
+      "p3plus": 0.0015,
+      "twoPlus": 0.0211
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 2.4256,
+     "edge": 1.7133,
      "espn": "4361741",
-     "fair": 387,
-     "firstTd": 0.052,
+     "fair": 404,
+     "firstTd": 0.0505,
      "gamesPlayed": 7,
      "glShare": 0.0997,
      "glShareRaw": 0.0997,
@@ -16735,10 +16735,10 @@
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.2301,
+     "lambda": 0.2211,
      "lambdaRaw": 0.2478,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×0.98 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×0.93 (from the last three weeks).",
       "Blended 30% toward the published projection (18%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 1.32,
@@ -16746,7 +16746,7 @@
      "passTd": {
       "attemptShare": 0.965,
       "display": "1.3",
-      "expected": 1.2713,
+      "expected": 1.2562,
       "interval": [
        0,
        3
@@ -16754,10 +16754,10 @@
       "level": "Med",
       "provisional": true,
       "reasons": [
-       "96% of projected team attempts (31.4) × team receiving-score total 1.32.",
+       "96% of projected team attempts (31.4) × team receiving-score total 1.30.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.3175
+      "teamReceivingLambda": 1.3017
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4361741.png",
@@ -16766,10 +16766,10 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.2055,
-     "preStack": 0.2157,
+     "preSafety": 0.1984,
+     "preStack": 0.2056,
      "pubBlend": {
-      "before": 0.243,
+      "before": 0.2302,
       "weight": 0.3
      },
      "published": {
@@ -16787,7 +16787,7 @@
       "behind": {
        "att": 35.12279053888921,
        "carries": 3.3627655879995086,
-       "chance": 0.1849961758508828,
+       "chance": 0.17878986159549548,
        "targets": 0
       },
       "close": {
@@ -16799,7 +16799,7 @@
       "lead": {
        "att": 27.59647828055581,
        "carries": 4.430938186540529,
-       "chance": 0.21322663558260513,
+       "chance": 0.20576736253532957,
        "targets": 0
       },
       "limited": {
@@ -16883,12 +16883,12 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.20310166700867016
+       "width": 0.1971986321707192
       },
       "level": "Med",
       "reasons": [
        "2 red-zone touches in his last three games.",
-       "80% band 12–33% is narrow enough."
+       "80% band 12–32% is narrow enough."
       ]
      },
      "team": "SF",
@@ -16958,7 +16958,7 @@
         "Fewer than 6 projected carries.",
         "Unstable efficiency (CV 1.10 > 0.75).",
         "Very wide range.",
-        "Held-out 80% ranges covered only 70% of comparable results."
+        "Held-out 80% ranges covered only 71% of comparable results."
        ],
        "level": "Med",
        "provisional": false,
@@ -16971,15 +16971,15 @@
       "passYd": {
        "defense": {
         "allowed": null,
-        "factor": 1.0629,
+        "factor": 1.0636,
         "league": null
        },
-       "hi": 345.0255,
-       "leagueDefense": 242.3822,
-       "lo": 170.2274,
-       "mean": 257.6264,
-       "source": "held-out errors, QB|primary|available (n=50)",
-       "text": "242 without this defense; opponent factor 1.06 from how this offense uses WRs, TEs, and backs."
+       "hi": 342.3866,
+       "leagueDefense": 241.2021,
+       "lo": 170.6965,
+       "mean": 256.5415,
+       "source": "held-out errors, QB|primary|available (n=52)",
+       "text": "241 without this defense; opponent factor 1.06 from how this offense uses WRs, TEs, and backs."
       },
       "rec": {
        "defense": {
@@ -16991,7 +16991,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=50)",
+       "source": "held-out errors, QB|primary|available (n=52)",
        "text": "0.0 without this defense."
       },
       "recYd": {
@@ -17004,7 +17004,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|primary|available (n=50)",
+       "source": "held-out errors, QB|primary|available (n=52)",
        "text": "0 without this defense."
       },
       "rushYd": {
@@ -17013,12 +17013,12 @@
         "factor": 0.9521,
         "league": 4.3804
        },
-       "hi": 38.8878,
-       "leagueDefense": 18.5082,
+       "hi": 38.3735,
+       "leagueDefense": 18.2755,
        "lo": 0,
-       "mean": 17.6208,
-       "source": "held-out errors, QB|primary|available (n=50)",
-       "text": "19 without this defense. LV allows QBs 3.7 yards a carry versus 4.4 league."
+       "mean": 17.3993,
+       "source": "held-out errors, QB|primary|available (n=52)",
+       "text": "18 without this defense. LV allows QBs 3.7 yards a carry versus 4.4 league."
       }
      }
     },
@@ -17030,45 +17030,45 @@
       "uncertain": false
      },
      "band": [
-      0.0761,
-      0.1762
+      0.0734,
+      0.1704
      ],
-     "blendDrives": 0.1203,
+     "blendDrives": 0.1189,
      "ceiling": 0.5,
-     "challenger": 0.1203,
+     "challenger": 0.1189,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.1165,
+     "chance": 0.1125,
      "coldGoal": false,
      "components": {
-      "r0": 0.0033,
-      "r1": 0.0066,
-      "r2": 0.0027,
+      "r0": 0.0032,
+      "r1": 0.0064,
+      "r2": 0.0026,
       "r3": 0.0003,
-      "t0": 0.007,
-      "t1": 0.0663,
-      "t2": 0.0289,
-      "t3": 0.0087
+      "t0": 0.0067,
+      "t1": 0.0639,
+      "t2": 0.0279,
+      "t3": 0.0084
      },
      "conversionNote": "2 of 3 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.1165,
-      "lambda": 0.1239,
-      "p0": 0.8835,
-      "p1": 0.1094,
-      "p2": 0.0068,
+      "anytime": 0.1125,
+      "lambda": 0.1193,
+      "p0": 0.8875,
+      "p1": 0.1059,
+      "p2": 0.0063,
       "p3plus": 0.0003,
-      "twoPlus": 0.0071
+      "twoPlus": 0.0066
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 5.8277,
+     "edge": 5.4263,
      "espn": "16002",
-     "fair": 758,
-     "firstTd": 0.028,
+     "fair": 789,
+     "firstTd": 0.0273,
      "gamesPlayed": 5,
      "glShare": 0.0105,
      "glShareRaw": 0.0105,
@@ -17078,10 +17078,10 @@
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.1239,
+     "lambda": 0.1193,
      "lambdaRaw": 0.2349,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×0.98 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×0.93 (from the last three weeks).",
       "Blended 63% toward the published projection (5%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 1,
@@ -17094,10 +17094,10 @@
      },
      "pos": "FB",
      "practice": null,
-     "preSafety": 0.1165,
-     "preStack": 0.2057,
+     "preSafety": 0.1125,
+     "preStack": 0.1961,
      "pubBlend": {
-      "before": 0.2303,
+      "before": 0.2183,
       "weight": 0.625
      },
      "published": {
@@ -17115,7 +17115,7 @@
       "behind": {
        "att": 0,
        "carries": 0.8684734141411975,
-       "chance": 0.12331935661002513,
+       "chance": 0.11897893637026757,
        "targets": 1.624288088727695
       },
       "close": {
@@ -17127,7 +17127,7 @@
       "lead": {
        "att": 0,
        "carries": 1.144341439809578,
-       "chance": 0.10886728451696914,
+       "chance": 0.10522338904876893,
        "targets": 1.310542301198299
       },
       "limited": {
@@ -17213,12 +17213,12 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.10015019702482064
+       "width": 0.09696492252258826
       },
       "level": "Med",
       "reasons": [
        "1 red-zone touches in his last three games.",
-       "80% band 8–18% is narrow enough."
+       "80% band 7–17% is narrow enough."
       ]
      },
      "team": "SF",
@@ -17305,40 +17305,40 @@
       "rec": {
        "defense": {
         "allowed": 0.9333,
-        "factor": 1.053,
-        "league": 0.7816
+        "factor": 1.0522,
+        "league": 0.7834
        },
-       "hi": 2.8881,
-       "leagueDefense": 1.1312,
+       "hi": 2.9959,
+       "leagueDefense": 1.1643,
        "lo": 0,
-       "mean": 1.1911,
-       "source": "held-out errors, RB|primary|available (n=55)",
-       "text": "1.1 without this defense. LV allows FBs a 93% catch rate versus 78% league."
+       "mean": 1.225,
+       "source": "held-out errors, RB|primary|available (n=57)",
+       "text": "1.2 without this defense. LV allows FBs a 93% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
         "allowed": 8.7333,
-        "factor": 1.1493,
-        "league": 5.6438
+        "factor": 1.1508,
+        "league": 5.624
        },
-       "hi": 32.2222,
-       "leagueDefense": 8.931,
+       "hi": 31.766,
+       "leagueDefense": 8.9032,
        "lo": 0,
-       "mean": 10.2643,
-       "source": "held-out errors, RB|primary|available (n=55)",
+       "mean": 10.2456,
+       "source": "held-out errors, RB|primary|available (n=57)",
        "text": "9 without this defense. LV allows FBs 8.7 yards a target versus 5.6 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 5.1716,
-        "factor": 1.1846,
-        "league": 4.1368
+        "factor": 1.1878,
+        "league": 4.1225
        },
-       "hi": 16.068,
-       "leagueDefense": 4.2345,
+       "hi": 15.8344,
+       "leagueDefense": 4.1668,
        "lo": 0,
-       "mean": 5.0162,
-       "source": "held-out errors, RB|primary|available (n=55)",
+       "mean": 4.9493,
+       "source": "held-out errors, RB|primary|available (n=57)",
        "text": "4 without this defense. LV allows FBs 5.2 yards a carry versus 4.1 league."
       }
      }
@@ -17351,43 +17351,43 @@
       "uncertain": false
      },
      "band": [
-      0.0375,
-      0.1141
+      0.0357,
+      0.1088
      ],
-     "blendDrives": 0.0594,
+     "blendDrives": 0.0585,
      "ceiling": 0.5,
-     "challenger": 0.0594,
+     "challenger": 0.0585,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0658,
+     "chance": 0.0627,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0056,
-      "t1": 0.0166,
-      "t2": 0.0245,
-      "t3": 0.0215
+      "t0": 0.0053,
+      "t1": 0.0157,
+      "t2": 0.0233,
+      "t3": 0.0204
      },
      "conversionNote": "1 of 2 red-zone targets converted: those targets are the score.",
      "dist": {
-      "anytime": 0.0658,
-      "lambda": 0.0681,
-      "p0": 0.9342,
-      "p1": 0.0636,
-      "p2": 0.0022,
+      "anytime": 0.0627,
+      "lambda": 0.0647,
+      "p0": 0.9373,
+      "p1": 0.0606,
+      "p2": 0.002,
       "p3plus": 0,
-      "twoPlus": 0.0022
+      "twoPlus": 0.002
      },
      "driveActive": null,
      "driveAdj": {
-      "after": 0.0594,
-      "before": 0.0594,
+      "after": 0.0585,
+      "before": 0.0585,
       "expDrives": 10.6,
       "items": [
        {
@@ -17408,10 +17408,10 @@
       "raw": 0.0724,
       "w": 0
      },
-     "edge": 4.601,
+     "edge": 4.2853,
      "espn": "16731",
-     "fair": 1419,
-     "firstTd": 0.0154,
+     "fair": 1496,
+     "firstTd": 0.0148,
      "gamesPlayed": 4,
      "glShare": 0,
      "glShareRaw": 0,
@@ -17421,10 +17421,10 @@
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0681,
+     "lambda": 0.0647,
      "lambdaRaw": 0.1574,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 68% toward the published projection (1%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 1,
@@ -17437,10 +17437,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0658,
-     "preStack": 0.156,
+     "preSafety": 0.0627,
+     "preStack": 0.1471,
      "pubBlend": {
-      "before": 0.1696,
+      "before": 0.1591,
       "weight": 0.6786
      },
      "published": {
@@ -17458,7 +17458,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.06664200179618818,
+       "chance": 0.06392480859031657,
        "targets": 1.7042058563837335
       },
       "close": {
@@ -17470,7 +17470,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.05968145639654365,
+       "chance": 0.05688548049704634,
        "targets": 1.3750232364815316
       },
       "limited": {
@@ -17554,7 +17554,7 @@
        "recentRz": 2,
        "repeat": false,
        "roleOk": false,
-       "width": 0.07662560327937917
+       "width": 0.07311433716141702
       },
       "level": "Med",
       "reasons": [
@@ -17646,41 +17646,41 @@
       "rec": {
        "defense": {
         "allowed": 0.5678,
-        "factor": 0.9502,
-        "league": 0.6196
+        "factor": 0.9501,
+        "league": 0.6197
        },
-       "hi": 2.2785,
-       "leagueDefense": 0.8693,
+       "hi": 2.3103,
+       "leagueDefense": 0.8933,
        "lo": 0,
-       "mean": 0.826,
-       "source": "held-out errors, WR|reserve|available (n=173)",
+       "mean": 0.8488,
+       "source": "held-out errors, WR|reserve|available (n=180)",
        "text": "0.9 without this defense. LV allows WRs a 57% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
         "allowed": 8.8898,
-        "factor": 1.0599,
-        "league": 8.0783
+        "factor": 1.0607,
+        "league": 8.0681
        },
-       "hi": 34.5184,
-       "leagueDefense": 11.3479,
+       "hi": 34.3081,
+       "leagueDefense": 11.3275,
        "lo": 0,
-       "mean": 12.0273,
-       "source": "held-out errors, WR|reserve|available (n=173)",
+       "mean": 12.0151,
+       "source": "held-out errors, WR|reserve|available (n=180)",
        "text": "11 without this defense. LV allows WRs 8.9 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 4.75,
-        "factor": 0.9952,
-        "league": 5.1484
+        "factor": 0.9941,
+        "league": 5.2481
        },
        "hi": 0,
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, WR|reserve|available (n=173)",
-       "text": "0 without this defense. LV allows WRs 4.8 yards a carry versus 5.1 league."
+       "source": "held-out errors, WR|reserve|available (n=180)",
+       "text": "0 without this defense. LV allows WRs 4.8 yards a carry versus 5.2 league."
       }
      }
     },
@@ -17692,43 +17692,43 @@
       "uncertain": false
      },
      "band": [
-      0.0236,
-      0.1249
+      0.0222,
+      0.1176
      ],
-     "blendDrives": 0.0549,
+     "blendDrives": 0.0516,
      "ceiling": 0.5,
-     "challenger": 0.0549,
+     "challenger": 0.0516,
      "challengerLegs": [
       "model"
      ],
-     "chance": 0.0549,
+     "chance": 0.0516,
      "coldGoal": false,
      "components": {
-      "r0": 0.013,
-      "r1": 0.0143,
-      "r2": 0.0058,
-      "r3": 0.0007,
-      "t0": 0.0088,
-      "t1": 0.0068,
-      "t2": 0.0045,
-      "t3": 0.0025
+      "r0": 0.0122,
+      "r1": 0.0134,
+      "r2": 0.0054,
+      "r3": 0.0006,
+      "t0": 0.0083,
+      "t1": 0.0064,
+      "t2": 0.0043,
+      "t3": 0.0024
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0549,
-      "lambda": 0.0565,
-      "p0": 0.9451,
-      "p1": 0.0534,
-      "p2": 0.0015,
+      "anytime": 0.0516,
+      "lambda": 0.053,
+      "p0": 0.9484,
+      "p1": 0.0503,
+      "p2": 0.0013,
       "p3plus": 0,
-      "twoPlus": 0.0015
+      "twoPlus": 0.0014
      },
      "driveActive": null,
      "driveAdj": null,
      "edge": null,
      "espn": null,
-     "fair": 1721,
-     "firstTd": 0.0128,
+     "fair": 1838,
+     "firstTd": 0.0121,
      "gamesPlayed": 0,
      "glShare": 0.0111,
      "glShareRaw": 0.0111,
@@ -17738,10 +17738,10 @@
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0565,
+     "lambda": 0.053,
      "lambdaRaw": 0.0524,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks)."
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks)."
      ],
      "matchupFactor": 1,
      "name": "Glen Coffee",
@@ -17753,8 +17753,8 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.0549,
-     "preStack": 0.0549,
+     "preSafety": 0.0516,
+     "preStack": 0.0516,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -17767,7 +17767,7 @@
       "behind": {
        "att": 0,
        "carries": 1.6187376470585868,
-       "chance": 0.052441533156426745,
+       "chance": 0.049276794829427595,
        "targets": 0.69
       },
       "close": {
@@ -17779,7 +17779,7 @@
       "lead": {
        "att": 0,
        "carries": 2.132924899653667,
-       "chance": 0.05498314998851073,
+       "chance": 0.05166924870369072,
        "targets": 0.5567203220305238
       },
       "limited": {
@@ -17855,22 +17855,22 @@
      "tags": [],
      "tdConf": {
       "blocks": [
-       "80% band 2–12% is too wide.",
        "Roster membership not verified."
       ],
       "evidence": {
        "avgTouches": 0,
        "baseline": false,
        "latest": 0,
-       "narrow": false,
+       "narrow": true,
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.10123978820751389
+       "width": 0.09543089807658667
       },
       "level": "Low",
       "reasons": [
-       "unknown red-zone touches in his last three games (no red-zone data)."
+       "unknown red-zone touches in his last three games (no red-zone data).",
+       "80% band 2–12% is narrow enough."
       ]
      },
      "team": "SF",
@@ -17940,40 +17940,40 @@
       "rec": {
        "defense": {
         "allowed": 0.9333,
-        "factor": 1.053,
-        "league": 0.7816
+        "factor": 1.0522,
+        "league": 0.7834
        },
-       "hi": 1.6781,
-       "leagueDefense": 0.491,
+       "hi": 1.6949,
+       "leagueDefense": 0.5057,
        "lo": 0,
-       "mean": 0.517,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 0.532,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "0.5 without this defense. LV allows RBs a 93% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
         "allowed": 8.7333,
-        "factor": 1.1493,
-        "league": 5.6438
+        "factor": 1.1508,
+        "league": 5.624
        },
-       "hi": 22.3655,
-       "leagueDefense": 3.5786,
+       "hi": 21.9849,
+       "leagueDefense": 3.5636,
        "lo": 0,
-       "mean": 4.1129,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 4.1009,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "4 without this defense. LV allows RBs 8.7 yards a target versus 5.6 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 5.1716,
-        "factor": 1.1846,
-        "league": 4.1368
+        "factor": 1.1878,
+        "league": 4.1225
        },
-       "hi": 28.7624,
-       "leagueDefense": 7.8926,
+       "hi": 28.2954,
+       "leagueDefense": 7.7664,
        "lo": 0,
-       "mean": 9.3496,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 9.225,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "8 without this defense. LV allows RBs 5.2 yards a carry versus 4.1 league."
       }
      }
@@ -17986,45 +17986,45 @@
       "uncertain": false
      },
      "band": [
-      0.0288,
-      0.0941
+      0.0278,
+      0.0908
      ],
-     "blendDrives": 0.0549,
+     "blendDrives": 0.0542,
      "ceiling": 0.5,
-     "challenger": 0.0549,
+     "challenger": 0.0542,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0523,
+     "chance": 0.0505,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0107,
-      "t1": 0.018,
-      "t2": 0.0121,
-      "t3": 0.013
+      "t0": 0.0103,
+      "t1": 0.0174,
+      "t2": 0.0116,
+      "t3": 0.0125
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0523,
-      "lambda": 0.0537,
-      "p0": 0.9477,
-      "p1": 0.0509,
-      "p2": 0.0014,
+      "anytime": 0.0505,
+      "lambda": 0.0518,
+      "p0": 0.9495,
+      "p1": 0.0492,
+      "p2": 0.0013,
       "p3plus": 0,
-      "twoPlus": 0.0014
+      "twoPlus": 0.0013
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 1.3118,
+     "edge": 1.1253,
      "espn": "4040612",
-     "fair": 1811,
-     "firstTd": 0.0122,
+     "fair": 1882,
+     "firstTd": 0.0118,
      "gamesPlayed": 7,
      "glShare": 0,
      "glShareRaw": 0,
@@ -18034,10 +18034,10 @@
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0537,
+     "lambda": 0.0518,
      "lambdaRaw": 0.0655,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 55% toward the published projection (3%) because of limited recent red-zone evidence; safety caps applied after."
      ],
      "matchupFactor": 1,
@@ -18050,10 +18050,10 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0523,
-     "preStack": 0.0681,
+     "preSafety": 0.0505,
+     "preStack": 0.064,
      "pubBlend": {
-      "before": 0.0705,
+      "before": 0.0662,
       "weight": 0.55
      },
      "published": {
@@ -18071,7 +18071,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.05572118159391337,
+       "chance": 0.05365364467896827,
        "targets": 1.2864666666666666
       },
       "close": {
@@ -18083,7 +18083,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.04871094383866714,
+       "chance": 0.047064448957202076,
        "targets": 1.037974111519132
       },
       "limited": {
@@ -18167,7 +18167,7 @@
        "recentRz": 1,
        "repeat": false,
        "roleOk": false,
-       "width": 0.06524326308408435
+       "width": 0.0630041864143881
       },
       "level": "Low",
       "reasons": [
@@ -18218,27 +18218,27 @@
       "rec": {
        "defense": {
         "allowed": 0.8226,
-        "factor": 1.0622,
-        "league": 0.7201
+        "factor": 1.0619,
+        "league": 0.7205
        },
-       "hi": 2.3109,
-       "leagueDefense": 0.8199,
+       "hi": 2.3471,
+       "leagueDefense": 0.8429,
        "lo": 0,
-       "mean": 0.8709,
-       "source": "held-out errors, TE|support|available (n=48)",
+       "mean": 0.895,
+       "source": "held-out errors, TE|support|available (n=49)",
        "text": "0.8 without this defense. LV allows TEs a 82% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
         "allowed": 6.5323,
-        "factor": 0.9668,
-        "league": 7.0706
+        "factor": 0.9663,
+        "league": 7.0786
        },
-       "hi": 27.2721,
-       "leagueDefense": 8.2794,
+       "hi": 27.0021,
+       "leagueDefense": 8.2818,
        "lo": 0,
-       "mean": 8.0042,
-       "source": "held-out errors, TE|support|available (n=48)",
+       "mean": 8.0027,
+       "source": "held-out errors, TE|support|available (n=49)",
        "text": "8 without this defense. LV allows TEs 6.5 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -18251,7 +18251,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|support|available (n=48)",
+       "source": "held-out errors, TE|support|available (n=49)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -18264,45 +18264,45 @@
       "uncertain": false
      },
      "band": [
-      0.0229,
-      0.1034
+      0.0219,
+      0.099
      ],
-     "blendDrives": 0.0387,
+     "blendDrives": 0.0381,
      "ceiling": 0.5,
-     "challenger": 0.0387,
+     "challenger": 0.0381,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0491,
+     "chance": 0.0469,
      "coldGoal": false,
      "components": {
       "r0": 0.0002,
       "r1": 0.0001,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0303,
-      "t1": 0.0097,
-      "t2": 0.0065,
-      "t3": 0.0036
+      "t0": 0.029,
+      "t1": 0.0092,
+      "t2": 0.0062,
+      "t3": 0.0034
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0491,
-      "lambda": 0.0503,
-      "p0": 0.9509,
-      "p1": 0.0478,
-      "p2": 0.0012,
+      "anytime": 0.0469,
+      "lambda": 0.0481,
+      "p0": 0.9531,
+      "p1": 0.0458,
+      "p2": 0.0011,
       "p3plus": 0,
-      "twoPlus": 0.0012
+      "twoPlus": 0.0011
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 3.9117,
+     "edge": 3.6978,
      "espn": "4431466",
-     "fair": 1938,
-     "firstTd": 0.0114,
+     "fair": 2031,
+     "firstTd": 0.011,
      "gamesPlayed": 3,
      "glShare": 0.0002,
      "glShareRaw": 0.0002,
@@ -18312,10 +18312,10 @@
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0503,
+     "lambda": 0.0481,
      "lambdaRaw": 0.1746,
      "lessonNotes": [
-      "Learned from finished games: 15to25 chances scaled ×0.98 (from the last three weeks).",
+      "Learned from finished games: 15to25 chances scaled ×0.93 (from the last three weeks).",
       "Blended 75% toward the published projection (0%) because of a thin sample; safety caps applied after."
      ],
      "matchupFactor": 1,
@@ -18328,10 +18328,10 @@
      },
      "pos": "WR",
      "practice": null,
-     "preSafety": 0.0491,
-     "preStack": 0.1574,
+     "preSafety": 0.0469,
+     "preStack": 0.1498,
      "pubBlend": {
-      "before": 0.1712,
+      "before": 0.1623,
       "weight": 0.75
      },
      "published": {
@@ -18353,7 +18353,7 @@
       "behind": {
        "att": 0,
        "carries": 0.08093688235292935,
-       "chance": 0.05314270382328201,
+       "chance": 0.0507991441166622,
        "targets": 9.278199999999998
       },
       "close": {
@@ -18365,7 +18365,7 @@
       "lead": {
        "att": 0,
        "carries": 0.10664624498268338,
-       "chance": 0.04775791788011763,
+       "chance": 0.04531240569054562,
        "targets": 7.486032596903777
       },
       "limited": {
@@ -18451,7 +18451,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.08049317559029356
+       "width": 0.07712430497044398
       },
       "level": "Low",
       "reasons": [
@@ -18535,334 +18535,41 @@
       "rec": {
        "defense": {
         "allowed": 0.5678,
-        "factor": 0.9502,
-        "league": 0.6196
+        "factor": 0.9501,
+        "league": 0.6197
        },
-       "hi": 7.5616,
-       "leagueDefense": 5.3388,
-       "lo": 2.5843,
-       "mean": 5.0729,
-       "source": "held-out errors, WR|support|available (n=46)",
-       "text": "5.3 without this defense. LV allows WRs a 57% catch rate versus 62% league."
+       "hi": 7.7444,
+       "leagueDefense": 5.4863,
+       "lo": 2.6806,
+       "mean": 5.2125,
+       "source": "held-out errors, WR|support|available (n=48)",
+       "text": "5.5 without this defense. LV allows WRs a 57% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
         "allowed": 8.8898,
-        "factor": 1.0599,
-        "league": 8.0783
+        "factor": 1.0607,
+        "league": 8.0681
        },
-       "hi": 138.3363,
-       "leagueDefense": 83.1523,
-       "lo": 37.9252,
-       "mean": 88.1308,
-       "source": "held-out errors, WR|support|available (n=46)",
+       "hi": 137.2208,
+       "leagueDefense": 83.0285,
+       "lo": 38.9159,
+       "mean": 88.0684,
+       "source": "held-out errors, WR|support|available (n=48)",
        "text": "83 without this defense. LV allows WRs 8.9 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 4.75,
-        "factor": 0.9952,
-        "league": 5.1484
+        "factor": 0.9941,
+        "league": 5.2481
        },
-       "hi": 7.8124,
-       "leagueDefense": 0.4911,
+       "hi": 7.6317,
+       "leagueDefense": 0.4943,
        "lo": 0,
-       "mean": 0.4888,
-       "source": "held-out errors, WR|support|available (n=46)",
-       "text": "0 without this defense. LV allows WRs 4.8 yards a carry versus 5.1 league."
-      }
-     }
-    },
-    {
-     "avail": {
-      "factor": 1,
-      "label": "Available",
-      "status": "available",
-      "uncertain": false
-     },
-     "band": [
-      0.0173,
-      0.0507
-     ],
-     "blendDrives": 0.0557,
-     "ceiling": 0.5,
-     "challenger": 0.0557,
-     "challengerLegs": [
-      "model",
-      "usage"
-     ],
-     "chance": 0.0297,
-     "coldGoal": false,
-     "components": {
-      "r0": 0.0014,
-      "r1": 0,
-      "r2": 0,
-      "r3": 0,
-      "t0": 0.0165,
-      "t1": 0.006,
-      "t2": 0.004,
-      "t3": 0.0022
-     },
-     "conversionNote": "",
-     "dist": {
-      "anytime": 0.0297,
-      "lambda": 0.0301,
-      "p0": 0.9703,
-      "p1": 0.0292,
-      "p2": 0.0004,
-      "p3plus": 0,
-      "twoPlus": 0.0004
-     },
-     "driveActive": null,
-     "driveAdj": null,
-     "edge": null,
-     "espn": "4575665",
-     "fair": 3271,
-     "firstTd": 0.0068,
-     "gamesPlayed": 7,
-     "glShare": 0,
-     "glShareRaw": 0,
-     "gsis": "00-0039365",
-     "i10Exp": 0.0093,
-     "id": "11616",
-     "implied": 29,
-     "injury": null,
-     "insideFinisher": false,
-     "lambda": 0.0301,
-     "lambdaRaw": 0.028,
-     "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks)."
-     ],
-     "matchupFactor": 1,
-     "name": "Jacob Cowing",
-     "passTd": null,
-     "photo": {
-      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4575665.png",
-      "initials": "JC",
-      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/11616.jpg"
-     },
-     "pos": "WR",
-     "practice": null,
-     "preSafety": 0.0297,
-     "preStack": 0.0297,
-     "pubBlend": null,
-     "published": null,
-     "recentFinisher": false,
-     "recentRzLooks": 0,
-     "replacing": null,
-     "riser": null,
-     "role": "WR6",
-     "safetyNotes": [],
-     "scenarios": {
-      "behind": {
-       "att": 0,
-       "carries": 0.16814403078362766,
-       "chance": 0.03232203369639386,
-       "targets": 1.366048515113931
-      },
-      "close": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      },
-      "lead": {
-       "att": 0,
-       "carries": 0.22155448762077998,
-       "chance": 0.0264812850349041,
-       "targets": 1.1021840133964445
-      },
-      "limited": {
-       "att": null,
-       "carries": null,
-       "chance": null,
-       "targets": null
-      }
-     },
-     "scriptSensitive": false,
-     "secondOption": null,
-     "segment": "WR|reserve|available",
-     "spots": {
-      "r0": {
-       "expected": 0.0013,
-       "looks": 2,
-       "opps": 0.1978,
-       "rate": 0.0066,
-       "scores": 0
-      },
-      "r1": {
-       "expected": 0,
-       "looks": 0,
-       "opps": 0,
-       "rate": 0.4289,
-       "scores": 0
-      },
-      "r2": {
-       "expected": 0,
-       "looks": 0,
-       "opps": 0,
-       "rate": 0.27,
-       "scores": 0
-      },
-      "r3": {
-       "expected": 0,
-       "looks": 0,
-       "opps": 0,
-       "rate": 0.0164,
-       "scores": 0
-      },
-      "t0": {
-       "expected": 0.0153,
-       "looks": 10,
-       "opps": 1.2177,
-       "rate": 0.0126,
-       "scores": 0
-      },
-      "t1": {
-       "expected": 0.0056,
-       "looks": 0,
-       "opps": 0.0106,
-       "rate": 0.5368,
-       "scores": 0
-      },
-      "t2": {
-       "expected": 0.0037,
-       "looks": 0,
-       "opps": 0.0101,
-       "rate": 0.37,
-       "scores": 0
-      },
-      "t3": {
-       "expected": 0.0021,
-       "looks": 0,
-       "opps": 0.0141,
-       "rate": 0.13,
-       "scores": 0
-      }
-     },
-     "spread": -9.5,
-     "stacked": null,
-     "tags": [],
-     "tdConf": {
-      "blocks": [],
-      "evidence": {
-       "avgTouches": 2.6666666666666665,
-       "baseline": false,
-       "latest": 6,
-       "narrow": true,
-       "recentRz": 0,
-       "repeat": false,
-       "roleOk": false,
-       "width": 0.033416872109397366
-      },
-      "level": "Low",
-      "reasons": [
-       "0 red-zone touches in his last three games.",
-       "80% band 2–5% is narrow enough."
-      ]
-     },
-     "team": "SF",
-     "trendEffect": {
-      "after": 0.0276,
-      "before": 0.0276,
-      "items": [
-       {
-        "family": "defense",
-        "id": "defense:LV:WR",
-        "mult": 1,
-        "pp": 0,
-        "text": "LV has allowed 2.0 WR touchdowns a game over its last 3 vs 0.5 before (4 earlier games): trending soft.",
-        "weight": 0
-       }
-      ],
-      "note": "before safety caps and the team TD budget"
-     },
-     "trendTags": [
-      {
-       "direction": "up",
-       "family": "defense",
-       "firstDetectedWeek": 6,
-       "id": "defense:LV:WR",
-       "status": "continuing",
-       "strength": 0.83,
-       "type": "Defense trend"
-      }
-     ],
-     "usage": 0.1032,
-     "verified": true,
-     "verifyReason": "On SF nflverse roster (week 7, ACT)",
-     "vol": {
-      "att": 0,
-      "carries": 0.1978,
-      "rzRush": 0,
-      "rzTgt": 0.0634,
-      "targets": 1.2525
-     },
-     "volConf": {
-      "rec": {
-       "blocks": [],
-       "level": "Med",
-       "provisional": false,
-       "reasons": [
-        "10 targets this season (High needs 12, Medium 5)."
-       ]
-      },
-      "recYd": {
-       "blocks": [],
-       "level": "Med",
-       "provisional": false,
-       "reasons": [
-        "10 targets this season (High needs 18, Medium 8)."
-       ]
-      },
-      "rushYd": {
-       "blocks": [],
-       "level": "Low",
-       "provisional": true,
-       "reasons": [
-        "Near-zero projected carries (0.2)."
-       ]
-      }
-     },
-     "volume": {
-      "rec": {
-       "defense": {
-        "allowed": 0.5678,
-        "factor": 0.9502,
-        "league": 0.6196
-       },
-       "hi": 1.9545,
-       "leagueDefense": 0.6925,
-       "lo": 0,
-       "mean": 0.658,
-       "source": "held-out errors, WR|reserve|available (n=173)",
-       "text": "0.7 without this defense. LV allows WRs a 57% catch rate versus 62% league."
-      },
-      "recYd": {
-       "defense": {
-        "allowed": 8.8898,
-        "factor": 1.0599,
-        "league": 8.0783
-       },
-       "hi": 29.7438,
-       "leagueDefense": 9.0807,
-       "lo": 0,
-       "mean": 9.6244,
-       "source": "held-out errors, WR|reserve|available (n=173)",
-       "text": "9 without this defense. LV allows WRs 8.9 yards a target versus 8.1 league."
-      },
-      "rushYd": {
-       "defense": {
-        "allowed": 4.75,
-        "factor": 0.9952,
-        "league": 5.1484
-       },
-       "hi": 5.6954,
-       "leagueDefense": 1.0284,
-       "lo": 0,
-       "mean": 1.0234,
-       "source": "held-out errors, WR|reserve|available (n=173)",
-       "text": "1 without this defense. LV allows WRs 4.8 yards a carry versus 5.1 league."
+       "mean": 0.4914,
+       "source": "held-out errors, WR|support|available (n=48)",
+       "text": "0 without this defense. LV allows WRs 4.8 yards a carry versus 5.2 league."
       }
      }
     },
@@ -18912,7 +18619,7 @@
      "edge": 0,
      "espn": "3895856",
      "fair": 3284,
-     "firstTd": 0.0068,
+     "firstTd": 0.0069,
      "gamesPlayed": 0,
      "glShare": 0,
      "glShareRaw": 0,
@@ -18925,7 +18632,7 @@
      "lambda": 0.03,
      "lambdaRaw": 0.0411,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 100% toward the published projection (2%) because of a thin sample; safety caps applied after."
      ],
      "matchupFactor": 1,
@@ -18939,9 +18646,9 @@
      "pos": "WR",
      "practice": null,
      "preSafety": 0.0296,
-     "preStack": 0.0433,
+     "preStack": 0.0407,
      "pubBlend": {
-      "before": 0.0443,
+      "before": 0.0415,
       "weight": 1
      },
      "published": {
@@ -19130,41 +18837,41 @@
       "rec": {
        "defense": {
         "allowed": 0.5678,
-        "factor": 0.9502,
-        "league": 0.6196
+        "factor": 0.9501,
+        "league": 0.6197
        },
-       "hi": 2.1544,
-       "leagueDefense": 0.8005,
+       "hi": 2.1841,
+       "leagueDefense": 0.8226,
        "lo": 0,
-       "mean": 0.7606,
-       "source": "held-out errors, WR|reserve|available (n=173)",
+       "mean": 0.7816,
+       "source": "held-out errors, WR|reserve|available (n=180)",
        "text": "0.8 without this defense. LV allows WRs a 57% catch rate versus 62% league."
       },
       "recYd": {
        "defense": {
         "allowed": 8.8898,
-        "factor": 1.0599,
-        "league": 8.0783
+        "factor": 1.0607,
+        "league": 8.0681
        },
-       "hi": 32.8359,
-       "leagueDefense": 10.5348,
+       "hi": 32.6303,
+       "leagueDefense": 10.5143,
        "lo": 0,
-       "mean": 11.1655,
-       "source": "held-out errors, WR|reserve|available (n=173)",
+       "mean": 11.1525,
+       "source": "held-out errors, WR|reserve|available (n=180)",
        "text": "11 without this defense. LV allows WRs 8.9 yards a target versus 8.1 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 4.75,
-        "factor": 0.9952,
-        "league": 5.1484
+        "factor": 0.9941,
+        "league": 5.2481
        },
        "hi": 0,
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, WR|reserve|available (n=173)",
-       "text": "0 without this defense. LV allows WRs 4.8 yards a carry versus 5.1 league."
+       "source": "held-out errors, WR|reserve|available (n=180)",
+       "text": "0 without this defense. LV allows WRs 4.8 yards a carry versus 5.2 league."
       }
      }
     },
@@ -19176,44 +18883,337 @@
       "uncertain": false
      },
      "band": [
-      0.0118,
-      0.0419
+      0.0162,
+      0.0476
      ],
-     "blendDrives": 0.0382,
+     "blendDrives": 0.054,
      "ceiling": 0.5,
-     "challenger": 0.0382,
+     "challenger": 0.054,
+     "challengerLegs": [
+      "model",
+      "usage"
+     ],
+     "chance": 0.0279,
+     "coldGoal": false,
+     "components": {
+      "r0": 0.0013,
+      "r1": 0,
+      "r2": 0,
+      "r3": 0,
+      "t0": 0.0155,
+      "t1": 0.0056,
+      "t2": 0.0038,
+      "t3": 0.0021
+     },
+     "conversionNote": "",
+     "dist": {
+      "anytime": 0.0279,
+      "lambda": 0.0283,
+      "p0": 0.9721,
+      "p1": 0.0275,
+      "p2": 0.0004,
+      "p3plus": 0,
+      "twoPlus": 0.0004
+     },
+     "driveActive": null,
+     "driveAdj": null,
+     "edge": null,
+     "espn": "4575665",
+     "fair": 3490,
+     "firstTd": 0.0065,
+     "gamesPlayed": 7,
+     "glShare": 0,
+     "glShareRaw": 0,
+     "gsis": "00-0039365",
+     "i10Exp": 0.0093,
+     "id": "11616",
+     "implied": 29,
+     "injury": null,
+     "insideFinisher": false,
+     "lambda": 0.0283,
+     "lambdaRaw": 0.028,
+     "lessonNotes": [
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks)."
+     ],
+     "matchupFactor": 1,
+     "name": "Jacob Cowing",
+     "passTd": null,
+     "photo": {
+      "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4575665.png",
+      "initials": "JC",
+      "sleeper": "https://sleepercdn.com/content/nfl/players/thumb/11616.jpg"
+     },
+     "pos": "WR",
+     "practice": null,
+     "preSafety": 0.0279,
+     "preStack": 0.0279,
+     "pubBlend": null,
+     "published": null,
+     "recentFinisher": false,
+     "recentRzLooks": 0,
+     "replacing": null,
+     "riser": null,
+     "role": "WR6",
+     "safetyNotes": [],
+     "scenarios": {
+      "behind": {
+       "att": 0,
+       "carries": 0.16814403078362766,
+       "chance": 0.03035199863226512,
+       "targets": 1.366048515113931
+      },
+      "close": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      },
+      "lead": {
+       "att": 0,
+       "carries": 0.22155448762077998,
+       "chance": 0.024862658524714365,
+       "targets": 1.1021840133964445
+      },
+      "limited": {
+       "att": null,
+       "carries": null,
+       "chance": null,
+       "targets": null
+      }
+     },
+     "scriptSensitive": false,
+     "secondOption": null,
+     "segment": "WR|reserve|available",
+     "spots": {
+      "r0": {
+       "expected": 0.0013,
+       "looks": 2,
+       "opps": 0.1978,
+       "rate": 0.0066,
+       "scores": 0
+      },
+      "r1": {
+       "expected": 0,
+       "looks": 0,
+       "opps": 0,
+       "rate": 0.4289,
+       "scores": 0
+      },
+      "r2": {
+       "expected": 0,
+       "looks": 0,
+       "opps": 0,
+       "rate": 0.27,
+       "scores": 0
+      },
+      "r3": {
+       "expected": 0,
+       "looks": 0,
+       "opps": 0,
+       "rate": 0.0164,
+       "scores": 0
+      },
+      "t0": {
+       "expected": 0.0153,
+       "looks": 10,
+       "opps": 1.2177,
+       "rate": 0.0126,
+       "scores": 0
+      },
+      "t1": {
+       "expected": 0.0056,
+       "looks": 0,
+       "opps": 0.0106,
+       "rate": 0.5368,
+       "scores": 0
+      },
+      "t2": {
+       "expected": 0.0037,
+       "looks": 0,
+       "opps": 0.0101,
+       "rate": 0.37,
+       "scores": 0
+      },
+      "t3": {
+       "expected": 0.0021,
+       "looks": 0,
+       "opps": 0.0141,
+       "rate": 0.13,
+       "scores": 0
+      }
+     },
+     "spread": -9.5,
+     "stacked": null,
+     "tags": [],
+     "tdConf": {
+      "blocks": [],
+      "evidence": {
+       "avgTouches": 2.6666666666666665,
+       "baseline": false,
+       "latest": 6,
+       "narrow": true,
+       "recentRz": 0,
+       "repeat": false,
+       "roleOk": false,
+       "width": 0.0314156598914217
+      },
+      "level": "Low",
+      "reasons": [
+       "0 red-zone touches in his last three games.",
+       "80% band 2–5% is narrow enough."
+      ]
+     },
+     "team": "SF",
+     "trendEffect": {
+      "after": 0.0276,
+      "before": 0.0276,
+      "items": [
+       {
+        "family": "defense",
+        "id": "defense:LV:WR",
+        "mult": 1,
+        "pp": 0,
+        "text": "LV has allowed 2.0 WR touchdowns a game over its last 3 vs 0.5 before (4 earlier games): trending soft.",
+        "weight": 0
+       }
+      ],
+      "note": "before safety caps and the team TD budget"
+     },
+     "trendTags": [
+      {
+       "direction": "up",
+       "family": "defense",
+       "firstDetectedWeek": 6,
+       "id": "defense:LV:WR",
+       "status": "continuing",
+       "strength": 0.83,
+       "type": "Defense trend"
+      }
+     ],
+     "usage": 0.1032,
+     "verified": true,
+     "verifyReason": "On SF nflverse roster (week 7, ACT)",
+     "vol": {
+      "att": 0,
+      "carries": 0.1978,
+      "rzRush": 0,
+      "rzTgt": 0.0634,
+      "targets": 1.2525
+     },
+     "volConf": {
+      "rec": {
+       "blocks": [],
+       "level": "Med",
+       "provisional": false,
+       "reasons": [
+        "10 targets this season (High needs 12, Medium 5)."
+       ]
+      },
+      "recYd": {
+       "blocks": [],
+       "level": "Med",
+       "provisional": false,
+       "reasons": [
+        "10 targets this season (High needs 18, Medium 8)."
+       ]
+      },
+      "rushYd": {
+       "blocks": [],
+       "level": "Low",
+       "provisional": true,
+       "reasons": [
+        "Near-zero projected carries (0.2)."
+       ]
+      }
+     },
+     "volume": {
+      "rec": {
+       "defense": {
+        "allowed": 0.5678,
+        "factor": 0.9501,
+        "league": 0.6197
+       },
+       "hi": 1.9806,
+       "leagueDefense": 0.7117,
+       "lo": 0,
+       "mean": 0.6761,
+       "source": "held-out errors, WR|reserve|available (n=180)",
+       "text": "0.7 without this defense. LV allows WRs a 57% catch rate versus 62% league."
+      },
+      "recYd": {
+       "defense": {
+        "allowed": 8.8898,
+        "factor": 1.0607,
+        "league": 8.0681
+       },
+       "hi": 29.5578,
+       "leagueDefense": 9.0649,
+       "lo": 0,
+       "mean": 9.6152,
+       "source": "held-out errors, WR|reserve|available (n=180)",
+       "text": "9 without this defense. LV allows WRs 8.9 yards a target versus 8.1 league."
+      },
+      "rushYd": {
+       "defense": {
+        "allowed": 4.75,
+        "factor": 0.9941,
+        "league": 5.2481
+       },
+       "hi": 5.9252,
+       "leagueDefense": 1.034,
+       "lo": 0,
+       "mean": 1.0279,
+       "source": "held-out errors, WR|reserve|available (n=180)",
+       "text": "1 without this defense. LV allows WRs 4.8 yards a carry versus 5.2 league."
+      }
+     }
+    },
+    {
+     "avail": {
+      "factor": 1,
+      "label": "Available",
+      "status": "available",
+      "uncertain": false
+     },
+     "band": [
+      0.0116,
+      0.0412
+     ],
+     "blendDrives": 0.038,
+     "ceiling": 0.5,
+     "challenger": 0.038,
      "challengerLegs": [
       "model",
       "sleeper",
       "usage"
      ],
-     "chance": 0.0223,
+     "chance": 0.0219,
      "coldGoal": false,
      "components": {
-      "r0": 0.0064,
-      "r1": 0.0053,
+      "r0": 0.0063,
+      "r1": 0.0052,
       "r2": 0.0021,
-      "r3": 0.0003,
+      "r3": 0.0002,
       "t0": 0.0034,
       "t1": 0.0025,
-      "t2": 0.0017,
+      "t2": 0.0016,
       "t3": 0.0009
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0223,
-      "lambda": 0.0225,
-      "p0": 0.9777,
-      "p1": 0.022,
+      "anytime": 0.0219,
+      "lambda": 0.0222,
+      "p0": 0.9781,
+      "p1": 0.0217,
       "p2": 0.0002,
       "p3plus": 0,
-      "twoPlus": 0.0003
+      "twoPlus": 0.0002
      },
      "driveActive": null,
      "driveAdj": null,
-     "edge": 0.2479,
+     "edge": 0.2144,
      "espn": "4685397",
-     "fair": 4388,
+     "fair": 4457,
      "firstTd": 0.0051,
      "gamesPlayed": 2,
      "glShare": 0.0067,
@@ -19224,10 +19224,10 @@
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0225,
+     "lambda": 0.0222,
      "lambdaRaw": 0.0342,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks).",
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks).",
       "Blended 85% toward the published projection (1%) because of a thin sample; safety caps applied after."
      ],
      "matchupFactor": 1,
@@ -19240,10 +19240,10 @@
      },
      "pos": "RB",
      "practice": null,
-     "preSafety": 0.0223,
-     "preStack": 0.0362,
+     "preSafety": 0.0219,
+     "preStack": 0.034,
      "pubBlend": {
-      "before": 0.0369,
+      "before": 0.0346,
       "weight": 0.85
      },
      "published": {
@@ -19261,7 +19261,7 @@
       "behind": {
        "att": 0,
        "carries": 1.3273648705880412,
-       "chance": 0.021995759506465484,
+       "chance": 0.0216784115835007,
        "targets": 0.44275
       },
       "close": {
@@ -19273,7 +19273,7 @@
       "lead": {
        "att": 0,
        "carries": 1.7489984177160072,
-       "chance": 0.022326753745802175,
+       "chance": 0.021989021427748723,
        "targets": 0.35722887330291947
       },
       "limited": {
@@ -19357,7 +19357,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.030066288032119304
+       "width": 0.029621606720237614
       },
       "level": "Low",
       "reasons": [
@@ -19432,40 +19432,40 @@
       "rec": {
        "defense": {
         "allowed": 0.9333,
-        "factor": 1.053,
-        "league": 0.7816
+        "factor": 1.0522,
+        "league": 0.7834
        },
-       "hi": 1.2704,
-       "leagueDefense": 0.3184,
+       "hi": 1.2815,
+       "leagueDefense": 0.3279,
        "lo": 0,
-       "mean": 0.3353,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 0.345,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "0.3 without this defense. LV allows RBs a 93% catch rate versus 78% league."
       },
       "recYd": {
        "defense": {
         "allowed": 8.7333,
-        "factor": 1.1493,
-        "league": 5.6438
+        "factor": 1.1508,
+        "league": 5.624
        },
-       "hi": 17.5631,
-       "leagueDefense": 2.3666,
+       "hi": 17.2576,
+       "leagueDefense": 2.3572,
        "lo": 0,
-       "mean": 2.7199,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 2.7126,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "2 without this defense. LV allows RBs 8.7 yards a target versus 5.6 league."
       },
       "rushYd": {
        "defense": {
         "allowed": 5.1716,
-        "factor": 1.1846,
-        "league": 4.1368
+        "factor": 1.1878,
+        "league": 4.1225
        },
-       "hi": 25.2737,
-       "leagueDefense": 6.4829,
+       "hi": 24.8673,
+       "leagueDefense": 6.3817,
        "lo": 0,
-       "mean": 7.6797,
-       "source": "held-out errors, RB|reserve|available (n=77)",
+       "mean": 7.5803,
+       "source": "held-out errors, RB|reserve|available (n=80)",
        "text": "6 without this defense. LV allows RBs 5.2 yards a carry versus 4.1 league."
       }
      }
@@ -19478,34 +19478,34 @@
       "uncertain": false
      },
      "band": [
-      0.0066,
-      0.0188
+      0.0062,
+      0.0176
      ],
-     "blendDrives": 0.0167,
+     "blendDrives": 0.0161,
      "ceiling": 0.5,
-     "challenger": 0.0167,
+     "challenger": 0.0161,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.0111,
+     "chance": 0.0104,
      "coldGoal": false,
      "components": {
       "r0": 0,
       "r1": 0,
       "r2": 0,
       "r3": 0,
-      "t0": 0.0033,
-      "t1": 0.0039,
-      "t2": 0.0026,
+      "t0": 0.0031,
+      "t1": 0.0036,
+      "t2": 0.0024,
       "t3": 0.0014
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0111,
-      "lambda": 0.0112,
-      "p0": 0.9889,
-      "p1": 0.0111,
+      "anytime": 0.0104,
+      "lambda": 0.0105,
+      "p0": 0.9896,
+      "p1": 0.0104,
       "p2": 0.0001,
       "p3plus": 0,
       "twoPlus": 0.0001
@@ -19514,8 +19514,8 @@
      "driveAdj": null,
      "edge": null,
      "espn": "4360290",
-     "fair": 8896,
-     "firstTd": 0.0025,
+     "fair": 9487,
+     "firstTd": 0.0024,
      "gamesPlayed": 4,
      "glShare": 0,
      "glShareRaw": 0,
@@ -19525,10 +19525,10 @@
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0112,
+     "lambda": 0.0105,
      "lambdaRaw": 0.0104,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks)."
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks)."
      ],
      "matchupFactor": 1,
      "name": "Brayden Willis",
@@ -19540,8 +19540,8 @@
      },
      "pos": "TE",
      "practice": null,
-     "preSafety": 0.0111,
-     "preStack": 0.0111,
+     "preSafety": 0.0104,
+     "preStack": 0.0104,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -19554,7 +19554,7 @@
       "behind": {
        "att": 0,
        "carries": 0,
-       "chance": 0.012337458380952127,
+       "chance": 0.011578213695292106,
        "targets": 0.26285714285714284
       },
       "close": {
@@ -19566,7 +19566,7 @@
       "lead": {
        "att": 0,
        "carries": 0,
-       "chance": 0.00978844826414016,
+       "chance": 0.009185338997823367,
        "targets": 0.2120839322021043
       },
       "limited": {
@@ -19650,7 +19650,7 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.012231649675399914
+       "width": 0.011483587487446045
       },
       "level": "Low",
       "reasons": [
@@ -19701,27 +19701,27 @@
       "rec": {
        "defense": {
         "allowed": 0.8226,
-        "factor": 1.0622,
-        "league": 0.7201
+        "factor": 1.0619,
+        "league": 0.7205
        },
-       "hi": 0.8154,
-       "leagueDefense": 0.1723,
+       "hi": 0.8216,
+       "leagueDefense": 0.1772,
        "lo": 0,
-       "mean": 0.183,
-       "source": "held-out errors, TE|reserve|available (n=86)",
+       "mean": 0.1881,
+       "source": "held-out errors, TE|reserve|available (n=90)",
        "text": "0.2 without this defense. LV allows TEs a 82% catch rate versus 72% league."
       },
       "recYd": {
        "defense": {
         "allowed": 6.5323,
-        "factor": 0.9668,
-        "league": 7.0706
+        "factor": 0.9663,
+        "league": 7.0786
        },
-       "hi": 11.3435,
-       "leagueDefense": 1.7079,
+       "hi": 11.1804,
+       "leagueDefense": 1.7087,
        "lo": 0,
-       "mean": 1.6512,
-       "source": "held-out errors, TE|reserve|available (n=86)",
+       "mean": 1.6511,
+       "source": "held-out errors, TE|reserve|available (n=90)",
        "text": "2 without this defense. LV allows TEs 6.5 yards a target versus 7.1 league."
       },
       "rushYd": {
@@ -19734,7 +19734,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, TE|reserve|available (n=86)",
+       "source": "held-out errors, TE|reserve|available (n=90)",
        "text": "0 without this defense; no positional defense sample."
       }
      }
@@ -19747,21 +19747,21 @@
       "uncertain": false
      },
      "band": [
-      0.0029,
-      0.0157
+      0.0027,
+      0.0147
      ],
-     "blendDrives": 0.0241,
+     "blendDrives": 0.0233,
      "ceiling": 0.5,
-     "challenger": 0.0241,
+     "challenger": 0.0233,
      "challengerLegs": [
       "model",
       "usage"
      ],
-     "chance": 0.0067,
+     "chance": 0.0063,
      "coldGoal": false,
      "components": {
-      "r0": 0.0049,
-      "r1": 0.0013,
+      "r0": 0.0046,
+      "r1": 0.0012,
       "r2": 0.0005,
       "r3": 0.0001,
       "t0": 0,
@@ -19771,10 +19771,10 @@
      },
      "conversionNote": "",
      "dist": {
-      "anytime": 0.0067,
-      "lambda": 0.0068,
-      "p0": 0.9933,
-      "p1": 0.0067,
+      "anytime": 0.0063,
+      "lambda": 0.0063,
+      "p0": 0.9937,
+      "p1": 0.0063,
       "p2": 0,
       "p3plus": 0,
       "twoPlus": 0
@@ -19783,8 +19783,8 @@
      "driveAdj": null,
      "edge": null,
      "espn": "4241464",
-     "fair": 14746,
-     "firstTd": 0.0015,
+     "fair": 15722,
+     "firstTd": 0.0014,
      "gamesPlayed": 1,
      "glShare": 0.001,
      "glShareRaw": 0.001,
@@ -19794,17 +19794,17 @@
      "implied": 29,
      "injury": null,
      "insideFinisher": false,
-     "lambda": 0.0068,
+     "lambda": 0.0063,
      "lambdaRaw": 0.0063,
      "lessonNotes": [
-      "Learned from finished games: lt15 chances scaled ×1.08 (from the last three weeks)."
+      "Learned from finished games: lt15 chances scaled ×1.01 (from the last three weeks)."
      ],
      "matchupFactor": 1,
      "name": "Mac Jones",
      "passTd": {
       "attemptShare": 0.035,
       "display": "0.0",
-      "expected": 0.0461,
+      "expected": 0.0456,
       "interval": [
        0,
        0
@@ -19812,13 +19812,13 @@
       "level": "Low",
       "provisional": true,
       "reasons": [
-       "4% of projected team attempts (1.1) × team receiving-score total 1.32.",
+       "4% of projected team attempts (1.1) × team receiving-score total 1.30.",
        "Only 0 of the last three games with attempts.",
        "0 attempts this season (needs 60).",
        "Fewer than 20 projected attempts.",
        "Provisional: passing-TD confidence is capped at Medium until prospectively validated."
       ],
-      "teamReceivingLambda": 1.3175
+      "teamReceivingLambda": 1.3017
      },
      "photo": {
       "espn": "https://a.espncdn.com/i/headshots/nfl/players/full/4241464.png",
@@ -19827,8 +19827,8 @@
      },
      "pos": "QB",
      "practice": null,
-     "preSafety": 0.0067,
-     "preStack": 0.0067,
+     "preSafety": 0.0063,
+     "preStack": 0.0063,
      "pubBlend": null,
      "published": null,
      "recentFinisher": false,
@@ -19841,7 +19841,7 @@
       "behind": {
        "att": 1.274589988051344,
        "carries": 0.5867923970587376,
-       "chance": 0.005728339930040183,
+       "chance": 0.005374712765543133,
        "targets": 0
       },
       "close": {
@@ -19853,7 +19853,7 @@
       "lead": {
        "att": 1.0014635620403416,
        "carries": 0.7731852761244543,
-       "chance": 0.007428102830231431,
+       "chance": 0.00696991263422575,
        "targets": 0
       },
       "limited": {
@@ -19937,12 +19937,12 @@
        "recentRz": 0,
        "repeat": false,
        "roleOk": false,
-       "width": 0.0128295522671652
+       "width": 0.012042373221654468
       },
       "level": "Low",
       "reasons": [
        "0 red-zone touches in his last three games.",
-       "80% band 0–2% is narrow enough."
+       "80% band 0–1% is narrow enough."
       ]
      },
      "team": "SF",
@@ -19996,14 +19996,14 @@
       "passYd": {
        "defense": {
         "allowed": null,
-        "factor": 1.0629,
+        "factor": 1.0636,
         "league": null
        },
-       "hi": 42.1005,
-       "leagueDefense": 7.8013,
+       "hi": 41.6087,
+       "leagueDefense": 7.7539,
        "lo": 0,
-       "mean": 8.292,
-       "source": "held-out errors, QB|support|available (n=42)",
+       "mean": 8.247,
+       "source": "held-out errors, QB|support|available (n=44)",
        "text": "8 without this defense; opponent factor 1.06 from how this offense uses WRs, TEs, and backs."
       },
       "rec": {
@@ -20016,7 +20016,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|support|available (n=42)",
+       "source": "held-out errors, QB|support|available (n=44)",
        "text": "0.0 without this defense."
       },
       "recYd": {
@@ -20029,7 +20029,7 @@
        "leagueDefense": 0,
        "lo": 0,
        "mean": 0,
-       "source": "held-out errors, QB|support|available (n=42)",
+       "source": "held-out errors, QB|support|available (n=44)",
        "text": "0 without this defense."
       },
       "rushYd": {
@@ -20038,11 +20038,11 @@
         "factor": 0.9521,
         "league": 4.3804
        },
-       "hi": 14.0752,
-       "leagueDefense": 2.8524,
+       "hi": 13.739,
+       "leagueDefense": 2.8165,
        "lo": 0,
-       "mean": 2.7156,
-       "source": "held-out errors, QB|support|available (n=42)",
+       "mean": 2.6815,
+       "source": "held-out errors, QB|support|available (n=44)",
        "text": "3 without this defense. LV allows QBs 3.7 yards a carry versus 4.4 league."
       }
      }
@@ -20051,14 +20051,14 @@
    "roster": {
     "away": [
      {
-      "gsis": "00-0038563",
-      "id": "10213",
+      "gsis": "00-0040122",
+      "id": "12527",
       "team": "LV",
       "verified": true
      },
      {
-      "gsis": "00-0040122",
-      "id": "12527",
+      "gsis": "00-0038563",
+      "id": "10213",
       "team": "LV",
       "verified": true
      },
@@ -20123,14 +20123,14 @@
       "verified": true
      },
      {
-      "gsis": "00-0037304",
-      "id": "8181",
+      "gsis": "00-0034365",
+      "id": "4995",
       "team": "LV",
       "verified": true
      },
      {
-      "gsis": "00-0034365",
-      "id": "4995",
+      "gsis": "00-0037304",
+      "id": "8181",
       "team": "LV",
       "verified": true
      },
@@ -20311,14 +20311,14 @@
       "verified": true
      },
      {
-      "gsis": "00-0039365",
-      "id": "11616",
+      "gsis": "00-0034775",
+      "id": "4950",
       "team": "SF",
       "verified": true
      },
      {
-      "gsis": "00-0034775",
-      "id": "4950",
+      "gsis": "00-0039365",
+      "id": "11616",
       "team": "SF",
       "verified": true
      },
@@ -20377,12 +20377,12 @@
     "away": {
      "tdBudget": 1.9939182967773084,
      "team": "LV",
-     "teamLambda": 1.864595573580335
+     "teamLambda": 1.8465801882906112
     },
     "home": {
      "tdBudget": 3.4396400018763806,
      "team": "SF",
-     "teamLambda": 2.499976798442421
+     "teamLambda": 2.4717355849619818
     }
    },
    "week": 9,
