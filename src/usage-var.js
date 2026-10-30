@@ -10,7 +10,7 @@
 export const DISP_VERSION = 'usage-var-1';
 // 4.13.1: the user asked for the sims to be fully independent from the model again, so the anchor is OFF by default (0). It can still be
 // switched on explicitly (disp: { drive: { anchor: 1 } }) for research; with data players (the free-mode default) there is no budget to pull to.
-export const DISP_DEFAULT = { drive: { tau: 1, kappa: Infinity, anchor: 0 }, pbp: { tau: 1, kappa: Infinity, anchor: 0 } };
+export const DISP_DEFAULT = { drive: { tau: 1, kappa: Infinity, anchor: 0 }, pbp: { tau: 1, kappa: Infinity, anchor: 0, dataLevel: 1 } };
 export function anchorFor(I, eng) { const d = I && I.disp; if (d === false) return 0; const o = (d && d[eng]) || DISP_DEFAULT[eng]; return o.anchor ?? DISP_DEFAULT[eng].anchor; }
 // 4.13.1 data level (pbp only, model-free): pull the play-by-play sim's team TD count toward the drive data's own opponent-adjusted
 // expectation (drives per game x TD share of drives from team-strength on real drives) - fixes its TD shortfall without any model number.

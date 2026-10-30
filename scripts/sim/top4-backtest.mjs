@@ -47,7 +47,7 @@ const scorersOf = (S, W, team) => { const T = tallies.find(x => x.season === S &
 const naiveOf = (S, W) => { const m = new Map(); for (const T of tallies) { const cur = T.season === S && T.week < W, prev = T.season === S - 1 && W <= 2; if (!cur && !prev) continue;
   for (const x of T.pl.values()) { const a = m.get(x.id) || { td: 0, rz: 0 }; a.td += x.v[7] * (cur ? 1 : 0.1); a.rz += (x.v[2] + x.v[5]) * (cur ? 1 : 0.1); m.set(x.id, a); } } return m; };
 const clampP = p => Math.min(0.995, Math.max(0.005, p));
-const KS = ['driveNew', 'pbp2New', 'pbpData', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.13.1: driveNew / pbp2New = model-independent sims (data players); drive413 / pbp413 = 4.13.0 (model players + TD anchor)
+const KS = ['driveNew', 'pbp2New', 'pbpFree', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.13.1: driveNew / pbp2New = model-independent sims (data players); drive413 / pbp413 = 4.13.0 (model players + TD anchor)
 const DATA_ALPHA = process.env.DATA_ALPHA != null ? +process.env.DATA_ALPHA : null; // research override of the data-player td-share blend
 // injury report for week W as a rosterNow map (gsis -> [team, injury, practice, status]) for the model-free sims
 const rosterOf = (S, W) => { const o = {}; for (const [k, r] of inj) { const [s, w, g] = k.split('|'); if (+s !== S || +w !== W || !r.report_status) continue; const pr = (r.practice_status || '').toLowerCase();
@@ -81,7 +81,7 @@ async function season(S, weeks, priorDetail) {
         const keep = (S0, I0, sm) => Object.assign(sm, { __S: S0, __I: I0 });
         const dr = I0 => { const S0 = runSim(I0, { n: NS, seed: 11, mode: 'free' }); return keep(S0, I0, summarize(S0, I0)); };
         const pb = I0 => { const I = buildPbpInputs(I0, PP); const S0 = runPbp(I, { n: NS, seed: 11 }); return keep(S0, I, summarizePbp(S0, I)); };
-        const run = { drive413: () => dr(In2), driveNew: () => dr(InD), pbp413: () => pb(In2), pbp2New: () => pb(InD), pbpData: () => pb({ ...InD, disp: { pbp: { dataLevel: 1 } } }) };
+        const run = { drive413: () => dr(In2), driveNew: () => dr(InD), pbp413: () => pb(In2), pbp2New: () => pb(InD), pbpFree: () => pb({ ...InD, disp: { pbp: { dataLevel: 0 } } }) }; // pbpFree = model-free pbp without the 4.13.1 data-level fix
         for (const [k, f] of Object.entries(run)) { if (ENG && !ENG.includes(k)) continue; const s = f(); for (const p of live) prob[p.id][k] = 0; for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime; else if (x.gsis) { const m = live.find(p => p.gsis === x.gsis); if (m) prob[m.id][k] = x.anytime; }
           if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live);
           if (k === 'driveNew' || k === 'pbp2New') { const su = surprise(s.__S, s.players); sur[k] = { p: r3(su.pOutside), share: r3(su.shareOutside), ls: su.longshots.map(x => ({ n: x.name, t: x.team, p: x.pos, pr: r3(x.p) })) }; } }

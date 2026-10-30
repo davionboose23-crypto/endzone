@@ -107,7 +107,10 @@ function modelPlayer(p, D) {
 // scenarios or TD budget). Recency-weighted per-game means over the team's last 8 games (weight 0.8^age), players whose latest game
 // in the file was for another team are dropped, QB pass share from recent appearances, then rosterNow (Sleeper roster / injury report)
 // drops players who left or are out and scales doubtful / questionable ones. TD rate = half own TD/g, half team TD/g x touch share.
-const HIST_N = +(globalThis.process?.env?.HIST_N || 8), HIST_DECAY = +(globalThis.process?.env?.HIST_DECAY || 0.8); const lastTeamCache = new WeakMap();
+// data players' scorer split = td-share-1 alone (recency-weighted red-zone / goal-line shares, real plays only; alpha 1, no position fudge).
+// Walk-forward 2025 (200 sims): alpha 1 no-beta LL .3681 drive / .3673 pbp vs alpha .3 .3765 / .3710, alpha .6 .3703 / .3667.
+export const DATA_BLEND = { alpha: 1, beta: {} };
+const HIST_N = 8, HIST_DECAY = 0.8; const lastTeamCache = new WeakMap(); // walk-forward 2025: 8 / 0.8 vs 17 / 0.9 vs 4 / 0.8 within noise on log loss; 8 / 0.8 best top-4 hits const lastTeamCache = new WeakMap();
 function lastTeams(D) {
   let m = lastTeamCache.get(D); if (m) return m; m = new Map();
   for (const [tm, T] of Object.entries(D?.teams || {})) T.games.forEach(gm => { for (const d of gm.d) for (const x of d[8]) { const g = T.people[x[0]]?.[0]; if (!g) continue; const c = m.get(g); if (!c || gm.w > c.w || (gm.w === c.w && c.t !== tm && (gm.game || '') > (c.game || ''))) m.set(g, { t: tm, w: gm.w, game: gm.game }); } });
@@ -154,9 +157,9 @@ export function buildSimInputs(D, { away, home, sideFor = () => null, lines = nu
     // 4.12.0 td-share-1: who scores the team's TDs = the model's split blended with recency-weighted red-zone / goal-line shares
     // (src/td-share.js, fitted on weeks before this one) and a TE bias fix. The team's TD total (sum of lambdas) is unchanged.
     let tdInfo = null;
-    if (tdShare && (src !== 'history' || src0 === 'data')) { const bs = blendShares(players, tdShare, opp, tdBlend || TD_BLEND);
+    if (tdShare && (src !== 'history' || src0 === 'data')) { const B0 = tdBlend || (src0 === 'data' ? DATA_BLEND : TD_BLEND); const bs = blendShares(players, tdShare, opp, B0);
       if (bs) { const lt = sum(players, p => p.lam); players.forEach((p, i) => { p.lamModel = p.lam; p.lam = lt * bs[i].share; p.tdShare = +bs[i].share.toFixed(4); if (bs[i].rushFrac != null) p.rushTd = bs[i].rushFrac; });
-        tdInfo = { version: TD_SHARE_VERSION, through: tdShare.through ?? null, alpha: (tdBlend || TD_BLEND).alpha, known: bs.filter(x => x.known).length }; } }
+        tdInfo = { version: TD_SHARE_VERSION, through: tdShare.through ?? null, alpha: B0.alpha, known: bs.filter(x => x.known).length }; } }
     const teamLambda = sum(players, p => p.lam);
     if (modelRef) for (const p of players) { const c = modelRef.get(p.gsis) ?? modelRef.get(p.id); p.modelChance = c ?? null; }
     const M = matchup(TS, team, opp); // opponent-adjusted: this offense vs this defense, by game state
