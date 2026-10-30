@@ -473,6 +473,18 @@ function simRzHtml(s) {
    <p class="small muted">Simulated, with each team's real 2026 numbers before this week in brackets. A red-zone trip is a drive that runs a play inside the opponent's 20.</p>
    ${pl ? `<h4>Who gets the ball near the goal line</h4><div class="tablewrap" tabindex="0" role="region" aria-label="Red-zone usage by player"><table class="simtab"><thead><tr><th scope="col">Player</th><th scope="col">Carries inside 20</th><th scope="col">inside 10</th><th scope="col">inside 5</th><th scope="col">Targets inside 20</th><th scope="col">inside 10</th></tr></thead><tbody>${pl}</tbody></table></div><p class="small muted">Share of his team's carries or targets from that part of the field, across all simulated plays.</p>` : ''}</div>`;
 }
+// 4.11.0 (sim-pbp-2): situational box score per team per simulated game, with the team's real 2026 rate when the slate has it
+function simSitHtml(s) {
+  const P = s.pbp; const X = P?.sit; if (!X) return ''; const A = P.team.map(t => t.team); const f1 = v => v.toFixed(1); const r = (a, b) => b > 0 ? simPct(a / b) : '—';
+  const rows = [['3rd-down conv.', t => `${r(t.d3c, t.d3)} <span class="muted">(${f1(t.d3)})</span>`], ['4th-down tries', t => `${f1(t.d4)} <span class="muted">(${r(t.d4c, t.d4)})</span>`],
+    ['FG made / tried', t => `${f1(t.fgm)} / ${f1(t.fga)}`], ['Punts', t => f1(t.punt)], ['Sacks taken', t => f1(t.sack)], ['Giveaways', t => f1(t.int + t.fum)],
+    ['Big plays', t => f1(t.expP + t.expR)], ['QB sneaks', t => `${f1(t.sneak)} <span class="muted">(${r(t.sneakC, t.sneak)})</span>`],
+    ['Penalties', t => f1(t.pen)], ['Plays', t => f1(t.plays)], ['Yards', t => String(Math.round(t.yds))]];
+  return `<div class="card simsit" id="simSit"><h3>Situations <span class="chip rel-chance">Play-by-play</span></h3>
+   <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+   <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
+}
+const APP_VERSION = '4.11.0';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
@@ -480,7 +492,7 @@ function pbpPlayText(e, I) {
   const yd = y => `${y} yd${Math.abs(y) === 1 ? '' : 's'}`;
   switch (e.t) {
     case 'play': { let x;
-      if (e.kind === 0) x = `${nm(e.j)} run for ${yd(e.yds)}`; else if (e.kind === 2) x = `${qb} scrambles for ${yd(e.yds)}`; else if (e.kind === 3) x = `${qb} sacked for ${yd(e.yds)}`;
+      if (e.kind === 0) x = `${nm(e.j)} ${e.sneak ? 'QB sneak' : 'run'} for ${yd(e.yds)}`; else if (e.kind === 2) x = `${qb} scrambles for ${yd(e.yds)}`; else if (e.kind === 3) x = `${qb} sacked for ${yd(e.yds)}`;
       else if (e.kind === 4) x = `${qb} pass complete to ${nm(e.j)} for ${yd(e.yds)}`; else x = e.to === 1 ? `${qb} pass for ${nm(e.j)} INTERCEPTED` : `${qb} pass incomplete${e.j >= 0 ? ` for ${nm(e.j)}` : ''}`;
       if (e.td) x += ' — TOUCHDOWN'; if (e.to === 2) x += ' — FUMBLE, lost'; if (e.safety) x += ' — SAFETY'; if (e.ob) x += ' (out of bounds)'; return { dd, x, hi: e.td || e.to || e.safety }; }
     case 'pen': return { dd: '', x: `Penalty on the ${e.off ? 'offense' : 'defense'}, ${yd(Math.abs(e.y))}; now ${dd}` };
@@ -489,6 +501,7 @@ function pbpPlayText(e, I) {
     case 'pat': return { dd: '', x: e.two ? `Two-point try ${e.ok ? 'good' : 'fails'}` : `Extra point ${e.ok ? 'good' : 'missed'}` };
     case 'ko': { const r = T[e.ret]?.team, kk = T[e.k]?.team; return { dd: '', x: e.onside ? `${kk} onside kick, recovered by ${e.rec ? kk : r}` : e.td ? `${kk} kickoff returned for a TOUCHDOWN by ${r}` : `${kk} kicks off; ${r} starts at ${fpSpot(e.yl, r, kk)}${e.free ? ' (free kick)' : ''}`, hi: e.td }; }
     case 'kneel': return { dd, x: `${qb} kneels` };
+    case 'spike': return { dd, x: `${qb} spikes the ball to stop the clock`, note: true };
     case 'note': return { dd: '', x: e.txt, note: true };
     default: return { dd: '', x: e.t };
   }
@@ -579,7 +592,7 @@ function simResultHtml() {
   return `${simTop4Html(s)}${simProfileHtml(s)}<div class="card simres"><h3>Result · ${s.n.toLocaleString()} simulated games <span class="chip rel-chance">Simulated</span></h3>${wbar}${vegas}${kv}
     <div class="simhists"><div>${simBars(s.marHist, `${B} margin`, b => sgn(b))}</div><div>${simBars(s.totHist, 'Total points', b => String(b))}</div></div>
     <h4>Most common final scores</h4>${top}</div>
-   ${simGameHtml()}${simRzHtml(s)}${simDriveCardHtml(s, raw)}${simTdHtml(s)}
+   ${simGameHtml()}${simRzHtml(s)}${simSitHtml(s)}${simDriveCardHtml(s, raw)}${simTdHtml(s)}
    ${S.sim.pj != null ? simPlayerDriveHtml(s, raw) : ''}
    <div class="card"><h3>Players · simulated <span class="chip rel-chance">Simulated</span></h3>${players}</div>
    <div class="card"><h3>Drive-by-drive patterns in the sims <span class="chip rel-chance">Simulated</span></h3>${patHtml}${appliedHtml}
@@ -590,11 +603,11 @@ function paintSim() {
   const o = document.getElementById('simOut'); if (!o) return; const { A, B, key, mode } = simPick(); const sim = S.sim; const mine = sim.key === key;
   const hasPbp = !!S.slate?.pbp; const run = sim.status === 'running';
   const modeSel = `<div class="row simmode" role="group" aria-label="Simulation engine"><button class="btn ${mode === 'drive' ? 'gold' : ''}" data-act="simmode" data-mode="drive" aria-pressed="${mode === 'drive'}" ${run ? 'disabled' : ''}>Drive sim</button><button class="btn ${mode === 'pbp' ? 'gold' : ''}" data-act="simmode" data-mode="pbp" aria-pressed="${mode === 'pbp'}" ${!hasPbp || run ? 'disabled' : ''}>Play-by-play (beta)</button></div>`;
-  const head = mode === 'pbp' ? `${modeSel}<p class="small">Plays <strong>${esc(A)} @ ${esc(B)}</strong> snap by snap ${SIM_N.toLocaleString()} times: down, distance, yard line, clock, timeouts and score; kickoffs, punts, field goals by distance, turnovers with returns, penalties, fourth-down calls, two-minute and end-of-half play. Every carry and target is placed on the field, so red-zone and goal-line patterns come out of the games.</p>` : `${modeSel}<p class="small">Plays <strong>${esc(A)} @ ${esc(B)}</strong> drive by drive ${SIM_N.toLocaleString()} times: possession alternation, score, quarter and clock, two-minute drives and overtime; every drive ends in a TD, FG, punt, turnover, downs or end of half with its plays, targets, carries, catches and yards, and who scored.</p>`;
+  const head = mode === 'pbp' ? `${modeSel}<p class="small">Plays <strong>${esc(A)} @ ${esc(B)}</strong> snap by snap ${SIM_N.toLocaleString()} times: down, distance, yard line, clock, timeouts and score; each team's own play calling, fourth-down habits, kicker, penalties and QB; sneaks, scrambles, sacks, turnovers with returns, punts and kickoffs; two-minute drill, spikes, kneel-downs and end-of-half play. Every carry and target is placed on the field, so red-zone and goal-line patterns come out of the games.</p>` : `${modeSel}<p class="small">Plays <strong>${esc(A)} @ ${esc(B)}</strong> drive by drive ${SIM_N.toLocaleString()} times: possession alternation, score, quarter and clock, two-minute drives and overtime; every drive ends in a TD, FG, punt, turnover, downs or end of half with its plays, targets, carries, catches and yards, and who scored.</p>`;
   const ctl = `<div class="row"><button class="btn gold" data-act="simrun" ${sim.status === 'running' ? 'disabled' : ''}>${sim.status === 'running' && mine ? 'Simulating…' : mine && sim.status === 'done' ? `Run ${SIM_N.toLocaleString()} new games` : `Run ${SIM_N.toLocaleString()} games`}</button><span class="small muted" aria-live="polite">${mine && sim.status === 'done' ? `${sim.sum.n.toLocaleString()} games simulated in ${(sim.wall / 1000).toFixed(1)} s · run #${sim.seed}` : mine && sim.status === 'running' && !sim.prog ? 'Running in the background…' : ''}</span></div>${mine && run && sim.prog ? simProgHtml() : ''}`;
   const notes = mine && sim.sum?.notes?.length ? `<p class="small simnote">${sim.sum.notes.map(esc).join('<br>')}</p>` : '';
   const err = mine && sim.status === 'error' ? `<p class="small" role="alert">Simulation failed: ${esc(sim.err)}</p>` : '';
-  const discP = `<p class="small muted simdisc"><strong>Simulated, not a guarantee. Beta.</strong> Play-by-play mode: pass/run calls by down, distance, field zone and score, sacks, interceptions, fumbles, explosive plays, scrambles, red-zone and goal-line touchdown rates and pace come from every 2026 play before this week (2025 as the prior), adjusted for the opponents each team has faced and pulled toward league average on small samples. Who gets each carry and target by down and field zone (red zone, inside the 10 and 5) comes from 2026 play-by-play blended with the model's projections. Walk-forward on 2026 weeks 3–7 it has not beaten the drive sim on both team and player accuracy, so the drive sim stays the default. It does not change any prediction on the board and is not part of the model or the challenger gate.</p>`;
+  const discP = `<p class="small muted simdisc"><strong>Simulated, not a guarantee. Beta · engine sim-pbp-2 · app ${APP_VERSION}.</strong> Every rate (play calls, sacks, picks, explosives, red-zone TDs, fourth downs, kicking, sneaks, penalties, pace) comes from 2026 plays before this week (2025 as the prior): this offense against this defense, with home field, the starting QB and a game-day form swing. Walk-forward on 2026 weeks 3–8 (76 games) it beat the old play-by-play engine but not the drive sim on win probability (log loss 0.682 vs 0.673) or player TDs (Brier 0.1121 vs 0.1100), so the drive sim stays the default. It never changes the board, the model or the challenger gate.</p>`;
   const disc = mode === 'pbp' ? discP : `<p class="small muted simdisc"><strong>Simulated, not a guarantee.</strong> How often each drive ends in a TD, FG, punt, turnover or downs, pace, pass rate by game script, red-zone finishing and two-minute scoring all come from each team's own 2026 drives, adjusted for the opponents it has played (offense vs this defense, defense vs this offense). Who gets the ball (targets, carries, TD shares, injuries) comes from the model's player projections. The sim runs free: it is not forced to match the model's TD chances or the betting line, so it can disagree. It does not change any prediction on the board and is not part of the model or the challenger gate.</p>`;
   o.innerHTML = `<div class="card simhead"><h2>Game simulator <span class="chip rel-chance">Simulated</span></h2>${head}${ctl}${notes}${err}${disc}</div>${mine && sim.status === 'done' ? simResultHtml() : ''}`;
   const on = (id, f) => o.querySelector('#' + id)?.addEventListener('change', e => { f(e.target.value); paintSim(); });

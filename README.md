@@ -173,6 +173,34 @@ Board → Sort now has three groups. **Touchdown**: *Model confidence (High › 
 - `tests/landscape.test.js` covers five landscape sizes: header under 25% of the height, no page-level horizontal overflow, panel scrollable, Close visible and at least 44 px, plus a rotation round-trip.
 - Screenshots: `SIZES=844x390,932x430 MOBILE=1 node scripts/ux-shots.mjs <dir> [url]` (`shots/` is git-ignored).
 
+## App 4.11.0 — Play-by-play engine sim-pbp-2 (research / UI only; live predictions and model unchanged, still endzone-4.6.0)
+
+**What the play-by-play engine now models** (Drives → Simulator → Play-by-play (beta); fitted in `src/pbp-fit.js` as an `X2` block on `archive/pbp/<season>/w<week>.json`, from nflverse plays before the week only):
+- Offense against this defense on every play type (pass rate, sacks, scrambles, interceptions, completions, explosive pass/run, yards per run/catch, red-zone TD), plus a small fitted home-field term.
+- The starting QB's own sack, scramble, interception, completion, explosive-pass and yards-per-catch effects (2026 passers, shrunk harder than team effects).
+- Each team's fourth-down aggressiveness and its kicker's accuracy as offsets on the league tables.
+- QB sneaks on 1-to-go (team rate, real sneak yards; ~21% of 1-to-go runs, ~79% convert) and a separate short-yardage run pool.
+- Team penalty rates (offense and defense multipliers on the league rates).
+- Spikes in the two-minute drill with no timeouts left (rare), alongside the existing timeouts, kneel-downs and two-minute logic.
+- Game-day form: each offense draws one N(0, 0.2) logit shift per simulated game (completion, explosive, red-zone TD up; sacks, interceptions down), so whole-game good and bad days happen. σ = 0.2 was chosen on 2025 only, where it made the real-vs-simulated spread ratio 1.00 (0 gave 1.20, 0.35 gave 0.76).
+- New default constants (ridge strengths, documented in `PBP_DEFAULTS.k2`): home 200, QB 1.5× team, fourth-down 12, FG 25, sneak 15, penalty 400.
+- Old param files, or `opts.legacy`, replay sim-pbp-1 exactly.
+
+**Walk-forward validation** (`scripts/sim/validate-pbp.mjs` → `archive/sim/pbp-validation-2026.json`; 2026 weeks 3–8, 76 games, 1,000 sims each, all inputs pre-game):
+
+| | Drive sim (default) | Play-by-play 1 (4.10) | Play-by-play 2 (4.11) | Closing line |
+|---|---|---|---|---|
+| Win log loss | **0.673** | 0.695 | 0.682 | 0.671 |
+| Win Brier | **0.240** | 0.249 | 0.245 | — |
+| Margin MAE | **8.55** | 8.85 | 9.01 | 8.43 |
+| Total MAE | 11.09 | 10.89 | **10.73** | 10.20 |
+| Team points MAE | 7.05 | 7.00 | **6.98** | — |
+| TD per drive (real 23.0%) | **23.3%** | 20.8% | 20.8% | — |
+| Drives per team-game (real 10.8) | **10.8** | 11.4 | 11.5 | — |
+| Player anytime TD Brier / log loss (771) | **0.1100 / 0.3534** | 0.1125 / 0.3598 | 0.1121 / 0.3582 | model 0.1081 / 0.3485 |
+
+On 2025 tuning weeks (122 games), sim-pbp-2 had the best win log loss (0.665 vs drive 0.667 and pbp1 0.675). On 2026 the drive sim still wins on win probability, margin and player accuracy, so **the drive sim stays the default** and sim-pbp-2 is the improved beta. Known gaps: the play-by-play engines run about 0.7 extra drives per team-game (more short punt drives, so 20.8% TD per drive with the right points), and they under-rate RB TDs (mean 0.205 vs 0.256 real) while over-rating WRs.
+
 ## App 4.10.1 — Drive cards show every outcome, not "scores a TD" (UI / wording only; engines, live predictions and model unchanged, still endzone-4.6.0)
 
 **What was wrong.** On Drives → Simulator, the "Drive N: what happens" card was worded around the TD in both modes, Drive sim (the default) and Play-by-play (beta), for every drive in the 1–12 selector. Its lead line read "CAR scores a TD on its second drive in 25% of sims…", each player was listed as "scores the drive's TD", and the links section was titled "If CAR scores a TD on this drive". Click through drives 1, 2, 3… and the headline is a TD every time, even though a punt was the most likely result on each drive (35–44% for CAR @ GB). The simulated numbers were already realistic. An audit of all 14 week-8 matchups found no skipped or repeated possessions, no double counting, no OT loop, and the sample-game labels match the engine on every drive.

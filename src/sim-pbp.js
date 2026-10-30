@@ -1,4 +1,4 @@
-// ENDZONE play-by-play simulator (app 4.10.0, beta). Research / UI only: never feeds the live anytime chance, MODEL_VERSION or
+// ENDZONE play-by-play simulator (app 4.10.0, beta; sim-pbp-2 since app 4.11.0). Research / UI only: never feeds the live anytime chance, MODEL_VERSION or
 // the gate. Plays every snap of a matchup N times from PRE-GAME inputs only:
 //   - play-level team rates from nflverse play-by-play (src/pbp-fit.js -> archive/pbp/<s>/w<w>.json, fitted only on games
 //     BEFORE the week): pass rate by down x distance x field zone x game script (+ each offense's red-zone tilt), sacks,
@@ -13,28 +13,49 @@
 // plus field-position and red-zone arrays (S.pbp). Every game has its own seeded RNG, so any game can be replayed play by play.
 import { makeRng, SLOTS, DSTATS, GSTATS, RESULTS, summarize } from './sim.js';
 import { zoneOf, distB, scriptOf, passCell, ylB10, togoB4, uzOf, ucell, PBP_VERSION } from './pbp-common.js';
-export const SIM_PBP_VERSION = 'sim-pbp-1';
+// sim-pbp-2 (app 4.11.0) adds, when the params carry the X2 block (src/pbp-fit.js): offense-vs-defense rates with a home-field
+// term, the starting QB's own sack / scramble / interception / completion / explosive / yards effects, team fourth-down
+// go-for-it and kicker-accuracy offsets, QB sneaks on 1-to-go (team rate, real yards pool), short-yardage run pools, team
+// penalty rates (offense and defense), spikes in the two-minute drill with no timeouts, and a per-game form draw
+// (SIM_PBP_TUNE.form). Params without X2, or opts.legacy, replay sim-pbp-1 exactly (tests/sim-pbp2.test.js).
+export const SIM_PBP_VERSION = 'sim-pbp-2';
 const NR = RESULTS.length; const TD = 0, FG = 1, MFG = 2, PUNT = 3, TO = 4, DOWNS = 5, HALF = 6, SAF = 7;
 const DKEYS = Object.keys(DSTATS); const DOFF = {}; let NB = 0; for (const k of DKEYS) { DOFF[k] = NB; NB += DSTATS[k] + 1; }
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x)); const sig = x => 1 / (1 + Math.exp(-x)); const logit = p => Math.log(p / (1 - p));
 const TDAGG = 8; const LOGN = 400;
-export const SIM_PBP_TUNE = { clock: 1.06, rzAdj: 0.2, spread: 4 };
+export const SIM_PBP_TUNE = { clock: 1.06, rzAdj: 0.2, spread: 4, form: 0.2 };
+// form (sim-pbp-2): game-day variance. Each offense draws one N(0, form) logit shift per simulated game, applied to completion,
+// explosive-play and red-zone TD odds (and against sacks / interceptions), so a team can have a good or a bad day as a whole
+// instead of every snap being independent. Tuned on 2025 only so the spread of simulated points matches real games.
 const CLOCK = SIM_PBP_TUNE.clock, RZ_ADJ = SIM_PBP_TUNE.rzAdj; // CLOCK: gap tables are snap-to-snap averages, 1.06 reproduces 2025 snaps per team-game. RZ_ADJ: logit lift on red-zone TD per play so league-average sims match 2025 red-zone TD rate (sequencing: real trips get more snaps via defensive penalties)
 const POS_CR = { WR: 0.63, TE: 0.7, RB: 0.77, FB: 0.75, QB: 0.6 }; const POS_YPR = { WR: 12.6, TE: 10.4, RB: 7.6, FB: 7, QB: 8 }; const POS_YPC = { RB: 4.3, QB: 4.8, WR: 6.5, TE: 3, FB: 3 };
 const tdyoB = y => y <= 2 ? 0 : y <= 5 ? 1 : y <= 10 ? 2 : y <= 20 ? 3 : y <= 40 ? 4 : 5;
 // ---------- matchup inputs (main thread): the per-team slices of the weekly params for this game; plain JSON for the worker
-export function pbpMatchup(P, away, home, teams) {
-  if (!P || P.kind !== 'pbp-params') return null; const ti = t => P.teams.indexOf(t); const M = P.M;
-  const side = (o, d) => { const io = ti(o), id = ti(d); const g = (m, key, i) => (i >= 0 && m[key]) ? (m[key][i] || 0) : 0;
-    const SP = SIM_PBP_TUNE.spread; const add = m => r4(m.icept + SP * (g(m, 'off', io) + g(m, 'def', id)));
-    return { team: o, opp: d, known: io >= 0 && id >= 0, pass: add(M.pass), passRz: r4(g(M.pass, 'offRz', io)), sack: add(M.sack), scr: add(M.scr), int: add(M.int), cmp: add(M.cmp), expP: add(M.expP), expR: add(M.expR), rzTd: add(M.rzTd), ydsR: M.ydsR ? r4(SP * (g(M.ydsR, 'off', io) + g(M.ydsR, 'def', id))) : 0, ydsC: M.ydsC ? r4(SP * (g(M.ydsC, 'off', io) + g(M.ydsC, 'def', id))) : 0,
-      pace: r4(clamp((M.pace.icept + g(M.pace, 'off', io) + g(M.pace, 'def', id)) / M.pace.icept, 0.85, 1.15)) }; };
+// opts.legacy = true replays sim-pbp-1 exactly (validation); sim-pbp-2 needs the X2 block of the weekly params (pbp-fit 4.11.0)
+export function pbpMatchup(P, away, home, teams, opts = {}) {
+  if (!P || P.kind !== 'pbp-params') return null; const ti = t => P.teams.indexOf(t); const X2 = !opts.legacy && P.X2 ? P.X2 : null; const M = X2 ? X2.M : P.M; const Mp = P.M;
+  const g = (m, key, i) => (i >= 0 && m && m[key]) ? (m[key][i] || 0) : 0; const SP = SIM_PBP_TUNE.spread;
+  const side = (o, d, h) => { const io = ti(o), id = ti(d); const hm = m => (X2 ? g(m, 'home', h) : 0);
+    const add = m => r4(m.icept + SP * (g(m, 'off', io) + g(m, 'def', id)) + hm(m));
+    return { team: o, opp: d, known: io >= 0 && id >= 0, pass: add(M.pass), passRz: r4(g(M.pass, 'offRz', io)), sack: add(M.sack), scr: add(M.scr), int: add(M.int), cmp: add(M.cmp), expP: add(M.expP), expR: add(M.expR), rzTd: add(M.rzTd), ydsR: M.ydsR ? r4(SP * (g(M.ydsR, 'off', io) + g(M.ydsR, 'def', id)) + hm(M.ydsR)) : 0, ydsC: M.ydsC ? r4(SP * (g(M.ydsC, 'off', io) + g(M.ydsC, 'def', id)) + hm(M.ydsC)) : 0,
+      pace: r4(clamp((Mp.pace.icept + g(Mp.pace, 'off', io) + g(Mp.pace, 'def', id)) / Mp.pace.icept, 0.85, 1.15)) }; };
   const bySl = new Map(); for (const [g, u] of Object.entries(P.use.players)) if (u.s) bySl.set(String(u.s), g);
   const usage = teams.map(t => t.players.map(p => { const gk = p.gsis && P.use.players[p.gsis] ? p.gsis : bySl.get(String(p.id)); const u = gk ? P.use.players[gk] : null; const m = P.use.pos[p.pos] || P.use.pos.WR;
     return u ? { mt: u.mt, mc: u.mc, h: u.h, src: 'player' } : { mt: m?.t || Array(8).fill(1), mc: m?.c || Array(8).fill(1), h: null, src: 'position' }; }));
   return { version: P.version, season: P.season, week: P.week, through: P.through, nPlays: P.nPlays, base: { pass: M.pass.cell, passScript: M.pass.script, sackDd: M.sack.dd, sackZone: M.sack.zone, scrDist: M.scr.dist, scrZone: M.scr.zone,
-    intDist: M.int.dist, intZone: M.int.zone, intScript: M.int.script, cmpDist: M.cmp.dist, cmpZone: M.cmp.zone, expP: M.expP.zone, expR: M.expR.zone, rzTd: M.rzTd.cell, paceIcept: M.pace.icept },
-  side: [side(away, home), side(home, away)], usage, L: P.P, hist: P.hist ? [P.hist[away] || null, P.hist[home] || null] : null };
+    intDist: M.int.dist, intZone: M.int.zone, intScript: M.int.script, cmpDist: M.cmp.dist, cmpZone: M.cmp.zone, expP: M.expP.zone, expR: M.expR.zone, rzTd: M.rzTd.cell, paceIcept: Mp.pace.icept },
+  side: [side(away, home, 0), side(home, away, 1)], usage, L: P.P, hist: P.hist ? [P.hist[away] || null, P.hist[home] || null] : null, x2: X2 ? matchupV2(P, X2, [away, home], teams, ti, g, SP) : null };
+}
+// sim-pbp-2 per-matchup extras: QB-specific passing effects for every QB on each roster, team fourth-down aggressiveness,
+// kicker / field-goal accuracy, QB-sneak habit, penalty rates (offense fouls by the offense, defense fouls by the defense)
+function matchupV2(P, X2, tm, teams, ti, g, SP) {
+  const M = X2.M; const lg = q => Math.log(q / (1 - q));
+  const qbFx = teams.map(t => t.players.map(p => { if (p.pos !== 'QB') return null; const qi = p.gsis ? X2.qbs.indexOf(p.gsis) : -1; if (qi < 0) return null;
+    const v = { cmp: SP * g(M.cmp, 'qb', qi), int: SP * g(M.int, 'qb', qi), sack: SP * g(M.sack, 'qb', qi), scr: SP * g(M.scr, 'qb', qi), expP: SP * g(M.expP, 'qb', qi), dC: SP * g(M.ydsC, 'qb', qi) };
+    for (const k of Object.keys(v)) v[k] = r4(v[k]); return v; }));
+  return { form: SIM_PBP_TUNE.form, qbFx, go: tm.map(t => g(X2, 'go', ti(t))), fg: tm.map(t => g(X2, 'fgT', ti(t))),
+    sneak: tm.map(t => r4(sig(lg(X2.sneak.rate) + g(X2.sneak, 't', ti(t))))), sneakY: X2.sneak.y, runSY: X2.runSY,
+    pen: [[g(X2.pen, 'off', ti(tm[0])) || 1, g(X2.pen, 'def', ti(tm[1])) || 1], [g(X2.pen, 'off', ti(tm[1])) || 1, g(X2.pen, 'def', ti(tm[0])) || 1]] };
 }
 const r4 = x => Math.round(x * 1e4) / 1e4;
 // ---------- engine (precomputed probability tables per team)
@@ -57,19 +78,30 @@ export function makePbpEngine(I) {
     for (let i = 0; i < P; i++) { const p = pl[i]; const cr = p.tgt > 0.3 ? clamp(p.rec / p.tgt, 0.3, 0.92) : POS_CR[p.pos] ?? 0.65; cOff[i] = 0.7 * (logit(cr) - logit(POS_CR[p.pos] ?? 0.65));
       yF[i] = p.rec > 0.3 && p.recYd > 0 ? clamp(Math.pow((p.recYd / p.rec) / (POS_YPR[p.pos] ?? 11), 0.7), 0.7, 1.4) : 1; cF[i] = p.car > 0.5 && Number.isFinite(p.rushYd) ? clamp(Math.pow(Math.max(1, p.rushYd / p.car) / (POS_YPC[p.pos] ?? 4.3), 0.6), 0.7, 1.35) : 1; }
     const qbs = pl.map(p => p.passShare || 0); let qbTot = qbs.reduce((a, b) => a + b, 0); if (qbTot <= 0) { const j = pl.findIndex(p => p.pos === 'QB'); if (j >= 0) { qbs[j] = 1; qbTot = 1; } }
-    return { P, pl, pPass, pSack, pScr, pInt, lCmp, pExpP, pExpR, pRzTd, pGl, dR: s.ydsR || 0, dC: s.ydsC || 0, wT, wC, cOff, yF, cF, qbs, qbTot, pace: s.pace, fT: new Float64Array(P).fill(1), fC: new Float64Array(P).fill(1) };
+    const V = X.x2; const v2 = V ? { qbFx: V.qbFx[k], go: V.go[k] || 0, fg: V.fg[k] || 0, sneak: V.sneak[k], penO: L.pen.off * V.pen[k][0], penD: L.pen.def * V.pen[k][1] } : null;
+    return { P, pl, pPass, pSack, pScr, pInt, lCmp, pExpP, pExpR, pRzTd, pGl, dR: s.ydsR || 0, dC: s.ydsC || 0, wT, wC, cOff, yF, cF, qbs, qbTot, pace: s.pace, fT: new Float64Array(P).fill(1), fC: new Float64Array(P).fill(1), v2 };
   });
-  return { I, T, L, totW: null };
+  return { I, T, L, V: X.x2 || null, totW: null };
 }
 function cellTotals(E) { for (const t of E.T) { t.sT = new Float64Array(8); t.sC = new Float64Array(8); t.uT = new Float64Array(t.P * 8); t.uC = new Float64Array(t.P * 8);
   for (let c = 0; c < 8; c++) for (let i = 0; i < t.P; i++) { const a = t.wT[i * 8 + c] * t.fT[i], b = t.wC[i * 8 + c] * t.fC[i]; t.uT[c * t.P + i] = a; t.uC[c * t.P + i] = b; t.sT[c] += a; t.sC[c] += b; } } }
 const q = (arr, R) => arr[(R() * arr.length) | 0];
+const adj = (p, a) => (a === 0 || !(p > 0 && p < 1) ? p : sig(Math.log(p / (1 - p)) + a));
+const gauss = R => { let u = 0; while (u === 0) u = R(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * R()); }; // shift a precomputed probability on the logit scale (form / QB)
+const ZA = { cmp: 0, int: 0, sack: 0, scr: 0, expP: 0, expR: 0, rz: 0, dC: 0 };
+// situational counters per team (sim-pbp-2 Situations card)
+export const SIT = ['d3', 'd3c', 'd4', 'd4c', 'fga', 'fgm', 'punt', 'sack', 'int', 'fum', 'expP', 'expR', 'sneak', 'sneakC', 'pen', 'spike', 'plays', 'yds'];
+const SI = Object.fromEntries(SIT.map((k, i) => [k, i])); const NS = SIT.length;
 function pickCell(u, s, c, P, R) { if (!(s > 0)) return -1; let x = R() * s; const o = c * P; for (let i = 0; i < P; i++) { x -= u[o + i]; if (x < 0) return i; } return P - 1; }
 // ---------- one game. W = output writer (arrays for the whole run) or null; log = array for a play-by-play replay or null
 function playGame(E, R, gi, W, log) {
   const I = E.I, L = E.L, TT = E.T; const NP = TT[0].P + TT[1].P; const base = [0, TT[0].P];
   const sc = [0, 0], dn = [0, 0], to = [3, 3]; let hf = 1, tl = 1800, tmw = false; const recv0 = R() < 0.5 ? 0 : 1; let pos = recv0; const otPoss = [0, 0];
   const qbG = TT.map(t => { if (!(t.qbTot > 0)) return -1; let x = R() * t.qbTot; for (let i = 0; i < t.P; i++) { x -= t.qbs[i]; if (x < 0) return i; } return t.P - 1; });
+  // sim-pbp-2: this game's adjustments per offense = the QB who plays (his own passing effects) + a game-day form draw
+  const V = E.V; const AJ = [0, 1].map(kk => { if (!V) return ZA; const f = V.form > 0 ? V.form * gauss(R) : 0; const fx = qbG[kk] >= 0 ? TT[kk].v2.qbFx[qbG[kk]] : null;
+    return { cmp: f + (fx?.cmp || 0), int: -f + (fx?.int || 0), sack: -f + (fx?.sack || 0), scr: fx?.scr || 0, expP: f + (fx?.expP || 0), expR: f, rz: f, dC: fx?.dC || 0, f }; });
+  const sit = W && W.sit ? W.sit : null; const st = (kk, key, v = 1) => { if (sit) sit[kk * NS + SI[key]] += v; };
   let ftd = -1, fsc = -1, lead = 0, lch = 0, trailedQ4 = 0; const ftdT = [-1, -1]; const tdSlot = [0, 0]; const dlog = W && gi < LOGN ? [] : null;
   const X = [0, 1].map(k => ({ tgt: new Int16Array(TT[k].P), rec: new Int16Array(TT[k].P), recYd: new Int16Array(TT[k].P), car: new Int16Array(TT[k].P), rushYd: new Int16Array(TT[k].P), td: new Int8Array(TT[k].P), touched: [] }));
   let rzG = [0, 0], rzTdG = [0, 0], i10G = [0, 0];
@@ -111,7 +143,7 @@ function playGame(E, R, gi, W, log) {
       if ((hf === 2 && sd > 0 && down <= 3 && tl <= burn) || (hf === 1 && tl <= 30 && yl >= 70 && down <= 3)) {
         plays++; yl = Math.min(99, yl + 1); ev({ t: 'kneel', k, down, togo, yl }); if (to[o] > 0 && hf === 2) { to[o]--; runClock(2); } else runClock(Math.min(tl, 40)); down++; togo++; continue; }
       // fourth down / end-of-half field goal
-      const fgDist = yl + 18; const pFg = fgDist > 66 ? 0 : sig(L.fg.a + L.fg.b * (fgDist - 40));
+      const fgDist = yl + 18; const pFg = fgDist > 66 ? 0 : sig(L.fg.a + L.fg.b * (fgDist - 40) + (t.v2 ? t.v2.fg : 0));
       let choice = 0; // 0 play, 1 FG, 2 punt
       const lastPlay = hf <= 2 && tl <= (to[k] > 0 ? 8 : 20); // end of half: kick it now (offense out of time)
       if (lastPlay && pFg > 0.25 && (hf === 1 || (sd <= 0 && sd >= -3))) choice = 1;
@@ -121,40 +153,47 @@ function playGame(E, R, gi, W, log) {
         else if (late2 && sd < -8) choice = (yl < 60 || tl <= 180) ? 0 : 2;
         else if (hf === 1 && tl <= 30) choice = pFg > 0.3 ? 1 : yl <= 45 ? 0 : 2;
         else if (hf === 3 && sd < 0) choice = (sd >= -3 && pFg > 0.5) ? 1 : 0;
-        else { const c = L.fourth[ylB10(yl) * 4 + togoB4(togo)]; if (!c) throw new Error(`4th ${yl} ${togo} ${down}`); const u = R(); choice = u < c[0] ? 0 : u < c[0] + c[1] ? 1 : 2;
+        else { const c = L.fourth[ylB10(yl) * 4 + togoB4(togo)]; if (!c) throw new Error(`4th ${yl} ${togo} ${down}`); const u = R();
+          let g0 = c[0], g1 = c[1]; if (t.v2 && t.v2.go) { const gn = adj(clamp(c[0], 0.002, 0.998), t.v2.go); const sc2 = (1 - gn) / Math.max(1e-6, 1 - c[0]); g0 = gn; g1 = c[1] * sc2; } // team go-for-it habit
+          choice = u < g0 ? 0 : u < g0 + g1 ? 1 : 2;
           if (choice === 1 && pFg < 0.2) choice = yl <= 40 ? 0 : 2; if (choice === 2 && yl < 35) choice = pFg > 0.4 ? 1 : 0; }
       }
-      if (choice === 1) { plays++; const good = R() < pFg; ev({ t: 'fg', k, dist: fgDist, good, down, togo, yl }); runClock(5);
+      if (choice === 1) { plays++; const good = R() < pFg; st(k, 'fga'); if (good) st(k, 'fgm'); ev({ t: 'fg', k, dist: fgDist, good, down, togo, yl }); runClock(5);
         if (good) { score(k, 3); res = FG; } else { res = MFG; } break; }
-      if (choice === 2) { plays++; const b = L.punt[ylB10(yl)]; runClock(9);
+      if (choice === 2) { plays++; const b = L.punt[ylB10(yl)]; runClock(9); st(k, 'punt');
         if (R() < b.td) { score(o, 6); ev({ t: 'punt', k, yl, td: 1 }); res = PUNT; if (ftd < 0) ftd = -4 - o; if (W) W.tdSrc[o * 4 + 3]++; pat(o); kickTo = k; needKick = true; break; }
         const ny = clamp(q(b.y, R), 1, 99); ev({ t: 'punt', k, yl, ny }); res = PUNT; yl = ny; break; }
       // pre-snap penalties
-      const up = R();
-      if (up < L.pen.off) { let y = q(L.pen.offY, R); y = Math.min(y, Math.floor((100 - yl) / 2)); yl += y; togo += y; ev({ t: 'pen', k, off: 1, y, down, togo, yl }); runClock(S === 3 ? 0 : 11); continue; }
-      if (up < L.pen.off + L.pen.def) { let y = q(L.pen.defY, R); y = Math.min(y, Math.max(0, Math.floor(yl / 2))); yl -= y; togo -= y; const auto = R() < L.pen.def1st;
+      const up = R(); const pO = t.v2 ? t.v2.penO : L.pen.off, pD = t.v2 ? t.v2.penD : L.pen.def;
+      if (up < pO) { st(k, 'pen'); let y = q(L.pen.offY, R); y = Math.min(y, Math.floor((100 - yl) / 2)); yl += y; togo += y; ev({ t: 'pen', k, off: 1, y, down, togo, yl }); runClock(S === 3 ? 0 : 11); continue; }
+      if (up < pO + pD) { let y = q(L.pen.defY, R); y = Math.min(y, Math.max(0, Math.floor(yl / 2))); yl -= y; togo -= y; const auto = R() < L.pen.def1st;
         if (auto || togo <= 0) { down = 1; togo = Math.min(10, yl); } ev({ t: 'pen', k, off: 0, y, down, togo, yl }); runClock(S === 3 ? 0 : 11); continue; }
       // the snap
-      plays++; const c8 = ucell(yl, down); let yds = 0, kind = 0, j = -1, td = false, turnover = 0, cat = 0, ob = false, sacked = false;
-      const passP = t.pPass[S * 96 + passCell(down, togo, yl)];
+      plays++; const c8 = ucell(yl, down); let yds = 0, kind = 0, j = -1, td = false, turnover = 0, cat = 0, ob = false, sacked = false, sneak = false; const A = AJ[k];
+      const passP = t.pPass[S * 96 + passCell(down, togo, yl)]; if (down === 3) st(k, 'd3'); else if (down === 4) st(k, 'd4');
       if (R() < passP) {
-        if (R() < t.pSack[((Math.min(4, down) - 1) * 4 + db) * 6 + z]) { sacked = true; kind = 3; yds = q(L.sackY, R); if (R() < L.fum.sack) turnover = 2; }
-        else if (R() < t.pScr[db * 6 + z]) { kind = 2; j = qbG[k];
-          if (z >= 3) { if (R() < (z === 5 ? t.pGl[2 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3 + 2])) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3 + 2], R), yl - 1); } else { yds = q(L.scrO, R); if (yds >= yl) { yds = yl; td = true; } }
+        if (R() < adj(t.pSack[((Math.min(4, down) - 1) * 4 + db) * 6 + z], A.sack)) { sacked = true; kind = 3; yds = q(L.sackY, R); if (R() < L.fum.sack) turnover = 2; st(k, 'sack'); }
+        else if (R() < adj(t.pScr[db * 6 + z], A.scr)) { kind = 2; j = qbG[k];
+          if (z >= 3) { if (R() < adj(z === 5 ? t.pGl[2 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3 + 2], A.rz)) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3 + 2], R), yl - 1); } else { yds = q(L.scrO, R); if (yds >= yl) { yds = yl; td = true; } }
           if (!td && R() < L.fum.scr) turnover = 2; }
         else { kind = 1; j = pickCell(t.uT, t.sT[c8], c8, t.P, R);
-          if (R() < t.pInt[(db * 6 + z) * 4 + S]) { turnover = 1; }
+          if (R() < adj(t.pInt[(db * 6 + z) * 4 + S], A.int)) { turnover = 1; }
           else if (R() < (L.noTgt ?? 0.043)) { j = -1; cat = 1; } // thrown away / no intended receiver
-          else if (R() < sig(t.lCmp[db * 6 + z] + (j >= 0 ? t.cOff[j] : 0))) {
-            if (z >= 3) { if (R() < (z === 5 ? t.pGl[1 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3 + 1])) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3 + 1], R), yl - 1); }
-            else { yds = R() < t.pExpP[z] ? q(L.cmpX[z], R) : q(L.cmpN[z], R) + Math.floor(t.dC + R()); if (yds > 0 && j >= 0) yds = Math.round(yds * t.yF[j]); if (yds >= yl) { yds = yl; td = true; } }
+          else if (R() < sig(t.lCmp[db * 6 + z] + (j >= 0 ? t.cOff[j] : 0) + A.cmp)) {
+            if (z >= 3) { if (R() < adj(z === 5 ? t.pGl[1 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3 + 1], A.rz)) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3 + 1], R), yl - 1); }
+            else { const ex = R() < adj(t.pExpP[z], A.expP); if (ex) st(k, 'expP'); yds = ex ? q(L.cmpX[z], R) : q(L.cmpN[z], R) + Math.floor(t.dC + A.dC + R()); if (yds > 0 && j >= 0) yds = Math.round(yds * t.yF[j]); if (yds >= yl) { yds = yl; td = true; } }
             kind = 4; if (!td && R() < L.fum.cmp) turnover = 2;
           } else { cat = 1; }
         }
+      } else if (V && togo <= 1 && qbG[k] >= 0 && R() < t.v2.sneak) { // sim-pbp-2: QB sneak on 1-to-go (league sneak yards; a TD if he crosses the line)
+        kind = 0; j = qbG[k]; sneak = true; st(k, 'sneak'); yds = q(V.sneakY, R); if (yds >= yl) { yds = yl; td = true; } if (yds >= togo) st(k, 'sneakC'); if (!td && R() < L.fum.run) turnover = 2;
       } else { kind = 0; j = pickCell(t.uC, t.sC[c8], c8, t.P, R);
-        if (z >= 3) { if (R() < (z === 5 ? t.pGl[0 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3])) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3], R), yl - 1); }
-        else { yds = R() < t.pExpR[z] ? q(L.runX[z], R) : q(L.runN[z], R) + Math.floor(t.dR + R()); if (yds > 0 && j >= 0) yds = Math.round(yds * t.cF[j]); if (yds >= yl) { yds = yl; td = true; } }
+        if (z >= 3) { if (R() < adj(z === 5 ? t.pGl[0 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3], A.rz)) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3], R), yl - 1); }
+        else if (V && togo <= 2) { yds = q(V.runSY[z], R) + Math.floor(t.dR + R()); if (yds > 0 && j >= 0) yds = Math.round(yds * t.cF[j]); if (yds >= yl) { yds = yl; td = true; } } // short yardage: stacked-box run pool
+        else { const ex = R() < adj(t.pExpR[z], A.expR); if (ex) st(k, 'expR'); yds = ex ? q(L.runX[z], R) : q(L.runN[z], R) + Math.floor(t.dR + R()); if (yds > 0 && j >= 0) yds = Math.round(yds * t.cF[j]); if (yds >= yl) { yds = yl; td = true; } }
         if (!td && R() < L.fum.run) turnover = 2; }
+      if (turnover === 1) st(k, 'int'); else if (turnover === 2) st(k, 'fum');
+      if (!turnover) { st(k, 'plays'); st(k, 'yds', yds); }
       // tallies (targets / carries / catches / yards) and zone usage
       const uz = uzOf(yl);
       if (j >= 0) { touch(k, j); const gj = base[k] + j;
@@ -166,18 +205,20 @@ function playGame(E, R, gi, W, log) {
         ev({ t: 'play', k, kind, j, qb: qbG[k], yds: turnover === 1 ? 0 : yds, down: dBefore, togo: tgBefore, yl: ylBefore, to: turnover });
         if (R() < pool.td) { score(o, 6); if (ftd < 0) ftd = -4 - o; if (W) W.tdSrc[o * 4 + 2]++; ev({ t: 'note', txt: `${I.teams[o].team} returns it for a touchdown` }); res = TO; pat(o); kickTo = k; needKick = true; break; }
         let ny = (100 - ylBefore) + q(pool.d, R); if (ny >= 100) ny = 80; yl = clamp(ny, 1, 99); res = TO; break; }
-      if (td) { // offensive touchdown on this snap
+      if (td) { if (dBefore === 3) st(k, 'd3c'); else if (dBefore === 4) st(k, 'd4c'); // offensive touchdown on this snap
         score(k, 6); res = TD; scorer = j; tdKind = kind === 0 || kind === 2 ? 0 : 1; tdYo = ylBefore; if (j >= 0) { x.td[j]++; } if (tdKind === 1) passer = qbG[k];
         ev({ t: 'play', k, kind, j, qb: qbG[k], yds, down: dBefore, togo: tgBefore, yl: ylBefore, td: 1 }); runClock(5); pat(k); kickTo = o; needKick = true; break; }
       if (ylBefore - yds >= 100) { score(o, 2); ev({ t: 'play', k, kind, j, qb: qbG[k], yds, down: dBefore, togo: tgBefore, yl: ylBefore, safety: 1 }); runClock(5); res = SAF; break; }
       yl = ylBefore - yds; togo -= yds;
       if (kind === 0 || kind === 4 || kind === 2) { const oobR = kind === 4 ? L.oob.cmp[S] : L.oob.run[S]; ob = R() < (kind === 2 ? oobR * 2 : oobR); if (ob) cat = 2; }
-      ev({ t: 'play', k, kind, j, qb: qbG[k], yds, down: dBefore, togo: tgBefore, yl: ylBefore, ob });
-      if (togo <= 0) { down = 1; togo = Math.min(10, yl); } else if (down === 4) { res = DOWNS; runClock(5); yl = clamp(100 - yl, 1, 99); break; } else down++;
+      ev({ t: 'play', k, kind, j, qb: qbG[k], yds, down: dBefore, togo: tgBefore, yl: ylBefore, ob, ...(sneak ? { sneak: 1 } : {}) });
+      if (togo <= 0) { if (dBefore === 3) st(k, 'd3c'); else if (dBefore === 4) st(k, 'd4c'); down = 1; togo = Math.min(10, yl); } else if (down === 4) { res = DOWNS; runClock(5); yl = clamp(100 - yl, 1, 99); break; } else down++;
       // clock
       let g = L.gap[cat][S] * (cat === 0 && S <= 1 ? t.pace : 1) * CLOCK * (0.8 + 0.4 * R());
       if (cat === 0 && hf >= 2 && S === 1 && to[o] > 0 && tl <= 240) { to[o]--; g = 5; ev({ t: 'note', txt: `Timeout ${I.teams[o].team}` }); }
       else if (cat === 0 && S === 3 && to[k] > 0 && tl <= 100) { to[k]--; g = 5; ev({ t: 'note', txt: `Timeout ${I.teams[k].team}` }); }
+      else if (V && cat === 0 && S === 3 && to[k] === 0 && tl <= 60 && down <= 3 && tl > 12 && R() < 0.4) { // sim-pbp-2: no timeouts left in the two-minute drill -> hurry up and spike it
+        runClock(Math.min(tl, 10 + 6 * R())); if (tl <= 0) continue; plays++; st(k, 'spike'); ev({ t: 'spike', k, down, togo, yl }); down++; runClock(1); continue; }
       runClock(g);
     }
     if (res < 0) res = HALF; if (res === HALF) ev({ t: 'note', txt: 'End of half' });
@@ -226,7 +267,7 @@ function alloc(E, n, record) {
     score: new Int16Array(n * 2), half: new Int16Array(n * 2), drives: new Uint8Array(n * 2), tds: new Uint8Array(n * 2), firstTd: new Int16Array(n), firstScore: new Int8Array(n), ot: new Uint8Array(n), leadCh: new Uint8Array(n), q4trail: new Int8Array(n),
     tdDriveSlot: new Uint8Array(n * 2), kick: new Uint8Array(n), gRes: new Uint8Array(n * 2 * SLOTS).fill(255), ftdTeam: new Int16Array(n * 2).fill(-1), slotPlays: new Float64Array(2 * SLOTS), slotYds: new Float64Array(2 * SLOTS), tdAgg: new Uint32Array(NP * TDAGG), logs: [],
     slotStart: new Float64Array(2 * SLOTS), slotRz: new Uint32Array(2 * SLOTS), slotTdRush: new Uint32Array(2 * SLOTS), slotTdYo: new Float64Array(2 * SLOTS), startH: new Uint32Array(20), tdSrc: new Uint32Array(8), tdYo: new Uint32Array(12),
-    rzTrips: new Uint8Array(n * 2), rzTds: new Uint8Array(n * 2), i10: new Uint8Array(n * 2), zT: new Uint32Array(NP * 4), zC: new Uint32Array(NP * 4), tZ: new Uint32Array(16), plTdYo: new Uint32Array(NP * 6) };
+    sit: new Float64Array(2 * NS), rzTrips: new Uint8Array(n * 2), rzTds: new Uint8Array(n * 2), i10: new Uint8Array(n * 2), zT: new Uint32Array(NP * 4), zC: new Uint32Array(NP * 4), tZ: new Uint32Array(16), plTdYo: new Uint32Array(NP * 6) };
 }
 // stepwise runner: run(k) plays the next k games; W.done counts finished games (partial summaries read W with n = done)
 export function pbpRunner(I, { n = 10000, seed = 1, record = true, E = null } = {}) {
@@ -234,7 +275,7 @@ export function pbpRunner(I, { n = 10000, seed = 1, record = true, E = null } = 
   return { E, W, run(k) { const end = Math.min(n, W.done + k); for (let g = W.done; g < end; g++) playGame(E, makeRng(gameSeed(seed, g)), g, W, null); W.done = end; return W.done >= n; } };
 }
 export function simulatePbp(I, { n = 10000, seed = 1, record = true, E = null } = {}) { const r = pbpRunner(I, { n, seed, record, E }); r.run(n); return finish(r.W, r.E); }
-export function finish(W, E) { W.eng = { mode: 'pbp', version: SIM_PBP_VERSION, fT: E.T.map(t => Array.from(t.fT, v => +v.toFixed(3))), fC: E.T.map(t => Array.from(t.fC, v => +v.toFixed(3))) }; W.spp = null; return W; }
+export function finish(W, E) { W.eng = { mode: 'pbp', version: E.V ? SIM_PBP_VERSION : 'sim-pbp-1', fT: E.T.map(t => Array.from(t.fT, v => +v.toFixed(3))), fC: E.T.map(t => Array.from(t.fC, v => +v.toFixed(3))) }; W.spp = null; return W; }
 // replay one game (same seed + index as the run) with every play logged
 export function replayGame(E, seed, g) { const log = []; playGame(E, makeRng(gameSeed(seed, g)), g, null, log); return log; }
 // pilot: per-player target / carry shares, catch rate and yards per catch / carry -> the model's projections (team volume stays the sim's own)
@@ -283,7 +324,8 @@ export function pbpSummary(S, sum, I) {
     if (gl && gl.tdI5 >= 0.3) pats.push({ k, w: gl.tdI5 * 0.8, kind: 'td5', j: gl.j, text: `${pctS(gl.tdI5)} of ${poss2(gl.name)} TDs come from inside the 5.` });
   }
   pats.sort((a, b) => b.w - a.w);
-  return { version: SIM_PBP_VERSION, team, players, rzPatterns: pats, drive: [0, 1].map(k => Array.from({ length: SLOTS }, (_, s) => { const hn = S.slotN[k * SLOTS + s]; const tdN = S.slotR[(k * SLOTS + s) * NR + TD];
+  const sitT = S.sit ? [0, 1].map(k => { const v = {}; SIT.forEach((key, i) => { v[key] = S.sit[k * SIT.length + i] / n; }); return v; }) : null;
+  return { version: S.eng?.version || SIM_PBP_VERSION, v2: !!I.pbp?.x2, team, players, rzPatterns: pats, sit: sitT, drive: [0, 1].map(k => Array.from({ length: SLOTS }, (_, s) => { const hn = S.slotN[k * SLOTS + s]; const tdN = S.slotR[(k * SLOTS + s) * NR + TD];
     return hn ? { avgStart: S.slotStart[k * SLOTS + s] / hn, rz: S.slotRz[k * SLOTS + s] / hn, tdRush: tdN ? S.slotTdRush[k * SLOTS + s] / tdN : null, tdYo: tdN ? S.slotTdYo[k * SLOTS + s] / tdN : null } : null; }).filter(Boolean)) };
 }
 const pctS = x => x == null ? '—' : `${Math.round(x * 100)}%`; const poss2 = nm => /s$/i.test(nm) ? `${nm}'` : `${nm}'s`;
@@ -291,7 +333,7 @@ const pctS = x => x == null ? '—' : `${Math.round(x * 100)}%`; const poss2 = n
 export const ylText = yl => yl == null ? '—' : yl > 50 ? `own ${Math.round(100 - yl)}` : yl < 50 ? `opp ${Math.round(yl)}` : '50';
 export { NB as PBP_NB, DOFF as PBP_DOFF };
 // ---------- entry points (sim.js stays free of this module so there is no import cycle)
-export function buildPbpInputs(I, P) { const pbp = pbpMatchup(P, I.away, I.home, I.teams); return pbp ? { ...I, mode: 'pbp', pbp } : null; }
+export function buildPbpInputs(I, P, opts = {}) { const pbp = pbpMatchup(P, I.away, I.home, I.teams, opts); return pbp ? { ...I, mode: 'pbp', pbp } : null; }
 export function runPbp(I, { n = 10000, seed = 1, pilots = 2, pilotN = 800 } = {}) {
   const t0 = Date.now(); const { E, pilots: ph } = calibratePbp(I, { pilots, n: pilotN, seed: seed + 9 }); const t1 = Date.now();
   const S = simulatePbp(I, { n, seed, E }); S.pilot = ph; S.ms = { pilot: t1 - t0, sim: Date.now() - t1 }; return S; }

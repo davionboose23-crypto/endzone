@@ -214,7 +214,7 @@ details.sec>.secbody{padding-bottom:var(--s3)}details.sec[open]>summary{border-b
 .simwin span.h{background:var(--green);justify-content:flex-end}.simwin span.tie{background:var(--surface2);color:var(--muted);justify-content:center;font-size:.75rem;padding:6px 2px}
 .simhists{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}.simhist{width:100%;height:70px;display:block;background:var(--surface2);border-radius:8px}.simhist rect{fill:var(--gold)}
 @media (max-width:560px){.simhists{grid-template-columns:1fr}}
-.simtop{gap:6px;flex-wrap:wrap}.simtab{min-width:0}.simtab td,.simtab th{padding:6px 8px}.simtab tbody th{text-align:left;white-space:normal}
+.simtop{gap:6px;flex-wrap:wrap}.simtab{min-width:0}.simtab td,.simtab th{padding:6px 8px}.simtab tbody th{text-align:left;white-space:normal}.simsit .simtab{width:100%}.simsit .simtab td{white-space:nowrap;text-align:right}.simsit .simtab th[scope=col]{text-align:right}.simsit .simtab th[scope=col]:first-child{text-align:left}
 .simplayers{min-width:640px}.simplayers tbody th{min-width:10em}
 .simscripts>div{display:grid;grid-template-columns:minmax(0,1.6fr) 1fr 3.2em;gap:8px;align-items:center;padding:3px 0}
 .simscripts .bar{height:10px;background:var(--surface2);border-radius:6px;overflow:hidden}.simscripts .bar i{display:block;height:100%;background:var(--gold)}
