@@ -341,7 +341,7 @@ function seesHtml(D, gA, gB, ctx) {
 // ---------- 4.9.0: game simulator (Drives → Simulator). Research / UI only: plays the matchup out drive by drive 10,000
 // times from real-data inputs only (4.13.1: no model numbers; src/sim.js) in a Web Worker. Never feeds the live chance or the gate.
 const SIM_N = 10000;
-S.sim = { mode: load('endzone.simMode', 'drive') === 'pbp' ? 'pbp' : 'drive', prog: null, partial: null, replay: null, rg: null, E: null, key: '', status: 'idle', sum: null, raw: null, ms: null, err: null, team: 'both', st: 'rec', th: 4, pj: null, dst: 'rec', dth: 1, seed: null, ds: 0 };
+S.sim = { mode: load('endzone.simMode', 'pbp') === 'drive' ? 'drive' : 'pbp', prog: null, partial: null, replay: null, rg: null, E: null, key: '', status: 'idle', sum: null, raw: null, ms: null, err: null, team: 'both', st: 'rec', th: 4, pj: null, dst: 'rec', dth: 1, seed: null, ds: 0 };
 let simW = null, simSeq = 0;
 const simSideFor = t => { for (const x of S.slate?.games || []) for (const sd of ['away', 'home']) if (x.sides[sd].team === t) return x.sides[sd]; return null; };
 function simPick() {
@@ -354,7 +354,7 @@ function simPick() {
 function simDone(m, key) {
   if (S.sim.key !== key) return; if (!m.ok) { S.sim.status = 'error'; S.sim.err = m.error; paintSim(); return; }
   if (m.sum && m.raw) Object.assign(m.sum, vsMarket(m.raw, S.sim.market)); // 4.14.0: the betting line is compared AFTER the run, display only (the sim never reads it)
-  Object.assign(S.sim, { status: 'done', sum: m.sum, raw: m.raw, ms: m.ms, msPilot: m.msPilot ?? null, wall: Math.round(performance.now() - S.sim.t0), pj: null, prog: null, partial: null, replay: null, rg: null }); paintSim();
+  simBlendKeep(m.sum); Object.assign(S.sim, { status: 'done', sum: m.sum, raw: m.raw, ms: m.ms, msPilot: m.msPilot ?? null, wall: Math.round(performance.now() - S.sim.t0), pj: null, prog: null, partial: null, replay: null, rg: null }); paintSim();
 }
 // 4.10.0: live progress (play-by-play mode posts every 250 games; a partial read-out every 1,000)
 function simProgress(m, key) {
@@ -485,7 +485,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.15.0';
+const APP_VERSION = '4.16.0';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
@@ -548,12 +548,20 @@ const sdiff = d => `${d >= 0 ? '+' : '−'}${Math.round(Math.abs(d) * 100)}`;
 // app 4.15.0: real-data-only pre-season priors for the sim (last-season usage, prior team strength, home / rest / wind)
 function simPriorArgs(A, B) { const P = S.slate?.simPriors; if (!P || P.season !== S.slate.season) return {}; const g = P.games?.[`${S.slate.week}:${A}@${B}`] || null;
   return { usagePrior: P.usage || null, tsPrior: S.slate.week > 1 ? P.ts || null : null, ctx: P.ctx ? { ...(g || { neutral: false }), fit: P.ctx } : null }; }
+// 4.16.0 ensemble: blend of the drive and play-by-play sims' anytime chances for the same matchup (weight fit walk-forward on 2025-26
+// log loss: drive 0.55 / pbp 0.45 at the latest week). Beat both engines on log loss in both seasons; shown once both engines have run.
+const ENS_W = 0.55;
+function simBlendKeep(sum) { const k = `${sum?.away}@${sum?.home}`; const ps = (sum?.players || []).filter(p => p.anytime != null); if (!ps.length) return;
+  if (S.simBlend?.k !== k) S.simBlend = { k, drive: null, pbp: null }; S.simBlend[sum.mode === 'pbp' ? 'pbp' : 'drive'] = new Map(ps.map(p => [`${p.team}|${p.name}`, p])); }
+function simBlendHtml(s) { const B = S.simBlend; if (!B || B.k !== `${s.away}@${s.home}` || !B.drive || !B.pbp) return `<p class="small muted">Run both engines on this game to see the blended top 4 (drive ${Math.round(ENS_W * 100)}% / play-by-play ${100 - Math.round(ENS_W * 100)}%), the most accurate in the backtest.</p>`;
+  const ks = new Set([...B.drive.keys(), ...B.pbp.keys()]); const r = [...ks].map(k => { const a = B.drive.get(k), b = B.pbp.get(k); const p = a || b; return { name: p.name, team: p.team, pos: p.pos, v: ENS_W * (a?.anytime || 0) + (1 - ENS_W) * (b?.anytime || 0) }; }).sort((x, y) => y.v - x.v).slice(0, 4);
+  return `<div class="simblend"><h4>Blended top 4 <span class="chip rel-chance">Drive + play-by-play</span></h4><ol class="small">${r.map(p => `<li><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.team)} ${esc(p.pos)}</span> ${simPct(p.v)}</li>`).join('')}</ol><p class="small muted">${Math.round(ENS_W * 100)}% drive sim + ${100 - Math.round(ENS_W * 100)}% play-by-play sim, from your latest run of each. In the walk-forward backtest this blend had lower log loss than either engine alone in 2025 and 2026; top-4 hits were about the same.</p></div>`; }
 function simTop4Html(s) {
   const t = s.vs?.top4; if (!t?.length) return '';
   return `<div class="card simtop4" id="simTop4"><h3>Top 4 TD scorers (sim) <span class="chip rel-chance">Simulated</span></h3>
    <ol class="top4">${t.map((p, i) => `<li><div class="t4head"><span class="t4rank">${i + 1}</span><span class="t4name"><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.team)} ${esc(p.pos)}</span></span><span class="t4p">${simPct(p.anytime)}</span></div>
     <div class="t4nums small"><span>Model <strong>${p.model == null ? '—' : simPct(p.model)}</strong>${p.diff == null ? '' : ` <span class="${Math.abs(p.diff) >= 0.03 ? 'gap' : 'muted'}">(${sdiff(p.diff)} pts)</span>`}</span><span>2+ TDs <strong>${simPct(p.twoPlus)}</strong></span><span>First TD <strong>${simPct(p.first)}</strong></span></div>
-    <p class="small t4line">${esc(p.line)}</p></li>`).join('')}</ol>${simSurpriseHtml(s)}
+    <p class="small t4line">${esc(p.line)}</p></li>`).join('')}</ol>${simBlendHtml(s)}${simSurpriseHtml(s)}
    <p class="small muted">Ranked by anytime TD across both teams in this run of ${s.n.toLocaleString()} simulated games. The sim runs on each team's own opponent-adjusted 2026 ${simPick().mode === 'pbp' ? 'plays' : 'drives'}. No model numbers go in: TD counts, points, drives and who scores are the sim's own, built from real 2026 drives, red-zone and goal-line shares and today's roster and injury report. The Model TD column is shown only to compare.</p></div>`;
 }
 // 4.13.0: it's not always the favourite - how often a TD comes from outside the sim's top 4, and the likeliest longshots
