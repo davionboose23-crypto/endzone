@@ -60,7 +60,7 @@ export async function prepareData({ season, week, force = false, onStage = () =>
       if (!SKILL.has(pos)) continue;
       out.push({ id: String(p.player_id), name: p.full_name || [p.first_name, p.last_name].filter(Boolean).join(' '), first: p.first_name, last: p.last_name, pos,
         team: p.team ? normTeam(p.team) : null, gsis: p.gsis_id ? String(p.gsis_id).trim() : null, espn: p.espn_id ? String(p.espn_id) : null,
-        depth: p.depth_chart_order ?? null, depthPos: p.depth_chart_position || null, injury: p.injury_status || null, practice: p.practice_participation || null,
+        depth: p.depth_chart_order ?? null, exp: p.years_exp ?? null, depthPos: p.depth_chart_position || null, injury: p.injury_status || null, practice: p.practice_participation || null,
         injuryNotes: p.injury_notes || null, injuryBody: p.injury_body_part || null, status: p.status || null, active: !!p.active, age: p.age ?? null, yearsExp: p.years_exp ?? null, number: p.number ?? null,
         newsUpdated: p.news_updated || null });
     }

@@ -77,7 +77,7 @@ const sameWeights = (a, b) => Object.keys(DEFAULT_WEIGHTS).every(k => Math.abs((
 
 // app 4.12.0: current team + injury / practice / status for every rostered skill player (Sleeper, read at load), keyed by gsis and Sleeper id;
 // the simulators use it for teams without model inputs this week so departed and out / IR players never appear
-function rosterNow() { const o = {}; for (const p of state.prep?.players || []) { if (!p.team) continue; const v = [p.team, p.injury || null, p.practice || null, p.status || null]; o[p.id] = v; if (p.gsis) o[p.gsis] = v; } return o; }
+function rosterNow() { const o = {}; for (const p of state.prep?.players || []) { if (!p.team) continue; const v = [p.team, p.injury || null, p.practice || null, p.status || null, p.pos || null, p.name || null, p.exp ?? null]; o[p.id] = v; if (p.gsis) o[p.gsis] = v; } return o; }
 function slateMessage(reqId, extra = {}) {
   const c = compute(state.weights);
   const all = c.games.flatMap(g => [...g.sides.away.players, ...g.sides.home.players]);

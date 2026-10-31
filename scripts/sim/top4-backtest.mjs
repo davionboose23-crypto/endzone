@@ -14,7 +14,8 @@
 // Hit = a pick scored a rushing or receiving TD. Writes archive/sim/top4-backtest-2026.json (2026 per-game list for the app).
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 import { loadTable, tableToD } from './table.mjs';
-import { buildSimInputs, runSim, summarize } from '../../src/sim.js';
+import { buildSimInputs, runSim, summarize, assertMarketFree, DATA_OPTS, STAR_SLOTS } from '../../src/sim.js';
+import { rosterWeek, poolOf } from './roster-week.mjs';
 import { fitPbp } from '../../src/pbp-fit.js';
 import { buildPbpInputs, runPbp, summarizePbp, SIM_PBP_VERSION } from '../../src/sim-pbp.js';
 import { tallyGames, buildTdShare, fitBlend, blendShares, TD_SHARE_VERSION, TD_BLEND } from '../../src/td-share.js';
@@ -47,7 +48,10 @@ const scorersOf = (S, W, team) => { const T = tallies.find(x => x.season === S &
 const naiveOf = (S, W) => { const m = new Map(); for (const T of tallies) { const cur = T.season === S && T.week < W, prev = T.season === S - 1 && W <= 2; if (!cur && !prev) continue;
   for (const x of T.pl.values()) { const a = m.get(x.id) || { td: 0, rz: 0 }; a.td += x.v[7] * (cur ? 1 : 0.1); a.rz += (x.v[2] + x.v[5]) * (cur ? 1 : 0.1); m.set(x.id, a); } } return m; };
 const clampP = p => Math.min(0.995, Math.max(0.005, p));
-const KS = ['driveNew', 'pbp2New', 'pbpFree', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.13.1: driveNew / pbp2New = model-independent sims (data players); drive413 / pbp413 = 4.13.0 (model players + TD anchor)
+const KS = ['driveNew', 'pbp2New', 'driveG', 'drive4131', 'pbp4131', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.14.0: driveNew / pbp2New = 4.14 (weekly roster + carried rates + rookie/depth priors + 1% floor); driveG = driveNew + per-game team TD multiplier (research); drive4131 / pbp4131 = 4.13.1 as shipped
+const SIM_KS = new Set(['driveNew', 'pbp2New', 'driveG', 'drive4131', 'pbp4131', 'drive413', 'pbp413']);
+const TD_SD = process.env.TD_SD != null ? +process.env.TD_SD : 0.18;
+const OLD_OPTS = { carry: false, rookie: null, floor: 0, depthCal: null, tdSd: 0 }; // 4.13.1: driveNew / pbp2New = model-independent sims (data players); drive413 / pbp413 = 4.13.0 (model players + TD anchor)
 const DATA_ALPHA = process.env.DATA_ALPHA != null ? +process.env.DATA_ALPHA : null; // research override of the data-player td-share blend
 // injury report for week W as a rosterNow map (gsis -> [team, injury, practice, status]) for the model-free sims
 const rosterOf = (S, W) => { const o = {}; for (const [k, r] of inj) { const [s, w, g] = k.split('|'); if (+s !== S || +w !== W || !r.report_status) continue; const pr = (r.practice_status || '').toLowerCase();
@@ -73,26 +77,37 @@ async function season(S, weeks, priorDetail) {
       for (const t of [gm.away, gm.home]) { const pl = live.filter(p => p.team === t).map(p => ({ gsis: p.gsis, pos: p.pos, lam: p.lambda, tgt: p.vol.targets, car: p.vol.carries }));
         const bs = blendShares(pl, td, t === gm.away ? gm.home : gm.away, { alpha: 1, beta: {} }); if (!bs) continue; const lv = live.filter(p => p.team === t);
         detail.push({ S, W, team: t, tds: lv.reduce((a, p) => a + p.td, 0), c: lv.map((p, i) => [p.pos === 'FB' ? 'RB' : p.pos, bs[i].model, bs[i].td, p.td]) }); }
+      // 4.14.0: scoring pool = the model's rows plus every QB/RB/WR/TE on the pre-game weekly roster (ACT/INA) and any late scorer missing from both
+      const act = [...scorersOf(S, W, gm.away).map(x => ({ ...x, team: gm.away })), ...scorersOf(S, W, gm.home).map(x => ({ ...x, team: gm.home }))]; const actG = new Map(act.map(x => [x.id, x.td]));
+      const legacyN = live.length; const haveG = new Set(live.map(p => p.gsis).filter(Boolean));
+      for (const t of [gm.away, gm.home]) { const pool = poolOf(S, W, t); for (const x of act) if (x.team === t && !pool.has(x.id)) pool.set(x.id, { pos: x.pos || '?', name: x.name, late: true });
+        for (const [g, r] of pool) { if (haveG.has(g)) continue; haveG.add(g); const id = 'g:' + g; live.push({ id, gsis: g, name: r.name, pos: r.pos, team: t, lambda: 0, vol: { targets: 0, carries: 0 }, y: actG.get(g) ? 1 : 0, td: actG.get(g) || 0, extra: true });
+          prob[id] = { model: null, sleeper: null, naive: (naive.get(g)?.td || 0) + 0.001 * (naive.get(g)?.rz || 0) }; } }
+      let InD = null;
       if (SIMS) {
         const In1 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, source: 'model', tdShare: td, tdBlend: B.fitted ? B : { alpha: 0, beta: {} }, disp: false });
         const In2 = { ...In1, disp: { drive: { anchor: 1 }, pbp: { anchor: 1 } } }; // 4.13.0 as shipped
-        const InD = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, tdShare: td, rosterNow: rosterOf(S, W), ...(DATA_ALPHA != null ? { tdBlend: { alpha: DATA_ALPHA, beta: process.env.DATA_NOBETA ? {} : { TE: 0.1 } } } : {}) }); // app default: model-free
-        if (InD.source !== 'data' || InD.teams.some(t => t.tdBudget != null)) throw new Error('model leak in default sim inputs');
+        const tb = DATA_ALPHA != null ? { tdBlend: { alpha: DATA_ALPHA, beta: process.env.DATA_NOBETA ? {} : { TE: 0.1 } } } : {};
+        InD = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: DATA_OPTS, ...tb }); // app default (4.14): model-free, market-free
+        const InO = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterOf(S, W), dataOpts: OLD_OPTS, ...tb }); // 4.13.1 as shipped
+        for (const I0 of [InD, InO]) assertMarketFree(I0); // throws on any model or betting-market source (no Vegas totals / spreads / implied / odds / Sleeper prices)
+        const InG = { ...InD, tdSd: TD_SD };
         const keep = (S0, I0, sm) => Object.assign(sm, { __S: S0, __I: I0 });
         const dr = I0 => { const S0 = runSim(I0, { n: NS, seed: 11, mode: 'free' }); return keep(S0, I0, summarize(S0, I0)); };
         const pb = I0 => { const I = buildPbpInputs(I0, PP); const S0 = runPbp(I, { n: NS, seed: 11 }); return keep(S0, I, summarizePbp(S0, I)); };
-        const run = { drive413: () => dr(In2), driveNew: () => dr(InD), pbp413: () => pb(In2), pbp2New: () => pb(InD), pbpFree: () => pb({ ...InD, disp: { pbp: { dataLevel: 0 } } }) }; // pbpFree = model-free pbp without the 4.13.1 data-level fix
+        const run = { drive413: () => dr(In2), pbp413: () => pb(In2), driveNew: () => dr(InD), pbp2New: () => pb(InD), driveG: () => dr(InG), drive4131: () => dr(InO), pbp4131: () => pb(InO) };
         for (const [k, f] of Object.entries(run)) { if (ENG && !ENG.includes(k)) continue; const s = f(); for (const p of live) prob[p.id][k] = 0; for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime; else if (x.gsis) { const m = live.find(p => p.gsis === x.gsis); if (m) prob[m.id][k] = x.anytime; }
           if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live);
           if (k === 'driveNew' || k === 'pbp2New') { const su = surprise(s.__S, s.players); sur[k] = { p: r3(su.pOutside), share: r3(su.shareOutside), ls: su.longshots.map(x => ({ n: x.name, t: x.team, p: x.pos, pr: r3(x.p) })) }; } }
       }
-      const act = [...scorersOf(S, W, gm.away).map(x => ({ ...x, team: gm.away })), ...scorersOf(S, W, gm.home).map(x => ({ ...x, team: gm.home }))];
       if (DUMP) DUMP.push({ S, W, gid, eng: 'actual', act: act.map(x => ({ id: x.id, team: x.team, pos: x.pos, td: x.td, n: x.name })) });
-      const scored = new Set(live.filter(p => p.y).map(p => p.id)); const rec = { gid, w: W, away: gm.away, home: gm.home, score: [gm.as, gm.hs], picks: {}, hits: {}, actual: act.map(x => ({ n: x.name, t: x.team, p: x.pos, td: x.td })), out: P.filter(p => p.avail.factor === 0 && (p.lambda > 0 || p.vol.targets + p.vol.carries > 3)).length, surprise: sur };
-      for (const k of KS) { const cand = live.filter(p => prob[p.id][k] != null && (k !== 'sleeper' || prob[p.id][k] > 0)); if (cand.length < 4 || (k === 'sleeper' && cand.length < 8)) continue;
-        const top = cand.sort((a, b) => prob[b.id][k] - prob[a.id][k] || b.lambda - a.lambda).slice(0, 4); rec.picks[k] = top.map(p => ({ id: p.id, n: p.name, t: p.team, p: p.pos, pr: k === 'naive' ? null : r3(prob[p.id][k]), hit: scored.has(p.id) ? 1 : 0 })); rec.hits[k] = top.filter(p => scored.has(p.id)).length; }
+      const roleOf = new Map(); if (InD) for (const t of InD.teams) for (const p of t.players) if (p.gsis) roleOf.set(p.gsis, STAR_SLOTS.has(p.slot) ? 'star' : 'role');
+      const isRole = p => (p.gsis && roleOf.get(p.gsis)) !== 'star'; // unlisted / depth players = role
+      const scored = new Set(live.filter(p => p.y).map(p => p.id)); const roleSc = live.filter(p => p.y && isRole(p)).length; const rec = { gid, w: W, away: gm.away, home: gm.home, score: [gm.as, gm.hs], picks: {}, hits: {}, actual: act.map(x => ({ n: x.name, t: x.team, p: x.pos, td: x.td })), out: P.filter(p => p.avail.factor === 0 && (p.lambda > 0 || p.vol.targets + p.vol.carries > 3)).length, surprise: sur, roleSc, scorers: scored.size };
+      for (const k of KS) { const cand = live.filter((p, i) => prob[p.id][k] != null && (k !== 'sleeper' || prob[p.id][k] > 0) && (SIM_KS.has(k) || k === 'naive' || i < legacyN)); if (cand.length < 4 || (k === 'sleeper' && cand.length < 8)) continue;
+        const top = cand.sort((a, b) => prob[b.id][k] - prob[a.id][k] || b.lambda - a.lambda).slice(0, 4); rec.picks[k] = top.map(p => ({ id: p.id, n: p.name, t: p.team, p: p.pos, pr: k === 'naive' ? null : r3(prob[p.id][k]), hit: scored.has(p.id) ? 1 : 0, role: isRole(p) ? 1 : 0, sl: p.gsis ? (InD?.teams.flatMap(t => t.players).find(q => q.gsis === p.gsis)?.slot || null) : null })); rec.hits[k] = top.filter(p => scored.has(p.id)).length; }
       games.push(rec);
-      for (const p of live) players.push({ w: W, gid, pos: p.pos === 'FB' ? 'RB' : p.pos, y: p.y, ...Object.fromEntries(KS.filter(k => k !== 'naive').map(k => [k, prob[p.id][k] ?? null])) });
+      for (const p of live) players.push({ w: W, gid, pos: p.pos === 'FB' ? 'RB' : p.pos, y: p.y, legacy: !p.extra, role: isRole(p) ? 1 : 0, ...Object.fromEntries(KS.filter(k => k !== 'naive').map(k => [k, prob[p.id][k] ?? null])) });
       process.stderr.write('.');
     }
     process.stderr.write(` ${S}w${W}\n`);
@@ -101,7 +116,7 @@ async function season(S, weeks, priorDetail) {
 }
 function top4Table(games) { const out = {}; for (const k of KS) { const g = games.filter(x => x.hits[k] != null); if (!g.length) continue; const h = g.map(x => x.hits[k]);
   const exp = g.map(x => x.picks[k].reduce((a, p) => a + (p.pr || 0), 0));
-  out[k] = { games: g.length, hitsPerGame: r3(mean(h)), precision: r3(mean(h) / 4), ge1: r3(mean(h.map(x => x >= 1 ? 1 : 0))), ge2: r3(mean(h.map(x => x >= 2 ? 1 : 0))), ge3: r3(mean(h.map(x => x >= 3 ? 1 : 0))), expectedHits: k === 'naive' ? null : r3(mean(exp)), se: r3(Math.sqrt(mean(h.map(x => (x - mean(h)) ** 2)) / g.length)) }; }
+  out[k] = { games: g.length, hitsPerGame: r3(mean(h)), precision: r3(mean(h) / 4), ge1: r3(mean(h.map(x => x >= 1 ? 1 : 0))), ge2: r3(mean(h.map(x => x >= 2 ? 1 : 0))), ge3: r3(mean(h.map(x => x >= 3 ? 1 : 0))), expectedHits: k === 'naive' ? null : r3(mean(exp)), rolePicksPerGame: r3(mean(g.map(x => x.picks[k].filter(p => p.role).length))), roleHitRate: (() => { const R = g.flatMap(x => x.picks[k].filter(p => p.role)); return R.length ? r3(mean(R.map(p => p.hit))) : null; })(), roleScorersInTop4: r3(g.reduce((a, x) => a + x.picks[k].filter(p => p.role && p.hit).length, 0) / Math.max(1, g.reduce((a, x) => a + (x.roleSc || 0), 0))), se: r3(Math.sqrt(mean(h.map(x => (x - mean(h)) ** 2)) / g.length)) }; }
   // head-to-head on the same games (sleeper subset too)
   const both = games.filter(x => x.hits.sleeper != null); out.sleeperSubset = Object.fromEntries(KS.map(k => [k, r3(mean(both.map(x => x.hits[k] ?? 0)))])); out.sleeperSubset.games = both.length;
   return out; }
@@ -132,13 +147,13 @@ function dumpTeams(out, S, W, gid, eng, Sim, I, live) {
 const ONLY = arg('--weeks', null)?.split(',').map(Number);
 const B25 = DO25 ? await season(2025, wk(2025).filter(w => w >= 2), []) : { games: [], players: [], detail: [], blends: [] };
 const B26 = await season(2026, wk(2026).filter(w => !ONLY || ONLY.includes(w)), B25.detail);
-const summ = B => ({ games: B.games.length, weeks: [...new Set(B.games.map(g => g.w))], top4: top4Table(B.games), anytime: brierTable(B.players), scorerSplit: allocLL(B.detail, B.blends), tdsByPosition: posMix(B.detail, B.blends), blendByWeek: B.blends, ...(process.env.BYWEEK ? { byWeek: Object.fromEntries([...new Set(B.players.map(r => r.w))].map(w => [w, brierTable(B.players.filter(r => r.w === w)).all])) } : {}) });
+const summ = B => ({ games: B.games.length, weeks: [...new Set(B.games.map(g => g.w))], top4: top4Table(B.games), anytime: brierTable(B.players.filter(r => r.legacy)), anytimeRosterPool: brierTable(B.players), roleScorerShare: r3(B.games.reduce((a, g) => a + g.roleSc, 0) / Math.max(1, B.games.reduce((a, g) => a + g.scorers, 0))), scorerSplit: allocLL(B.detail, B.blends), tdsByPosition: posMix(B.detail, B.blends), blendByWeek: B.blends, ...(process.env.BYWEEK ? { byWeek: Object.fromEntries([...new Set(B.players.map(r => r.w))].map(w => [w, brierTable(B.players.filter(r => r.w === w)).all])) } : {}) });
 const best = s => Object.entries(s.top4).filter(([k]) => KS.includes(k)).sort((a, b) => b[1].hitsPerGame - a[1].hitsPerGame)[0]?.[0];
 const S26 = summ(B26), S25 = DO25 ? summ(B25) : null;
 const out = { generated: new Date().toISOString(), tdShareVersion: TD_SHARE_VERSION, simPbpVersion: SIM_PBP_VERSION, simsPerGame: SIMS ? NS : 0, seconds: Math.round((Date.now() - t0) / 1000), shippedBlend: TD_BLEND,
-  note: 'Walk-forward: every input for week W (injuries, roster, team drives / play-by-play / td-share fits, recent usage) uses data before W only. Hit = a top-4 pick scored a rushing or receiving TD. driveNew / pbp2New = 4.13.1 model-independent engines (players, TD rates and scorer split from real data only; no model TD budget, rates or volumes; pbp TD level tied to the team\'s real-drive TD rate); pbpFree = pbp2New without that data-level fix; drive413 / pbp413 = 4.13.0 as shipped (model inputs + TD-budget anchor). model = shipped anytime chance (evaluation baseline only); sleeper = published price (games with >= 8 priced players); naive = season TD leaders. Probabilities scored over the live model\'s player universe; players a sim did not list count as 0.',
+  note: 'Walk-forward: every input for week W (weekly roster, injuries, team drives / play-by-play / td-share fits, recent usage, prior-season rates) uses data before W only. Hit = a top-4 pick scored a rushing or receiving TD. The sims read no betting-market data (no Vegas totals, spreads, implied totals, win probabilities, Sleeper or sportsbook prices); assertMarketFree throws otherwise. driveNew / pbp2New = 4.14.0 sims (nflverse weekly roster as the pre-game roster, a player\'s rates carried across a team change, rookie / depth priors, 1% per-player floor); drive4131 / pbp4131 = 4.13.1 as shipped; driveG = driveNew + a per-game team TD multiplier (research); drive413 / pbp413 = 4.13.0 (model inputs + TD-budget anchor, comparison only). model = shipped anytime chance and sleeper = published price, both comparison baselines only, never sim inputs; naive = season TD leaders. Sims pick from the whole pre-game roster; anytime = Brier / log loss over the model\'s player universe (comparable with model / sleeper), anytimeRosterPool = over the full pre-game roster (players a sim did not list count as 0). Role = anyone outside QB1 / RB1 / WR1 / WR2 / TE1 of the 4.14 depth order.',
   season2026: { ...S26, best: best(S26) }, season2025: S25 ? { ...S25, best: best(S25) } : null,
-  games2026: B26.games.map(g => ({ gid: g.gid, w: g.w, a: g.away, h: g.home, sc: g.score, sim: g.picks.driveNew || g.picks.model, simHits: g.hits.driveNew ?? g.hits.model, pbp: g.picks.pbp2New ? g.picks.pbp2New.map(p => p.n) : null, pbpHits: g.hits.pbp2New ?? null, modelHits: g.hits.model, sleeperHits: g.hits.sleeper ?? null, naiveHits: g.hits.naive, oldHits: g.hits.driveOld ?? null, v412Hits: g.hits.drive412 ?? null, actual: g.actual, out: g.out, sur: g.surprise?.driveNew || null, pbpSur: g.surprise?.pbp2New || null })) };
+  games2026: B26.games.map(g => ({ gid: g.gid, w: g.w, a: g.away, h: g.home, sc: g.score, sim: g.picks.driveNew || g.picks.model, simHits: g.hits.driveNew ?? g.hits.model, pbp: g.picks.pbp2New ? g.picks.pbp2New.map(p => p.n) : null, pbpHits: g.hits.pbp2New ?? null, modelHits: g.hits.model, sleeperHits: g.hits.sleeper ?? null, naiveHits: g.hits.naive, oldHits: g.hits.drive4131 ?? null, v4131: g.picks.drive4131 ? g.picks.drive4131.map(p => p.n) : null, actual: g.actual, out: g.out, sur: g.surprise?.driveNew || null, pbpSur: g.surprise?.pbp2New || null })) };
 if (!process.env.NO_WRITE) { fs.mkdirSync(path.join(ROOT, 'archive', 'sim'), { recursive: true }); fs.writeFileSync(path.join(ROOT, 'archive', 'sim', 'top4-backtest-2026.json'), JSON.stringify(out)); }
 fs.writeFileSync(process.env.DETAIL || '/tmp/top4-detail.json', JSON.stringify({ B25, B26 })); if (DUMP) fs.writeFileSync(process.env.DUMP, JSON.stringify(DUMP));
 console.log(JSON.stringify({ ...out, games2026: out.games2026.length }, null, 1));

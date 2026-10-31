@@ -38,7 +38,7 @@ if (have) {
   for (const f of fs.readdirSync(snapDir).filter(x => /^\d{4}_\d{2}_\w+_\w+\.json$/.test(x)).sort()) {
     const P = JSON.parse(fs.readFileSync(path.join(snapDir, f), 'utf8')).latest?.payload; if (!P?.teams?.away) continue; const away = P.teams.away.team, home = P.teams.home.team;
     const side = t => { const k = t === away ? 'away' : 'home'; return { players: P.players.filter(p => p.team === t), opp: k === 'away' ? home : away, teamLambda: P.teams[k].teamLambda, tdBudget: P.teams[k].tdBudget }; };
-    const In = buildSimInputs(D, { away, home, sideFor: side, lines: P.lines || null, gameId: f }); const Ip = buildPbpInputs(In, PP);
+    const In = buildSimInputs(D, { away, home, sideFor: side, gameId: f }); const Ip = buildPbpInputs(In, PP);
     sims.push({ game: `${away}@${home}`, teams: [away, home], In, drive: runSim(In, { n: 1500, seed: 41, mode: 'free' }), pbp: Ip ? runPbp(Ip, { n: 600, seed: 43 }) : null });
   }
 }

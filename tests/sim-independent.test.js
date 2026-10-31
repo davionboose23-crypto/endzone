@@ -36,3 +36,24 @@ test('data players: injury report / roster drops players, research "model" sourc
   const moved = dataPlayers(D, 'GB', { [top.gsis]: ['CAR', null, '', null] }); assert.ok(!moved.some(p => p.gsis === top.gsis));
   const m = buildSimInputs(D, { away: 'CAR', home: 'GB', sideFor: side(1), gameId: 'x', source: 'model' }); assert.equal(m.source, 'model'); assert.equal(m.teams[0].tdBudget, 2.4);
 });
+
+// 4.14.0 user decision: "Leave out Vegas totals and the sim should leave out the betting market, it should be strictly on probability."
+// The default sims read NO betting-market data: scaling or removing every market number (lines, spreads, implied totals, Sleeper prices,
+// the model's implied-points TD budget) changes nothing the engines read or produce. Market numbers may only be shown next to the result.
+test('default sims read no betting-market data (scale x7 or remove: identical engines)', async () => {
+  const { assertMarketFree, vsMarket } = await import('../src/sim.js');
+  const mkt = f => t => { const s = side(f)(t); s.spread = -3.5 * f; s.implied = 24 * f; s.lines = { known: true, total: 44 * f, totalKnown: true, awaySpread: 3.5 * f };
+    s.players = s.players.map(p => ({ ...p, published: 0.3 * f, odds: 150 * f })); return s; };
+  const L = f => ({ known: true, total: 44 * f, totalKnown: true, awaySpread: 3.5 * f, homeSpread: -3.5 * f });
+  const a = buildSimInputs(D, { away: 'CAR', home: 'GB', sideFor: mkt(1), lines: L(1), gameId: 'x', tdShare: TDS });
+  const b = buildSimInputs(D, { away: 'CAR', home: 'GB', sideFor: mkt(7), lines: L(7), gameId: 'x', tdShare: TDS });
+  const c = buildSimInputs(D, { away: 'CAR', home: 'GB', gameId: 'x', tdShare: TDS }); // no market (and no model) at all
+  for (const I of [a, b, c]) assert.ok(assertMarketFree(I));
+  assert.equal(a.lines, null); assert.deepEqual(strip(a), strip(b)); assert.deepEqual(strip(a), strip(c));
+  const r1 = runSim(a, { n: 400, seed: 3 }), r3 = runSim(c, { n: 400, seed: 3 }); assert.deepEqual(Array.from(r1.score), Array.from(r3.score));
+  const p1 = runPbp(buildPbpInputs(b, PP), { n: 200, seed: 3 }), p3 = runPbp(buildPbpInputs(c, PP), { n: 200, seed: 3 }); assert.deepEqual(Array.from(p1.G.td), Array.from(p3.G.td));
+  const s = summarize(r1, a); assert.equal(s.line, null); assert.equal(s.over, null); // summarize never sees a line
+  const v = vsMarket(r1, L(1)); assert.ok(v.over > 0 && v.over < 1 && v.homeCover > 0 && v.homeCover < 1); // display-only comparison after the run
+  const m = buildSimInputs(D, { away: 'CAR', home: 'GB', sideFor: side(1), gameId: 'x', source: 'model' }); assert.throws(() => assertMarketFree(m), /market/); // research baseline is flagged
+  assert.throws(() => assertMarketFree({ ...a, disp: { drive: { anchor: 1 } } }), /anchor/);
+});

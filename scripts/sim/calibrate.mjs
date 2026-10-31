@@ -3,7 +3,7 @@
 // (b) history (nflverse 2025+2026 drives, points, spread of totals and margins). Writes archive/sim/calibration-<season>.json.
 // Usage: node scripts/sim/calibrate.mjs [season] [n]
 import fs from 'node:fs'; import path from 'node:path';
-import { runSim, summarize, SIM_VERSION } from '../../src/sim.js'; import { snapInputs } from './snap.mjs';
+import { runSim, summarize, vsMarket, SIM_VERSION } from '../../src/sim.js'; import { snapInputs } from './snap.mjs';
 const ROOT = new URL('../../', import.meta.url).pathname; const season = process.argv[2] || '2026'; const N = Number(process.argv[3] || 10000);
 // history baselines (nflverse 2025+2026 regular season, 379 games; real 2026 drive file)
 const HIST = { ptsPerTeam: 23.0, ptsSD: 9.8, totalSD: 13.9, homeMarginSD: 13.8, totalResidSDvsLine: 13.1, marginResidSDvsLine: 12.2, drivesPerTeam: 10.78, drivesSD: 1.73, tdPerTeam: 2.48, tdSD: 1.40 };
@@ -14,7 +14,7 @@ for (const w of fs.readdirSync(path.join(ROOT, 'archive', season)).filter(d => /
   const df = path.join(ROOT, 'archive', 'drives', season, `${w}.json`); if (!fs.existsSync(df)) continue; const D = JSON.parse(fs.readFileSync(df, 'utf8'));
   for (const f of fs.readdirSync(path.join(ROOT, 'archive', season, w)).filter(f => f.endsWith('.json')).sort()) {
     const r = snapInputs(path.join(ROOT, 'archive', season, w, f), D); if (!r) continue; const { I } = r;
-    const t0 = Date.now(); const S = runSim(I, { n: N, seed: 1 }); ms += Date.now() - t0; const s = summarize(S, I);
+    const t0 = Date.now(); const S = runSim(I, { n: N, seed: 1 }); ms += Date.now() - t0; const s = Object.assign(summarize(S, I), vsMarket(S, r.lines)); // display-only comparison after the run
     const sc = [], dr = [], td = [], tot = [], mar = []; for (let g = 0; g < S.n; g++) { sc.push(S.score[g * 2], S.score[g * 2 + 1]); dr.push(S.drives[g * 2], S.drives[g * 2 + 1]); td.push(S.tds[g * 2], S.tds[g * 2 + 1]); tot.push(S.score[g * 2] + S.score[g * 2 + 1]); mar.push(S.score[g * 2 + 1] - S.score[g * 2]); }
     for (const p of s.players) { if (p.model.chance >= 0.05) gaps.push({ g: f.replace('.json', ''), name: p.name, sim: p.anytime, model: p.model.chance, d: p.anytime - p.model.chance });
       for (const k of Object.keys(vol)) { const big = k === 'rec' ? 1.5 : k === 'car' ? 3 : 15; if (p.model[k] >= big) vol[k].push(p[k].mean / p.model[k] - 1); } }

@@ -6,7 +6,7 @@ import { teamLogo } from '/src/roster.js';
 import { snapshotPassTd } from '/src/passing-touchdowns.js';
 import { buildBrief, analyze, PROVIDERS } from '/src/analyst.js';
 import { driveAdjustFor, applyToChance, pLead } from '/src/drive-adjust.js';
-import { buildSimInputs, runSim, summarize, playerGameStat, playerDriveTable, pAtLeast, simPatterns, driveCard, pct as simPct, hashSeed, GAME_PRESETS, SIM_PRESETS, STAT_LBL as SIM_LBL } from '/src/sim.js';
+import { buildSimInputs, runSim, summarize, vsMarket, playerGameStat, playerDriveTable, pAtLeast, simPatterns, driveCard, pct as simPct, hashSeed, GAME_PRESETS, SIM_PRESETS, STAT_LBL as SIM_LBL } from '/src/sim.js';
 import { buildPbpInputs, calibratePbp, pbpRunner, finish as pbpFinish, summarizePbp, pbpPartial, replayGame } from '/src/sim-pbp.js';
 import { STATS, PRESETS, thLabel, shortName, personName, ylText, statLine, cellText, playerDriveRows, hitSummary, meets, driveLabel } from '/src/drive-log.js';
 
@@ -353,6 +353,7 @@ function simPick() {
 }
 function simDone(m, key) {
   if (S.sim.key !== key) return; if (!m.ok) { S.sim.status = 'error'; S.sim.err = m.error; paintSim(); return; }
+  if (m.sum && m.raw) Object.assign(m.sum, vsMarket(m.raw, S.sim.market)); // 4.14.0: the betting line is compared AFTER the run, display only (the sim never reads it)
   Object.assign(S.sim, { status: 'done', sum: m.sum, raw: m.raw, ms: m.ms, msPilot: m.msPilot ?? null, wall: Math.round(performance.now() - S.sim.t0), pj: null, prog: null, partial: null, replay: null, rg: null }); paintSim();
 }
 // 4.10.0: live progress (play-by-play mode posts every 250 games; a partial read-out every 1,000)
@@ -378,9 +379,9 @@ function simReplay(g) {
 function runSimUi(newSeed) {
   const D = drivesData(); if (!D) return; const { g, A, B, key, mode } = simPick(); if (A === B) { S.sim = { ...S.sim, key, status: 'error', err: 'Pick two different teams.' }; paintSim(); return; }
   const seed = (Math.random() * 2 ** 31) >>> 0; // fresh 10,000 games every run
-  let inputs = buildSimInputs(D, { away: A, home: B, sideFor: simSideFor, lines: g ? g.sides.away.lines || null : null, gameId: g?.id || `${A}@${B}`, tdShare: S.slate.pbp?.td || null, rosterNow: S.slate.rosterNow || null });
+  let inputs = buildSimInputs(D, { away: A, home: B, sideFor: simSideFor, gameId: g?.id || `${A}@${B}`, tdShare: S.slate.pbp?.td || null, rosterNow: S.slate.rosterNow || null });
   if (mode === 'pbp') { const pi = buildPbpInputs(inputs, S.slate.pbp); if (!pi) { S.sim = { ...S.sim, key, status: 'error', err: 'No play-by-play parameters for one of these teams yet.' }; paintSim(); return; } inputs = pi; }
-  Object.assign(S.sim, { key, status: 'running', sum: null, raw: null, err: null, seed, t0: performance.now(), inputs, prog: mode === 'pbp' ? { done: 0, n: SIM_N, phase: 'pilot' } : null, partial: null, replay: null, rg: null, E: null }); paintSim();
+  Object.assign(S.sim, { key, market: g ? g.sides.away.lines || null : null, status: 'running', sum: null, raw: null, err: null, seed, t0: performance.now(), inputs, prog: mode === 'pbp' ? { done: 0, n: SIM_N, phase: 'pilot' } : null, partial: null, replay: null, rg: null, E: null }); paintSim();
   const id = ++simSeq;
   const inPagePbp = () => { // chunked so the page stays responsive and the counter moves
     try { const t0 = performance.now(); const { E, pilots } = calibratePbp(inputs, { pilots: 2, n: 800, seed: seed + 9 }); const tp = performance.now(); const R = pbpRunner(inputs, { n: SIM_N, seed, E }); let next = 1000;

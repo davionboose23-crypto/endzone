@@ -116,17 +116,43 @@ function lastTeams(D) {
   for (const [tm, T] of Object.entries(D?.teams || {})) T.games.forEach(gm => { for (const d of gm.d) for (const x of d[8]) { const g = T.people[x[0]]?.[0]; if (!g) continue; const c = m.get(g); if (!c || gm.w > c.w || (gm.w === c.w && c.t !== tm && (gm.game || '') > (c.game || ''))) m.set(g, { t: tm, w: gm.w, game: gm.game }); } });
   lastTeamCache.set(D, m); return m;
 }
-export function dataPlayers(D, team, rosterNow = null) {
+// 4.14.0 player universe: rostered skill players the team's own drive file does not cover (week-1 signings, trades, returning
+// players, rookies) used to get no chance at all. Walk-forward they scored 9.5% of 2026 TDs. Now: (a) carry-forward = the player's
+// own recency-weighted per-game line from his last 8 games for ANY team in the file (last season's file in week 1), TD rate shrunk
+// to his share of the new team's touches; (b) no history = a small rookie / depth prior by position. Both need rosterNow (today's
+// roster: [team, injury, practice, status, pos, name]); the split then goes through td-share-1 like everyone else.
+export const DATA_OPTS = { carry: true, rookie: { RB: [0.5, 1.2], WR: [1.2, 0.05], TE: [0.8, 0], QB: [0, 0.3], FB: [0.2, 0.3] }, floor: 0.01, depthCal: null, tdSd: 0 };
+const SKILL = new Set(['QB', 'RB', 'WR', 'TE', 'FB']);
+const byGsisCache = new WeakMap();
+function linesByGsis(D) { let m = byGsisCache.get(D); if (m) return m; m = new Map();
+  for (const [tm, T] of Object.entries(D?.teams || {})) for (const gm of T.games || []) { const pg = new Map();
+    for (const d of gm.d) for (const x of d[8]) { const g = T.people[x[0]]?.[0]; if (!g) continue; const v = pg.get(g) || [0, 0, 0, 0, 0, 0, 0]; v[0] += x[1]; v[1] += x[2]; v[2] += x[3]; v[3] += x[4]; v[4] += x[5]; v[5] += x[7]; v[6] += x[1] + x[4]; pg.set(g, v); }
+    for (const [g, v] of pg) { const a = m.get(g) || []; a.push({ t: tm, ord: (gm.season || 0) * 100 + (gm.w || 0), game: gm.game || '', v, pe: T.people.find(q => q[0] === g) }); m.set(g, a); } }
+  for (const a of m.values()) a.sort((x, y) => x.ord - y.ord || (x.game > y.game ? 1 : -1)); byGsisCache.set(D, m); return m; }
+function extraPlayers(D, team, rosterNow, have, tdpg, touchPg, o) {
+  if (!rosterNow) return []; const L = linesByGsis(D); const out = []; const seen = new Set();
+  for (const [k, r] of Object.entries(rosterNow)) { if (!/^00-/.test(k) || seen.has(k)) continue; seen.add(k); const [tm, , , , pos0, name, exp] = r; if (tm !== team || have.has(k)) continue;
+    const hist = L.get(k); const pos = pos0 || hist?.[hist.length - 1]?.pe?.[2]; if (!SKILL.has(pos)) continue;
+    let s, src;
+    if (o.carry && hist?.length) { const G = hist.slice(-HIST_N); let W = 0; s = [0, 0, 0, 0, 0, 0, 0]; G.forEach((h, i) => { const w = Math.pow(HIST_DECAY, G.length - 1 - i); W += w; for (let j = 0; j < 7; j++) s[j] += w * h.v[j]; }); s = s.map(x => x / W); src = 'carry'; }
+    else if (o.rookie?.[pos] && !(o.rookieOnly && !(exp === 0 || (exp == null && !hist?.length && o.rookieOnly === 'loose')))) { const [t, c] = o.rookie[pos]; s = [t, t * 0.6, t * 6, c, c * 4, 0, t + c]; src = 'prior'; } else continue;
+    if (s[6] < 0.2 && pos !== 'QB') { const [t, c] = o.rookie?.[pos] || [0.3, 0.3]; s = [Math.max(s[0], t * 0.5), s[1], s[2], Math.max(s[3], c * 0.5), s[4], s[5], 0]; s[6] = s[0] + s[3]; }
+    const sh = touchPg > 0 ? s[6] / touchPg : 0; const own = src === 'carry' ? s[5] : 0; const lam = 0.5 * own + 0.5 * tdpg * sh; const pe = hist?.[hist.length - 1]?.pe;
+    out.push({ id: String(pe?.[3] || k), gsis: k, name: name || pe?.[1] || k, pos, lam, chance: 1 - Math.exp(-lam), tgt: s[0], car: s[3], rec: s[1], recYd: s[2], rushYd: s[4], rushTd: DEFAULT_RUSH_TD[pos] ?? 0.3, passShare: 0,
+      qbScore: 0, passTdExp: null, lead: null, behind: null, pats: patternsFor(D, k), history: true, newcomer: src }); }
+  return out; }
+export function dataPlayers(D, team, rosterNow = null, o = DATA_OPTS) {
   const T = D?.teams?.[team]; if (!T) return []; const G = T.games.slice(-HIST_N); if (!G.length) return []; const LT = lastTeams(D); const acc = new Map();
   let teamTd = 0, W = 0; G.forEach((gm, gi) => { const w = Math.pow(HIST_DECAY, G.length - 1 - gi); W += w; const seen = new Set();
     for (const d of gm.d) { if (d[5] === 'TD') teamTd += w; for (const x of d[8]) { const a = acc.get(x[0]) || { s: [0, 0, 0, 0, 0, 0, 0], qb: 0, qbC: 0 }; const s = a.s;
       s[0] += w * x[1]; s[1] += w * x[2]; s[2] += w * x[3]; s[3] += w * x[4]; s[4] += w * x[5]; s[5] += w * x[7]; s[6] += w * (x[1] + x[4]); acc.set(x[0], a);
       if (gi >= G.length - 3) { if (!seen.has(x[0])) { seen.add(x[0]); a.qb += [0.15, 0.4, 1][gi - (G.length - 3)] ?? 0; } a.qbC += x[4] * ([0.15, 0.4, 1][gi - (G.length - 3)] ?? 0); } } } });
   const totT = [...acc.values()].reduce((s, a) => s + a.s[6], 0) || 1; const tdpg = teamTd / W;
-  let pl = [...acc.entries()].filter(([pi, a]) => { const pe = T.people[pi]; const lt = LT.get(pe[0]); return (a.s[6] / W >= 0.4 || pe[2] === 'QB') && !(lt && lt.t !== team); }).map(([pi, a]) => { const pe = T.people[pi]; const s = a.s; const sh = s[6] / totT; const lam = 0.5 * (s[5] / W) + 0.5 * tdpg * sh;
+  let pl = [...acc.entries()].filter(([pi, a]) => { const pe = T.people[pi]; const lt = LT.get(pe[0]); return (a.s[6] / W >= 0.4 || pe[2] === 'QB') && !(lt && lt.t !== team && rosterNow?.[pe[0]]?.[0] !== team); }).map(([pi, a]) => { const pe = T.people[pi]; const s = a.s; const sh = s[6] / totT; const lam = 0.5 * (s[5] / W) + 0.5 * tdpg * sh;
     return { id: String(pe[3] || pe[0]), gsis: pe[0], name: pe[1], pos: pe[2], lam, chance: 1 - Math.exp(-lam), tgt: s[0] / W, car: s[3] / W, rec: s[1] / W, recYd: s[2] / W, rushYd: s[4] / W,
-      rushTd: DEFAULT_RUSH_TD[pe[2]] ?? 0.3, passShare: 0, qbScore: pe[2] === 'QB' ? a.qb * (1 + 0.1 * a.qbC) : 0, passTdExp: null, lead: null, behind: null, pats: patternsFor(D, pe[0]), history: true }; })
-    .map(p => rosterCheck(p, team, rosterNow)).filter(Boolean);
+      rushTd: DEFAULT_RUSH_TD[pe[2]] ?? 0.3, passShare: 0, qbScore: pe[2] === 'QB' ? a.qb * (1 + 0.1 * a.qbC) : 0, passTdExp: null, lead: null, behind: null, pats: patternsFor(D, pe[0]), history: true }; });
+  if (o && (o.carry || o.rookie) && rosterNow) pl.push(...extraPlayers(D, team, rosterNow, new Set(pl.map(p => p.gsis)), tdpg, totT / W, o));
+  pl = pl.map(p => rosterCheck(p, team, rosterNow)).filter(Boolean);
   const qbs = pl.filter(p => p.pos === 'QB' && p.qbScore > 0); const qs = qbs.reduce((s, p) => s + p.qbScore, 0);
   if (qs > 0) { for (const p of qbs) p.passShare = p.qbScore / qs; const keep = qbs.filter(p => p.passShare >= 0.1), k2 = keep.reduce((s, p) => s + p.passShare, 0); for (const p of qbs) p.passShare = keep.includes(p) ? +(p.passShare / k2).toFixed(3) : 0; }
   pl = pl.filter(p => p.pos !== 'QB' || p.passShare > 0 || p.tgt + p.car >= 0.4); for (const p of pl) delete p.qbScore; return pl;
@@ -138,13 +164,35 @@ export function rosterCheck(p, team, rosterNow) {
   const av = availability({ injury, practice, status }); if (av.excluded || !(av.factor > 0)) return null; if (av.factor >= 1) return p;
   const f = av.factor; return { ...p, lam: p.lam * f, chance: 1 - Math.exp(-p.lam * f), tgt: p.tgt * f, car: p.car * f, rec: p.rec * f, recYd: p.recYd * f, rushYd: p.rushYd * f, avail: av.status };
 }
+// 4.14.0 depth slot of each available player within his position by recent touches (QB: pass-share starter vs backup)
+export function depthSlots(players) { const c = {}; const k = new Array(players.length).fill(null);
+  players.map((p, i) => i).sort((a, b) => (players[b].tgt + players[b].car) - (players[a].tgt + players[a].car)).forEach(i => { const p = players[i]; const pos = p.pos === 'FB' ? 'RB' : p.pos;
+    if (pos === 'QB') { k[i] = (p.passShare || 0) >= 0.5 ? 'QB1' : 'QB2'; return; } if (!['RB', 'WR', 'TE'].includes(pos)) return; c[pos] = (c[pos] || 0) + 1; k[i] = pos + Math.min(c[pos], pos === 'WR' ? 4 : 3); });
+  return k; }
+// optional per-slot multipliers on each player's TD rate (team total kept) and a minimum share floor taken out of the team total
+export const STAR_SLOTS = new Set(['QB1', 'RB1', 'WR1', 'WR2', 'TE1']); // display tag only: anyone else in the team's depth order is a role player
+function applyDepth(players, o) { const ks = depthSlots(players); players.forEach((p, i) => { p.slot = ks[i]; p.role = ks[i] && STAR_SLOTS.has(ks[i]) ? 'star' : 'role'; });
+  const lt = sum(players, p => p.lam); if (!(lt > 0)) return; let v = players.map(p => p.lam);
+  if (o.depthCal) { const k = depthSlots(players); v = v.map((x, i) => x * (k[i] ? (o.depthCal[k[i]] ?? 1) : 1)); }
+  if (o.floor > 0) { const z = v.reduce((a, b) => a + b, 0) || 1; v = v.map(x => Math.max(x / z, o.floor)); }
+  const z = v.reduce((a, b) => a + b, 0) || 1; players.forEach((p, i) => { p.lam = lt * v[i] / z; p.chance = 1 - Math.exp(-p.lam); if (p.tdShare != null) p.tdShare = +(v[i] / z).toFixed(4); }); }
+// 4.14.0 "strictly on probability": the default sim reads NO betting-market data (no Vegas totals / spreads / implied totals / win
+// probabilities, no Sleeper or sportsbook prices, nothing derived from them: the model's TD budget comes from implied points, so it is out too).
+// Throws if any market-derived number could reach an engine. Display-only joins (modelChance, modelTeamLambda) are allowed: no engine reads them.
+const MARKET_KEYS = ['lines', 'spread', 'implied', 'total', 'published', 'odds', 'moneyline', 'winProb', 'vegas', 'market'];
+export function assertMarketFree(I) { const bad = [];
+  if (I.source !== 'data') bad.push(`source ${I.source}`); if (I.lines != null) bad.push('lines');
+  for (const t of I.teams || []) { if (t.tdBudget != null) bad.push(`${t.team} tdBudget`); if (t.pfModel != null) bad.push(`${t.team} pfModel`);
+    for (const k of MARKET_KEYS) if (t[k] != null) bad.push(`${t.team}.${k}`); for (const p of t.players) for (const k of MARKET_KEYS) if (p[k] != null) bad.push(`${p.name}.${k}`); }
+  const d = I.disp || {}; for (const e of ['drive', 'pbp']) if (d[e]?.anchor) bad.push(`${e} anchor`);
+  if (bad.length) throw new Error('market / model data in sim inputs: ' + bad.join(', ')); return true; }
 // sideFor(team) -> { players, opp, teamLambda, tdBudget } from the slate (the team's own game this week) or null
-export function buildSimInputs(D, { away, home, sideFor = () => null, lines = null, gameId = null, mode = 'free', tsOpts = null, tdShare = null, tdBlend = null, rosterNow = null, disp = null, source = null }) {
+export function buildSimInputs(D, { away, home, sideFor = () => null, gameId = null, mode = 'free', tsOpts = null, tdShare = null, tdBlend = null, rosterNow = null, disp = null, source = null, dataOpts = null }) {
   const src0 = source || (mode === 'anchored' ? 'model' : 'data'); // 4.13.1: free mode = data players, no model numbers reach the engine
   const L = leaguePriors(D); const TS = teamStrength(D, tsOpts || {}); const teams = [away, home].map((team, k) => {
     const opp = k ? away : home; const S = sideFor(team); let src = 'model', note = null; let players;
     let modelRef = null; // display-only: the model's chance per player, joined by id AFTER the sim inputs are built (never read by an engine)
-    if (src0 === 'data') { players = dataPlayers(D, team, rosterNow); src = 'data'; note = `${team}: volumes, TD rates and QB from its last ${HIST_N} games in the drive file (recency-weighted), checked against today's roster and injury report. No model numbers.`;
+    if (src0 === 'data') { players = dataPlayers(D, team, rosterNow, dataOpts || DATA_OPTS); src = 'data'; note = `${team}: volumes, TD rates and QB from its last ${HIST_N} games in the drive file (recency-weighted), checked against today's roster and injury report. No model numbers.`;
       if (S && S.players?.length) { modelRef = new Map(); for (const q of S.players) { const c = q.chance ?? (Number.isFinite(q.lambda) ? 1 - Math.exp(-q.lambda) : null); const g = q.gsis || D?.bySleeper?.[q.id]; if (c != null) { modelRef.set(String(q.id), c); if (g) modelRef.set(g, c); } } }
     } else if (S && S.players?.length) {
       players = S.players.filter(p => !(p.avail?.factor === 0) && ((p.vol?.targets || 0) + (p.vol?.carries || 0) > 0.05 || (p.lambda || 0) > 0.003 || p.pos === 'QB')).map(p => modelPlayer(p, D));
@@ -160,6 +208,7 @@ export function buildSimInputs(D, { away, home, sideFor = () => null, lines = nu
     if (tdShare && (src !== 'history' || src0 === 'data')) { const B0 = tdBlend || (src0 === 'data' ? DATA_BLEND : TD_BLEND); const bs = blendShares(players, tdShare, opp, B0);
       if (bs) { const lt = sum(players, p => p.lam); players.forEach((p, i) => { p.lamModel = p.lam; p.lam = lt * bs[i].share; p.tdShare = +bs[i].share.toFixed(4); if (bs[i].rushFrac != null) p.rushTd = bs[i].rushFrac; });
         tdInfo = { version: TD_SHARE_VERSION, through: tdShare.through ?? null, alpha: B0.alpha, known: bs.filter(x => x.known).length }; } }
+    if (src0 === 'data') applyDepth(players, dataOpts || DATA_OPTS);
     const teamLambda = sum(players, p => p.lam);
     if (modelRef) for (const p of players) { const c = modelRef.get(p.gsis) ?? modelRef.get(p.id); p.modelChance = c ?? null; }
     const M = matchup(TS, team, opp); // opponent-adjusted: this offense vs this defense, by game state
@@ -172,7 +221,7 @@ export function buildSimInputs(D, { away, home, sideFor = () => null, lines = nu
   });
   // both teams get (nearly) the same number of possessions: target = mean of the two opponent-adjusted pace estimates (ridge-shrunk to league)
   const tgtDrives = (teams[0].dpg + teams[1].dpg) / 2;
-  return { version: SIM_VERSION, mode, source: src0, disp, dispVersion: DISP_VERSION, ts: { version: TS.version, maxW: TS.maxW, drives: TS.nDrives, opts: TS.opts }, gameId, away, home, lines, teams, targetDrives: +tgtDrives.toFixed(2),
+  return { version: SIM_VERSION, mode, source: src0, disp, dispVersion: DISP_VERSION, ts: { version: TS.version, maxW: TS.maxW, drives: TS.nDrives, opts: TS.opts }, gameId, away, home, lines: null, tdSd: src0 === 'data' ? ((dataOpts || DATA_OPTS).tdSd || 0) : 0, teams, targetDrives: +tgtDrives.toFixed(2),
     league: { bucket: L.bucket, pAll: L.pAll, pool: L.pool, rrRes: L.rrRes, rrBk: L.rrBk, dpg: L.dpg, ppd: L.ppd, tdPerGame: L.tdPerGame, fgPerGame: L.fgPerGame, passAll: L.passAll } };
 }
 
@@ -203,6 +252,10 @@ function probsFor(E, k, b) { // drive-result probabilities for team k in bucket 
   for (let r = 1; r < NR; r++) p[r] *= (1 - pTd) / rest; p[TD] = pTd; return p;
 }
 function sampleR(p, R) { let u = R(); for (let r = 0; r < NR; r++) { u -= p[r]; if (u < 0) return r; } return PUNT; }
+// 4.14.0 (option, off unless I.tdSd > 0): this game's TD-drive multiplier m ~ Gamma(mean 1, sd tdSd) per team, so a team can have a big or a
+// quiet scoring day as a whole (real team TD counts vary more than independent drives give); non-TD results share the rest
+function sampleRm(p, m, R) { if (m === 1) return sampleR(p, R); const pt = Math.min(0.75, p[TD] * m); if (R() < pt) return TD; let u = R() * (1 - p[TD]);
+  for (let r = 1; r < NR; r++) { u -= p[r]; if (u < 0) return r; } return PUNT; }
 // pattern multiplier for one player on one drive context
 function patMult(pats, ctx, kind) {
   let m = 1; for (const t of pats) {
@@ -234,11 +287,13 @@ export function simulate(I, { n = 10000, seed = 1, record = true, E = null } = {
   const tdAgg = new Uint32Array(NP * TDAGG); // per player: rushing TDs, receiving TDs, TDs by quarter (Q1..Q4, OT), two-minute-drive TDs
   const logs = [];
   const probs = [0, 1].map(k => [0, 1, 2, 3].map(b => probsFor(E, k, b)));
+  const tdA = E.I.tdSd > 0 ? 1 / (E.I.tdSd * E.I.tdSd) : 0; const gmul = [1, 1];
   const anyPats = TT.map(t => t.pl.some(p => p.pats?.length));
   const tmp = TT.map(t => ({ tgt: new Int16Array(t.P), rec: new Int16Array(t.P), recYd: new Int16Array(t.P), car: new Int16Array(t.P), rushYd: new Int16Array(t.P), td: new Int8Array(t.P), w1: new Float64Array(t.P), w2: new Float64Array(t.P), lw: new Float64Array(t.P), lt: 0 }));
   for (let gi = 0; gi < n; gi++) {
     // 4.13.0: this game's TD-scorer split ~ Dirichlet(kappa * share) (usage-var-1); Infinity keeps the fixed split
     for (let k = 0; k < 2; k++) { const t = TT[k], X = tmp[k]; if (!isFinite(t.kap) || !(t.lamTot > 0)) continue; let s = 0; for (let i = 0; i < t.P; i++) { const v = t.lamS[i] > 0 ? gamma(R, t.kap * t.lamS[i]) : 0; X.lw[i] = v; s += v; } X.lt = s; }
+    if (tdA > 0) for (let k = 0; k < 2; k++) gmul[k] = gamma(R, tdA) / tdA;
     const sc = [0, 0], dn = [0, 0]; let hf = 1, tl = 1800, isOt = false; const recv0 = R() < 0.5 ? 0 : 1; kick[gi] = recv0; let pos = recv0; const otPoss = [0, 0];
     let ftd = -1, fsc = -1, lead = 0, lch = 0, first2H = false; const log = gi < LOGN ? [] : null; let safety = 0; let tdSlot = [0, 0];
     let trailedQ4 = 0;
@@ -255,8 +310,8 @@ export function simulate(I, { n = 10000, seed = 1, record = true, E = null } = {
       if (qtr === 4 && !isOt && tl <= 900 && trailedQ4 === 0 && sc[0] !== sc[1]) trailedQ4 = sc[0] < sc[1] ? 1 : 2;
       const two = tl <= 120; const b = two ? 1 : (qtr >= 4 && diff >= 9) ? 2 : (qtr >= 4 && diff <= -9) ? 3 : 0;
       const scn = hf === 2 && !isOt ? (diff >= 8 ? 1 : diff <= -8 ? 2 : 0) : 0;
-      let r = sampleR(probs[k][b], R); let guard = 0;
-      while (r === HALF && tl > 300 && guard++ < 20) r = sampleR(probs[k][b], R); // 'end of half' only when the clock can actually run out
+      let r = sampleRm(probs[k][b], gmul[k], R); let guard = 0;
+      while (r === HALF && tl > 300 && guard++ < 20) r = sampleRm(probs[k][b], gmul[k], R); // 'end of half' only when the clock can actually run out
       if (r === HALF && tl > 300) r = PUNT;
       const pl = L.pool[r]; const tp0 = pl.length ? pl[(R() * pl.length) | 0] : [6, 3, 3]; const tp = [tp0[0] * t.ppdF, tp0[1], tp0[2]]; // league drive template for this result, stretched to the matchup's plays per drive
       const tl0 = tl; let secs = tp[0] * E.spp * (b === 1 ? 0.42 : b === 2 ? 1.2 : b === 3 ? 0.75 : 1) * (0.75 + 0.5 * R()) + 6;
@@ -378,12 +433,16 @@ export function playerDriveTable(S, j, stat, th, maxSlots = 12) {
   return out;
 }
 const RES_TXT = { TD: 'TD', FG: 'FG', MFG: 'missed FG', Punt: 'punt', TO: 'turnover', Downs: 'downs', Half: 'end of half', Safety: 'safety' };
+// 4.14.0 display only: the finished sim's score distribution vs the betting line (never an input; the engines and summarize() don't see it)
+export function vsMarket(S, L) { if (!S?.score || !L?.known) return { line: null, over: null, homeCover: null }; const n = S.n || S.score.length / 2;
+  const line = { spreadHome: L.homeSpread ?? (L.awaySpread != null ? -L.awaySpread : null), total: L.totalKnown ? L.total : null }; let o = 0, c = 0;
+  for (let g = 0; g < n; g++) { const a = S.score[g * 2], b = S.score[g * 2 + 1]; if (line.total != null && a + b >= line.total + 0.01) o++; if (line.spreadHome != null && b - a + line.spreadHome > 0) c++; }
+  return { line, over: line.total != null ? o / n : null, homeCover: line.spreadHome != null ? c / n : null }; }
 export function summarize(S, I) {
   const n = S.n; const A = I.away, B = I.home; const M = means(S);
   let wa = 0, wb = 0, tie = 0, otN = 0; const tot = new Int16Array(n), mar = new Int16Array(n); const fs = new Map();
   for (let g = 0; g < n; g++) { const a = S.score[g * 2], b = S.score[g * 2 + 1]; if (a > b) wa++; else if (b > a) wb++; else tie++; tot[g] = a + b; mar[g] = b - a; if (S.ot[g]) otN++; const key = a > b ? `${a}-${b}` : `${b}-${a}`; const kk = `${a > b ? A : b > a ? B : 'tie'}|${key}`; fs.set(kk, (fs.get(kk) || 0) + 1); }
-  const L = I.lines || null; const line = L?.known ? { spreadHome: L.homeSpread ?? (L.awaySpread != null ? -L.awaySpread : null), total: L.totalKnown ? L.total : null } : null;
-  const over = line?.total != null ? pAtLeast(tot, line.total + 0.01) : null; const homeCover = line?.spreadHome != null ? (() => { let c = 0; for (const m of mar) if (m + line.spreadHome > 0) c++; return c / n; })() : null;
+  const line = null, over = null, homeCover = null; // 4.14.0: the sim never reads the betting market; vsMarket() compares AFTER the run, display only
   const hist = (arr, w) => { const m = new Map(); for (const v of arr) { const b = Math.floor(v / w) * w; m.set(b, (m.get(b) || 0) + 1); } return [...m.entries()].sort((x, y) => x[0] - y[0]).map(([b, c]) => [b, c / n]); };
   const top = [...fs.entries()].sort((x, y) => y[1] - x[1]).slice(0, 10).map(([k, c]) => { const [w, s] = k.split('|'); return { winner: w, score: s, p: c / n }; });
   const team = [0, 1].map(k => { const sc = new Int16Array(n), h = new Int16Array(n), dr = new Int16Array(n), td = new Int16Array(n); for (let g = 0; g < n; g++) { sc[g] = S.score[g * 2 + k]; h[g] = S.half[g * 2 + k]; dr[g] = S.drives[g * 2 + k]; td[g] = S.tds[g * 2 + k]; }
@@ -392,7 +451,7 @@ export function summarize(S, I) {
     return { team: k ? B : A, pts: dist(sc), halfPts: dist(h), drives: dist(dr), td: dist(td), tdDist: tdDist.map(c => c / n), slots, mean: M.team[k] }; });
   // players
   const players = []; for (let k = 0; k < 2; k++) for (let i = 0; i < S.P[k]; i++) { const j = S.base[k] + i; const p = I.teams[k].players[i]; const m = M.pl[j];
-    players.push({ j, k, team: k ? B : A, id: p.id, gsis: p.gsis, name: p.name, pos: p.pos, model: { chance: I.source === 'data' ? (p.modelChance ?? null) : p.chance, lam: p.lam, tgt: p.tgt, car: p.car, rec: p.rec, recYd: p.recYd, rushYd: p.rushYd, passTd: p.passTdExp }, history: !!p.history && I.source !== 'data',
+    players.push({ j, k, team: k ? B : A, id: p.id, gsis: p.gsis, name: p.name, pos: p.pos, model: I.source === 'data' ? { chance: p.modelChance ?? null, lam: p.modelChance != null ? -Math.log(1 - Math.min(0.999, p.modelChance)) : null } : { chance: p.chance, lam: p.lam, tgt: p.tgt, car: p.car, rec: p.rec, recYd: p.recYd, rushYd: p.rushYd, passTd: p.passTdExp }, simLam: p.lam, slot: p.slot || null, role: p.role || null, newcomer: p.newcomer || null, history: !!p.history && I.source !== 'data',
       anytime: m.anytime, twoPlus: m.twoPlus, td: m.td, passTd: p.pos === 'QB' ? m.passTd : null, rec: dist(playerArr(S, j, 'rec')), recYd: dist(playerArr(S, j, 'recYd')), car: dist(playerArr(S, j, 'car')), rushYd: dist(playerArr(S, j, 'rushYd')), tgt: m.tgt, pats: p.pats || [] }); }
   // 4.13.0: "surprise scorer" - chance a TD in this game comes from outside the sim's top 4 by anytime chance, and the likeliest longshots
   const surp = surprise(S, players, { top: 4, longshots: 3 });
@@ -428,13 +487,16 @@ export function summarize(S, I) {
 }
 // 4.9.2: team profiles, team TDs sim vs model budget, Top 4 TD scorers and the biggest player disagreements with the model
 export function simVsModel(out, I) {
-  const teams = I.teams.map((t, k) => { const T = out.team[k]; const modelTd = t.modelTeamLambda ?? t.teamLambda; return { team: t.team, opp: t.opp, src: t.src, simTd: T.mean.td, modelTd, diffTd: modelTd != null ? T.mean.td - modelTd : null, simPts: T.mean.pts, simDrives: T.mean.drives,
+  const teams = I.teams.map((t, k) => { const T = out.team[k]; const modelTd = t.modelTeamLambda ?? null; /* 4.14.0: no model line -> null (was the sim's own lambda shown as the model's) */ return { team: t.team, opp: t.opp, src: t.src, simTd: T.mean.td, modelTd, diffTd: modelTd != null ? T.mean.td - modelTd : null, simPts: T.mean.pts, simDrives: T.mean.drives,
     passSim: T.mean.tgt + T.mean.car > 0 ? T.mean.tgt / (T.mean.tgt + T.mean.car) : null, passModel: t.pfModel?.[0] ?? null, off: t.profile, def: t.defProfile }; });
   const firstOf = j => out.firstTd.find(f => f.j === j)?.p ?? 0;
   const top4 = out.players.slice().sort((a, b) => b.anytime - a.anytime).slice(0, 4).map(p => { const T = teams[p.k]; const share = T.simTd > 0 ? p.td / T.simTd : 0; const mc = p.model.chance; const d = mc == null ? null : p.anytime - mc;
-    const why = d == null ? 'the model has no line on him' : Math.abs(d) < 0.02 ? 'about where the model has him' : T.diffTd != null && Math.abs(T.diffTd) >= 0.15 && Math.sign(T.diffTd) === Math.sign(d) ? `${d > 0 ? 'higher' : 'lower'} than the model mostly because ${T.team} scores ${Math.abs(T.diffTd).toFixed(1)} ${d > 0 ? 'more' : 'fewer'} TDs a game here than the model's budget` : `${d > 0 ? 'higher' : 'lower'} than the model because of how often he gets the ball near the end zone in the sim`;
-    return { j: p.j, name: p.name, pos: p.pos, team: p.team, anytime: p.anytime, model: p.model.chance, diff: d, twoPlus: p.twoPlus, first: firstOf(p.j), share,
-      line: `${p.name} scores in ${pct(p.anytime)} of the ${out.n.toLocaleString()} sims (model ${mc == null ? '—' : pct(mc)}) — he finishes ${pct(share)} of ${poss(p.team)} ${T.simTd.toFixed(1)} TDs a game here; ${why}.` }; });
+    const lg = I.league?.tdPerGame ?? null; const tag = p.role === 'role' ? `${p.slot || p.pos} role player` : p.role === 'star' ? `${p.slot || p.pos}` : p.pos;
+    const teamWhy = lg != null && T.simTd - lg >= 0.3 ? `${T.team} out-scores the league norm (${lg.toFixed(1)} TDs) against ${poss(T.opp)} defense in the sim` : lg != null && lg - T.simTd >= 0.3 ? `even though ${T.team} sits below the league norm (${lg.toFixed(1)} TDs) against ${poss(T.opp)} defense` : null;
+    const plWhy = p.newcomer === 'carry' ? `new to ${p.team}: his rates carry over from his recent games for another team` : p.newcomer === 'prior' ? `no recent NFL games, so a rookie / depth-chart prior for a ${p.pos}` : share >= 0.25 ? `he is ${poss(p.team)} main red-zone and goal-line option in recent games` : p.role === 'role' ? `as a ${tag} his red-zone and goal-line touches add up; TDs often come from outside the stars` : `his share of ${poss(p.team)} red-zone and goal-line work in recent games`;
+    const why = `${tag}: ${plWhy}${teamWhy ? `; ${teamWhy}` : ''}`;
+    return { j: p.j, name: p.name, pos: p.pos, team: p.team, anytime: p.anytime, model: p.model.chance, diff: d, role: p.role, slot: p.slot, newcomer: p.newcomer, twoPlus: p.twoPlus, first: firstOf(p.j), share,
+      line: `${p.name} scores in ${pct(p.anytime)} of the ${out.n.toLocaleString()} sims${mc == null ? '' : ` (model ${pct(mc)}, shown for comparison)`} — he finishes ${pct(share)} of ${poss(p.team)} ${T.simTd.toFixed(1)} TDs a game here; ${why}.` }; });
   const gaps = out.players.filter(p => p.model.chance != null && (p.model.chance >= 0.05 || p.anytime >= 0.05)).map(p => ({ j: p.j, name: p.name, pos: p.pos, team: p.team, anytime: p.anytime, model: p.model.chance, diff: p.anytime - p.model.chance }))
     .sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff)).slice(0, 5).filter(g => Math.abs(g.diff) >= 0.03);
   return { vs: { teams, top4, gaps } };
