@@ -75,7 +75,17 @@ const SNAPS = (() => { const f = path.join(ROOT, 'archive', 'snaps', 'snap_count
   for (const l of ls) { const a = l.split(','); if (a[iG] !== 'REG') continue; const k = a[iT] + '|' + nmK(a[iP]); (m.get(k) || m.set(k, []).get(k)).push({ w: +a[iW], p: +a[iO] }); } return m; })();
 const snapTrend = (team, name, W, k = 2) => { const r = (SNAPS?.get(team + '|' + nmK(name)) || []).filter(x => x.w < W).sort((a, b) => a.w - b.w); if (r.length < 2) return 1;
   const all = r.reduce((s, x) => s + x.p, 0) / r.length; const l3 = r.slice(-3); const rec = l3.reduce((s, x) => s + x.p, 0) / l3.length; if (all <= 0.02) return 1; return Math.min(2, Math.max(0.4, (rec * l3.length + all * k) / (l3.length + k) / all)); };
-const SNAP_A = +(process.env.SNAP || 0), INJ = +(process.env.INJ || 0); const ensRows = [];
+const SNAP_A = +(process.env.SNAP || 0), SNAP_L = +(process.env.SNAPL || 0), INJ = +(process.env.INJ || 0);
+const snapAvg = (team, name, W) => { const r = (SNAPS?.get(team + '|' + nmK(name)) || []).filter(x => x.w < W); return r.length ? r.reduce((s, x) => s + x.p, 0) / r.length : null; };
+// applied to the play-by-play inputs (each player's td-share weight lam steers who scores; tgt / car steer volume)
+function tweak422(I, P, W) { if (!SNAP_A && !SNAP_L && !INJ) return; for (const ti of I.teams) { const pl = ti.players || [];
+  for (const p of pl) { if (p.pos === 'QB') continue; let m = 1; if (SNAP_A) m *= Math.pow(snapTrend(p.team, p.name, W), SNAP_A);
+    if (SNAP_L) { const mates = pl.filter(q => q.pos === p.pos).map(q => snapAvg(q.team, q.name, W)).filter(x => x != null); const v = snapAvg(p.team, p.name, W); if (v != null && mates.length) { const mu = mates.reduce((s, x) => s + x, 0) / mates.length; m *= Math.min(2, Math.max(0.5, Math.pow((v + 0.1) / (mu + 0.1), SNAP_L))); } }
+    if (m !== 1) { if (p.lam != null) p.lam *= m; p.tgt *= m; p.car *= m; } }
+  if (INJ) for (const pos of ['RB', 'WR', 'TE']) { const on = pl.filter(p => p.pos === pos); if (!on.length) continue; const team = on[0].team;
+    const miss = P.filter(p => p.team === team && p.pos === pos && !(p.avail.factor > 0)).reduce((s, p) => s + (snapAvg(team, p.name, W) || 0), 0); if (!(miss > 0.3)) continue;
+    const sn = on.map(p => snapAvg(team, p.name, W) || 0.05); const tot = sn.reduce((s, x) => s + x, 0);
+    on.forEach((p, i) => { const m = 1 + INJ * miss * (sn[i] / tot) / Math.max(0.05, sn[i]); const mm = Math.min(1.6, m); if (p.lam != null) p.lam *= mm; p.tgt *= mm; p.car *= mm; }); } } } const ensRows = [];
 if (process.env.PBP_DVP != null) SIM_PBP_TUNE.dvp = +process.env.PBP_DVP; if (process.env.PBP_LATE != null) SIM_PBP_TUNE.late = +process.env.PBP_LATE; // 4.19.0 research knobs
 const KS = ['driveNew', 'pbp2New', 'drive417', 'pbp417', ...(NORM ? ['driveN'] : []), ...(VAR ? ['driveV', 'pbpV'] : []), ...(process.env.TD_SD != null ? ['driveG'] : []), 'drive4131', 'pbp4131', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.14.0: driveNew / pbp2New = 4.14 (weekly roster + carried rates + rookie/depth priors + 1% floor); driveG = driveNew + per-game team TD multiplier (research); drive4131 / pbp4131 = 4.13.1 as shipped
 if (process.env.KS_ONLY) { const keep = new Set(process.env.KS_ONLY.split(',')); for (let i = KS.length - 1; i >= 0; i--) if (!keep.has(KS[i])) KS.splice(i, 1); } // research: run a subset of engines
@@ -104,10 +114,6 @@ async function season(S, weeks, priorDetail) {
       const P = GR.map(r => { const gsis = s2g.get(String(r.id)) || null; const av = availOf(S, W, gsis); const f = av.factor; const sc = x => x == null ? x : x * f;
         return { id: String(r.id), gsis, name: r.name, pos: r.pos, team: r.team, avail: { factor: f, status: av.status }, chance: f ? 1 - Math.exp(-(r.lambda || 0) * f) : 0, lambda: (r.lambda || 0) * f, components: r.components,
           vol: { ...r.vol, targets: sc(r.vol?.targets || 0), carries: sc(r.vol?.carries || 0) }, volume: r.volume, published: r.published, y: r.y ? 1 : 0, td: r.td || 0, teamLambda: r.teamLambda, tdBudget: r.tdBudget }; });
-      if (SNAP_A) for (const p of P) { const m = Math.pow(snapTrend(p.team, p.name, W), SNAP_A); p.vol.targets *= m; p.vol.carries *= m; }
-      if (INJ) for (const t of new Set(P.map(p => p.team))) for (const pos of ['RB', 'WR', 'TE']) { const T = P.filter(p => p.team === t && p.pos === pos); const gone = T.filter(p => p.avail.factor < 1), on = T.filter(p => p.avail.factor >= 1);
-        for (const key of ['targets', 'carries']) { const f0 = p => p.avail.factor || 0; const miss = gone.reduce((s, p) => s + (f0(p) ? p.vol[key] / f0(p) : (GR.find(r => String(r.id) === p.id)?.vol?.[key] || 0)) * (1 - f0(p)), 0);
-          const tot = on.reduce((s, p) => s + p.vol[key], 0); if (miss > 0 && tot > 0) for (const p of on) p.vol[key] += INJ * miss * p.vol[key] / tot; } }
       const sideFor = t => { const pl = P.filter(p => p.team === t); return pl.length ? { players: pl, opp: t === gm.away ? gm.home : gm.away, teamLambda: pl[0].teamLambda, tdBudget: pl[0].tdBudget } : null; };
       const live = P.filter(p => p.avail.factor > 0); const sur = {}; const prob = {}; for (const p of live) prob[p.id] = { model: p.chance, sleeper: p.published ?? null, naive: (naive.get(p.gsis)?.td || 0) + 0.001 * (naive.get(p.gsis)?.rz || 0) };
       // blend split (for the allocation check, all candidates of each team) + detail for later weeks' blend fits
@@ -134,7 +140,7 @@ async function season(S, weeks, priorDetail) {
         const InV = VAR && D26 ? buildSimInputs(D26, { away: gm.away, home: gm.home, gameId: gid, tdShare: td26, rosterNow: rosterWeek(S, W, true), dataOpts: { ...DATA_OPTS, ...VAR }, ctx: { ...gm.ctx, fit: CTX26 }, ...tb, ...(VAR.fitBeta ? { tdBlend: (() => { const F = fitDataBeta([...priorDetail, ...detail]); betas.push({ S, W, ...F }); return F; })() } : {}) }) : null; if (InV) assertMarketFree(InV);
         const keep = (S0, I0, sm) => Object.assign(sm, { __S: S0, __I: I0 });
         const dr = I0 => { const S0 = runSim(I0, { n: NS, seed: SEED, mode: 'free' }); return keep(S0, I0, summarize(S0, I0)); };
-        const pb = (I0, P0 = I0.seasonOnly ? PP26 : PP) => { const I = buildPbpInputs(I0, P0); if (I0.seasonOnly) assertSeasonOnly(I); const S0 = runPbp(I, { n: NS, seed: SEED }); return keep(S0, I, summarizePbp(S0, I)); };
+        const pb = (I0, P0 = I0.seasonOnly ? PP26 : PP) => { const I = buildPbpInputs(I0, P0); if (I0.seasonOnly) { assertSeasonOnly(I); tweak422(I, P, W); } const S0 = runPbp(I, { n: NS, seed: SEED }); return keep(S0, I, summarizePbp(S0, I)); };
         const run = { drive413: () => dr(In2), pbp413: () => pb(In2), driveNew: () => dr(InD), pbp2New: () => pb(InD), drive417: () => dr(In417), pbp417: () => pb(In417), driveG: () => dr(InG), ...(InV ? { driveV: () => dr(InV), pbpV: () => pb(InV) } : {}), drive4131: () => dr(InO), pbp4131: () => pb(InO) };
         for (const [k, f] of Object.entries(run)) { if ((ENG && !ENG.includes(k)) || !KS.includes(k)) continue; const s = f(); for (const p of live) prob[p.id][k] = 0; for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime; else if (x.gsis) { const m = live.find(p => p.gsis === x.gsis); if (m) prob[m.id][k] = x.anytime; }
           if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live);
