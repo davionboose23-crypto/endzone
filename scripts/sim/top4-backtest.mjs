@@ -22,6 +22,7 @@ import { tallyGames, buildTdShare, fitBlend, blendShares, TD_SHARE_VERSION, TD_B
 import { availability } from '../../src/roster.js';
 import { surprise } from '../../src/usage-var.js';
 import { loadPbpSeason } from '../pbp/lib.mjs';
+import { buildUsagePrior } from '../../src/usage-prior.js';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
 const NS = +arg('--sims', 1000); const DO25 = !process.argv.includes('--no-2025'); const SIMS = !process.argv.includes('--no-sims');
@@ -37,6 +38,7 @@ async function loadGames() { const txt = await cached('https://raw.githubusercon
 const G = await loadGames();
 const TAB = {}; for (const s of [2024, 2025, 2026]) TAB[s] = await loadPbpSeason(s);
 const tallies = Object.values(TAB).flatMap(tallyGames);
+const UPS = { 2025: buildUsagePrior(tallies, 2025), 2026: buildUsagePrior(tallies, 2026) }; // 4.15.0: last-season usage (pbp of S-1 only)
 const s2g = new Map(); for (const T of Object.values(TAB)) for (const [i, p] of Object.entries(T.people)) if (p.sleeper) s2g.set(String(p.sleeper), T.pids[i]);
 const inj = new Map(); for (const s of [2025, 2026]) for (const r of csv(await cached(`${NFLV}/injuries/injuries_${s}.csv`, `/tmp/nfl_injuries_${s}.csv`))) if (r.game_type === 'REG' || !r.game_type) inj.set(`${s}|${r.week}|${r.gsis_id}`, r);
 function availOf(s, w, g) { const r = g && inj.get(`${s}|${w}|${g}`); if (!r || !r.report_status) return { factor: 1, status: null };
@@ -89,11 +91,11 @@ async function season(S, weeks, priorDetail) {
         const In1 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, source: 'model', tdShare: td, tdBlend: B.fitted ? B : { alpha: 0, beta: {} }, disp: false });
         const In2 = { ...In1, disp: { drive: { anchor: 1 }, pbp: { anchor: 1 } } }; // 4.13.0 as shipped
         const tb = DATA_ALPHA != null ? { tdBlend: { alpha: DATA_ALPHA, beta: process.env.DATA_NOBETA ? {} : { TE: 0.1 } } } : {};
-        InD = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: DATA_OPTS, ...tb }); // app default (4.14): model-free, market-free
+        InD = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: DATA_OPTS, usagePrior: UPS[S], ...tb }); // app default (4.14): model-free, market-free
         const InO = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterOf(S, W), dataOpts: OLD_OPTS, ...tb }); // 4.13.1 as shipped
         for (const I0 of [InD, InO]) assertMarketFree(I0); // throws on any model or betting-market source (no Vegas totals / spreads / implied / odds / Sleeper prices)
         const InG = { ...InD, tdSd: TD_SD };
-        const InV = VAR ? buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: { ...DATA_OPTS, ...VAR }, ...tb }) : null; if (InV) assertMarketFree(InV);
+        const InV = VAR ? buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: { ...DATA_OPTS, ...VAR }, usagePrior: UPS[S], ...tb }) : null; if (InV) assertMarketFree(InV);
         const keep = (S0, I0, sm) => Object.assign(sm, { __S: S0, __I: I0 });
         const dr = I0 => { const S0 = runSim(I0, { n: NS, seed: 11, mode: 'free' }); return keep(S0, I0, summarize(S0, I0)); };
         const pb = I0 => { const I = buildPbpInputs(I0, PP); const S0 = runPbp(I, { n: NS, seed: 11 }); return keep(S0, I, summarizePbp(S0, I)); };
