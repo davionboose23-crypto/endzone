@@ -190,6 +190,16 @@ export function fitPbp(tables, { season, before, opts = {} } = {}) {
     return Array.from(n, (nn, t) => r3(base > 0 ? ((x[t] + o.k2.pen * base) / (nn + o.k2.pen)) / base : 1)); };
   const X2 = { v: 2, M: M2, qbs: qbIds.map(i => cur.pids[i]), go, fgT, sneak: { rate: r3(sneakRate), t: sneakT, y: sneakY, conv: sneakConv }, runSY,
     pen: { off: penM(false, r => r.off), def: penM(true, r => r.def) } };
+  // 5) app 4.19.0 defense vs position: share of rushing / receiving TDs each defense allowed to RB / WR / TE / QB (this season, before the
+  //    target week, recency-weighted) over the league share, shrunk toward 1 with k2.dvp TDs of prior weight (a ratio, so offense volume cancels)
+  { const DP = ['RB', 'WR', 'TE', 'QB']; const posOf = r => { const q = cur.people[r.pid]?.pos; return q === 'FB' ? 0 : DP.indexOf(q); };
+    const x = Array.from({ length: NT }, () => new Float64Array(4)); const lgS = new Float64Array(4);
+    for (const r of curRows) { if (!scr(r) || !(r.flags & F.td) || (r.flags & F.defTd) || r.pid < 0) continue; if (!(r.type === PT.run || (r.flags & F.cmp) || scramble(r))) continue;
+      const j = posOf(r); if (j < 0) continue; x[r.def][j] += r._wt; lgS[j] += r._wt; }
+    const lt = lgS.reduce((a, b) => a + b, 0) || 1; const sh = Array.from(lgS, v => (v + 1) / (lt + 4)); const k = o.k2.dvp ?? 12;
+    X2.dvp = { pos: DP, k, m: x.map(row => { const n = row.reduce((a, b) => a + b, 0); return Array.from(row, (v, j) => r3(((v + k * sh[j]) / (n + k)) / sh[j])); }) }; }
+  // 6) app 4.19.0 late-down offense / defense: completion and run-yard effects on 3rd / 4th down only (conversion skill beyond the all-down effects)
+  M2.cmpLate = twoStage(lg, curRows, r => scr(r) && r.down >= 3 && aimed(r) && !(r.flags & F.int) ? ((r.flags & F.cmp) ? 1 : 0) : null, [{ name: 'dist', size: 4, f: r => distB(r.togo) }], [offT, defT], 'logit', { off: (o.k2.late ?? 150), def: (o.k2.late ?? 150) }, NT, o.k.season);
   // ---- player usage by field zone x down (targets, designed carries) ----
   const use = fitUsage(tables.filter(t => t.season === season || prior.includes(t)), season, before, maxW, o);
   // ---- per-team 2026 red-zone history (display) ----
