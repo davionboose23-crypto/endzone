@@ -174,6 +174,11 @@ export function rosterCheck(p, team, rosterNow) {
   const av = availability({ injury, practice, status }); if (av.excluded || !(av.factor > 0)) return null; if (av.factor >= 1) return p;
   const f = av.factor; return { ...p, lam: p.lam * f, chance: 1 - Math.exp(-p.lam * f), tgt: p.tgt * f, car: p.car * f, rec: p.rec * f, recYd: p.recYd * f, rushYd: p.rushYd * f, avail: av.status };
 }
+const resCache = new WeakMap(); // per team: recent drive results (last HIST_N games, recency-weighted), plus league rates
+function teamResRates(D) { let o = resCache.get(D); if (o) return o; const teams = {}, Lg = { TD: 0, FG: 0, Downs: 0, Punt: 0 };
+  for (const [tm, T] of Object.entries(D?.teams || {})) { const G = (T.games || []).slice(-HIST_N); const a = { TD: 0, FG: 0, Downs: 0, Punt: 0 };
+    G.forEach((gm, gi) => { const w = Math.pow(HIST_DECAY, G.length - 1 - gi); for (const d of gm.d) { const r = d[5] === 'MFG' ? 'FG' : d[5]; if (r in a) { a[r] += w; Lg[r] += w; } } }); teams[tm] = a; }
+  const rTd = Lg.TD / Math.max(1e-9, Lg.TD + Lg.FG), go = Lg.Downs / Math.max(1e-9, Lg.Downs + Lg.Punt + Lg.FG); o = { teams, league: { rTd: rTd || 0.6, go: go || 0.05 } }; resCache.set(D, o); return o; }
 // 4.14.0 depth slot of each available player within his position by recent touches (QB: pass-share starter vs backup)
 export function depthSlots(players) { const c = {}; const k = new Array(players.length).fill(null);
   const key = p => p.depthKey ?? (p.tgt + p.car) / Math.max(0.25, p.gp ?? 1); // 4.15.0: depthKey (before the injury-report scaling) when set; touches per game he played, so a starter back from injury still ranks as the starter
@@ -227,6 +232,11 @@ export function buildSimInputs(D, { away, home, sideFor = () => null, gameId = n
     const teamLambda = sum(players, p => p.lam);
     if (modelRef) for (const p of players) { const c = modelRef.get(p.gsis) ?? modelRef.get(p.id); p.modelChance = c ?? null; }
     const M = matchup(TS, team, opp); // opponent-adjusted: this offense vs this defense, by game state
+    if (src0 === 'data' && (dO.fgTd || dO.goK)) { const R = teamResRates(D), a = R.teams[team], L0 = R.league; // 4.17 research (off unless set): 5) red-zone FG-vs-TD habit, 6) 4th-down aggressiveness, from the team's own recent drives
+      if (a) { const k = 12; const rT = (a.TD + k * L0.rTd) / (a.TD + a.FG + k), gT = (a.Downs + k * L0.go) / (a.Downs + a.Punt + a.FG + k); const od = x => x / (1 - x);
+        const fT = dO.fgTd ? Math.pow(od(rT) / od(L0.rTd), dO.fgTd) : 1, fG = dO.goK ? Math.pow(gT / L0.go, dO.goK) : 1;
+        M.mix = M.mix.map(r => { const p = r.slice(); const s01 = p[0] + p[1]; if (dO.fgTd && s01 > 0) { const o2 = od(p[0] / s01) * fT, q = o2 / (1 + o2); p[0] = s01 * q; p[1] = s01 * (1 - q); }
+          if (dO.goK) { const t0 = p[0] * fG; const d = t0 - p[0]; if (p[2] - d > 0.02) { p[0] = t0; p[2] -= d; } } return p; }); } }
     let ctxD = 0; if (src0 === 'data' && dO.ctx && ctx?.fit) { const own = k ? ctx.home : ctx.away, oth = k ? ctx.away : ctx.home; // 4.15.0 ctx-1: home / rest / wind (real results only)
       ctxD = ctxLog(ctx.fit, ctxFeatures({ side: k ? 'home' : 'away', neutral: !!ctx.neutral, restOwn: own?.rest ?? null, restOpp: oth?.rest ?? null, roof: ctx.roof, wind: ctx.wind })) * (dO.ctx === true ? 1 : dO.ctx);
       if (ctxD) M.mix = M.mix.map(r => shiftMix(r, ctxD)); }
