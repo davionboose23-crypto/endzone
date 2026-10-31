@@ -53,6 +53,7 @@ import { blendShares, TD_BLEND, TD_SHARE_VERSION } from './td-share.js';
 import { teamStrength, matchup } from './team-strength.js';
 import { availability } from './roster.js';
 import { priorOf } from './usage-prior.js';
+import { ctxFeatures, ctxLog, shiftMix } from './game-context.js';
 import { dispFor, temper, anchorFor, surprise, DISP_VERSION } from './usage-var.js';
 export function leaguePriors(D) {
   if (D && PRI.has(D)) return PRI.get(D);
@@ -197,9 +198,9 @@ export function assertMarketFree(I) { const bad = [];
   const d = I.disp || {}; for (const e of ['drive', 'pbp']) if (d[e]?.anchor) bad.push(`${e} anchor`);
   if (bad.length) throw new Error('market / model data in sim inputs: ' + bad.join(', ')); return true; }
 // sideFor(team) -> { players, opp, teamLambda, tdBudget } from the slate (the team's own game this week) or null
-export function buildSimInputs(D, { away, home, sideFor = () => null, gameId = null, mode = 'free', tsOpts = null, tdShare = null, tdBlend = null, rosterNow = null, disp = null, source = null, dataOpts = null, usagePrior = null }) {
+export function buildSimInputs(D, { away, home, sideFor = () => null, gameId = null, mode = 'free', tsOpts = null, tdShare = null, tdBlend = null, rosterNow = null, disp = null, source = null, dataOpts = null, usagePrior = null, tsPrior = null, ctx = null }) {
   const src0 = source || (mode === 'anchored' ? 'model' : 'data'); // 4.13.1: free mode = data players, no model numbers reach the engine
-  const L = leaguePriors(D); const TS = teamStrength(D, tsOpts || {}); const teams = [away, home].map((team, k) => {
+  const dO = dataOpts || DATA_OPTS; const L = leaguePriors(D); const TS = teamStrength(D, { ...(tsOpts || {}), ...(src0 === 'data' && dO.ts ? dO.ts : {}), ...(src0 === 'data' && tsPrior && dO.ts?.priorF > 0 ? { prior: tsPrior } : {}) }); const teams = [away, home].map((team, k) => {
     const opp = k ? away : home; const S = sideFor(team); let src = 'model', note = null; let players;
     let modelRef = null; // display-only: the model's chance per player, joined by id AFTER the sim inputs are built (never read by an engine)
     if (src0 === 'data') { players = dataPlayers(D, team, rosterNow, dataOpts || DATA_OPTS, usagePrior); src = 'data'; note = `${team}: volumes, TD rates and QB from its last ${HIST_N} games in the drive file (recency-weighted), checked against today's roster and injury report. No model numbers.`;
@@ -222,16 +223,19 @@ export function buildSimInputs(D, { away, home, sideFor = () => null, gameId = n
     const teamLambda = sum(players, p => p.lam);
     if (modelRef) for (const p of players) { const c = modelRef.get(p.gsis) ?? modelRef.get(p.id); p.modelChance = c ?? null; }
     const M = matchup(TS, team, opp); // opponent-adjusted: this offense vs this defense, by game state
+    let ctxD = 0; if (src0 === 'data' && dO.ctx && ctx?.fit) { const own = k ? ctx.home : ctx.away, oth = k ? ctx.away : ctx.home; // 4.15.0 ctx-1: home / rest / wind (real results only)
+      ctxD = ctxLog(ctx.fit, ctxFeatures({ side: k ? 'home' : 'away', neutral: !!ctx.neutral, restOwn: own?.rest ?? null, restOpp: oth?.rest ?? null, roof: ctx.roof, wind: ctx.wind })) * (dO.ctx === true ? 1 : dO.ctx);
+      if (ctxD) M.mix = M.mix.map(r => shiftMix(r, ctxD)); }
     const pfOf = (sel) => { const t = sum(players, p => sel(p)?.t ?? p.tgt), c = sum(players, p => sel(p)?.c ?? p.car); return t + c > 0 ? t / (t + c) : L.passAll; };
     const pfModel = [pfOf(() => null), pfOf(p => p.lead), pfOf(p => p.behind)];
     return { team, opp, src, note, players, teamLambda, tdShare: tdInfo, tdBudget: src0 === 'data' ? null : (S?.tdBudget ?? null), tdData: +(M.dpg * [0, 1, 2, 3].reduce((a, b) => a + (TS.league.bShare?.[b] ?? (b ? 0 : 1)) * M.mix[b][0], 0)).toFixed(3), modelTeamLambda: S?.teamLambda ?? null, source: src0, dpg: M.dpg,
       mix: M.mix, ppdF: M.ppdF, pf: mode === 'anchored' ? pfModel : M.pf, pfTeam: M.pf, pfModel: src0 === 'data' ? null : pfModel, profile: TS.profiles[team] ? { off: TS.profiles[team].off, lines: TS.profiles[team].lines.off, raw: TS.profiles[team].raw.off } : null,
       defProfile: TS.profiles[opp] ? { team: opp, def: TS.profiles[opp].def, lines: TS.profiles[opp].lines.def, raw: TS.profiles[opp].raw.def } : null,
-      tgtTot: sum(players, p => p.tgt), carTot: sum(players, p => p.car) };
+      ctxLog: ctxD ? +ctxD.toFixed(4) : 0, tgtTot: sum(players, p => p.tgt), carTot: sum(players, p => p.car) };
   });
   // both teams get (nearly) the same number of possessions: target = mean of the two opponent-adjusted pace estimates (ridge-shrunk to league)
   const tgtDrives = (teams[0].dpg + teams[1].dpg) / 2;
-  return { version: SIM_VERSION, mode, source: src0, disp, dispVersion: DISP_VERSION, ts: { version: TS.version, maxW: TS.maxW, drives: TS.nDrives, opts: TS.opts }, gameId, away, home, lines: null, tdSd: src0 === 'data' ? ((dataOpts || DATA_OPTS).tdSd || 0) : 0, teams, targetDrives: +tgtDrives.toFixed(2),
+  return { version: SIM_VERSION, mode, source: src0, disp, dispVersion: DISP_VERSION, ts: { version: TS.version, maxW: TS.maxW, drives: TS.nDrives, opts: TS.opts }, gameId, away, home, lines: null, tdSd: src0 === 'data' ? ((dataOpts || DATA_OPTS).tdSd || 0) : 0, teams, pbpCal: src0 === 'data' ? ((dataOpts || DATA_OPTS).pbpCal || null) : null, targetDrives: +tgtDrives.toFixed(2),
     league: { bucket: L.bucket, pAll: L.pAll, pool: L.pool, rrRes: L.rrRes, rrBk: L.rrBk, dpg: L.dpg, ppd: L.ppd, tdPerGame: L.tdPerGame, fgPerGame: L.fgPerGame, passAll: L.passAll } };
 }
 

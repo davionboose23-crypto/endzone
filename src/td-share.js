@@ -123,6 +123,14 @@ export function fitBlend(teams, { min = 150 } = {}) {
   let best = null; for (const a of [0, 0.1, 0.2, 0.3, 0.4, 0.5]) for (const te of [-0.1, 0, 0.1, 0.2, 0.3]) for (const qb of [-0.2, 0, 0.2]) for (const wr of [-0.1, 0, 0.1]) { const b = { QB: qb, RB: 0, WR: wr, TE: te }; const v = ll(a, b); if (!best || v > best.v) best = { v, alpha: a, beta: b }; }
   return { alpha: best.alpha, beta: best.beta, n, fitted: true, llPerTd: r4(best.v / n) };
 }
+// 4.15.0 data-split position offsets (alpha 1 = td-share-1 alone): walk-forward fit of QB / WR / TE log-offsets (RB = 0) on the
+// scorers of earlier weeks only, ridge-penalised. Real plays only; no model or market numbers enter (the model share is unused at alpha 1).
+export function fitDataBeta(teams, { min = 150 } = {}) {
+  const n = teams.reduce((a, t) => a + t.tds, 0); if (n < min) return { alpha: 1, beta: {}, n, fitted: false };
+  const ll = b => { let s = 0; for (const t of teams) { if (!t.tds) continue; const v = t.c.map(x => Math.max(x[2], 1e-5) * Math.exp(b[x[0]] || 0)); const Z = v.reduce((p, q) => p + q, 0); t.c.forEach((x, i) => { if (x[3]) s += x[3] * Math.log(v[i] / Z); }); } return s - 4 * (b.QB ** 2 + b.WR ** 2 + b.TE ** 2); };
+  let best = null; for (const te of [-0.1, 0, 0.1, 0.2, 0.3]) for (const qb of [-0.2, 0, 0.1, 0.2, 0.3, 0.4]) for (const wr of [-0.1, -0.05, 0, 0.05, 0.1]) { const b = { QB: qb, RB: 0, WR: wr, TE: te }; const v = ll(b); if (!best || v > best.v) best = { v, beta: b }; }
+  return { alpha: 1, beta: best.beta, n, fitted: true, llPerTd: r4(best.v / n) };
+}
 // players: sim players [{ gsis, pos, lam, tgt, car, rushTd }] of ONE team (already filtered to available ones)
 export function blendShares(players, td, opp, B = TD_BLEND) {
   const T = tdShareFor(td, players.map(p => ({ gsis: p.gsis, pos: p.pos, avail: 1, tgt: p.tgt, car: p.car })), opp); if (!T) return null;

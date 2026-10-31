@@ -18,11 +18,13 @@ import { buildSimInputs, runSim, summarize, assertMarketFree, DATA_OPTS, STAR_SL
 import { rosterWeek, poolOf } from './roster-week.mjs';
 import { fitPbp } from '../../src/pbp-fit.js';
 import { buildPbpInputs, runPbp, summarizePbp, SIM_PBP_VERSION } from '../../src/sim-pbp.js';
-import { tallyGames, buildTdShare, fitBlend, blendShares, TD_SHARE_VERSION, TD_BLEND } from '../../src/td-share.js';
+import { tallyGames, buildTdShare, fitBlend, fitDataBeta, blendShares, TD_SHARE_VERSION, TD_BLEND } from '../../src/td-share.js';
 import { availability } from '../../src/roster.js';
 import { surprise } from '../../src/usage-var.js';
 import { loadPbpSeason } from '../pbp/lib.mjs';
 import { buildUsagePrior } from '../../src/usage-prior.js';
+import { fitContext, contextRows } from '../../src/game-context.js';
+import { seasonPrior } from '../../src/team-strength.js';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
 const NS = +arg('--sims', 1000); const DO25 = !process.argv.includes('--no-2025'); const SIMS = !process.argv.includes('--no-sims');
@@ -33,11 +35,15 @@ async function cached(url, f) { if (!fs.existsSync(f)) { for (let i = 0; i < 4; 
 const splitCsv = l => { const o = []; let c = '', q = false; for (const ch of l) { if (ch === '"') q = !q; else if (ch === ',' && !q) { o.push(c); c = ''; } else c += ch; } o.push(c); return o; };
 const csv = txt => { const L = txt.trim().split('\n'); const H = splitCsv(L[0]); return L.slice(1).map(l => { const a = splitCsv(l); return Object.fromEntries(H.map((h, i) => [h, a[i]])); }); };
 async function loadGames() { const txt = await cached('https://raw.githubusercontent.com/nflverse/nfldata/master/data/games.csv', '/tmp/nflverse-games.csv'); const out = new Map();
-  for (const o of csv(txt)) { if (+o.season < 2025 || o.game_type !== 'REG' || o.away_score === '' || o.home_score === '') continue; out.set(o.game_id, { season: +o.season, week: +o.week, away: o.away_team, home: o.home_team, as: +o.away_score, hs: +o.home_score }); }
+  for (const o of csv(txt)) { if (+o.season < 2025 || o.game_type !== 'REG' || o.away_score === '' || o.home_score === '') continue; out.set(o.game_id, { season: +o.season, week: +o.week, away: o.away_team, home: o.home_team, as: +o.away_score, hs: +o.home_score, ctx: { neutral: o.location === 'Neutral', roof: o.roof, wind: o.wind === '' || o.wind === 'NA' ? null : +o.wind, away: { rest: o.away_rest === '' ? null : +o.away_rest }, home: { rest: o.home_rest === '' ? null : +o.home_rest } } }); }
   return out; }
 const G = await loadGames();
 const TAB = {}; for (const s of [2024, 2025, 2026]) TAB[s] = await loadPbpSeason(s);
 const tallies = Object.values(TAB).flatMap(tallyGames);
+const GROWS = csv(fs.readFileSync('/tmp/nflverse-games.csv', 'utf8')); // 4.15.0 ctx-1: scores / site / rest / roof / wind only (no market columns)
+const CTXF = { 2025: fitContext(contextRows(GROWS, [2022, 2023, 2024])), 2026: fitContext(contextRows(GROWS, [2023, 2024, 2025])) };
+const TSP = { 2025: fs.existsSync('/tmp/drv2024/table.json') ? seasonPrior(tableToD(JSON.parse(fs.readFileSync('/tmp/drv2024/table.json', 'utf8'))), 2024) : null, 2026: seasonPrior(tableToD(loadTable(ROOT, 2025)), 2025) }; // 4.15.0 prior-season team strength
+console.error('ctx fits', JSON.stringify(CTXF));
 const UPS = { 2025: buildUsagePrior(tallies, 2025), 2026: buildUsagePrior(tallies, 2026) }; // 4.15.0: last-season usage (pbp of S-1 only)
 const s2g = new Map(); for (const T of Object.values(TAB)) for (const [i, p] of Object.entries(T.people)) if (p.sleeper) s2g.set(String(p.sleeper), T.pids[i]);
 const inj = new Map(); for (const s of [2025, 2026]) for (const r of csv(await cached(`${NFLV}/injuries/injuries_${s}.csv`, `/tmp/nfl_injuries_${s}.csv`))) if (r.game_type === 'REG' || !r.game_type) inj.set(`${s}|${r.week}|${r.gsis_id}`, r);
@@ -61,7 +67,7 @@ const rosterOf = (S, W) => { const o = {}; for (const [k, r] of inj) { const [s,
   o[g] = [null, r.report_status, pr.includes('did not') ? 'DNP' : pr.includes('limited') ? 'Limited' : pr.includes('full') ? 'Full' : '', null]; } return o; };
 async function season(S, weeks, priorDetail) {
   const rowsAll = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'hist', `t412-${S}.json`))); const T = SIMS ? loadTable(ROOT, S) : null;
-  const games = [], players = [], detail = [], blends = [];
+  const games = [], players = [], detail = [], blends = [], betas = [];
   for (const W of weeks) {
     const R = rowsAll.filter(r => r.week === W); if (!R.length) continue;
     const D = !SIMS ? null : W > 1 ? tableToD(T, { before: W }) : fs.existsSync(path.join(ROOT, 'archive', 'drives', String(S - 1), 'table.json')) ? tableToD(loadTable(ROOT, S - 1)) : null; // week 1: last season's drives
@@ -91,11 +97,11 @@ async function season(S, weeks, priorDetail) {
         const In1 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, source: 'model', tdShare: td, tdBlend: B.fitted ? B : { alpha: 0, beta: {} }, disp: false });
         const In2 = { ...In1, disp: { drive: { anchor: 1 }, pbp: { anchor: 1 } } }; // 4.13.0 as shipped
         const tb = DATA_ALPHA != null ? { tdBlend: { alpha: DATA_ALPHA, beta: process.env.DATA_NOBETA ? {} : { TE: 0.1 } } } : {};
-        InD = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: DATA_OPTS, usagePrior: UPS[S], ...tb }); // app default (4.14): model-free, market-free
+        InD = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: DATA_OPTS, usagePrior: UPS[S], tsPrior: W > 1 ? TSP[S] : null, ctx: { ...gm.ctx, fit: CTXF[S] }, ...tb }); // app default (4.14): model-free, market-free
         const InO = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterOf(S, W), dataOpts: OLD_OPTS, ...tb }); // 4.13.1 as shipped
         for (const I0 of [InD, InO]) assertMarketFree(I0); // throws on any model or betting-market source (no Vegas totals / spreads / implied / odds / Sleeper prices)
         const InG = { ...InD, tdSd: TD_SD };
-        const InV = VAR ? buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: { ...DATA_OPTS, ...VAR }, usagePrior: UPS[S], ...tb }) : null; if (InV) assertMarketFree(InV);
+        const InV = VAR ? buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: { ...DATA_OPTS, ...VAR }, usagePrior: UPS[S], tsPrior: W > 1 ? TSP[S] : null, ctx: { ...gm.ctx, fit: CTXF[S] }, ...tb, ...(VAR.fitBeta ? { tdBlend: (() => { const F = fitDataBeta([...priorDetail, ...detail]); betas.push({ S, W, ...F }); return F; })() } : {}) }) : null; if (InV) assertMarketFree(InV);
         const keep = (S0, I0, sm) => Object.assign(sm, { __S: S0, __I: I0 });
         const dr = I0 => { const S0 = runSim(I0, { n: NS, seed: 11, mode: 'free' }); return keep(S0, I0, summarize(S0, I0)); };
         const pb = I0 => { const I = buildPbpInputs(I0, PP); const S0 = runPbp(I, { n: NS, seed: 11 }); return keep(S0, I, summarizePbp(S0, I)); };
@@ -116,7 +122,7 @@ async function season(S, weeks, priorDetail) {
     }
     process.stderr.write(` ${S}w${W}\n`);
   }
-  return { games, players, detail, blends };
+  return { games, players, detail, blends, betas };
 }
 function top4Table(games) { const out = {}; for (const k of KS) { const g = games.filter(x => x.hits[k] != null); if (!g.length) continue; const h = g.map(x => x.hits[k]);
   const exp = g.map(x => x.picks[k].reduce((a, p) => a + (p.pr || 0), 0));

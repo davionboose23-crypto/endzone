@@ -308,6 +308,7 @@ export function calibratePbp(I, { pilots = 2, n = 800, seed = 7, tdPilots = 2 } 
   // 4.13.0 TD-level anchor (usage-var-1): each team's simulated offensive TDs -> the model's pre-game TD budget (implied points x 0.7 / 6.9),
   // by a logit shift on its red-zone / goal-line TD chance. Walk-forward: the sims' scorer SPLIT was already calibrated; the miss was the team total
   const anc0 = anchorFor(I, 'pbp'), dl = dataLevelFor(I, 'pbp'); const useB = anc0 > 0 && I.teams.some(t => t.tdBudget > 0); const anc = useB ? anc0 : dl; const tgtOf = ti => useB ? ti.tdBudget : ti.tdData; const doLvl = E.V && anc > 0 && I.teams.some(t => tgtOf(t) > 0);
+  const pc = I.pbpCal || {}; tdPilots = pc.pilots ?? tdPilots; const pw = pc.pow ?? 0.85; // 4.15.0 pbpCal: more / stronger TD-share pilots (the split converges to the td-share target)
   if (E.V && (doLvl || I.teams.some(t => t.tdShare))) for (let it = 0; it < tdPilots + (doLvl ? 2 : 0); it++) {
     cellTotals(E); const W = alloc(E, n, false); for (let g = 0; g < n; g++) playGame(E, makeRng(gameSeed(seed + 500 + it * 101, g)), g, W, null);
     for (let k = 0; k < 2; k++) { const t = E.T[k], ti = I.teams[k];
@@ -315,7 +316,7 @@ export function calibratePbp(I, { pilots = 2, n = 800, seed = 7, tdPilots = 2 } 
       if (!ti.tdShare || it >= tdPilots) continue; const lt = ti.players.reduce((s, p) => s + (p.lam || 0), 0); if (!(lt > 0)) continue; const tw = temper(t.pl.map(p => p.lam || 0), dispFor(I, 'pbp').tau); // 4.13.0: tempered target split
       const got = new Float64Array(t.P); let tot = 0; for (let i = 0; i < t.P; i++) { for (let g = 0; g < n; g++) got[i] += W.G.td[g * W.NP + W.base[k] + i]; tot += got[i]; } if (tot < 20) continue;
       for (let i = 0; i < t.P; i++) { const want = tw[i], have = (got[i] + 0.5 * want) / (tot + 0.5); if (want < 0.002) continue;
-        const a = clamp(Math.pow(want / have, 0.85), 0.5, 2); for (let c = 2; c < 8; c++) { t.wT[i * 8 + c] *= a; t.wC[i * 8 + c] *= a; } } }
+        const a = clamp(Math.pow(want / have, pw), 0.5, 2); for (let c = 2; c < 8; c++) { t.wT[i * 8 + c] *= a; t.wC[i * 8 + c] *= a; } } }
     hist.push({ tdPilot: it + 1 });
   }
   return { E, pilots: hist };

@@ -30,16 +30,17 @@ function fitAdd(rows, groups, family, iters) {
   return P;
 }
 // multinomial drive-result model: eta_c = base[bucket][c] + off[team][c] + def[opp][c], Punt = reference
-function fitMix(rows, nT, kO, kD, iters) {
+function fitMix(rows, nT, kO, kD, iters, P0 = null) { // P0: { O, D } prior means of the effects (4.15.0 prior-season prior; default 0 = league)
   const C = MIX.length; const B = new Float64Array(4 * C), O = new Float64Array(nT * C), Dd = new Float64Array(nT * C);
   const cnt = new Float64Array(4 * C); for (const r of rows) cnt[r.b * C + r.c] += r.w;
   for (let b = 0; b < 4; b++) { const ref = cnt[b * C + REF] + 0.5; for (let c = 0; c < C; c++) B[b * C + c] = c === REF ? 0 : Math.log((cnt[b * C + c] + 0.5) / ref); }
   const p = new Float64Array(C);
   const probs = r => { let s = 0; for (let c = 0; c < C; c++) { p[c] = Math.exp(B[r.b * C + c] + O[r.o * C + c] + (r.d >= 0 ? Dd[r.d * C + c] : 0)); s += p[c]; } for (let c = 0; c < C; c++) p[c] /= s; return p; };
-  const step = (A, key, k, n) => { const G = new Float64Array(n * C), H = new Float64Array(n * C);
+  const step = (A, key, k, n, A0 = null) => { const G = new Float64Array(n * C), H = new Float64Array(n * C);
     for (const r of rows) { const i = key(r); if (i < 0) continue; probs(r); for (let c = 0; c < C; c++) { if (c === REF) continue; G[i * C + c] += r.w * ((r.c === c ? 1 : 0) - p[c]); H[i * C + c] += r.w * p[c] * (1 - p[c]); } }
-    for (let j = 0; j < n * C; j++) { if (j % C === REF) continue; const den = H[j] + k; if (den > 1e-9) A[j] += (G[j] - k * A[j]) / den; } };
-  for (let it = 0; it < iters; it++) { step(O, r => r.o, kO, nT); step(Dd, r => r.d, kD, nT); step(B, r => r.b, 0.5, 4); }
+    for (let j = 0; j < n * C; j++) { if (j % C === REF) continue; const den = H[j] + k; if (den > 1e-9) A[j] += (G[j] - k * (A[j] - (A0 ? A0[j] : 0))) / den; } };
+  if (P0) { O.set(P0.O); Dd.set(P0.D); }
+  for (let it = 0; it < iters; it++) { step(O, r => r.o, kO, nT, P0?.O); step(Dd, r => r.d, kD, nT, P0?.D); step(B, r => r.b, 0.5, 4); }
   return { B, O, D: Dd };
 }
 export function softmaxMix(fit, b, o, d, extra = null) { // probabilities over MIX for offense index o vs defense index d (-1 = league-average side)
@@ -51,7 +52,7 @@ export function softmaxMix(fit, b, o, d, extra = null) { // probabilities over M
 const CACHE = new WeakMap();
 // D: weekly drive file ({ teams: { T: { games: [{ w, opp, d }] } } }). before: only games with w < before (default: all in the file).
 export function teamStrength(D, opts = {}) {
-  const o = { ...TS_DEFAULTS, ...opts }; const key = JSON.stringify(o);
+  const { prior = null, ...rest } = opts; const o = { ...TS_DEFAULTS, ...rest }; const key = JSON.stringify(o) + (prior ? '|' + (prior.id || 'prior') : '');
   if (D && CACHE.has(D) && CACHE.get(D)[key]) return CACHE.get(D)[key];
   const teams = Object.keys(D?.teams || {}).sort(); const ti = Object.fromEntries(teams.map((t, i) => [t, i])); const nT = teams.length;
   let maxW = 0; for (const t of teams) for (const g of D.teams[t].games || []) if ((o.before == null || g.w < o.before) && g.w > maxW) maxW = g.w;
@@ -78,7 +79,13 @@ export function teamStrength(D, opts = {}) {
     }
   }
   const T3 = (k, kd = k) => [{ size: 1, k: 0 }, { size: nT, k }, { size: nT, k: kd }];
-  const M = fitMix(mix, nT, o.kMix, o.kMix, o.iters);
+  // 4.15.0 prior-season prior (o.priorF > 0 and a prior from last season's drives): the drive-result effects shrink toward last
+  // season's effects x priorF (= regressed 1 - priorF toward the league) instead of toward 0; early in the season the ridge is
+  // stronger (k x (1 + earlyK / weeks played)), so week 2 leans on last season and the current season takes over as games come in
+  let P0 = null, kM = o.kMix; if (prior && o.priorF > 0) { const C = MIX.length; P0 = { O: new Float64Array(nT * C), D: new Float64Array(nT * C) };
+    teams.forEach((t, i) => { const j = prior.idx?.[t]; if (j == null) return; for (let c = 0; c < C; c++) { P0.O[i * C + c] = o.priorF * prior.O[j * C + c]; P0.D[i * C + c] = o.priorF * prior.D[j * C + c]; } });
+    kM = o.kMix * (1 + (o.earlyK || 0) / Math.max(1, maxW)); }
+  const M = fitMix(mix, nT, kM, kM, o.iters, P0);
   const PS = fitAdd(pass, [{ size: 1, k: 0 }, { size: 2, k: 0 }, { size: nT, k: o.kPass }, { size: nT, k: o.kPass }, { size: nT * 2, k: o.kScript }], 'logit', o.iters);
   const RZ = fitAdd(rz, T3(o.kRz), 'logit', o.iters), RZT = fitAdd(rzTd, T3(o.kRz), 'logit', o.iters), QK = fitAdd(quick, T3(o.kRz * 2), 'logit', o.iters);
   const PP = fitAdd(ppd, T3(o.kGauss), 'gauss', o.iters), YP = fitAdd(ypp, T3(o.kYpp), 'gauss', o.iters), PC = fitAdd(pace, T3(o.kPace), 'gauss', o.iters);
@@ -94,6 +101,8 @@ export function teamStrength(D, opts = {}) {
 function rawZero() { return { games: 0, drives: 0, plays: 0, yds: 0, tgt: 0, car: 0, td: 0, fg: 0, mfg: 0, punt: 0, to: 0, downs: 0, rz: 0, rzTd: 0, quick: 0 }; }
 
 // matchup inputs for the sim: offense `team` vs defense `opp`
+// compact prior for next season: last season's drive-result effects per team (fit on all of that season's drives)
+export function seasonPrior(D, season = null) { const TS = teamStrength(D, { halfLife: 0 }); return { version: TS_VERSION, season, teams: TS.teams, idx: TS.idx, O: Array.from(TS.mix.O, v => +v.toFixed(4)), D: Array.from(TS.mix.D, v => +v.toFixed(4)), id: `prior-${season}` }; }
 export function matchup(TS, team, opp) {
   const a = TS.idx[team] ?? -1, b = TS.idx[opp] ?? -1; const L = TS.league, E = TS.eff;
   const ef = (k, side, i) => i >= 0 ? E[k][side][i] : 0;
