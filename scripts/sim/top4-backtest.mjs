@@ -28,7 +28,7 @@ import { seasonPrior } from '../../src/team-strength.js';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
 const NS = +arg('--sims', 1000); const DO25 = !process.argv.includes('--no-2025'); const SIMS = !process.argv.includes('--no-sims');
-const r3 = x => x == null || !Number.isFinite(x) ? null : +x.toFixed(3); const r4 = x => x == null || !Number.isFinite(x) ? null : +x.toFixed(4);
+const r3 = x => x == null || !Number.isFinite(x) ? null : +x.toFixed(3); const r5 = x => x == null || !Number.isFinite(x) ? null : +x.toFixed(5); const r4 = x => x == null || !Number.isFinite(x) ? null : +x.toFixed(4);
 const mean = a => a.length ? a.reduce((s, x) => s + x, 0) / a.length : null;
 const NFLV = 'https://github.com/nflverse/nflverse-data/releases/download';
 async function cached(url, f) { if (!fs.existsSync(f)) { for (let i = 0; i < 4; i++) { try { const r = await fetch(url); if (r.ok) { fs.writeFileSync(f, Buffer.from(await r.arrayBuffer())); break; } } catch {} await new Promise(r => setTimeout(r, 1500)); } } return fs.readFileSync(f, 'utf8'); }
@@ -132,7 +132,7 @@ function top4Table(games) { const out = {}; for (const k of KS) { const g = game
   const both = games.filter(x => x.hits.sleeper != null); out.sleeperSubset = Object.fromEntries(KS.map(k => [k, r3(mean(both.map(x => x.hits[k] ?? 0)))])); out.sleeperSubset.games = both.length;
   return out; }
 function brierTable(rows) { const K = KS.filter(k => k !== 'naive'); const grp = {};
-  const sc = (R, k) => { R = R.filter(r => r[k] != null); return R.length ? { n: R.length, brier: r4(mean(R.map(r => (r[k] - r.y) ** 2))), logLoss: r4(mean(R.map(r => -(r.y ? Math.log(clampP(r[k])) : Math.log(1 - clampP(r[k])))))), meanP: r4(mean(R.map(r => r[k]))), rate: r4(mean(R.map(r => r.y))) } : null; };
+  const sc = (R, k) => { R = R.filter(r => r[k] != null); return R.length ? { n: R.length, brier: r4(mean(R.map(r => (r[k] - r.y) ** 2))), logLoss: r5(mean(R.map(r => -(r.y ? Math.log(clampP(r[k])) : Math.log(1 - clampP(r[k])))))), meanP: r4(mean(R.map(r => r[k]))), rate: r4(mean(R.map(r => r.y))) } : null; };
   for (const [name, R] of [['all', rows], ...['RB', 'WR', 'TE', 'QB'].map(p => [p, rows.filter(r => r.pos === p)])]) grp[name] = Object.fromEntries(K.filter(k => k !== 'sleeper').map(k => [k, sc(R, k)]));
   const S = rows.filter(r => r.sleeper > 0); grp.withSleeper = Object.fromEntries(K.map(k => [k, sc(S, k)])); return grp; }
 function allocLL(detail, blends) { // log-likelihood per TD of the actual scorer under the model split vs the walk-forward blend

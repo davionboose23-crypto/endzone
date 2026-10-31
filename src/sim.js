@@ -185,6 +185,10 @@ export const STAR_SLOTS = new Set(['QB1', 'RB1', 'WR1', 'WR2', 'TE1']); // displ
 function applyDepth(players, o) { const ks = depthSlots(players); players.forEach((p, i) => { p.slot = ks[i]; p.role = ks[i] && STAR_SLOTS.has(ks[i]) ? 'star' : 'role'; });
   const lt = sum(players, p => p.lam); if (!(lt > 0)) return; let v = players.map(p => p.lam);
   if (o.depthCal) { const k = depthSlots(players); v = v.map((x, i) => x * (k[i] ? (o.depthCal[k[i]] ?? 1) : 1)); }
+  // 4.17 research (off unless set): rbSharp = sharpen the TD split inside the RB room (goal-line back gets more, group total kept);
+  // qbRushK = QB TD rate scaled by his own carries per game vs a 3-carry baseline (rushing QBs up, pocket QBs down)
+  if (o.rbSharp) { const ix = players.map((p, i) => i).filter(i => players[i].pos === 'RB' || players[i].pos === 'FB'); const t0 = ix.reduce((a, i) => a + v[i], 0); const w = ix.map(i => Math.pow(v[i], 1 + o.rbSharp)); const t1 = w.reduce((a, b) => a + b, 0); if (t0 > 0 && t1 > 0) ix.forEach((i, j) => { v[i] = t0 * w[j] / t1; }); }
+  if (o.qbRushK) v = v.map((x, i) => players[i].pos === 'QB' ? x * clamp(Math.pow(Math.max(0.3, players[i].car) / 3, o.qbRushK), 0.5, 2) : x);
   if (o.floor > 0) { const z = v.reduce((a, b) => a + b, 0) || 1; v = v.map(x => Math.max(x / z, o.floor)); }
   const z = v.reduce((a, b) => a + b, 0) || 1; players.forEach((p, i) => { p.lam = lt * v[i] / z; p.chance = 1 - Math.exp(-p.lam); if (p.tdShare != null) p.tdShare = +(v[i] / z).toFixed(4); }); }
 // 4.14.0 "strictly on probability": the default sim reads NO betting-market data (no Vegas totals / spreads / implied totals / win
