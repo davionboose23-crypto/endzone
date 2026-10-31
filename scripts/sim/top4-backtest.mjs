@@ -18,6 +18,8 @@ import { loadTable, tableToD } from './table.mjs';
 import { buildSimInputs, runSim, summarize, assertMarketFree, DATA_OPTS, STAR_SLOTS } from '../../src/sim.js';
 import { rosterWeek, poolOf } from './roster-week.mjs';
 import { fitPbp } from '../../src/pbp-fit.js';
+import { parsePressure } from '../../src/pressure.js';
+import { fitFloor, fitCal, applyPost } from '../../src/sim-post.js';
 import { buildPbpInputs, runPbp, summarizePbp, SIM_PBP_VERSION, SIM_PBP_TUNE } from '../../src/sim-pbp.js';
 import { tallyGames, buildTdShare, fitBlend, fitDataBeta, blendShares, TD_SHARE_VERSION, TD_BLEND } from '../../src/td-share.js';
 import { availability } from '../../src/roster.js';
@@ -63,6 +65,9 @@ const LG26 = (S, W) => { let td = 0; const g = new Set(); for (const T of tallie
 process.on('exit', () => { if (NORM && normF.length) console.error('normF mean', (normF.reduce((a, b) => a + b, 0) / normF.length).toFixed(3)); });
 const SEED = +(process.env.SEED || 11); // sim seed (paired variant checks re-run at a second seed)
 const VAR = process.env.VAR_OPTS ? JSON.parse(process.env.VAR_OPTS) : null; // research variant of the 4.14 data options (engines driveV / pbpV)
+if (process.env.PBP_QBRZ != null) SIM_PBP_TUNE.qbRz = +process.env.PBP_QBRZ; if (process.env.PBP_PRS != null) SIM_PBP_TUNE.prs = +process.env.PBP_PRS;
+const PRESS = (() => { const f = path.join(ROOT, 'archive', 'pressure', 'advstats_week_pass_2026.csv'); return fs.existsSync(f) ? parsePressure(fs.readFileSync(f, 'utf8')) : null; })(); // 4.20.0 PFR pressure via nflverse (game-level)
+const POST = { floor: !!+(process.env.POST_FLOOR ?? 0), cal: !!+(process.env.POST_CAL ?? 0) }; const postRows = [];
 if (process.env.PBP_DVP != null) SIM_PBP_TUNE.dvp = +process.env.PBP_DVP; if (process.env.PBP_LATE != null) SIM_PBP_TUNE.late = +process.env.PBP_LATE; // 4.19.0 research knobs
 const KS = ['driveNew', 'pbp2New', 'drive417', 'pbp417', ...(NORM ? ['driveN'] : []), ...(VAR ? ['driveV', 'pbpV'] : []), ...(process.env.TD_SD != null ? ['driveG'] : []), 'drive4131', 'pbp4131', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.14.0: driveNew / pbp2New = 4.14 (weekly roster + carried rates + rookie/depth priors + 1% floor); driveG = driveNew + per-game team TD multiplier (research); drive4131 / pbp4131 = 4.13.1 as shipped
 if (process.env.KS_ONLY) { const keep = new Set(process.env.KS_ONLY.split(',')); for (let i = KS.length - 1; i >= 0; i--) if (!keep.has(KS[i])) KS.splice(i, 1); } // research: run a subset of engines
@@ -82,7 +87,7 @@ async function season(S, weeks, priorDetail) {
     if (SIMS && !D) continue; const PP = SIMS ? fitPbp([TAB[S - 1], TAB[S]], { season: S, before: W }) : null; if (PP && PP.through >= W) throw new Error('leak: pbp params see week ' + PP.through);
     const td = buildTdShare([TAB[S - 1], TAB[S]], { season: S, before: W }); if (td.through >= W) throw new Error('leak: td-share sees week ' + td.through);
     // 4.18.0 season-only inputs (driveNew / pbp2New): this season's games before W only; 4.17 (drive417 / pbp417) keeps the prior-season inputs
-    const PP26 = SIMS ? fitPbp([TAB[S]], { season: S, before: W, opts: { seasonOnly: true } }) : null; const td26 = buildTdShare([TAB[S]], { season: S, before: W, opts: { seasonOnly: true } });
+    const PP26 = SIMS ? fitPbp([TAB[S]], { season: S, before: W, opts: { seasonOnly: true, pressure: PRESS } }) : null; const td26 = buildTdShare([TAB[S]], { season: S, before: W, opts: { seasonOnly: true } });
     const D26 = SIMS && W > 1 ? D : null; const CTX26 = { ...fitContext(contextRows(GROWS, [S], { before: W })), seasons: [S] };
     const B = fitBlend([...priorDetail, ...detail]); blends.push({ w: W, alpha: B.alpha, beta: B.beta, fitted: B.fitted, tds: B.n });
     const naive = naiveOf(S, W);
@@ -123,6 +128,9 @@ async function season(S, weeks, priorDetail) {
           if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live);
           if (k === 'driveNew' || k === 'pbp2New') { const su = surprise(s.__S, s.players); sur[k] = { p: r3(su.pOutside), share: r3(su.shareOutside), ls: su.longshots.map(x => ({ n: x.name, t: x.team, p: x.pos, pr: r3(x.p) })) }; } }
       }
+      // 4.20.0 post layer on the default play-by-play sim (pbp2New): fits read earlier weeks' rows only
+      if (prob[live[0]?.id]?.pbp2New != null) { const F = POST.floor ? fitFloor(postRows, W) : null, C = POST.cal ? fitCal(postRows, W) : null;
+        for (const p of live) { const raw = prob[p.id].pbp2New; postRows.push({ w: W, pos: p.pos === 'FB' ? 'RB' : p.pos, p: raw, y: p.y ? 1 : 0 }); prob[p.id].pbp2New = applyPost(raw, p.pos, F, C); } }
       // research (audit idea 2): driveN = driveNew with the game's summed TD intensity (sum of -ln(1-p)) rescaled to this season's league
       // offensive rush/rec TDs per game before W (2026 games only), NORM = shrink weight 0..1
       if (NORM && prob[live[0]?.id]?.driveNew != null) { const lg = LG26(S, W); const lam = live.map(p => -Math.log(1 - Math.min(0.995, prob[p.id].driveNew || 0))); const tot = lam.reduce((a, b) => a + b, 0);

@@ -11,6 +11,7 @@
 // TDs are credited to the player who carried or caught the ball on the scoring play (passing TDs to the QB who threw it).
 // Output uses the same raw structure as the drive sim (src/sim.js) so summarize / driveCard / tdPatterns work unchanged,
 // plus field-position and red-zone arrays (S.pbp). Every game has its own seeded RNG, so any game can be replayed play by play.
+import { pressureShifts } from './pressure.js';
 import { makeRng, SLOTS, DSTATS, GSTATS, RESULTS, summarize, gamma } from './sim.js';
 import { dispFor, temper, anchorFor, dataLevelFor } from './usage-var.js';
 import { zoneOf, distB, scriptOf, passCell, ylB10, togoB4, uzOf, ucell, PBP_VERSION } from './pbp-common.js';
@@ -24,7 +25,7 @@ const NR = RESULTS.length; const TD = 0, FG = 1, MFG = 2, PUNT = 3, TO = 4, DOWN
 const DKEYS = Object.keys(DSTATS); const DOFF = {}; let NB = 0; for (const k of DKEYS) { DOFF[k] = NB; NB += DSTATS[k] + 1; }
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x)); const sig = x => 1 / (1 + Math.exp(-x)); const logit = p => Math.log(p / (1 - p));
 const TDAGG = 8; const LOGN = 400;
-export const SIM_PBP_TUNE = { clock: 1.06, rzAdj: 0.2, spread: 4, form: 0.2, dvp: 0.5, late: 0 }; // 4.19.0: dvp = exponent (0.5 shipped: paired 2026 backtest seeds 11 + 23, top-4 hits +0.03 and log loss better at both; 1.0 / 1.5 tested, worse log loss at one seed) on the defense-vs-position red-zone usage multiplier; late = weight of the 3rd / 4th-down completion effect (tested at 1.0: top-4 hits -0.01 at both seeds, so off)
+export const SIM_PBP_TUNE = { clock: 1.06, rzAdj: 0.2, spread: 4, form: 0.2, dvp: 0.5, late: 0, qbRz: 0, prs: 0 }; // 4.19.0: dvp = exponent (0.5 shipped: paired 2026 backtest seeds 11 + 23, top-4 hits +0.03 and log loss better at both; 1.0 / 1.5 tested, worse log loss at one seed) on the defense-vs-position red-zone usage multiplier; late = weight of the 3rd / 4th-down completion effect (tested at 1.0: top-4 hits -0.01 at both seeds, so off)
 // form (sim-pbp-2): game-day variance. Each offense draws one N(0, form) logit shift per simulated game, applied to completion,
 // explosive-play and red-zone TD odds (and against sacks / interceptions), so a team can have a good or a bad day as a whole
 // instead of every snap being independent. Tuned on 2025 only so the spread of simulated points matches real games.
@@ -58,6 +59,8 @@ function matchupV2(P, X2, tm, teams, ti, g, SP) {
     sneak: tm.map(t => r4(sig(lg(X2.sneak.rate) + g(X2.sneak, 't', ti(t))))), sneakY: X2.sneak.y, runSY: X2.runSY,
     pen: [[g(X2.pen, 'off', ti(tm[0])) || 1, g(X2.pen, 'def', ti(tm[1])) || 1], [g(X2.pen, 'off', ti(tm[1])) || 1, g(X2.pen, 'def', ti(tm[0])) || 1]],
     dvp: X2.dvp && SIM_PBP_TUNE.dvp ? [1, 0].map(o => { const r = X2.dvp.m[ti(tm[o])]; return r ? { pos: X2.dvp.pos, m: r.map(v => r4(Math.pow(v, SIM_PBP_TUNE.dvp))) } : null; }) : null,
+    qbRz: X2.qbRz && SIM_PBP_TUNE.qbRz ? tm.map(t => r4(Math.pow(X2.qbRz[ti(t)] || 1, SIM_PBP_TUNE.qbRz))) : null,
+    prs: X2.prs && SIM_PBP_TUNE.prs ? [0, 1].map(k => pressureShifts(X2.prs, ti(tm[k]), ti(tm[1 - k]), SIM_PBP_TUNE.prs)) : null, // 4.20.0 pressure (offense allowed vs defense generated)
     late: M.cmpLate && SIM_PBP_TUNE.late ? [0, 1].map(k => { const o = ti(tm[k]), d = ti(tm[1 - k]); return r4(SIM_PBP_TUNE.late * SP * (g(M.cmpLate, 'off', o) + g(M.cmpLate, 'def', d) - g(M.cmp, 'off', o) - g(M.cmp, 'def', d))); }) : null };
 }
 const r4 = x => Math.round(x * 1e4) / 1e4;
@@ -78,6 +81,9 @@ export function makePbpEngine(I) {
     const qb = pl.map(p => p.pos === 'QB'); const wT = new Float64Array(P * 8), wC = new Float64Array(P * 8);
     for (let i = 0; i < P; i++) for (let c = 0; c < 8; c++) { wT[i * 8 + c] = (qb[i] ? 0 : pl[i].tgt) * (U[i].mt[c] ?? 1); wC[i * 8 + c] = pl[i].car * (qb[i] ? 0.45 : 1) * (U[i].mc[c] ?? 1); }
     const DV = X.x2?.dvp?.[k]; if (DV) for (let i = 0; i < P; i++) { const pj = DV.pos.indexOf(pl[i].pos === 'FB' ? 'RB' : pl[i].pos); const m = pj >= 0 ? DV.m[pj] : 1; if (m !== 1) for (let c = 2; c < 8; c++) { wT[i * 8 + c] *= m; wC[i * 8 + c] *= m; } } // 4.19.0 defense vs position (red-zone cells)
+    const QR = X.x2?.qbRz?.[k]; if (QR && QR !== 1) for (let i = 0; i < P; i++) if (pl[i].pos === 'QB') for (let c = 4; c < 8; c++) wC[i * 8 + c] *= QR; // 4.20.0 lead-QB runs inside the 10
+    const PR = X.x2?.prs?.[k]; if (PR) { for (let j = 0; j < pSack.length; j++) pSack[j] = adj(pSack[j], PR.sack); for (let j = 0; j < pScr.length; j++) pScr[j] = adj(pScr[j], PR.scr);
+      for (let j = 0; j < pInt.length; j++) pInt[j] = adj(pInt[j], PR.int); for (let j = 0; j < lCmp.length; j++) lCmp[j] += PR.cmp; }
     const cOff = new Float64Array(P), yF = new Float64Array(P), cF = new Float64Array(P);
     for (let i = 0; i < P; i++) { const p = pl[i]; const cr = p.tgt > 0.3 ? clamp(p.rec / p.tgt, 0.3, 0.92) : POS_CR[p.pos] ?? 0.65; cOff[i] = 0.7 * (logit(cr) - logit(POS_CR[p.pos] ?? 0.65));
       yF[i] = p.rec > 0.3 && p.recYd > 0 ? clamp(Math.pow((p.recYd / p.rec) / (POS_YPR[p.pos] ?? 11), 0.7), 0.7, 1.4) : 1; cF[i] = p.car > 0.5 && Number.isFinite(p.rushYd) ? clamp(Math.pow(Math.max(1, p.rushYd / p.car) / (POS_YPC[p.pos] ?? 4.3), 0.6), 0.7, 1.35) : 1; }

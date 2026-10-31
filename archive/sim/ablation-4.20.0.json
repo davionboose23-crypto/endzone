@@ -1,0 +1,65 @@
+{
+ "app": "4.20.0",
+ "sims": 1000,
+ "weeks": [
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "engine": "pbp2New",
+ "note": "paired vs 4.19.0 (same seeds); all knobs off by default: none improved hits and log loss on both seeds",
+ "runs": {
+  "base-11": {
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.30696
+  },
+  "base-23": {
+   "hitsPerGame": 1.576,
+   "poolLogLoss": 0.30787
+  },
+  "cal-11": {
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.30843
+  },
+  "cal-23": {
+   "hitsPerGame": 1.576,
+   "poolLogLoss": 0.30933
+  },
+  "floor-11": {
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.30742
+  },
+  "floor-23": {
+   "hitsPerGame": 1.576,
+   "poolLogLoss": 0.30833
+  },
+  "prs1-11": {
+   "hitsPerGame": 1.576,
+   "poolLogLoss": 0.30634
+  },
+  "prs1-23": {
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.30788
+  },
+  "prs2-11": {
+   "hitsPerGame": 1.511,
+   "poolLogLoss": 0.30707
+  },
+  "prs2-23": {
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.30799
+  },
+  "qbrz-11": {
+   "hitsPerGame": 1.533,
+   "poolLogLoss": 0.30713
+  },
+  "qbrz-23": {
+   "hitsPerGame": 1.533,
+   "poolLogLoss": 0.30783
+  }
+ }
+}

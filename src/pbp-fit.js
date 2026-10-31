@@ -2,6 +2,7 @@
 // League tables (yards pools, kicking, clock, fourth-down habits, penalties) use the prior season plus the current season
 // BEFORE the target week; team effects (offense + defense, opponent-adjusted by fitting both at once, ridge-shrunk toward
 // league, recency-weighted) use only current-season games before the target week. Nothing from the target week or later is read.
+import { fitPressure } from './pressure.js';
 import { PBP_VERSION, zoneOf, distB, scriptOf, passCell, ylB10, togoB4, ucell, uzOf, NQ } from './pbp-common.js';
 const PT = { run: 0, pass: 1, punt: 2, fg: 3, kickoff: 4, xp: 5, two: 6, kneel: 7, spike: 8, noplay: 9 };
 const F = { sack: 1, int: 2, fumLost: 4, cmp: 8, scramble: 16, td: 32, defTd: 64, pen: 128, penDef: 256, pen1st: 512, gtg: 1024, tb: 2048, fgGood: 4096, oob: 8192, safety: 16384, good: 32768, blocked: 65536, toAfter: 131072 };
@@ -200,6 +201,13 @@ export function fitPbp(tables, { season, before, opts = {} } = {}) {
     X2.dvp = { pos: DP, k, m: x.map(row => { const n = row.reduce((a, b) => a + b, 0); return Array.from(row, (v, j) => r3(((v + k * sh[j]) / (n + k)) / sh[j])); }) }; }
   // 6) app 4.19.0 late-down offense / defense: completion and run-yard effects on 3rd / 4th down only (conversion skill beyond the all-down effects)
   M2.cmpLate = twoStage(lg, curRows, r => scr(r) && r.down >= 3 && aimed(r) && !(r.flags & F.int) ? ((r.flags & F.cmp) ? 1 : 0) : null, [{ name: 'dist', size: 4, f: r => distB(r.togo) }], [offT, defT], 'logit', { off: (o.k2.late ?? 150), def: (o.k2.late ?? 150) }, NT, o.k.season);
+  // 7) app 4.20.0 lead-QB red-zone rushing: each offense's share of designed runs inside the 10 (sneaks included, scrambles not) by a QB, over the
+  //    league share, shrunk with k2.qbRz runs of prior weight (this season, before the target week, recency-weighted)
+  { const inside = r => scr(r) && r.type === PT.run && r.yl <= 10 && !scramble(r); const n = new Float64Array(NT), x = new Float64Array(NT); let ln = 0, lx = 0;
+    for (const r of curRows) if (inside(r)) { n[r.off] += r._wt; ln += r._wt; if (r._qbr) { x[r.off] += r._wt; lx += r._wt; } }
+    const sh = (lx + 1) / (ln + 10); const k = o.k2.qbRz ?? 15; X2.qbRz = Array.from(n, (nn, t) => r3(((x[t] + k * sh) / (nn + k)) / sh)); }
+  // 8) app 4.20.0 pass-rush pressure (PFR advanced passing via nflverse, game-level, weeks before the target week only)
+  if (o.pressure) X2.prs = fitPressure(o.pressure.filter(r => r.season === season), teams, { before });
   // ---- player usage by field zone x down (targets, designed carries) ----
   const use = fitUsage(tables.filter(t => t.season === season || prior.includes(t)), season, before, maxW, o);
   // ---- per-team 2026 red-zone history (display) ----
