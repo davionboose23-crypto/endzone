@@ -81,10 +81,6 @@ const snapAvg = (team, name, W) => { const r = (SNAPS?.get(team + '|' + nmK(name
 const RZF = process.env.RZF || null, RZB = +(process.env.RZB ?? 0.3), GATE = +(process.env.GATE ?? 0), LOGIT = +(process.env.LOGIT ?? 0); // 4.22 t73u research knobs
 const RZFEAT = (RZF || GATE || LOGIT || process.env.LOWSNAP) ? JSON.parse(fs.readFileSync(path.join(ROOT, 'archive', 'sim', 'rzfeat-2026.json'), 'utf8')) : null;
 const rzf = (W, team, name) => RZFEAT?.[`${W}|${team}|${nmK(name)}`] || {};
-function rzScore(f, v) { const g = k => f[k] || 0; let C = g('c'), T = g('t');
-  if (v === 'i5') { C = 0.3 * g('c') + 0.3 * g('c10') + 0.4 * g('c5'); T = 0.5 * g('t') + 0.5 * g('t10'); }
-  else if (v === 'posk') { C = g('cK'); T = g('tK'); } else if (v === 'rec') { C = g('cR'); T = g('tR'); }
-  let s = 0.42 * C + 0.58 * T; if (v === 'snapw') s *= Math.sqrt(Math.min(1.2, (f.snap ?? 0.3) / 0.6)); return s + 0.004; }
 const ZG = [[2, 3], [4, 5], [6, 7]];
 function featK(v, g, kind) { const c = kind === 'C'; if (v === 'i5') return c ? ['c', 'c10', 'c5'][g] : ['t', 't10', 't10'][g]; if (v === 'posk') return c ? 'cK' : 'tK'; if (v === 'rec') return c ? 'cR' : 'tR'; if (v === 'air') return c ? 'c' : 'AIR'; return c ? 'c' : 't'; }
 const DEPTH = +(process.env.DEPTH ?? 1), LOWSNAP = +(process.env.LOWSNAP ?? 1), I5FLAT = +(process.env.I5FLAT ?? 1); // t80u

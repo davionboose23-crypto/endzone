@@ -486,7 +486,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.21.0';
+const APP_VERSION = '4.22.0';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
@@ -568,8 +568,8 @@ function simTop4Html(s) {
 // 4.13.0: it's not always the favourite - how often a TD comes from outside the sim's top 4, and the likeliest longshots
 function simSurpriseHtml(s) {
   const u = s.surprise; if (!u || u.pOutside == null) return '';
-  const ls = (u.longshots || []).map(x => `<strong>${esc(x.name)}</strong> <span class="muted">${esc(x.team)} ${esc(x.pos)}</span> ${simPct(x.p)}`).join(' · ');
-  return `<div class="surprise small" id="simSurprise"><p><strong>Surprise scorer:</strong> in <strong>${simPct(u.pOutside)}</strong> of simulated games at least one TD comes from someone outside these four (${simPct(u.shareOutside)} of all TDs).${ls ? ` Likeliest longshots: ${ls}.` : ''}</p>
+  const ls = (u.longshots || []).map(x => `<strong>${esc(x.name)}</strong> <span class="muted">${esc(x.team)} ${esc(x.pos)}</span> ${simPct(x.pCal ?? x.p)}`).join(' · ');
+  return `<div class="surprise small" id="simSurprise"><p><strong>Surprise scorer:</strong> in <strong>${simPct(u.pOutside)}</strong> of simulated games at least one TD comes from someone outside these four (${simPct(u.shareOutside)} of all TDs).${ls ? ` Likeliest longshots: ${ls}${(u.longshots || []).some(x => x.pCal != null) ? ' (calibrated: the raw sim underprices players outside its top 4)' : ''}.` : ''}</p>
    <p class="muted">Real games back this up: in 2025–26 (364 games, re-run week by week with the model-free sim) someone outside the sim's top 4 scored in 94–97% of games, and about 6 in 10 rushing and receiving TDs (59%) came from outside the top 4. The sim expected about the same (97% of games and 61% of TDs on average in 2026). Picking the right top 4 still matters, but most games have a surprise scorer.</p></div>`;
 }
 function simProfileHtml(s) {

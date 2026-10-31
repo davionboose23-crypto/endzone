@@ -20,8 +20,11 @@ export function dispFor(I, eng) { const d = I && I.disp; if (d === false) return
 export function temper(w, tau) { const s0 = w.reduce((a, b) => a + (b > 0 ? b : 0), 0); if (!(s0 > 0)) return w.map(() => 0); if (tau === 1) return w.map(x => (x > 0 ? x / s0 : 0));
   const v = w.map(x => (x > 0 ? Math.pow(x / s0, tau) : 0)); const s = v.reduce((a, b) => a + b, 0); return v.map(x => x / s); }
 // "surprise scorer" read-out from a run: P(at least one of the team's / game's TDs comes from outside the game's top 4 by anytime)
+// 4.22.0: walk-forward calibration of anytime chances for players outside the sim's top 4 (logistic on logit p, fit on 2026 weeks 2-8 backtest at 1000 sims, seeds 11+23; model- and market-free). Display only: ranking unchanged.
+export const SURPRISE_CAL = { a: -0.7331, b: 0.5007, fit: '2026 w2-8', n: 5402 };
+export const calOutside = (p, C = SURPRISE_CAL) => { const q = Math.min(0.999, Math.max(0.001, p)); return 1 / (1 + Math.exp(-(C.a + C.b * Math.log(q / (1 - q))))); };
 export function surprise(S, players, { top = 4, longshots = 3 } = {}) {
   const ord = players.map((p, i) => [p.anytime, p.j ?? i, i]).sort((a, b) => b[0] - a[0]); const topSet = new Set(ord.slice(0, top).map(x => x[1]));
   let any = 0, tdOut = 0, tdAll = 0; for (let g = 0; g < S.n; g++) { let hit = false; for (let j = 0; j < S.NP; j++) { const v = S.G.td[g * S.NP + j]; if (!v) continue; tdAll += v; if (!topSet.has(j)) { hit = true; tdOut += v; } } if (hit) any++; }
-  const ls = ord.slice(top).map(([p, j, i]) => ({ j, name: players[i].name, team: players[i].team, pos: players[i].pos, p })).slice(0, longshots);
+  const ls = ord.slice(top).map(([p, j, i]) => ({ j, name: players[i].name, team: players[i].team, pos: players[i].pos, p, pCal: calOutside(p) })).slice(0, longshots);
   return { top, pOutside: any / S.n, shareOutside: tdAll ? tdOut / tdAll : 0, longshots: ls }; }
