@@ -485,7 +485,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.16.0';
+const APP_VERSION = '4.17.0';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
