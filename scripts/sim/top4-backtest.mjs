@@ -79,7 +79,7 @@ const SNAP_A = +(process.env.SNAP || 0), SNAP_L = +(process.env.SNAPL || 0), INJ
 const snapAvg = (team, name, W) => { const r = (SNAPS?.get(team + '|' + nmK(name)) || []).filter(x => x.w < W); return r.length ? r.reduce((s, x) => s + x.p, 0) / r.length : null; };
 // applied to the play-by-play inputs (each player's td-share weight lam steers who scores; tgt / car steer volume)
 const RZF = process.env.RZF || null, RZB = +(process.env.RZB ?? 0.3), GATE = +(process.env.GATE ?? 0), LOGIT = +(process.env.LOGIT ?? 0); // 4.22 t73u research knobs
-const RZFEAT = (RZF || GATE || LOGIT) ? JSON.parse(fs.readFileSync(path.join(ROOT, 'archive', 'sim', 'rzfeat-2026.json'), 'utf8')) : null;
+const RZFEAT = (RZF || GATE || LOGIT || process.env.LOWSNAP) ? JSON.parse(fs.readFileSync(path.join(ROOT, 'archive', 'sim', 'rzfeat-2026.json'), 'utf8')) : null;
 const rzf = (W, team, name) => RZFEAT?.[`${W}|${team}|${nmK(name)}`] || {};
 function rzScore(f, v) { const g = k => f[k] || 0; let C = g('c'), T = g('t');
   if (v === 'i5') { C = 0.3 * g('c') + 0.3 * g('c10') + 0.4 * g('c5'); T = 0.5 * g('t') + 0.5 * g('t10'); }
@@ -93,6 +93,7 @@ function tweak423(I, W) { if (!RZF && !GATE && DEPTH === 1 && LOWSNAP === 1 && I
     const F = pl.map(p => rzf(W, ti.team, p.name)); const nq = pl.map(p => p.pos !== 'QB');
     const rz = (i, m) => { for (let c = 2; c < 8; c++) { U[i].mt[c] *= m; U[i].mc[c] *= m; } };
     if (DEPTH !== 1) for (const ps of ['WR', 'TE']) { const ix = pl.map((p, i) => i).filter(i => pl[i].pos === ps).sort((a, b) => pl[b].tgt - pl[a].tgt); const sl = ps === 'WR' ? [1, 2] : [1, 2]; for (const r of sl) if (ix[r] != null) rz(ix[r], DEPTH); }
+
     if (LOWSNAP !== 1) pl.forEach((p, i) => { const sn = F[i].snap; if (nq[i] && sn != null && sn >= 0.2 && sn < 0.4) rz(i, LOWSNAP); });
     if (I5FLAT !== 1) { const rb = pl.map((p, i) => i).filter(i => pl[i].pos === 'RB').sort((a, b) => pl[b].car - pl[a].car)[0]; if (rb != null) for (const c of [6, 7]) U[rb].mc[c] *= I5FLAT; }
     if (GATE) pl.forEach((p, i) => { const sn = F[i].snap; if (nq[i] && sn != null && sn < GATE) for (let c = 2; c < 8; c++) { U[i].mt[c] *= sn / GATE; U[i].mc[c] *= sn / GATE; } });
