@@ -340,8 +340,8 @@ function seesHtml(D, gA, gB, ctx) {
 }
 // ---------- 4.9.0: game simulator (Drives → Simulator). Research / UI only: plays the matchup out drive by drive 10,000
 // times from real-data inputs only (4.13.1: no model numbers; src/sim.js) in a Web Worker. Never feeds the live chance or the gate.
-const SIM_N = 10000;
-S.sim = { mode: load('endzone.simMode', 'pbp') === 'drive' ? 'drive' : 'pbp', prog: null, partial: null, replay: null, rg: null, E: null, key: '', status: 'idle', sum: null, raw: null, ms: null, err: null, team: 'both', st: 'rec', th: 4, pj: null, dst: 'rec', dth: 1, seed: null, ds: 0 };
+const SIM_N = 10000; // 4.16.0: paired backtest - pbp not clearly better than drive in both seasons, so drive stays the default engine
+S.sim = { mode: load('endzone.simMode', 'drive') === 'pbp' ? 'pbp' : 'drive', prog: null, partial: null, replay: null, rg: null, E: null, key: '', status: 'idle', sum: null, raw: null, ms: null, err: null, team: 'both', st: 'rec', th: 4, pj: null, dst: 'rec', dth: 1, seed: null, ds: 0 };
 let simW = null, simSeq = 0;
 const simSideFor = t => { for (const x of S.slate?.games || []) for (const sd of ['away', 'home']) if (x.sides[sd].team === t) return x.sides[sd]; return null; };
 function simPick() {
