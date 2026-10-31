@@ -20,7 +20,7 @@ import { rosterWeek, poolOf } from './roster-week.mjs';
 import { fitPbp } from '../../src/pbp-fit.js';
 import { parsePressure } from '../../src/pressure.js';
 import { fitFloor, fitCal, applyPost } from '../../src/sim-post.js';
-import { buildPbpInputs, runPbp, summarizePbp, SIM_PBP_VERSION, SIM_PBP_TUNE } from '../../src/sim-pbp.js';
+import { buildPbpInputs, runPbp, summarizePbp, pbpSummary, SIM_PBP_VERSION, SIM_PBP_TUNE } from '../../src/sim-pbp.js';
 import { tallyGames, buildTdShare, fitBlend, fitDataBeta, blendShares, TD_SHARE_VERSION, TD_BLEND } from '../../src/td-share.js';
 import { availability } from '../../src/roster.js';
 import { surprise } from '../../src/usage-var.js';
@@ -143,7 +143,7 @@ async function season(S, weeks, priorDetail) {
         const pb = (I0, P0 = I0.seasonOnly ? PP26 : PP) => { const I = buildPbpInputs(I0, P0); if (I0.seasonOnly) { assertSeasonOnly(I); tweak422(I, P, W); } const S0 = runPbp(I, { n: NS, seed: SEED }); return keep(S0, I, summarizePbp(S0, I)); };
         const run = { drive413: () => dr(In2), pbp413: () => pb(In2), driveNew: () => dr(InD), pbp2New: () => pb(InD), drive417: () => dr(In417), pbp417: () => pb(In417), driveG: () => dr(InG), ...(InV ? { driveV: () => dr(InV), pbpV: () => pb(InV) } : {}), drive4131: () => dr(InO), pbp4131: () => pb(InO) };
         for (const [k, f] of Object.entries(run)) { if ((ENG && !ENG.includes(k)) || !KS.includes(k)) continue; const s = f(); for (const p of live) prob[p.id][k] = 0; for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime; else if (x.gsis) { const m = live.find(p => p.gsis === x.gsis); if (m) prob[m.id][k] = x.anytime; }
-          if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live);
+          if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live, k === 'pbp2New' ? pbpSummary(s.__S, s, s.__I) : null);
           if (k === 'driveNew' || k === 'pbp2New') { const su = surprise(s.__S, s.players); sur[k] = { p: r3(su.pOutside), share: r3(su.shareOutside), ls: su.longshots.map(x => ({ n: x.name, t: x.team, p: x.pos, pr: r3(x.p) })) }; } }
       }
       // 4.21 research: ensemble pbp2New with driveNew; ENS=<w> fixed weight on drive, ENS=fit picks w from earlier weeks' rows (log loss grid)
@@ -195,12 +195,12 @@ const wk = S => [...new Set([...G.values()].filter(g => g.season === S).map(g =>
 const ENG = process.env.ENGINES ? process.env.ENGINES.split(',') : null;
 const DUMP = process.env.DUMP ? [] : null;
 // per team-game: sim TD count distribution, each player's share of the team's simulated TDs, his sim anytime chance, depth role, actual TDs
-function dumpTeams(out, S, W, gid, eng, Sim, I, live) {
+function dumpTeams(out, S, W, gid, eng, Sim, I, live, PS) { const rzOf = new Map((PS?.players || []).map(x => [x.team + '|' + x.name, x]));
   for (let k = 0; k < 2; k++) { const T = I.teams[k]; const P = Sim.P[k], b = Sim.base[k]; const tot = new Float64Array(P), any = new Float64Array(P); const hist = new Array(12).fill(0);
     for (let g = 0; g < Sim.n; g++) { let c = 0; for (let i = 0; i < P; i++) { const v = Sim.G.td[g * Sim.NP + b + i]; tot[i] += v; if (v > 0) any[i]++; c += v; } hist[Math.min(11, c)]++; }
     const ttot = tot.reduce((a, x) => a + x, 0) || 1; const byId = new Map(T.players.map((p, i) => [String(p.id), i]));
     const lv = live.filter(p => p.team === T.team);
-    out.push({ S, W, gid, eng, team: T.team, hist: hist.map(x => x / Sim.n), pl: lv.map(p => { const i = byId.get(p.id); return { id: p.id, n: p.name, pos: p.pos, tgt: p.vol.targets, car: p.vol.carries, lam: p.lambda, sh: i == null ? 0 : tot[i] / ttot, any: i == null ? 0 : any[i] / Sim.n, td: p.td }; }) }); } }
+    out.push({ S, W, gid, eng, team: T.team, hist: hist.map(x => x / Sim.n), pl: lv.map(p => { const i = byId.get(p.id); return { id: p.id, n: p.name, pos: p.pos, tgt: p.vol.targets, car: p.vol.carries, lam: p.lambda, sh: i == null ? 0 : tot[i] / ttot, any: i == null ? 0 : any[i] / Sim.n, td: p.td, ...(rzOf.size ? (({ carRz, carI10, carI5, tgtRz, tgtI10 }) => ({ carRz, carI10, carI5, tgtRz, tgtI10 }))(rzOf.get(T.team + '|' + p.name) || {}) : {}) }; }) }); } }
 const ONLY = arg('--weeks', null)?.split(',').map(Number);
 const B25 = DO25 ? await season(2025, wk(2025).filter(w => w >= 2), []) : { games: [], players: [], detail: [], blends: [] };
 const B26 = await season(2026, wk(2026).filter(w => !ONLY || ONLY.includes(w)), B25.detail);
