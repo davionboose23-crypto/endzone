@@ -26,16 +26,10 @@ test('shiftMix keeps a valid distribution and is capped at +-15%', () => {
   assert.deepEqual(shiftMix(r, 0), r);
 });
 
-test('shipped priors file: last-season usage, prior team strength and a small shrunk ctx fit, no market keys', () => {
-  assert.equal(P.season, 2026); assert.ok(P.ctx.fitted && P.ctx.coef.every(c => Math.abs(c) < 0.15));
-  assert.ok(P.ts.teams.length === 32); assert.ok(Object.keys(P.games).length >= 256);
+test('shipped priors file (4.18.0): 2026 only, no last-season usage or team strength, ctx fit on 2026 scores, no market keys', () => {
+  assert.equal(P.season, 2026); assert.equal(P.usage, undefined); assert.equal(P.ts, undefined); assert.deepEqual(P.ctx.seasons, [2026]);
+  assert.ok(P.ctx.coef.every(c => Math.abs(c) < 0.25)); assert.ok(Object.keys(P.games).length >= 256);
   const s = JSON.stringify(P); for (const k of ['spread', 'total_line', 'moneyline', 'implied', 'odds', 'vegas']) assert.ok(!s.includes(k), k);
-});
-
-test('4.15.0 tag fix: carried-in stars rank as starters with last-season usage', () => {
-  // Brock Bowers (LV) was tagged as a role player in 2026 week 3 before usage-prior-1
-  const any = Object.entries(P.usage.players || P.usage).find(([, v]) => v[1] === 'TE' && v[0] === 'LV');
-  assert.ok(any, 'an LV tight end in last season usage'); const u = priorOf(P.usage, any[0]); assert.ok(u.g >= 2 && u.tgt > 0);
 });
 
 test('live sim inputs with priors stay market-free and differ only by real-data context', () => {
