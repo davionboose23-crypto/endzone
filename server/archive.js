@@ -96,6 +96,7 @@ export class Archive {
   startRun(kind) { return this.tx(() => { this.run('INSERT INTO runs (kind, started_at, status) VALUES (?,?,?)', [kind, new Date().toISOString(), 'running']); return this.get('SELECT last_insert_rowid() id').id; }); }
   finishRun(id, status, details) { this.tx(() => this.run('UPDATE runs SET finished_at=?, status=?, details=? WHERE id=?', [new Date().toISOString(), status, JSON.stringify(details), id])); }
   // usage tables live in the repo archive (scripts/usage/build.mjs), not in SQLite
+  simPriors(season) { try { return JSON.parse(fs.readFileSync(path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'archive', 'sim', `sim-priors-${season}.json`), 'utf8')); } catch { return null; } }
   simTop4(season) { try { return JSON.parse(fs.readFileSync(path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'archive', 'sim', `top4-backtest-${season}.json`), 'utf8')); } catch { return null; } }
   drives(season, week) { try { return JSON.parse(fs.readFileSync(path.join(process.env.ENDZONE_DRIVES_DIR || path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'archive', 'drives'), String(season), `w${week}.json`), 'utf8')); } catch { return null; } }
   pbp(season, week) { try { return JSON.parse(fs.readFileSync(path.join(process.env.ENDZONE_PBP_DIR || path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'archive', 'pbp'), String(season), `w${week}.json`), 'utf8')); } catch { return null; } }

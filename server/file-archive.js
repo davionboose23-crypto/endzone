@@ -26,6 +26,8 @@ export class FileArchive {
   // weekly drive-trends patterns (scripts/drives/build.mjs): archive/drives/<season>/w<week>.json
   drives(season, week) { return readJson(path.join(this.dir, 'drives', String(season), `w${week}.json`), null); }
   // app 4.12.0: walk-forward "Sim top 4" track record (scripts/sim/top4-backtest.mjs)
+  // app 4.15.0: pre-season sim priors (scripts/sim/build-priors.mjs): last-season usage, team strength, home/rest/wind fit
+  simPriors(season) { return readJson(path.join(this.dir, 'sim', `sim-priors-${season}.json`), null); }
   simTop4(season) { return readJson(path.join(this.dir, 'sim', `top4-backtest-${season}.json`), null); }
   // play-by-play simulator params (scripts/pbp/build.mjs): archive/pbp/<season>/w<week>.json
   pbp(season, week) { return readJson(path.join(this.dir, 'pbp', String(season), `w${week}.json`), null); }

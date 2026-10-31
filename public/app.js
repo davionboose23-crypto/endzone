@@ -379,7 +379,7 @@ function simReplay(g) {
 function runSimUi(newSeed) {
   const D = drivesData(); if (!D) return; const { g, A, B, key, mode } = simPick(); if (A === B) { S.sim = { ...S.sim, key, status: 'error', err: 'Pick two different teams.' }; paintSim(); return; }
   const seed = (Math.random() * 2 ** 31) >>> 0; // fresh 10,000 games every run
-  let inputs = buildSimInputs(D, { away: A, home: B, sideFor: simSideFor, gameId: g?.id || `${A}@${B}`, tdShare: S.slate.pbp?.td || null, rosterNow: S.slate.rosterNow || null });
+  let inputs = buildSimInputs(D, { away: A, home: B, sideFor: simSideFor, gameId: g?.id || `${A}@${B}`, tdShare: S.slate.pbp?.td || null, rosterNow: S.slate.rosterNow || null, ...simPriorArgs(A, B) });
   if (mode === 'pbp') { const pi = buildPbpInputs(inputs, S.slate.pbp); if (!pi) { S.sim = { ...S.sim, key, status: 'error', err: 'No play-by-play parameters for one of these teams yet.' }; paintSim(); return; } inputs = pi; }
   Object.assign(S.sim, { key, market: g ? g.sides.away.lines || null : null, status: 'running', sum: null, raw: null, err: null, seed, t0: performance.now(), inputs, prog: mode === 'pbp' ? { done: 0, n: SIM_N, phase: 'pilot' } : null, partial: null, replay: null, rg: null, E: null }); paintSim();
   const id = ++simSeq;
@@ -545,6 +545,9 @@ function simTdHtml(s) {
 }
 // 4.9.2: Top 4 TD scorers (sim), team profiles (opponent-adjusted 2026 drives) and sim vs model
 const sdiff = d => `${d >= 0 ? '+' : '−'}${Math.round(Math.abs(d) * 100)}`;
+// app 4.15.0: real-data-only pre-season priors for the sim (last-season usage, prior team strength, home / rest / wind)
+function simPriorArgs(A, B) { const P = S.slate?.simPriors; if (!P || P.season !== S.slate.season) return {}; const g = P.games?.[`${S.slate.week}:${A}@${B}`] || null;
+  return { usagePrior: P.usage || null, tsPrior: S.slate.week > 1 ? P.ts || null : null, ctx: P.ctx ? { ...(g || { neutral: false }), fit: P.ctx } : null }; }
 function simTop4Html(s) {
   const t = s.vs?.top4; if (!t?.length) return '';
   return `<div class="card simtop4" id="simTop4"><h3>Top 4 TD scorers (sim) <span class="chip rel-chance">Simulated</span></h3>
