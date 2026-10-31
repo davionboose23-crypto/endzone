@@ -79,10 +79,10 @@ const SNAP_A = +(process.env.SNAP || 0), SNAP_L = +(process.env.SNAPL || 0), INJ
 const snapAvg = (team, name, W) => { const r = (SNAPS?.get(team + '|' + nmK(name)) || []).filter(x => x.w < W); return r.length ? r.reduce((s, x) => s + x.p, 0) / r.length : null; };
 // applied to the play-by-play inputs (each player's td-share weight lam steers who scores; tgt / car steer volume)
 function tweak422(I, P, W) { if (!SNAP_A && !SNAP_L && !INJ) return; for (const ti of I.teams) { const pl = ti.players || [];
-  for (const p of pl) { if (p.pos === 'QB') continue; let m = 1; if (SNAP_A) m *= Math.pow(snapTrend(p.team, p.name, W), SNAP_A);
-    if (SNAP_L) { const mates = pl.filter(q => q.pos === p.pos).map(q => snapAvg(q.team, q.name, W)).filter(x => x != null); const v = snapAvg(p.team, p.name, W); if (v != null && mates.length) { const mu = mates.reduce((s, x) => s + x, 0) / mates.length; m *= Math.min(2, Math.max(0.5, Math.pow((v + 0.1) / (mu + 0.1), SNAP_L))); } }
+  for (const p of pl) { if (p.pos === 'QB') continue; let m = 1; if (SNAP_A) m *= Math.pow(snapTrend(ti.team, p.name, W), SNAP_A);
+    if (SNAP_L) { const mates = pl.filter(q => q.pos === p.pos).map(q => snapAvg(ti.team, q.name, W)).filter(x => x != null); const v = snapAvg(ti.team, p.name, W); if (v != null && mates.length) { const mu = mates.reduce((s, x) => s + x, 0) / mates.length; m *= Math.min(2, Math.max(0.5, Math.pow((v + 0.1) / (mu + 0.1), SNAP_L))); } }
     if (m !== 1) { if (p.lam != null) p.lam *= m; p.tgt *= m; p.car *= m; } }
-  if (INJ) for (const pos of ['RB', 'WR', 'TE']) { const on = pl.filter(p => p.pos === pos); if (!on.length) continue; const team = on[0].team;
+  if (INJ) for (const pos of ['RB', 'WR', 'TE']) { const on = pl.filter(p => p.pos === pos); if (!on.length) continue; const team = ti.team;
     const miss = P.filter(p => p.team === team && p.pos === pos && !(p.avail.factor > 0)).reduce((s, p) => s + (snapAvg(team, p.name, W) || 0), 0); if (!(miss > 0.3)) continue;
     const sn = on.map(p => snapAvg(team, p.name, W) || 0.05); const tot = sn.reduce((s, x) => s + x, 0);
     on.forEach((p, i) => { const m = 1 + INJ * miss * (sn[i] / tot) / Math.max(0.05, sn[i]); const mm = Math.min(1.6, m); if (p.lam != null) p.lam *= mm; p.tgt *= mm; p.car *= mm; }); } } } const ensRows = [];
