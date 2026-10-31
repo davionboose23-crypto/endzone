@@ -121,7 +121,7 @@ function lastTeams(D) {
 // own recency-weighted per-game line from his last 8 games for ANY team in the file (last season's file in week 1), TD rate shrunk
 // to his share of the new team's touches; (b) no history = a small rookie / depth prior by position. Both need rosterNow (today's
 // roster: [team, injury, practice, status, pos, name]); the split then goes through td-share-1 like everyone else.
-export const DATA_OPTS = { carry: true, rookie: { RB: [0.5, 1.2], WR: [1.2, 0.05], TE: [0.8, 0], QB: [0, 0.3], FB: [0.2, 0.3] }, floor: 0.01, depthCal: null, tdSd: 0 };
+export const DATA_OPTS = { carry: true, rookie: { RB: [0.5, 1.2], WR: [1.2, 0.05], TE: [0.8, 0], QB: [0, 0.3], FB: [0.2, 0.3] }, floor: 0.01, depthCal: null, tdSd: 0.18 };
 const SKILL = new Set(['QB', 'RB', 'WR', 'TE', 'FB']);
 const byGsisCache = new WeakMap();
 function linesByGsis(D) { let m = byGsisCache.get(D); if (m) return m; m = new Map();
@@ -143,13 +143,13 @@ function extraPlayers(D, team, rosterNow, have, tdpg, touchPg, o) {
   return out; }
 export function dataPlayers(D, team, rosterNow = null, o = DATA_OPTS) {
   const T = D?.teams?.[team]; if (!T) return []; const G = T.games.slice(-HIST_N); if (!G.length) return []; const LT = lastTeams(D); const acc = new Map();
-  let teamTd = 0, W = 0; G.forEach((gm, gi) => { const w = Math.pow(HIST_DECAY, G.length - 1 - gi); W += w; const seen = new Set();
-    for (const d of gm.d) { if (d[5] === 'TD') teamTd += w; for (const x of d[8]) { const a = acc.get(x[0]) || { s: [0, 0, 0, 0, 0, 0, 0], qb: 0, qbC: 0 }; const s = a.s;
+  let teamTd = 0, W = 0; G.forEach((gm, gi) => { const w = Math.pow(HIST_DECAY, G.length - 1 - gi); W += w; const seen = new Set(), here = new Set();
+    for (const d of gm.d) { if (d[5] === 'TD') teamTd += w; for (const x of d[8]) { const a = acc.get(x[0]) || { s: [0, 0, 0, 0, 0, 0, 0], qb: 0, qbC: 0, gw: 0 }; const s = a.s; if (!here.has(x[0])) { here.add(x[0]); a.gw += w; }
       s[0] += w * x[1]; s[1] += w * x[2]; s[2] += w * x[3]; s[3] += w * x[4]; s[4] += w * x[5]; s[5] += w * x[7]; s[6] += w * (x[1] + x[4]); acc.set(x[0], a);
       if (gi >= G.length - 3) { if (!seen.has(x[0])) { seen.add(x[0]); a.qb += [0.15, 0.4, 1][gi - (G.length - 3)] ?? 0; } a.qbC += x[4] * ([0.15, 0.4, 1][gi - (G.length - 3)] ?? 0); } } } });
   const totT = [...acc.values()].reduce((s, a) => s + a.s[6], 0) || 1; const tdpg = teamTd / W;
-  let pl = [...acc.entries()].filter(([pi, a]) => { const pe = T.people[pi]; const lt = LT.get(pe[0]); return (a.s[6] / W >= 0.4 || pe[2] === 'QB') && !(lt && lt.t !== team && rosterNow?.[pe[0]]?.[0] !== team); }).map(([pi, a]) => { const pe = T.people[pi]; const s = a.s; const sh = s[6] / totT; const lam = 0.5 * (s[5] / W) + 0.5 * tdpg * sh;
-    return { id: String(pe[3] || pe[0]), gsis: pe[0], name: pe[1], pos: pe[2], lam, chance: 1 - Math.exp(-lam), tgt: s[0] / W, car: s[3] / W, rec: s[1] / W, recYd: s[2] / W, rushYd: s[4] / W,
+  let pl = [...acc.entries()].filter(([pi, a]) => { const pe = T.people[pi]; const lt = LT.get(pe[0]); return (a.s[6] / W >= 0.4 || pe[2] === 'QB') && !(lt && lt.t !== team && rosterNow?.[pe[0]]?.[0] !== team); }).map(([pi, a]) => { const pe = T.people[pi]; const s = a.s; const sh = s[6] / totT; const gp = Math.min(1, a.gw / W); const f = o?.pg ? 1 / Math.max(gp, 0.5) : 1; const lam = f * (0.5 * (s[5] / W) + 0.5 * tdpg * sh); // gp = (recency-weighted) share of the team's games he played; pg: rates per game played (missed games don't dilute a returning starter)
+    return { id: String(pe[3] || pe[0]), gsis: pe[0], name: pe[1], pos: pe[2], lam, chance: 1 - Math.exp(-lam), tgt: f * s[0] / W, car: f * s[3] / W, rec: f * s[1] / W, recYd: f * s[2] / W, rushYd: f * s[4] / W, gp,
       rushTd: DEFAULT_RUSH_TD[pe[2]] ?? 0.3, passShare: 0, qbScore: pe[2] === 'QB' ? a.qb * (1 + 0.1 * a.qbC) : 0, passTdExp: null, lead: null, behind: null, pats: patternsFor(D, pe[0]), history: true }; });
   if (o && (o.carry || o.rookie) && rosterNow) pl.push(...extraPlayers(D, team, rosterNow, new Set(pl.map(p => p.gsis)), tdpg, totT / W, o));
   pl = pl.map(p => rosterCheck(p, team, rosterNow)).filter(Boolean);
@@ -166,7 +166,8 @@ export function rosterCheck(p, team, rosterNow) {
 }
 // 4.14.0 depth slot of each available player within his position by recent touches (QB: pass-share starter vs backup)
 export function depthSlots(players) { const c = {}; const k = new Array(players.length).fill(null);
-  players.map((p, i) => i).sort((a, b) => (players[b].tgt + players[b].car) - (players[a].tgt + players[a].car)).forEach(i => { const p = players[i]; const pos = p.pos === 'FB' ? 'RB' : p.pos;
+  const key = p => (p.tgt + p.car) / Math.max(0.25, p.gp ?? 1); // touches per game he played, so a starter back from injury still ranks as the starter
+  players.map((p, i) => i).sort((a, b) => key(players[b]) - key(players[a])).forEach(i => { const p = players[i]; const pos = p.pos === 'FB' ? 'RB' : p.pos;
     if (pos === 'QB') { k[i] = (p.passShare || 0) >= 0.5 ? 'QB1' : 'QB2'; return; } if (!['RB', 'WR', 'TE'].includes(pos)) return; c[pos] = (c[pos] || 0) + 1; k[i] = pos + Math.min(c[pos], pos === 'WR' ? 4 : 3); });
   return k; }
 // optional per-slot multipliers on each player's TD rate (team total kept) and a minimum share floor taken out of the team total
