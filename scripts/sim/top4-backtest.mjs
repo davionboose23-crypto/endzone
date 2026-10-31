@@ -87,9 +87,14 @@ function rzScore(f, v) { const g = k => f[k] || 0; let C = g('c'), T = g('t');
   let s = 0.42 * C + 0.58 * T; if (v === 'snapw') s *= Math.sqrt(Math.min(1.2, (f.snap ?? 0.3) / 0.6)); return s + 0.004; }
 const ZG = [[2, 3], [4, 5], [6, 7]];
 function featK(v, g, kind) { const c = kind === 'C'; if (v === 'i5') return c ? ['c', 'c10', 'c5'][g] : ['t', 't10', 't10'][g]; if (v === 'posk') return c ? 'cK' : 'tK'; if (v === 'rec') return c ? 'cR' : 'tR'; if (v === 'air') return c ? 'c' : 'AIR'; return c ? 'c' : 't'; }
-function tweak423(I, W) { if (!RZF && !GATE) return; const X = I.pbp; if (!X?.usage) return;
+const DEPTH = +(process.env.DEPTH ?? 1), LOWSNAP = +(process.env.LOWSNAP ?? 1), I5FLAT = +(process.env.I5FLAT ?? 1); // t80u
+function tweak423(I, W) { if (!RZF && !GATE && DEPTH === 1 && LOWSNAP === 1 && I5FLAT === 1) return; const X = I.pbp; if (!X?.usage) return;
   I.teams.forEach((ti, k) => { const pl = ti.players || []; let U = X.usage[k]; if (!U) return; X.usage[k] = U = U.map(u => ({ ...u, mt: [...u.mt], mc: [...u.mc] }));
     const F = pl.map(p => rzf(W, ti.team, p.name)); const nq = pl.map(p => p.pos !== 'QB');
+    const rz = (i, m) => { for (let c = 2; c < 8; c++) { U[i].mt[c] *= m; U[i].mc[c] *= m; } };
+    if (DEPTH !== 1) for (const ps of ['WR', 'TE']) { const ix = pl.map((p, i) => i).filter(i => pl[i].pos === ps).sort((a, b) => pl[b].tgt - pl[a].tgt); const sl = ps === 'WR' ? [1, 2] : [1, 2]; for (const r of sl) if (ix[r] != null) rz(ix[r], DEPTH); }
+    if (LOWSNAP !== 1) pl.forEach((p, i) => { const sn = F[i].snap; if (nq[i] && sn != null && sn >= 0.2 && sn < 0.4) rz(i, LOWSNAP); });
+    if (I5FLAT !== 1) { const rb = pl.map((p, i) => i).filter(i => pl[i].pos === 'RB').sort((a, b) => pl[b].car - pl[a].car)[0]; if (rb != null) for (const c of [6, 7]) U[rb].mc[c] *= I5FLAT; }
     if (GATE) pl.forEach((p, i) => { const sn = F[i].snap; if (nq[i] && sn != null && sn < GATE) for (let c = 2; c < 8; c++) { U[i].mt[c] *= sn / GATE; U[i].mc[c] *= sn / GATE; } });
     if (RZF) for (const kind of ['C', 'T']) ZG.forEach((cells, g) => { const key = featK(RZF, g, kind); const vol = i => kind === 'C' ? pl[i].car * U[i].mc[cells[0]] : pl[i].tgt * U[i].mt[cells[0]];
       const cur = pl.map((p, i) => nq[i] ? vol(i) : 0); const cs = cur.reduce((x, y) => x + y, 0); if (!(cs > 0)) return;
