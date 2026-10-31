@@ -1,0 +1,212 @@
+{
+ "app": "4.21.0 (no change kept)",
+ "sims": 1000,
+ "weeks": [
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "engine": "pbp2New",
+ "rule": "keep if hits up on both seeds without worse log loss, or clearly lower log loss with hits unchanged",
+ "runs": {
+  "base-11": {
+   "what": "4.21.0 default",
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.30696
+  },
+  "combo-11": {
+   "what": "SNAP=1 SNAPL=1 INJ=1",
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.31408
+  },
+  "inj1-11": {
+   "what": "INJ=1 same-position redistribution of ruled-out players (by snap share)",
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.3069
+  },
+  "inj2-11": {
+   "what": "INJ=2",
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.30688
+  },
+  "kuse12-11": {
+   "what": "KUSE=12 more shrinkage",
+   "hitsPerGame": 1.565,
+   "poolLogLoss": 0.30756
+  },
+  "kuse3-11": {
+   "what": "KUSE=3 less shrinkage of per-player red-zone target/carry shares",
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.30742
+  },
+  "snap1-11": {
+   "what": "SNAP=1 snap-share trend (last 3 vs season)",
+   "hitsPerGame": 1.533,
+   "poolLogLoss": 0.30746
+  },
+  "snapl03-11": {
+   "what": "SNAPL=0.3",
+   "hitsPerGame": 1.489,
+   "poolLogLoss": 0.30846
+  },
+  "snapl1-11": {
+   "what": "SNAPL=1 snap-share level vs same-position teammates",
+   "hitsPerGame": 1.533,
+   "poolLogLoss": 0.31321
+  },
+  "base-23": {
+   "what": "4.21.0 default",
+   "hitsPerGame": 1.576,
+   "poolLogLoss": 0.30787
+  },
+  "combo-23": {
+   "what": "SNAP=1 SNAPL=1 INJ=1",
+   "hitsPerGame": 1.511,
+   "poolLogLoss": 0.31478
+  },
+  "inj1-23": {
+   "what": "INJ=1 same-position redistribution of ruled-out players (by snap share)",
+   "hitsPerGame": 1.576,
+   "poolLogLoss": 0.30774
+  },
+  "inj2-23": {
+   "what": "INJ=2",
+   "hitsPerGame": 1.576,
+   "poolLogLoss": 0.30775
+  },
+  "kuse12-23": {
+   "what": "KUSE=12 more shrinkage",
+   "hitsPerGame": 1.533,
+   "poolLogLoss": 0.30784
+  },
+  "kuse3-23": {
+   "what": "KUSE=3 less shrinkage of per-player red-zone target/carry shares",
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.30847
+  },
+  "snap1-23": {
+   "what": "SNAP=1 snap-share trend (last 3 vs season)",
+   "hitsPerGame": 1.554,
+   "poolLogLoss": 0.30842
+  },
+  "snapl03-23": {
+   "what": "SNAPL=0.3",
+   "hitsPerGame": 1.587,
+   "poolLogLoss": 0.30813
+  },
+  "snapl1-23": {
+   "what": "SNAPL=1 snap-share level vs same-position teammates",
+   "hitsPerGame": 1.478,
+   "poolLogLoss": 0.31445
+  }
+ },
+ "value2026": {
+  "rows": 1607,
+  "weeks": [
+   3,
+   8
+  ],
+  "tdRate": 0.1817,
+  "corrNextWeekTD": {
+   "snap": {
+    "r": 0.2312,
+    "n": 1542,
+    "tdRateByQuintile": [
+     0.0583,
+     0.1136,
+     0.1981,
+     0.2565,
+     0.3074
+    ]
+   },
+   "trend": {
+    "r": -0.0172,
+    "n": 1428,
+    "tdRateByQuintile": [
+     0.1923,
+     0.207,
+     0.1888,
+     0.2105,
+     0.1923
+    ]
+   },
+   "rzt": {
+    "r": 0.1711,
+    "n": 1607,
+    "tdRateByQuintile": [
+     0.1398,
+     0.081,
+     0.1371,
+     0.2492,
+     0.3012
+    ]
+   },
+   "ezt": {
+    "r": 0.102,
+    "n": 1607,
+    "tdRateByQuintile": [
+     0.1646,
+     0.162,
+     0.1371,
+     0.1713,
+     0.2733
+    ]
+   },
+   "rzc": {
+    "r": 0.2519,
+    "n": 1607,
+    "tdRateByQuintile": [
+     0.1739,
+     0.1308,
+     0.134,
+     0.134,
+     0.3354
+    ]
+   }
+  },
+  "teammateStarterOut": {
+   "nonStarters_starterOut": {
+    "n": 121,
+    "tdRate": 0.0992
+   },
+   "nonStarters_starterIn": {
+    "n": 942,
+    "tdRate": 0.1189
+   },
+   "RB": {
+    "out": [
+     2,
+     0
+    ],
+    "in": [
+     248,
+     0.1895
+    ]
+   },
+   "WR": {
+    "out": [
+     102,
+     0.1078
+    ],
+    "in": [
+     354,
+     0.0847
+    ]
+   },
+   "TE": {
+    "out": [
+     17,
+     0.0588
+    ],
+    "in": [
+     340,
+     0.1029
+    ]
+   }
+  }
+ }
+}
