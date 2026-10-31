@@ -486,7 +486,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.20.0';
+const APP_VERSION = '4.21.0';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
@@ -551,12 +551,12 @@ function simPriorArgs(A, B) { const P = S.slate?.simPriors; if (!P || P.season !
   return { ctx: P.ctx ? { ...(g || { neutral: false }), fit: P.ctx } : null }; } // 4.18.0: this season only (no last-season usage / team-strength prior; ctx used only if fit on this season)
 // 4.16.0 ensemble: blend of the drive and play-by-play sims' anytime chances for the same matchup (weight fit walk-forward on 2025-26
 // log loss: drive 0.55 / pbp 0.45 at the latest week). Beat both engines on log loss in both seasons; shown once both engines have run.
-const ENS_W = 0.55;
+const ENS_W = 0.3; // 4.21.0: refit on 2026 only (walk-forward backtest, seeds 11 / 23): 30% drive, ranked by the play-by-play chance
 function simBlendKeep(sum) { const k = `${sum?.away}@${sum?.home}`; const ps = (sum?.players || []).filter(p => p.anytime != null); if (!ps.length) return;
   if (S.simBlend?.k !== k) S.simBlend = { k, drive: null, pbp: null }; S.simBlend[sum.mode === 'pbp' ? 'pbp' : 'drive'] = new Map(ps.map(p => [`${p.team}|${p.name}`, p])); }
 function simBlendHtml(s) { const B = S.simBlend; if (!B || B.k !== `${s.away}@${s.home}` || !B.drive || !B.pbp) return `<p class="small muted">Run both engines on this game to see the blended top 4 (drive ${Math.round(ENS_W * 100)}% / play-by-play ${100 - Math.round(ENS_W * 100)}%), the most accurate in the backtest.</p>`;
-  const ks = new Set([...B.drive.keys(), ...B.pbp.keys()]); const r = [...ks].map(k => { const a = B.drive.get(k), b = B.pbp.get(k); const p = a || b; return { name: p.name, team: p.team, pos: p.pos, v: ENS_W * (a?.anytime || 0) + (1 - ENS_W) * (b?.anytime || 0) }; }).sort((x, y) => y.v - x.v).slice(0, 4);
-  return `<div class="simblend"><h4>Blended top 4 <span class="chip rel-chance">Drive + play-by-play</span></h4><ol class="small">${r.map(p => `<li><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.team)} ${esc(p.pos)}</span> ${simPct(p.v)}</li>`).join('')}</ol><p class="small muted">${Math.round(ENS_W * 100)}% drive sim + ${100 - Math.round(ENS_W * 100)}% play-by-play sim, from your latest run of each. In the walk-forward backtest this blend had lower log loss than either engine alone in 2025 and 2026; top-4 hits were about the same.</p></div>`; }
+  const ks = new Set([...B.drive.keys(), ...B.pbp.keys()]); const r = [...ks].map(k => { const a = B.drive.get(k), b = B.pbp.get(k); const p = a || b; return { name: p.name, team: p.team, pos: p.pos, v: ENS_W * (a?.anytime || 0) + (1 - ENS_W) * (b?.anytime || 0), r: b?.anytime || 0 }; }).sort((x, y) => y.r - x.r || y.v - x.v).slice(0, 4);
+  return `<div class="simblend"><h4>Blended top 4 <span class="chip rel-chance">Drive + play-by-play</span></h4><ol class="small">${r.map(p => `<li><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.team)} ${esc(p.pos)}</span> ${simPct(p.v)}</li>`).join('')}</ol><p class="small muted">${Math.round(ENS_W * 100)}% drive sim + ${100 - Math.round(ENS_W * 100)}% play-by-play sim, from your latest run of each. Order is the play-by-play sim's; the blend only sets the chance. In the 2026 walk-forward backtest this cut log loss (0.3070 → 0.3046, 0.3079 → 0.3051 on two seeds) with the same top-4 hits.</p></div>`; }
 function simTop4Html(s) {
   const t = s.vs?.top4; if (!t?.length) return '';
   return `<div class="card simtop4" id="simTop4"><h3>Top 4 TD scorers (sim) <span class="chip rel-chance">Simulated</span></h3>
