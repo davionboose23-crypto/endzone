@@ -29,6 +29,9 @@ for W in range(2,int(pb.week.max())+2):
     a=ap.groupby(['posteam','receiver_player_id'])[col].sum(); b=ap.groupby('posteam')[col].sum()
     for (t,i),v in a.items():
       if b[t]>0: f.setdefault((t,i),{})[lab]=v/b[t]
+  for N in (1,2,3):
+    d=pas[(pas.week<W)&(pas.week>=W-N)]; a=d.groupby(['posteam','id']).size(); b=d.groupby('posteam').size()
+    for (t,i),v in a.items(): f.setdefault((t,i),{})['tL%d'%N]=v/b[t]
   for (t,i),v in f.items():
     k=nm(g2n.get(i,'')); v['snap']=float(sp.get((t,k),np.nan)) if (t,k) in sp else None
     out[f'{W}|{t}|{k}']={a:(round(b,4) if b is not None else None) for a,b in v.items()}

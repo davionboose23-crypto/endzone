@@ -82,7 +82,7 @@ const RZF = process.env.RZF || null, RZB = +(process.env.RZB ?? 0.3), GATE = +(p
 const RZFEAT = (RZF || GATE || LOGIT || process.env.LOWSNAP) ? JSON.parse(fs.readFileSync(path.join(ROOT, 'archive', 'sim', 'rzfeat-2026.json'), 'utf8')) : null;
 const rzf = (W, team, name) => RZFEAT?.[`${W}|${team}|${nmK(name)}`] || {};
 const ZG = [[2, 3], [4, 5], [6, 7]];
-function featK(v, g, kind) { const c = kind === 'C'; if (v === 'i5') return c ? ['c', 'c10', 'c5'][g] : ['t', 't10', 't10'][g]; if (v === 'posk') return c ? 'cK' : 'tK'; if (v === 'rec') return c ? 'cR' : 'tR'; if (v === 'air') return c ? 'c' : 'AIR'; return c ? 'c' : 't'; }
+function featK(v, g, kind) { const c = kind === 'C'; if (v === 'i5') return c ? ['c', 'c10', 'c5'][g] : ['t', 't10', 't10'][g]; if (v === 'posk') return c ? 'cK' : 'tK'; if (v === 'rec') return c ? 'cR' : 'tR'; if (v === 'air') return c ? 'c' : 'AIR'; if (/^l\d$/.test(v)) return c ? null : 'tL' + v[1]; return c ? 'c' : 't'; }
 const DEPTH = +(process.env.DEPTH ?? 1), LOWSNAP = +(process.env.LOWSNAP ?? 1), I5FLAT = +(process.env.I5FLAT ?? 1); // t80u
 function tweak423(I, W) { if (!RZF && !GATE && DEPTH === 1 && LOWSNAP === 1 && I5FLAT === 1) return; const X = I.pbp; if (!X?.usage) return;
   I.teams.forEach((ti, k) => { const pl = ti.players || []; let U = X.usage[k]; if (!U) return; X.usage[k] = U = U.map(u => ({ ...u, mt: [...u.mt], mc: [...u.mc] }));
@@ -93,10 +93,10 @@ function tweak423(I, W) { if (!RZF && !GATE && DEPTH === 1 && LOWSNAP === 1 && I
     if (LOWSNAP !== 1) pl.forEach((p, i) => { const sn = F[i].snap; if (nq[i] && sn != null && sn >= 0.2 && sn < 0.4) rz(i, LOWSNAP); });
     if (I5FLAT !== 1) { const rb = pl.map((p, i) => i).filter(i => pl[i].pos === 'RB').sort((a, b) => pl[b].car - pl[a].car)[0]; if (rb != null) for (const c of [6, 7]) U[rb].mc[c] *= I5FLAT; }
     if (GATE) pl.forEach((p, i) => { const sn = F[i].snap; if (nq[i] && sn != null && sn < GATE) for (let c = 2; c < 8; c++) { U[i].mt[c] *= sn / GATE; U[i].mc[c] *= sn / GATE; } });
-    if (RZF) for (const kind of ['C', 'T']) ZG.forEach((cells, g) => { const key = featK(RZF, g, kind); const vol = i => kind === 'C' ? pl[i].car * U[i].mc[cells[0]] : pl[i].tgt * U[i].mt[cells[0]];
-      const cur = pl.map((p, i) => nq[i] ? vol(i) : 0); const cs = cur.reduce((x, y) => x + y, 0); if (!(cs > 0)) return;
-      let tg = pl.map((p, i) => nq[i] ? (key === 'AIR' ? (['WR', 'TE'].includes(p.pos) ? 0.5 * (F[i].ez || 0) + 0.5 * (F[i].air || 0) : (F[i].t || 0)) : (F[i][key] || 0)) * (RZF === 'snapw' ? Math.sqrt(Math.min(1.2, (F[i].snap ?? 0.3) / 0.6)) : 1) : 0); const ts = tg.reduce((x, y) => x + y, 0); if (!(ts > 0)) return;
-      pl.forEach((p, i) => { if (!nq[i]) return; const m = Math.min(2, Math.max(0.5, Math.pow((tg[i] / ts + 0.02) / (cur[i] / cs + 0.02), RZB))); for (const c of cells) { if (kind === 'C') U[i].mc[c] *= m; else U[i].mt[c] *= m; } }); }); }); }
+    if (RZF) for (const kind of ['C', 'T']) ZG.forEach((cells, g) => { const key = featK(RZF, g, kind); if (!key) return; const ok = i => nq[i] && (!key.startsWith('tL') || ['WR', 'TE'].includes(pl[i].pos)); const vol = i => kind === 'C' ? pl[i].car * U[i].mc[cells[0]] : pl[i].tgt * U[i].mt[cells[0]];
+      const cur = pl.map((p, i) => ok(i) ? vol(i) : 0); const cs = cur.reduce((x, y) => x + y, 0); if (!(cs > 0)) return;
+      let tg = pl.map((p, i) => ok(i) ? (key === 'AIR' ? (['WR', 'TE'].includes(p.pos) ? 0.5 * (F[i].ez || 0) + 0.5 * (F[i].air || 0) : (F[i].t || 0)) : (F[i][key] || 0)) * (RZF === 'snapw' ? Math.sqrt(Math.min(1.2, (F[i].snap ?? 0.3) / 0.6)) : 1) : 0); const ts = tg.reduce((x, y) => x + y, 0); if (!(ts > 0)) return;
+      pl.forEach((p, i) => { if (!ok(i)) return; const m = Math.min(2, Math.max(0.5, Math.pow((tg[i] / ts + 0.02) / (cur[i] / cs + 0.02), RZB) ** (1))); for (const c of cells) { if (kind === 'C') U[i].mc[c] *= m; else U[i].mt[c] *= m; } }); }); }); }
 const lgRows = []; const lgt = x => Math.log(Math.max(1e-4, Math.min(1 - 1e-4, x)) / (1 - Math.max(1e-4, Math.min(1 - 1e-4, x))));
 function fitLogit(rows, W) { const R = rows.filter(r => r.w < W); if (R.length < 300) return null; const d = R[0].x.length; let b = new Array(d).fill(0); b[0] = 1; const lam = 2;
   for (let it = 0; it < 25; it++) { const g = new Array(d).fill(0), H = Array.from({ length: d }, () => new Array(d).fill(0));
