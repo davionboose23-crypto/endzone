@@ -85,12 +85,16 @@ function rzScore(f, v) { const g = k => f[k] || 0; let C = g('c'), T = g('t');
   if (v === 'i5') { C = 0.3 * g('c') + 0.3 * g('c10') + 0.4 * g('c5'); T = 0.5 * g('t') + 0.5 * g('t10'); }
   else if (v === 'posk') { C = g('cK'); T = g('tK'); } else if (v === 'rec') { C = g('cR'); T = g('tR'); }
   let s = 0.42 * C + 0.58 * T; if (v === 'snapw') s *= Math.sqrt(Math.min(1.2, (f.snap ?? 0.3) / 0.6)); return s + 0.004; }
-function tweak423(I, W) { if (!RZF && !GATE) return; for (const ti of I.teams) { const pl = (ti.players || []).filter(p => p.pos !== 'QB' && p.lam != null); if (!pl.length) continue;
-  const L0 = pl.reduce((a, p) => a + p.lam, 0);
-  if (GATE) for (const p of pl) { const sn = rzf(W, ti.team, p.name).snap; if (sn != null && sn < GATE) p.lam *= sn / GATE; }
-  if (RZF) { const sc = pl.map(p => rzScore(rzf(W, ti.team, p.name), RZF)); const Ss = sc.reduce((a, b) => a + b, 0); const L1 = pl.reduce((a, p) => a + p.lam, 0);
-    pl.forEach((p, i) => { p.lam = Math.pow(p.lam, 1 - RZB) * Math.pow(L1 * sc[i] / Ss, RZB); }); }
-  const L2 = pl.reduce((a, p) => a + p.lam, 0); if (L2 > 0) for (const p of pl) p.lam *= L0 / L2; } }
+const ZG = [[2, 3], [4, 5], [6, 7]];
+function featK(v, g, kind) { const c = kind === 'C'; if (v === 'i5') return c ? ['c', 'c10', 'c5'][g] : ['t', 't10', 't10'][g]; if (v === 'posk') return c ? 'cK' : 'tK'; if (v === 'rec') return c ? 'cR' : 'tR'; if (v === 'air') return c ? 'c' : 'AIR'; return c ? 'c' : 't'; }
+function tweak423(I, W) { if (!RZF && !GATE) return; const X = I.pbp; if (!X?.usage) return;
+  I.teams.forEach((ti, k) => { const pl = ti.players || []; let U = X.usage[k]; if (!U) return; X.usage[k] = U = U.map(u => ({ ...u, mt: [...u.mt], mc: [...u.mc] }));
+    const F = pl.map(p => rzf(W, ti.team, p.name)); const nq = pl.map(p => p.pos !== 'QB');
+    if (GATE) pl.forEach((p, i) => { const sn = F[i].snap; if (nq[i] && sn != null && sn < GATE) for (let c = 2; c < 8; c++) { U[i].mt[c] *= sn / GATE; U[i].mc[c] *= sn / GATE; } });
+    if (RZF) for (const kind of ['C', 'T']) ZG.forEach((cells, g) => { const key = featK(RZF, g, kind); const vol = i => kind === 'C' ? pl[i].car * U[i].mc[cells[0]] : pl[i].tgt * U[i].mt[cells[0]];
+      const cur = pl.map((p, i) => nq[i] ? vol(i) : 0); const cs = cur.reduce((x, y) => x + y, 0); if (!(cs > 0)) return;
+      let tg = pl.map((p, i) => nq[i] ? (key === 'AIR' ? (['WR', 'TE'].includes(p.pos) ? 0.5 * (F[i].ez || 0) + 0.5 * (F[i].air || 0) : (F[i].t || 0)) : (F[i][key] || 0)) * (RZF === 'snapw' ? Math.sqrt(Math.min(1.2, (F[i].snap ?? 0.3) / 0.6)) : 1) : 0); const ts = tg.reduce((x, y) => x + y, 0); if (!(ts > 0)) return;
+      pl.forEach((p, i) => { if (!nq[i]) return; const m = Math.min(2, Math.max(0.5, Math.pow((tg[i] / ts + 0.02) / (cur[i] / cs + 0.02), RZB))); for (const c of cells) { if (kind === 'C') U[i].mc[c] *= m; else U[i].mt[c] *= m; } }); }); }); }
 const lgRows = []; const lgt = x => Math.log(Math.max(1e-4, Math.min(1 - 1e-4, x)) / (1 - Math.max(1e-4, Math.min(1 - 1e-4, x))));
 function fitLogit(rows, W) { const R = rows.filter(r => r.w < W); if (R.length < 300) return null; const d = R[0].x.length; let b = new Array(d).fill(0); b[0] = 1; const lam = 2;
   for (let it = 0; it < 25; it++) { const g = new Array(d).fill(0), H = Array.from({ length: d }, () => new Array(d).fill(0));
