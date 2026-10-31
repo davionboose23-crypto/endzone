@@ -485,7 +485,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.14.0';
+const APP_VERSION = '4.15.0';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
@@ -634,7 +634,7 @@ function simTrackHtml() {
       <div class="small muted">Scored: ${act}</div>${g.sur ? `<div class="small muted">Sim said ${Math.round(g.sur.p * 100)}% for a TD from outside its top 4${nLs ? ` · <span class="t4ls">◆ ${nLs} longshot scorer${nLs > 1 ? 's' : ''}</span>` : ''}</div>` : ''}</li>`; }).join('')}</ul></details>`).join('');
   return `<div class="card t4card" id="simTrack"><h3>Sim top-4 track record <span class="chip rel-chance">Backtest</span></h3>
     <p class="small">Every 2026 game so far (${s.games} games, weeks ${s.weeks[0]}–${s.weeks[s.weeks.length - 1]}), re-run as if before kickoff: only data from earlier weeks, that week's roster and its injury report. A hit is a top-4 pick who scored a rushing or receiving TD.</p>
-    ${tab}${lsTot ? `<p class="small"><span class="t4ls">◆</span> marks a scorer from outside the sim's top 4: ${lsTot.ls} of ${lsTot.all} TD scorers this season (${Math.round(lsTot.ls / lsTot.all * 100)}%). The sim expects this: it put the chance of at least one such scorer at ${Math.round(lsTot.p * 100)}% per game on average.</p>` : ''}<p class="small muted">Averages move about ±${f2(sim.se)} by luck alone over this many games, so small gaps are not real differences.</p>${rl}${oos}${acc}${games}</div>`;
+    ${tab}${lsTot ? `<p class="small"><span class="t4ls">◆</span> marks a scorer from outside the sim's top 4: ${lsTot.ls} of ${lsTot.all} TD scorers this season (${Math.round(lsTot.ls / lsTot.all * 100)}%). The sim expects this: it put the chance of at least one such scorer at ${Math.round(lsTot.p * 100)}% per game on average.</p>` : ''}<p class="small muted">Averages move about ±${f2(sim.se)} by luck alone over this many games, so small gaps are not real differences.</p>${T.seedCheck ? `<p class="small muted">${esc(T.seedCheck.text)}</p>` : ''}${rl}${oos}${acc}${games}</div>`;
 }
 function paintSim() {
   const o = document.getElementById('simOut'); if (!o) return; const { A, B, key, mode } = simPick(); const sim = S.sim; const mine = sim.key === key;
