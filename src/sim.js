@@ -129,7 +129,7 @@ export const DATA_OPTS_417 = { carry: true, rookie: { RB: [0.5, 1.2], WR: [1.2, 
 // prior-season td-share / red-zone shares or pbp params, no prior-season game-context fit, no drive patterns fitted on past seasons).
 // Thin samples shrink toward THIS season's league averages instead: rookie / depth lines = this season's per-position depth-player
 // line (rookie 'league'), own TD rate shrunk toward this season's position TD-per-touch (tdK games). assertSeasonOnly throws otherwise.
-export const DATA_OPTS = { seasonOnly: true, carry: true, rookie: 'league', floor: 0.01, extraF: 1, tdK: 0, depthCal: { RB1: 1.08, TE1: 1.15, QB1: 1.15 }, tdSd: 0.18, priorK: 0, ts: { priorF: 0, earlyK: 3 } };
+export const DATA_OPTS = { seasonOnly: true, carry: true, rookie: 'league', floor: 0.01, extraF: 1, tdK: 3, depthCal: { RB1: 1.08, TE1: 1.15, QB1: 1.15 }, tdSd: 0.18, priorK: 0, ts: { priorF: 0, earlyK: 3 } };
 export const SEASON_ONLY_VERSION = 'season-only-1';
 const SO_CACHE = new WeakMap();
 export function seasonOf(D) { if (Number.isFinite(D?.season)) return D.season; let m = null; for (const T of Object.values(D?.teams || {})) for (const g of T.games || []) if (Number.isFinite(g.season) && (m == null || g.season > m)) m = g.season; return m; }
