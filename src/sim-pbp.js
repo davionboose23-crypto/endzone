@@ -25,7 +25,7 @@ const NR = RESULTS.length; const TD = 0, FG = 1, MFG = 2, PUNT = 3, TO = 4, DOWN
 const DKEYS = Object.keys(DSTATS); const DOFF = {}; let NB = 0; for (const k of DKEYS) { DOFF[k] = NB; NB += DSTATS[k] + 1; }
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x)); const sig = x => 1 / (1 + Math.exp(-x)); const logit = p => Math.log(p / (1 - p));
 const TDAGG = 8; const LOGN = 400;
-export const SIM_PBP_TUNE = { clock: 1.06, rzAdj: 0.2, spread: 4, form: 0.2, dvp: 0.5, late: 0, qbRz: 0, prs: 0 }; // 4.19.0: dvp = exponent (0.5 shipped: paired 2026 backtest seeds 11 + 23, top-4 hits +0.03 and log loss better at both; 1.0 / 1.5 tested, worse log loss at one seed) on the defense-vs-position red-zone usage multiplier; late = weight of the 3rd / 4th-down completion effect (tested at 1.0: top-4 hits -0.01 at both seeds, so off)
+export const SIM_PBP_TUNE = { clock: 1.06, rzAdj: 0.2, spread: 4, form: 0.2, dvp: 0.5, late: 0, qbRz: 0, prs: 0, rzpO: 0, rzpD: 0, rzd: 0, i5: 0, i5k: 4, i5only: null }; // i5only: 0 = carries only, 1 = targets only; // t85u research knobs, all off: rzpO = extra weight on the offense 2026 red-zone pass tilt (shrunk ratio, logit), rzpD = defense red-zone pass tilt allowed, rzd = defense red-zone TD rate by zone x run/pass, i5 = blend toward each player's 2026 inside-5 carry / target share (i5k = prior weight in team plays) // 4.19.0: dvp = exponent (0.5 shipped: paired 2026 backtest seeds 11 + 23, top-4 hits +0.03 and log loss better at both; 1.0 / 1.5 tested, worse log loss at one seed) on the defense-vs-position red-zone usage multiplier; late = weight of the 3rd / 4th-down completion effect (tested at 1.0: top-4 hits -0.01 at both seeds, so off)
 // form (sim-pbp-2): game-day variance. Each offense draws one N(0, form) logit shift per simulated game, applied to completion,
 // explosive-play and red-zone TD odds (and against sacks / interceptions), so a team can have a good or a bad day as a whole
 // instead of every snap being independent. Tuned on 2025 only so the spread of simulated points matches real games.
@@ -61,6 +61,9 @@ function matchupV2(P, X2, tm, teams, ti, g, SP) {
     dvp: X2.dvp && SIM_PBP_TUNE.dvp ? [1, 0].map(o => { const r = X2.dvp.m[ti(tm[o])]; return r ? { pos: X2.dvp.pos, m: r.map(v => r4(Math.pow(v, SIM_PBP_TUNE.dvp))) } : null; }) : null,
     qbRz: X2.qbRz && SIM_PBP_TUNE.qbRz ? tm.map(t => r4(Math.pow(X2.qbRz[ti(t)] || 1, SIM_PBP_TUNE.qbRz))) : null,
     prs: X2.prs && SIM_PBP_TUNE.prs ? [0, 1].map(k => pressureShifts(X2.prs, ti(tm[k]), ti(tm[1 - k]), SIM_PBP_TUNE.prs)) : null, // 4.20.0 pressure (offense allowed vs defense generated)
+    rzp: (X2.rzPass && (SIM_PBP_TUNE.rzpO || SIM_PBP_TUNE.rzpD)) ? [0, 1].map(k => r4(SIM_PBP_TUNE.rzpO * (X2.rzPass.o[ti(tm[k])] || 0) + SIM_PBP_TUNE.rzpD * (X2.rzPass.d[ti(tm[1 - k])] || 0))) : null,
+    rzd: X2.rzDef && SIM_PBP_TUNE.rzd ? [0, 1].map(k => (X2.rzDef[ti(tm[1 - k])] || []).map(v => r4(SIM_PBP_TUNE.rzd * v))) : null,
+    i5: X2.i5 && SIM_PBP_TUNE.i5 ? teams.map((t, k) => { const T = X2.i5.team[tm[k]] || { c: 0, g: 0 }; return { nC: T.c, nT: T.g, pc: t.players.map(p => X2.i5.p[p.gsis]?.t === tm[k] ? X2.i5.p[p.gsis].c : 0), pt: t.players.map(p => X2.i5.p[p.gsis]?.t === tm[k] ? X2.i5.p[p.gsis].g : 0) }; }) : null,
     late: M.cmpLate && SIM_PBP_TUNE.late ? [0, 1].map(k => { const o = ti(tm[k]), d = ti(tm[1 - k]); return r4(SIM_PBP_TUNE.late * SP * (g(M.cmpLate, 'off', o) + g(M.cmpLate, 'def', d) - g(M.cmp, 'off', o) - g(M.cmp, 'def', d))); }) : null };
 }
 const r4 = x => Math.round(x * 1e4) / 1e4;
@@ -82,6 +85,10 @@ export function makePbpEngine(I) {
     for (let i = 0; i < P; i++) for (let c = 0; c < 8; c++) { wT[i * 8 + c] = (qb[i] ? 0 : pl[i].tgt) * (U[i].mt[c] ?? 1); wC[i * 8 + c] = pl[i].car * (qb[i] ? 0.45 : 1) * (U[i].mc[c] ?? 1); }
     const DV = X.x2?.dvp?.[k]; if (DV) for (let i = 0; i < P; i++) { const pj = DV.pos.indexOf(pl[i].pos === 'FB' ? 'RB' : pl[i].pos); const m = pj >= 0 ? DV.m[pj] : 1; if (m !== 1) for (let c = 2; c < 8; c++) { wT[i * 8 + c] *= m; wC[i * 8 + c] *= m; } } // 4.19.0 defense vs position (red-zone cells)
     const QR = X.x2?.qbRz?.[k]; if (QR && QR !== 1) for (let i = 0; i < P; i++) if (pl[i].pos === 'QB') for (let c = 4; c < 8; c++) wC[i * 8 + c] *= QR; // 4.20.0 lead-QB runs inside the 10
+    const RP = X.x2?.rzp?.[k]; if (RP) for (let sc = 0; sc < 4; sc++) for (let c = 0; c < 96; c++) if ((c % 6) >= 3) pPass[sc * 96 + c] = adj(pPass[sc * 96 + c], RP); // t85u red-zone pass tilt
+    const RD = X.x2?.rzd?.[k]; if (RD && RD.length === 6) { for (let z = 0; z < 3; z++) for (let K = 0; K < 3; K++) pRzTd[z * 3 + K] = adj(pRzTd[z * 3 + K], RD[z * 2 + (K === 0 ? 0 : 1)]); for (let K = 0; K < 3; K++) for (let b = 0; b < 2; b++) pGl[K * 2 + b] = adj(pGl[K * 2 + b], RD[4 + (K === 0 ? 0 : 1)]); } // t85u def red-zone TD by zone x run/pass
+    const G5 = X.x2?.i5?.[k]; if (G5) { const kk = SIM_PBP_TUNE.i5k, a = SIM_PBP_TUNE.i5; for (const [w, n, o] of [[wC, G5.nC, G5.pc], [wT, G5.nT, G5.pt]].filter((_, j) => SIM_PBP_TUNE.i5only == null || SIM_PBP_TUNE.i5only === j)) { let s0 = 0; for (let i = 0; i < P; i++) s0 += w[i * 8 + 6]; if (s0 <= 0 || n <= 0) continue;
+      const m = new Float64Array(P); for (let i = 0; i < P; i++) { const sm = w[i * 8 + 6] / s0; m[i] = sm > 0 ? clamp(Math.pow(((o[i] + kk * sm) / (n + kk)) / sm, a), 0.33, 3) : 1; } for (let i = 0; i < P; i++) for (const c of [6, 7]) w[i * 8 + c] *= m[i]; } } // t85u goal-line personnel
     const PR = X.x2?.prs?.[k]; if (PR) { for (let j = 0; j < pSack.length; j++) pSack[j] = adj(pSack[j], PR.sack); for (let j = 0; j < pScr.length; j++) pScr[j] = adj(pScr[j], PR.scr);
       for (let j = 0; j < pInt.length; j++) pInt[j] = adj(pInt[j], PR.int); for (let j = 0; j < lCmp.length; j++) lCmp[j] += PR.cmp; }
     const cOff = new Float64Array(P), yF = new Float64Array(P), cF = new Float64Array(P);

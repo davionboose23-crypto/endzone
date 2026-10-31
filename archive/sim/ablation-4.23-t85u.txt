@@ -1,0 +1,30 @@
+t85u (2026 walk-forward w2-8, 92 games, 1000 sims, pbp2New; hits/game / roster-pool log loss; early=w2-4 48g, later=w5-8 44g)
+base_11.txt     1.554 0.30696 early 1.396/0.31794 later 1.727/0.29498
+base_23.txt     1.576 0.30787 early 1.438/0.31943 later 1.727/0.29527
+i5_11.txt       1.543 0.30720 early 1.396/0.31823 later 1.705/0.29518
+i5_23.txt       1.511 0.30691 early 1.375/0.31845 later 1.659/0.29433
+i5c_11.txt      1.543 0.30629 early 1.396/0.31778 later 1.705/0.29377
+i5c_23.txt      1.533 0.30835 early 1.417/0.31954 later 1.659/0.29614
+i5h_11.txt      1.543 0.30579 early 1.396/0.31619 later 1.705/0.29445
+i5h_23.txt      1.543 0.30670 early 1.396/0.31750 later 1.705/0.29492
+i5k10_11.txt    1.565 0.30697 early 1.458/0.31808 later 1.682/0.29485
+i5k10_23.txt    1.533 0.30714 early 1.438/0.31832 later 1.636/0.29495
+i5k2_11.txt     1.543 0.30620 early 1.396/0.31702 later 1.705/0.29440
+i5k2_23.txt     1.543 0.30718 early 1.375/0.31836 later 1.727/0.29500
+i5q_11.txt      1.565 0.30680 early 1.417/0.31772 later 1.727/0.29489
+i5q_23.txt      1.533 0.30723 early 1.396/0.31878 later 1.682/0.29464
+i5t_11.txt      1.543 0.30595 early 1.417/0.31720 later 1.682/0.29368
+i5t_23.txt      1.489 0.30781 early 1.333/0.31879 later 1.659/0.29583
+rzd_11.txt      1.511 0.30763 early 1.417/0.31807 later 1.614/0.29625
+rzd_23.txt      1.587 0.30764 early 1.438/0.31925 later 1.750/0.29498
+rzdh_11.txt     1.554 0.30724 early 1.438/0.31786 later 1.682/0.29566
+rzdh_23.txt     1.554 0.30755 early 1.438/0.31904 later 1.682/0.29503
+rzpD_11.txt     1.533 0.30805 early 1.417/0.31918 later 1.659/0.29592
+rzpD_23.txt     1.543 0.30928 early 1.396/0.32032 later 1.705/0.29725
+rzp_11.txt      1.543 0.30824 early 1.396/0.31992 later 1.705/0.29550
+rzp_23.txt      1.587 0.30847 early 1.438/0.31987 later 1.750/0.29603
+snap_11.txt     1.554 0.30760 early 1.396/0.31794 later 1.727/0.29632
+snap_23.txt     1.565 0.30759 early 1.438/0.31943 later 1.705/0.29467
+knobs (SIM_PBP_TUNE via PBP_TUNE env): rzpO/rzpD = offense / defense 2026 red-zone pass tilt (shrunk k=40 plays, logit); rzd = defense RZ TD rate by zone (11-20/6-10/in-5) x run/pass (shrunk k=25); i5 = exponent toward each player's 2026 inside-5 carry/target share (i5k prior plays; i5only 0=carries 1=targets); snap = SNAP=0.5 snap trend.
+verdict: none pass (no config improves hits on both seeds without hurting LL). i5=0.5 best LL (-.0012 both seeds) but hits -0.011/-0.033 and LL gain not monotone in i5k (k2 .30620/.30718, k10 .30697/.30714) -> noise. rzd=1 hits -.043/+.011. rzp worse LL both. All stay off.
+learning curve: base hits early 1.40-1.44 -> later 1.73 (LL .318->.295) as 2026 data grows; no idea's delta grows in later weeks consistently (i5h later LL -.0005/-.0004, snap later LL +.0013/-.0006) -> retest ~week 12.

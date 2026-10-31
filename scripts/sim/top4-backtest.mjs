@@ -113,6 +113,7 @@ function tweak422(I, P, W) { if (!SNAP_A && !SNAP_L && !INJ) return; for (const 
     const miss = P.filter(p => p.team === team && p.pos === pos && !(p.avail.factor > 0)).reduce((s, p) => s + (snapAvg(team, p.name, W) || 0), 0); if (!(miss > 0.3)) continue;
     const sn = on.map(p => snapAvg(team, p.name, W) || 0.05); const tot = sn.reduce((s, x) => s + x, 0);
     on.forEach((p, i) => { const m = 1 + INJ * miss * (sn[i] / tot) / Math.max(0.05, sn[i]); const mm = Math.min(1.6, m); if (p.lam != null) p.lam *= mm; p.tgt *= mm; p.car *= mm; }); } } } const ensRows = [];
+if (process.env.PBP_TUNE) Object.assign(SIM_PBP_TUNE, JSON.parse(process.env.PBP_TUNE)); // t85u research knobs
 if (process.env.PBP_DVP != null) SIM_PBP_TUNE.dvp = +process.env.PBP_DVP; if (process.env.PBP_LATE != null) SIM_PBP_TUNE.late = +process.env.PBP_LATE; // 4.19.0 research knobs
 const KS = ['driveNew', 'pbp2New', 'drive417', 'pbp417', ...(NORM ? ['driveN'] : []), ...(VAR ? ['driveV', 'pbpV'] : []), ...(process.env.TD_SD != null ? ['driveG'] : []), 'drive4131', 'pbp4131', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.14.0: driveNew / pbp2New = 4.14 (weekly roster + carried rates + rookie/depth priors + 1% floor); driveG = driveNew + per-game team TD multiplier (research); drive4131 / pbp4131 = 4.13.1 as shipped
 if (process.env.KS_ONLY) { const keep = new Set(process.env.KS_ONLY.split(',')); for (let i = KS.length - 1; i >= 0; i--) if (!keep.has(KS[i])) KS.splice(i, 1); } // research: run a subset of engines

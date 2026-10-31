@@ -206,6 +206,22 @@ export function fitPbp(tables, { season, before, opts = {} } = {}) {
   { const inside = r => scr(r) && r.type === PT.run && r.yl <= 10 && !scramble(r); const n = new Float64Array(NT), x = new Float64Array(NT); let ln = 0, lx = 0;
     for (const r of curRows) if (inside(r)) { n[r.off] += r._wt; ln += r._wt; if (r._qbr) { x[r.off] += r._wt; lx += r._wt; } }
     const sh = (lx + 1) / (ln + 10); const k = o.k2.qbRz ?? 15; X2.qbRz = Array.from(n, (nn, t) => r3(((x[t] + k * sh) / (nn + k)) / sh)); }
+  // 9) t85u research (all off in the sim unless SIM_PBP_TUNE knobs set): defense red-zone pass tilt, defense red-zone TD rate by zone x run/pass,
+  //    and each player's 2026 inside-5 carries / targets (goal-line personnel), recency-weighted, before the target week only
+  { const lgt2 = p => Math.log(Math.max(1e-3, Math.min(1 - 1e-3, p)) / (1 - Math.max(1e-3, Math.min(1 - 1e-3, p))));
+    const rzR = curRows.filter(r => scr(r) && Z(r) >= 3); let ln = 0, lp = 0; const n = new Float64Array(NT), x = new Float64Array(NT), no = new Float64Array(NT), xo = new Float64Array(NT);
+    for (const r of rzR) { const w = r._wt, pp = isDb(r) ? 1 : 0; ln += w; lp += w * pp; n[r.def] += w; x[r.def] += w * pp; no[r.off] += w; xo[r.off] += w * pp; }
+    const lr = (lp + 1) / (ln + 2), kP = o.k2.rzp ?? 40;
+    X2.rzPass = { d: Array.from(n, (nn, t) => r3(lgt2((x[t] + kP * lr) / (nn + kP)) - lgt2(lr))), o: Array.from(no, (nn, t) => r3(lgt2((xo[t] + kP * lr) / (nn + kP)) - lgt2(lr))) };
+    const zN = Array.from({ length: NT }, () => new Float64Array(6)), zX = Array.from({ length: NT }, () => new Float64Array(6)), lN = new Float64Array(6), lX = new Float64Array(6);
+    for (const r of rzR) { const kd = rzKind(r); if (kd < 0 || (r.flags & (F.fumLost | F.int))) continue; const j = (Z(r) - 3) * 2 + (kd === 0 ? 0 : 1); const y = (r.flags & F.td) ? 1 : 0;
+      zN[r.def][j] += r._wt; zX[r.def][j] += r._wt * y; lN[j] += r._wt; lX[j] += r._wt * y; }
+    const kz = o.k2.rzd ?? 25; const lrz = Array.from(lN, (v, j) => (lX[j] + 1) / (v + 3));
+    X2.rzDef = zN.map((row, t) => Array.from(row, (v, j) => r3(lgt2((zX[t][j] + kz * lrz[j]) / (v + kz)) - lgt2(lrz[j]))));
+    const i5 = {}, i5T = {}; for (const r of curRows) { if (!scr(r) || r.yl > 5 || r.pid < 0 || sack(r)) continue; const isC = r.type === PT.run || scramble(r); const isT = aimed(r); if (!isC && !isT) continue;
+      const gk = cur.pids[r.pid]; const tm = teams[r.off]; if (!gk || !tm) continue; const e = i5[gk] || (i5[gk] = { t: tm, c: 0, g: 0 }); const tt = i5T[tm] || (i5T[tm] = { c: 0, g: 0 });
+      if (isC) { e.c += r._wt; tt.c += r._wt; } else { e.g += r._wt; tt.g += r._wt; } }
+    X2.i5 = { p: i5, team: i5T }; }
   // 8) app 4.20.0 pass-rush pressure (PFR advanced passing via nflverse, game-level, weeks before the target week only)
   if (o.pressure) X2.prs = fitPressure(o.pressure.filter(r => r.season === season), teams, { before });
   // ---- player usage by field zone x down (targets, designed carries) ----
