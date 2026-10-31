@@ -67,7 +67,7 @@ const SEED = +(process.env.SEED || 11); // sim seed (paired variant checks re-ru
 const VAR = process.env.VAR_OPTS ? JSON.parse(process.env.VAR_OPTS) : null; // research variant of the 4.14 data options (engines driveV / pbpV)
 if (process.env.PBP_QBRZ != null) SIM_PBP_TUNE.qbRz = +process.env.PBP_QBRZ; if (process.env.PBP_PRS != null) SIM_PBP_TUNE.prs = +process.env.PBP_PRS;
 const PRESS = (() => { const f = path.join(ROOT, 'archive', 'pressure', 'advstats_week_pass_2026.csv'); return fs.existsSync(f) ? parsePressure(fs.readFileSync(f, 'utf8')) : null; })(); // 4.20.0 PFR pressure via nflverse (game-level)
-const POST = { floor: !!+(process.env.POST_FLOOR ?? 0), cal: !!+(process.env.POST_CAL ?? 0) }; const postRows = [];
+const POST = { floor: !!+(process.env.POST_FLOOR ?? 0), cal: !!+(process.env.POST_CAL ?? 0) }; const postRows = []; const ensRows = [];
 if (process.env.PBP_DVP != null) SIM_PBP_TUNE.dvp = +process.env.PBP_DVP; if (process.env.PBP_LATE != null) SIM_PBP_TUNE.late = +process.env.PBP_LATE; // 4.19.0 research knobs
 const KS = ['driveNew', 'pbp2New', 'drive417', 'pbp417', ...(NORM ? ['driveN'] : []), ...(VAR ? ['driveV', 'pbpV'] : []), ...(process.env.TD_SD != null ? ['driveG'] : []), 'drive4131', 'pbp4131', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.14.0: driveNew / pbp2New = 4.14 (weekly roster + carried rates + rookie/depth priors + 1% floor); driveG = driveNew + per-game team TD multiplier (research); drive4131 / pbp4131 = 4.13.1 as shipped
 if (process.env.KS_ONLY) { const keep = new Set(process.env.KS_ONLY.split(',')); for (let i = KS.length - 1; i >= 0; i--) if (!keep.has(KS[i])) KS.splice(i, 1); } // research: run a subset of engines
@@ -87,7 +87,7 @@ async function season(S, weeks, priorDetail) {
     if (SIMS && !D) continue; const PP = SIMS ? fitPbp([TAB[S - 1], TAB[S]], { season: S, before: W }) : null; if (PP && PP.through >= W) throw new Error('leak: pbp params see week ' + PP.through);
     const td = buildTdShare([TAB[S - 1], TAB[S]], { season: S, before: W }); if (td.through >= W) throw new Error('leak: td-share sees week ' + td.through);
     // 4.18.0 season-only inputs (driveNew / pbp2New): this season's games before W only; 4.17 (drive417 / pbp417) keeps the prior-season inputs
-    const PP26 = SIMS ? fitPbp([TAB[S]], { season: S, before: W, opts: { seasonOnly: true, pressure: PRESS } }) : null; const td26 = buildTdShare([TAB[S]], { season: S, before: W, opts: { seasonOnly: true } });
+    const PP26 = SIMS ? fitPbp([TAB[S]], { season: S, before: W, opts: { seasonOnly: true, pressure: PRESS, ...(process.env.PBP_HL ? { halfLife: +process.env.PBP_HL } : {}) } }) : null; const td26 = buildTdShare([TAB[S]], { season: S, before: W, opts: { seasonOnly: true, ...(process.env.TD_HL ? { halfLife: +process.env.TD_HL } : {}) } });
     const D26 = SIMS && W > 1 ? D : null; const CTX26 = { ...fitContext(contextRows(GROWS, [S], { before: W })), seasons: [S] };
     const B = fitBlend([...priorDetail, ...detail]); blends.push({ w: W, alpha: B.alpha, beta: B.beta, fitted: B.fitted, tds: B.n });
     const naive = naiveOf(S, W);
@@ -128,6 +128,10 @@ async function season(S, weeks, priorDetail) {
           if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live);
           if (k === 'driveNew' || k === 'pbp2New') { const su = surprise(s.__S, s.players); sur[k] = { p: r3(su.pOutside), share: r3(su.shareOutside), ls: su.longshots.map(x => ({ n: x.name, t: x.team, p: x.pos, pr: r3(x.p) })) }; } }
       }
+      // 4.21 research: ensemble pbp2New with driveNew; ENS=<w> fixed weight on drive, ENS=fit picks w from earlier weeks' rows (log loss grid)
+      if (process.env.ENS && prob[live[0]?.id]?.driveNew != null) { const ll = w => { let s = 0; for (const r of ensRows) { const q = Math.min(0.999, Math.max(1e-4, (1 - w) * r.a + w * r.b)); s -= r.y ? Math.log(q) : Math.log(1 - q); } return s; };
+        const w = process.env.ENS === 'fit' ? (ensRows.length ? [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6].reduce((b, x) => ll(x) < ll(b) ? x : b, 0) : 0.3) : +process.env.ENS;
+        for (const p of live) { const a = prob[p.id].pbp2New || 0, b = prob[p.id].driveNew || 0; ensRows.push({ a, b, y: p.y ? 1 : 0 }); prob[p.id].pbp2New = (1 - w) * a + w * b; } if (process.env.ENS === 'fit') console.error('ens w', W, w); }
       // 4.20.0 post layer on the default play-by-play sim (pbp2New): fits read earlier weeks' rows only
       if (prob[live[0]?.id]?.pbp2New != null) { const F = POST.floor ? fitFloor(postRows, W) : null, C = POST.cal ? fitCal(postRows, W) : null;
         for (const p of live) { const raw = prob[p.id].pbp2New; postRows.push({ w: W, pos: p.pos === 'FB' ? 'RB' : p.pos, p: raw, y: p.y ? 1 : 0 }); prob[p.id].pbp2New = applyPost(raw, p.pos, F, C); } }
