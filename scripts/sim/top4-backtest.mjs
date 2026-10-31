@@ -67,7 +67,15 @@ const SEED = +(process.env.SEED || 11); // sim seed (paired variant checks re-ru
 const VAR = process.env.VAR_OPTS ? JSON.parse(process.env.VAR_OPTS) : null; // research variant of the 4.14 data options (engines driveV / pbpV)
 if (process.env.PBP_QBRZ != null) SIM_PBP_TUNE.qbRz = +process.env.PBP_QBRZ; if (process.env.PBP_PRS != null) SIM_PBP_TUNE.prs = +process.env.PBP_PRS;
 const PRESS = (() => { const f = path.join(ROOT, 'archive', 'pressure', 'advstats_week_pass_2026.csv'); return fs.existsSync(f) ? parsePressure(fs.readFileSync(f, 'utf8')) : null; })(); // 4.20.0 PFR pressure via nflverse (game-level)
-const POST = { floor: !!+(process.env.POST_FLOOR ?? 0), cal: !!+(process.env.POST_CAL ?? 0) }; const postRows = []; const ensRows = [];
+const POST = { floor: !!+(process.env.POST_FLOOR ?? 0), cal: !!+(process.env.POST_CAL ?? 0) }; const postRows = [];
+// 4.22 research: snap-share trend (nflverse snap_counts, weeks < target only) and same-position redistribution for players ruled out
+const nmK = s => String(s || '').toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\b/g, '').replace(/[^a-z]/g, '');
+const SNAPS = (() => { const f = path.join(ROOT, 'archive', 'snaps', 'snap_counts_2026.csv'); if (!fs.existsSync(f)) return null; const [h, ...ls] = fs.readFileSync(f, 'utf8').trim().split(/\r?\n/); const c = h.split(',');
+  const iW = c.indexOf('week'), iP = c.indexOf('player'), iT = c.indexOf('team'), iO = c.indexOf('offense_pct'), iG = c.indexOf('game_type'); const m = new Map();
+  for (const l of ls) { const a = l.split(','); if (a[iG] !== 'REG') continue; const k = a[iT] + '|' + nmK(a[iP]); (m.get(k) || m.set(k, []).get(k)).push({ w: +a[iW], p: +a[iO] }); } return m; })();
+const snapTrend = (team, name, W, k = 2) => { const r = (SNAPS?.get(team + '|' + nmK(name)) || []).filter(x => x.w < W).sort((a, b) => a.w - b.w); if (r.length < 2) return 1;
+  const all = r.reduce((s, x) => s + x.p, 0) / r.length; const l3 = r.slice(-3); const rec = l3.reduce((s, x) => s + x.p, 0) / l3.length; if (all <= 0.02) return 1; return Math.min(2, Math.max(0.4, (rec * l3.length + all * k) / (l3.length + k) / all)); };
+const SNAP_A = +(process.env.SNAP || 0), INJ = +(process.env.INJ || 0); const ensRows = [];
 if (process.env.PBP_DVP != null) SIM_PBP_TUNE.dvp = +process.env.PBP_DVP; if (process.env.PBP_LATE != null) SIM_PBP_TUNE.late = +process.env.PBP_LATE; // 4.19.0 research knobs
 const KS = ['driveNew', 'pbp2New', 'drive417', 'pbp417', ...(NORM ? ['driveN'] : []), ...(VAR ? ['driveV', 'pbpV'] : []), ...(process.env.TD_SD != null ? ['driveG'] : []), 'drive4131', 'pbp4131', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.14.0: driveNew / pbp2New = 4.14 (weekly roster + carried rates + rookie/depth priors + 1% floor); driveG = driveNew + per-game team TD multiplier (research); drive4131 / pbp4131 = 4.13.1 as shipped
 if (process.env.KS_ONLY) { const keep = new Set(process.env.KS_ONLY.split(',')); for (let i = KS.length - 1; i >= 0; i--) if (!keep.has(KS[i])) KS.splice(i, 1); } // research: run a subset of engines
@@ -87,7 +95,7 @@ async function season(S, weeks, priorDetail) {
     if (SIMS && !D) continue; const PP = SIMS ? fitPbp([TAB[S - 1], TAB[S]], { season: S, before: W }) : null; if (PP && PP.through >= W) throw new Error('leak: pbp params see week ' + PP.through);
     const td = buildTdShare([TAB[S - 1], TAB[S]], { season: S, before: W }); if (td.through >= W) throw new Error('leak: td-share sees week ' + td.through);
     // 4.18.0 season-only inputs (driveNew / pbp2New): this season's games before W only; 4.17 (drive417 / pbp417) keeps the prior-season inputs
-    const PP26 = SIMS ? fitPbp([TAB[S]], { season: S, before: W, opts: { seasonOnly: true, pressure: PRESS, ...(process.env.PBP_HL ? { halfLife: +process.env.PBP_HL } : {}) } }) : null; const td26 = buildTdShare([TAB[S]], { season: S, before: W, opts: { seasonOnly: true, ...(process.env.TD_HL ? { halfLife: +process.env.TD_HL } : {}) } });
+    const PP26 = SIMS ? fitPbp([TAB[S]], { season: S, before: W, opts: { seasonOnly: true, pressure: PRESS, ...(process.env.PBP_HL ? { halfLife: +process.env.PBP_HL } : {}), ...(process.env.KUSE ? { kUse: +process.env.KUSE } : {}) } }) : null; const td26 = buildTdShare([TAB[S]], { season: S, before: W, opts: { seasonOnly: true, ...(process.env.TD_HL ? { halfLife: +process.env.TD_HL } : {}) } });
     const D26 = SIMS && W > 1 ? D : null; const CTX26 = { ...fitContext(contextRows(GROWS, [S], { before: W })), seasons: [S] };
     const B = fitBlend([...priorDetail, ...detail]); blends.push({ w: W, alpha: B.alpha, beta: B.beta, fitted: B.fitted, tds: B.n });
     const naive = naiveOf(S, W);
@@ -96,6 +104,10 @@ async function season(S, weeks, priorDetail) {
       const P = GR.map(r => { const gsis = s2g.get(String(r.id)) || null; const av = availOf(S, W, gsis); const f = av.factor; const sc = x => x == null ? x : x * f;
         return { id: String(r.id), gsis, name: r.name, pos: r.pos, team: r.team, avail: { factor: f, status: av.status }, chance: f ? 1 - Math.exp(-(r.lambda || 0) * f) : 0, lambda: (r.lambda || 0) * f, components: r.components,
           vol: { ...r.vol, targets: sc(r.vol?.targets || 0), carries: sc(r.vol?.carries || 0) }, volume: r.volume, published: r.published, y: r.y ? 1 : 0, td: r.td || 0, teamLambda: r.teamLambda, tdBudget: r.tdBudget }; });
+      if (SNAP_A) for (const p of P) { const m = Math.pow(snapTrend(p.team, p.name, W), SNAP_A); p.vol.targets *= m; p.vol.carries *= m; }
+      if (INJ) for (const t of new Set(P.map(p => p.team))) for (const pos of ['RB', 'WR', 'TE']) { const T = P.filter(p => p.team === t && p.pos === pos); const gone = T.filter(p => p.avail.factor < 1), on = T.filter(p => p.avail.factor >= 1);
+        for (const key of ['targets', 'carries']) { const f0 = p => p.avail.factor || 0; const miss = gone.reduce((s, p) => s + (f0(p) ? p.vol[key] / f0(p) : (GR.find(r => String(r.id) === p.id)?.vol?.[key] || 0)) * (1 - f0(p)), 0);
+          const tot = on.reduce((s, p) => s + p.vol[key], 0); if (miss > 0 && tot > 0) for (const p of on) p.vol[key] += INJ * miss * p.vol[key] / tot; } }
       const sideFor = t => { const pl = P.filter(p => p.team === t); return pl.length ? { players: pl, opp: t === gm.away ? gm.home : gm.away, teamLambda: pl[0].teamLambda, tdBudget: pl[0].tdBudget } : null; };
       const live = P.filter(p => p.avail.factor > 0); const sur = {}; const prob = {}; for (const p of live) prob[p.id] = { model: p.chance, sleeper: p.published ?? null, naive: (naive.get(p.gsis)?.td || 0) + 0.001 * (naive.get(p.gsis)?.rz || 0) };
       // blend split (for the allocation check, all candidates of each team) + detail for later weeks' blend fits
