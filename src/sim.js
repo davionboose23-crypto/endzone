@@ -123,7 +123,7 @@ function lastTeams(D) {
 // own recency-weighted per-game line from his last 8 games for ANY team in the file (last season's file in week 1), TD rate shrunk
 // to his share of the new team's touches; (b) no history = a small rookie / depth prior by position. Both need rosterNow (today's
 // roster: [team, injury, practice, status, pos, name]); the split then goes through td-share-1 like everyone else.
-export const DATA_OPTS = { carry: true, rookie: { RB: [0.5, 1.2], WR: [1.2, 0.05], TE: [0.8, 0], QB: [0, 0.3], FB: [0.2, 0.3] }, floor: 0.01, depthCal: null, tdSd: 0.18, priorK: 4 };
+export const DATA_OPTS = { carry: true, rookie: { RB: [0.5, 1.2], WR: [1.2, 0.05], TE: [0.8, 0], QB: [0, 0.3], FB: [0.2, 0.3] }, floor: 0.01, depthCal: null, tdSd: 0.18, priorK: 4, ts: { priorF: 0.67, earlyK: 3 } }; // 4.15.0: depth order shrunk toward last-season usage (priorK) + prior-season team strength, regressed 1/3 to the mean, with a stronger early-season ridge (ts)
 const SKILL = new Set(['QB', 'RB', 'WR', 'TE', 'FB']);
 const byGsisCache = new WeakMap();
 function linesByGsis(D) { let m = byGsisCache.get(D); if (m) return m; m = new Map();
