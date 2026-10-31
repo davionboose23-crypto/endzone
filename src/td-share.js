@@ -93,13 +93,15 @@ export function fitTdShare(ev, o = TD_SHARE_DEFAULTS) {
 }
 // build the weekly block shipped in archive/pbp/<s>/w<W>.json (td): fitted on games before W only
 export function buildTdShare(tables, { season, before, opts = {} } = {}) {
-  const o = { ...TD_SHARE_DEFAULTS, ...opts }; const all = tables.flatMap(tallyGames).filter(G => G.season >= season - 2 && (G.season < season || G.week < before));
+  // 4.18.0 seasonOnly: only games of this season before the target week (no prior-season features, events or league averages)
+  const o = { ...TD_SHARE_DEFAULTS, ...opts }; const all = tables.flatMap(tallyGames).filter(G => (o.seasonOnly ? G.season === season : G.season >= season - 2) && (G.season < season || G.week < before));
   const cache = new Map(); const featAt = (S, W) => { const k = S * 100 + W; if (!cache.has(k)) cache.set(k, all.some(G => G.season === S - 1 || (G.season === S && G.week < W)) ? featuresAt(all, S, W, o) : null); return cache.get(k); };
-  const ev = trainingEvents(all, G => G.week >= o.minWeek && (G.season === season || G.season === season - 1), featAt);
-  const P = fitTdShare(ev, o); const F = featuresAt(all, season, before, o);
+  const ev = trainingEvents(all, G => G.week >= (o.seasonOnly ? 2 : o.minWeek) && (G.season === season || (!o.seasonOnly && G.season === season - 1)), featAt);
+  const P = o.seasonOnly && ev.length < 40 ? null : fitTdShare(ev, o); // 4.18.0 seasonOnly: no fit until 40 this-season TDs (then the touch-share split is used)
+  const F = featuresAt(all, season, before, o);
   const through = all.filter(G => G.season === season).reduce((m, G) => Math.max(m, G.week), 0);
   const players = {}; for (const [id, x] of Object.entries(F.players)) { if (!TD_POS.includes(x.pos) || x.g < 0.05) continue; players[id] = { p: x.pos, t: x.team, f: x.f.map(r4), r: r4(x.rushFrac), g: r4(x.g) }; }
-  return { version: TD_SHARE_VERSION, season, before, through, opts: o, fit: P, def: F.def, players };
+  return { version: TD_SHARE_VERSION, season, before, through, opts: o, fit: P, def: F.def, players, seasons: [...new Set(all.map(G => G.season))].sort() };
 }
 // apply: players [{ gsis, pos, avail (0..1), tgt, car }], td block, opponent -> shares (sum 1) and rush fraction per player
 export function tdShareFor(td, players, opp) {

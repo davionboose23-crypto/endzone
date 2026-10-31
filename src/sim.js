@@ -123,7 +123,34 @@ function lastTeams(D) {
 // own recency-weighted per-game line from his last 8 games for ANY team in the file (last season's file in week 1), TD rate shrunk
 // to his share of the new team's touches; (b) no history = a small rookie / depth prior by position. Both need rosterNow (today's
 // roster: [team, injury, practice, status, pos, name]); the split then goes through td-share-1 like everyone else.
-export const DATA_OPTS = { carry: true, rookie: { RB: [0.5, 1.2], WR: [1.2, 0.05], TE: [0.8, 0], QB: [0, 0.3], FB: [0.2, 0.3] }, floor: 0.01, depthCal: { RB1: 1.08, TE1: 1.15, QB1: 1.15 }, tdSd: 0.18, priorK: 4, ts: { priorF: 0.67, earlyK: 3 } }; // 4.15.0: depth order shrunk toward last-season usage (priorK) + prior-season team strength, regressed 1/3 to the mean, with a stronger early-season ridge (ts)
+export const DATA_OPTS_417 = { carry: true, rookie: { RB: [0.5, 1.2], WR: [1.2, 0.05], TE: [0.8, 0], QB: [0, 0.3], FB: [0.2, 0.3] }, floor: 0.01, depthCal: { RB1: 1.08, TE1: 1.15, QB1: 1.15 }, tdSd: 0.18, priorK: 4, ts: { priorF: 0.67, earlyK: 3 } }; // 4.15-4.17 (prior-season inputs; research baseline only)
+// 4.18.0 "Only look at 2026 season data so far to predict future touchdowns": seasonOnly = the sims read this season's games before the
+// target week and nothing else (no last-season usage / star tags, no prior-season team strength, no carried prior-season lines, no
+// prior-season td-share / red-zone shares or pbp params, no prior-season game-context fit, no drive patterns fitted on past seasons).
+// Thin samples shrink toward THIS season's league averages instead: rookie / depth lines = this season's per-position depth-player
+// line (rookie 'league'), own TD rate shrunk toward this season's position TD-per-touch (tdK games). assertSeasonOnly throws otherwise.
+export const DATA_OPTS = { seasonOnly: true, carry: true, rookie: 'league', floor: 0.01, extraF: 1, tdK: 0, depthCal: { RB1: 1.08, TE1: 1.15, QB1: 1.15 }, tdSd: 0.18, priorK: 0, ts: { priorF: 0, earlyK: 3 } };
+export const SEASON_ONLY_VERSION = 'season-only-1';
+const SO_CACHE = new WeakMap();
+export function seasonOf(D) { if (Number.isFinite(D?.season)) return D.season; let m = null; for (const T of Object.values(D?.teams || {})) for (const g of T.games || []) if (Number.isFinite(g.season) && (m == null || g.season > m)) m = g.season; return m; }
+// the drive file with only this season's games (cached; same object when nothing is dropped)
+export function seasonOnlyD(D, S = seasonOf(D)) { if (!D || S == null) return D; const c = SO_CACHE.get(D); if (c && c.S === S) return c.D;
+  let drop = false; for (const T of Object.values(D.teams || {})) for (const g of T.games || []) if (g.season != null && g.season !== S) drop = true;
+  const out = !drop ? D : { ...D, players: undefined, teams: Object.fromEntries(Object.entries(D.teams).map(([t, T]) => [t, { ...T, games: (T.games || []).filter(g => g.season == null || g.season === S) }])) };
+  SO_CACHE.set(D, { S, D: out }); return out; }
+// this season's per-position depth line (players below the top RB2 / WR3 / TE1 / QB1 of their team in a game): mean targets / carries
+// per appearance; position TD per touch. Replaces the hand-set rookie / depth prior and anchors thin own-TD samples (4.18.0).
+const LG_CACHE = new WeakMap(); const DEPTH_CUT = { RB: 2, WR: 3, TE: 1, QB: 1, FB: 0 };
+function seasonLeague(D) { let o = LG_CACHE.get(D); if (o) return o; const dep = {}, pos = {};
+  for (const T of Object.values(D?.teams || {})) for (const gm of T.games || []) { const pg = new Map();
+    for (const d of gm.d) for (const x of d[8]) { const pe = T.people[x[0]]; if (!pe) continue; const v = pg.get(x[0]) || { p: pe[2], t: 0, c: 0, td: 0 }; v.t += x[1]; v.c += x[4]; v.td += x[7]; pg.set(x[0], v); }
+    const by = {}; for (const v of pg.values()) (by[v.p] ||= []).push(v);
+    for (const [p, a] of Object.entries(by)) { a.sort((x, y) => (y.t + y.c) - (x.t + x.c)); const P = pos[p] ||= { td: 0, tc: 0 }; for (const v of a) { P.td += v.td; P.tc += v.t + v.c; }
+      a.slice(DEPTH_CUT[p] ?? 0).forEach(v => { const q = dep[p] ||= { n: 0, t: 0, c: 0 }; q.n++; q.t += v.t; q.c += v.c; }); } }
+  const rookie = {}; for (const p of Object.keys(DEPTH_CUT)) { const q = dep[p]; rookie[p] = q && q.n >= 5 ? [+(q.t / q.n).toFixed(3), +(q.c / q.n).toFixed(3)] : [0, 0]; }
+  const tdPerTouch = Object.fromEntries(Object.entries(pos).map(([p, P]) => [p, P.tc > 0 ? P.td / P.tc : 0]));
+  o = { rookie, tdPerTouch }; LG_CACHE.set(D, o); return o; }
+const rookieOf = (o, D) => o?.rookie === 'league' ? seasonLeague(D).rookie : o?.rookie; // 4.15.0: depth order shrunk toward last-season usage (priorK) + prior-season team strength, regressed 1/3 to the mean, with a stronger early-season ridge (ts)
 const SKILL = new Set(['QB', 'RB', 'WR', 'TE', 'FB']);
 const byGsisCache = new WeakMap();
 function linesByGsis(D) { let m = byGsisCache.get(D); if (m) return m; m = new Map();
@@ -132,7 +159,7 @@ function linesByGsis(D) { let m = byGsisCache.get(D); if (m) return m; m = new M
     for (const [g, v] of pg) { const a = m.get(g) || []; a.push({ t: tm, ord: (gm.season || 0) * 100 + (gm.w || 0), game: gm.game || '', v, pe: T.people.find(q => q[0] === g) }); m.set(g, a); } }
   for (const a of m.values()) a.sort((x, y) => x.ord - y.ord || (x.game > y.game ? 1 : -1)); byGsisCache.set(D, m); return m; }
 function extraPlayers(D, team, rosterNow, have, tdpg, touchPg, o, UP = null) {
-  if (!rosterNow) return []; const L = linesByGsis(D); const out = []; const seen = new Set();
+  if (!rosterNow) return []; const L = linesByGsis(D); const out = []; const seen = new Set(); const RK = rookieOf(o, D);
   for (const [k, r] of Object.entries(rosterNow)) { if (!/^00-/.test(k) || seen.has(k)) continue; seen.add(k); const [tm, , , , pos0, name, exp] = r; if (tm !== team || have.has(k)) continue;
     const hist = L.get(k); const pos = pos0 || hist?.[hist.length - 1]?.pe?.[2]; if (!SKILL.has(pos)) continue;
     let s, src;
@@ -140,26 +167,27 @@ function extraPlayers(D, team, rosterNow, have, tdpg, touchPg, o, UP = null) {
     if (o.carry && hist?.length) { const G = hist.slice(-HIST_N); let W = 0; s = [0, 0, 0, 0, 0, 0, 0]; G.forEach((h, i) => { const w = Math.pow(HIST_DECAY, G.length - 1 - i); W += w; for (let j = 0; j < 7; j++) s[j] += w * h.v[j]; }); s = s.map(x => x / W); src = 'carry'; }
     else if (o.carryPrior && U && U.g >= 3 && U.tgt + U.car >= 1) { const f = o.carryPrior; const [cr, ypr, ypc] = POS_EFF[pos] || POS_EFF.WR; // 4.15.0: no drive-file history but a real last season (pbp): his per-game line there, shrunk by f
       s = [f * U.tgt, f * U.tgt * cr, f * U.tgt * cr * ypr, f * U.car, f * U.car * ypc, f * U.td, f * (U.tgt + U.car)]; src = 'season'; }
-    else if (o.rookie?.[pos] && !(o.rookieOnly && !(exp === 0 || (exp == null && !hist?.length && o.rookieOnly === 'loose')))) { const [t, c] = o.rookie[pos]; s = [t, t * 0.6, t * 6, c, c * 4, 0, t + c]; src = 'prior'; } else continue;
-    if (s[6] < 0.2 && pos !== 'QB') { const [t, c] = o.rookie?.[pos] || [0.3, 0.3]; s = [Math.max(s[0], t * 0.5), s[1], s[2], Math.max(s[3], c * 0.5), s[4], s[5], 0]; s[6] = s[0] + s[3]; }
-    const sh = touchPg > 0 ? s[6] / touchPg : 0; const own = src === 'carry' || src === 'season' ? s[5] : 0; const lam = 0.5 * own + 0.5 * tdpg * sh; const pe = hist?.[hist.length - 1]?.pe;
+    else if (RK?.[pos] && !(o.rookieOnly && !(exp === 0 || (exp == null && !hist?.length && o.rookieOnly === 'loose')))) { const [t, c] = RK[pos]; s = [t, t * 0.6, t * 6, c, c * 4, 0, t + c]; src = 'prior'; } else continue;
+    if (s[6] < 0.2 && pos !== 'QB') { const [t, c] = RK?.[pos] || [0.3, 0.3]; s = [Math.max(s[0], t * 0.5), s[1], s[2], Math.max(s[3], c * 0.5), s[4], s[5], 0]; s[6] = s[0] + s[3]; }
+    const sh = touchPg > 0 ? s[6] / touchPg : 0; const own = src === 'carry' || src === 'season' ? s[5] : 0; const lam = (0.5 * own + 0.5 * tdpg * sh) * (src === 'prior' ? (o.extraF ?? 1) : 1); const pe = hist?.[hist.length - 1]?.pe; // 4.18.0 extraF: research scale on no-history extras
     out.push({ id: String(pe?.[3] || k), gsis: k, name: name || pe?.[1] || k, pos, lam, chance: 1 - Math.exp(-lam), tgt: s[0], car: s[3], rec: s[1], recYd: s[2], rushYd: s[4], rushTd: DEFAULT_RUSH_TD[pos] ?? 0.3, passShare: 0,
-      qbScore: 0, passTdExp: null, lead: null, behind: null, pats: patternsFor(D, k), history: true, newcomer: src, depthKey: depthKeyOf(s[6], hist?.length ? Math.min(HIST_N, hist.length) : 0, U, o) }); }
+      qbScore: 0, passTdExp: null, lead: null, behind: null, pats: o.seasonOnly ? [] : patternsFor(D, k), history: true, newcomer: src, depthKey: depthKeyOf(s[6], hist?.length ? Math.min(HIST_N, hist.length) : 0, U, o) }); }
   return out; }
 // 4.15.0 depth key (star / role tag + depth order): touches per game he PLAYED this season, shrunk toward his last-season touches per
 // game played (real pbp, usage-prior-1) with weight K games, so a star who missed games or is new to the drive file keeps his standing.
 const POS_EFF = { RB: [0.78, 7.5, 4.3], WR: [0.63, 12.5, 6], TE: [0.7, 10.5, 4], QB: [0.6, 8, 4.5], FB: [0.75, 7, 3.5] }; // catch rate, yd/rec, yd/carry (league-typical)
 function depthKeyOf(cur, n, U, o) { const K = o?.priorK ?? 0; if (!U || !(K > 0) || !(U.g >= 2)) return cur; const pr = U.tgt + U.car; const k = K * Math.min(1, U.g / 8); return (cur * n + pr * k) / (n + k); }
 export function dataPlayers(D, team, rosterNow = null, o = DATA_OPTS, UP = null) {
-  const T = D?.teams?.[team]; if (!T) return []; const G = T.games.slice(-HIST_N); if (!G.length) return []; const LT = lastTeams(D); const acc = new Map();
+  const T = D?.teams?.[team]; if (!T) return []; const G = T.games.slice(-HIST_N); if (!G.length) return []; const LT = lastTeams(D); const acc = new Map(); const LG = o?.tdK > 0 ? seasonLeague(D) : null;
   let teamTd = 0, W = 0; G.forEach((gm, gi) => { const w = Math.pow(HIST_DECAY, G.length - 1 - gi); W += w; const seen = new Set(), here = new Set();
     for (const d of gm.d) { if (d[5] === 'TD') teamTd += w; for (const x of d[8]) { const a = acc.get(x[0]) || { s: [0, 0, 0, 0, 0, 0, 0], qb: 0, qbC: 0, gw: 0, n: 0 }; const s = a.s; if (!here.has(x[0])) { here.add(x[0]); a.gw += w; a.n += 1; }
       s[0] += w * x[1]; s[1] += w * x[2]; s[2] += w * x[3]; s[3] += w * x[4]; s[4] += w * x[5]; s[5] += w * x[7]; s[6] += w * (x[1] + x[4]); acc.set(x[0], a);
       if (gi >= G.length - 3) { if (!seen.has(x[0])) { seen.add(x[0]); a.qb += [0.15, 0.4, 1][gi - (G.length - 3)] ?? 0; } a.qbC += x[4] * ([0.15, 0.4, 1][gi - (G.length - 3)] ?? 0); } } } });
   const totT = [...acc.values()].reduce((s, a) => s + a.s[6], 0) || 1; const tdpg = teamTd / W;
-  let pl = [...acc.entries()].filter(([pi, a]) => { const pe = T.people[pi]; const lt = LT.get(pe[0]); return (a.s[6] / W >= 0.4 || pe[2] === 'QB') && !(lt && lt.t !== team && rosterNow?.[pe[0]]?.[0] !== team); }).map(([pi, a]) => { const pe = T.people[pi]; const s = a.s; const sh = s[6] / totT; const gp = Math.min(1, a.gw / W); const f = o?.pg ? 1 / Math.max(gp, 0.5) : 1; const lam = f * (0.5 * (s[5] / W) + 0.5 * tdpg * sh); const nG = a.n; // gp = (recency-weighted) share of the team's games he played; pg: rates per game played (missed games don't dilute a returning starter)
+  let pl = [...acc.entries()].filter(([pi, a]) => { const pe = T.people[pi]; const lt = LT.get(pe[0]); return (a.s[6] / W >= 0.4 || pe[2] === 'QB') && !(lt && lt.t !== team && rosterNow?.[pe[0]]?.[0] !== team); }).map(([pi, a]) => { const pe = T.people[pi]; const s = a.s; const sh = s[6] / totT; const gp = Math.min(1, a.gw / W); const f = o?.pg ? 1 / Math.max(gp, 0.5) : 1; const tdK = o?.tdK || 0; const ownTd = tdK > 0 ? (a.gw * (s[5] / Math.max(1e-9, a.gw)) + tdK * (s[6] / Math.max(1e-9, a.gw)) * (LG?.tdPerTouch[pe[2]] ?? 0)) / (a.gw + tdK) * (a.gw / W) : s[5] / W; // 4.18.0 tdK: own TD rate per game played shrunk toward this season's position TD per touch
+    const lam = f * (0.5 * ownTd + 0.5 * tdpg * sh); const nG = a.n; // gp = (recency-weighted) share of the team's games he played; pg: rates per game played (missed games don't dilute a returning starter)
     return { id: String(pe[3] || pe[0]), gsis: pe[0], name: pe[1], pos: pe[2], lam, chance: 1 - Math.exp(-lam), tgt: f * s[0] / W, car: f * s[3] / W, rec: f * s[1] / W, recYd: f * s[2] / W, rushYd: f * s[4] / W, gp,
-      rushTd: DEFAULT_RUSH_TD[pe[2]] ?? 0.3, passShare: 0, qbScore: pe[2] === 'QB' ? a.qb * (1 + 0.1 * a.qbC) : 0, passTdExp: null, lead: null, behind: null, pats: patternsFor(D, pe[0]), history: true,
+      rushTd: DEFAULT_RUSH_TD[pe[2]] ?? 0.3, passShare: 0, qbScore: pe[2] === 'QB' ? a.qb * (1 + 0.1 * a.qbC) : 0, passTdExp: null, lead: null, behind: null, pats: o?.seasonOnly ? [] : patternsFor(D, pe[0]), history: true,
       depthKey: depthKeyOf((s[6] / W) / Math.max(0.25, gp), nG, priorOf(UP, pe[0]), o) }; });
   if (o && (o.carry || o.rookie) && rosterNow) pl.push(...extraPlayers(D, team, rosterNow, new Set(pl.map(p => p.gsis)), tdpg, totT / W, o, UP));
   pl = pl.map(p => rosterCheck(p, team, rosterNow)).filter(Boolean);
@@ -206,10 +234,22 @@ export function assertMarketFree(I) { const bad = [];
     for (const k of MARKET_KEYS) if (t[k] != null) bad.push(`${t.team}.${k}`); for (const p of t.players) for (const k of MARKET_KEYS) if (p[k] != null) bad.push(`${p.name}.${k}`); }
   const d = I.disp || {}; for (const e of ['drive', 'pbp']) if (d[e]?.anchor) bad.push(`${e} anchor`);
   if (bad.length) throw new Error('market / model data in sim inputs: ' + bad.join(', ')); return true; }
+// 4.18.0: throws unless the inputs (and, for the play-by-play sim, its params) were built from this season's data only
+export function assertSeasonOnly(I) { const so = I?.seasonOnly; const bad = []; if (!so) bad.push('seasonOnly not set'); else { const S = so.season;
+    for (const k of ['drives', 'tdShare', 'ctx']) for (const x of so[k] || []) if (x !== S) bad.push(`${k} ${x}`); if (so.usagePrior || so.tsPrior) bad.push('prior-season prior');
+    for (const t of I.teams || []) for (const p of t.players) { if (p.pats?.length) bad.push(`${p.name} patterns`); if (p.newcomer === 'season') bad.push(`${p.name} last-season line`); } }
+  if (I?.pbp && (I.pbp.prior == null || I.pbp.prior.length)) bad.push(`pbp params prior ${JSON.stringify(I.pbp.prior)}`);
+  if (bad.length) throw new Error('pre-season data in sim inputs: ' + bad.join(', ')); return true; }
 // sideFor(team) -> { players, opp, teamLambda, tdBudget } from the slate (the team's own game this week) or null
 export function buildSimInputs(D, { away, home, sideFor = () => null, gameId = null, mode = 'free', tsOpts = null, tdShare = null, tdBlend = null, rosterNow = null, disp = null, source = null, dataOpts = null, usagePrior = null, tsPrior = null, ctx = null }) {
   const src0 = source || (mode === 'anchored' ? 'model' : 'data'); // 4.13.1: free mode = data players, no model numbers reach the engine
-  const dO = dataOpts || DATA_OPTS; const L = leaguePriors(D); const TS = teamStrength(D, { ...(tsOpts || {}), ...(src0 === 'data' && dO.ts ? dO.ts : {}), ...(src0 === 'data' && tsPrior && dO.ts?.priorF > 0 ? { prior: tsPrior } : {}) }); const teams = [away, home].map((team, k) => {
+  const dO = dataOpts || DATA_OPTS; let SO = null;
+  if (src0 === 'data' && dO.seasonOnly) { const S0 = seasonOf(D); D = seasonOnlyD(D, S0); usagePrior = null; tsPrior = null; // 4.18.0: this season only
+    const tdOk = !tdShare || (tdShare.opts?.seasonOnly && (tdShare.seasons || []).every(x => x === S0)); if (!tdOk) tdShare = null; // a td-share block built with prior seasons is not used
+    const ctxOk = ctx?.fit && (ctx.fit.seasons || []).length && ctx.fit.seasons.every(x => x === S0); if (!ctxOk) ctx = null;
+    const ds = new Set(); for (const T of Object.values(D?.teams || {})) for (const g of T.games || []) if (g.season != null) ds.add(g.season);
+    SO = { version: SEASON_ONLY_VERSION, season: S0, drives: [...ds].sort(), tdShare: tdShare ? tdShare.seasons : null, ctx: ctx ? ctx.fit.seasons : null, usagePrior: false, tsPrior: false }; }
+  const L = leaguePriors(D); const TS = teamStrength(D, { ...(tsOpts || {}), ...(src0 === 'data' && dO.ts ? dO.ts : {}), ...(src0 === 'data' && tsPrior && dO.ts?.priorF > 0 ? { prior: tsPrior } : {}) }); const teams = [away, home].map((team, k) => {
     const opp = k ? away : home; const S = sideFor(team); let src = 'model', note = null; let players;
     let modelRef = null; // display-only: the model's chance per player, joined by id AFTER the sim inputs are built (never read by an engine)
     if (src0 === 'data') { players = dataPlayers(D, team, rosterNow, dataOpts || DATA_OPTS, usagePrior); src = 'data'; note = `${team}: volumes, TD rates and QB from its last ${HIST_N} games in the drive file (recency-weighted), checked against today's roster and injury report. No model numbers.`;
@@ -249,7 +289,7 @@ export function buildSimInputs(D, { away, home, sideFor = () => null, gameId = n
   });
   // both teams get (nearly) the same number of possessions: target = mean of the two opponent-adjusted pace estimates (ridge-shrunk to league)
   const tgtDrives = (teams[0].dpg + teams[1].dpg) / 2;
-  return { version: SIM_VERSION, mode, source: src0, disp, dispVersion: DISP_VERSION, ts: { version: TS.version, maxW: TS.maxW, drives: TS.nDrives, opts: TS.opts }, gameId, away, home, lines: null, tdSd: src0 === 'data' ? ((dataOpts || DATA_OPTS).tdSd || 0) : 0, teams, pbpCal: src0 === 'data' ? ((dataOpts || DATA_OPTS).pbpCal || null) : null, targetDrives: +tgtDrives.toFixed(2),
+  return { version: SIM_VERSION, mode, source: src0, seasonOnly: SO, disp, dispVersion: DISP_VERSION, ts: { version: TS.version, maxW: TS.maxW, drives: TS.nDrives, opts: TS.opts }, gameId, away, home, lines: null, tdSd: src0 === 'data' ? ((dataOpts || DATA_OPTS).tdSd || 0) : 0, teams, pbpCal: src0 === 'data' ? ((dataOpts || DATA_OPTS).pbpCal || null) : null, targetDrives: +tgtDrives.toFixed(2),
     league: { bucket: L.bucket, pAll: L.pAll, pool: L.pool, rrRes: L.rrRes, rrBk: L.rrBk, dpg: L.dpg, ppd: L.ppd, tdPerGame: L.tdPerGame, fgPerGame: L.fgPerGame, passAll: L.passAll } };
 }
 

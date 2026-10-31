@@ -43,7 +43,7 @@ export function pbpMatchup(P, away, home, teams, opts = {}) {
   const bySl = new Map(); for (const [g, u] of Object.entries(P.use.players)) if (u.s) bySl.set(String(u.s), g);
   const usage = teams.map(t => t.players.map(p => { const gk = p.gsis && P.use.players[p.gsis] ? p.gsis : bySl.get(String(p.id)); const u = gk ? P.use.players[gk] : null; const m = P.use.pos[p.pos] || P.use.pos.WR;
     return u ? { mt: u.mt, mc: u.mc, h: u.h, src: 'player' } : { mt: m?.t || Array(8).fill(1), mc: m?.c || Array(8).fill(1), h: null, src: 'position' }; }));
-  return { version: P.version, season: P.season, week: P.week, through: P.through, nPlays: P.nPlays, base: { pass: M.pass.cell, passScript: M.pass.script, sackDd: M.sack.dd, sackZone: M.sack.zone, scrDist: M.scr.dist, scrZone: M.scr.zone,
+  return { version: P.version, season: P.season, week: P.week, through: P.through, nPlays: P.nPlays, prior: P.prior ?? null, base: { pass: M.pass.cell, passScript: M.pass.script, sackDd: M.sack.dd, sackZone: M.sack.zone, scrDist: M.scr.dist, scrZone: M.scr.zone,
     intDist: M.int.dist, intZone: M.int.zone, intScript: M.int.script, cmpDist: M.cmp.dist, cmpZone: M.cmp.zone, expP: M.expP.zone, expR: M.expR.zone, rzTd: M.rzTd.cell, paceIcept: Mp.pace.icept },
   side: [side(away, home, 0), side(home, away, 1)], usage, L: P.P, hist: P.hist ? [P.hist[away] || null, P.hist[home] || null] : null, x2: X2 ? matchupV2(P, X2, [away, home], teams, ti, g, SP) : null };
 }

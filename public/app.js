@@ -545,9 +545,9 @@ function simTdHtml(s) {
 }
 // 4.9.2: Top 4 TD scorers (sim), team profiles (opponent-adjusted 2026 drives) and sim vs model
 const sdiff = d => `${d >= 0 ? '+' : '−'}${Math.round(Math.abs(d) * 100)}`;
-// app 4.15.0: real-data-only pre-season priors for the sim (last-season usage, prior team strength, home / rest / wind)
+// app 4.15.0 / 4.18.0: game context for the sim (home / rest / wind fit on this season's scores only)
 function simPriorArgs(A, B) { const P = S.slate?.simPriors; if (!P || P.season !== S.slate.season) return {}; const g = P.games?.[`${S.slate.week}:${A}@${B}`] || null;
-  return { usagePrior: P.usage || null, tsPrior: S.slate.week > 1 ? P.ts || null : null, ctx: P.ctx ? { ...(g || { neutral: false }), fit: P.ctx } : null }; }
+  return { ctx: P.ctx ? { ...(g || { neutral: false }), fit: P.ctx } : null }; } // 4.18.0: this season only (no last-season usage / team-strength prior; ctx used only if fit on this season)
 // 4.16.0 ensemble: blend of the drive and play-by-play sims' anytime chances for the same matchup (weight fit walk-forward on 2025-26
 // log loss: drive 0.55 / pbp 0.45 at the latest week). Beat both engines on log loss in both seasons; shown once both engines have run.
 const ENS_W = 0.55;

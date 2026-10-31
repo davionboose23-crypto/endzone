@@ -12,7 +12,8 @@
 //   driveOld / pbp2Old = 4.11.0 engines (scorer split = model lambdas / usage), driveNew / pbp2New = 4.12.0 (td-share-1 blend),
 //   model = the shipped anytime chance, sleeper = published price (games where >= 4 priced), naive = season TD leaders (ties: red-zone touches).
 // Hit = a pick scored a rushing or receiving TD. Writes archive/sim/top4-backtest-2026.json (2026 per-game list for the app).
-import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
+import fs from 'node:fs'; import path from 'node:path'; import { DATA_OPTS_417, assertSeasonOnly } from '../../src/sim.js';
+import { fileURLToPath } from 'node:url';
 import { loadTable, tableToD } from './table.mjs';
 import { buildSimInputs, runSim, summarize, assertMarketFree, DATA_OPTS, STAR_SLOTS } from '../../src/sim.js';
 import { rosterWeek, poolOf } from './roster-week.mjs';
@@ -59,8 +60,8 @@ const naiveOf = (S, W) => { const m = new Map(); for (const T of tallies) { cons
 const clampP = p => Math.min(0.995, Math.max(0.005, p));
 const SEED = +(process.env.SEED || 11); // sim seed (paired variant checks re-run at a second seed)
 const VAR = process.env.VAR_OPTS ? JSON.parse(process.env.VAR_OPTS) : null; // research variant of the 4.14 data options (engines driveV / pbpV)
-const KS = ['driveNew', 'pbp2New', ...(VAR ? ['driveV', 'pbpV'] : []), ...(process.env.TD_SD != null ? ['driveG'] : []), 'drive4131', 'pbp4131', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.14.0: driveNew / pbp2New = 4.14 (weekly roster + carried rates + rookie/depth priors + 1% floor); driveG = driveNew + per-game team TD multiplier (research); drive4131 / pbp4131 = 4.13.1 as shipped
-const SIM_KS = new Set(['driveNew', 'pbp2New', 'driveV', 'pbpV', 'driveG', 'drive4131', 'pbp4131', 'drive413', 'pbp413']);
+const KS = ['driveNew', 'pbp2New', 'drive417', 'pbp417', ...(VAR ? ['driveV', 'pbpV'] : []), ...(process.env.TD_SD != null ? ['driveG'] : []), 'drive4131', 'pbp4131', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.14.0: driveNew / pbp2New = 4.14 (weekly roster + carried rates + rookie/depth priors + 1% floor); driveG = driveNew + per-game team TD multiplier (research); drive4131 / pbp4131 = 4.13.1 as shipped
+const SIM_KS = new Set(['driveNew', 'pbp2New', 'drive417', 'pbp417', 'driveV', 'pbpV', 'driveG', 'drive4131', 'pbp4131', 'drive413', 'pbp413']);
 const TD_SD = process.env.TD_SD != null ? +process.env.TD_SD : DATA_OPTS.tdSd; // driveG = driveNew with another per-game TD multiplier sd (research)
 const OLD_OPTS = { carry: false, rookie: null, floor: 0, depthCal: null, tdSd: 0 }; // 4.13.1: driveNew / pbp2New = model-independent sims (data players); drive413 / pbp413 = 4.13.0 (model players + TD anchor)
 const DATA_ALPHA = process.env.DATA_ALPHA != null ? +process.env.DATA_ALPHA : null; // research override of the data-player td-share blend
@@ -75,6 +76,9 @@ async function season(S, weeks, priorDetail) {
     const D = !SIMS ? null : W > 1 ? tableToD(T, { before: W }) : fs.existsSync(path.join(ROOT, 'archive', 'drives', String(S - 1), 'table.json')) ? tableToD(loadTable(ROOT, S - 1)) : null; // week 1: last season's drives
     if (SIMS && !D) continue; const PP = SIMS ? fitPbp([TAB[S - 1], TAB[S]], { season: S, before: W }) : null; if (PP && PP.through >= W) throw new Error('leak: pbp params see week ' + PP.through);
     const td = buildTdShare([TAB[S - 1], TAB[S]], { season: S, before: W }); if (td.through >= W) throw new Error('leak: td-share sees week ' + td.through);
+    // 4.18.0 season-only inputs (driveNew / pbp2New): this season's games before W only; 4.17 (drive417 / pbp417) keeps the prior-season inputs
+    const PP26 = SIMS ? fitPbp([TAB[S]], { season: S, before: W, opts: { seasonOnly: true } }) : null; const td26 = buildTdShare([TAB[S]], { season: S, before: W, opts: { seasonOnly: true } });
+    const D26 = SIMS && W > 1 ? D : null; const CTX26 = { ...fitContext(contextRows(GROWS, [S], { before: W })), seasons: [S] };
     const B = fitBlend([...priorDetail, ...detail]); blends.push({ w: W, alpha: B.alpha, beta: B.beta, fitted: B.fitted, tds: B.n });
     const naive = naiveOf(S, W);
     for (const gid of [...new Set(R.map(r => r.gameId))]) {
@@ -99,15 +103,17 @@ async function season(S, weeks, priorDetail) {
         const In1 = buildSimInputs(D, { away: gm.away, home: gm.home, sideFor, gameId: gid, source: 'model', tdShare: td, tdBlend: B.fitted ? B : { alpha: 0, beta: {} }, disp: false });
         const In2 = { ...In1, disp: { drive: { anchor: 1 }, pbp: { anchor: 1 } } }; // 4.13.0 as shipped
         const tb = DATA_ALPHA != null ? { tdBlend: { alpha: DATA_ALPHA, beta: process.env.DATA_NOBETA ? {} : { TE: 0.1 } } } : {};
-        InD = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: DATA_OPTS, usagePrior: UPS[S], tsPrior: W > 1 ? TSP[S] : null, ctx: { ...gm.ctx, fit: CTXF[S] }, ...tb }); // app default (4.14): model-free, market-free
+        const In417 = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: DATA_OPTS_417, usagePrior: UPS[S], tsPrior: W > 1 ? TSP[S] : null, ctx: { ...gm.ctx, fit: CTXF[S] }, ...tb }); // 4.17 as shipped (prior-season inputs)
+        InD = D26 ? buildSimInputs(D26, { away: gm.away, home: gm.home, gameId: gid, tdShare: td26, rosterNow: rosterWeek(S, W, true), dataOpts: DATA_OPTS, ctx: { ...gm.ctx, fit: CTX26 }, ...tb }) : null; // 4.18 app default: this season only, model-free, market-free
+        if (InD) assertSeasonOnly(InD); if (!InD) InD = In417; // week 1 has no this-season games: the season-only engines are skipped (run with --weeks 2,...)
         const InO = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterOf(S, W), dataOpts: OLD_OPTS, ...tb }); // 4.13.1 as shipped
-        for (const I0 of [InD, InO]) assertMarketFree(I0); // throws on any model or betting-market source (no Vegas totals / spreads / implied / odds / Sleeper prices)
+        for (const I0 of [InD, InO, In417]) assertMarketFree(I0); // throws on any model or betting-market source (no Vegas totals / spreads / implied / odds / Sleeper prices)
         const InG = { ...InD, tdSd: TD_SD };
-        const InV = VAR ? buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterWeek(S, W, true), dataOpts: { ...DATA_OPTS, ...VAR }, usagePrior: UPS[S], tsPrior: W > 1 ? TSP[S] : null, ctx: { ...gm.ctx, fit: CTXF[S] }, ...tb, ...(VAR.fitBeta ? { tdBlend: (() => { const F = fitDataBeta([...priorDetail, ...detail]); betas.push({ S, W, ...F }); return F; })() } : {}) }) : null; if (InV) assertMarketFree(InV);
+        const InV = VAR && D26 ? buildSimInputs(D26, { away: gm.away, home: gm.home, gameId: gid, tdShare: td26, rosterNow: rosterWeek(S, W, true), dataOpts: { ...DATA_OPTS, ...VAR }, ctx: { ...gm.ctx, fit: CTX26 }, ...tb, ...(VAR.fitBeta ? { tdBlend: (() => { const F = fitDataBeta([...priorDetail, ...detail]); betas.push({ S, W, ...F }); return F; })() } : {}) }) : null; if (InV) assertMarketFree(InV);
         const keep = (S0, I0, sm) => Object.assign(sm, { __S: S0, __I: I0 });
         const dr = I0 => { const S0 = runSim(I0, { n: NS, seed: SEED, mode: 'free' }); return keep(S0, I0, summarize(S0, I0)); };
-        const pb = I0 => { const I = buildPbpInputs(I0, PP); const S0 = runPbp(I, { n: NS, seed: SEED }); return keep(S0, I, summarizePbp(S0, I)); };
-        const run = { drive413: () => dr(In2), pbp413: () => pb(In2), driveNew: () => dr(InD), pbp2New: () => pb(InD), driveG: () => dr(InG), ...(InV ? { driveV: () => dr(InV), pbpV: () => pb(InV) } : {}), drive4131: () => dr(InO), pbp4131: () => pb(InO) };
+        const pb = (I0, P0 = I0.seasonOnly ? PP26 : PP) => { const I = buildPbpInputs(I0, P0); if (I0.seasonOnly) assertSeasonOnly(I); const S0 = runPbp(I, { n: NS, seed: SEED }); return keep(S0, I, summarizePbp(S0, I)); };
+        const run = { drive413: () => dr(In2), pbp413: () => pb(In2), driveNew: () => dr(InD), pbp2New: () => pb(InD), drive417: () => dr(In417), pbp417: () => pb(In417), driveG: () => dr(InG), ...(InV ? { driveV: () => dr(InV), pbpV: () => pb(InV) } : {}), drive4131: () => dr(InO), pbp4131: () => pb(InO) };
         for (const [k, f] of Object.entries(run)) { if ((ENG && !ENG.includes(k)) || !KS.includes(k)) continue; const s = f(); for (const p of live) prob[p.id][k] = 0; for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime; else if (x.gsis) { const m = live.find(p => p.gsis === x.gsis); if (m) prob[m.id][k] = x.anytime; }
           if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live);
           if (k === 'driveNew' || k === 'pbp2New') { const su = surprise(s.__S, s.players); sur[k] = { p: r3(su.pOutside), share: r3(su.shareOutside), ls: su.longshots.map(x => ({ n: x.name, t: x.team, p: x.pos, pr: r3(x.p) })) }; } }

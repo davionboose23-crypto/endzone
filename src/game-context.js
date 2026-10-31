@@ -19,8 +19,8 @@ export function fitContext(rows, { k = [400, 400, 200], iters = 25 } = {}) {
     a += ga / ha; for (let j = 0; j < 3; j++) b[j] += (g[j] - k[j] * b[j]) / (h[j] + k[j]); }
   return { version: CTX_VERSION, n, coef: b.map(v => +v.toFixed(4)), base: +Math.exp(a).toFixed(2), fitted: true }; }
 // games: nflverse games.csv rows (objects); seasons: which seasons to fit on (all must be before the simulated one)
-export function contextRows(games, seasons) { const out = []; const S = new Set(seasons);
-  for (const o of games) { if (!S.has(+o.season) || o.game_type !== 'REG' || o.away_score === '' || o.home_score === '') continue; const neutral = o.location === 'Neutral';
+export function contextRows(games, seasons, { before = null } = {}) { const out = []; const S = new Set(seasons); // before: only weeks < before (4.18.0 in-season fits)
+  for (const o of games) { if (!S.has(+o.season) || (before != null && +o.week >= before) || o.game_type !== 'REG' || o.away_score === '' || o.home_score === '') continue; const neutral = o.location === 'Neutral';
     const base = { neutral, roof: o.roof, wind: o.wind === '' || o.wind === 'NA' ? null : +o.wind };
     out.push({ y: +o.home_score, x: ctxFeatures({ ...base, side: 'home', restOwn: +o.home_rest, restOpp: +o.away_rest }) });
     out.push({ y: +o.away_score, x: ctxFeatures({ ...base, side: 'away', restOwn: +o.away_rest, restOpp: +o.home_rest }) }); }

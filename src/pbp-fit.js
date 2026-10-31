@@ -45,7 +45,7 @@ const mean = a => a.length ? a.reduce((s, x) => s + x, 0) / a.length : 0;
 export function fitPbp(tables, { season, before, opts = {} } = {}) {
   const o = { ...PBP_DEFAULTS, ...opts, k: { ...PBP_DEFAULTS.k, ...(opts.k || {}) }, k2: { ...PBP_DEFAULTS.k2, ...(opts.k2 || {}) } };
   const cur = tables.find(t => t.season === season); if (!cur) throw new Error(`no pbp table for ${season}`);
-  const prior = tables.filter(t => t.season < season && t.season >= season - 1);
+  const prior = o.seasonOnly ? [] : tables.filter(t => t.season < season && t.season >= season - 1); // 4.18.0 seasonOnly: this season's plays only
   const curRows = rowsOf(cur).filter(r => r.week < before); // NO leakage: target week and later never read
   if (!curRows.length && !prior.length) throw new Error('no plays before target week');
   const maxW = curRows.reduce((m, r) => Math.max(m, r.week), 0);
