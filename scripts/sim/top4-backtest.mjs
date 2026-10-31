@@ -78,6 +78,27 @@ const snapTrend = (team, name, W, k = 2) => { const r = (SNAPS?.get(team + '|' +
 const SNAP_A = +(process.env.SNAP || 0), SNAP_L = +(process.env.SNAPL || 0), INJ = +(process.env.INJ || 0);
 const snapAvg = (team, name, W) => { const r = (SNAPS?.get(team + '|' + nmK(name)) || []).filter(x => x.w < W); return r.length ? r.reduce((s, x) => s + x.p, 0) / r.length : null; };
 // applied to the play-by-play inputs (each player's td-share weight lam steers who scores; tgt / car steer volume)
+const RZF = process.env.RZF || null, RZB = +(process.env.RZB ?? 0.3), GATE = +(process.env.GATE ?? 0), LOGIT = +(process.env.LOGIT ?? 0); // 4.22 t73u research knobs
+const RZFEAT = (RZF || GATE || LOGIT) ? JSON.parse(fs.readFileSync(path.join(ROOT, 'archive', 'sim', 'rzfeat-2026.json'), 'utf8')) : null;
+const rzf = (W, team, name) => RZFEAT?.[`${W}|${team}|${nmK(name)}`] || {};
+function rzScore(f, v) { const g = k => f[k] || 0; let C = g('c'), T = g('t');
+  if (v === 'i5') { C = 0.3 * g('c') + 0.3 * g('c10') + 0.4 * g('c5'); T = 0.5 * g('t') + 0.5 * g('t10'); }
+  else if (v === 'posk') { C = g('cK'); T = g('tK'); } else if (v === 'rec') { C = g('cR'); T = g('tR'); }
+  let s = 0.42 * C + 0.58 * T; if (v === 'snapw') s *= Math.sqrt(Math.min(1.2, (f.snap ?? 0.3) / 0.6)); return s + 0.004; }
+function tweak423(I, W) { if (!RZF && !GATE) return; for (const ti of I.teams) { const pl = (ti.players || []).filter(p => p.pos !== 'QB' && p.lam != null); if (!pl.length) continue;
+  const L0 = pl.reduce((a, p) => a + p.lam, 0);
+  if (GATE) for (const p of pl) { const sn = rzf(W, ti.team, p.name).snap; if (sn != null && sn < GATE) p.lam *= sn / GATE; }
+  if (RZF) { const sc = pl.map(p => rzScore(rzf(W, ti.team, p.name), RZF)); const Ss = sc.reduce((a, b) => a + b, 0); const L1 = pl.reduce((a, p) => a + p.lam, 0);
+    pl.forEach((p, i) => { p.lam = Math.pow(p.lam, 1 - RZB) * Math.pow(L1 * sc[i] / Ss, RZB); }); }
+  const L2 = pl.reduce((a, p) => a + p.lam, 0); if (L2 > 0) for (const p of pl) p.lam *= L0 / L2; } }
+const lgRows = []; const lgt = x => Math.log(Math.max(1e-4, Math.min(1 - 1e-4, x)) / (1 - Math.max(1e-4, Math.min(1 - 1e-4, x))));
+function fitLogit(rows, W) { const R = rows.filter(r => r.w < W); if (R.length < 300) return null; const d = R[0].x.length; let b = new Array(d).fill(0); b[0] = 1; const lam = 2;
+  for (let it = 0; it < 25; it++) { const g = new Array(d).fill(0), H = Array.from({ length: d }, () => new Array(d).fill(0));
+    for (const r of R) { const z = r.x.reduce((a, x, k) => a + x * b[k], 0) + r.o0; const q = 1 / (1 + Math.exp(-z)); for (let a = 0; a < d; a++) { g[a] += (r.y - q) * r.x[a]; for (let c = 0; c < d; c++) H[a][c] += q * (1 - q) * r.x[a] * r.x[c]; } }
+    for (let a = 1; a < d; a++) { g[a] -= lam * b[a]; H[a][a] += lam; } g[0] -= lam * (b[0] - 1); H[0][0] += lam;
+    // solve H dx = g (gauss)
+    const M = H.map((row, i) => [...row, g[i]]); for (let i = 0; i < d; i++) { let mx = i; for (let r = i + 1; r < d; r++) if (Math.abs(M[r][i]) > Math.abs(M[mx][i])) mx = r; [M[i], M[mx]] = [M[mx], M[i]]; for (let r = 0; r < d; r++) if (r !== i) { const f = M[r][i] / M[i][i]; for (let c = i; c <= d; c++) M[r][c] -= f * M[i][c]; } }
+    b = b.map((v, i) => v + M[i][d] / M[i][i]); } return b; }
 function tweak422(I, P, W) { if (!SNAP_A && !SNAP_L && !INJ) return; for (const ti of I.teams) { const pl = ti.players || [];
   for (const p of pl) { if (p.pos === 'QB') continue; let m = 1; if (SNAP_A) m *= Math.pow(snapTrend(ti.team, p.name, W), SNAP_A);
     if (SNAP_L) { const mates = pl.filter(q => q.pos === p.pos).map(q => snapAvg(ti.team, q.name, W)).filter(x => x != null); const v = snapAvg(ti.team, p.name, W); if (v != null && mates.length) { const mu = mates.reduce((s, x) => s + x, 0) / mates.length; m *= Math.min(2, Math.max(0.5, Math.pow((v + 0.1) / (mu + 0.1), SNAP_L))); } }
@@ -140,7 +161,7 @@ async function season(S, weeks, priorDetail) {
         const InV = VAR && D26 ? buildSimInputs(D26, { away: gm.away, home: gm.home, gameId: gid, tdShare: td26, rosterNow: rosterWeek(S, W, true), dataOpts: { ...DATA_OPTS, ...VAR }, ctx: { ...gm.ctx, fit: CTX26 }, ...tb, ...(VAR.fitBeta ? { tdBlend: (() => { const F = fitDataBeta([...priorDetail, ...detail]); betas.push({ S, W, ...F }); return F; })() } : {}) }) : null; if (InV) assertMarketFree(InV);
         const keep = (S0, I0, sm) => Object.assign(sm, { __S: S0, __I: I0 });
         const dr = I0 => { const S0 = runSim(I0, { n: NS, seed: SEED, mode: 'free' }); return keep(S0, I0, summarize(S0, I0)); };
-        const pb = (I0, P0 = I0.seasonOnly ? PP26 : PP) => { const I = buildPbpInputs(I0, P0); if (I0.seasonOnly) { assertSeasonOnly(I); tweak422(I, P, W); } const S0 = runPbp(I, { n: NS, seed: SEED }); return keep(S0, I, summarizePbp(S0, I)); };
+        const pb = (I0, P0 = I0.seasonOnly ? PP26 : PP) => { const I = buildPbpInputs(I0, P0); if (I0.seasonOnly) { assertSeasonOnly(I); tweak422(I, P, W); tweak423(I, W); } const S0 = runPbp(I, { n: NS, seed: SEED }); return keep(S0, I, summarizePbp(S0, I)); };
         const run = { drive413: () => dr(In2), pbp413: () => pb(In2), driveNew: () => dr(InD), pbp2New: () => pb(InD), drive417: () => dr(In417), pbp417: () => pb(In417), driveG: () => dr(InG), ...(InV ? { driveV: () => dr(InV), pbpV: () => pb(InV) } : {}), drive4131: () => dr(InO), pbp4131: () => pb(InO) };
         for (const [k, f] of Object.entries(run)) { if ((ENG && !ENG.includes(k)) || !KS.includes(k)) continue; const s = f(); for (const p of live) prob[p.id][k] = 0; for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime; else if (x.gsis) { const m = live.find(p => p.gsis === x.gsis); if (m) prob[m.id][k] = x.anytime; }
           if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live, k === 'pbp2New' ? pbpSummary(s.__S, s, s.__I) : null);
@@ -152,7 +173,7 @@ async function season(S, weeks, priorDetail) {
         for (const p of live) { const a = prob[p.id].pbp2New || 0, b = prob[p.id].driveNew || 0; ensRows.push({ a, b, y: p.y ? 1 : 0 }); if (process.env.ENS_RANK) prob[p.id].pbpRank = a; prob[p.id].pbp2New = (1 - w) * a + w * b; } if (process.env.ENS === 'fit') console.error('ens w', W, w); }
       // 4.20.0 post layer on the default play-by-play sim (pbp2New): fits read earlier weeks' rows only
       if (prob[live[0]?.id]?.pbp2New != null) { const F = POST.floor ? fitFloor(postRows, W) : null, C = POST.cal ? fitCal(postRows, W) : null;
-        for (const p of live) { const raw = prob[p.id].pbp2New; postRows.push({ w: W, pos: p.pos === 'FB' ? 'RB' : p.pos, p: raw, y: p.y ? 1 : 0 }); prob[p.id].pbp2New = applyPost(raw, p.pos, F, C); } }
+        for (const p of live) { const raw = prob[p.id].pbp2New; postRows.push({ w: W, pos: p.pos === 'FB' ? 'RB' : p.pos, p: raw, y: p.y ? 1 : 0 }); prob[p.id].pbp2New = applyPost(raw, p.pos, F, C); }  if (LOGIT) { const B = fitLogit(lgRows, W); for (const p of live) { const raw = prob[p.id].pbp2New; const f = rzf(W, p.team, p.name); const sn = f.snap ?? 0.3; const x = [lgt(raw), sn - 0.5, Math.max(0, 0.3 - sn), (f.c || 0), (f.t || 0)]; lgRows.push({ w: W, x, o0: 0, y: p.y ? 1 : 0 }); if (B) prob[p.id].pbp2New = 1 / (1 + Math.exp(-x.reduce((a, v, k) => a + v * B[k], 0))); } if (B && W === 8) console.error('logit', B.map(v => v.toFixed(3)).join(',')); } }
       // research (audit idea 2): driveN = driveNew with the game's summed TD intensity (sum of -ln(1-p)) rescaled to this season's league
       // offensive rush/rec TDs per game before W (2026 games only), NORM = shrink weight 0..1
       if (NORM && prob[live[0]?.id]?.driveNew != null) { const lg = LG26(S, W); const lam = live.map(p => -Math.log(1 - Math.min(0.995, prob[p.id].driveNew || 0))); const tot = lam.reduce((a, b) => a + b, 0);
