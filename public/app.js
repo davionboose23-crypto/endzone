@@ -558,11 +558,11 @@ function simBlendKeep(sum) { const k = `${sum?.away}@${sum?.home}`; const ps = (
 const ensV = (sim, m) => m == null ? sim : (1 - ENS_MODEL_W) * sim + ENS_MODEL_W * m;
 function simBlendHtml(s) { const B = S.simBlend; if (!B || B.k !== `${s.away}@${s.home}` || !B.drive || !B.pbp) return `<p class="small muted">Run both engines on this game to see the blended top 4 (drive ${Math.round(ENS_W * 100)}% / play-by-play ${100 - Math.round(ENS_W * 100)}%), the most accurate in the backtest.</p>`;
   const ks = new Set([...B.drive.keys(), ...B.pbp.keys()]); const r = [...ks].map(k => { const a = B.drive.get(k), b = B.pbp.get(k); const p = a || b; return { name: p.name, team: p.team, pos: p.pos, v: ensV(ENS_W * (a?.anytime || 0) + (1 - ENS_W) * (b?.anytime || 0), b?.model?.chance ?? a?.model?.chance), r: b?.anytime || 0 }; }).sort((x, y) => y.r - x.r || y.v - x.v).slice(0, 4);
-  return `<div class="simblend"><h4>Blended top 4 <span class="chip rel-chance">Drive + play-by-play + model</span></h4><ol class="small">${r.map(p => `<li><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.team)} ${esc(p.pos)}</span> ${simPct(p.v)}</li>`).join('')}</ol><p class="small muted">Half the model's anytime chance, half the sims (${Math.round(ENS_W * 100)}% drive / ${100 - Math.round(ENS_W * 100)}% play-by-play, from your latest run of each). Order is the play-by-play sim's; the blend only sets the chance. In the 2026 walk-forward backtest (3 seeds) this cut log loss from 0.3070 to 0.2975 with the same top-4 hits.</p></div>`; }
+  return `<div class="simblend"><h4>Blended top 4 <span class="chip rel-chance">Drive + play-by-play + model</span></h4><ol class="small">${r.map(p => `<li><strong class="pnm" role="button" tabindex="0" data-pnm="${esc(p.name)}" data-ptm="${esc(p.team)}">${esc(p.name)}</strong> <span class="muted">${esc(p.team)} ${esc(p.pos)}</span> ${simPct(p.v)}</li>`).join('')}</ol><p class="small muted">Half the model's anytime chance, half the sims (${Math.round(ENS_W * 100)}% drive / ${100 - Math.round(ENS_W * 100)}% play-by-play, from your latest run of each). Order is the play-by-play sim's; the blend only sets the chance. In the 2026 walk-forward backtest (3 seeds) this cut log loss from 0.3070 to 0.2975 with the same top-4 hits.</p></div>`; }
 function simTop4Html(s) {
   const t = s.vs?.top4; if (!t?.length) return '';
   return `<div class="card simtop4" id="simTop4"><h3>Top 4 TD scorers (sim) <span class="chip rel-chance">Simulated</span></h3>
-   <ol class="top4">${t.map((p, i) => `<li><div class="t4head"><span class="t4rank">${i + 1}</span><span class="t4name"><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.team)} ${esc(p.pos)}</span></span><span class="t4p">${simPct(p.anytime)}</span></div>
+   <ol class="top4">${t.map((p, i) => `<li><div class="t4head"><span class="t4rank">${i + 1}</span><span class="t4name"><strong class="pnm" role="button" tabindex="0" data-pnm="${esc(p.name)}" data-ptm="${esc(p.team)}">${esc(p.name)}</strong> <span class="muted">${esc(p.team)} ${esc(p.pos)}</span></span><span class="t4p">${simPct(p.anytime)}</span></div>
     <div class="t4nums small"><span>Model <strong>${p.model == null ? '—' : simPct(p.model)}</strong>${p.diff == null ? '' : ` <span class="${Math.abs(p.diff) >= 0.03 ? 'gap' : 'muted'}">(${sdiff(p.diff)} pts)</span>`}</span><span>2+ TDs <strong>${simPct(p.twoPlus)}</strong></span><span>First TD <strong>${simPct(p.first)}</strong></span></div>
     <p class="small t4line">${esc(p.line)}</p></li>`).join('')}</ol>${simBlendHtml(s)}${simSurpriseHtml(s)}
    <p class="small muted">Ranked by anytime TD across both teams in this run of ${s.n.toLocaleString()} simulated games. The sim runs on each team's own opponent-adjusted 2026 ${simPick().mode === 'pbp' ? 'plays' : 'drives'}. No model numbers go in: TD counts, points, drives and who scores are the sim's own, built from real 2026 drives, red-zone and goal-line shares and today's roster and injury report. The Model TD column is shown only to compare.</p></div>`;
@@ -570,7 +570,7 @@ function simTop4Html(s) {
 // 4.13.0: it's not always the favourite - how often a TD comes from outside the sim's top 4, and the likeliest longshots
 function simSurpriseHtml(s) {
   const u = s.surprise; if (!u || u.pOutside == null) return '';
-  const ls = (u.longshots || []).map(x => `<strong>${esc(x.name)}</strong> <span class="muted">${esc(x.team)} ${esc(x.pos)}</span> ${simPct(x.pCal ?? x.p)}`).join(' · ');
+  const ls = (u.longshots || []).map(x => `<strong class="pnm" role="button" tabindex="0" data-pnm="${esc(x.name)}" data-ptm="${esc(x.team)}">${esc(x.name)}</strong> <span class="muted">${esc(x.team)} ${esc(x.pos)}</span> ${simPct(x.pCal ?? x.p)}`).join(' · ');
   return `<div class="surprise small" id="simSurprise"><p><strong>Surprise scorer:</strong> in <strong>${simPct(u.pOutside)}</strong> of simulated games at least one TD comes from someone outside these four (${simPct(u.shareOutside)} of all TDs).${ls ? ` Likeliest longshots: ${ls}${(u.longshots || []).some(x => x.pCal != null) ? ' (calibrated: the raw sim underprices players outside its top 4)' : ''}.` : ''}</p>
    <p class="muted">Real games back this up: in 2025–26 (364 games, re-run week by week with the model-free sim) someone outside the sim's top 4 scored in 94–97% of games, and about 6 in 10 rushing and receiving TDs (59%) came from outside the top 4. The sim expected about the same (97% of games and 61% of TDs on average in 2026). Picking the right top 4 still matters, but most games have a surprise scorer.</p></div>`;
 }
@@ -934,6 +934,35 @@ function pie(player, team, label) {
 const sec = (title, body, open = false) => `<details class="sec"${open ? ' open' : ''}><summary>${esc(title)}</summary><div class="secbody">${body}</div></details>`;
 // turn "<h3>Title</h3>body" chunks from the detail renderer into collapsed disclosures
 const h3ToDetails = html => html.split('<h3>').filter(x => x.trim()).map(ch => { const k = ch.indexOf('</h3>'); return k < 0 ? ch : `<details class="sec"><summary>${ch.slice(0, k)}</summary><div class="secbody">${ch.slice(k + 5)}</div></details>`; }).join('');
+
+// 4.24 player page: 2026 TD trends (display only; reads the detail payload and the latest sim runs).
+function trendSvg(rows) {
+  if (!rows.length) return '';
+  const W = 320, H = 120, pad = 22, n = rows.length, bw = (W - pad * 2) / n; const maxTd = Math.max(1, ...rows.map(r => r.rushTd + r.recTd));
+  let cum = 0, opp = 0; const pts = rows.map((r, i) => { cum += r.rushTd + r.recTd; opp += r.carries + r.targets; return [pad + bw * (i + .5), opp ? cum / opp : 0]; });
+  const maxR = Math.max(0.05, ...pts.map(x => x[1])); const y = v => H - pad - (v / maxR) * (H - pad * 2);
+  const bars = rows.map((r, i) => { const x = pad + bw * i + bw * .18, w = bw * .64, u = (H - pad * 2) / maxTd;
+    return `<rect class="tdr" x="${x.toFixed(1)}" y="${(H - pad - r.rushTd * u).toFixed(1)}" width="${w.toFixed(1)}" height="${(r.rushTd * u).toFixed(1)}"><title>W${r.week} rush TD ${r.rushTd}</title></rect><rect class="tdc" x="${x.toFixed(1)}" y="${(H - pad - (r.rushTd + r.recTd) * u).toFixed(1)}" width="${w.toFixed(1)}" height="${(r.recTd * u).toFixed(1)}"><title>W${r.week} rec TD ${r.recTd}</title></rect><text x="${(x + w / 2).toFixed(1)}" y="${H - 6}" text-anchor="middle">${r.week}</text>`; }).join('');
+  const line = pts.map((q, i) => `${i ? 'L' : 'M'}${q[0].toFixed(1)},${y(q[1]).toFixed(1)}`).join(' ');
+  return `<svg class="tdtrend" viewBox="0 0 ${W} ${H}" role="img" aria-label="TDs by week with cumulative TD rate per touch">${bars}<path d="${line}" class="tdline"/>${pts.map(q => `<circle cx="${q[0].toFixed(1)}" cy="${y(q[1]).toFixed(1)}" r="2.5" class="tddot"/>`).join('')}<text x="${W - pad}" y="12" text-anchor="end" class="tdlbl">TD rate per carry+target, ${(pts[pts.length - 1][1] * 100).toFixed(1)}%</text></svg>
+   <p class="small muted legend"><span class="sw tdr"></span> rush TD <span class="sw tdc"></span> rec TD <span class="sw tdline"></span> season TD rate per carry + target (cumulative). X axis = week.</p>`;
+}
+function simChanceFor(p) { const B = S.simBlend; if (!B) return null; const k = `${p.team}|${p.name}`; const d = B.drive?.get(k), b = B.pbp?.get(k);
+  if (!d && !b) return null; return { k: B.k, pbp: b?.anytime ?? null, drive: d?.anytime ?? null, blend: d && b ? ensV(ENS_W * d.anytime + (1 - ENS_W) * b.anytime, b.model?.chance ?? d.model?.chance) : null }; }
+function tdTrendsHtml(p, d) {
+  const sc = simChanceFor(p); const T = d?.trends; const rows = T?.rows || [];
+  const chances = `<div class="statpills"><div class="spill"><span>Model</span><strong>${pc(p.chance, 1)}</strong></div>${sc ? `${sc.pbp != null ? `<div class="spill"><span>PBP sim</span><strong>${pc(sc.pbp, 1)}</strong></div>` : ''}${sc.drive != null ? `<div class="spill"><span>Drive sim</span><strong>${pc(sc.drive, 1)}</strong></div>` : ''}${sc.blend != null ? `<div class="spill acc"><span>Blended</span><strong>${pc(sc.blend, 1)}</strong></div>` : ''}` : `<div class="spill dim"><span>Sim</span><strong>—</strong></div>`}</div>
+   <p class="small muted">${sc ? `Sim numbers are from your latest run of ${esc(sc.k)} in Drives → Simulator.` : `Run this game in Drives → Simulator to add the play-by-play, drive and blended chances here.`}</p>`;
+  if (!d) return chances + '<p class="muted small">Loading 2026 game log…</p>';
+  if (!rows.length) return chances + `<p class="small muted">No ${T?.season ?? ''} games logged yet.</p>`;
+  const t = k => rows.reduce((a, r) => a + (r[k] || 0), 0); const nz = k => rows.some(r => r[k] != null);
+  const pct = v => v == null ? '—' : `${Math.round(v > 1 ? v : v * 100)}%`; const v = x => x == null ? '—' : x;
+  const td = t('rushTd') + t('recTd'), scoring = rows.filter(r => r.rushTd + r.recTd > 0).length;
+  const tot = `<div class="statpills"><div class="spill"><span>${T.season} TDs</span><strong>${td}</strong></div><div class="spill"><span>Rush / rec</span><strong>${t('rushTd')} / ${t('recTd')}</strong></div><div class="spill"><span>Scoring games</span><strong>${scoring}/${rows.length}</strong></div><div class="spill"><span>RZ looks</span><strong>${t('rzRush') + t('rzTgt')}</strong></div>${nz('ezTgt') ? `<div class="spill"><span>End-zone tgts</span><strong>${t('ezTgt')}</strong></div>` : ''}</div>`;
+  const tbl = `<div class="tablewrap" tabindex="0"><table class="tdtbl" style="min-width:640px"><thead><tr><th>Wk</th><th>Opp</th><th>Rush TD</th><th>Rec TD</th><th>Car</th><th>Tgt</th><th>RZ car</th><th>RZ tgt</th><th>Inside-5 car</th><th>Inside-5 tgt</th><th>EZ tgt</th><th>Snaps</th><th>Snap %</th></tr></thead><tbody>${rows.slice().reverse().map(r => `<tr${r.rushTd + r.recTd ? ' class="scored"' : ''}><td>W${r.week}</td><td>${esc(r.opp || '—')}</td><td>${r.rushTd}</td><td>${r.recTd}</td><td>${r.carries}</td><td>${r.targets}</td><td>${v(r.rzRush)}</td><td>${v(r.rzTgt)}</td><td>${v(r.glRush)}</td><td>${v(r.glTgt)}</td><td>${v(r.ezTgt)}</td><td>${v(r.snaps)}</td><td>${pct(r.snapPct)}</td></tr>`).join('')}</tbody></table></div>
+   <p class="small muted">${T.season} regular season only (nflverse stats, play-by-play zones, PFR snap counts). RZ = inside the 20; EZ tgt = targets thrown into the end zone. Route counts are not in the data feed.${T.zonesKnown ? '' : ' No play-by-play zone rows for this player, so inside-5 and end-zone columns are blank.'}</p>`;
+  return chances + tot + trendSvg(rows) + tbl;
+}
 function renderPanel() {
   const el = $('#panel'); if (!S.panel) return;
   const f = findPlayer(S.panel.gameId, S.panel.playerId); if (!f) return closePanel();
@@ -962,6 +991,7 @@ function renderPanel() {
    <div class="row"><button class="btn gold" data-act="ai" aria-describedby="aiHint">AI analysis</button><span id="aiHint" class="small muted">${aiSettings().key ? `Uses your ${esc(PROVIDERS[aiSettings().provider]?.label || 'AI')} key from Lab · never changes the model's number` : 'No AI key set: built-in review (add a key in Lab → AI analyst)'}</span></div>
    <div id="aiOut" aria-live="polite">${aiCached(g, p) ? aiReviewHtml(aiCached(g, p)) : ''}</div>
    </div><div class="pcol-b">
+   ${sec(`TD trends · ${S.slate?.season ?? ''}`, tdTrendsHtml(p, d), true)}
    ${sec('Probability details', `<div class="kv small"><div>Published projection<br><strong>${p.published ? pc(p.published.probability) : 'none'}</strong></div>${p.challenger != null ? `<div>Blend challenger<br><strong>${pc(p.challenger, 1)}</strong> <span class="muted">(${esc(legsText(p) || 'model')})</span></div>` : ''}${p.usage != null ? `<div>Usage leg<br><strong>${pc(p.usage, 1)}</strong></div>` : ''}<div>First TD<br><strong>${pc(p.firstTd, 1)}</strong></div><div>Two or more<br><strong>${pc(dist.twoPlus, 1)}</strong></div><div>80% band<br><strong>${pc(p.band[0])}–${pc(p.band[1])}</strong></div></div>
      ${p.challenger != null ? `<p class="small muted">Blend challenger = equal-weight average of ${esc(legsText(p) || 'model')} on the log-intensity (cloglog) scale, after the safety caps. Shadow only: the headline number stays the model's until the prospective gate (500 players / 40 games) promotes it.</p>` : ''}
      <p class="small">Count distribution: 0 ${pc(dist.p0)} · 1 ${pc(dist.p1)} · 2 ${pc(dist.p2)} · 3+ ${pc(dist.p3plus)} (λ ${n1(p.lambda)}). The band is uncertainty about the probability, not a range for his touchdown count.</p>`)}
@@ -1173,3 +1203,8 @@ const onLayoutChange = () => { clearTimeout(mqTimer); mqTimer = setTimeout(() =>
 for (const q of ['(max-width:1023px)', '(orientation:landscape)', '(max-height:500px)', '(max-width:720px)']) window.matchMedia(q).addEventListener('change', onLayoutChange);
 window.addEventListener('resize', () => { if (S.panel) renderPanel(); });
 renderControls(); applyAuto(); startLoad(false); // initial load only; no background schedule unless the user opts in
+
+// 4.24: any sim/drive name tagged data-pnm opens that player's page (matched by team + name on this week's slate).
+function openByName(el) { const nm = el.dataset.pnm, tm = el.dataset.ptm; const q = allPlayers().find(x => x.name === nm && (!tm || x.team === tm)) || allPlayers().find(x => x.name === nm); if (q) openPlayer(q.gameId, q.id); }
+document.addEventListener('click', e => { const el = e.target.closest?.('[data-pnm]'); if (el) { e.preventDefault(); openByName(el); } });
+document.addEventListener('keydown', e => { if (e.key === 'Enter') { const el = e.target.closest?.('[data-pnm]'); if (el) openByName(el); } });

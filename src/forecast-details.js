@@ -28,6 +28,21 @@ export function actualOutcome(ix, player, game) {
   return { status: td > 0 ? 'confirmed' : 'confirmed-zero', td, rushYd: r.rushYd, rec: r.rec, recYd: r.recYd, passYd: r.passYd, passTd: r.passTd, carries: r.carries, targets: r.targets, att: r.att, spotTd, spotLooks, spotKnown: !!zones, source: row?.src || 'snap count only' };
 }
 
+// Player page TD trends (UI only; current season only, nothing here feeds the model or sims).
+export function tdTrends(ix, p) {
+  const season = ix.season; const logs = ((p.gsis && ix.logsByGsis.get(p.gsis)) || []).filter(r => r.season === season);
+  const zones = (p.gsis && ix.zonesByGsis.get(p.gsis)) || []; const snaps = (p.gsis && ix.snapsByGsis.get(p.gsis)) || (p.pfr && ix.snapsByGsis.get(`pfr:${p.pfr}`)) || [];
+  const weeks = [...new Set([...logs.map(r => r.week), ...snaps.filter(s => s.offSnaps > 0).map(s => s.week)])].sort((a, b) => a - b);
+  const rows = weeks.map(w => { const r = logs.find(x => x.week === w) || {}; const z = zones.filter(x => x.week === w); const sn = snaps.find(x => x.week === w);
+    const zs = (path, f) => z.length ? sum(z.filter(f(path)), x => x.looks) : null;
+    return { week: w, opp: r.opp || null, rushTd: r.rushTd || 0, recTd: r.recTd || 0, carries: r.carries || 0, targets: r.targets || 0,
+      rzRush: r.rzRush ?? zs('r', q => x => x.path === q && x.bin > 0), rzTgt: r.rzTgt ?? zs('t', q => x => x.path === q && x.bin > 0),
+      glRush: zs('r', q => x => x.path === q && x.bin === 1), glTgt: zs('t', q => x => x.path === q && x.bin === 1),
+      ezTgt: z.length ? sum(z.filter(x => x.path === 't'), x => x.endzone || 0) : null,
+      snaps: sn?.offSnaps ?? null, snapPct: sn?.offPct ?? null }; });
+  return { season, rows, routes: null, zonesKnown: zones.length > 0 };
+}
+
 export function playerDetail(W, G, side, p, slatePlayers) {
   const S = G.sides[side]; const oppTeam = S.opp; const f = p.f;
   const pies = {};
@@ -58,7 +73,7 @@ export function playerDetail(W, G, side, p, slatePlayers) {
     frame: { season: frameLine(f.games), last3: frameLine(f.last3) }, snaps: { recent: f.recentSnaps, games: f.snapGames, share: f.snapShare },
     last5: f.games.slice(-5).reverse().map(logRow), allLogs: [...f.logs].reverse().map(g => g), h2h,
     actual: actualOutcome(W.ix, p, G.game), pies, spotTable, profile: researchProfile(p, slatePlayers), splits: splits(p), advanced: advancedEvidence(p, W),
-    scenarios: p.scenarios, defenseTable: m ? { pathRates: m.pathRates, eff: m.eff, rz: m.rz, offenseShare: m.roleRatio, leagueShare: shares[m.pos] } : null,
+    scenarios: p.scenarios, trends: tdTrends(W.ix, p), defenseTable: m ? { pathRates: m.pathRates, eff: m.eff, rz: m.rz, offenseShare: m.roleRatio, leagueShare: shares[m.pos] } : null,
     published: p.published ? { ...p.published, note: 'Sleeper rushing + receiving TD projection is an expected count converted with 1 − exp(−x).' } : { note: 'No published projection: edge unavailable (not zero).' },
     limitations, notes: { safety: p.safetyNotes, lesson: p.lessonNotes, secondOption: p.secondOption, spike: f.spikeNote, conversion: p.conversionNote, riser: p.riser?.reason },
     budget: { teamLambda: S.teamLambda, tdBudget: S.tdBudget, notes: S.teamNotes },
