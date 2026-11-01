@@ -1,0 +1,15 @@
+ENDZONE t95u: sim count 1k vs 10k vs 100k — 2026 weeks 2-8 (92 games), --no-2025, app 4.23.0, MODEL endzone-4.6.0
+Top-4 = pbp sim order. LL = roster-pool log loss (clamp .005-.995). Blended card = 0.7 pbp + 0.3 drive; 4.23.0 card = 0.5*that + 0.5*model (display only).
+
+sims    seeds        pbp hits  pbp LL   card3 LL  4.23 card LL  (rank-by-blend m0.5 hits)
+1000    11/23/37 avg 1.551     .30737   .30481    .29750        1.457
+10000   11           1.565     .30623   .30424    .29726        1.467
+100000  11           1.565     .30660   .30443    .29732        1.478
+(1000 per-seed pbp: 1.554/1.576/1.522; LL .30696/.30787/.30729)
+
+Runtime (backtest, one process, both engines): 1k ~60s, 10k 200s, 100k 1879s (31 min), peak RSS 1.08 GB at 100k (1 game ~15s).
+Browser (Chrome headless on box, local server, one game, per engine): 10k drive 2.5s / pbp 2.0s; 25k 4.6/4.2s; 100k 15.3/14.8s (blended card needs both = ~30s). JS heap 26 -> 62 MB.
+
+Verdict: 100k = 10k on hits (identical top-4 count) and no better on log loss (10k slightly better; difference is noise).
+Gain over 1k is ~.001 LL / +0.014 hits/game, already captured by the app's 10k default. 100k fails the <10s rule (~15s/engine).
+Recommendation: keep app default at 10,000. Nothing shipped.

@@ -83,14 +83,17 @@ const RZF = process.env.RZF || null, RZB = +(process.env.RZB ?? 0.3), GATE = +(p
 const RZFEAT = (RZF || GATE || LOGIT || process.env.LOWSNAP) ? JSON.parse(fs.readFileSync(path.join(ROOT, 'archive', 'sim', 'rzfeat-2026.json'), 'utf8')) : null;
 const rzf = (W, team, name) => RZFEAT?.[`${W}|${team}|${nmK(name)}`] || {};
 const ZG = [[2, 3], [4, 5], [6, 7]];
+const HVY = +(process.env.HVY ?? 0), HVYK = process.env.HVYK || 'hT', HVYPOS = (process.env.HVYPOS || 'TE,RB').split(','), HVYS = +(process.env.HVYS ?? 4); // t98u RotoBot 12-personnel RZ share knob (off)
+const ROTO = HVY ? JSON.parse(fs.readFileSync(path.join(ROOT, 'archive', 'sim', 'rotobot-feat-2026.json'), 'utf8')) : null;
 function featK(v, g, kind) { const c = kind === 'C'; if (v === 'i5') return c ? ['c', 'c10', 'c5'][g] : ['t', 't10', 't10'][g]; if (v === 'posk') return c ? 'cK' : 'tK'; if (v === 'rec') return c ? 'cR' : 'tR'; if (v === 'air') return c ? 'c' : 'AIR'; if (/^l\d$/.test(v)) return c ? null : 'tL' + v[1]; return c ? 'c' : 't'; }
 const DEPTH = +(process.env.DEPTH ?? 1), LOWSNAP = +(process.env.LOWSNAP ?? 1), I5FLAT = +(process.env.I5FLAT ?? 1); // t80u
-function tweak423(I, W) { if (!RZF && !GATE && DEPTH === 1 && LOWSNAP === 1 && I5FLAT === 1) return; const X = I.pbp; if (!X?.usage) return;
+function tweak423(I, W) { if (!HVY && !RZF && !GATE && DEPTH === 1 && LOWSNAP === 1 && I5FLAT === 1) return; const X = I.pbp; if (!X?.usage) return;
   I.teams.forEach((ti, k) => { const pl = ti.players || []; let U = X.usage[k]; if (!U) return; X.usage[k] = U = U.map(u => ({ ...u, mt: [...u.mt], mc: [...u.mc] }));
     const F = pl.map(p => rzf(W, ti.team, p.name)); const nq = pl.map(p => p.pos !== 'QB');
     const rz = (i, m) => { for (let c = 2; c < 8; c++) { U[i].mt[c] *= m; U[i].mc[c] *= m; } };
     if (DEPTH !== 1) for (const ps of ['WR', 'TE']) { const ix = pl.map((p, i) => i).filter(i => pl[i].pos === ps).sort((a, b) => pl[b].tgt - pl[a].tgt); const sl = ps === 'WR' ? [1, 2] : [1, 2]; for (const r of sl) if (ix[r] != null) rz(ix[r], DEPTH); }
 
+    if (HVY) pl.forEach((p, i) => { if (!HVYPOS.includes(p.pos)) return; const f = ROTO[`${W}|${ti.team}|${nmK(p.name)}`]; if (!f || f[HVYK] == null) return; const n = f[HVYK + 'n'] || 0; const m = 1 + HVY * f[HVYK] * n / (n + HVYS); for (let c = 2; c < 8; c++) U[i].mt[c] *= m; });
     if (LOWSNAP !== 1) pl.forEach((p, i) => { const sn = F[i].snap; if (nq[i] && sn != null && sn >= 0.2 && sn < 0.4) rz(i, LOWSNAP); });
     if (I5FLAT !== 1) { const rb = pl.map((p, i) => i).filter(i => pl[i].pos === 'RB').sort((a, b) => pl[b].car - pl[a].car)[0]; if (rb != null) for (const c of [6, 7]) U[rb].mc[c] *= I5FLAT; }
     if (GATE) pl.forEach((p, i) => { const sn = F[i].snap; if (nq[i] && sn != null && sn < GATE) for (let c = 2; c < 8; c++) { U[i].mt[c] *= sn / GATE; U[i].mc[c] *= sn / GATE; } });
@@ -144,6 +147,7 @@ async function season(S, weeks, priorDetail) {
         return { id: String(r.id), gsis, name: r.name, pos: r.pos, team: r.team, avail: { factor: f, status: av.status }, chance: f ? 1 - Math.exp(-(r.lambda || 0) * f) : 0, lambda: (r.lambda || 0) * f, components: r.components,
           vol: { ...r.vol, targets: sc(r.vol?.targets || 0), carries: sc(r.vol?.carries || 0) }, volume: r.volume, published: r.published, y: r.y ? 1 : 0, td: r.td || 0, teamLambda: r.teamLambda, tdBudget: r.tdBudget }; });
       const sideFor = t => { const pl = P.filter(p => p.team === t); return pl.length ? { players: pl, opp: t === gm.away ? gm.home : gm.away, teamLambda: pl[0].teamLambda, tdBudget: pl[0].tdBudget } : null; };
+      if (process.env.MODELROWS) fs.appendFileSync(process.env.MODELROWS, P.filter(p => p.avail.factor > 0).map(p => JSON.stringify({ w: W, gid, team: p.team, name: p.name, pos: p.pos, model: p.chance, y: p.y, tgt: p.vol?.targets, car: p.vol?.carries }) + '\n').join('')); // t99u research dump
       const live = P.filter(p => p.avail.factor > 0); const sur = {}; const prob = {}; for (const p of live) prob[p.id] = { model: p.chance, sleeper: p.published ?? null, naive: (naive.get(p.gsis)?.td || 0) + 0.001 * (naive.get(p.gsis)?.rz || 0) };
       // blend split (for the allocation check, all candidates of each team) + detail for later weeks' blend fits
       for (const t of [gm.away, gm.home]) { const pl = live.filter(p => p.team === t).map(p => ({ gsis: p.gsis, pos: p.pos, lam: p.lambda, tgt: p.vol.targets, car: p.vol.carries }));

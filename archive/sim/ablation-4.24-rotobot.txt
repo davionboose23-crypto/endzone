@@ -1,0 +1,27 @@
+ENDZONE t98u/t99u: RotoBot Stat Explorer features (non-odds) — 2026 only, weeks 2-8, 1000 sims, --no-2025, app 4.23.0, MODEL endzone-4.6.0
+SANITY vs nflverse 2026 pbp (weeks 1-7; week 8 = 1 game in both, treated missing):
+ rz_rec = yardline<=20 targets: matched names 466/700 rows (unmatched = 0-target rows), targets exact 452/466, TDs exact 466/466.
+   BUT the 100-row cap (sorted with 0-target rows included) drops ~25% of RZ targets (e.g. w3 nfl 171 vs roto 130); TDs complete.
+ rz_rush = yl<=20 carries: exact 387/410, TDs 407/410.
+ gl_rec / gl_rush = yardline<=5 (not <=10): gl_rush carries exact 198/201 at yl<=5 vs 126 at <=10; gl_rec 149/169 at <=5.
+ rz_rec_heavy (12 personnel, RZ): nflverse has no personnel, cannot verify. Very sparse: 5-10 targets/week league-wide (49 total, w1-7), ~70 player-snaps/week.
+FEATURES: archive/sim/rotobot-feat-2026.json (scripts/sim/rotobot-feat-2026.py), week W uses weeks < W. hT = heavy RZ target share (shrunk n/(n+4)), hS = heavy RZ snap share, glC = GL carry share.
+SIM KNOB (backtest, off): HVY=b multiplies RZ target cells for TE/RB by 1 + b*share. Cols: pbp hits / pbp LL / 4.23 card LL / surprise-box hit rate
+variant          seed11                          seed23                          seed37
+baseline         1.554 .30696 .29719 .228        1.576 .30787 .29730 .221        1.522 .30729 .29728 .228
+hT05             1.543 .30683 .29717 0.221        1.565 .30817 .29742 0.225        1.533 .30746 .29734 0.236       
+hT1              1.576 .30718 .29719 0.214        1.587 .30799 .29737 0.203        1.543 .30737 .29737 0.228       
+hT2              1.543 .30728 .29725 0.221        1.576 .30802 .29740 0.214        1.543 .30756 .29742 0.221       
+hS1              1.576 .30766 .29725 0.214        1.565 .30819 .29722 0.210        1.543 .30806 .29743 0.232       
+hTall1           1.565 .30737 .29723 0.225        1.565 .30820 .29740 0.221        1.565 .30755 .29735 0.225       
+(hT05/1/2 = HVY 0.5/1/2 on hT; hS1 = snap share; hTall1 = also WR.) Verdict: every variant worse pbp LL on seeds 23 and 37 (only hT05 on seed 11 is better, .30683 vs .30696); card LL never better on all 3; hits mixed; surprise no consistent gain. FAIL. Nothing shipped.
+
+MODEL TEST (t99u, offline, endzone-4.6.0 archived chances, model player universe, 2558 rows, 92 games). Walk-forward ridge logistic on weeks<W:
+ logit q = a*logit(model) + b + sum(c_k*feature_k). "recal" = a,b only.
+none                     hits 1.489 LL 0.34941 Brier 0.10651
+recal                    hits 1.489 LL 0.34988 Brier 0.10690
+roto(hT,hS,glC)          hits 1.489 LL 0.35051 Brier 0.10720
+nflverse(c,t,c5,t10)     hits 1.533 LL 0.35010 Brier 0.10703
+both                     hits 1.533 LL 0.35062 Brier 0.10727
+hT only                  hits 1.500 LL 0.34988 Brier 0.10689
+Verdict: no feature set beats the raw model on LL/Brier (all worse, even than recal-only). nflverse RZ shares +0.044 hits/game but worse LL. Recommend no model change.
