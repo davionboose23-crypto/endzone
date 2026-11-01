@@ -226,6 +226,19 @@ export function fitPbp(tables, { season, before, opts = {} } = {}) {
   if (o.pressure) X2.prs = fitPressure(o.pressure.filter(r => r.season === season), teams, { before });
   // ---- player usage by field zone x down (targets, designed carries) ----
   const use = fitUsage(tables.filter(t => t.season === season || prior.includes(t)), season, before, maxW, o);
+  // t86u research: defense red-zone trip TD rate (trips the defense faced, TD vs not, recency-weighted, shrunk k2.trip trips) and each player's
+  //    2026 TDs per inside-10 touch (carries + targets) with position rates, for the sim knobs SIM_PBP_TUNE.trip / i10td (off by default)
+  { const n = new Float64Array(NT), x = new Float64Array(NT); let ln = 0, lx = 0; let cu = null;
+    const close = () => { if (cu && cu.rz) { n[cu.def] += cu.w; ln += cu.w; if (cu.td) { x[cu.def] += cu.w; lx += cu.w; } } cu = null; };
+    for (const r of curRows) { if (!scr(r)) { if (r.type === PT.punt || r.type === PT.fg || r.type === PT.kickoff) close(); continue; }
+      const key = `${r.g}|${r.off}`; if (!cu || cu.key !== key) { close(); cu = { key, def: r.def, w: r._wt, rz: false, td: false }; }
+      if (r.yl <= 20 && r.down >= 1) cu.rz = true; if (r.flags & F.td) { cu.td = true; close(); } }
+    close(); const lr = (lx + 1) / (ln + 2), k = o.k2.trip ?? 15; const lgt3 = p => Math.log(p / (1 - p));
+    X2.trip = Array.from(n, (nn, t) => r3(lgt3((x[t] + k * lr) / (nn + k)) - lgt3(lr)));
+    const pl = {}, pr = {}; for (const r of curRows) { if (!scr(r) || r.yl > 10 || r.pid < 0 || sack(r)) continue; if (!(r.type === PT.run || scramble(r) || aimed(r))) continue;
+      const gk = cur.pids[r.pid]; const ps = cur.people[r.pid]?.pos; if (!gk || !ps) continue; const td = (r.flags & F.td) && !(r.flags & F.defTd) && (r.type === PT.run || scramble(r) || (r.flags & F.cmp)) ? 1 : 0;
+      const e = pl[gk] || (pl[gk] = { n: 0, td: 0, pos: ps }); e.n += r._wt; e.td += r._wt * td; const q = pr[ps] || (pr[ps] = { n: 0, td: 0 }); q.n += r._wt; q.td += r._wt * td; }
+    X2.i10td = { p: pl, pos: Object.fromEntries(Object.entries(pr).map(([k2, v]) => [k2, (v.td + 1) / (v.n + 5)])) }; }
   // ---- per-team 2026 red-zone history (display) ----
   // possessions = runs of scrimmage snaps by one offense, cut by a change of offense or a kick; trip = possession with a snap inside the 20
   const hist = {}; for (const t of teams) hist[t] = { g: 0, rzTrips: 0, rzTd: 0, i10: 0, tdRush: 0, tdPass: 0 };

@@ -1,0 +1,24 @@
+t86u (2026 walk-forward w2-8, 92 games, 1000 sims, pbp2New; hits/game / roster-pool LL; base s11 1.554/.30696, s23 1.576/.30787)
+blow1_11.txt    1.500 0.30761 early 1.333/0.31885 later 1.682/0.29534
+blow1_23.txt    1.554 0.30786 early 1.396/0.31811 later 1.727/0.29667
+blow5_11.txt    1.554 0.30728 early 1.396/0.31867 later 1.727/0.29487
+blow5_23.txt    1.565 0.30709 early 1.417/0.31774 later 1.727/0.29548
+carry1_11.txt   1.565 0.30700 early 1.458/0.31870 later 1.682/0.29424
+carry1_23.txt   1.543 0.30908 early 1.438/0.32038 later 1.659/0.29676
+carry25_11.txt  1.576 0.30685 early 1.438/0.31788 later 1.727/0.29481
+carry25_23.txt  1.565 0.30886 early 1.396/0.31937 later 1.750/0.29740
+carry5_11.txt   1.587 0.30694 early 1.438/0.31838 later 1.750/0.29446
+carry5_23.txt   1.587 0.30831 early 1.438/0.31972 later 1.750/0.29587
+i10_11.txt      1.522 0.30780 early 1.375/0.31913 later 1.682/0.29545
+i10_23.txt      1.500 0.30816 early 1.396/0.31859 later 1.614/0.29679
+i10h_11.txt     1.543 0.30695 early 1.417/0.31787 later 1.682/0.29503
+i10h_23.txt     1.543 0.30832 early 1.417/0.32009 later 1.682/0.29548
+trip_11.txt     1.565 0.30725 early 1.438/0.31784 later 1.705/0.29570
+trip_23.txt     1.565 0.30707 early 1.417/0.31789 later 1.727/0.29527
+triph_11.txt    1.554 0.30787 early 1.438/0.31862 later 1.682/0.29614
+triph_23.txt    1.587 0.30801 early 1.417/0.31873 later 1.773/0.29630
+knobs (PBP_TUNE): carry = RZ usage x(1+carry) for last RZ touch after a failed trip (per game); blow = re-pick prob for top-3 usage player in Q4 |margin|>=17; i10td = exponent on shrunk 2026 TD per inside-10 touch vs position (k=6); trip = weight on defense RZ trip TD rate (logit, k=15 trips).
+1) personnel-weighted RZ snaps: SKIPPED - nflverse pbp_participation_2026.csv returns 404 (no 2026 participation data).
+verdicts: carry=0.5 hits +.033/+.011 but LL s23 +.00044 worse -> reject (closest; 0.25 / 1.0 worse). blow, i10td, trip: no both-seed gain -> reject.
+6) rising RZ share flag (surprise box only, /tmp/a423/surp.csv, ranks 5+, W>=3, 76 games, box = top 3 longshots, hit = any scores): base .539/.526; rzTr>0 x1.15 .566/.539, x1.3 .579/.553, x1.5 .553/.539; rzTr>0.5: s23 flat/worse -> +1..+3 games of 76, picked from 9 configs -> not clearly better, reject (retest wk 12).
+tdShare: ACTIVE in backtest weeks 3-8 (2026 events n=67,147,230,309,370,441 before W3..W8); off only in week 2 (<40 events).

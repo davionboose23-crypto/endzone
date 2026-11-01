@@ -25,7 +25,7 @@ const NR = RESULTS.length; const TD = 0, FG = 1, MFG = 2, PUNT = 3, TO = 4, DOWN
 const DKEYS = Object.keys(DSTATS); const DOFF = {}; let NB = 0; for (const k of DKEYS) { DOFF[k] = NB; NB += DSTATS[k] + 1; }
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x)); const sig = x => 1 / (1 + Math.exp(-x)); const logit = p => Math.log(p / (1 - p));
 const TDAGG = 8; const LOGN = 400;
-export const SIM_PBP_TUNE = { clock: 1.06, rzAdj: 0.2, spread: 4, form: 0.2, dvp: 0.5, late: 0, qbRz: 0, prs: 0, rzpO: 0, rzpD: 0, rzd: 0, i5: 0, i5k: 4, i5only: null }; // i5only: 0 = carries only, 1 = targets only; // t85u research knobs, all off: rzpO = extra weight on the offense 2026 red-zone pass tilt (shrunk ratio, logit), rzpD = defense red-zone pass tilt allowed, rzd = defense red-zone TD rate by zone x run/pass, i5 = blend toward each player's 2026 inside-5 carry / target share (i5k = prior weight in team plays) // 4.19.0: dvp = exponent (0.5 shipped: paired 2026 backtest seeds 11 + 23, top-4 hits +0.03 and log loss better at both; 1.0 / 1.5 tested, worse log loss at one seed) on the defense-vs-position red-zone usage multiplier; late = weight of the 3rd / 4th-down completion effect (tested at 1.0: top-4 hits -0.01 at both seeds, so off)
+export const SIM_PBP_TUNE = { clock: 1.06, rzAdj: 0.2, spread: 4, form: 0.2, dvp: 0.5, late: 0, qbRz: 0, prs: 0, rzpO: 0, rzpD: 0, rzd: 0, i5: 0, i5k: 4, i5only: null, carry: 0, blow: 0, i10td: 0, i10k: 6, trip: 0 }; // t86u research knobs, all off: carry = red-zone usage boost (x(1+carry)) for the last-touch player after a failed red-zone trip; blow = re-pick chance for a team's top-3 usage player when the game is a 17+ point Q4 blowout; i10td = exponent on each player's shrunk 2026 TD rate per inside-10 touch vs position (prior i10k touches); trip = weight on the defense's red-zone trip TD rate (logit); // i5only: 0 = carries only, 1 = targets only; // t85u research knobs, all off: rzpO = extra weight on the offense 2026 red-zone pass tilt (shrunk ratio, logit), rzpD = defense red-zone pass tilt allowed, rzd = defense red-zone TD rate by zone x run/pass, i5 = blend toward each player's 2026 inside-5 carry / target share (i5k = prior weight in team plays) // 4.19.0: dvp = exponent (0.5 shipped: paired 2026 backtest seeds 11 + 23, top-4 hits +0.03 and log loss better at both; 1.0 / 1.5 tested, worse log loss at one seed) on the defense-vs-position red-zone usage multiplier; late = weight of the 3rd / 4th-down completion effect (tested at 1.0: top-4 hits -0.01 at both seeds, so off)
 // form (sim-pbp-2): game-day variance. Each offense draws one N(0, form) logit shift per simulated game, applied to completion,
 // explosive-play and red-zone TD odds (and against sacks / interceptions), so a team can have a good or a bad day as a whole
 // instead of every snap being independent. Tuned on 2025 only so the spread of simulated points matches real games.
@@ -64,6 +64,9 @@ function matchupV2(P, X2, tm, teams, ti, g, SP) {
     rzp: (X2.rzPass && (SIM_PBP_TUNE.rzpO || SIM_PBP_TUNE.rzpD)) ? [0, 1].map(k => r4(SIM_PBP_TUNE.rzpO * (X2.rzPass.o[ti(tm[k])] || 0) + SIM_PBP_TUNE.rzpD * (X2.rzPass.d[ti(tm[1 - k])] || 0))) : null,
     rzd: X2.rzDef && SIM_PBP_TUNE.rzd ? [0, 1].map(k => (X2.rzDef[ti(tm[1 - k])] || []).map(v => r4(SIM_PBP_TUNE.rzd * v))) : null,
     i5: X2.i5 && SIM_PBP_TUNE.i5 ? teams.map((t, k) => { const T = X2.i5.team[tm[k]] || { c: 0, g: 0 }; return { nC: T.c, nT: T.g, pc: t.players.map(p => X2.i5.p[p.gsis]?.t === tm[k] ? X2.i5.p[p.gsis].c : 0), pt: t.players.map(p => X2.i5.p[p.gsis]?.t === tm[k] ? X2.i5.p[p.gsis].g : 0) }; }) : null,
+    trip: X2.trip && SIM_PBP_TUNE.trip ? [0, 1].map(k => r4(SIM_PBP_TUNE.trip * (X2.trip[ti(tm[1 - k])] || 0))) : null,
+    i10: X2.i10td && SIM_PBP_TUNE.i10td ? teams.map(t => t.players.map(p => { const e = X2.i10td.p[p.gsis]; const ps = p.pos === 'FB' ? 'RB' : p.pos; const pr = X2.i10td.pos[ps]; if (!pr) return 1; const kk = SIM_PBP_TUNE.i10k;
+      return r4(clamp(Math.pow((((e?.td || 0) + kk * pr) / ((e?.n || 0) + kk)) / pr, SIM_PBP_TUNE.i10td), 0.5, 2)); })) : null,
     late: M.cmpLate && SIM_PBP_TUNE.late ? [0, 1].map(k => { const o = ti(tm[k]), d = ti(tm[1 - k]); return r4(SIM_PBP_TUNE.late * SP * (g(M.cmpLate, 'off', o) + g(M.cmpLate, 'def', d) - g(M.cmp, 'off', o) - g(M.cmp, 'def', d))); }) : null };
 }
 const r4 = x => Math.round(x * 1e4) / 1e4;
@@ -89,6 +92,8 @@ export function makePbpEngine(I) {
     const RD = X.x2?.rzd?.[k]; if (RD && RD.length === 6) { for (let z = 0; z < 3; z++) for (let K = 0; K < 3; K++) pRzTd[z * 3 + K] = adj(pRzTd[z * 3 + K], RD[z * 2 + (K === 0 ? 0 : 1)]); for (let K = 0; K < 3; K++) for (let b = 0; b < 2; b++) pGl[K * 2 + b] = adj(pGl[K * 2 + b], RD[4 + (K === 0 ? 0 : 1)]); } // t85u def red-zone TD by zone x run/pass
     const G5 = X.x2?.i5?.[k]; if (G5) { const kk = SIM_PBP_TUNE.i5k, a = SIM_PBP_TUNE.i5; for (const [w, n, o] of [[wC, G5.nC, G5.pc], [wT, G5.nT, G5.pt]].filter((_, j) => SIM_PBP_TUNE.i5only == null || SIM_PBP_TUNE.i5only === j)) { let s0 = 0; for (let i = 0; i < P; i++) s0 += w[i * 8 + 6]; if (s0 <= 0 || n <= 0) continue;
       const m = new Float64Array(P); for (let i = 0; i < P; i++) { const sm = w[i * 8 + 6] / s0; m[i] = sm > 0 ? clamp(Math.pow(((o[i] + kk * sm) / (n + kk)) / sm, a), 0.33, 3) : 1; } for (let i = 0; i < P; i++) for (const c of [6, 7]) w[i * 8 + c] *= m[i]; } } // t85u goal-line personnel
+    const TR = X.x2?.trip?.[k]; if (TR) { for (let j = 0; j < pRzTd.length; j++) pRzTd[j] = adj(pRzTd[j], TR); for (let j = 0; j < 6; j++) pGl[j] = adj(pGl[j], TR); } // t86u def red-zone trip TD rate
+    const I10 = X.x2?.i10?.[k]; if (I10) for (let i = 0; i < P; i++) if (I10[i] !== 1) for (let c = 4; c < 8; c++) { wT[i * 8 + c] *= I10[i]; wC[i * 8 + c] *= I10[i]; } // t86u inside-10 TD rate
     const PR = X.x2?.prs?.[k]; if (PR) { for (let j = 0; j < pSack.length; j++) pSack[j] = adj(pSack[j], PR.sack); for (let j = 0; j < pScr.length; j++) pScr[j] = adj(pScr[j], PR.scr);
       for (let j = 0; j < pInt.length; j++) pInt[j] = adj(pInt[j], PR.int); for (let j = 0; j < lCmp.length; j++) lCmp[j] += PR.cmp; }
     const cOff = new Float64Array(P), yF = new Float64Array(P), cF = new Float64Array(P);
@@ -96,16 +101,17 @@ export function makePbpEngine(I) {
       yF[i] = p.rec > 0.3 && p.recYd > 0 ? clamp(Math.pow((p.recYd / p.rec) / (POS_YPR[p.pos] ?? 11), 0.7), 0.7, 1.4) : 1; cF[i] = p.car > 0.5 && Number.isFinite(p.rushYd) ? clamp(Math.pow(Math.max(1, p.rushYd / p.car) / (POS_YPC[p.pos] ?? 4.3), 0.6), 0.7, 1.35) : 1; }
     const qbs = pl.map(p => p.passShare || 0); let qbTot = qbs.reduce((a, b) => a + b, 0); if (qbTot <= 0) { const j = pl.findIndex(p => p.pos === 'QB'); if (j >= 0) { qbs[j] = 1; qbTot = 1; } }
     const V = X.x2; const v2 = V ? { qbFx: V.qbFx[k], go: V.go[k] || 0, fg: V.fg[k] || 0, sneak: V.sneak[k], penO: L.pen.off * V.pen[k][0], penD: L.pen.def * V.pen[k][1] } : null;
-    return { P, pl, pPass, pSack, pScr, pInt, lCmp, pExpP, pExpR, pRzTd, pGl, dR: s.ydsR || 0, dC: s.ydsC || 0, wT, wC, cOff, yF, cF, qbs, qbTot, pace: s.pace, fT: new Float64Array(P).fill(1), fC: new Float64Array(P).fill(1), lvl: 0, v2, late: X.x2?.late?.[k] || 0 };
+    const star = new Uint8Array(P); if (SIM_PBP_TUNE.blow) pl.map((p, i) => [p.pos === 'QB' ? -1 : (p.tgt || 0) + (p.car || 0), i]).sort((a, b) => b[0] - a[0]).slice(0, 3).forEach(([, i]) => { star[i] = 1; });
+    return { P, pl, pPass, star, pSack, pScr, pInt, lCmp, pExpP, pExpR, pRzTd, pGl, dR: s.ydsR || 0, dC: s.ydsC || 0, wT, wC, cOff, yF, cF, qbs, qbTot, pace: s.pace, fT: new Float64Array(P).fill(1), fC: new Float64Array(P).fill(1), lvl: 0, v2, late: X.x2?.late?.[k] || 0 };
   });
   return { I, T, L, V: X.x2 || null, totW: null };
 }
 function cellTotals(E) { for (const t of E.T) { t.sT = new Float64Array(8); t.sC = new Float64Array(8); t.uT = new Float64Array(t.P * 8); t.uC = new Float64Array(t.P * 8);
   for (let c = 0; c < 8; c++) for (let i = 0; i < t.P; i++) { const a = t.wT[i * 8 + c] * t.fT[i], b = t.wC[i * 8 + c] * t.fC[i]; t.uT[c * t.P + i] = a; t.uC[c * t.P + i] = b; t.sT[c] += a; t.sC[c] += b; }
-  const dp = dispFor(E.I, 'pbp'); t.kap = E.V ? dp.kappa : Infinity; t.dS = temper(t.pl.map(p => p.lam || 0), 1); if (isFinite(t.kap)) { t.uT0 = t.uT.slice(); t.uC0 = t.uC.slice(); } } }
+  const dp = dispFor(E.I, 'pbp'); t.kap = E.V ? dp.kappa : Infinity; t.dS = temper(t.pl.map(p => p.lam || 0), 1); if (isFinite(t.kap)) { t.uT0 = t.uT.slice(); t.uC0 = t.uC.slice(); } if (SIM_PBP_TUNE.carry) t.cy0 = [t.uT.slice(), t.uC.slice(), t.sT.slice(), t.sC.slice()]; } }
 // 4.13.0 usage-var-1: this game's red-zone usage (cells inside the 20) gets a per-player multiplier Gamma(kappa*s)/(kappa*s), s = his
 // share of the team's TDs, so each simulated game has its own scorer split (Dirichlet-like around the mean); between the 20s is untouched
-function perturbGame(E, R) { for (const t of E.T) { if (!isFinite(t.kap) || !t.uT0) continue; const P = t.P;
+function perturbGame(E, R) { for (const t of E.T) { if (t.cy0 && !(isFinite(t.kap) && t.uT0)) { t.uT.set(t.cy0[0]); t.uC.set(t.cy0[1]); t.sT.set(t.cy0[2]); t.sC.set(t.cy0[3]); } if (!isFinite(t.kap) || !t.uT0) continue; const P = t.P;
   for (let c = 2; c < 8; c++) { t.sT[c] = 0; t.sC[c] = 0; }
   for (let i = 0; i < P; i++) { const a = t.kap * t.dS[i]; const m = a > 0 ? gamma(R, a) / a : 1; for (let c = 2; c < 8; c++) { const j = c * P + i; const x = t.uT0[j] * m, y = t.uC0[j] * m; t.uT[j] = x; t.uC[j] = y; t.sT[c] += x; t.sC[c] += y; } } } }
 const q = (arr, R) => arr[(R() * arr.length) | 0];
@@ -155,7 +161,7 @@ function playGame(E, R, gi, W, log) {
     if (tl <= 0) { if (halfOver()) break; continue; }
     // ---- drive
     k = pos; const o = 1 - k; const t = TT[k], x = X[k]; dn[k]++; const dno = dn[k]; const slot = Math.min(dno, SLOTS) - 1; if (hf === 3) otPoss[k]++;
-    const startYl = yl, tl0 = tl, q0 = qtrOf(), hf0 = hf, two = tl <= 120 && hf <= 2; let plays = 0, res = -1, rz = false, i10 = false, tdKind = -1, tdYo = 0, scorer = -1, passer = -1;
+    const startYl = yl, tl0 = tl, q0 = qtrOf(), hf0 = hf, two = tl <= 120 && hf <= 2; let plays = 0, res = -1, rz = false, i10 = false, tdKind = -1, tdYo = 0, scorer = -1, passer = -1; let lrJ = -1; const BLOW = SIM_PBP_TUNE.blow, CARRY = SIM_PBP_TUNE.carry;
     if (q0 === 4 && trailedQ4 === 0 && sc[0] !== sc[1]) trailedQ4 = sc[0] < sc[1] ? 1 : 2;
     ev({ t: 'drive', k, dno, yl });
     for (let pg = 0; pg < 60; pg++) {
@@ -200,7 +206,7 @@ function playGame(E, R, gi, W, log) {
         else if (R() < adj(t.pScr[db * 6 + z], A.scr)) { kind = 2; j = qbG[k];
           if (z >= 3) { if (R() < adj(z === 5 ? t.pGl[2 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3 + 2], A.rz + t.lvl)) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3 + 2], R), yl - 1); } else { yds = q(L.scrO, R); if (yds >= yl) { yds = yl; td = true; } }
           if (!td && R() < L.fum.scr) turnover = 2; }
-        else { kind = 1; j = pickCell(t.uT, t.sT[c8], c8, t.P, R);
+        else { kind = 1; j = pickCell(t.uT, t.sT[c8], c8, t.P, R); if (BLOW && j >= 0 && t.star[j] && qtr === 4 && Math.abs(sd) >= 17 && R() < BLOW) j = pickCell(t.uT, t.sT[c8], c8, t.P, R);
           if (R() < adj(t.pInt[(db * 6 + z) * 4 + S], A.int)) { turnover = 1; }
           else if (R() < (L.noTgt ?? 0.043)) { j = -1; cat = 1; } // thrown away / no intended receiver
           else if (R() < sig(t.lCmp[db * 6 + z] + (j >= 0 ? t.cOff[j] : 0) + A.cmp + (down >= 3 ? t.late : 0))) {
@@ -211,7 +217,7 @@ function playGame(E, R, gi, W, log) {
         }
       } else if (V && togo <= 1 && qbG[k] >= 0 && R() < t.v2.sneak) { // sim-pbp-2: QB sneak on 1-to-go (league sneak yards; a TD if he crosses the line)
         kind = 0; j = qbG[k]; sneak = true; st(k, 'sneak'); yds = q(V.sneakY, R); if (yds >= yl) { yds = yl; td = true; } if (yds >= togo) st(k, 'sneakC'); if (!td && R() < L.fum.run) turnover = 2;
-      } else { kind = 0; j = pickCell(t.uC, t.sC[c8], c8, t.P, R);
+      } else { kind = 0; j = pickCell(t.uC, t.sC[c8], c8, t.P, R); if (BLOW && j >= 0 && t.star[j] && qtr === 4 && Math.abs(sd) >= 17 && R() < BLOW) j = pickCell(t.uC, t.sC[c8], c8, t.P, R);
         if (z >= 3) { if (R() < adj(z === 5 ? t.pGl[0 * 2 + (yl <= 2 ? 0 : 1)] : t.pRzTd[(z - 3) * 3], A.rz + t.lvl)) { yds = yl; td = true; } else yds = Math.min(q(L.rzNon[(z - 3) * 3], R), yl - 1); }
         else if (V && togo <= 2) { yds = q(V.runSY[z], R) + Math.floor(t.dR + R()); if (yds > 0 && j >= 0) yds = Math.round(yds * t.cF[j]); if (yds >= yl) { yds = yl; td = true; } } // short yardage: stacked-box run pool
         else { const ex = R() < adj(t.pExpR[z], A.expR); if (ex) st(k, 'expR'); yds = ex ? q(L.runX[z], R) : q(L.runN[z], R) + Math.floor(t.dR + R()); if (yds > 0 && j >= 0) yds = Math.round(yds * t.cF[j]); if (yds >= yl) { yds = yl; td = true; } }
@@ -220,6 +226,7 @@ function playGame(E, R, gi, W, log) {
       if (!turnover) { st(k, 'plays'); st(k, 'yds', yds); }
       // tallies (targets / carries / catches / yards) and zone usage
       const uz = uzOf(yl);
+      if (j >= 0 && z >= 3 && kind !== 2) lrJ = j;
       if (j >= 0) { touch(k, j); const gj = base[k] + j;
         if (kind === 1 || kind === 4) { x.tgt[j]++; if (W) { W.zT[gj * 4 + uz]++; W.tZ[(k * 2) * 4 + uz]++; } if (kind === 4) { x.rec[j]++; x.recYd[j] += yds; } }
         else { x.car[j]++; x.rushYd[j] += yds; if (W) { W.zC[gj * 4 + uz]++; W.tZ[(k * 2 + 1) * 4 + uz]++; } } }
@@ -245,6 +252,7 @@ function playGame(E, R, gi, W, log) {
         runClock(Math.min(tl, 10 + 6 * R())); if (tl <= 0) continue; plays++; st(k, 'spike'); ev({ t: 'spike', k, down, togo, yl }); down++; runClock(1); continue; }
       runClock(g);
     }
+    if (CARRY && rz && res !== TD && lrJ >= 0) for (let c = 2; c < 8; c++) { const jj = c * t.P + lrJ; const dT = t.uT[jj] * CARRY, dC = t.uC[jj] * CARRY; t.uT[jj] += dT; t.uC[jj] += dC; t.sT[c] += dT; t.sC[c] += dC; } // t86u failed red-zone look carryover
     if (res < 0) res = HALF; if (res === HALF) ev({ t: 'note', txt: 'End of half' });
     // ---- record the drive
     if (W) {
