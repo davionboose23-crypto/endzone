@@ -1,7 +1,7 @@
 trackB (team-level TD volume / game flow; 2026 walk-forward w2-8, 92 games, 1000 sims, pbp2New; hits/game / roster-pool LL)
 base: s11 1.554/.30696, s23 1.576/.30787, s37 1.522/.30729
 knobs (SIM_PBP_TUNE): spread = team-effect scale (4 shipped); spO / spD = extra scale on opponent-adjusted offense / defense effects; homeS = home-effect scale; form = game-day variance; PBP_K / PBP_K2 env = ridge priors (rzTd, go = 4th-down aggressiveness)
-sp3      s11 1.554 .30661
+sp3      s11 1.554 .30661   s23 1.576 .30669   s37 1.587 .30849  (hits flat + LL better on 11/23; seed-37 hits up but LL worse -> not confirmed)
 sp5      s11 1.554 .30830
 spO0.75  s11 1.522 .30673   spO1.25 s11 1.554 .30794
 spD0     s11 1.543 .30739   s23 1.543 .30849
@@ -13,3 +13,4 @@ homeS0   s11 1.533 .30740   homeS2 s11 1.533 .30838
 form0.1  s11 1.543 .30673   form0.3 s11 1.522 .30752
 rzTd k30 s11 1.565 .30679   k120 s11 1.576 .30771
 go k6    s11 1.565 .30677   go k24 s11 1.554 .30684
+verdict: no 3-seed winner; all knobs stay off (defaults = shipped). Not tested: rest days / drive start / turnover-rate knobs (box memory limits; turnover and 4th-down already modeled as opponent-adjusted team effects).
