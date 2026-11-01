@@ -96,6 +96,7 @@ export function makePbpEngine(I) {
       const m = new Float64Array(P); for (let i = 0; i < P; i++) { const sm = w[i * 8 + 6] / s0; m[i] = sm > 0 ? clamp(Math.pow(((o[i] + kk * sm) / (n + kk)) / sm, a), 0.33, 3) : 1; } for (let i = 0; i < P; i++) for (const c of [6, 7]) w[i * 8 + c] *= m[i]; } } // t85u goal-line personnel
     const TR = X.x2?.trip?.[k]; if (TR) { for (let j = 0; j < pRzTd.length; j++) pRzTd[j] = adj(pRzTd[j], TR); for (let j = 0; j < 6; j++) pGl[j] = adj(pGl[j], TR); } // t86u def red-zone trip TD rate
     const I10 = X.x2?.i10?.[k]; if (I10) for (let i = 0; i < P; i++) if (I10[i] !== 1) for (let c = 4; c < 8; c++) { wT[i * 8 + c] *= I10[i]; wC[i * 8 + c] *= I10[i]; } // t86u inside-10 TD rate
+    if (pl.some(p => p.dsm != null && p.dsm !== 1)) for (let i = 0; i < P; i++) { const m = pl[i].dsm ?? 1; if (m !== 1) for (let c = 2; c < 8; c++) { wT[i * 8 + c] *= m; wC[i * 8 + c] *= m; } } // t104u research: per-player red-zone multiplier (dsm) set only by research backtests; absent in the app
     const ST = X.x2?.scrT?.[k]; if (ST) for (let sc = 0; sc < 4; sc++) if (ST[sc]) for (let c = 0; c < 96; c++) pPass[sc * 96 + c] = adj(pPass[sc * 96 + c], ST[sc]); // t87u script pass tilt
     const EX = X.x2?.expl?.[k] || null; // t87u per-player explosive rate
     const PR = X.x2?.prs?.[k]; if (PR) { for (let j = 0; j < pSack.length; j++) pSack[j] = adj(pSack[j], PR.sack); for (let j = 0; j < pScr.length; j++) pScr[j] = adj(pScr[j], PR.scr);

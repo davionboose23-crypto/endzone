@@ -1,0 +1,16 @@
+ENDZONE t104u ablation — depth-slot shrinkage + opponent allowed-by-depth-slot (pbp sim, research only, off). 2026 only, weeks 2-8 (92 games), 1000 sims, NAMEMATCH=1, KS_ONLY=pbp2New.
+Prior: 2026 games before W only; slot = rank within position by realized targets+carries (QB1, RB1-3+, WR1-4+, TE1-3+); slot mean = league share of team TDs. Player slot = rank by lam. Sample n = team TDs in games he played.
+DS=K: share' = (n*share + K*slotMean)/(n+K); DSO=e: x (opponent slot TDs allowed / league slot, shrunk k=8)^e. Applied as a per-player red-zone usage multiplier dsm (0.33-3) in the pbp sim (dsm absent in the app).
+Note: changing lam alone had zero effect (pbp2New split comes from usage cells), so the multiplier acts on red-zone usage.
+baseline s11 1.554 0.30696 | s23 1.576 0.30787 | s37 1.522 0.30729
+ds5 s11 1.554 0.30696 {}
+ds15 s11 1.554 0.30696 {}
+ds40 s11 1.554 0.30696 {}
+ds15 s11 1.413 0.31318 {}
+ds2 s11 1.489 0.30994 {}
+ds5 s11 1.467 0.31135 {}
+ds0.5 s11 1.565 0.31038 {}
+ds0.5+tm s11 1.554 0.31005 {"tm":0.1}
+dso0.5 s11 1.478 0.31053 {}
+dso1 s11 1.467 0.31497 {}
+Verdict: all rejected on seed 11 (log loss worse at every setting, +.003 to +.008; hits down except DS 0.5, +.011 = noise). Seeds 23/37 not run since s11 already fails. Opponent-by-slot samples are tiny (~15 TDs allowed per defense by midseason) and add noise. Nothing shipped.
