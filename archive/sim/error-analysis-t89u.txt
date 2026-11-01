@@ -1,0 +1,33 @@
+t89u deep error analysis of the baseline pbp sim (pbp2New), 2026 weeks 2-8, 92 games / 184 team-games, 1000 sims, seeds 11 & 23. 2026-only, market-free. (PARTIAL - updated as runs finish)
+Tooling: sim now also counts rush TDs per player (G.rtd, no effect on outputs/RNG; baseline reproduced exactly 1.554/.30696, 1.576/.30787); backtest DUMP gains mt (sim mean TDs), mr (sim rush TDs), rtd (actual rush TDs), lost (sim players not matched to a scoring-pool row).
+
+KEY FINDINGS (final; numbers seed 11 unless noted, seed 23 agrees)
+0. Correction to an earlier draft: the ~0.10 TDs/team-game "lost" to unmatched sim players was an artifact of the DUMP's id matching only. The real scoring already matched them by gsis (NAMEMATCH=1 reproduces 1.554/.30696 and 1.576/.30787 exactly). All numbers below use the corrected dump.
+1. Team TD totals: unbiased (sim 2.48 vs actual 2.43 per team-game), spread calibrated (PIT quintiles 36/38/36/36/38; sim and actual count histograms match), but they barely track the actual game (corr 0.12). Per-offense / per-defense bias is within noise (chi2 25 and 36 on 32 df). Biggest: MIN offense -1.3 TD/g vs sim; LV and ARI defenses allowed +1.6/g.
+2. ERROR DECOMPOSITION. Roster-pool log loss sum 959 nats. Swapping in the TRUE team TD totals (sim player shares kept) cuts it by 71 nats (7%), so "how many" is ~7% of the LL and the rest is "who" + irreducible. For top-4 hits the oracle team totals do NOT help (1.554 -> 1.533; seed 23 1.576 -> 1.543). Picks are lost on "who scored", not "how many".
+3. "Who" error = over-confidence at the top + a mispriced middle tier.
+   - Prob buckets (pred vs actual anytime): >50% 58.7 vs 42.7; 40-50% 44.8 vs 38.5; 30-40% 34.4 vs 38.3; 20-30% 24.4 vs 24.0; 10-20% 14.4 vs 15.1; 5-10% 7.2 vs 5.0; 2-5% 3.6 vs 5.4; <2% 0.3 vs 1.3.
+   - Given the actual team TDs, the sim's #1 player was expected to take 27.8% of them and took 23.9%; top-2 44.5% vs 38.4% (seed 23 44.6 / 39.3). Ranks 3-6 are about right; rank 7+ expected 20.9% vs actual 24.2%.
+   - Depth slots (pred vs actual anytime): RB1 45.9/44.6, WR1 28.6/28.8, TE1 23.3/25.5, WR2 19.7/22.3, WR3 11.5/13.0, TE2 8.6/12.5 (most under-priced), QB1 11.9/13.6, RB2 18.4/18.5; deep backups over-priced: RB3+ 7.7/3.6, TE3+ 6.1/2.9, WR4+ 5.0/3.6.
+   - Position: RB 20.5/18.3 (over), WR 12.6/12.6, TE 10.9/10.8, QB 4.4/4.9.
+4. Rushing vs receiving: league split is right (sim rush share .375 vs .378; rush TDs 171 vs 169, rec 285 vs 278). Per team the misses are noise-sized (5-6 games each). Biggest: BUF rush 5.1 sim vs 12 actual, SF rush 5.3 vs 10; CIN rec 7.8 vs 14, LA rec 9.2 vs 14, NE rec 6.7 vs 12, DET rec 7.4 vs 12. Over: CHI rec 9.8 vs 5, IND rec 7.0 vs 3.
+5. QB rushing: QB1 anytime 11.9% pred vs 13.6% actual; QB TDs 25 sim vs 30 actual. Mildly under, small LL share (85 of 959).
+6. Missed scorers (sim <15%: 116 of 372 scoring rows) vs found:
+   - targets/g 1.9 vs 4.2; carries/g 0.8 vs 5.3
+   - RZ carry share .03 vs .21; RZ target share .05 vs .13
+   - prior 2026 TDs 0.17 vs 1.11; team sim rank 9.2 vs 2.6
+   Mostly WR3+/TE2+/backup RBs with no 2026 TD history: largely unpredictable from 2026 usage. Only 8 scorers were under 2% (Cam Ward W2, Case Keenum W3, Estime W6, ...). Snap % is unavailable (no 2026 participation file).
+7. Variance: team-total spread is right. Player level is too concentrated at the top (finding 3). 17 of 92 games had 0 top-4 hits; in most of them every scorer was a sub-20% player.
+
+FIXES TESTED (each knob off by default; NAMEMATCH=1, which equals baseline)
+baseline                         s11 1.554 / .30696   s23 1.576 / .30787
+flat 0.15 (RZ usage^0.85)        s11 1.533 / .30669   s23 1.598 / .30833   reject (mixed hits, LL worse s23)
+flat 0.30                        s11 1.543 / .30850   s23 1.522 / .30848   reject
+kap 20 (per-game RZ split disp.) s11 1.500 / .30613   s23 1.522 / .30686   reject: LL clearly better both (-.0008/-.0010), hits -.054/-.054
+kap 50                           s11 1.533 / .30689   s23 1.576 / .30746   reject (hits -.021/0, LL -.0001/-.0004)
+bk 0.25 (cut RB3+/TE3+/WR4+ RZ)  s11 1.543 / .30630   s23 1.543 / .30820   reject
+bk 0.5                           s11 1.598 / .30785   s23 1.576 / .30797   reject (hits +.044/0 but LL worse both)
+bk 0.5 + cut goes to RB2/WR2-3/TE2  s11 1.543 / .30751  (s23 not run, s11 already fails)
+Why: bk fixes the deep-backup calibration (RB3 3.7/3.6, TE3 2.8/2.9) but the freed usage flows to RB1/WR1 and deepens the top overconfidence. kap fixes the overconfidence in probability (best LL of any idea in 5 rounds) but dilutes the ranking.
+SHIPPED: nothing. Live predictions and MODEL_VERSION (endzone-4.6.0) unchanged.
+Next lever suggested by the data: a post-sim anytime shrink of the top end (kap-like, applied to probabilities rather than ranks, so top-4 order is untouched) would capture the LL gain with hits flat. Note: this is a calibration layer, and fitted caps stay off per the constraints, so it needs the user's OK.
