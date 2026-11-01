@@ -1,0 +1,20 @@
+ENDZONE t103u ablation — depth-slot TD-share redistribution in the pbp sim (knob tm, off). 2026 only, weeks 2-8 (92 games), 1000 sims, NAMEMATCH=1, KS_ONLY=pbp2New.
+tm = move this fraction of each position's #1 red-zone usage (by model lambda rank) to that position's #2, cell total kept; tmPos = positions.
+baseline s11 1.554 0.30696 | s23 1.576 0.30787 | s37 1.522 0.30729 (s11 reproduced exactly)
+tag seed hits/g LL tune
+tm0.1 s11 1.565 0.30643 {"tm":0.1}
+tm0.1 s23 1.576 0.30754 {"tm":0.1}
+tm0.2 s11 1.533 0.30632 {"tm":0.2}
+tm0.2 s23 1.522 0.30795 {"tm":0.2}
+tm0.35 s11 1.522 0.30785 {"tm":0.35}
+tm0.35 s23 1.543 0.30895 {"tm":0.35}
+tm.15 s11 1.511 0.3062 {"tm":0.15}
+tm.15 s23 1.554 0.30825 {"tm":0.15}
+tm.1TE s11 1.554 0.30671 {"tm":0.1,"tmPos":"TE"}
+tm.1TE s23 1.576 0.30755 {"tm":0.1,"tmPos":"TE"}
+tm.1WR s11 1.554 0.30667 {"tm":0.1,"tmPos":"WR"}
+tm.1WR s23 1.543 0.30794 {"tm":0.1,"tmPos":"WR"}
+tm.1all s11 1.543 0.30743 {"tm":0.1,"tmPos":"WR,TE,RB"}
+tm.1all s23 1.554 0.30915 {"tm":0.1,"tmPos":"WR,TE,RB"}
+tm0.1 s37 1.543 0.30662 {"tm":0.1}
+Verdict: tm 0.1 (WR,TE) = near miss, NOT shipped. LL better on all 3 seeds (-.0005/-.0003/-.0007) and hits +.011/0/+.021, but s23 hits flat and the LL gain is smaller than kap 20's; neighbours 0.15/0.2 lose hits, so the hit gain is within seed noise (~±.03). Retest at week 12 with the other near misses.
