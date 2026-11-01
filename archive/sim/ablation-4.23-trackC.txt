@@ -1,0 +1,16 @@
+trackC (t90u): top-4 selection / combination / noise. 2026 w2-8 walk-forward, 92 games, 1000 sims, pbp2New + driveNew dumped once per seed, selection rules applied offline (fits on weeks < W only). hits/game, roster-pool LL.
+rule                          s11            s23            s37
+base pbp (live ranking)       1.554/.30696   1.576/.30787   1.522/.30729
+shipped card: rank pbp, p=.3d 1.554/.30456   1.576/.30510   1.522/.30476
+rank pbp, prob 0.5 drive      1.554/.30439   1.576/.30467   1.522/.30443   <- LL better all 3 seeds, hits identical (ranking unchanged)
+rank blend .1d                1.554          1.533          1.533
+rank blend .2d                1.554          1.500          1.543
+geo blend .3/.5               1.533/1.478    1.522/1.489    1.522/1.511
+diversity (same team+pos pen) .15/.3/.5: 1.543/1.522/1.489  1.565/1.543/1.511  1.543/1.511/1.467
+per-pos Platt (shr 1/.5)      1.467/1.489    1.446/1.489    1.457/1.467  (LL worse)
+stack logit(pbp,drive,pos,tgt,car) l2 .01  1.446/.30635  1.413/.30680  1.424/.30643
+stack pbp+drive l2 .1         1.554/.30668   1.543/.30744   1.522/.30696
+stack pbp+pos l2 .1           1.576/.30703   1.543/.30789   1.500/.30738
+3-seed average (=3000 sims): base 1.554/.30701; same ordering of rules. More sims reveal no hidden gain; seed-to-seed spread of the top-4 rate is ~±0.03 hits/game (1.522-1.576), larger than most tested effects.
+note: expected hits = sum of marginals, so diversity can only trade expected hits for P(>=1 hit); confirmed it loses.
+verdict: only winner = displayed blend weight 0.3 -> 0.5 drive with pbp ranking (LL -.00017/-.00043/-.00033, hits flat). Ranking changes all fail.

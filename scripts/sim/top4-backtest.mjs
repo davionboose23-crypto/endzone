@@ -192,7 +192,7 @@ async function season(S, weeks, priorDetail) {
       for (const k of KS) { const cand = live.filter((p, i) => prob[p.id][k] != null && (k !== 'sleeper' || prob[p.id][k] > 0) && (SIM_KS.has(k) || k === 'naive' || i < legacyN)); if (cand.length < 4 || (k === 'sleeper' && cand.length < 8)) continue;
         const top = cand.sort((a, b) => (k === 'pbp2New' && prob[b.id].pbpRank != null ? prob[b.id].pbpRank - prob[a.id].pbpRank : prob[b.id][k] - prob[a.id][k]) || b.lambda - a.lambda).slice(0, 4); rec.picks[k] = top.map(p => ({ id: p.id, n: p.name, t: p.team, p: p.pos, pr: k === 'naive' ? null : r3(prob[p.id][k]), hit: scored.has(p.id) ? 1 : 0, role: isRole(p) ? 1 : 0, sl: p.gsis ? (InD?.teams.flatMap(t => t.players).find(q => q.gsis === p.gsis)?.slot || null) : null })); rec.hits[k] = top.filter(p => scored.has(p.id)).length; }
       games.push(rec);
-      for (const p of live) players.push({ w: W, gid, pos: p.pos === 'FB' ? 'RB' : p.pos, y: p.y, legacy: !p.extra, role: isRole(p) ? 1 : 0, ...Object.fromEntries(KS.filter(k => k !== 'naive').map(k => [k, prob[p.id][k] ?? null])) });
+      for (const p of live) players.push({ w: W, gid, id: p.id, team: p.team, n: p.name, tgt: p.vol?.targets || 0, car: p.vol?.carries || 0, pos: p.pos === 'FB' ? 'RB' : p.pos, y: p.y, legacy: !p.extra, role: isRole(p) ? 1 : 0, ...Object.fromEntries(KS.filter(k => k !== 'naive').map(k => [k, prob[p.id][k] ?? null])) });
       process.stderr.write('.');
     }
     process.stderr.write(` ${S}w${W}\n`);
