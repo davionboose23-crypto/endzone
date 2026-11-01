@@ -239,6 +239,19 @@ export function fitPbp(tables, { season, before, opts = {} } = {}) {
       const gk = cur.pids[r.pid]; const ps = cur.people[r.pid]?.pos; if (!gk || !ps) continue; const td = (r.flags & F.td) && !(r.flags & F.defTd) && (r.type === PT.run || scramble(r) || (r.flags & F.cmp)) ? 1 : 0;
       const e = pl[gk] || (pl[gk] = { n: 0, td: 0, pos: ps }); e.n += r._wt; e.td += r._wt * td; const q = pr[ps] || (pr[ps] = { n: 0, td: 0 }); q.n += r._wt; q.td += r._wt * td; }
     X2.i10td = { p: pl, pos: Object.fromEntries(Object.entries(pr).map(([k2, v]) => [k2, (v.td + 1) / (v.n + 5)])) }; }
+  // t87u research: per-player explosive rate (completions 20+ / runs 10+ outside the red zone, as in M.expP / M.expR) and per-offense pass tilt by
+  //    game script (logit vs the league script rate), shrunk, for SIM_PBP_TUNE.expl / scr (off by default)
+  { const lgt4 = p => Math.log(p / (1 - p)); const ex = {}, lg = [[0, 0], [0, 0]];
+    for (const r of curRows) { if (!scr(r) || Z(r) > 2 || r.pid < 0) continue; let kd = -1, y = 0;
+      if (r.type === PT.run && !scramble(r)) { kd = 1; y = r.yds >= 10 ? 1 : 0; } else if (aimed(r) && (r.flags & F.cmp)) { kd = 0; y = r.yds >= 20 ? 1 : 0; } if (kd < 0) continue;
+      const gk = cur.pids[r.pid]; if (!gk) continue; const e = ex[gk] || (ex[gk] = [[0, 0], [0, 0]]); e[kd][0] += r._wt; e[kd][1] += r._wt * y; lg[kd][0] += r._wt; lg[kd][1] += r._wt * y; }
+    const lr = lg.map(([n, x]) => (x + 1) / (n + 10)), ke = o.k2.expl ?? 15;
+    X2.expl = { p: Object.fromEntries(Object.entries(ex).map(([g, e]) => [g, e.map(([n, x], kd) => r3(lgt4((x + ke * lr[kd]) / (n + ke)) - lgt4(lr[kd])))])) };
+    const n = Array.from({ length: NT }, () => new Float64Array(4)), x = Array.from({ length: NT }, () => new Float64Array(4)), ln = new Float64Array(4), lx = new Float64Array(4);
+    for (const r of curRows) { if (!scr(r)) continue; const sc = S(r), y = isDb(r) ? 1 : 0; n[r.off][sc] += r._wt; x[r.off][sc] += r._wt * y; ln[sc] += r._wt; lx[sc] += r._wt * y; }
+    const ks = o.k2.scr ?? 40; const lp = Array.from(ln, (v, j) => (lx[j] + 1) / (v + 2)); const tot = Array.from(n, (row, t) => { let a = 0, b = 0; for (let j = 0; j < 4; j++) { a += row[j]; b += x[t][j]; } return [a, b]; });
+    // tilt in each script beyond the team's all-script pass tilt (so it does not double count M.pass off)
+    X2.scrTilt = n.map((row, t) => { const all = lgt4((tot[t][1] + ks * 0.58) / (tot[t][0] + ks)) - lgt4(0.58); return Array.from(row, (v, j) => r3(lgt4((x[t][j] + ks * lp[j]) / (v + ks)) - lgt4(lp[j]) - all)); }); }
   // ---- per-team 2026 red-zone history (display) ----
   // possessions = runs of scrimmage snaps by one offense, cut by a change of offense or a kick; trip = possession with a snap inside the 20
   const hist = {}; for (const t of teams) hist[t] = { g: 0, rzTrips: 0, rzTd: 0, i10: 0, tdRush: 0, tdPass: 0 };

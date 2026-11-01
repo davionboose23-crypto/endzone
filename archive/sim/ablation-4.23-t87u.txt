@@ -1,0 +1,20 @@
+t87u (2026 walk-forward w2-8, 92 games, 1000 sims, pbp2New; hits/game / roster-pool LL; base s11 1.554/.30696, s23 1.576/.30787)
+combo3_11.txt   1.565 0.30713 early 1.438/0.31887 later 1.705/0.29433
+combo3_23.txt   1.554 0.30871 early 1.396/0.31987 later 1.727/0.29655
+combo_11.txt    1.500 0.30636 early 1.375/0.31694 later 1.636/0.29483
+combo_23.txt    1.543 0.30737 early 1.396/0.31905 later 1.705/0.29463
+expl1_11.txt    1.565 0.30759 early 1.417/0.31895 later 1.727/0.29520
+expl1_23.txt    1.587 0.30806 early 1.396/0.31944 later 1.795/0.29565
+expl5_11.txt    1.543 0.30765 early 1.396/0.31919 later 1.705/0.29506
+expl5_23.txt    1.554 0.30823 early 1.396/0.32007 later 1.727/0.29531
+pace0_11.txt    1.554 0.30708 early 1.458/0.31726 later 1.659/0.29598
+pace0_23.txt    1.565 0.30759 early 1.417/0.31789 later 1.727/0.29635
+pace15_11.txt   1.543 0.30809 early 1.396/0.31938 later 1.705/0.29578
+pace15_23.txt   1.554 0.30792 early 1.396/0.31940 later 1.727/0.29539
+scr1_11.txt     1.543 0.30786 early 1.417/0.31906 later 1.682/0.29564
+scr1_23.txt     1.576 0.30844 early 1.396/0.31962 later 1.773/0.29625
+scr5_11.txt     1.543 0.30722 early 1.396/0.31927 later 1.705/0.29408
+scr5_23.txt     1.598 0.30766 early 1.438/0.31814 later 1.773/0.29624
+knobs (PBP_TUNE): combo = carry 0.5 + i5 0.5; combo3 = carry 0.25 + i5 0.3; paceK = scale on team pace deviation (1 shipped; 0 = league pace, 1.5 = amplified); expl = weight on each player's shrunk 2026 explosive rate outside the RZ (20+ yd catch / 10+ yd run, k=15); scr = weight on each offense's game-script-specific pass tilt beyond its overall tilt (k=40).
+verdicts: none pass. combo LL better both (-.0006/-.0005) but hits -.054/-.033; combo3 mixed; pace either way no gain; expl hits +.011/+.011 at 1.0 but LL worse both; scr 0.5 hits -.011/+.022 mixed. All stay off.
+not tested: QB-specific RZ target distribution (no clean 2026 per-QB RZ sample: most teams 1 QB, backups <30 RZ throws); special-teams / defensive TDs (they are not rush/receive TDs, so cannot change top-4 hits; only team totals).
