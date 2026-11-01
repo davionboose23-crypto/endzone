@@ -1,0 +1,55 @@
+ENDZONE ablation 4.23 (t93u trim + t94u model in blended card) — 2026 only, weeks 2-8, 1000 sims, --no-2025
+Offline on per-player detail (KS_ONLY=pbp2New,driveNew,model); hits = top-4 hits/game; LL = roster-pool log loss (clamp .005-.995).
+Trims (platt = sigma(a*logit p+b); trim = p>t -> t+(p-t)s) fit walk-forward on weeks < W (identity until >=300 rows).
+model = archived endzone-4.6.0 anytime chance (market-free), only in the blended card; missing model -> sim card value. Engines untouched.
+mX_cY = (1-X)*card(drive Y/10) + X*model. Columns: seed11 seed23 seed37
+pbp none rank:pbp              1.554 0.30696
+pbp platt rank:pbp             1.554 0.30985
+pbp trim rank:pbp              1.554 0.30860
+card3 none rank:pbp            1.554 0.30456
+card3 platt rank:pbp           1.554 0.30763
+card3 trim rank:pbp            1.554 0.30594
+card5 none rank:pbp            1.554 0.30439
+card5 platt rank:pbp           1.554 0.30758
+card5 trim rank:pbp            1.554 0.30547
+m0.2_c3 none rank:pbp          1.554 0.30012
+m0.2_c3 none rank:blend        1.543 0.30012
+m0.2_c3 platt rank:pbp         1.554 0.30280
+m0.2_c3 platt rank:blend       1.543 0.30280
+m0.2_c3 trim rank:pbp          1.554 0.30138
+m0.2_c3 trim rank:blend        1.543 0.30138
+m0.2_c5 none rank:pbp          1.554 0.30009
+m0.2_c5 none rank:blend        1.457 0.30009
+m0.2_c5 platt rank:pbp         1.554 0.30292
+m0.2_c5 platt rank:blend       1.457 0.30292
+m0.2_c5 trim rank:pbp          1.554 0.30124
+m0.2_c5 trim rank:blend        1.457 0.30124
+m0.35_c3 none rank:pbp         1.554 0.29831
+m0.35_c3 none rank:blend       1.500 0.29831
+m0.35_c3 platt rank:pbp        1.554 0.30056
+m0.35_c3 platt rank:blend      1.500 0.30056
+m0.35_c3 trim rank:pbp         1.554 0.29934
+m0.35_c3 trim rank:blend       1.500 0.29934
+m0.35_c5 none rank:pbp         1.554 0.29836
+m0.35_c5 none rank:blend       1.500 0.29836
+m0.35_c5 platt rank:pbp        1.554 0.30078
+m0.35_c5 platt rank:blend      1.500 0.30078
+m0.35_c5 trim rank:pbp         1.554 0.29936
+m0.35_c5 trim rank:blend       1.500 0.29936
+m0.5_c3 none rank:pbp          1.554 0.29745
+m0.5_c3 none rank:blend        1.478 0.29745
+m0.5_c3 platt rank:pbp         1.554 0.29942
+m0.5_c3 platt rank:blend       1.478 0.29942
+m0.5_c3 trim rank:pbp          1.554 0.29821
+m0.5_c3 trim rank:blend        1.478 0.29821
+m0.5_c5 none rank:pbp          1.554 0.29756
+m0.5_c5 none rank:blend        1.500 0.29756
+m0.5_c5 platt rank:pbp         1.554 0.29948
+m0.5_c5 platt rank:blend       1.500 0.29948
+m0.5_c5 trim rank:pbp          1.554 0.29844
+m0.5_c5 trim rank:blend        1.500 0.29844
+
+Verdicts: top-end trim (platt and piecewise) FAILS on every card, all 3 seeds (LL worse; early weeks over-shrink).
+card5 (0.5 drive) beats shipped card3 on all seeds, but every model blend beats both by much more.
+Rank-by-blend with model: hits drop on all seeds -> rejected. Display-only model blends pass on all seeds.
+SHIPPED 4.23.0: m0.5_c3 display-only (best LL on all 3: .29745/.29753/.29751 vs shipped .30456/.30510/.30476), ranked by pbp.
