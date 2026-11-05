@@ -31,6 +31,8 @@ test('UI: phone matchup replaces slate, mobile passing TD, accessible panel, boa
     for (let i = 0; i < 400; i++) await p.keyboard.press('Tab');
     assert.equal(await p.evaluate(() => document.getElementById('panel').contains(document.activeElement)), true, 'focus trapped');
     assert.ok(await p.locator('#panel figure').count() >= 1, 'pies or empty states rendered');
+    assert.equal(await p.locator('#panel [data-act=gotosim]').count(), 0, 'player page has no navigation to the Simulator');
+    assert.equal(await p.locator('#playerSimOut [data-act=playersimrun]').count(), 1, 'player can run his sim here');
     await p.keyboard.press('Escape'); assert.equal(await p.locator('#panel').isHidden(), true);
     assert.equal(await p.evaluate(() => document.activeElement?.dataset.act), 'player', 'focus restored to opener');
     await p.click('[data-act=back]'); assert.equal(await p.locator('.game').first().isVisible(), true);
@@ -96,4 +98,59 @@ test('UI: Focus view (default on for mobile, persisted), primary yardage per pos
       await d.selectOption('#tfStatus', 'new'); const cards = await d.locator('#view-trends .trendcard').allInnerTexts(); assert.ok(cards.every(c => /New/.test(c))); }
     assert.deepEqual(errors, []);
   } finally { await b.close(); server.close(); }
+});
+
+// Deterministic lifecycle regression: exercise the shipped UI functions with a real
+// engine result, without depending on this week's feeds or a long 10,000-game run.
+test('UI: player sim runs in place, refreshes on progress/completion, and never takes over the game dashboard', async () => {
+  const vm = await import('node:vm');
+  const sim = await import('../src/sim.js');
+  const src = fs.readFileSync(new URL('../public/app.js', import.meta.url), 'utf8');
+  const fn = name => { const a = src.indexOf(`function ${name}(`); assert.ok(a >= 0, name); return src.slice(a, src.indexOf('\n}', a) + 2); };
+  const { I } = JSON.parse(fs.readFileSync(new URL('./fixtures/sim-inputs-2026w8-CAR-GB-492.json', import.meta.url)));
+  const raw = sim.runSim(I, { n: 100, seed: 7 }), sum = sim.summarize(raw, I);
+  const sp = sum.players.find(p => p.rec.mean + p.car.mean > 1);
+  const game = { id: 'panel-game', sides: { away: { team: sum.away }, home: { team: sum.home } } };
+  const p = { ...sp, chance: .25 }; delete p.gameId;
+  const out = { innerHTML: '' }, panel = { gameId: game.id, playerId: p.id };
+  const S = { week: 8, slate: { games: [game] }, panel, dv: { game: 'wrong-game' }, sim: { status: 'idle', key: '', pj: null, team: 'both', st: 'rec', th: 4, dst: 'rec', dth: 1 } };
+  let runs = 0;
+  const context = vm.createContext({ S, document: { getElementById: id => id === 'playerSimOut' ? out : null }, performance: { now: () => 10 },
+    findPlayer: () => ({ p, g: game }), simChanceFor: () => null, simBlendKeep: () => {},
+    esc: x => String(x ?? ''), pc: x => `${Math.round((x || 0) * 100)}%`, n1: x => (x || 0).toFixed(1),
+    runSimUi: () => { runs++; Object.assign(S.sim, { status: 'running', key: `8|${sum.away}@${sum.home}|drive`, t0: 0 }); context.paintSim(); },
+    SIM_LBL: { rec: 'Catches', car: 'Carries' }, playerDriveTable: sim.playerDriveTable,
+    playerGameStat: sim.playerGameStat, pAtLeast: sim.pAtLeast, simPatterns: sim.simPatterns,
+    simPhrase: (s, t) => `${t}+ ${s}`, simRange: () => 'range', sgn: x => x, sdiff: x => x,
+    SIM_PRESETS: [], GAME_PRESETS: [], SLOT_TOP: {},
+  });
+  for (const name of ['simBars', 'simGapsHtml', 'simGameHtml', 'simRzHtml', 'simSitHtml', 'simDriveCardHtml', 'simTdHtml']) context[name] = () => '';
+  context.simTop4Html = () => '<h3>Top 4</h3>'; context.simProfileHtml = () => '<h3>Profiles</h3>';
+  for (const name of ['findSimPlayer', 'simRunForGame', 'paintPlayerSim', 'playerSimRun', 'playerSimDriveRows', 'playerSimBody', 'playerSimStoryHtml', 'simPlayerDriveHtml', 'simResultHtml', 'paintSim', 'simProgress', 'simDone']) vm.runInContext(fn(name), context);
+  context.paintPlayerSim();
+  assert.match(out.innerHTML, /data-act="playersimrun"/); assert.doesNotMatch(out.innerHTML, /gotosim|Open Simulator/);
+  context.playerSimRun();
+  assert.equal(S.dv.game, game.id, 'uses panel game, not undefined side-player gameId');
+  assert.equal(S.dv.mode, undefined, 'does not switch to simulator mode'); assert.equal(S.panel, panel, 'panel stays open');
+  assert.match(out.innerHTML, /Simulating/);
+  context.playerSimRun(); assert.equal(runs, 1, 'no duplicate running sim');
+  context.simProgress({ progress: { done: 250, n: 10000, phase: 'run' } }, S.sim.key);
+  assert.match(out.innerHTML, /250 \/ 10,000/);
+  context.simDone({ ok: false, error: 'test failure' }, S.sim.key);
+  assert.match(out.innerHTML, /Simulation failed: test failure/); assert.match(out.innerHTML, /playersimrun/);
+  context.playerSimRun();
+  // Market comparison is display-only; no market is supplied by this fixture.
+  context.vsMarket = () => ({});
+  context.simDone({ ok: true, sum, raw, ms: 1 }, S.sim.key);
+  assert.equal(S.panel, panel); assert.match(out.innerHTML, /A typical game for him/); assert.match(out.innerHTML, /What he does on each drive/);
+  assert.doesNotMatch(out.innerHTML, /gotosim/);
+  context.playerSimRun(); assert.equal(runs, 2, 'reuses matching completed result');
+  S.sim.pj = sp.j;
+  const dashboard = context.simResultHtml();
+  for (const text of ['Top 4', 'Profiles', 'Result ·', 'Players · simulated', 'Game scripts', 'per-drive thresholds']) assert.ok(dashboard.includes(text), text);
+  assert.doesNotMatch(dashboard, /A typical game for him|Back to full game|Switch player/);
+  S.sim.sum = { ...sum, away: 'ATL', home: 'OTHER' }; context.paintPlayerSim();
+  assert.match(out.innerHTML, /playersimrun/); assert.doesNotMatch(out.innerHTML, /A typical game for him/, 'wrong-game result never appears');
+  assert.doesNotMatch(src, /S\.sim\.focus|applySimFocus/);
+  assert.match(src, /const APP_VERSION = '4\.24\.4'/);
 });

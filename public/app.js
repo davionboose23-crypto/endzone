@@ -342,7 +342,7 @@ function seesHtml(D, gA, gB, ctx) {
 // times from real-data inputs only (4.13.1: no model numbers; src/sim.js) in a Web Worker. Never feeds the live chance or the gate.
 const SIM_N = 10000; // 4.16.0: paired backtest - pbp not clearly better than drive in both seasons, so drive stays the default engine
 S.sim = { mode: load('endzone.simMode2', 'pbp') === 'drive' ? 'drive' : 'pbp', // 4.18.1: play-by-play is the default engine (new key so an old saved 'drive' does not stick)
-  prog: null, partial: null, replay: null, rg: null, E: null, key: '', status: 'idle', sum: null, raw: null, ms: null, err: null, team: 'both', st: 'rec', th: 4, pj: null, dst: 'rec', dth: 1, seed: null, ds: 0, focus: null };
+  prog: null, partial: null, replay: null, rg: null, E: null, key: '', status: 'idle', sum: null, raw: null, ms: null, err: null, team: 'both', st: 'rec', th: 4, pj: null, dst: 'rec', dth: 1, seed: null, ds: 0 };
 let simW = null, simSeq = 0;
 const simSideFor = t => { for (const x of S.slate?.games || []) for (const sd of ['away', 'home']) if (x.sides[sd].team === t) return x.sides[sd]; return null; };
 function simPick() {
@@ -360,7 +360,7 @@ function simDone(m, key) {
 // 4.10.0: live progress (play-by-play mode posts every 250 games; a partial read-out every 1,000)
 function simProgress(m, key) {
   if (S.sim.key !== key || S.sim.status !== 'running') return; S.sim.prog = m.progress; if (m.partial) S.sim.partial = m.partial;
-  const el = document.getElementById('simProg'); if (el) el.outerHTML = simProgHtml(); else paintSim();
+  const el = document.getElementById('simProg'); if (el) { el.outerHTML = simProgHtml(); paintPlayerSim(); } else paintSim();
 }
 function simProgHtml() {
   const pr = S.sim.prog, pa = S.sim.partial; if (!pr) return '<div id="simProg" class="simprog small muted" aria-live="polite">Starting…</div>';
@@ -415,9 +415,17 @@ function simRunForGame(gameId) {
   if (g && (sum.away !== g.sides.away.team || sum.home !== g.sides.home.team)) return null;
   return sum;
 }
-function applySimFocus() {
-  const f = S.sim.focus, sum = S.sim.sum; if (!f || !sum || S.sim.pj != null) return;
-  const sp = findSimPlayer(sum, f); if (sp) S.sim.pj = sp.j;
+// Refresh only this section: keep the panel, disclosure state, focus and scroll in place.
+function paintPlayerSim() {
+  const out = document.getElementById('playerSimOut'); if (!out || !S.panel) return;
+  const f = findPlayer(S.panel.gameId, S.panel.playerId); if (f) out.innerHTML = playerSimStoryHtml(f.p, f.g.id);
+}
+function playerSimRun() {
+  const gid = S.panel?.gameId;
+  if (!gid || !(S.slate?.games || []).some(g => g.id === gid)) return;
+  if (S.sim.status === 'running' || simRunForGame(gid)) { paintPlayerSim(); return; }
+  S.dv.game = gid; // Side-player objects have no gameId. The open panel owns the matchup.
+  runSimUi(); // Same engines and results; no tab change, panel close, or separate model.
 }
 function playerSimDriveRows(raw, sp, st, th) {
   if (!raw) return '';
@@ -482,24 +490,31 @@ function playerSimBody(sp, sum, raw, { drives = true } = {}) {
   return `${lead}${pills}${usageP}${why}${howHtml}${scriptHtml}${drv}${pats}<p class="small muted">This is his slice of the same ${sum.n.toLocaleString()}-game ${esc(sum.away)} @ ${esc(sum.home)} sim — not a separate player-only engine.</p>`;
 }
 function playerSimStoryHtml(p, gameId) {
-  const gid = gameId || p.gameId || S.panel?.gameId || '';
+  const gid = gameId || S.panel?.gameId || '';
+  const g = (S.slate?.games || []).find(x => x.id === gid);
+  const mine = g && S.sim.key.startsWith(`${S.week}|${g.sides.away.team}@${g.sides.home.team}|`);
   const sc = simChanceFor(p);
   const modelC = p.chance ?? p.model?.chance;
   const chancePills = `<div class="statpills"><div class="spill"><span>Model</span><strong>${pc(modelC, 1)}</strong></div>${sc?.pbp != null ? `<div class="spill"><span>PBP sim</span><strong>${pc(sc.pbp, 1)}</strong></div>` : ''}${sc?.drive != null ? `<div class="spill"><span>Drive sim</span><strong>${pc(sc.drive, 1)}</strong></div>` : ''}${sc?.blend != null ? `<div class="spill acc"><span>Blended</span><strong>${pc(sc.blend, 1)}</strong></div>` : ''}</div>`;
   const emptyPills = `<div class="statpills"><div class="spill"><span>Model</span><strong>${pc(modelC, 1)}</strong></div><div class="spill dim"><span>PBP sim</span><strong>—</strong></div><div class="spill dim"><span>Drive sim</span><strong>—</strong></div><div class="spill dim"><span>Blended</span><strong>—</strong></div></div>`;
-  const cta = `<div class="simmiss" role="status"><p class="small">Run this game in the Simulator to see what ${esc(p.name)} does: his TD chances, how and when he scores, red-zone work, and his touches on every drive.</p><button class="btn gold" data-act="gotosim" data-game="${esc(gid)}">Open Simulator</button></div>`;
+  if (S.sim.status === 'running') {
+    if (!mine) return `${emptyPills}<p class="small" role="status">Another game is being simulated. When it finishes, you can run ${esc(p.name)}'s sim here.</p>`;
+    const pr = S.sim.prog;
+    return `${emptyPills}<div class="simprog" role="status" aria-live="polite"><p class="small"><strong>Simulating ${esc(p.name)}'s game…</strong> His usage, scoring and drive-by-drive results will appear here.</p>${pr ? `<p class="small">${pr.phase === 'pilot' ? 'Preparing player roles…' : `Simulated ${pr.done.toLocaleString()} / ${pr.n.toLocaleString()} games`}</p><progress max="${pr.n}" value="${pr.done}" aria-label="Player simulation progress"></progress>` : '<p class="small muted">Running in the background…</p>'}</div>`;
+  }
+  const run = `<button class="btn gold" data-act="playersimrun">Run his sim here</button>`;
+  const cta = `<div class="simmiss"><p class="small">See what ${esc(p.name)} does: his TD chances, how and when he scores, red-zone work, and his touches on every drive. Results stay on his page.</p>${run}</div>`;
   const sum = simRunForGame(gid);
-  if (!sum) return (sc ? `${chancePills}<p class="small muted">Sim numbers are from your latest run of ${esc(sc.k)} in Drives → Simulator.</p>` : emptyPills) + cta;
+  if (!sum) return (sc ? `${chancePills}<p class="small muted">Sim numbers are from your latest run of ${esc(sc.k)}.</p>` : emptyPills) + (mine && S.sim.status === 'error' ? `<p class="small" role="alert">Simulation failed: ${esc(S.sim.err)}</p>` : '') + cta;
   const sp = findSimPlayer(sum, p);
-  if (!sp) return `${chancePills}<p class="small">He was not on the ${esc(sum.away)} @ ${esc(sum.home)} sim roster. Run that game again after a refresh if he should be there.</p><button class="btn gold" data-act="gotosim" data-game="${esc(gid)}">Open Simulator</button>`;
-  return `${chancePills}${playerSimBody(sp, sum, S.sim.raw)}<p class="row"><button class="btn gold" data-act="gotosim" data-game="${esc(gid)}">See him in the Simulator</button></p>`;
+  if (!sp) return `${chancePills}<p class="small">He was not on the ${esc(sum.away)} @ ${esc(sum.home)} sim roster. Refresh to load the latest roster before trying again.</p>`;
+  return `${chancePills}${playerSimBody(sp, sum, S.sim.raw)}`;
 }
 function simPlayerDriveHtml(sum, raw) {
   const p = sum.players.find(x => x.j === S.sim.pj); if (!p) return '';
   const st = S.sim.dst, th = S.sim.dth;
   const btn = (s, t) => `<button class="btn ${st === s && th === t ? 'gold' : ''}" data-act="simdth" data-st="${s}" data-th="${t}" aria-pressed="${st === s && th === t}">${esc(simPhrase(s, t))}</button>`;
-  return `<div class="card simpl playersim" id="simPl"><div class="row between"><h3>${esc(p.name)} · what he does in the sim</h3><button class="btn" data-act="simpl" data-j="" aria-label="Back to the full game sim">Back to full game</button></div>
-   ${playerSimBody(p, sum, raw, { drives: false })}
+  return `<div class="card simpl playersim" id="simPl"><div class="row between"><h3>${esc(p.name)} · per-drive thresholds</h3><button class="btn" data-act="simpl" data-j="">Hide drive details</button></div>
    <h4>What he does on each drive</h4>
    <div class="row" role="group" aria-label="Per-drive threshold">${[...SIM_PRESETS, ['tch', 2], ['td', 1]].map(([s, t]) => btn(s, t)).join('')}<label class="small">Custom <select class="select" id="simDSt">${['rec', 'recYd', 'car', 'rushYd', 'tch', 'tgt'].map(s => `<option value="${s}" ${s === st ? 'selected' : ''}>${SIM_LBL[s]}</option>`).join('')}</select> ≥ <input class="input" id="simDTh" type="number" min="1" max="60" step="1" value="${th}" style="width:5em" inputmode="numeric"></label></div>
    ${playerSimDriveRows(raw, p, st, th)}
@@ -576,7 +591,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.24.3';
+const APP_VERSION = '4.24.4';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
@@ -701,12 +716,11 @@ function simResultHtml() {
   const slotTab = T => `<div class="tablewrap" tabindex="0" role="region" aria-label="${esc(T.team)} drive results by drive number"><table class="simtab"><thead><tr><th scope="col">${esc(T.team)} drive</th><th scope="col">Happens</th><th scope="col">TD</th><th scope="col">FG</th><th scope="col">Punt</th><th scope="col">Turnover</th><th scope="col">Downs</th><th scope="col">End of half</th><th scope="col">Most likely</th></tr></thead><tbody>${T.slots.slice(0, 14).map(r => { const ks = ['TD', 'FG', 'Punt', 'TO', 'Downs', 'Half']; const top = ks.reduce((m, k) => (r[k] || 0) > (r[m] || 0) ? k : m, 'Punt'); const cell = k => `<td>${k === top ? `<strong>${pc(r[k])}</strong>` : pc(r[k])}</td>`;
       return `<tr><th scope="row">${r.n}</th><td>${pc(r.happen)}</td>${ks.map(cell).join('')}<td>${esc(SLOT_TOP[top])}</td></tr>`; }).join('')}</tbody></table></div><p class="small">${esc(T.team)} offensive TDs: ${T.tdDist.map((p, i) => `${i}${i === 6 ? '+' : ''}: ${pc(p)}`).join(' · ')}</p>`;
   const scripts = `<div class="simscripts small">${s.scripts.map(x => `<div><span>${esc(x.label)}</span><span class="bar"><i style="width:${(x.p * 100).toFixed(1)}%"></i></span><strong>${pc(x.p)}</strong></div>`).join('')}</div><h4>Most common game scripts</h4><ol class="small">${s.combos.map(c => `<li>${esc(c.label)} · <strong>${pc(c.p)}</strong></li>`).join('')}</ol>`;
-  if (S.sim.pj != null) return `${simPlayerDriveHtml(s, raw)}<div class="card"><h3>Switch player</h3><p class="small muted">The sim is focused on what one player does. Tap another name to switch, or go back to the full game.</p>${players}</div>`;
   return `${simTop4Html(s)}${simProfileHtml(s)}<div class="card simres"><h3>Result · ${s.n.toLocaleString()} simulated games <span class="chip rel-chance">Simulated</span></h3>${wbar}${vegas}${kv}
     <div class="simhists"><div>${simBars(s.marHist, `${B} margin`, b => sgn(b))}</div><div>${simBars(s.totHist, 'Total points', b => String(b))}</div></div>
     <h4>Most common final scores</h4>${top}</div>
    ${simGameHtml()}${simRzHtml(s)}${simSitHtml(s)}${simDriveCardHtml(s, raw)}${simTdHtml(s)}
-   <div class="card"><h3>Players · simulated <span class="chip rel-chance">Simulated</span></h3>${players}</div>
+   <div class="card"><h3>Players · simulated <span class="chip rel-chance">Simulated</span></h3>${players}</div>${simPlayerDriveHtml(s, raw)}
    <div class="card"><h3>Drive-by-drive patterns in the sims <span class="chip rel-chance">Simulated</span></h3>${patHtml}${appliedHtml}
     <div class="dvcols"><div><h4>${esc(A)} scoring by drive number</h4>${slotTab(TA)}</div><div><h4>${esc(B)} scoring by drive number</h4>${slotTab(TB)}</div></div></div>
    <div class="card"><h3>Game scripts <span class="chip rel-chance">Simulated</span></h3>${scripts}</div>`;
@@ -740,8 +754,8 @@ function simTrackHtml() {
     ${so}${tab}${lsTot ? `<p class="small"><span class="t4ls">◆</span> marks a scorer from outside the sim's top 4: ${lsTot.ls} of ${lsTot.all} TD scorers this season (${Math.round(lsTot.ls / lsTot.all * 100)}%). The sim expects this: it put the chance of at least one such scorer at ${Math.round(lsTot.p * 100)}% per game on average.</p>` : ''}<p class="small muted">Averages move about ±${f2(sim.se)} by luck alone over this many games, so small gaps are not real differences.</p>${T.seedCheck ? `<p class="small muted">${esc(T.seedCheck.text)}</p>` : ''}${rl}${oos}${acc}${games}</div>`;
 }
 function paintSim() {
+  paintPlayerSim();
   const o = document.getElementById('simOut'); if (!o) return; const { A, B, key, mode } = simPick(); const sim = S.sim; const mine = sim.key === key;
-  if (mine && sim.status === 'done') applySimFocus();
   const hasPbp = !!S.slate?.pbp; const run = sim.status === 'running';
   const modeSel = `<div class="row simmode" role="group" aria-label="Simulation engine"><button class="btn ${mode === 'pbp' ? 'gold' : ''}" data-act="simmode" data-mode="pbp" aria-pressed="${mode === 'pbp'}" ${!hasPbp || run ? 'disabled' : ''}>Play-by-play (default)</button><button class="btn ${mode === 'drive' ? 'gold' : ''}" data-act="simmode" data-mode="drive" aria-pressed="${mode === 'drive'}" ${run ? 'disabled' : ''}>Drive sim (alternate)</button></div>`;
   const head = mode === 'pbp' ? `${modeSel}<p class="small">Plays <strong>${esc(A)} @ ${esc(B)}</strong> snap by snap ${SIM_N.toLocaleString()} times: down, distance, yard line, clock, timeouts and score; each team's own play calling, fourth-down habits, kicker, penalties and QB; sneaks, scrambles, sacks, turnovers with returns, punts and kickoffs; two-minute drill, spikes, kneel-downs and end-of-half play. Every carry and target is placed on the field, so red-zone and goal-line patterns come out of the games.</p>` : `${modeSel}<p class="small">Plays <strong>${esc(A)} @ ${esc(B)}</strong> drive by drive ${SIM_N.toLocaleString()} times: possession alternation, score, quarter and clock, two-minute drives and overtime; every drive ends in a TD, FG, punt, turnover, downs or end of half with its plays, targets, carries, catches and yards, and who scored.</p>`;
@@ -1084,7 +1098,7 @@ function renderPanel() {
    <div class="row"><button class="btn gold" data-act="ai" aria-describedby="aiHint">AI analysis</button><span id="aiHint" class="small muted">${aiSettings().key ? `Uses your ${esc(PROVIDERS[aiSettings().provider]?.label || 'AI')} key from Lab · never changes the model's number` : 'No AI key set: built-in review (add a key in Lab → AI analyst)'}</span></div>
    <div id="aiOut" aria-live="polite">${aiCached(g, p) ? aiReviewHtml(aiCached(g, p)) : ''}</div>
    </div><div class="pcol-b">
-   ${sec('In the sim', playerSimStoryHtml(p, g.id), true)}
+   ${sec('In the sim', `<div id="playerSimOut">${playerSimStoryHtml(p, g.id)}</div>`, true)}
    ${sec(`TD trends · ${S.slate?.season ?? ''}`, tdTrendsHtml(p, d, g.id), true)}
    ${sec('Probability details', `<div class="kv small"><div>Published projection<br><strong>${p.published ? pc(p.published.probability) : 'none'}</strong></div>${p.challenger != null ? `<div>Blend challenger<br><strong>${pc(p.challenger, 1)}</strong> <span class="muted">(${esc(legsText(p) || 'model')})</span></div>` : ''}${p.usage != null ? `<div>Usage leg<br><strong>${pc(p.usage, 1)}</strong></div>` : ''}<div>First TD<br><strong>${pc(p.firstTd, 1)}</strong></div><div>Two or more<br><strong>${pc(dist.twoPlus, 1)}</strong></div><div>80% band<br><strong>${pc(p.band[0])}–${pc(p.band[1])}</strong></div></div>
      ${p.challenger != null ? `<p class="small muted">Blend challenger = equal-weight average of ${esc(legsText(p) || 'model')} on the log-intensity (cloglog) scale, after the safety caps. Shadow only: the headline number stays the model's until the prospective gate (500 players / 40 games) promotes it.</p>` : ''}
@@ -1233,7 +1247,8 @@ document.addEventListener('click', e => {
   else if (a === 'back') { const id = S.gameId; S.gameId = null; renderSlate(); document.querySelector(`[data-act=game][data-game="${CSS.escape(id)}"]`)?.focus(); }
   else if (a === 'player') openPlayer(t.dataset.game, t.dataset.player);
   else if (a === 'gotab') document.getElementById('tab-' + t.dataset.tab)?.click();
-  else if (a === 'gotosim') { const gid = t.dataset.game || S.panel?.gameId || S.gameId; if (S.panel) { const f = findPlayer(S.panel.gameId, S.panel.playerId); if (f) { S.sim.focus = { name: f.p.name, team: f.p.team, id: f.p.id, gsis: f.p.gsis }; S.sim.pj = null; } } else { S.sim.focus = null; S.sim.pj = null; } if (gid) { S.dv.game = gid; S.dv.mode = 'sim'; saveDv(); } closePanel(); document.getElementById('tab-drives')?.click(); requestAnimationFrame(() => (document.getElementById('simPl') || document.getElementById('simOut'))?.scrollIntoView({ block: 'start' })); }
+  else if (a === 'playersimrun') playerSimRun();
+  else if (a === 'gotosim') { const gid = t.dataset.game || S.gameId; S.sim.pj = null; if (gid) { S.dv.game = gid; S.dv.mode = 'sim'; saveDv(); } closePanel(); document.getElementById('tab-drives')?.click(); requestAnimationFrame(() => document.getElementById('simOut')?.scrollIntoView({ block: 'start' })); }
   else if (a === 'dvmode') { S.dv.mode = t.dataset.mode; S.dv.who = ''; save(LS_DRIVES, S.dv); renderDrives(); }
   else if (a === 'dvn') { S.dv.n = t.dataset.n === 'season' ? 'season' : +t.dataset.n; save(LS_DRIVES, S.dv); renderDrives(); }
   else if (a === 'dvgt') { S.dv.gt = t.dataset.team; S.dv.who = ''; save(LS_DRIVES, S.dv); renderDrives(); }
@@ -1247,7 +1262,7 @@ document.addEventListener('click', e => {
   else if (a === 'simth') { S.sim.st = t.dataset.st; S.sim.th = +t.dataset.th; paintSim(); }
   else if (a === 'simdth') { S.sim.dst = t.dataset.st; S.sim.dth = +t.dataset.th; paintSim(); }
   else if (a === 'simdrv') { S.sim.ds = +t.dataset.s || 0; paintSim(); $('#simDrv')?.scrollIntoView({ block: 'nearest' }); }
-  else if (a === 'simpl') { if (t.dataset.j === '') { S.sim.pj = null; S.sim.focus = null; } else { S.sim.pj = +t.dataset.j; const sp = S.sim.sum?.players.find(x => x.j === S.sim.pj); if (sp) S.sim.focus = { name: sp.name, team: sp.team, id: sp.id, gsis: sp.gsis }; } paintSim(); if (S.sim.pj != null) $('#simPl')?.scrollIntoView({ block: 'start' }); }
+  else if (a === 'simpl') { S.sim.pj = t.dataset.j === '' ? null : +t.dataset.j; paintSim(); if (S.sim.pj != null) $('#simPl')?.scrollIntoView({ block: 'nearest' }); }
   else if (a === 'dcell') { const o = $('#dcellOut'); if (o) o.innerHTML = dcellHtml(drivesData(), S.dv.gridTeam, t.dataset.w, t.dataset.n); }
   else if (a === 'close') closePanel();
   else if (a === 'ai') runAi();
