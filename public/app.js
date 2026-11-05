@@ -486,7 +486,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.24.1';
+const APP_VERSION = '4.24.2';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
@@ -671,6 +671,7 @@ function renderDrives() {
   if (!D.teams) { v.innerHTML = `<div class="card"><h2>Drives</h2><p class="muted">This week's drive file predates the Drives section (app 4.8); team and matchup views need a rebuild.</p></div>${drivesTrendsHtml()}`; return; }
   const teams = Object.keys(D.teams).sort(); const games = S.slate?.games || [];
   if (!teams.includes(S.dv.team)) S.dv.team = teams[0];
+  if (S.dv.game && S.dv.game !== 'custom' && games.length && !games.some(x => x.id === S.dv.game)) S.dv.game = '';
   if (S.dv.mode !== 'team' && !S.dv.game && games[0] && !(S.dv.a && S.dv.b)) S.dv.game = games[0].id;
   const g = S.dv.mode !== 'team' && S.dv.game && S.dv.game !== 'custom' ? games.find(x => x.id === S.dv.game) : null;
   const A = g ? g.sides.away.team : S.dv.a || teams[0], B = g ? g.sides.home.team : S.dv.b || teams[1];
@@ -852,7 +853,8 @@ function matchupHtml(g) {
   };
   const k = etDisplay(g.game.kickoff); const W = g.sides.away.weather;
   return `<button class="btn" data-act="back">← Back to slate</button>
-   <h2>${esc(g.sides.away.team)} @ ${esc(g.sides.home.team)}</h2><p class="small muted">${esc(k.day)} ${esc(k.time)} · ${esc(g.game.stadium || '')} · roof ${esc(g.game.roof || 'unknown')} · ${esc(W.note)} ${g.game.finished ? `· Final ${g.game.awayScore}–${g.game.homeScore}` : ''}
+   <div class="row between"><h2>${esc(g.sides.away.team)} @ ${esc(g.sides.home.team)}</h2>
+    <button class="btn gold" data-act="gotosim" data-game="${esc(g.id)}">Simulate this game</button></div><p class="small muted">${esc(k.day)} ${esc(k.time)} · ${esc(g.game.stadium || '')} · roof ${esc(g.game.roof || 'unknown')} · ${esc(W.note)} ${g.game.finished ? `· Final ${g.game.awayScore}–${g.game.homeScore}` : ''}
    ${g.frozen === 'snapshot' ? `· Frozen pregame snapshot captured ${new Date(g.capturedAt).toLocaleString()}` : g.frozen === 'reconstructed' ? '· Reconstructed from earlier weeks (not a prospective forecast)' : ''}</p>
    <p class="small muted">First-touchdown estimates share the offensive intensity; defensive and return touchdowns are not modeled.</p>
    ${resultsTable(g)}${side('away')}${side('home')}`;
@@ -951,13 +953,14 @@ function trendSvg(rows) {
 }
 function simChanceFor(p) { const B = S.simBlend; if (!B) return null; const k = `${p.team}|${p.name}`; const d = B.drive?.get(k), b = B.pbp?.get(k);
   if (!d && !b) return null; return { k: B.k, pbp: b?.anytime ?? null, drive: d?.anytime ?? null, blend: d && b ? ensV(ENS_W * d.anytime + (1 - ENS_W) * b.anytime, b.model?.chance ?? d.model?.chance) : null }; }
-function tdTrendsHtml(p, d) {
+function tdTrendsHtml(p, d, gameId) {
+  const gid = gameId || p.gameId || S.panel?.gameId || '';
   const sc = simChanceFor(p); const T = d?.trends; const rows = T?.rows || [];
   const simBlock = sc
     ? `<div class="statpills"><div class="spill"><span>Model</span><strong>${pc(p.chance, 1)}</strong></div>${sc.pbp != null ? `<div class="spill"><span>PBP sim</span><strong>${pc(sc.pbp, 1)}</strong></div>` : ''}${sc.drive != null ? `<div class="spill"><span>Drive sim</span><strong>${pc(sc.drive, 1)}</strong></div>` : ''}${sc.blend != null ? `<div class="spill acc"><span>Blended</span><strong>${pc(sc.blend, 1)}</strong></div>` : ''}</div>
    <p class="small muted">Sim numbers are from your latest run of ${esc(sc.k)} in Drives → Simulator.</p>`
     : `<div class="statpills"><div class="spill"><span>Model</span><strong>${pc(p.chance, 1)}</strong></div><div class="spill dim"><span>PBP sim</span><strong>—</strong></div><div class="spill dim"><span>Drive sim</span><strong>—</strong></div><div class="spill dim"><span>Blended</span><strong>—</strong></div></div>
-   <div class="simmiss" role="status"><p class="small">Sim chances need a run of this game first. Open the Simulator to add play-by-play, drive and blended numbers here.</p><button class="btn gold" data-act="gotosim" data-game="${esc(p.gameId)}">Open Simulator</button></div>`;
+   <div class="simmiss" role="status"><p class="small">Sim chances need a run of this game first. Open the Simulator to add play-by-play, drive and blended numbers here.</p><button class="btn gold" data-act="gotosim" data-game="${esc(gid)}">Open Simulator</button></div>`;
   if (!d) return simBlock + '<p class="muted small">Loading 2026 game log…</p>';
   if (!rows.length) return simBlock + `<div class="empty"><strong>No ${T?.season ?? ''} games yet</strong>His week-by-week TD log will show up once he has a snap or stat line this season.</div>`;
   const t = k => rows.reduce((a, r) => a + (r[k] || 0), 0); const nz = k => rows.some(r => r[k] != null);
@@ -996,7 +999,7 @@ function renderPanel() {
    <div class="row"><button class="btn gold" data-act="ai" aria-describedby="aiHint">AI analysis</button><span id="aiHint" class="small muted">${aiSettings().key ? `Uses your ${esc(PROVIDERS[aiSettings().provider]?.label || 'AI')} key from Lab · never changes the model's number` : 'No AI key set: built-in review (add a key in Lab → AI analyst)'}</span></div>
    <div id="aiOut" aria-live="polite">${aiCached(g, p) ? aiReviewHtml(aiCached(g, p)) : ''}</div>
    </div><div class="pcol-b">
-   ${sec(`TD trends · ${S.slate?.season ?? ''}`, tdTrendsHtml(p, d), true)}
+   ${sec(`TD trends · ${S.slate?.season ?? ''}`, tdTrendsHtml(p, d, g.id), true)}
    ${sec('Probability details', `<div class="kv small"><div>Published projection<br><strong>${p.published ? pc(p.published.probability) : 'none'}</strong></div>${p.challenger != null ? `<div>Blend challenger<br><strong>${pc(p.challenger, 1)}</strong> <span class="muted">(${esc(legsText(p) || 'model')})</span></div>` : ''}${p.usage != null ? `<div>Usage leg<br><strong>${pc(p.usage, 1)}</strong></div>` : ''}<div>First TD<br><strong>${pc(p.firstTd, 1)}</strong></div><div>Two or more<br><strong>${pc(dist.twoPlus, 1)}</strong></div><div>80% band<br><strong>${pc(p.band[0])}–${pc(p.band[1])}</strong></div></div>
      ${p.challenger != null ? `<p class="small muted">Blend challenger = equal-weight average of ${esc(legsText(p) || 'model')} on the log-intensity (cloglog) scale, after the safety caps. Shadow only: the headline number stays the model's until the prospective gate (500 players / 40 games) promotes it.</p>` : ''}
      <p class="small">Count distribution: 0 ${pc(dist.p0)} · 1 ${pc(dist.p1)} · 2 ${pc(dist.p2)} · 3+ ${pc(dist.p3plus)} (λ ${n1(p.lambda)}). The band is uncertainty about the probability, not a range for his touchdown count.</p>`)}
@@ -1139,12 +1142,12 @@ document.addEventListener('click', e => {
   const t = e.target.closest('[data-act]'); if (!t) return; const a = t.dataset.act;
   if (a === 'retry') startLoad(true);
   else if (a === 'dismiss') $('#loading').hidden = true;
-  else if (a === 'game') { S.gameId = t.dataset.game; renderSlate(); const m = $('#matchup'); if (m) { m.querySelector('[data-act=back]')?.focus(); if (isSmall()) window.scrollTo(0, 0); } }
+  else if (a === 'game') { S.gameId = t.dataset.game; if (S.gameId) { S.dv.game = S.gameId; saveDv(); } renderSlate(); const m = $('#matchup'); if (m) { m.querySelector('[data-act=back]')?.focus(); if (isSmall()) window.scrollTo(0, 0); } }
   else if (a === 'slateview') { S.resultsView = t.dataset.view === 'results'; renderSlate(); }
   else if (a === 'back') { const id = S.gameId; S.gameId = null; renderSlate(); document.querySelector(`[data-act=game][data-game="${CSS.escape(id)}"]`)?.focus(); }
   else if (a === 'player') openPlayer(t.dataset.game, t.dataset.player);
   else if (a === 'gotab') document.getElementById('tab-' + t.dataset.tab)?.click();
-  else if (a === 'gotosim') { if (t.dataset.game) { S.dv.game = t.dataset.game; S.dv.mode = 'sim'; save(LS_DRIVES, S.dv); } closePanel(); document.getElementById('tab-drives')?.click(); requestAnimationFrame(() => document.getElementById('simOut')?.scrollIntoView({ block: 'start' })); }
+  else if (a === 'gotosim') { const gid = t.dataset.game || S.panel?.gameId || S.gameId; if (gid) { S.dv.game = gid; S.dv.mode = 'sim'; saveDv(); } closePanel(); document.getElementById('tab-drives')?.click(); requestAnimationFrame(() => document.getElementById('simOut')?.scrollIntoView({ block: 'start' })); }
   else if (a === 'dvmode') { S.dv.mode = t.dataset.mode; S.dv.who = ''; save(LS_DRIVES, S.dv); renderDrives(); }
   else if (a === 'dvn') { S.dv.n = t.dataset.n === 'season' ? 'season' : +t.dataset.n; save(LS_DRIVES, S.dv); renderDrives(); }
   else if (a === 'dvgt') { S.dv.gt = t.dataset.team; S.dv.who = ''; save(LS_DRIVES, S.dv); renderDrives(); }
