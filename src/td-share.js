@@ -39,9 +39,11 @@ function newPl(G, id, T, ix) { const pe = T.people[ix] || {}; const x = { id, po
 function leagueAvg(games) { const s = new Float64Array(NF); for (const G of games) for (let k = 0; k < NF; k++) s[k] += G.tot[k]; return Array.from(s, x => x / Math.max(1, games.length)); }
 // features at a cut: all tallies from games with (season < S) or (season == S and week < W); prior season weighted by o.prior
 export function featuresAt(allGames, S, W, o = TD_SHARE_DEFAULTS) {
-  const use = allGames.filter(G => (G.season === S && G.week < W) || G.season === S - 1);
+  // research priorW: multi-year priors (years < S only). Default remains S-1 at o.prior.
+  const priorYears = o.priorW ? Object.keys(o.priorW).map(Number).filter(y => y < S && o.priorW[y] > 0) : [S - 1];
+  const use = allGames.filter(G => (G.season === S && G.week < W) || priorYears.includes(G.season));
   const lg = leagueAvg(use.filter(G => G.season === S).length >= 32 ? use.filter(G => G.season === S) : use);
-  const wOf = G => G.season === S ? Math.pow(0.5, (W - 1 - G.week) / o.halfLife) : o.prior * Math.pow(0.5, (W - 1 + 19 - G.week) / (o.halfLife * 3));
+  const wOf = G => G.season === S ? Math.pow(0.5, (W - 1 - G.week) / o.halfLife) : (o.priorW?.[G.season] ?? o.prior) * Math.pow(0.5, (W - 1 + 19 - G.week) / (o.halfLife * 3));
   const acc = new Map();
   for (const G of use) { const w = wOf(G);
     for (const x of G.pl.values()) { let A = acc.get(x.id); if (!A) { A = { id: x.id, pos: x.pos, name: x.name, sleeper: x.sleeper, team: G.off, tw: -1, num: new Float64Array(NF + 1), den: new Float64Array(NF), g: 0, cur: 0 }; acc.set(x.id, A); }
@@ -94,7 +96,13 @@ export function fitTdShare(ev, o = TD_SHARE_DEFAULTS) {
 // build the weekly block shipped in archive/pbp/<s>/w<W>.json (td): fitted on games before W only
 export function buildTdShare(tables, { season, before, opts = {} } = {}) {
   // 4.18.0 seasonOnly: only games of this season before the target week (no prior-season features, events or league averages)
-  const o = { ...TD_SHARE_DEFAULTS, ...opts }; const all = tables.flatMap(tallyGames).filter(G => (o.seasonOnly ? G.season === season : G.season >= season - 2) && (G.season < season || G.week < before));
+  const o = { ...TD_SHARE_DEFAULTS, ...opts };
+  const all = tables.flatMap(tallyGames).filter(G => {
+    if (!(G.season < season || G.week < before)) return false;
+    if (o.seasonOnly) return G.season === season;
+    if (o.priorW) return G.season === season || (o.priorW[G.season] || 0) > 0;
+    return G.season >= season - 2;
+  });
   const cache = new Map(); const featAt = (S, W) => { const k = S * 100 + W; if (!cache.has(k)) cache.set(k, all.some(G => G.season === S - 1 || (G.season === S && G.week < W)) ? featuresAt(all, S, W, o) : null); return cache.get(k); };
   const ev = trainingEvents(all, G => G.week >= (o.seasonOnly ? 2 : o.minWeek) && (G.season === season || (!o.seasonOnly && G.season === season - 1)), featAt);
   const P = o.seasonOnly && ev.length < 40 ? null : fitTdShare(ev, o); // 4.18.0 seasonOnly: no fit until 40 this-season TDs (then the touch-share split is used)

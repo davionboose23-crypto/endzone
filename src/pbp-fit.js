@@ -46,13 +46,16 @@ const mean = a => a.length ? a.reduce((s, x) => s + x, 0) / a.length : 0;
 export function fitPbp(tables, { season, before, opts = {} } = {}) {
   const o = { ...PBP_DEFAULTS, ...opts, k: { ...PBP_DEFAULTS.k, ...(opts.k || {}) }, k2: { ...PBP_DEFAULTS.k2, ...(opts.k2 || {}) } };
   const cur = tables.find(t => t.season === season); if (!cur) throw new Error(`no pbp table for ${season}`);
-  const prior = o.seasonOnly ? [] : tables.filter(t => t.season < season && t.season >= season - 1); // 4.18.0 seasonOnly: this season's plays only
+  // research priorW: {year: weight} multi-year priors (off unless set). Default remains S-1 only.
+  const prior = o.seasonOnly ? [] : o.priorW
+    ? tables.filter(t => t.season < season && (o.priorW[t.season] || 0) > 0)
+    : tables.filter(t => t.season < season && t.season >= season - 1); // 4.18.0 seasonOnly: this season's plays only
   const curRows = rowsOf(cur).filter(r => r.week < before); // NO leakage: target week and later never read
   if (!curRows.length && !prior.length) throw new Error('no plays before target week');
   const maxW = curRows.reduce((m, r) => Math.max(m, r.week), 0);
   const isQb = (T, r) => r.type === PT.run && r.pid >= 0 && T.people[r.pid]?.pos === 'QB' ? 1 : 0;
   for (const r of curRows) { r._wl = 1; r._wt = Math.pow(0.5, (maxW - r.week) / o.halfLife); r._cur = 1; r._qbr = isQb(cur, r); }
-  const priorRows = prior.flatMap(T => rowsOf(T).map(r => { r._wl = 1; r._wt = 0; r._cur = 0; r._season = T.season; r._qbr = isQb(T, r); return r; }));
+  const priorRows = prior.flatMap(T => rowsOf(T).map(r => { r._wl = o.priorW ? (o.priorW[T.season] || 0) : 1; r._wt = 0; r._cur = 0; r._season = T.season; r._qbr = isQb(T, r); return r; }));
   const lg = priorRows.concat(curRows); const teams = cur.teams; const NT = teams.length;
   const scr = r => r.down >= 1 && r.yl > 0 && (r.type === PT.run || r.type === PT.pass);
   const S = r => scriptOf(r.qtr, r.hs, r.sd); const Z = r => zoneOf(r.yl);
@@ -276,7 +279,7 @@ function fitUsage(tables, season, before, maxW, o) {
     for (const r of rows) {
       if (isCur && r.week >= before) continue; if (r.down < 1 || r.yl <= 0) continue;
       const kind = r.type === PT.run ? 'c' : r.type === PT.pass && !(r.flags & (F.sack | F.scramble)) ? 't' : null; if (!kind) continue;
-      const w = isCur ? Math.pow(0.5, (maxW - r.week) / o.halfLife) : o.prior; const c = ucell(r.yl, r.down); const key = `${r.g}|${r.off}`;
+      const w = isCur ? Math.pow(0.5, (maxW - r.week) / o.halfLife) : (o.priorW?.[T.season] ?? o.prior); const c = ucell(r.yl, r.down); const key = `${r.g}|${r.off}`;
       let g = gt.get(key); if (!g) { g = { w, t: new Float64Array(8), c: new Float64Array(8), team: T.teams[r.off], week: r.week, players: new Set() }; gt.set(key, g); }
       g[kind][c]++;
       if (r.pid >= 0) { const id = T.pids[r.pid]; g.players.add(id); const pk = `${key}|${id}`; let p = pg.get(pk); if (!p) { p = { t: new Float64Array(8), c: new Float64Array(8) }; pg.set(pk, p); } p[kind][c]++; }

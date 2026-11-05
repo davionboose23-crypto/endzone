@@ -1,0 +1,132 @@
+ENDZONE ablation 4.24 — prior-year data (2023+2024+2025) under 2026 for TD prediction
+Research ONLY. Live default stays 2026-only (app 4.24.4, seasonOnly, MODEL endzone-4.6.0).
+No APP_VERSION / MODEL_VERSION bump. Live engines / top4-backtest-2026.json / UI not shipped from this run.
+
+## Question
+Does adding 2025, 2024, and 2023 game data improve sim / model anytime-TD accuracy vs current 2026-only?
+
+## Method
+- Harness: scripts/sim/top4-backtest.mjs with HIST3=1 research flag (off by default).
+- Walk-forward 2026 REG weeks 2–8 (92 games). Week 1 excluded so the slice matches the 2026-only baseline
+  (no prior 2026 games); hist3 could score week 1 from 2023–25 but that would not be comparable.
+- 1000 sims/game, NAMEMATCH=1, --no-2025, NO_WRITE=1 (did not overwrite live archive JSON).
+- Seeds one at a time (box memory). Primary engine = pbp2New; also scored driveNew.
+- No betting-market inputs. assertMarketFree on all sim inputs. assertSeasonOnly still on for live default path.
+
+### Variants
+1. Baseline pbp2New / driveNew — 2026-only (seasonOnly), as shipped since 4.18.
+2. pbp417 / drive417 — last-season (S-1=2025) usage + team-strength priors + ctx fit on [2023,2024,2025]
+   (existing 4.17 path; NOT a 3-year player blend).
+3. hist3 — NEW: 2026 current data + recency-weighted 2025/2024/2023 underneath.
+   Weights used: 2026=1 (halfLife recency within season), 2025=0.5, 2024=0.3, 2023=0.15
+   (HIST3W default). Applied to pbp-fit league/usage priors, td-share features, usage-prior,
+   and blended team-strength from drive tables. Not seasonOnly (417-style dataOpts).
+4. fade — same stack early, priors scaled by thin=(6-W)/4 (full-ish at week 2, zero by week 6+
+   → falls back to 2026-only). HIST3_FADE=1.
+
+### Data
+- nflverse pbp 2023 newly fetched to /tmp/pbp/pbp_2023.csv.gz (was missing; 2024–2026 already cached).
+- Drive tables: archive/drives/2025+2026; research loads /tmp/drv2024/table.json and /tmp/ez/drives-2023.json
+  for team-strength blend only (not copied into archive/drives).
+- Research hooks (off unless priorW / HIST3 set): src/pbp-fit.js, src/td-share.js, src/usage-prior.js.
+
+### Keep rule (interpret only; do not ship)
+Winner only if top-4 hits improve on seeds 11 AND 23 without worse roster-pool log loss,
+OR log loss clearly improves with hits flat. Confirm seed 37 only if 11+23 look like a win.
+Seed noise ≈ ±0.03 hits/game.
+
+## Results — overall (92 games, weeks 2–8)
+hits = top-4 hits/game; LL = anytimeRosterPool log loss (clamp .005–.995). n pool ≈ 3061.
+
+### Play-by-play (primary)
+                seed11              seed23              seed37
+                hits    LL          hits    LL          hits    LL
+pbp2New (base)  1.554   0.30775     1.576   0.30867     1.522   0.30808
+pbp417 (S-1)    1.511   0.29883     1.511   0.29967       —       —
+pbpHist3        1.478   0.29937     1.522   0.30017       —       —
+pbpFade         1.554   0.30004     1.511   0.30106       —       —
+
+Paired baseline matches known ballpark (seed11 hits 1.554 known; LL 0.30775 vs archived 0.30696 —
+small drift, use THESE paired numbers).
+
+### Drive (alternate)
+                seed11              seed23              seed37
+                hits    LL          hits    LL          hits    LL
+driveNew        1.446   0.30986     1.424   0.30930     1.413   0.30918
+drive417        1.500   0.29998     1.522   0.29970     1.446   0.30023
+driveHist3      1.543   0.30114     1.576   0.30115     1.511   0.30066
+driveFade       1.457   0.30169     1.435   0.30119       —       —
+
+### Week split (pbp / drive) — seed 11 then seed 23
+Early = weeks 2–4 (48g); Later = weeks 5–8 (44g).
+
+seed11 early hits:  pbp2New 1.396  pbp417 1.438  pbpHist3 1.396  | driveNew 1.292  drive417 1.417  driveHist3 1.479
+seed11 early LL:    pbp2New 0.319  pbp417 0.304  pbpHist3 0.303  | driveNew 0.318  drive417 0.303  driveHist3 0.303
+seed11 later hits:  pbp2New 1.727  pbp417 1.591  pbpHist3 1.568  | driveNew 1.614  drive417 1.591  driveHist3 1.614
+seed11 later LL:    pbp2New 0.296  pbp417 0.293  pbpHist3 0.295  | driveNew 0.301  drive417 0.297  driveHist3 0.299
+
+seed23 early hits:  pbp2New 1.438  pbp417 1.354  pbpHist3 1.458  | driveNew 1.313  drive417 1.375  driveHist3 1.500
+seed23 early LL:    pbp2New 0.320  pbp417 0.305  pbpHist3 0.303  | driveNew 0.317  drive417 0.303  driveHist3 0.303
+seed23 later hits:  pbp2New 1.727  pbp417 1.682  pbpHist3 1.591  | driveNew 1.545  drive417 1.682  driveHist3 1.659
+seed23 later LL:    pbp2New 0.296  pbp417 0.294  pbpHist3 0.297  | driveNew 0.301  drive417 0.296  driveHist3 0.299
+
+fade seed11: pbpFade early hits 1.438 LL 0.304; later hits 1.682 LL 0.296 (overall hits flat vs base, LL better)
+fade seed23: pbpFade early hits 1.417 LL 0.304; later hits 1.614 LL 0.298 (overall hits DOWN vs base)
+
+## Keep-rule calls
+- pbpHist3 vs pbp2New: FAIL. Hits worse on seed11 (−0.076) and seed23 (−0.054); beyond noise.
+  LL improves, but hits are not flat. Early weeks: LL helps, hits ~flat; later weeks: hist3 costs pbp hits.
+- pbpFade vs pbp2New: FAIL. Seed11 hits flat + better LL (candidate shape), but seed23 hits drop (−0.065).
+- driveHist3 vs driveNew: PASSES keep rule on seeds 11, 23, AND 37 (hits up ~0.10–0.15, LL better every seed).
+  vs drive417: hits better all three seeds; LL ~0.001 worse (within/near noise) — not a clean LL win over 417.
+- driveFade: hits within noise of driveNew; LL better — not a hits win.
+
+## Verdict (sims)
+Adding 2023–2025 underneath 2026 does NOT improve the default play-by-play sim (pbp2New).
+It helps early-week calibration (log loss) but costs later-week top-4 hits.
+Last-season-only (417) already has better LL than 2026-only with fewer hit losses than hist3 on pbp.
+For the alternate drive sim, hist3 clearly beats driveNew on hits+LL (all three seeds) and is a
+research candidate if the drive engine were ever reconsidered — still do NOT ship; live default
+remains pbp2New / 2026-only. Decision to ship left to the user.
+
+## Model
+### How the shipped model uses prior seasons today
+- src/opportunity.js playerFeatures: current-season logs + prevLogs = season−1 only (S-1). Used mainly for
+  H2H / display (forecast-details, worker); volume shrink uses league priors + current season.
+- Calibration / stack (scripts/hist/walk.mjs): for season S, trains stack/budget fits on
+  raw hist of all listed prior seasons in [2024,2025,2026] with season < S, plus earlier weeks of S.
+  So 2026 stacked weeks already see 2024+2025 raw rows. No 2023 hist files exist
+  (data/hist has base/raw/budget/stack for 2024–2026 and t412 for 2025–2026; no *-2023.json).
+- MODEL_VERSION remains endzone-4.6.0. No new live fits written.
+
+### Offline TD-rate challenger (research, not the shipped model)
+Walk-forward per-player TD/game → 1−exp(−λ) chance on the same t412-2026 player universe (weeks 2–8, 92 games):
+  cur-only (2026 < W):     top4 1.250  Brier 0.134  LL 0.507
+  S-1 only (2025):         top4 1.337  Brier 0.113  LL 0.377
+  hist3 (2023–25 + 2026):  top4 1.424  Brier 0.113  LL 0.372
+  shipped model (t412):    top4 1.522  Brier 0.106  LL 0.349
+Multi-year rates beat cur-only and S-1 alone but remain far behind the shipped model.
+Existing hist tags on 2026 (weeks overlap differs; base/stack n=1748): stack/stackbud already edge base
+(LL ~0.350 vs ~0.353) using 2024–2025 training — consistent with “prior seasons already help calibration.”
+
+### Model 2023 gap
+Did not rebuild raw-2023 + stack walk (prepareData full-season pull; out of scope for this sim-primary
+experiment). No evidence that adding 2023 to the shipped model would beat stack-on-2024/25; the crude
+challenger’s gain from +2023/+2024 over S-1 is small (+0.09 hits, −0.005 LL) and still well below model.
+
+## What was NOT done
+- Did not change live site, APP_VERSION, MODEL_VERSION, or archive/sim/top4-backtest-2026.json.
+- Did not turn off assertSeasonOnly for the default path.
+- Did not ship hist3 / fade into src/sim.js or src/sim-pbp.js production defaults.
+- Week-1 hist3-only slice not scored (comparability).
+
+## Reproduce
+  # constant hist3 (seeds one at a time)
+  SEED=11 HIST3=1 NO_WRITE=1 KS_ONLY=pbp2New,pbp417,pbpHist3,driveNew,drive417,driveHist3,model \\
+    NAMEMATCH=1 node scripts/sim/top4-backtest.mjs --sims 1000 --no-2025 --weeks 2,3,4,5,6,7,8
+  # fade
+  SEED=11 HIST3=1 HIST3_FADE=1 NO_WRITE=1 KS_ONLY=pbp2New,pbpFade,driveNew,driveFade,model \\
+    NAMEMATCH=1 node scripts/sim/top4-backtest.mjs --sims 1000 --no-2025 --weeks 2,3,4,5,6,7,8
+Weights override: HIST3W='{"2025":0.5,"2024":0.3,"2023":0.15}'
+
+Raw run JSON: /tmp/hist3-runs/s11.out s23.out s37.out fade11.out fade23.out

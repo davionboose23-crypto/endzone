@@ -42,13 +42,31 @@ async function loadGames() { const txt = await cached('https://raw.githubusercon
   for (const o of csv(txt)) { if (+o.season < 2025 || o.game_type !== 'REG' || o.away_score === '' || o.home_score === '') continue; out.set(o.game_id, { season: +o.season, week: +o.week, away: o.away_team, home: o.home_team, as: +o.away_score, hs: +o.home_score, ctx: { neutral: o.location === 'Neutral', roof: o.roof, wind: o.wind === '' || o.wind === 'NA' ? null : +o.wind, away: { rest: o.away_rest === '' ? null : +o.away_rest }, home: { rest: o.home_rest === '' ? null : +o.home_rest } } }); }
   return out; }
 const G = await loadGames();
-const TAB = {}; for (const s of [2024, 2025, 2026]) TAB[s] = await loadPbpSeason(s);
+const HIST3 = !!+(process.env.HIST3 || 0); // research: multi-year (2023-25) priors under 2026; off by default
+const HIST3W = process.env.HIST3W ? JSON.parse(process.env.HIST3W) : { 2025: 0.5, 2024: 0.3, 2023: 0.15 }; // recency weights (2026 current = 1 via halfLife)
+const HIST3_FADE = !!+(process.env.HIST3_FADE || 0); // research: fade priors out as 2026 sample grows
+const TAB = {}; for (const s of (HIST3 ? [2023, 2024, 2025, 2026] : [2024, 2025, 2026])) TAB[s] = await loadPbpSeason(s);
 const tallies = Object.values(TAB).flatMap(tallyGames);
 const GROWS = csv(fs.readFileSync('/tmp/nflverse-games.csv', 'utf8')); // 4.15.0 ctx-1: scores / site / rest / roof / wind only (no market columns)
 const CTXF = { 2025: fitContext(contextRows(GROWS, [2022, 2023, 2024])), 2026: fitContext(contextRows(GROWS, [2023, 2024, 2025])) };
 const TSP = { 2025: fs.existsSync('/tmp/drv2024/table.json') ? seasonPrior(tableToD(JSON.parse(fs.readFileSync('/tmp/drv2024/table.json', 'utf8'))), 2024) : null, 2026: seasonPrior(tableToD(loadTable(ROOT, 2025)), 2025) }; // 4.15.0 prior-season team strength
 console.error('ctx fits', JSON.stringify(CTXF));
 const UPS = { 2025: buildUsagePrior(tallies, 2025), 2026: buildUsagePrior(tallies, 2026) }; // 4.15.0: last-season usage (pbp of S-1 only)
+const loadDrvTab = s => { const a = path.join(ROOT, 'archive', 'drives', String(s), 'table.json'); if (fs.existsSync(a)) return JSON.parse(fs.readFileSync(a, 'utf8'));
+  if (s === 2024 && fs.existsSync('/tmp/drv2024/table.json')) return JSON.parse(fs.readFileSync('/tmp/drv2024/table.json', 'utf8'));
+  if (s === 2023 && fs.existsSync('/tmp/ez/drives-2023.json')) return JSON.parse(fs.readFileSync('/tmp/ez/drives-2023.json', 'utf8')); return null; };
+function blendTsPrior(weights) { // research: weighted blend of seasonPrior across years (same team index union)
+  const parts = Object.entries(weights).map(([s, w]) => { const T = loadDrvTab(+s); return T && w > 0 ? { w: +w, p: seasonPrior(tableToD(T), +s) } : null; }).filter(Boolean);
+  if (!parts.length) return null; const teams = [...new Set(parts.flatMap(x => x.p.teams))].sort(); const idx = Object.fromEntries(teams.map((t, i) => [t, i])); const C = parts[0].p.O.length / parts[0].p.teams.length; const O = new Float64Array(teams.length * C), D = new Float64Array(teams.length * C), den = new Float64Array(teams.length);
+  for (const { w, p } of parts) for (const t of p.teams) { const i = idx[t], j = p.idx[t]; if (j == null) continue; den[i] += w; for (let c = 0; c < C; c++) { O[i * C + c] += w * p.O[j * C + c]; D[i * C + c] += w * p.D[j * C + c]; } }
+  for (let i = 0; i < teams.length; i++) if (den[i] > 0) for (let c = 0; c < C; c++) { O[i * C + c] /= den[i]; D[i * C + c] /= den[i]; }
+  return { version: 'ts-blend-research', season: null, teams, idx, O: Array.from(O, v => +v.toFixed(4)), D: Array.from(D, v => +v.toFixed(4)), id: 'prior-hist3' }; }
+const UP_HIST3 = HIST3 ? buildUsagePrior(tallies, 2026, { priorW: HIST3W }) : null;
+const TSP_HIST3 = HIST3 ? blendTsPrior(HIST3W) : null;
+const priorWAt = (W) => { if (!HIST3) return null; if (!HIST3_FADE) return HIST3W;
+  // fade: full hist3 weights early (thin 2026), → null (season-only) by week 6+
+  const thin = Math.max(0, (6 - W) / 4); if (thin <= 0) return null;
+  return Object.fromEntries(Object.entries(HIST3W).map(([y, w]) => [y, +((+w) * (0.5 + 1.5 * thin)).toFixed(3)])); };
 const s2g = new Map(); for (const T of Object.values(TAB)) for (const [i, p] of Object.entries(T.people)) if (p.sleeper) s2g.set(String(p.sleeper), T.pids[i]);
 const inj = new Map(); for (const s of [2025, 2026]) for (const r of csv(await cached(`${NFLV}/injuries/injuries_${s}.csv`, `/tmp/nfl_injuries_${s}.csv`))) if (r.game_type === 'REG' || !r.game_type) inj.set(`${s}|${r.week}|${r.gsis_id}`, r);
 function availOf(s, w, g) { const r = g && inj.get(`${s}|${w}|${g}`); if (!r || !r.report_status) return { factor: 1, status: null };
@@ -137,9 +155,9 @@ function tweak422(I, P, W) { if (!SNAP_A && !SNAP_L && !INJ) return; for (const 
     on.forEach((p, i) => { const m = 1 + INJ * miss * (sn[i] / tot) / Math.max(0.05, sn[i]); const mm = Math.min(1.6, m); if (p.lam != null) p.lam *= mm; p.tgt *= mm; p.car *= mm; }); } } } const ensRows = [];
 if (process.env.PBP_TUNE) Object.assign(SIM_PBP_TUNE, JSON.parse(process.env.PBP_TUNE)); // t85u research knobs
 if (process.env.PBP_DVP != null) SIM_PBP_TUNE.dvp = +process.env.PBP_DVP; if (process.env.PBP_LATE != null) SIM_PBP_TUNE.late = +process.env.PBP_LATE; // 4.19.0 research knobs
-const KS = ['driveNew', 'pbp2New', 'drive417', 'pbp417', ...(NORM ? ['driveN'] : []), ...(VAR ? ['driveV', 'pbpV'] : []), ...(process.env.TD_SD != null ? ['driveG'] : []), 'drive4131', 'pbp4131', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.14.0: driveNew / pbp2New = 4.14 (weekly roster + carried rates + rookie/depth priors + 1% floor); driveG = driveNew + per-game team TD multiplier (research); drive4131 / pbp4131 = 4.13.1 as shipped
+const KS = ['driveNew', 'pbp2New', 'drive417', 'pbp417', ...(HIST3 ? ['driveHist3', 'pbpHist3', ...(HIST3_FADE ? ['driveFade', 'pbpFade'] : [])] : []), ...(NORM ? ['driveN'] : []), ...(VAR ? ['driveV', 'pbpV'] : []), ...(process.env.TD_SD != null ? ['driveG'] : []), 'drive4131', 'pbp4131', 'drive413', 'pbp413', 'model', 'naive', 'sleeper']; // 4.14.0: driveNew / pbp2New = 4.14 (weekly roster + carried rates + rookie/depth priors + 1% floor); driveG = driveNew + per-game team TD multiplier (research); drive4131 / pbp4131 = 4.13.1 as shipped
 if (process.env.KS_ONLY) { const keep = new Set(process.env.KS_ONLY.split(',')); for (let i = KS.length - 1; i >= 0; i--) if (!keep.has(KS[i])) KS.splice(i, 1); } // research: run a subset of engines
-const SIM_KS = new Set(['driveNew', 'pbp2New', 'drive417', 'pbp417', 'driveN', 'driveV', 'pbpV', 'driveG', 'drive4131', 'pbp4131', 'drive413', 'pbp413']);
+const SIM_KS = new Set(['driveNew', 'pbp2New', 'drive417', 'pbp417', 'driveHist3', 'pbpHist3', 'driveFade', 'pbpFade', 'driveN', 'driveV', 'pbpV', 'driveG', 'drive4131', 'pbp4131', 'drive413', 'pbp413']);
 const TD_SD = process.env.TD_SD != null ? +process.env.TD_SD : DATA_OPTS.tdSd; // driveG = driveNew with another per-game TD multiplier sd (research)
 const OLD_OPTS = { carry: false, rookie: null, floor: 0, depthCal: null, tdSd: 0 }; // 4.13.1: driveNew / pbp2New = model-independent sims (data players); drive413 / pbp413 = 4.13.0 (model players + TD anchor)
 const DATA_ALPHA = process.env.DATA_ALPHA != null ? +process.env.DATA_ALPHA : null; // research override of the data-player td-share blend
@@ -157,6 +175,20 @@ async function season(S, weeks, priorDetail) {
     // 4.18.0 season-only inputs (driveNew / pbp2New): this season's games before W only; 4.17 (drive417 / pbp417) keeps the prior-season inputs
     const PP26 = SIMS ? fitPbp([TAB[S]], { season: S, before: W, opts: { seasonOnly: true, pressure: PRESS, ...(process.env.PBP_HL ? { halfLife: +process.env.PBP_HL } : {}), ...(process.env.KUSE ? { kUse: +process.env.KUSE } : {}) } }) : null; const td26 = buildTdShare([TAB[S]], { season: S, before: W, opts: { seasonOnly: true, ...(process.env.TD_HL ? { halfLife: +process.env.TD_HL } : {}) } });
     const D26 = SIMS && W > 1 ? D : null; const CTX26 = { ...fitContext(contextRows(GROWS, [S], { before: W })), seasons: [S] };
+    // research hist3: constant multi-year weights; fade: week-varying weights (null => season-only).
+    const tabsH = HIST3 ? [2023, 2024, 2025, 2026].map(s => TAB[s]).filter(Boolean) : null;
+    const pwH = (HIST3 && S === 2026) ? HIST3W : null;
+    const pwF = (HIST3_FADE && S === 2026) ? priorWAt(W) : null;
+    const PPHist = (SIMS && pwH && tabsH) ? fitPbp(tabsH, { season: S, before: W, opts: { priorW: pwH, pressure: PRESS } }) : null;
+    const tdHist = (pwH && tabsH) ? buildTdShare(tabsH, { season: S, before: W, opts: { priorW: pwH } }) : null;
+    const CTXHist = pwH ? { ...fitContext(contextRows(GROWS, [2023, 2024, 2025])), seasons: [2023, 2024, 2025] } : null;
+    const UPHist = pwH ? buildUsagePrior(tallies, S, { priorW: pwH }) : null;
+    const TSHist = pwH ? blendTsPrior(pwH) : null;
+    const PPFade = (SIMS && pwF && tabsH) ? fitPbp(tabsH, { season: S, before: W, opts: { priorW: pwF, pressure: PRESS } }) : null;
+    const tdFade = (pwF && tabsH) ? buildTdShare(tabsH, { season: S, before: W, opts: { priorW: pwF } }) : null;
+    const CTXFade = pwF ? { ...fitContext(contextRows(GROWS, [2023, 2024, 2025])), seasons: [2023, 2024, 2025] } : null;
+    const UPFade = pwF ? buildUsagePrior(tallies, S, { priorW: pwF }) : null;
+    const TSFade = pwF ? blendTsPrior(pwF) : null;
     const B = fitBlend([...priorDetail, ...detail]); blends.push({ w: W, alpha: B.alpha, beta: B.beta, fitted: B.fitted, tds: B.n });
     const naive = naiveOf(S, W);
     for (const gid of [...new Set(R.map(r => r.gameId))]) {
@@ -186,13 +218,18 @@ async function season(S, weeks, priorDetail) {
         InD = D26 ? buildSimInputs(D26, { away: gm.away, home: gm.home, gameId: gid, tdShare: td26, rosterNow: rosterWeek(S, W, true), dataOpts: DATA_OPTS, ctx: { ...gm.ctx, fit: CTX26 }, ...tb }) : null; // 4.18 app default: this season only, model-free, market-free
         if (InD) assertSeasonOnly(InD); if (!InD) InD = In417; // week 1 has no this-season games: the season-only engines are skipped (run with --weeks 2,...)
         const InO = buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: td, rosterNow: rosterOf(S, W), dataOpts: OLD_OPTS, ...tb }); // 4.13.1 as shipped
-        for (const I0 of [InD, InO, In417]) assertMarketFree(I0); // throws on any model or betting-market source (no Vegas totals / spreads / implied / odds / Sleeper prices)
+        // research hist3 (constant weights) / fade (week-varying; season-only when pwF null)
+        const InHist3 = (HIST3 && D && tdHist) ? buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: tdHist, rosterNow: rosterWeek(S, W, true), dataOpts: DATA_OPTS_417, usagePrior: UPHist || UP_HIST3, tsPrior: W > 1 ? (TSHist || TSP_HIST3) : null, ctx: { ...gm.ctx, fit: CTXHist || CTXF[S] }, ...tb }) : null;
+        const InFade = !HIST3_FADE || !D ? null : (pwF && tdFade)
+          ? buildSimInputs(D, { away: gm.away, home: gm.home, gameId: gid, tdShare: tdFade, rosterNow: rosterWeek(S, W, true), dataOpts: DATA_OPTS_417, usagePrior: UPFade, tsPrior: W > 1 ? TSFade : null, ctx: { ...gm.ctx, fit: CTXFade || CTXF[S] }, ...tb })
+          : (D26 ? InD : null);
+        for (const I0 of [InD, InO, In417, InHist3, InFade]) if (I0) assertMarketFree(I0); // throws on any model or betting-market source (no Vegas totals / spreads / implied / odds / Sleeper prices)
         const InG = { ...InD, tdSd: TD_SD };
         const InV = VAR && D26 ? buildSimInputs(D26, { away: gm.away, home: gm.home, gameId: gid, tdShare: td26, rosterNow: rosterWeek(S, W, true), dataOpts: { ...DATA_OPTS, ...VAR }, ctx: { ...gm.ctx, fit: CTX26 }, ...tb, ...(VAR.fitBeta ? { tdBlend: (() => { const F = fitDataBeta([...priorDetail, ...detail]); betas.push({ S, W, ...F }); return F; })() } : {}) }) : null; if (InV) assertMarketFree(InV);
         const keep = (S0, I0, sm) => Object.assign(sm, { __S: S0, __I: I0 });
         const dr = I0 => { const S0 = runSim(I0, { n: NS, seed: SEED, mode: 'free' }); return keep(S0, I0, summarize(S0, I0)); };
-        const pb = (I0, P0 = I0.seasonOnly ? PP26 : PP) => { const I = buildPbpInputs(I0, P0); if (I0.seasonOnly) { assertSeasonOnly(I); tweak422(I, P, W); tweak423(I, W); tweakDS(I, W, S); } const S0 = runPbp(I, { n: NS, seed: SEED }); return keep(S0, I, summarizePbp(S0, I)); };
-        const run = { drive413: () => dr(In2), pbp413: () => pb(In2), driveNew: () => dr(InD), pbp2New: () => pb(InD), drive417: () => dr(In417), pbp417: () => pb(In417), driveG: () => dr(InG), ...(InV ? { driveV: () => dr(InV), pbpV: () => pb(InV) } : {}), drive4131: () => dr(InO), pbp4131: () => pb(InO) };
+        const pb = (I0, P0) => { const PP0 = P0 ?? (I0.seasonOnly ? PP26 : PP); const I = buildPbpInputs(I0, PP0); if (I0.seasonOnly) { assertSeasonOnly(I); tweak422(I, P, W); tweak423(I, W); tweakDS(I, W, S); } const S0 = runPbp(I, { n: NS, seed: SEED }); return keep(S0, I, summarizePbp(S0, I)); };
+        const run = { drive413: () => dr(In2), pbp413: () => pb(In2), driveNew: () => dr(InD), pbp2New: () => pb(InD), drive417: () => dr(In417), pbp417: () => pb(In417), ...(InHist3 ? { driveHist3: () => dr(InHist3), pbpHist3: () => pb(InHist3, PPHist) } : {}), ...(InFade ? { driveFade: () => dr(InFade), pbpFade: () => pb(InFade, pwF ? PPFade : PP26) } : {}), driveG: () => dr(InG), ...(InV ? { driveV: () => dr(InV), pbpV: () => pb(InV) } : {}), drive4131: () => dr(InO), pbp4131: () => pb(InO) };
         for (const [k, f] of Object.entries(run)) { if ((ENG && !ENG.includes(k)) || !KS.includes(k)) continue; const s = f(); for (const p of live) prob[p.id][k] = 0; for (const x of s.players) if (prob[x.id]) prob[x.id][k] = x.anytime; else { const m = (x.gsis && live.find(p => p.gsis === x.gsis)) || (NAMEMATCH && live.find(p => p.team === x.team && p.name === x.name && !prob[p.id][k])); if (m) prob[m.id][k] = x.anytime; }
           if (DUMP && s.__S) dumpTeams(DUMP, S, W, gid, k, s.__S, s.__I, live, k === 'pbp2New' ? pbpSummary(s.__S, s, s.__I) : null);
           if (k === 'driveNew' || k === 'pbp2New') { const su = surprise(s.__S, s.players); sur[k] = { p: r3(su.pOutside), share: r3(su.shareOutside), ls: su.longshots.map(x => ({ n: x.name, t: x.team, p: x.pos, pr: r3(x.p) })) }; } }
