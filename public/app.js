@@ -222,12 +222,12 @@ function driveLogHtml(D, team, n) {
   const T = D.teams?.[team]; if (!T) return ''; const G = teamGames(D, team, n).slice().reverse(); if (!G.length) return '<p class="small muted">No drives yet.</p>';
   const g = G.find(x => x.w === +S.dv.lg) || G[0];
   const tds = g.d.filter(d => d[5] === 'TD').length, rz = g.d.filter(d => d[3] & 4).length;
-  const pl = (x, d) => { const nm = personName(D, T, x[0]); return `<span class="dlpl"><button class="plink" data-act="dvpl" data-pid="${esc(T.people[x[0]][0])}" title="${esc(nm)}: show by drive">${esc(shortName(nm))}</button> ${esc(statLine(x)).replace(', TD', ', <strong>TD</strong>')}</span>`; };
+  const pl = (x, d) => { const nm = personName(D, T, x[0]); const pid = T.people[x[0]][0]; return `<span class="dlpl"><button class="plink pnm" type="button" data-pnm="${esc(nm)}" data-ptm="${esc(team)}" data-act="dvpl" data-pid="${esc(pid)}" title="${esc(nm)}: open player page">${esc(shortName(nm))}</button> ${esc(statLine(x)).replace(', TD', ', <strong>TD</strong>')}</span>`; };
   const rows = g.d.map(d => { const ps = d[8].slice().sort((a, b) => (b[2] + b[4]) - (a[2] + a[4]) || b[1] - a[1]);
     return `<tr class="${d[5] === 'TD' ? 'td' : ''}${d[3] & 4 ? ' rz' : ''}"><td class="dln" data-l="Drive">${d[0]}</td><td data-l="">${d[9] ? (d[9] > 4 ? 'OT' : 'Q' + d[9]) : (d[1] === 1 ? '1st half' : '2nd half')}</td><td data-l="Start">${esc(ylText(d[10], team, g.opp))}</td><td data-l="Plays">${d[4]}</td><td class="dlres" data-l=""><b>${esc(RES_LBL[d[5]] || d[5])}</b>${d[3] & 8 ? ' <span class="muted">goal to go</span>' : d[3] & 4 ? ' <span class="muted">red zone</span>' : ''}</td>
      <td class="dlp">${ps.length ? ps.map(x => pl(x, d)).join('<span class="dlsep"> · </span>') : '<span class="muted">No targets or carries (sacks, kneels or penalties only).</span>'}</td></tr>`; }).join('');
   return `<div class="row small"><label>Game <select class="select" id="dvLogG">${G.map(x => `<option value="${x.w}" ${x === g ? 'selected' : ''}>Week ${x.w} vs ${esc(x.opp)}</option>`).join('')}</select></label></div>
-   <p class="small">${esc(team)} vs ${esc(g.opp)}, week ${g.w}: <strong>${g.d.length}</strong> drives · <strong>${tds}</strong> TD · ${rz} reached the red zone. Tap a name for that player's drive-by-drive table.</p>
+   <p class="small">${esc(team)} vs ${esc(g.opp)}, week ${g.w}: <strong>${g.d.length}</strong> drives · <strong>${tds}</strong> TD · ${rz} reached the red zone. Tap a name to open his player page (and select him in the by-drive table below).</p>
    <div class="tablewrap dlogwrap" tabindex="0" role="region" aria-label="Drive log, week ${g.w}"><table class="dlog"><thead><tr><th scope="col">Drive</th><th scope="col">Qtr</th><th scope="col">Start</th><th scope="col">Plays</th><th scope="col">Result</th><th scope="col">Who got the ball</th></tr></thead><tbody>${rows}</tbody></table></div>
    <p class="small muted">rec = receptions, tgt = targets, car = carries; yards are receiving or rushing yards on that drive. Gold edge = touchdown drive. Start = yard line of the first snap.</p>`;
 }
@@ -486,7 +486,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.23.0';
+const APP_VERSION = '4.24.1';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
@@ -708,7 +708,7 @@ function renderDrives() {
   if (S.dv.mode === 'sim') paintSim();
 }
 function renderTrends() {
-  const v = $('#view-trends'); const T = S.slate?.trends; if (!T) { v.innerHTML = '<p class="muted">No trends loaded.</p>'; return; }
+  const v = $('#view-trends'); const T = S.slate?.trends; if (!T) { v.innerHTML = `<div class="card empty"><strong>No trends loaded</strong>Trends appear after the slate finishes loading.</div>`; return; }
   S.tf = S.tf || { family: 'all', team: 'all', status: 'all' };
   const fams = [...new Set(T.items.map(t => t.family))]; const teams = [...new Set(T.items.map(t => t.team))].sort();
   const rows = T.items.filter(t => (S.tf.family === 'all' || t.family === S.tf.family) && (S.tf.team === 'all' || t.team === S.tf.team || t.side === S.tf.team) && (S.tf.status === 'all' || t.status === S.tf.status));
@@ -814,7 +814,7 @@ function gameCard(g) {
     <div class="small muted">${g.frozen === 'snapshot' ? 'Frozen pregame forecast' : g.frozen === 'reconstructed' ? 'Reconstructed (no pregame snapshot)' : ''}${g.game.finished ? ' · Final' : g.started ? ' · Started' : ''}</div>${resultsSummaryLine(g)}</button>`;
 }
 function renderSlate() {
-  const v = $('#view-slate'); if (!S.slate) { v.innerHTML = ''; return; }
+  const v = $('#view-slate'); if (!S.slate) { v.innerHTML = S.loading ? '' : `<div class="card empty"><strong>No slate loaded</strong>Pull to refresh, or tap Refresh in the header.</div>`; return; }
   const all = allPlayers(); const pick = all.find(p => p.id === S.slate.weeklyPickId); const riser = all.find(p => p.id === S.slate.riserId);
   const phoneOpen = S.gameId && window.matchMedia('(max-width:1023px)').matches;
   const list = `<div ${phoneOpen ? 'hidden' : ''}>
@@ -894,7 +894,7 @@ function boardRows() {
   return sortPlayers(list, b.sort);
 }
 function renderBoard() {
-  const v = $('#view-board'); if (!S.slate) { v.innerHTML = ''; return; }
+  const v = $('#view-board'); if (!S.slate) { v.innerHTML = S.loading ? '' : `<div class="card empty"><strong>No board yet</strong>Load a slate first, then filter players here.</div>`; return; }
   const b = S.board; const rows = boardRows();
   v.innerHTML = `<div class="filters" role="group" aria-label="Board filters">
     <div role="radiogroup" aria-label="Position" class="row">${['ALL', 'QB', 'RB', 'WR', 'TE', 'FB'].map(p => `<button class="btn ${b.pos === p ? 'gold' : ''}" role="radio" aria-checked="${b.pos === p}" data-act="pos" data-pos="${p}">${p}</button>`).join('')}</div>
@@ -904,11 +904,11 @@ function renderBoard() {
     <label><input type="checkbox" id="bstarted" ${b.hideStarted ? 'checked' : ''}> Hide started</label>
     <label><input type="checkbox" id="bwatch" ${b.watchOnly ? 'checked' : ''}> Watchlist only</label>
     <label>Sort <select id="bsort">${SORT_GROUPS.map(([g, ks]) => `<optgroup label="${esc(g)}">${ks.map(k => `<option value="${k}" ${b.sort === k ? 'selected' : ''}>${esc(SORTS[k].label)}</option>`).join('')}</optgroup>`).join('')}</select></label></div>
-   <p class="small muted">${rows.length} players. ${b.sort === 'default' ? 'High touchdown confidence first, then chance.' : b.sort === 'conf' ? 'Model TD confidence High › Med › Low, then chance. Team calls and ratings are unchanged.' : SORTS[b.sort]?.conf ? `Model confidence for ${esc(SORTS[b.sort].label.split(' — ')[0].toLowerCase())}: High › Med › Low, then projection. Players without that projection last.` : 'Explicit stat sort: team calls and ratings are unchanged.'}</p>
+   ${!rows.length ? `<div class="card empty"><strong>No players match</strong>Widen the filters or clear Hide under 15% / Watchlist only.</div>` : `<p class="small muted">${rows.length} players. ${b.sort === 'default' ? 'High touchdown confidence first, then chance.' : b.sort === 'conf' ? 'Model TD confidence High › Med › Low, then chance. Team calls and ratings are unchanged.' : SORTS[b.sort]?.conf ? `Model confidence for ${esc(SORTS[b.sort].label.split(' — ')[0].toLowerCase())}: High › Med › Low, then projection. Players without that projection last.` : 'Explicit stat sort: team calls and ratings are unchanged.'}</p>
    <p class="scrollhint" aria-hidden="true">Scroll sideways for every column →</p>
    ${S.focus ? focusList(rows, p => p.gameId, 'Board', true, sortStat(b.sort)) : `   <div class="tablewrap desk-only" tabindex="0" role="region" aria-label="Board"><table><thead><tr><th scope="col">Player</th><th scope="col">★</th><th scope="col">Anytime</th><th scope="col">80% band</th><th scope="col">Edge</th><th scope="col">American fair price</th><th scope="col">TD conf</th><th scope="col">Rush yds</th><th scope="col">Rec yds</th><th scope="col">Receptions</th><th scope="col">Role</th></tr></thead>
    <tbody>${rows.map(p => `<tr class="${p.tdConf.level === 'High' ? 'high' : ''}"><td>${playerBtn(p, p.gameId)}${qbLine(p)}</td><td>${star(p)}</td><td class="mid">${pc(p.chance)}${blendLine(p)}</td><td>${pc(p.band[0])}–${pc(p.band[1])}</td><td>${p.edge == null ? 'n/a' : (p.edge > 0 ? '+' : '') + p.edge.toFixed(1)}</td><td>${fmtAmerican(p.chance)}</td><td>${chip(p.tdConf.level)}</td><td>${volCell(p, 'rushYd')}</td><td>${volCell(p, 'recYd')}</td><td>${volCell(p, 'rec')}</td><td>${(p.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join(' ')}</td></tr>`).join('')}</tbody></table></div>
-   <div class="cards-mobile">${rows.map(p => `<div class="row">${star(p)}<div style="flex:1">${mobileCard(p, p.gameId)}</div></div>`).join('')}</div>`}`;
+   <div class="cards-mobile">${rows.map(p => `<div class="row">${star(p)}<div style="flex:1">${mobileCard(p, p.gameId)}</div></div>`).join('')}</div>`}`}`;
 }
 const star = p => `<button class="star" aria-pressed="${S.watch.has(p.id)}" aria-label="${S.watch.has(p.id) ? 'Remove from' : 'Add to'} watchlist: ${esc(p.name)}" data-act="star" data-player="${esc(p.id)}">★</button>`;
 
@@ -938,30 +938,35 @@ const h3ToDetails = html => html.split('<h3>').filter(x => x.trim()).map(ch => {
 // 4.24 player page: 2026 TD trends (display only; reads the detail payload and the latest sim runs).
 function trendSvg(rows) {
   if (!rows.length) return '';
-  const W = 320, H = 120, pad = 22, n = rows.length, bw = (W - pad * 2) / n; const maxTd = Math.max(1, ...rows.map(r => r.rushTd + r.recTd));
+  const W = 320, H = 130, pad = 20, n = rows.length, bw = (W - pad * 2) / Math.max(n, 1); const maxTd = Math.max(1, ...rows.map(r => r.rushTd + r.recTd));
   let cum = 0, opp = 0; const pts = rows.map((r, i) => { cum += r.rushTd + r.recTd; opp += r.carries + r.targets; return [pad + bw * (i + .5), opp ? cum / opp : 0]; });
   const maxR = Math.max(0.05, ...pts.map(x => x[1])); const y = v => H - pad - (v / maxR) * (H - pad * 2);
-  const bars = rows.map((r, i) => { const x = pad + bw * i + bw * .18, w = bw * .64, u = (H - pad * 2) / maxTd;
-    return `<rect class="tdr" x="${x.toFixed(1)}" y="${(H - pad - r.rushTd * u).toFixed(1)}" width="${w.toFixed(1)}" height="${(r.rushTd * u).toFixed(1)}"><title>W${r.week} rush TD ${r.rushTd}</title></rect><rect class="tdc" x="${x.toFixed(1)}" y="${(H - pad - (r.rushTd + r.recTd) * u).toFixed(1)}" width="${w.toFixed(1)}" height="${(r.recTd * u).toFixed(1)}"><title>W${r.week} rec TD ${r.recTd}</title></rect><text x="${(x + w / 2).toFixed(1)}" y="${H - 6}" text-anchor="middle">${r.week}</text>`; }).join('');
+  const bars = rows.map((r, i) => { const x = pad + bw * i + bw * .15, w = Math.max(bw * .7, 6), u = (H - pad * 2) / maxTd;
+    const rh = r.rushTd * u, ch = r.recTd * u;
+    return `<rect class="tdr" x="${x.toFixed(1)}" y="${(H - pad - rh).toFixed(1)}" width="${w.toFixed(1)}" height="${rh.toFixed(1)}"><title>W${r.week} rush TD ${r.rushTd}</title></rect><rect class="tdc" x="${x.toFixed(1)}" y="${(H - pad - rh - ch).toFixed(1)}" width="${w.toFixed(1)}" height="${ch.toFixed(1)}"><title>W${r.week} rec TD ${r.recTd}</title></rect><text x="${(x + w / 2).toFixed(1)}" y="${H - 4}" text-anchor="middle">${r.week}</text>`; }).join('');
   const line = pts.map((q, i) => `${i ? 'L' : 'M'}${q[0].toFixed(1)},${y(q[1]).toFixed(1)}`).join(' ');
-  return `<svg class="tdtrend" viewBox="0 0 ${W} ${H}" role="img" aria-label="TDs by week with cumulative TD rate per touch">${bars}<path d="${line}" class="tdline"/>${pts.map(q => `<circle cx="${q[0].toFixed(1)}" cy="${y(q[1]).toFixed(1)}" r="2.5" class="tddot"/>`).join('')}<text x="${W - pad}" y="12" text-anchor="end" class="tdlbl">TD rate per carry+target, ${(pts[pts.length - 1][1] * 100).toFixed(1)}%</text></svg>
-   <p class="small muted legend"><span class="sw tdr"></span> rush TD <span class="sw tdc"></span> rec TD <span class="sw tdline"></span> season TD rate per carry + target (cumulative). X axis = week.</p>`;
+  const rate = (pts[pts.length - 1][1] * 100).toFixed(1);
+  return `<svg class="tdtrend" viewBox="0 0 ${W} ${H}" role="img" aria-label="TDs by week with cumulative TD rate per touch">${bars}<path d="${line}" class="tdline"/>${pts.map(q => `<circle cx="${q[0].toFixed(1)}" cy="${y(q[1]).toFixed(1)}" r="2.8" class="tddot"/>`).join('')}</svg>
+   <p class="small muted legend"><span class="sw tdr"></span> rush TD <span class="sw tdc"></span> rec TD <span class="sw tdline"></span> season TD rate per carry + target (cumulative): <strong class="tdlbl">${rate}%</strong>. X axis = week.</p>`;
 }
 function simChanceFor(p) { const B = S.simBlend; if (!B) return null; const k = `${p.team}|${p.name}`; const d = B.drive?.get(k), b = B.pbp?.get(k);
   if (!d && !b) return null; return { k: B.k, pbp: b?.anytime ?? null, drive: d?.anytime ?? null, blend: d && b ? ensV(ENS_W * d.anytime + (1 - ENS_W) * b.anytime, b.model?.chance ?? d.model?.chance) : null }; }
 function tdTrendsHtml(p, d) {
   const sc = simChanceFor(p); const T = d?.trends; const rows = T?.rows || [];
-  const chances = `<div class="statpills"><div class="spill"><span>Model</span><strong>${pc(p.chance, 1)}</strong></div>${sc ? `${sc.pbp != null ? `<div class="spill"><span>PBP sim</span><strong>${pc(sc.pbp, 1)}</strong></div>` : ''}${sc.drive != null ? `<div class="spill"><span>Drive sim</span><strong>${pc(sc.drive, 1)}</strong></div>` : ''}${sc.blend != null ? `<div class="spill acc"><span>Blended</span><strong>${pc(sc.blend, 1)}</strong></div>` : ''}` : `<div class="spill dim"><span>Sim</span><strong>—</strong></div>`}</div>
-   <p class="small muted">${sc ? `Sim numbers are from your latest run of ${esc(sc.k)} in Drives → Simulator.` : `Run this game in Drives → Simulator to add the play-by-play, drive and blended chances here.`}</p>`;
-  if (!d) return chances + '<p class="muted small">Loading 2026 game log…</p>';
-  if (!rows.length) return chances + `<p class="small muted">No ${T?.season ?? ''} games logged yet.</p>`;
+  const simBlock = sc
+    ? `<div class="statpills"><div class="spill"><span>Model</span><strong>${pc(p.chance, 1)}</strong></div>${sc.pbp != null ? `<div class="spill"><span>PBP sim</span><strong>${pc(sc.pbp, 1)}</strong></div>` : ''}${sc.drive != null ? `<div class="spill"><span>Drive sim</span><strong>${pc(sc.drive, 1)}</strong></div>` : ''}${sc.blend != null ? `<div class="spill acc"><span>Blended</span><strong>${pc(sc.blend, 1)}</strong></div>` : ''}</div>
+   <p class="small muted">Sim numbers are from your latest run of ${esc(sc.k)} in Drives → Simulator.</p>`
+    : `<div class="statpills"><div class="spill"><span>Model</span><strong>${pc(p.chance, 1)}</strong></div><div class="spill dim"><span>PBP sim</span><strong>—</strong></div><div class="spill dim"><span>Drive sim</span><strong>—</strong></div><div class="spill dim"><span>Blended</span><strong>—</strong></div></div>
+   <div class="simmiss" role="status"><p class="small">Sim chances need a run of this game first. Open the Simulator to add play-by-play, drive and blended numbers here.</p><button class="btn gold" data-act="gotosim" data-game="${esc(p.gameId)}">Open Simulator</button></div>`;
+  if (!d) return simBlock + '<p class="muted small">Loading 2026 game log…</p>';
+  if (!rows.length) return simBlock + `<div class="empty"><strong>No ${T?.season ?? ''} games yet</strong>His week-by-week TD log will show up once he has a snap or stat line this season.</div>`;
   const t = k => rows.reduce((a, r) => a + (r[k] || 0), 0); const nz = k => rows.some(r => r[k] != null);
   const pct = v => v == null ? '—' : `${Math.round(v > 1 ? v : v * 100)}%`; const v = x => x == null ? '—' : x;
   const td = t('rushTd') + t('recTd'), scoring = rows.filter(r => r.rushTd + r.recTd > 0).length;
   const tot = `<div class="statpills"><div class="spill"><span>${T.season} TDs</span><strong>${td}</strong></div><div class="spill"><span>Rush / rec</span><strong>${t('rushTd')} / ${t('recTd')}</strong></div><div class="spill"><span>Scoring games</span><strong>${scoring}/${rows.length}</strong></div><div class="spill"><span>RZ looks</span><strong>${t('rzRush') + t('rzTgt')}</strong></div>${nz('ezTgt') ? `<div class="spill"><span>End-zone tgts</span><strong>${t('ezTgt')}</strong></div>` : ''}</div>`;
-  const tbl = `<div class="tablewrap" tabindex="0"><table class="tdtbl" style="min-width:640px"><thead><tr><th>Wk</th><th>Opp</th><th>Rush TD</th><th>Rec TD</th><th>Car</th><th>Tgt</th><th>RZ car</th><th>RZ tgt</th><th>Inside-5 car</th><th>Inside-5 tgt</th><th>EZ tgt</th><th>Snaps</th><th>Snap %</th></tr></thead><tbody>${rows.slice().reverse().map(r => `<tr${r.rushTd + r.recTd ? ' class="scored"' : ''}><td>W${r.week}</td><td>${esc(r.opp || '—')}</td><td>${r.rushTd}</td><td>${r.recTd}</td><td>${r.carries}</td><td>${r.targets}</td><td>${v(r.rzRush)}</td><td>${v(r.rzTgt)}</td><td>${v(r.glRush)}</td><td>${v(r.glTgt)}</td><td>${v(r.ezTgt)}</td><td>${v(r.snaps)}</td><td>${pct(r.snapPct)}</td></tr>`).join('')}</tbody></table></div>
-   <p class="small muted">${T.season} regular season only (nflverse stats, play-by-play zones, PFR snap counts). RZ = inside the 20; EZ tgt = targets thrown into the end zone. Route counts are not in the data feed.${T.zonesKnown ? '' : ' No play-by-play zone rows for this player, so inside-5 and end-zone columns are blank.'}</p>`;
-  return chances + tot + trendSvg(rows) + tbl;
+  const tbl = `<div class="tablewrap tdwrap" tabindex="0" role="region" aria-label="Week-by-week TD and usage"><table class="tdtbl"><thead><tr><th>Wk</th><th>Opp</th><th>Rush TD</th><th>Rec TD</th><th>Car</th><th>Tgt</th><th>RZ car</th><th>RZ tgt</th><th>Inside-5 car</th><th>Inside-5 tgt</th><th>EZ tgt</th><th>Snaps</th><th>Snap %</th></tr></thead><tbody>${rows.slice().reverse().map(r => `<tr${r.rushTd + r.recTd ? ' class="scored"' : ''}><td>W${r.week}</td><td>${esc(r.opp || '—')}</td><td>${r.rushTd}</td><td>${r.recTd}</td><td>${r.carries}</td><td>${r.targets}</td><td>${v(r.rzRush)}</td><td>${v(r.rzTgt)}</td><td>${v(r.glRush)}</td><td>${v(r.glTgt)}</td><td>${v(r.ezTgt)}</td><td>${v(r.snaps)}</td><td>${pct(r.snapPct)}</td></tr>`).join('')}</tbody></table></div>
+   <p class="small muted">${T.season} regular season only (nflverse stats, play-by-play zones, PFR snap counts). RZ = inside the 20; EZ tgt = targets thrown into the end zone. Route counts are not in the data feed. Missing inside-5 / end-zone / snap cells show —.${T.zonesKnown ? '' : ' No play-by-play zone rows for this player yet, so those columns stay —.'}</p>`;
+  return simBlock + tot + trendSvg(rows) + tbl;
 }
 function renderPanel() {
   const el = $('#panel'); if (!S.panel) return;
@@ -979,7 +984,7 @@ function renderPanel() {
   const opp = f.s === 'away' ? g.sides.home.team : g.sides.away.team;
   const notes = [p.conversionNote, p.riser?.reason, p.secondOption, ...(p.safetyNotes || []), ...(p.lessonNotes || []), d?.notes?.spike].filter(Boolean);
   el.innerHTML = `<div class="pcols"><div class="pcol-a"><div class="row between phead"><h2 id="panelTitle">${esc(p.name)}</h2><button class="btn" data-act="close" aria-label="Close player details">Close ✕</button></div>
-   <div class="row pid">${photo(p)}<div><span class="muted">${esc(p.pos)} · ${esc(p.team)} vs ${esc(opp)}</span><div class="small">${esc(d?.role || p.role || '')} · ${esc(p.avail?.label || '')}${p.replacing ? ` · replacing ${esc(p.replacing.name)}` : ''}</div></div></div>
+   <div class="row pid">${photo(p)}<div><span class="muted">${esc(p.pos)} · ${esc(p.team)} vs ${esc(opp)}</span><div class="small">${esc(d?.role || p.role || '')} · ${esc(p.avail?.label || '')}</div></div></div>
    <section class="card summary ${p.tdConf.level === 'High' ? 'high' : ''}" aria-labelledby="sumH"><h3 id="sumH" class="eyebrow">Summary</h3>
      <div class="sumgrid"><div class="sumchance"><div class="small muted">Anytime chance</div><div class="big" aria-label="Anytime touchdown chance ${pc(p.chance)}">${pc(p.chance, 1)}</div></div>
        <div><div class="small muted">Fair price</div><strong>${fmtAmerican(p.chance)}</strong></div>
@@ -1089,7 +1094,7 @@ function blendMonitorHtml() {
    <p class="small muted">Slices: implied team total 27.5+, favored by 7+, goal-line share 15–35%, TE1s, running QBs (3.5+ projected carries). Intervals resample whole games. Updated by each archive run.</p></div>`;
 }
 function renderLab() {
-  const v = $('#view-lab'); if (!S.slate) { v.innerHTML = ''; return; }
+  const v = $('#view-lab'); if (!S.slate) { v.innerHTML = S.loading ? '' : `<div class="card empty"><strong>Lab unavailable</strong>Load a slate to open the Lab.</div>`; return; }
   const W = S.weights; const labels = { recentBlend: 'Recent volume blend', publishedBlend: 'Published projection blend', script: 'Game script', redZone: 'Red zone', shrinkGames: 'Shrinkage games', tePremium: 'TE premium', goalLine: 'Goal-line weight' };
   const L = S.slate.lessons; const bt = S.backtest; const R = S.slate.research; const ch = S.slate.challenger;
   const met = c => c && c.n ? `n ${c.n} · Brier ${c.brier?.toFixed(4)} · log loss ${c.logLoss?.toFixed(4)} · flat-25% Brier ${c.flat25Brier?.toFixed(4)} · vs published (n ${c.matched.n}): ${c.matched.model?.toFixed(4) ?? '—'} vs ${c.matched.published?.toFixed(4) ?? '—'}` : 'no confirmed results';
@@ -1139,6 +1144,7 @@ document.addEventListener('click', e => {
   else if (a === 'back') { const id = S.gameId; S.gameId = null; renderSlate(); document.querySelector(`[data-act=game][data-game="${CSS.escape(id)}"]`)?.focus(); }
   else if (a === 'player') openPlayer(t.dataset.game, t.dataset.player);
   else if (a === 'gotab') document.getElementById('tab-' + t.dataset.tab)?.click();
+  else if (a === 'gotosim') { if (t.dataset.game) { S.dv.game = t.dataset.game; S.dv.mode = 'sim'; save(LS_DRIVES, S.dv); } closePanel(); document.getElementById('tab-drives')?.click(); requestAnimationFrame(() => document.getElementById('simOut')?.scrollIntoView({ block: 'start' })); }
   else if (a === 'dvmode') { S.dv.mode = t.dataset.mode; S.dv.who = ''; save(LS_DRIVES, S.dv); renderDrives(); }
   else if (a === 'dvn') { S.dv.n = t.dataset.n === 'season' ? 'season' : +t.dataset.n; save(LS_DRIVES, S.dv); renderDrives(); }
   else if (a === 'dvgt') { S.dv.gt = t.dataset.team; S.dv.who = ''; save(LS_DRIVES, S.dv); renderDrives(); }
