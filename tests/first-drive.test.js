@@ -117,20 +117,72 @@ test('first-drive block fits a phone with its history scrolling locally', { skip
     allPlayers: () => [{ ...p, opp: 'ATL' }], esc: x => String(x ?? ''),
     pc: (x, d = 0) => x == null ? '—' : `${(x * 100).toFixed(d)}%`, n1: x => x.toFixed(1),
     RES_LBL: { Punt: 'Punt', TD: 'Touchdown', FG: 'Field goal' } });
-  const brown = { gsis: '00-0038597', id: '9224', name: 'Chase Brown', team: 'CIN' };
-  ctx.allPlayers = () => [{ ...brown, opp: 'ATL' }];
+  const hubbard = { gsis: '00-0036555', id: '7594', name: 'Chuba Hubbard', pos: 'RB', team: 'CAR' };
+  ctx.allPlayers = () => [{ ...hubbard, opp: 'DEN' }];
   vm.runInContext(src.slice(start, src.indexOf('\n}', start) + 2), ctx);
   const b = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--no-sandbox'] });
   try {
     const page = await b.newPage({ viewport: { width: 390, height: 844 } });
     const css = fs.readFileSync(new URL('../public/styles.css', import.meta.url), 'utf8');
-    await page.setContent(`<html><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css}</style><body><main><h2>Chase Brown · Drive patterns</h2>${ctx.firstDriveHtml(brown)}</main></body></html>`);
-    assert.match(await page.locator('.firstdrive').innerText(), /86%[\s\S]*1\.8[\s\S]*1\.5%[\s\S]*29%/);
+    await page.setContent(`<html><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css}</style><body><main><h2>Chuba Hubbard · Drive patterns</h2>${ctx.firstDriveHtml(hubbard)}</main></body></html>`);
+    assert.match(await page.locator('.firstdrive-call').innerText(), /High chance:[\s\S]*1\+ carry[\s\S]*88%[\s\S]*7 of 7[\s\S]*Coin flip:[\s\S]*1\+ catch[\s\S]*48%[\s\S]*Possible:[\s\S]*10\+ rushing yards[\s\S]*25%/);
+    assert.match(await page.locator('.firstdrive-yards').innerText(), /6\.5[\s\S]*2\.0/);
+    assert.match(await page.locator('.firstdrive-history thead').innerText(), /Rush yds[\s\S]*Rec yds/i);
     assert.equal(await page.locator('.firstdrive-history tbody tr').count(), 7);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
     assert.equal(await page.locator('.firstdrive-history .tablewrap').evaluate(el => el.scrollWidth > el.clientWidth), true);
-    await page.screenshot({ path: '/tmp/endzone-first-drive-4.24.5-phone.png', fullPage: true });
+    await page.screenshot({ path: '/tmp/endzone-first-drive-yardage-phone.png', fullPage: true });
     await page.setViewportSize({ width: 1280, height: 900 });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   } finally { await b.close(); }
+});
+
+test('yardage thresholds count per-player rush/rec totals separately, retain losses, and shrink small samples', () => {
+  const D = fixture([1, 1, 1]);
+  const a = D.teams.AAA.games[0].d[0][8][0]; a[2] = 1; a[3] = 19; a[4] = 1; a[5] = 10;
+  const b = D.teams.AAA.games[1].d[0][8][0]; b[2] = 1; b[3] = 10; b[4] = 0; b[5] = 0;
+  const c = D.teams.AAA.games[2].d[0][8][0]; c[2] = 0; c[3] = 0; c[4] = 1; c[5] = -3;
+  const F = firstDriveForecast(D, p, 'BBB'), Y = F.yardage;
+  assert.deepEqual(Object.fromEntries(Y.outcomes.map(o => [o.key, o.hits])), { carry: 2, catch: 2, rush10: 1, rec10: 2, scrim20: 1 });
+  assert.equal(F.games[2].rushYards, -3);
+  for (const o of Y.outcomes) {
+    assert.equal(o.probability, (o.hits + 2 * o.prior) / 5);
+    assert.ok(o.probability > 0 && o.probability < 1);
+    assert.equal(o.games, 3);
+  }
+  assert.equal(Y.smallSample, true);
+  assert.equal(Y.headline.length, 3);
+  assert.deepEqual(Y.headline, Y.outcomes.slice().sort((a, b) => b.probability - a.probability).slice(0, 3).map(o => o.key));
+  assert.ok(Y.outcomes.find(o => o.key === 'rush10').probability <= Y.outcomes.find(o => o.key === 'carry').probability);
+});
+
+test('new yardage estimates and cohort use first drives only; later-drive yards and future games cannot leak', () => {
+  const D = fixture(), before = firstDriveForecast(D, p, 'BBB').yardage;
+  for (const g of D.teams.AAA.games) { g.d[1][8][0][3] = 1000; g.d[1][8][0][5] = 1000; }
+  D.teams.AAA.games.push(game(9, 999), game(10, 999));
+  assert.deepEqual(firstDriveForecast(D, p, 'BBB').yardage, before);
+});
+
+test('opponent first-drive context adjusts expected yards only, with capped multipliers and a missing-opponent fallback', () => {
+  const D = fixture(), noOpp = firstDriveForecast(D, p, 'UNKNOWN').yardage;
+  const allowed = firstDriveForecast(D, p, 'BBB').yardage;
+  assert.deepEqual(allowed.outcomes, noOpp.outcomes);
+  assert.equal(noOpp.context.games, 0);
+  for (const key of ['rushYards', 'recYards']) {
+    assert.equal(noOpp.context[key].multiplier, 1);
+    assert.equal(noOpp.context[key].allowedMean, null);
+    assert.ok(allowed.context[key].multiplier >= .8 && allowed.context[key].multiplier <= 1.2);
+  }
+});
+
+test('CAR sample identifies Hubbard; threshold claims never manufacture a high 10-yard chance from a 7/7 touch rate', () => {
+  const D = JSON.parse(fs.readFileSync(new URL('../archive/drives/2026/w9.json', import.meta.url)));
+  const F = firstDriveForecast(D, { gsis: '00-0036555', id: '7594', team: 'CAR', pos: 'RB' }, 'DEN');
+  assert.equal(F.observed.touchGames, 7); assert.equal(F.observed.touches / F.observed.games, 3);
+  const by = Object.fromEntries(F.yardage.outcomes.map(o => [o.key, o]));
+  assert.equal(by.carry.hits, 7); assert.equal(by.carry.level, 'High');
+  assert.equal(by.rush10.hits, 2); assert.equal(by.rush10.level, 'Possible');
+  assert.equal(by.rec10.hits, 1); assert.equal(by.scrim20.hits, 0);
+  assert.equal(F.games[3].rushYards, -3);
+  assert.equal(F.yardage.cohortGames > 0, true);
 });

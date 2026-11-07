@@ -369,6 +369,13 @@ tr.high td{background:rgba(61,224,168,.07)}
 .firstdrive-pred strong { font-size: 1.5rem; }
 .firstdrive-call { line-height: 1.5; }
 .firstdrive-history { margin: .8rem 0; }
-.firstdrive-history table { min-width: 580px; }
+.firstdrive-history table { min-width: 760px; }
 .firstdrive summary { cursor: pointer; }
 @media (max-width: 430px) { .firstdrive { padding: .7rem; } }
+
+.firstdrive-call ul, .firstdrive-outcomes ul { padding-left: 1.2rem; }
+.firstdrive-call li, .firstdrive-outcomes li { margin: .6rem 0; overflow-wrap: anywhere; }
+.firstdrive-yards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; margin: .8rem 0; }
+.firstdrive-yards > div { padding: .6rem; border-radius: 10px; background: var(--surface2); }
+.firstdrive-yards strong { font-size: 1.4rem; }
+.firstdrive-outcomes { margin: .8rem 0; }
