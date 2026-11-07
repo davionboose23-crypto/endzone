@@ -8,6 +8,7 @@ import { buildBrief, analyze, PROVIDERS } from '/src/analyst.js';
 import { driveAdjustFor, applyToChance, pLead } from '/src/drive-adjust.js';
 import { buildSimInputs, runSim, summarize, vsMarket, playerGameStat, playerDriveTable, pAtLeast, simPatterns, driveCard, pct as simPct, hashSeed, GAME_PRESETS, SIM_PRESETS, STAT_LBL as SIM_LBL } from '/src/sim.js';
 import { buildPbpInputs, calibratePbp, pbpRunner, finish as pbpFinish, summarizePbp, pbpPartial, replayGame } from '/src/sim-pbp.js';
+import { firstDriveForecast } from '/src/first-drive.js';
 import { STATS, PRESETS, thLabel, shortName, personName, ylText, statLine, cellText, playerDriveRows, hitSummary, meets, driveLabel } from '/src/drive-log.js';
 
 const $ = s => document.querySelector(s);
@@ -130,9 +131,34 @@ function driveChartHtml(r) {
    ${G.slice().reverse().map(g => `<tr><th scope="row">${g.s !== S.slate.season ? `'${String(g.s).slice(2)} ` : ''}W${g.w} <span class="muted">${esc(g.opp)}</span></th>${cols.map(n => g.d[n - 1] ? cell(g.d[n - 1]) : '<td class="dc na"></td>').join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Touches (targets + carries) on each of his team's drives, newest game first; outlined = he touched it in the red zone. Tap a cell for targets / receptions / carries / yards.</p>`;
 }
+function firstDriveHtml(p) {
+  const D = drivesData();
+  const opp = allPlayers().find(x => x.id === p.id)?.opp || null;
+  const F = firstDriveForecast(D, p, opp);
+  if (!F?.games.length) return '<section class="firstdrive"><h3>First drive</h3><p class="small muted">No 2026 first-drive sample with recorded target/carry involvement before this week. No opening-drive forecast yet.</p></section>';
+  const { observed: o, prediction: f, trend: t } = F;
+  const rate = a => a.n ? `${pc(a.td / a.n)} TD · ${pc(a.scored / a.n)} TD/FG (${a.td}/${a.n} TD)` : 'No sample';
+  const trend = t.direction === 'insufficient' ? 'Not enough games to judge a direction.' : `${t.direction === 'rising' ? '↑ Rising' : t.direction === 'falling' ? '↓ Falling' : '→ Steady'}: ${n1(t.recent)} touches per first drive in his last ${t.recentN}, vs ${n1(t.previous)} in the previous ${t.previousN}. Descriptive, not a proven edge.`;
+  const call = f.touch >= .7 ? 'Expect early involvement' : f.touch >= .4 ? 'An early touch is possible, not dependable' : 'More likely to open without a touch';
+  return `<section class="firstdrive" aria-label="First-drive forecast"><h3>First drive · week ${D.week}${opp ? ` vs ${esc(opp)}` : ''}</h3>
+   <p class="small muted">His team's first offensive possession — not drives 1–2 or the game's first possession. 2026 only, before week ${D.week}.</p>
+   <div class="kv firstdrive-pred"><div>Gets a touch<br><strong>${pc(f.touch)}</strong></div><div>Expected touches<br><strong>${n1(f.touches)}</strong></div><div>He scores a TD<br><strong>${pc(f.playerTd, 1)}</strong></div><div>${esc(p.team)} scores a TD<br><strong>${pc(f.teamTd)}</strong></div></div>
+   <p class="firstdrive-call"><strong>${call}:</strong> about ${n1(f.touches)} catches + carries; an opening-drive TD is ${f.playerTd >= .5 ? 'more likely than not' : f.playerTd >= .15 ? 'a possibility, but still unlikely' : 'a long shot'} (${pc(f.playerTd, 1)}).</p>
+   <p class="small"><strong>First-drive trend:</strong> ${trend}</p>
+   <ul class="small dprof"><li>Touch rate: <strong>${o.touchGames}/${o.games} (${pc(o.touchRate)})</strong> · ${n1(o.touches / o.games)} touches per opening drive.</li>
+   <li>Target share on drive 1: <strong>${pc(o.targetShare)}</strong> (${o.targets}/${o.teamTargets} team targets).</li>
+   <li>${esc(p.team)} first-drive scoring: <strong>${rate(F.offense)}</strong>.</li>
+   <li>${opp ? esc(opp) : 'Opponent'} first-drive allowed: <strong>${rate(F.defense)}</strong>${F.defense.n ? '' : ' — using the 2026 league baseline instead'}.</li></ul>
+   <details class="firstdrive-history" open><summary>Every 2026 first drive · ${o.games} recorded games</summary>
+   <div class="tablewrap" tabindex="0" role="region" aria-label="2026 first-drive game history"><table><thead><tr>${['Game', 'Touches', 'Targets', 'Carries', 'Yards', 'Team RZ?', 'Team result', 'His TD?'].map(h => `<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>
+   ${F.games.slice().reverse().map(g => `<tr><th scope="row">W${g.week} ${esc(g.team)} vs ${esc(g.opp)}</th><td>${g.touches}</td><td>${g.targets}</td><td>${g.carries}</td><td>${g.yards}</td><td>${g.rz ? 'Yes' : 'No'}</td><td>${esc(RES_LBL[g.result] || g.result)}</td><td>${g.playerTd ? 'Yes' : 'No'}</td></tr>`).join('')}</tbody></table></div></details>
+   <details class="small muted"><summary>How this opening-drive estimate works</summary><p>Exploratory, not backtest-validated; display-only, not the anytime model or either sim. No market inputs. Touches = catches + carries (the older grid below counts targets + carries). Games require a recorded target or carry somewhere in the game; inactive games and games with no recorded involvement are excluded, not counted as zeros. No snap participation is inferred.</p>
+   <p>Player opening-drive rates use four pseudo-drives at his own 2026 all-drive baseline. Team and opponent TD rates use six pseudo-opening-drives at the 2026 league rate, then are averaged. Opponent opening-drive catches + carries adjust expected touches and the touch probability, shrunk by six league opening drives (multiplier capped at 0.75–1.25; touch probability cannot exceed expected touches). His TD estimate is the team TD estimate × his shrunk share of team TDs; all-drive TD share uses four pseudo-TDs at his opportunity share, opening-drive share uses three pseudo-TDs at that baseline. It cannot exceed his touch or team TD probability. Small samples are uncertain; the trend compares the latest three games with up to three prior games and does not boost the forecast.</p></details></section>`;
+}
 function drivePanelHtml(p) {
   const D = drivesData(); if (!D) return '<p class="small muted">Drive table not loaded for this week.</p>';
-  const r = driveRow(p); if (!r) return `<p class="small muted">No drive history for him in ${D.season - 1}–${D.season} before week ${D.week} (needs 2+ games this season).</p><p class="small muted">${driveStatusLine(D)}</p>`;
+  const first = firstDriveHtml(p);
+  const r = driveRow(p); if (!r) return `${first}<p class="small muted">No drive history for him in ${D.season - 1}–${D.season} before week ${D.week} (needs 2+ games this season).</p><p class="small muted">${driveStatusLine(D)}</p>`;
   const a = r.summary, c = r.curSummary || a; const yr = D.season;
   const prof = [
     `Opening-script touches (drives 1–2): <strong>${c.openPerGame.toFixed(1)} per game</strong> in ${yr} <span class="muted">(${a.openPerGame.toFixed(1)} since ${yr - 1})</span>`,
@@ -146,7 +172,7 @@ function drivePanelHtml(p) {
   const gs = p.gsis && D.players[p.gsis] ? p.gsis : D.bySleeper?.[p.id];
   const mv = me ? modelView(D, gs, { opp: me.opp, spread: sp, chance: p.chance ?? null, blend: p.challenger ?? null }) : null;
   const seen = mv ? `<h4>What the model sees</h4><ul class="mvlist small">${modelViewHtml(D, mv, { name: false })}</ul>` : '<h4>What the model sees</h4><p class="small muted">No pattern or watch item for him: the drive adjustment is ×1.00.</p>';
-  return `${seen}${driveChartHtml(r)}
+  return `${first}${seen}${driveChartHtml(r)}
    <h4>Usage profile</h4><ul class="small dprof">${prof.map(x => `<li>${x}</li>`).join('')}</ul>
    <h4>Patterns that survived the checks</h4>${pats.length ? `<ul class="small dpats">${pats.map(t => `<li>${relChip(t.rel)} ${esc(t.text.replace(/, (strong|moderate)\)$/, ')'))}${t.own?.weeks && t.own.retention != null ? ` <span class="muted">· ${t.own.retention >= 1 ? 'fully held up' : t.own.retention > 0 ? `kept ${Math.round(t.own.retention * 100)}% of its edge` : 'did not hold up'} over ${t.own.weeks} later week${t.own.weeks > 1 ? 's' : ''}</span>` : ''}</li>`).join('')}</ul>`
      : `<p class="small">None for him. ${D.counts ? `League-wide only ${D.counts.drive.fdr} of ${D.counts.drive.tests.toLocaleString()} exact drive-number tests survived FDR (${D.counts.drive.raw05} hit p&lt;0.05 vs ${D.counts.drive.expectedByChance} expected by chance), so "N catches on the 3rd drive" style claims are almost always noise.` : ''}</p>`}
@@ -591,7 +617,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.24.4';
+const APP_VERSION = '4.24.5';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';

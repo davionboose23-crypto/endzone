@@ -31,6 +31,7 @@ test('UI: phone matchup replaces slate, mobile passing TD, accessible panel, boa
     for (let i = 0; i < 400; i++) await p.keyboard.press('Tab');
     assert.equal(await p.evaluate(() => document.getElementById('panel').contains(document.activeElement)), true, 'focus trapped');
     assert.ok(await p.locator('#panel figure').count() >= 1, 'pies or empty states rendered');
+    assert.equal(await p.locator('#panel .firstdrive').count(), 1, 'player page leads drive patterns with a first-drive forecast or explicit empty state');
     assert.equal(await p.locator('#panel [data-act=gotosim]').count(), 0, 'player page has no navigation to the Simulator');
     assert.equal(await p.locator('#playerSimOut [data-act=playersimrun]').count(), 1, 'player can run his sim here');
     await p.keyboard.press('Escape'); assert.equal(await p.locator('#panel').isHidden(), true);
@@ -152,5 +153,5 @@ test('UI: player sim runs in place, refreshes on progress/completion, and never 
   S.sim.sum = { ...sum, away: 'ATL', home: 'OTHER' }; context.paintPlayerSim();
   assert.match(out.innerHTML, /playersimrun/); assert.doesNotMatch(out.innerHTML, /A typical game for him/, 'wrong-game result never appears');
   assert.doesNotMatch(src, /S\.sim\.focus|applySimFocus/);
-  assert.match(src, /const APP_VERSION = '4\.24\.4'/);
+  assert.match(src, /const APP_VERSION = '4\.24\.5'/);
 });

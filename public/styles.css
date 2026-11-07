@@ -361,3 +361,14 @@ tr.high td{background:rgba(61,224,168,.07)}
 }
 .dlpl .plink.pnm{text-decoration:underline dotted rgba(139,151,173,.55);text-underline-offset:2px}
 .dlpl .plink.pnm:hover{color:var(--gold)}
+
+/* First-possession research stays on the player page; long history scrolls locally. */
+.firstdrive { margin: 0 0 1.25rem; padding: 1rem; border: 1px solid var(--gold, #d6ad55); border-radius: 12px; background: rgba(214,173,85,.055); min-width: 0; }
+.firstdrive h3 { margin-top: 0; }
+.firstdrive-pred { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+.firstdrive-pred strong { font-size: 1.5rem; }
+.firstdrive-call { line-height: 1.5; }
+.firstdrive-history { margin: .8rem 0; }
+.firstdrive-history table { min-width: 580px; }
+.firstdrive summary { cursor: pointer; }
+@media (max-width: 430px) { .firstdrive { padding: .7rem; } }
