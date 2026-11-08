@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { attachDrivePatterns, driveEstimateConfidence, DRIVE_CONFIDENCE_RULE } from '../src/drive-board.js';
 import { firstDriveForecast, prepareFirstDriveContext } from '../src/first-drive.js';
-import { sortPlayers, SORTS, SORT_GROUPS } from '../src/ranking.js';
+import { sortPlayers, SORTS, SORT_GROUPS, migrateDriveSort } from '../src/ranking.js';
 const D = JSON.parse(fs.readFileSync(new URL('../archive/drives/2026/w9.json', import.meta.url)));
 const player = { id: '7594', gsis: '00-0036555', pos: 'RB', team: 'CAR', opp: 'DEN', chance: .5, tdConf: { level: 'High' } };
 const fake = values => ({ games: values.map(hit => ({ hit })), offense: { n: 10 }, defense: { n: 10 } });
@@ -31,8 +31,8 @@ test('drive sort orders its own tier first, then probability, missing last, stab
   const before = JSON.stringify(rows);
   assert.deepEqual(sortPlayers(rows, 'fdTouchConf').map(p => p.id), ['h1', 'h2', 'med', 'low', 'missing']);
   assert.equal(JSON.stringify(rows), before);
-  assert.deepEqual(SORT_GROUPS.find(g => g[0] === 'Drive patterns')[1], ['fdTouchConf', 'fdRush10Conf', 'fdRec10Conf', 'fdTdConf']);
-  for (const key of ['fdTouchConf', 'fdRush10Conf', 'fdRec10Conf', 'fdTdConf']) assert.ok(SORTS[key].drive);
+  assert.deepEqual(SORT_GROUPS.find(g => g[0] === 'Drive patterns')[1], ['fdTouchConf', 'fdRush5Conf', 'fdRec5Conf', 'fdTdConf']);
+  for (const key of ['fdTouchConf', 'fdRush5Conf', 'fdRec5Conf', 'fdTdConf']) assert.ok(SORTS[key].drive);
 });
 
 test('prepared context matches ordinary forecasts; board adds copies only and invalidates by drive-file identity', () => {
@@ -41,7 +41,8 @@ test('prepared context matches ordinary forecasts; board adds copies only and in
   const [row] = attachDrivePatterns(D, [frozen]);
   const F = firstDriveForecast(D, player, player.opp);
   assert.equal(row.drivePatterns.touch.probability, F.prediction.touch);
-  assert.equal(row.drivePatterns.rush10.probability, F.yardage.outcomes.find(o => o.key === 'rush10').probability);
+  assert.equal(row.drivePatterns.rush5.probability, F.yardage.outcomes.find(o => o.key === 'rush5').probability);
+  assert.equal(row.drivePatterns.rec5.probability, F.yardage.outcomes.find(o => o.key === 'rec5').probability);
   assert.equal(row.drivePatterns.td.probability, F.prediction.playerTd);
   assert.equal(row.drivePatterns.touch.confidence.level, 'High');
   assert.equal(Object.hasOwn(frozen, 'drivePatterns'), false);
@@ -53,6 +54,12 @@ test('prepared context matches ordinary forecasts; board adds copies only and in
   assert.deepEqual(attachDrivePatterns(null, [player])[0].drivePatterns, {});
 });
 
+test('persisted old yardage sort keys migrate without changing unrelated selections', () => {
+  assert.equal(migrateDriveSort('fdRush10Conf'), 'fdRush5Conf');
+  assert.equal(migrateDriveSort('fdRec10Conf'), 'fdRec5Conf');
+  for (const key of ['default', 'fdTouchConf', 'fdTdConf', 'recYdConf', 'toString']) assert.equal(migrateDriveSort(key), key);
+});
+
 const CHROME = '/usr/bin/google-chrome';
 test('Board Drive patterns sorts persist, display probability/tier on all layouts, and fit phones', { skip: !fs.existsSync(CHROME) && 'no chrome', timeout: 300000 }, async () => {
   const { chromium } = await import('playwright-core');
@@ -62,12 +69,14 @@ test('Board Drive patterns sorts persist, display probability/tier on all layout
   const browser = await chromium.launch({ executablePath: CHROME, args: ['--no-sandbox'] });
   try {
     const p = await browser.newPage({ viewport: { width: 390, height: 844 }, hasTouch: true, timezoneId: 'America/Chicago' });
+    await p.addInitScript(() => { if (!localStorage.getItem('endzone.board.v1')) localStorage.setItem('endzone.board.v1', JSON.stringify({ sort: 'fdRec10Conf' })); });
     const errors = []; p.on('pageerror', e => errors.push(e.message));
     await p.goto(`http://127.0.0.1:${server.address().port}`); await p.waitForSelector('.game', { timeout: 180000 });
     await p.click('#tab-board');
+    assert.equal(await p.inputValue('#bsort'), 'fdRec5Conf', 'old saved 10-yard sort migrates to 5 yards');
     assert.equal(await p.locator('#bsort optgroup[label="Drive patterns"] option').count(), 4);
     const rank = { High: 0, Med: 1, Low: 2 };
-    for (const key of ['fdTouchConf', 'fdRush10Conf', 'fdRec10Conf', 'fdTdConf']) {
+    for (const key of ['fdTouchConf', 'fdRush5Conf', 'fdRec5Conf', 'fdTdConf']) {
       await p.selectOption('#bsort', key);
       await p.waitForSelector('#view-board .focuslist [data-drive-tier]');
       const cells = await p.locator('#view-board .focuslist [data-drive-tier]').evaluateAll(cs => cs.map(c => ({ tier: c.dataset.driveTier, prob: +c.dataset.driveProb })));
@@ -75,7 +84,15 @@ test('Board Drive patterns sorts persist, display probability/tier on all layout
       for (let i = 1; i < cells.length; i++) assert.ok(rank[cells[i - 1].tier] < rank[cells[i].tier] || (rank[cells[i - 1].tier] === rank[cells[i].tier] && cells[i - 1].prob >= cells[i].prob));
       assert.match(await p.locator('#view-board .focuslist .fhead').textContent(), /Drive 1/);
     }
-    await p.selectOption('#bsort', 'fdTouchConf');
+    const tops = {};
+    for (const key of ['fdRush5Conf', 'fdRec5Conf']) {
+      await p.selectOption('#bsort', key);
+      tops[key] = await p.locator('#view-board .focuslist .frow:not(.fhead)').evaluateAll(rs => rs.slice(0, 5).map(r => {
+        const c = r.querySelector('[data-drive-tier]'); return { name: r.querySelector('.fplayer .plink')?.innerText, tier: c?.dataset.driveTier, probability: +c?.dataset.driveProb };
+      }));
+    }
+    fs.writeFileSync('/tmp/endzone-drive-board-5yd-top5.json', JSON.stringify(tops, null, 2));
+    await p.selectOption('#bsort', 'fdRec5Conf');
     for (const [width, height] of [[390, 844], [844, 390]]) {
       await p.setViewportSize({ width, height });
       await p.waitForTimeout(250);
@@ -83,11 +100,7 @@ test('Board Drive patterns sorts persist, display probability/tier on all layout
     }
     await p.setViewportSize({ width: 390, height: 1300 });
     await p.waitForTimeout(250);
-    const top = await p.locator('#view-board .focuslist .frow:not(.fhead)').evaluateAll(rs => rs.slice(0, 5).map(r => {
-      const c = r.querySelector('[data-drive-tier]'); return { name: r.querySelector('.fplayer .plink')?.innerText, tier: c?.dataset.driveTier, probability: +c?.dataset.driveProb };
-    }));
-    fs.writeFileSync('/tmp/endzone-drive-board-top5.json', JSON.stringify(top, null, 2));
-    await p.screenshot({ path: '/tmp/endzone-drive-board-4.24.7-phone.png' });
+    await p.screenshot({ path: '/tmp/endzone-drive-board-4.24.8-rec5-phone.png' });
     // Non-focus mobile and desktop need the selected drive estimate too.
     await p.click('#focusBtn'); await p.waitForSelector('#view-board .cards-mobile .driveboard-cell');
     assert.ok(await p.locator('#view-board .cards-mobile .driveboard-cell').count() > 10);
@@ -98,7 +111,7 @@ test('Board Drive patterns sorts persist, display probability/tier on all layout
     assert.ok(await p.locator('#view-board .desk-only tbody [data-drive-tier]').count() > 10);
     assert.equal(await p.locator('#view-board .desk-only thead th').count(), await p.locator('#view-board .desk-only tbody tr').first().locator('td').count());
     await p.reload(); await p.waitForSelector('.game', { timeout: 180000 }); await p.click('#tab-board');
-    assert.equal(await p.inputValue('#bsort'), 'fdTouchConf');
+    assert.equal(await p.inputValue('#bsort'), 'fdRec5Conf');
     assert.deepEqual(errors, []);
   } finally { await browser.close(); server.close(); }
 });

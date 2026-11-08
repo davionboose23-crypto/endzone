@@ -94,6 +94,8 @@ function firstDriveYardage(games, peers, position, league, defense) {
   const definitions = [
     ['carry', '1+ carry', g => g.carries >= 1],
     ['catch', '1+ catch', g => g.catches >= 1],
+    ['rush5', '5+ rushing yards', g => g.rushYards >= 5],
+    ['rec5', '5+ receiving yards', g => g.recYards >= 5],
     ['rush10', '10+ rushing yards', g => g.rushYards >= 10],
     ['rec10', '10+ receiving yards', g => g.recYards >= 10],
     ['scrim20', '20+ scrimmage yards', g => g.rushYards + g.recYards >= 20],

@@ -24,16 +24,18 @@ const driveConf = metric => (a, b) => {
   if (!hasX) return String(a.id).localeCompare(String(b.id));
   return confRank(x.confidence?.level) - confRank(y.confidence?.level) || y.probability - x.probability || String(a.id).localeCompare(String(b.id));
 };
+// Preserve a saved Board drive selection when switching its threshold to 5 yards.
+export const migrateDriveSort = key => key === 'fdRush10Conf' ? 'fdRush5Conf' : key === 'fdRec10Conf' ? 'fdRec5Conf' : key;
 export const SORT_GROUPS = [
   ['Touchdown', ['default', 'conf', 'chance', 'edge']],
   ['Other stats', ['rushYd', 'recYd', 'rec', 'passYd', 'passTd']],
   ['Other stats by model confidence', ['rushYdConf', 'recYdConf', 'recConf', 'passYdConf']],
-  ['Drive patterns', ['fdTouchConf', 'fdRush10Conf', 'fdRec10Conf', 'fdTdConf']],
+  ['Drive patterns', ['fdTouchConf', 'fdRush5Conf', 'fdRec5Conf', 'fdTdConf']],
 ];
 export const SORTS = {
   fdTouchConf: { label: 'First-drive touch — confidence', shortLabel: 'Drive 1 · touch', drive: 'touch', cmp: driveConf('touch') },
-  fdRush10Conf: { label: 'First-drive 10+ rush yds — confidence', shortLabel: 'Drive 1 · 10+ rush', drive: 'rush10', cmp: driveConf('rush10') },
-  fdRec10Conf: { label: 'First-drive 10+ rec yds — confidence', shortLabel: 'Drive 1 · 10+ rec', drive: 'rec10', cmp: driveConf('rec10') },
+  fdRush5Conf: { label: 'First-drive 5+ rush yds — confidence', shortLabel: 'Drive 1 · 5+ rush', drive: 'rush5', cmp: driveConf('rush5') },
+  fdRec5Conf: { label: 'First-drive 5+ rec yds — confidence', shortLabel: 'Drive 1 · 5+ rec', drive: 'rec5', cmp: driveConf('rec5') },
   fdTdConf: { label: 'First-drive TD — confidence', shortLabel: 'Drive 1 · TD', drive: 'td', cmp: driveConf('td') },
   default: { label: 'High TD confidence first', cmp: compareDefault },
   conf: { label: 'Model confidence (High › Med › Low)', cmp: compareConfidence, conf: true },

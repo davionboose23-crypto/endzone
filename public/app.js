@@ -1,7 +1,7 @@
 // ENDZONE UI (browser module). Heavy computation runs in the Web Worker.
 import { fmtAmerican, DEFAULT_WEIGHTS, WEIGHT_RANGES, sanitizeWeights } from '/src/model.js';
 import { STAGES, etDisplay, requestGate } from '/src/feeds.js';
-import { sortPlayers, SORTS, SORT_GROUPS, compareDefault } from '/src/ranking.js';
+import { sortPlayers, SORTS, SORT_GROUPS, compareDefault, migrateDriveSort } from '/src/ranking.js';
 import { teamLogo } from '/src/roster.js';
 import { snapshotPassTd } from '/src/passing-touchdowns.js';
 import { buildBrief, analyze, PROVIDERS } from '/src/analyst.js';
@@ -25,6 +25,8 @@ const S = { slate: null, tab: 'slate', week: null, season: null, gameId: null, p
   weights: sanitizeWeights(load(LS.weights, DEFAULT_WEIGHTS)), watch: new Set(load(LS.watch, [])),
   board: Object.assign({ pos: 'ALL', q: '', game: '', hideLow: false, hideStarted: false, watchOnly: false, sort: 'default' }, load(LS.board, {})), auto: load(LS.auto, { enabled: false, minutes: 15 }),
   focus: load(LS.view, null) ?? window.matchMedia('(max-width:1023px) and (orientation:portrait)').matches };
+const restoredSort = migrateDriveSort(S.board.sort);
+if (restoredSort !== S.board.sort) { S.board.sort = restoredSort; save(LS.board, S.board); }
 const worker = new Worker('/src/worker.js', { type: 'module' });
 let timers = [];
 
@@ -626,7 +628,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.24.7';
+const APP_VERSION = '4.24.8';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';

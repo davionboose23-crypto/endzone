@@ -30,8 +30,8 @@ export function attachDrivePatterns(D, players) {
           metrics[key] = { probability, confidence: driveEstimateConfidence(F, hit, probability, td) };
         };
         add('touch', F.prediction.touch, g => g.touches > 0);
-        add('rush10', F.yardage.outcomes.find(o => o.key === 'rush10').probability, g => g.rushYards >= 10);
-        add('rec10', F.yardage.outcomes.find(o => o.key === 'rec10').probability, g => g.recYards >= 10);
+        add('rush5', F.yardage.outcomes.find(o => o.key === 'rush5').probability, g => g.rushYards >= 5);
+        add('rec5', F.yardage.outcomes.find(o => o.key === 'rec5').probability, g => g.recYards >= 5);
         add('td', F.prediction.playerTd, g => g.playerTd > 0, true);
       }
       C.players.set(key, metrics);

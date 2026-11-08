@@ -125,7 +125,9 @@ test('first-drive block fits a phone with its history scrolling locally', { skip
     const page = await b.newPage({ viewport: { width: 390, height: 844 } });
     const css = fs.readFileSync(new URL('../public/styles.css', import.meta.url), 'utf8');
     await page.setContent(`<html><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css}</style><body><main><h2>Chuba Hubbard · Drive patterns</h2>${ctx.firstDriveHtml(hubbard)}</main></body></html>`);
-    assert.match(await page.locator('.firstdrive-call').innerText(), /High chance:[\s\S]*1\+ carry[\s\S]*88%[\s\S]*7 of 7[\s\S]*Coin flip:[\s\S]*1\+ catch[\s\S]*48%[\s\S]*Possible:[\s\S]*10\+ rushing yards[\s\S]*25%/);
+    assert.match(await page.locator('.firstdrive-call').innerText(), /High chance:[\s\S]*1\+ carry[\s\S]*88%[\s\S]*7 of 7[\s\S]*Likely:[\s\S]*5\+ rushing yards[\s\S]*Coin flip:[\s\S]*1\+ catch/);
+    assert.equal(await page.locator('.firstdrive-outcomes li').count(), 7);
+    assert.match(await page.locator('.firstdrive-outcomes').textContent(), /5\+ receiving yards[\s\S]*10\+ rushing yards[\s\S]*10\+ receiving yards/);
     assert.match(await page.locator('.firstdrive-yards').innerText(), /6\.5[\s\S]*2\.0/);
     assert.match(await page.locator('.firstdrive-history thead').innerText(), /Rush yds[\s\S]*Rec yds/i);
     assert.equal(await page.locator('.firstdrive-history tbody tr').count(), 7);
@@ -143,7 +145,7 @@ test('yardage thresholds count per-player rush/rec totals separately, retain los
   const b = D.teams.AAA.games[1].d[0][8][0]; b[2] = 1; b[3] = 10; b[4] = 0; b[5] = 0;
   const c = D.teams.AAA.games[2].d[0][8][0]; c[2] = 0; c[3] = 0; c[4] = 1; c[5] = -3;
   const F = firstDriveForecast(D, p, 'BBB'), Y = F.yardage;
-  assert.deepEqual(Object.fromEntries(Y.outcomes.map(o => [o.key, o.hits])), { carry: 2, catch: 2, rush10: 1, rec10: 2, scrim20: 1 });
+  assert.deepEqual(Object.fromEntries(Y.outcomes.map(o => [o.key, o.hits])), { carry: 2, catch: 2, rush5: 1, rec5: 2, rush10: 1, rec10: 2, scrim20: 1 });
   assert.equal(F.games[2].rushYards, -3);
   for (const o of Y.outcomes) {
     assert.equal(o.probability, (o.hits + 2 * o.prior) / 5);
@@ -182,7 +184,25 @@ test('CAR sample identifies Hubbard; threshold claims never manufacture a high 1
   const by = Object.fromEntries(F.yardage.outcomes.map(o => [o.key, o]));
   assert.equal(by.carry.hits, 7); assert.equal(by.carry.level, 'High');
   assert.equal(by.rush10.hits, 2); assert.equal(by.rush10.level, 'Possible');
+  assert.equal(by.rush5.hits, 5); assert.equal(by.rec5.hits, 2);
+  assert.ok(by.rush5.probability >= by.rush10.probability);
+  assert.ok(by.rec5.probability >= by.rec10.probability);
   assert.equal(by.rec10.hits, 1); assert.equal(by.scrim20.hits, 0);
   assert.equal(F.games[3].rushYards, -3);
   assert.equal(F.yardage.cohortGames > 0, true);
+});
+
+test('five-yard thresholds are inclusive at five and do not replace ten-yard outcomes', () => {
+  const D = fixture([1, 1, 1, 1]);
+  for (const [i, yards] of [4, 5, 9, 10].entries()) {
+    const r = D.teams.AAA.games[i].d[0][8][0];
+    r[2] = 1; r[3] = yards; r[4] = 1; r[5] = yards;
+  }
+  const Y = firstDriveForecast(D, p, 'BBB').yardage;
+  const by = Object.fromEntries(Y.outcomes.map(o => [o.key, o]));
+  for (const prefix of ['rush', 'rec']) {
+    assert.equal(by[prefix + '5'].hits, 3);
+    assert.equal(by[prefix + '10'].hits, 1);
+    assert.ok(by[prefix + '5'].probability > by[prefix + '10'].probability);
+  }
 });
