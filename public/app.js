@@ -9,6 +9,7 @@ import { driveAdjustFor, applyToChance, pLead } from '/src/drive-adjust.js';
 import { buildSimInputs, runSim, summarize, vsMarket, playerGameStat, playerDriveTable, pAtLeast, simPatterns, driveCard, pct as simPct, hashSeed, GAME_PRESETS, SIM_PRESETS, STAT_LBL as SIM_LBL } from '/src/sim.js';
 import { buildPbpInputs, calibratePbp, pbpRunner, finish as pbpFinish, summarizePbp, pbpPartial, replayGame } from '/src/sim-pbp.js';
 import { firstDriveForecast } from '/src/first-drive.js';
+import { attachDrivePatterns, DRIVE_CONFIDENCE_RULE } from '/src/drive-board.js';
 import { STATS, PRESETS, thLabel, shortName, personName, ylText, statLine, cellText, playerDriveRows, hitSummary, meets, driveLabel } from '/src/drive-log.js';
 
 const $ = s => document.querySelector(s);
@@ -625,7 +626,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.24.6';
+const APP_VERSION = '4.24.7';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
@@ -1002,17 +1003,18 @@ function matchupHtml(g) {
 const PRIMARY = { QB: ['passYd', 'Pass yds'], RB: ['rushYd', 'Rush yds'], FB: ['rushYd', 'Rush yds'], WR: ['recYd', 'Rec yds'], TE: ['recYd', 'Rec yds'] };
 // Board stat sorts show the sorted stat (with its own model-confidence chip) in the focus list's last column.
 const STAT_LBL = { rushYd: 'Rush yds', recYd: 'Rec yds', rec: 'Rec' };
-const sortStat = k => { const m = String(k || '').replace(/Conf$/, ''); return STAT_LBL[m] ? m : null; };
-const primaryCell = (p, stat) => { const [m, l] = stat ? [stat, STAT_LBL[stat]] : (PRIMARY[p.pos] || PRIMARY.WR); const v = p.volume?.[m]; return `<span class="muted small">${l}</span> ${v ? (m === 'rec' ? n1(v.mean) : n0(v.mean)) : '—'}${stat || (p.pos === 'QB' && /^passYd/.test(S.board.sort) && S.tab === 'board') ? ` ${chip(p.volConf?.[m]?.level)}` : ''}`; };
+const sortStat = k => { if (SORTS[k]?.drive) return k; const m = String(k || '').replace(/Conf$/, ''); return STAT_LBL[m] ? m : null; };
+const primaryCell = (p, stat) => { if (SORTS[stat]?.drive) return driveBoardCell(p, stat); const [m, l] = stat ? [stat, STAT_LBL[stat]] : (PRIMARY[p.pos] || PRIMARY.WR); const v = p.volume?.[m]; return `<span class="muted small">${l}</span> ${v ? (m === 'rec' ? n1(v.mean) : n0(v.mean)) : '—'}${stat || (p.pos === 'QB' && /^passYd/.test(S.board.sort) && S.tab === 'board') ? ` ${chip(p.volConf?.[m]?.level)}` : ''}`; };
 const focusBtn = (p, gid) => `<button class="plink" data-act="player" data-game="${esc(gid)}" data-player="${esc(p.id)}">${photo(p)}<span>${esc(p.name)} <span class="muted small">${esc(p.pos)} · ${esc(p.team)}</span></span></button>`;
 function focusList(players, gidOf, label, withStar = false, stat = null) {
-  return `<div class="focuslist" role="table" aria-label="${esc(label)} (focus view)"><div role="row" class="frow fhead small muted"><span role="columnheader">Player</span><span role="columnheader">Anytime</span><span role="columnheader">TD conf</span><span role="columnheader">${stat ? esc(STAT_LBL[stat]) : 'Primary yards'}</span></div>
+  return `<div class="focuslist" role="table" aria-label="${esc(label)} (focus view)"><div role="row" class="frow fhead small muted"><span role="columnheader">Player</span><span role="columnheader">Anytime</span><span role="columnheader">TD conf</span><span role="columnheader">${stat ? esc(SORTS[stat]?.shortLabel || STAT_LBL[stat]) : 'Primary yards'}</span></div>
    ${players.map(p => `<div role="row" class="frow ${p.tdConf.level === 'High' ? 'high' : ''}"><span role="cell" class="fplayer">${withStar ? star(p) : ''}${focusBtn(p, gidOf(p))}</span><span role="cell" class="mid">${pc(p.chance)}${blendMini(p)}</span><span role="cell" aria-label="TD confidence ${p.tdConf.level}">${chip(p.tdConf.level)}</span><span role="cell">${primaryCell(p, stat)}</span></div>`).join('')}</div>`;
 }
-function mobileCard(p, gid) {
+function mobileCard(p, gid, driveSort = null) {
   return `<div class="card ${p.tdConf.level === 'High' ? 'high' : ''}"><div class="pcard">${photo(p)}<div><button class="plink" data-act="player" data-game="${esc(gid)}" data-player="${esc(p.id)}">${esc(p.name)}</button><div class="small muted">${esc(p.pos)} · ${esc(p.team)} ${highBadge(p)}</div></div><div class="big">${pc(p.chance)}</div></div>
    <div class="row small">${chip(p.tdConf.level, 'TD')} band ${pc(p.band[0])}–${pc(p.band[1])}</div>${blendLine(p)}
    ${p.pos === 'QB' ? `<div class="small"><strong>Pass TD</strong> ${passTdCell(p)} · <strong>Pass yds</strong> ${volCell(p, 'passYd')}</div>` : ''}
+   ${driveSort ? `<div class="driveboard-card">${driveBoardCell(p, driveSort)}</div>` : ''}
    <div class="small">Rush ${volCell(p, 'rushYd')} · Rec yds ${volCell(p, 'recYd')} · Rec ${volCell(p, 'rec')}</div></div>`;
 }
 
@@ -1024,6 +1026,13 @@ const blendMini = p => (p.challenger != null && p.challengerLegs ? `<span class=
 const blendLine = p => (p.challenger != null && p.challengerLegs ? `<div class="small muted blendline" title="Shadow challenger: equal cloglog blend of ${esc(legsText(p))}">blend ${pc(p.challenger)} · ${esc(legsText(p))}</div>` : '');
 
 // ---------- Board
+function driveBoardCell(p, sortKey) {
+  const spec = SORTS[sortKey], m = p.drivePatterns?.[spec?.drive];
+  if (!m || !Number.isFinite(m.probability)) return `<span class="driveboard-cell muted small">${esc(spec?.shortLabel || 'Drive 1')} · no 2026 history</span>`;
+  const c = m.confidence, level = c.level === 'Med' ? 'Medium' : c.level;
+  const why = `${c.hits}/${c.games} recorded games; recent-rate shift ${pc(c.shift)}, shrinkage gap ${pc(c.shrinkage)}. Research-estimate confidence, not event probability.`;
+  return `<span class="driveboard-cell" data-drive-tier="${esc(c.level)}" data-drive-prob="${m.probability}" title="${esc(why)}"><span class="small muted">${esc(spec.shortLabel)}</span> <strong>${pc(m.probability, m.probability < .1 ? 1 : 0)}</strong> <span class="chip ${esc(c.level)}" aria-label="Drive estimate confidence ${esc(level)}">${esc(level)}</span><span class="small muted">${c.hits}/${c.games} games</span></span>`;
+}
 function boardRows() {
   const b = S.board; let list = allPlayers();
   if (b.pos !== 'ALL') list = list.filter(p => p.pos === b.pos);
@@ -1032,6 +1041,7 @@ function boardRows() {
   if (b.hideLow) list = list.filter(p => p.chance >= 0.15);
   if (b.hideStarted) list = list.filter(p => !p.started);
   if (b.watchOnly) list = list.filter(p => S.watch.has(p.id));
+  if (SORTS[b.sort]?.drive) list = attachDrivePatterns(drivesData(), list);
   return sortPlayers(list, b.sort);
 }
 function renderBoard() {
@@ -1045,11 +1055,12 @@ function renderBoard() {
     <label><input type="checkbox" id="bstarted" ${b.hideStarted ? 'checked' : ''}> Hide started</label>
     <label><input type="checkbox" id="bwatch" ${b.watchOnly ? 'checked' : ''}> Watchlist only</label>
     <label>Sort <select id="bsort">${SORT_GROUPS.map(([g, ks]) => `<optgroup label="${esc(g)}">${ks.map(k => `<option value="${k}" ${b.sort === k ? 'selected' : ''}>${esc(SORTS[k].label)}</option>`).join('')}</optgroup>`).join('')}</select></label></div>
-   ${!rows.length ? `<div class="card empty"><strong>No players match</strong>Widen the filters or clear Hide under 15% / Watchlist only.</div>` : `<p class="small muted">${rows.length} players. ${b.sort === 'default' ? 'High touchdown confidence first, then chance.' : b.sort === 'conf' ? 'Model TD confidence High › Med › Low, then chance. Team calls and ratings are unchanged.' : SORTS[b.sort]?.conf ? `Model confidence for ${esc(SORTS[b.sort].label.split(' — ')[0].toLowerCase())}: High › Med › Low, then projection. Players without that projection last.` : 'Explicit stat sort: team calls and ratings are unchanged.'}</p>
+   ${SORTS[b.sort]?.drive ? `<details class="small muted driveboard-rule"><summary>Drive confidence: High › Medium › Low, then probability · 2026 only</summary><p>${esc(DRIVE_CONFIDENCE_RULE)}</p><p>Display-only; no anytime model, team-call or sim changes. Inactive/no recorded target-or-carry games are excluded. No history sorts last.</p></details>` : ''}
+   ${!rows.length ? `<div class="card empty"><strong>No players match</strong>Widen the filters or clear Hide under 15% / Watchlist only.</div>` : `<p class="small muted">${rows.length} players. ${SORTS[b.sort]?.drive ? 'Drive-pattern estimate confidence first, then opening-drive probability. High confidence does not mean high probability.' : b.sort === 'default' ? 'High touchdown confidence first, then chance.' : b.sort === 'conf' ? 'Model TD confidence High › Med › Low, then chance. Team calls and ratings are unchanged.' : SORTS[b.sort]?.conf ? `Model confidence for ${esc(SORTS[b.sort].label.split(' — ')[0].toLowerCase())}: High › Med › Low, then projection. Players without that projection last.` : 'Explicit stat sort: team calls and ratings are unchanged.'}</p>
    <p class="scrollhint" aria-hidden="true">Scroll sideways for every column →</p>
-   ${S.focus ? focusList(rows, p => p.gameId, 'Board', true, sortStat(b.sort)) : `   <div class="tablewrap desk-only" tabindex="0" role="region" aria-label="Board"><table><thead><tr><th scope="col">Player</th><th scope="col">★</th><th scope="col">Anytime</th><th scope="col">80% band</th><th scope="col">Edge</th><th scope="col">American fair price</th><th scope="col">TD conf</th><th scope="col">Rush yds</th><th scope="col">Rec yds</th><th scope="col">Receptions</th><th scope="col">Role</th></tr></thead>
-   <tbody>${rows.map(p => `<tr class="${p.tdConf.level === 'High' ? 'high' : ''}"><td>${playerBtn(p, p.gameId)}${qbLine(p)}</td><td>${star(p)}</td><td class="mid">${pc(p.chance)}${blendLine(p)}</td><td>${pc(p.band[0])}–${pc(p.band[1])}</td><td>${p.edge == null ? 'n/a' : (p.edge > 0 ? '+' : '') + p.edge.toFixed(1)}</td><td>${fmtAmerican(p.chance)}</td><td>${chip(p.tdConf.level)}</td><td>${volCell(p, 'rushYd')}</td><td>${volCell(p, 'recYd')}</td><td>${volCell(p, 'rec')}</td><td>${(p.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join(' ')}</td></tr>`).join('')}</tbody></table></div>
-   <div class="cards-mobile">${rows.map(p => `<div class="row">${star(p)}<div style="flex:1">${mobileCard(p, p.gameId)}</div></div>`).join('')}</div>`}`}`;
+   ${S.focus ? focusList(rows, p => p.gameId, 'Board', true, sortStat(b.sort)) : `   <div class="tablewrap desk-only" tabindex="0" role="region" aria-label="Board"><table><thead><tr><th scope="col">Player</th><th scope="col">★</th><th scope="col">Anytime</th><th scope="col">80% band</th><th scope="col">Edge</th><th scope="col">American fair price</th><th scope="col">TD conf</th>${SORTS[b.sort]?.drive ? `<th scope="col">${esc(SORTS[b.sort].shortLabel)}</th>` : ''}<th scope="col">Rush yds</th><th scope="col">Rec yds</th><th scope="col">Receptions</th><th scope="col">Role</th></tr></thead>
+   <tbody>${rows.map(p => `<tr class="${p.tdConf.level === 'High' ? 'high' : ''}"><td>${playerBtn(p, p.gameId)}${qbLine(p)}</td><td>${star(p)}</td><td class="mid">${pc(p.chance)}${blendLine(p)}</td><td>${pc(p.band[0])}–${pc(p.band[1])}</td><td>${p.edge == null ? 'n/a' : (p.edge > 0 ? '+' : '') + p.edge.toFixed(1)}</td><td>${fmtAmerican(p.chance)}</td><td>${chip(p.tdConf.level)}</td>${SORTS[b.sort]?.drive ? `<td>${driveBoardCell(p, b.sort)}</td>` : ''}<td>${volCell(p, 'rushYd')}</td><td>${volCell(p, 'recYd')}</td><td>${volCell(p, 'rec')}</td><td>${(p.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join(' ')}</td></tr>`).join('')}</tbody></table></div>
+   <div class="cards-mobile">${rows.map(p => `<div class="row">${star(p)}<div style="flex:1">${mobileCard(p, p.gameId, SORTS[b.sort]?.drive ? b.sort : null)}</div></div>`).join('')}</div>`}`}`;
 }
 const star = p => `<button class="star" aria-pressed="${S.watch.has(p.id)}" aria-label="${S.watch.has(p.id) ? 'Remove from' : 'Add to'} watchlist: ${esc(p.name)}" data-act="star" data-player="${esc(p.id)}">★</button>`;
 

@@ -16,12 +16,25 @@ const statConf = (m, qbOnly = false) => (a, b) => {
   if (ha !== hb) return ha ? -1 : 1; if (!ha) return compareDefault(a, b);
   return confRank(a.volConf[m].level) - confRank(b.volConf[m].level) || ((b.volume?.[m]?.mean ?? -Infinity) - (a.volume?.[m]?.mean ?? -Infinity)) || compareDefault(a, b);
 };
+// Explicit Board drive sort: its own research-estimate confidence, not TD confidence.
+const driveConf = metric => (a, b) => {
+  const x = a.drivePatterns?.[metric], y = b.drivePatterns?.[metric];
+  const hasX = Number.isFinite(x?.probability), hasY = Number.isFinite(y?.probability);
+  if (hasX !== hasY) return hasX ? -1 : 1;
+  if (!hasX) return String(a.id).localeCompare(String(b.id));
+  return confRank(x.confidence?.level) - confRank(y.confidence?.level) || y.probability - x.probability || String(a.id).localeCompare(String(b.id));
+};
 export const SORT_GROUPS = [
   ['Touchdown', ['default', 'conf', 'chance', 'edge']],
   ['Other stats', ['rushYd', 'recYd', 'rec', 'passYd', 'passTd']],
   ['Other stats by model confidence', ['rushYdConf', 'recYdConf', 'recConf', 'passYdConf']],
+  ['Drive patterns', ['fdTouchConf', 'fdRush10Conf', 'fdRec10Conf', 'fdTdConf']],
 ];
 export const SORTS = {
+  fdTouchConf: { label: 'First-drive touch — confidence', shortLabel: 'Drive 1 · touch', drive: 'touch', cmp: driveConf('touch') },
+  fdRush10Conf: { label: 'First-drive 10+ rush yds — confidence', shortLabel: 'Drive 1 · 10+ rush', drive: 'rush10', cmp: driveConf('rush10') },
+  fdRec10Conf: { label: 'First-drive 10+ rec yds — confidence', shortLabel: 'Drive 1 · 10+ rec', drive: 'rec10', cmp: driveConf('rec10') },
+  fdTdConf: { label: 'First-drive TD — confidence', shortLabel: 'Drive 1 · TD', drive: 'td', cmp: driveConf('td') },
   default: { label: 'High TD confidence first', cmp: compareDefault },
   conf: { label: 'Model confidence (High › Med › Low)', cmp: compareConfidence, conf: true },
   rushYdConf: { label: 'Rush yards — confidence', cmp: statConf('rushYd'), conf: true },

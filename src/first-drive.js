@@ -10,33 +10,40 @@ const stat = d => ({ td: +(d[5] === 'TD'), scored: +['TD', 'FG'].includes(d[5]),
 const aggregate = a => ({ n: a.length, td: sum(a, x => x.td), scored: sum(a, x => x.scored), touches: sum(a, x => x.touches),
   rushYards: sum(a, x => x.rushYards), recYards: sum(a, x => x.recYards) });
 
-export function firstDriveForecast(D, player, opponent = null) {
+// Batch consumers (the Board) may prepare this immutable weekly grid once.
+// No global cache here: ordinary callers/tests may supply a changed grid object.
+export function prepareFirstDriveContext(D) {
+  if (D?.season !== 2026 || !D.teams || !(D.week > 1)) return null;
+  const league = [], offense = {}, defense = {}, peers = [];
+  for (const [team, T] of Object.entries(D.teams)) for (const g of T.games || []) {
+    if (!(g.w < D.week)) continue;
+    const first = g.d.find(d => d[0] === 1); if (!first) continue;
+    const s = stat(first); league.push(s);
+    (offense[team] ||= []).push(s); (defense[g.opp] ||= []).push(s);
+    const active = new Set(g.d.flatMap(d => (d[8] || []).map(r => r[0])));
+    for (const i of active) {
+      const r = (first[8] || []).find(r => r[0] === i) || [i, 0, 0, 0, 0, 0, 0, 0];
+      peers.push({ pos: T.people?.[i]?.[2], catches: r[2], carries: r[4], recYards: r[3], rushYards: r[5] });
+    }
+  }
+  return { league, offense, defense, peers };
+}
+export function firstDriveForecast(D, player, opponent = null, prepared = null) {
   // Explicit season lock: an older/newer grid must never silently become 2026 research.
   if (D?.season !== 2026 || !D.teams || !(D.week > 1)) return null;
-  const games = [], all = [], league = [], offense = [], defense = [], peers = [];
+  const context = prepared || prepareFirstDriveContext(D);
+  const { league, peers } = context;
+  const offense = context.offense[player.team] || [], defense = context.defense[opponent] || [];
+  const games = [], all = [];
   let position = player.pos || null;
   for (const [team, T] of Object.entries(D.teams)) {
     const pi = (T.people || []).findIndex(r => (player.gsis && r[0] === player.gsis) || (player.id != null && r[3] != null && String(r[3]) === String(player.id)));
-    if (!position && pi >= 0) position = T.people[pi][2];
+    if (pi < 0) continue;
+    if (!position) position = T.people[pi][2];
     for (const g of T.games || []) {
-      // Weekly grids already enforce this; repeat it to guard stale/mixed fixtures.
       if (!(g.w < D.week)) continue;
       const first = g.d.find(d => d[0] === 1);
-      if (first) {
-        const s = stat(first); league.push(s);
-        if (team === player.team) offense.push(s);
-        if (g.opp === opponent) defense.push(s);
-        // Same-position first-possession cohort. Include a zero opener only when
-        // that player has recorded target/carry involvement elsewhere in this game.
-        const active = new Set(g.d.flatMap(d => (d[8] || []).map(r => r[0])));
-        for (const i of active) {
-          const r = (first[8] || []).find(r => r[0] === i) || [i, 0, 0, 0, 0, 0, 0, 0];
-          peers.push({ pos: T.people?.[i]?.[2], catches: r[2], carries: r[4], recYards: r[3], rushYards: r[5] });
-        }
-      }
-      if (pi < 0) continue;
-      // A missing first-drive row is a zero only if he has recorded game involvement.
-      // This avoids treating inactive / DNP games as observed opening-drive misses.
+      // Zero on drive 1 only if he had recorded target/carry involvement in this game.
       if (!g.d.some(d => (d[8] || []).some(r => r[0] === pi))) continue;
       for (const d of g.d) {
         const r = (d[8] || []).find(r => r[0] === pi) || [pi, 0, 0, 0, 0, 0, 0, 0];
