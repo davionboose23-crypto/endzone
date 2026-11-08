@@ -1,6 +1,6 @@
 // Board-only display estimates. Never written back to a slate player or the engine.
 import { firstDriveForecast, prepareFirstDriveContext } from './first-drive.js';
-export const DRIVE_CONFIDENCE_RULE = 'Estimate reliability, not event likelihood. Every interval is the central 90% Beta(hits+1, misses+1) posterior range. High: 6+ recorded games, 2+ hits, adjusted interval width ≤40 percentage points, opportunity involvement in ≥60% of first drives, ≥0.75 opportunities/drive, ≥18% share of the team volume, and ≥40% touch rate. Medium: 4+ games, interval width ≤75 points, ≥35% opportunity involvement, and ≥0.4 opportunities/drive or ≥12% volume share. Otherwise Low. Receiving uses targets/team targets; rushing uses carries/team carries; touch/TD use targets+carries/team opportunities. Genuine recent/prior three-game shifts (non-overlapping 80% ranges) add at most 3 points to interval width, not a hard veto; The range is widened to include the forecast if it lies outside the posterior interval. TD additionally requires 10+ games/3+ hits and offense/defense samples ≥7 for High, or 6+ games/1+ hit and samples ≥4 for Medium. Zero/one-hit long shots cannot earn High just because a near-zero interval is narrow. No first-drive route/snap data are available here. Research tiers, not validated or calibrated model-confidence grades.';
+export const DRIVE_CONFIDENCE_RULE = 'Outcome-relative research tiers, not probability guarantees. For 5+ rushing/receiving yards, High requires 5+ recorded games, 3+ hits, and a central 90% Beta(hits+1, misses+1) interval lower bound above the 2026 same-position first-drive base rate by 10 percentage points (rush) or 5 points (receiving), with a forecast also above that threshold, plus opportunity involvement ≥60%, ≥0.75 targets/carries per first drive, ≥18% team target/carry share and ≥40% touch rate. A genuine recent/prior three-game shift subtracts at most 3 points from the lower bound. No quota and no automatic top-N promotions. High means stronger positive evidence relative to this outcome/position, NOT a 75% chance or a narrowly estimated absolute rate. Medium: 4+ games, an adjusted 90% interval width ≤75 points, ≥35% opportunity involvement, and ≥0.4 opportunities/drive or ≥12% volume share. Otherwise Low. Touch keeps the absolute-width High rule: 6+ games, 2+ hits, width ≤40 points and strong involvement. TD keeps stricter 10-game/3-hit High and 6-game/1-hit Medium minimums, with offense/defense samples ≥7/4 respectively. Receiving uses targets; rushing uses carries. Genuine shifts require non-overlapping 80% ranges and only mildly widen uncertainty. No first-drive route/snap data are available. Tiers are exploratory and outcome-specific, not calibrated anytime-model confidence.';
 const cache = new WeakMap();
 const intervals = new Map();
 const rate = (a, hit) => a.reduce((s, g) => s + +hit(g), 0) / a.length;
@@ -49,9 +49,15 @@ export function driveEstimateConfidence(F, hit, probability, td = false, metric 
   const volume = volumeSupport(F, metric);
   const supported = volume.involvement >= .35 && (volume.perDrive >= .4 || volume.share >= .12);
   const strongRole = volume.involvement >= .6 && volume.perDrive >= .75 && volume.share >= .18 && volume.touchRate >= .4;
-  const high = n >= (td ? 10 : 6) && hits >= (td ? 3 : 2) && adjustedWidth <= .40 && strongRole && (!td || (F.offense.n >= 7 && F.defense.n >= 7));
+  const absoluteHigh = n >= (td ? 10 : 6) && hits >= (td ? 3 : 2) && adjustedWidth <= .40 && strongRole && (!td || (F.offense.n >= 7 && F.defense.n >= 7));
+  const relative = metric === 'rush5' || metric === 'rec5';
+  const baseline = relative ? F.yardage?.outcomes?.find(o => o.key === metric)?.prior : null;
+  const requiredEdge = metric === 'rush5' ? .10 : .05;
+  const relativeLower = Math.max(0, interval.lo - (genuineShift ? .03 * shift : 0));
+  const relativeHigh = n >= 5 && hits >= 3 && strongRole && Number.isFinite(baseline) && probability >= baseline + requiredEdge && relativeLower >= baseline + requiredEdge;
+  const high = relative ? relativeHigh : absoluteHigh;
   const medium = n >= (td ? 6 : 4) && adjustedWidth <= .75 && supported && (!td || (hits >= 1 && F.offense.n >= 4 && F.defense.n >= 4));
-  return { level: high ? 'High' : medium ? 'Med' : 'Low', games: n, hits, shift, genuineShift, shrinkage, interval, adjustedWidth, volume };
+  return { level: high ? 'High' : medium ? 'Med' : 'Low', games: n, hits, shift, genuineShift, shrinkage, interval, adjustedWidth, volume, basis: relative ? 'outcome-relative' : 'absolute-width', baseline, relativeLower, requiredEdge: relative ? requiredEdge : null };
 }
 export function attachDrivePatterns(D, players) {
   if (D?.season !== 2026 || !D.teams) return players.map(p => ({ ...p, drivePatterns: {} }));

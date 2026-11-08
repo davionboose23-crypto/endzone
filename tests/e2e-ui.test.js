@@ -153,5 +153,5 @@ test('UI: player sim runs in place, refreshes on progress/completion, and never 
   S.sim.sum = { ...sum, away: 'ATL', home: 'OTHER' }; context.paintPlayerSim();
   assert.match(out.innerHTML, /playersimrun/); assert.doesNotMatch(out.innerHTML, /A typical game for him/, 'wrong-game result never appears');
   assert.doesNotMatch(src, /S\.sim\.focus|applySimFocus/);
-  assert.match(src, /const APP_VERSION = '4\.24\.9'/);
+  assert.match(src, /const APP_VERSION = '4\.24\.10'/);
 });

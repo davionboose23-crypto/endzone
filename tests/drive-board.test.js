@@ -22,7 +22,7 @@ test('confidence uses posterior width and volume, not just probability or TD con
   assert.equal(conf(Array(10).fill(1), .95, true), 'High');
   const shortDefense = fake(Array(10).fill(1)); shortDefense.defense.n = 3;
   assert.equal(driveEstimateConfidence(shortDefense, g => g.hit, .95, true).level, 'Low');
-  assert.match(DRIVE_CONFIDENCE_RULE, /not validated or calibrated model-confidence/);
+  assert.match(DRIVE_CONFIDENCE_RULE, /not calibrated anytime-model confidence/);
 });
 
 test('drive sort orders its own tier first, then probability, missing last, stable id tiebreak', () => {
@@ -81,17 +81,21 @@ test('Board Drive patterns sorts persist, display probability/tier on all layout
       await p.waitForSelector('#view-board .focuslist [data-drive-tier]');
       const cells = await p.locator('#view-board .focuslist [data-drive-tier]').evaluateAll(cs => cs.map(c => ({ tier: c.dataset.driveTier, prob: +c.dataset.driveProb })));
       assert.ok(cells.length > 10);
+      if (key === 'fdRush5Conf' || key === 'fdRec5Conf') assert.ok(cells.filter(c => c.tier === 'High').length >= 3, 'yardage High is reachable without quotas');
       for (let i = 1; i < cells.length; i++) assert.ok(rank[cells[i - 1].tier] < rank[cells[i].tier] || (rank[cells[i - 1].tier] === rank[cells[i].tier] && cells[i - 1].prob >= cells[i].prob));
       assert.match(await p.locator('#view-board .focuslist .fhead').textContent(), /Drive 1/);
     }
-    const tops = {};
+    const tops = {}, highs = {};
     for (const key of ['fdRush5Conf', 'fdRec5Conf']) {
       await p.selectOption('#bsort', key);
-      tops[key] = await p.locator('#view-board .focuslist .frow:not(.fhead)').evaluateAll(rs => rs.slice(0, 5).map(r => {
+      const list = await p.locator('#view-board .focuslist .frow:not(.fhead)').evaluateAll(rs => rs.map(r => {
         const c = r.querySelector('[data-drive-tier]'); return { name: r.querySelector('.fplayer .plink')?.innerText, tier: c?.dataset.driveTier, probability: +c?.dataset.driveProb };
       }));
+      tops[key] = list.slice(0, 5);
+      highs[key] = list.filter(r => r.tier === 'High');
     }
-    fs.writeFileSync('/tmp/endzone-drive-board-5yd-top5.json', JSON.stringify(tops, null, 2));
+    fs.writeFileSync('/tmp/endzone-drive-board-4.24.10-high.json', JSON.stringify(highs, null, 2));
+    fs.writeFileSync('/tmp/endzone-drive-board-4.24.10-top5.json', JSON.stringify(tops, null, 2));
     await p.selectOption('#bsort', 'fdRec5Conf');
     for (const [width, height] of [[390, 844], [844, 390]]) {
       await p.setViewportSize({ width, height });
@@ -100,9 +104,13 @@ test('Board Drive patterns sorts persist, display probability/tier on all layout
     }
     await p.setViewportSize({ width: 390, height: 1300 });
     await p.waitForTimeout(250);
-    await p.screenshot({ path: '/tmp/endzone-drive-board-4.24.9-rec5-phone.png' });
+    await p.screenshot({ path: '/tmp/endzone-drive-board-4.24.10-rec5-phone.png' });
+    await p.selectOption('#bsort', 'fdRush5Conf');
+    await p.waitForTimeout(250);
+    await p.screenshot({ path: '/tmp/endzone-drive-board-4.24.10-rush5-phone.png' });
+    await p.selectOption('#bsort', 'fdRec5Conf');
     await p.fill('#bq', 'SEA'); await p.waitForTimeout(300);
-    await p.screenshot({ path: '/tmp/endzone-drive-board-4.24.9-jsn-phone.png' });
+    await p.screenshot({ path: '/tmp/endzone-drive-board-4.24.10-jsn-phone.png' });
     await p.fill('#bq', ''); await p.waitForTimeout(300);
     // Non-focus mobile and desktop need the selected drive estimate too.
     await p.click('#focusBtn'); await p.waitForSelector('#view-board .cards-mobile .driveboard-cell');
@@ -131,7 +139,7 @@ test('Beta posterior ranges are finite, symmetric, and narrow with more data', (
 });
 
 test('all-player rule fixes JSN/McBride versus low-volume long shots without changing probabilities', () => {
-  const cases = [['SEA', 'Smith-Njigba', 'Med'], ['ARI', 'McBride', 'Med'], ['SEA', 'Kupp', 'Low'], ['ARI', 'Higgins', 'Low']];
+  const cases = [['SEA', 'Smith-Njigba', 'High'], ['ARI', 'McBride', 'High'], ['SEA', 'Kupp', 'Low'], ['ARI', 'Higgins', 'Low']];
   for (const [team, name, expected] of cases) {
     const pe = D.teams[team].people.find(p => p[1].includes(name));
     const p = { gsis: pe[0], id: pe[3], pos: pe[2], team, opp: team === 'SEA' ? 'ARI' : 'SEA' };
@@ -139,7 +147,7 @@ test('all-player rule fixes JSN/McBride versus low-volume long shots without cha
     assert.equal(row.confidence.level, expected, pe[1]);
     assert.equal(row.probability, F.yardage.outcomes.find(o => o.key === 'rec5').probability);
     assert.ok(row.confidence.interval.width > 0);
-    if (expected === 'Med') assert.equal(row.confidence.genuineShift, false, 'three-game swings have overlapping credible ranges');
+    if (expected === 'High') assert.equal(row.confidence.genuineShift, false, 'three-game swings have overlapping credible ranges');
   }
 });
 
@@ -152,4 +160,52 @@ test('narrow near-zero intervals cannot promote low-volume players; real shifts 
   assert.equal(shifted.genuineShift, true);
   assert.ok(Math.abs(shifted.adjustedWidth - shifted.interval.width - .03) < 1e-9);
   assert.equal(shifted.level, 'Med');
+});
+
+const relativeFixture = (values, baseline) => ({ ...fake(values), yardage: { outcomes: ['rush5', 'rec5'].map(key => ({ key, prior: baseline })) } });
+test('yardage High uses outcome/position lower-bound evidence instead of an unreachable absolute width', () => {
+  const F = relativeFixture([1, 1, 1, 0, 0], .18);
+  const rec = driveEstimateConfidence(F, g => g.hit, .48, false, 'rec5');
+  assert.equal(rec.level, 'High'); assert.ok(rec.adjustedWidth > .4);
+  assert.equal(rec.basis, 'outcome-relative'); assert.equal(rec.requiredEdge, .05);
+  assert.equal(driveEstimateConfidence(F, g => g.hit, .48, false, 'rush5').level, 'Med', 'rush needs 10-point rather than 5-point margin');
+  assert.equal(driveEstimateConfidence(relativeFixture([1, 1, 1, 0, 0], .25), g => g.hit, .48, false, 'rec5').level, 'Med', 'stronger position baseline needs stronger evidence');
+  assert.equal(driveEstimateConfidence(F, g => g.hit, .01, false, 'rec5').level, 'Low', 'an unsupported point forecast cannot be High');
+  assert.equal(driveEstimateConfidence(relativeFixture([1, 1, 1, 1], .1), g => g.hit, .8, false, 'rec5').level, 'Med', 'minimum five games');
+  assert.equal(driveEstimateConfidence(relativeFixture([1, 1, 0, 0, 0], 0), g => g.hit, .3, false, 'rec5').level, 'Med', 'minimum three actual hits, even against a low baseline');
+  assert.equal(driveEstimateConfidence(fake([1, 1, 1, 1, 1]), g => g.hit, .8, false, 'rec5').level, 'Med', 'missing baseline is not a reason to auto-promote');
+  const weakRole = relativeFixture([1, 1, 1, 0, 0], .18);
+  weakRole.games = weakRole.games.map((g, i) => ({ ...g, targets: i < 3 ? 1 : 0 }));
+  assert.equal(driveEstimateConfidence(weakRole, g => g.hit, .48, false, 'rec5').level, 'Med', 'a promising hit rate without sufficient target volume cannot earn High');
+  const shifted = driveEstimateConfidence(relativeFixture([0, 0, 0, 1, 1, 1], .14), g => g.hit, .5, false, 'rec5');
+  assert.equal(shifted.genuineShift, true); assert.equal(shifted.level, 'High', 'genuine shift is a mild penalty, not an automatic veto');
+  assert.ok(Math.abs(shifted.interval.lo - shifted.relativeLower - .03) < 1e-9);
+});
+
+test('future drives do not change earlier forecasts, baselines, or tiers', () => {
+  const train = { ...D, week: 6 }, prefix = structuredClone(train);
+  for (const T of Object.values(prefix.teams)) T.games = T.games.filter(g => g.w < 6);
+  const rows = ['SEA', 'ARI', 'CAR'].map(team => {
+    const name = { SEA: 'Smith-Njigba', ARI: 'McBride', CAR: 'Hubbard' }[team];
+    const pe = D.teams[team].people.find(p => p[1].includes(name));
+    return { gsis: pe[0], id: pe[3], pos: pe[2], team, opp: team === 'SEA' ? 'ARI' : 'SEA' };
+  });
+  assert.deepEqual(attachDrivePatterns(train, rows), attachDrivePatterns(prefix, rows));
+});
+
+test('2026 W4–8 walk-forward yardage tiers have the highest hit rate in High, with unchanged point forecasts', async () => {
+  const { backtest } = await import('../scripts/drives/confidence-backtest.mjs');
+  const audit = backtest(D);
+  for (const metric of ['touch', 'td']) assert.deepEqual(audit.tables[metric].old, audit.tables[metric].next, 'touch/TD tiers are unchanged');
+  for (const metric of ['rush5', 'rec5']) {
+    const { old, next, overall } = audit.tables[metric];
+    assert.equal(old.High.n, 0, '4.24.9 had no yardage High cohort');
+    assert.ok(next.High.n >= 10);
+    assert.ok(next.High.actual > next.Med.actual && next.Med.actual > next.Low.actual);
+    for (const version of [old, next]) {
+      const n = Object.values(version).reduce((s, c) => s + c.n, 0);
+      const brier = Object.values(version).reduce((s, c) => s + (c.brier || 0) * c.n, 0) / n;
+      assert.ok(Math.abs(brier - overall.brier) < 1e-12, 'labels cannot improve or alter overall Brier');
+    }
+  }
 });
