@@ -628,7 +628,7 @@ function simSitHtml(s) {
    <div class="tablewrap" tabindex="0" role="region" aria-label="Simulated situational stats"><table class="simtab"><thead><tr><th scope="col">Per game</th>${A.map(t => `<th scope="col">${esc(t)}</th>`).join('')}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><th scope="row">${esc(l)}</th>${X.map(t => `<td>${fn(t)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
    <p class="small muted">Per-game averages over ${s.n.toLocaleString()} sims; brackets = attempts or conversion rate. Big plays = 20+ yd catches and 10+ yd runs. Fourth-down calls, kicker, sneaks and penalties use each team's own 2026 habits; sacks and picks move with the QB.</p></div>`;
 }
-const APP_VERSION = '4.24.8';
+const APP_VERSION = '4.24.9';
 const ORD = ['', '1st', '2nd', '3rd', '4th'];
 function pbpPlayText(e, I) {
   const T = I.teams; const off = T[e.k]?.team, def = T[1 - e.k]?.team; const nm = j => j >= 0 ? (T[e.k].players[j]?.name || '?') : '';
@@ -1032,8 +1032,8 @@ function driveBoardCell(p, sortKey) {
   const spec = SORTS[sortKey], m = p.drivePatterns?.[spec?.drive];
   if (!m || !Number.isFinite(m.probability)) return `<span class="driveboard-cell muted small">${esc(spec?.shortLabel || 'Drive 1')} · no 2026 history</span>`;
   const c = m.confidence, level = c.level === 'Med' ? 'Medium' : c.level;
-  const why = `${c.hits}/${c.games} recorded games; recent-rate shift ${pc(c.shift)}, shrinkage gap ${pc(c.shrinkage)}. Research-estimate confidence, not event probability.`;
-  return `<span class="driveboard-cell" data-drive-tier="${esc(c.level)}" data-drive-prob="${m.probability}" title="${esc(why)}"><span class="small muted">${esc(spec.shortLabel)}</span> <strong>${pc(m.probability, m.probability < .1 ? 1 : 0)}</strong> <span class="chip ${esc(c.level)}" aria-label="Drive estimate confidence ${esc(level)}">${esc(level)}</span><span class="small muted">${c.hits}/${c.games} games</span></span>`;
+  const why = `${c.hits}/${c.games} recorded games; central 90% posterior range ${pc(c.interval.lo)}–${pc(c.interval.hi)}; first-drive opportunity involvement ${pc(c.volume.involvement)}, volume share ${pc(c.volume.share)}.${c.genuineShift ? ' Recent shift mildly widens uncertainty.' : ''} Research-estimate reliability, not event probability.`;
+  return `<span class="driveboard-cell" data-drive-tier="${esc(c.level)}" data-drive-prob="${m.probability}" title="${esc(why)}"><span class="small muted">${esc(spec.shortLabel)}</span> <strong>${pc(m.probability, m.probability < .1 ? 1 : 0)}</strong> <span class="chip ${esc(c.level)}" aria-label="Drive estimate confidence ${esc(level)}">${esc(level)}</span><span class="small muted">${c.hits}/${c.games} games · 90% range ${pc(c.interval.lo)}–${pc(c.interval.hi)}</span></span>`;
 }
 function boardRows() {
   const b = S.board; let list = allPlayers();

@@ -3,26 +3,26 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { attachDrivePatterns, driveEstimateConfidence, DRIVE_CONFIDENCE_RULE } from '../src/drive-board.js';
+import { attachDrivePatterns, driveEstimateConfidence, drivePosteriorInterval, DRIVE_CONFIDENCE_RULE } from '../src/drive-board.js';
 import { firstDriveForecast, prepareFirstDriveContext } from '../src/first-drive.js';
 import { sortPlayers, SORTS, SORT_GROUPS, migrateDriveSort } from '../src/ranking.js';
 const D = JSON.parse(fs.readFileSync(new URL('../archive/drives/2026/w9.json', import.meta.url)));
 const player = { id: '7594', gsis: '00-0036555', pos: 'RB', team: 'CAR', opp: 'DEN', chance: .5, tdConf: { level: 'High' } };
-const fake = values => ({ games: values.map(hit => ({ hit })), offense: { n: 10 }, defense: { n: 10 } });
+const fake = values => ({ games: values.map(hit => ({ hit, targets: 2, carries: 1, touches: 2, teamTargets: 4, opportunities: 7 })), offense: { n: 10 }, defense: { n: 10 } });
 
-test('confidence is sample/stability/shrinkage support, not just probability or TD confidence', () => {
+test('confidence uses posterior width and volume, not just probability or TD confidence', () => {
   const conf = (values, prob, td = false) => driveEstimateConfidence(fake(values), g => g.hit, prob, td).level;
   assert.equal(conf([1, 1, 1], .99), 'Low');
   assert.equal(conf([1, 1, 1, 1, 1, 1, 1], .95), 'High');
   assert.equal(conf([1, 1, 1, 1], .95), 'Med');
-  assert.equal(conf([1, 0, 0, 0, 1, 1, 1], .55), 'Low', 'unstable recent usage');
-  assert.equal(conf([1, 1, 1, 1, 1, 1, 1], .5), 'Low', 'large shrinkage/matchup displacement');
-  assert.equal(conf([0, 0, 0, 0, 0, 0, 0], .01), 'Low', 'no positive evidence');
+  assert.equal(conf([1, 0, 0, 0, 1, 1, 1], .55), 'Med', 'small-sample fluctuations are not a hard veto');
+  assert.equal(conf([1, 1, 1, 1, 1, 1, 1], .5), 'Med', 'range widens to include an unsupported forecast');
+  assert.equal(conf([0, 0, 0, 0, 0, 0, 0], .01), 'Med', 'strong volume can support a low estimate, but never High on zero hits');
   assert.equal(conf([1, 1, 1, 1, 1, 1, 1], .95, true), 'Med', 'TD stricter sample requirement');
   assert.equal(conf(Array(10).fill(1), .95, true), 'High');
   const shortDefense = fake(Array(10).fill(1)); shortDefense.defense.n = 3;
   assert.equal(driveEstimateConfidence(shortDefense, g => g.hit, .95, true).level, 'Low');
-  assert.match(DRIVE_CONFIDENCE_RULE, /not validated model confidence/);
+  assert.match(DRIVE_CONFIDENCE_RULE, /not validated or calibrated model-confidence/);
 });
 
 test('drive sort orders its own tier first, then probability, missing last, stable id tiebreak', () => {
@@ -100,7 +100,10 @@ test('Board Drive patterns sorts persist, display probability/tier on all layout
     }
     await p.setViewportSize({ width: 390, height: 1300 });
     await p.waitForTimeout(250);
-    await p.screenshot({ path: '/tmp/endzone-drive-board-4.24.8-rec5-phone.png' });
+    await p.screenshot({ path: '/tmp/endzone-drive-board-4.24.9-rec5-phone.png' });
+    await p.fill('#bq', 'SEA'); await p.waitForTimeout(300);
+    await p.screenshot({ path: '/tmp/endzone-drive-board-4.24.9-jsn-phone.png' });
+    await p.fill('#bq', ''); await p.waitForTimeout(300);
     // Non-focus mobile and desktop need the selected drive estimate too.
     await p.click('#focusBtn'); await p.waitForSelector('#view-board .cards-mobile .driveboard-cell');
     assert.ok(await p.locator('#view-board .cards-mobile .driveboard-cell').count() > 10);
@@ -114,4 +117,39 @@ test('Board Drive patterns sorts persist, display probability/tier on all layout
     assert.equal(await p.inputValue('#bsort'), 'fdRec5Conf');
     assert.deepEqual(errors, []);
   } finally { await browser.close(); server.close(); }
+});
+
+test('Beta posterior ranges are finite, symmetric, and narrow with more data', () => {
+  const uniform = drivePosteriorInterval(0, 0);
+  assert.ok(Math.abs(uniform.lo - .05) < 1e-9 && Math.abs(uniform.hi - .95) < 1e-9);
+  const half = drivePosteriorInterval(4, 8);
+  assert.ok(Math.abs(half.lo + half.hi - 1) < 1e-9);
+  assert.ok(half.lo > .2 && half.hi < .8);
+  assert.ok(drivePosteriorInterval(8, 16).width < half.width);
+  assert.ok(drivePosteriorInterval(0, 8).lo > 0);
+  assert.ok(drivePosteriorInterval(8, 8).hi < 1);
+});
+
+test('all-player rule fixes JSN/McBride versus low-volume long shots without changing probabilities', () => {
+  const cases = [['SEA', 'Smith-Njigba', 'Med'], ['ARI', 'McBride', 'Med'], ['SEA', 'Kupp', 'Low'], ['ARI', 'Higgins', 'Low']];
+  for (const [team, name, expected] of cases) {
+    const pe = D.teams[team].people.find(p => p[1].includes(name));
+    const p = { gsis: pe[0], id: pe[3], pos: pe[2], team, opp: team === 'SEA' ? 'ARI' : 'SEA' };
+    const F = firstDriveForecast(D, p, p.opp), row = attachDrivePatterns(D, [p])[0].drivePatterns.rec5;
+    assert.equal(row.confidence.level, expected, pe[1]);
+    assert.equal(row.probability, F.yardage.outcomes.find(o => o.key === 'rec5').probability);
+    assert.ok(row.confidence.interval.width > 0);
+    if (expected === 'Med') assert.equal(row.confidence.genuineShift, false, 'three-game swings have overlapping credible ranges');
+  }
+});
+
+test('narrow near-zero intervals cannot promote low-volume players; real shifts only mildly widen a range', () => {
+  const low = fake([1, 0, 0, 0, 0, 0, 0, 0]);
+  low.games = low.games.map((g, i) => ({ ...g, targets: i === 0 ? 1 : 0, carries: 0, touches: i === 0 ? 1 : 0 }));
+  const c = driveEstimateConfidence(low, g => g.hit, .12, false, 'rec5');
+  assert.equal(c.level, 'Low'); assert.ok(c.volume.involvement < .35);
+  const shifted = driveEstimateConfidence(fake([0, 0, 0, 1, 1, 1]), g => g.hit, .5);
+  assert.equal(shifted.genuineShift, true);
+  assert.ok(Math.abs(shifted.adjustedWidth - shifted.interval.width - .03) < 1e-9);
+  assert.equal(shifted.level, 'Med');
 });
