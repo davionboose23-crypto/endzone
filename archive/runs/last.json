@@ -64,32 +64,32 @@
    ],
    "drivesPromotion": {
     "metrics": {
-     "brierDiff": -0.0010015081383536128,
+     "brierDiff": -0.001001508138353613,
      "challenger": {
       "brier": 0.11040344004932166,
-      "ece": 0.011638717632552397,
-      "logLoss": 0.3571947426606335
+      "ece": 0.011638717632552396,
+      "logLoss": 0.35719474266063367
      },
      "champion": {
       "brier": 0.11138948516646129,
       "ece": 0.018742170160295973,
-      "logLoss": 0.36137839175974273
+      "logLoss": 0.3613783917597428
      },
      "games": 30,
      "interval": [
       -0.003119293930069807,
-      0.0011162776533625816
+      0.001116277653362581
      ],
      "paired": 811,
      "protected": {
       "contributors": {
-       "challenger": 0.17461324703163011,
-       "champion": 0.17637401041362533,
+       "challenger": 0.17461324703163014,
+       "champion": 0.17637401041362524,
        "n": 411
       },
       "highTd": {
        "challenger": 0.22890084800000005,
-       "champion": 0.23839372924999988,
+       "champion": 0.23839372924999994,
        "n": 40,
        "note": "Fewer than 80: tolerance check not decisive."
       },
@@ -122,13 +122,13 @@
      "withDrives_vs_model": {
       "dBrier": -0.986,
       "dBrierCI": [
-       -3.076,
-       0.926
+       -2.904,
+       1.217
       ],
       "dLogLoss": -4.184,
       "dLogLossCI": [
-       -11.127,
-       2.75
+       -11.013,
+       2.962
       ],
       "games": 30,
       "n": 811
@@ -159,8 +159,8 @@
   ],
   "week": 10
  },
- "finished_at": "2026-11-10T06:42:37.656Z",
+ "finished_at": "2026-11-10T19:25:46.782Z",
  "kind": "refresh",
- "started_at": "2026-11-10T06:42:29.367Z",
+ "started_at": "2026-11-10T19:25:38.334Z",
  "status": "success"
 }
