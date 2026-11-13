@@ -3,16 +3,16 @@
   "learned": {
    "active": {
     "band": {
-     "15to25": 1.0532685898846499,
-     "25to35": 1.04563822417283,
+     "15to25": 1.068737991164756,
+     "25to35": 1.09563822417283,
      "35to50": 0.9196729060313859,
      "50plus": 1.037608891490082,
-     "lt15": 1.050621991793048
+     "lt15": 1.057294608563841
     },
     "basis": [
      {
-      "applied": false,
-      "prospective": 0,
+      "applied": true,
+      "prospective": 25,
       "reconstructed": 0,
       "week": 10
      },
@@ -39,20 +39,20 @@
      "t3": 1.073148578825345
     },
     "vol": {
-     "passYd": 1.0227904616985353,
-     "rec": 0.9798709607520966,
-     "recYd": 0.9962102323819443,
-     "rushYd": 1.0234898304961864
+     "passYd": 1.0561237950318685,
+     "rec": 0.9921731913334523,
+     "recYd": 1.0233907190984912,
+     "rushYd": 0.9951823627815117
     }
    },
    "describe": [
     "Learned from finished games, from the last three weeks",
-    "rushYd: +2%",
-    "rec: -2%",
-    "passYd: +2%",
-    "lt15 chances: +5%",
-    "15to25 chances: +5%",
-    "25to35 chances: +5%",
+    "rec: -1%",
+    "recYd: +2%",
+    "passYd: +6%",
+    "lt15 chances: +6%",
+    "15to25 chances: +7%",
+    "25to35 chances: +10%",
     "35to50 chances: -8%",
     "50plus chances: +4%",
     "r1 spot: +8%",
@@ -64,28 +64,28 @@
    ],
    "drivesPromotion": {
     "metrics": {
-     "brierDiff": -0.001001508138353613,
+     "brierDiff": -0.0009664228048583352,
      "challenger": {
-      "brier": 0.11040344004932166,
-      "ece": 0.011638717632552396,
-      "logLoss": 0.35719474266063367
+      "brier": 0.11086762941387546,
+      "ece": 0.01179509569377989,
+      "logLoss": 0.35925174623742934
      },
      "champion": {
-      "brier": 0.11138948516646129,
-      "ece": 0.018742170160295973,
-      "logLoss": 0.3613783917597428
+      "brier": 0.11182161166267957,
+      "ece": 0.019789114832535922,
+      "logLoss": 0.36301192967890167
      },
-     "games": 30,
+     "games": 31,
      "interval": [
-      -0.003119293930069807,
-      0.001116277653362581
+      -0.0030159080283345607,
+      0.0010830624186178904
      ],
-     "paired": 811,
+     "paired": 836,
      "protected": {
       "contributors": {
-       "challenger": 0.17461324703163014,
-       "champion": 0.17637401041362524,
-       "n": 411
+       "challenger": 0.17436142910377356,
+       "champion": 0.17612700304245277,
+       "n": 424
       },
       "highTd": {
        "challenger": 0.22890084800000005,
@@ -94,17 +94,17 @@
        "note": "Fewer than 80: tolerance check not decisive."
       },
       "teamCalls": {
-       "challenger": 0.23862594711864402,
-       "champion": 0.24297556186440675,
-       "n": 59,
+       "challenger": 0.23401027295081958,
+       "champion": 0.23900382098360654,
+       "n": 61,
        "note": "Fewer than 80: tolerance check not decisive."
       }
      }
     },
     "monitor": {
-     "games": 30,
+     "games": 31,
      "moved": 0,
-     "n": 811,
+     "n": 836,
      "withDrives_vs_blend": {
       "dBrier": 0,
       "dBrierCI": [
@@ -116,27 +116,27 @@
        0,
        0
       ],
-      "games": 30,
-      "n": 811
+      "games": 31,
+      "n": 836
      },
      "withDrives_vs_model": {
-      "dBrier": -0.986,
+      "dBrier": -0.954,
       "dBrierCI": [
-       -2.904,
-       1.217
+       -2.717,
+       1.115
       ],
-      "dLogLoss": -4.184,
+      "dLogLoss": -3.76,
       "dLogLossCI": [
-       -11.013,
-       2.962
+       -9.74,
+       2.339
       ],
-      "games": 30,
-      "n": 811
+      "games": 31,
+      "n": 836
      }
     },
     "promote": false,
     "reasons": [
-     "Needs ≥40 games; have 30.",
+     "Needs ≥40 games; have 31.",
      "Brier improvement not beyond game-level sampling uncertainty."
     ]
    },
@@ -144,23 +144,22 @@
    "promotion": {
     "promote": false,
     "reasons": [
-     "Brier improvement not beyond game-level sampling uncertainty.",
-     "Material regression for teamCalls."
+     "Brier improvement not beyond game-level sampling uncertainty."
     ]
    }
   },
   "partial": [],
   "season": 2026,
   "steps": [
-   "lessons for weeks 1,2,3,4,5,6,7,8,9",
+   "lessons for weeks 1,2,3,4,5,6,7,8,9,10",
    "saved 13 pregame frames, 0 skipped",
-   "outcomes inserted 0, revised 0, unchanged 1816",
+   "outcomes inserted 0, revised 0, unchanged 1848",
    "validation updated"
   ],
   "week": 11
  },
- "finished_at": "2026-11-13T03:06:04.741Z",
+ "finished_at": "2026-11-13T04:32:49.901Z",
  "kind": "refresh",
- "started_at": "2026-11-13T03:05:56.745Z",
+ "started_at": "2026-11-13T04:32:44.445Z",
  "status": "success"
 }
