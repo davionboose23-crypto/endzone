@@ -3,8 +3,8 @@
   "learned": {
    "active": {
     "band": {
-     "15to25": 1.074982885146435,
-     "25to35": 1.0345425088590243,
+     "15to25": 1.0575865541253915,
+     "25to35": 1.0412613716284382,
      "35to50": 0.9363395726980527,
      "50plus": 1.0642755581567487,
      "lt15": 1.1006219917930478
@@ -12,7 +12,7 @@
     "basis": [
      {
       "applied": true,
-      "prospective": 330,
+      "prospective": 370,
       "reconstructed": 0,
       "week": 10
      },
@@ -31,18 +31,18 @@
     ],
     "label": "Learned from finished games, from the last three weeks",
     "spot": {
-     "r1": 1.080264596225281,
-     "r2": 0.9169049624066276,
-     "r3": 1.0292453798800718,
+     "r1": 1.0794250890622654,
+     "r2": 0.9162448637927706,
+     "r3": 1.0292064952820097,
      "t1": 0.9498316738397237,
      "t2": 0.8623539164215321,
      "t3": 1.1570481568240574
     },
     "vol": {
-     "passYd": 1.0481657308188654,
-     "rec": 0.987831810227994,
-     "recYd": 1.0173608184176448,
-     "rushYd": 1.0446550753607722
+     "passYd": 1.0337295595209313,
+     "rec": 0.994273253526262,
+     "recYd": 1.0195424399668398,
+     "rushYd": 1.036624872006758
     }
    },
    "describe": [
@@ -50,10 +50,10 @@
     "rushYd: +4%",
     "rec: -1%",
     "recYd: +2%",
-    "passYd: +5%",
+    "passYd: +3%",
     "lt15 chances: +10%",
-    "15to25 chances: +7%",
-    "25to35 chances: +3%",
+    "15to25 chances: +6%",
+    "25to35 chances: +4%",
     "35to50 chances: -6%",
     "50plus chances: +6%",
     "r1 spot: +8%",
@@ -65,46 +65,46 @@
    ],
    "drivesPromotion": {
     "metrics": {
-     "brierDiff": -0.0011888866737381812,
+     "brierDiff": -0.0010878834493307486,
      "challenger": {
-      "brier": 0.11606288824715146,
-      "ece": 0.014411481156879954,
-      "logLoss": 0.37566142704320266
+      "brier": 0.11383321145639269,
+      "ece": 0.013414140558848466,
+      "logLoss": 0.36915761866348595
      },
      "champion": {
-      "brier": 0.11723839822962318,
-      "ece": 0.022533917616126296,
-      "logLoss": 0.3797329549970792
+      "brier": 0.11491727565622356,
+      "ece": 0.020520491109229537,
+      "logLoss": 0.3728216385057477
      },
-     "games": 43,
+     "games": 44,
      "interval": [
-      -0.0028069045475774858,
-      0.0004291312001011233
+      -0.00266236931600617,
+      0.00048660241734467275
      ],
-     "paired": 1141,
+     "paired": 1181,
      "protected": {
       "contributors": {
-       "challenger": 0.1750956050511944,
-       "champion": 0.17742381800341284,
-       "n": 586
+       "challenger": 0.17263668986688835,
+       "champion": 0.17481471439267873,
+       "n": 601
       },
       "highTd": {
-       "challenger": 0.21853995418181826,
-       "champion": 0.22043417109090904,
-       "n": 55,
+       "challenger": 0.2194846157142858,
+       "champion": 0.22169149821428566,
+       "n": 56,
        "note": "Fewer than 80: tolerance check not decisive."
       },
       "teamCalls": {
-       "challenger": 0.21960555535714274,
-       "champion": 0.22454811940476188,
-       "n": 84
+       "challenger": 0.2232229261627906,
+       "champion": 0.22770274046511627,
+       "n": 86
       }
      }
     },
     "monitor": {
-     "games": 43,
+     "games": 44,
      "moved": 0,
-     "n": 1141,
+     "n": 1181,
      "withDrives_vs_blend": {
       "dBrier": 0,
       "dBrierCI": [
@@ -116,22 +116,22 @@
        0,
        0
       ],
-      "games": 43,
-      "n": 1141
+      "games": 44,
+      "n": 1181
      },
      "withDrives_vs_model": {
-      "dBrier": -1.176,
+      "dBrier": -1.084,
       "dBrierCI": [
-       -2.724,
-       0.493
+       -2.581,
+       0.375
       ],
-      "dLogLoss": -4.072,
+      "dLogLoss": -3.664,
       "dLogLossCI": [
-       -9.485,
-       1.537
+       -8.569,
+       1.398
       ],
-      "games": 43,
-      "n": 1141
+      "games": 44,
+      "n": 1181
      }
     },
     "promote": false,
@@ -152,13 +152,13 @@
   "steps": [
    "lessons for weeks 1,2,3,4,5,6,7,8,9,10",
    "saved 13 pregame frames, 0 skipped",
-   "outcomes inserted 0, revised 0, unchanged 2239",
+   "outcomes inserted 0, revised 0, unchanged 2273",
    "validation updated"
   ],
   "week": 11
  },
- "finished_at": "2026-11-16T11:54:55.501Z",
+ "finished_at": "2026-11-17T04:57:52.131Z",
  "kind": "refresh",
- "started_at": "2026-11-16T11:54:49.320Z",
+ "started_at": "2026-11-17T04:57:45.611Z",
  "status": "success"
 }
