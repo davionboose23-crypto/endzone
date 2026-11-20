@@ -3,16 +3,16 @@
   "learned": {
    "active": {
     "band": {
-     "15to25": 1.0311113955285547,
-     "25to35": 0.9912613716284383,
-     "35to50": 0.9196729060313859,
+     "15to25": 1.0389760081835864,
+     "25to35": 1.0412613716284385,
+     "35to50": 0.8846956308178128,
      "50plus": 1.037608891490082,
-     "lt15": 1.0999999999999999
+     "lt15": 1.1097522064688776
     },
     "basis": [
      {
-      "applied": false,
-      "prospective": 0,
+      "applied": true,
+      "prospective": 24,
       "reconstructed": 0,
       "week": 11
      },
@@ -39,22 +39,22 @@
      "t3": 1.045229260075333
     },
     "vol": {
-     "passYd": 1.0403951473818982,
-     "rec": 1.0214124271674883,
-     "recYd": 1.0404721798048602,
-     "rushYd": 1.010998430118213
+     "passYd": 1.007061814048565,
+     "rec": 0.9880790938341549,
+     "recYd": 1.007138846471527,
+     "rushYd": 0.9651662202222927
     }
    },
    "describe": [
     "Learned from finished games, from the last three weeks",
-    "rushYd: +1%",
-    "rec: +2%",
-    "recYd: +4%",
-    "passYd: +4%",
-    "lt15 chances: +10%",
-    "15to25 chances: +3%",
-    "25to35 chances: -1%",
-    "35to50 chances: -8%",
+    "rushYd: -3%",
+    "rec: -1%",
+    "recYd: +1%",
+    "passYd: +1%",
+    "lt15 chances: +11%",
+    "15to25 chances: +4%",
+    "25to35 chances: +4%",
+    "35to50 chances: -12%",
     "50plus chances: +4%",
     "r1 spot: +7%",
     "r2 spot: -3%",
@@ -65,28 +65,28 @@
    ],
    "drivesPromotion": {
     "metrics": {
-     "brierDiff": -0.0010878834493307486,
+     "brierDiff": -0.0011719519189752503,
      "challenger": {
-      "brier": 0.11383321145639269,
-      "ece": 0.013414140558848466,
-      "logLoss": 0.36915761866348595
+      "brier": 0.11365508267219901,
+      "ece": 0.01311319502074691,
+      "logLoss": 0.3693783172994643
      },
      "champion": {
-      "brier": 0.11491727565622356,
-      "ece": 0.020520491109229537,
-      "logLoss": 0.3728216385057477
+      "brier": 0.11481457061410795,
+      "ece": 0.02146182572614117,
+      "logLoss": 0.3733478491628392
      },
-     "games": 44,
+     "games": 45,
      "interval": [
-      -0.00266236931600617,
-      0.00048660241734467275
+      -0.0027198466984836747,
+      0.000375942860533174
      ],
-     "paired": 1181,
+     "paired": 1205,
      "protected": {
       "contributors": {
-       "challenger": 0.17263668986688835,
-       "champion": 0.17481471439267873,
-       "n": 601
+       "challenger": 0.17177051706362131,
+       "champion": 0.17408921221859697,
+       "n": 613
       },
       "highTd": {
        "challenger": 0.2194846157142858,
@@ -95,16 +95,16 @@
        "note": "Fewer than 80: tolerance check not decisive."
       },
       "teamCalls": {
-       "challenger": 0.2232229261627906,
-       "champion": 0.22770274046511627,
-       "n": 86
+       "challenger": 0.22147283113636354,
+       "champion": 0.2257071884090909,
+       "n": 88
       }
      }
     },
     "monitor": {
-     "games": 44,
+     "games": 45,
      "moved": 0,
-     "n": 1181,
+     "n": 1205,
      "withDrives_vs_blend": {
       "dBrier": 0,
       "dBrierCI": [
@@ -116,22 +116,22 @@
        0,
        0
       ],
-      "games": 44,
-      "n": 1181
+      "games": 45,
+      "n": 1205
      },
      "withDrives_vs_model": {
-      "dBrier": -1.084,
+      "dBrier": -1.159,
       "dBrierCI": [
-       -2.581,
-       0.375
+       -2.582,
+       0.341
       ],
-      "dLogLoss": -3.664,
+      "dLogLoss": -3.97,
       "dLogLossCI": [
-       -8.569,
-       1.398
+       -8.67,
+       0.753
       ],
-      "games": 44,
-      "n": 1181
+      "games": 45,
+      "n": 1205
      }
     },
     "promote": false,
@@ -150,15 +150,15 @@
   "partial": [],
   "season": 2026,
   "steps": [
-   "lessons for weeks 1,2,3,4,5,6,7,8,9,10",
+   "lessons for weeks 1,2,3,4,5,6,7,8,9,10,11",
    "saved 16 pregame frames, 0 skipped",
-   "outcomes inserted 0, revised 0, unchanged 2273",
+   "outcomes inserted 0, revised 0, unchanged 2301",
    "validation updated"
   ],
   "week": 12
  },
- "finished_at": "2026-11-20T03:50:20.423Z",
+ "finished_at": "2026-11-20T05:14:39.074Z",
  "kind": "refresh",
- "started_at": "2026-11-20T03:50:13.237Z",
+ "started_at": "2026-11-20T05:14:31.031Z",
  "status": "success"
 }
