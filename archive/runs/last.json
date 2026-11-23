@@ -3,16 +3,16 @@
   "learned": {
    "active": {
     "band": {
-     "15to25": 1.02363939516359,
-     "25to35": 1.0343400109333765,
-     "35to50": 0.8559831039497379,
+     "15to25": 0.9937455057764274,
+     "25to35": 1.013956838286341,
+     "35to50": 0.8244291419940217,
      "50plus": 1.0642755581567487,
-     "lt15": 1.1490691974761433
+     "lt15": 1.15
     },
     "basis": [
      {
       "applied": true,
-      "prospective": 210,
+      "prospective": 274,
       "reconstructed": 0,
       "week": 11
      },
@@ -31,80 +31,80 @@
     ],
     "label": "Learned from finished games, from the last three weeks",
     "spot": {
-     "r1": 1.0415791347877568,
-     "r2": 0.9619865139942553,
-     "r3": 1.05080395748228,
-     "t1": 0.9289563852475132,
-     "t2": 0.9010890637862232,
-     "t3": 1.0646839139903175
+     "r1": 1.080479874129453,
+     "r2": 0.9406206869531433,
+     "r3": 1.1342347558429848,
+     "t1": 0.9548376664207247,
+     "t2": 0.9516635268614966,
+     "t3": 1.0982922018819072
     },
     "vol": {
-     "passYd": 1.0419408518467312,
-     "rec": 1.0301361489509484,
-     "recYd": 1.0273882479785845,
-     "rushYd": 1.0144276704884934
+     "passYd": 1.068508520048293,
+     "rec": 1.025941799334636,
+     "recYd": 1.026203126149756,
+     "rushYd": 1.032137776132875
     }
    },
    "describe": [
     "Learned from finished games, from the last three weeks",
-    "rushYd: +1%",
+    "rushYd: +3%",
     "rec: +3%",
     "recYd: +3%",
-    "passYd: +4%",
+    "passYd: +7%",
     "lt15 chances: +15%",
-    "15to25 chances: +2%",
-    "25to35 chances: +3%",
-    "35to50 chances: -14%",
+    "15to25 chances: -1%",
+    "25to35 chances: +1%",
+    "35to50 chances: -18%",
     "50plus chances: +6%",
-    "r1 spot: +4%",
-    "r2 spot: -4%",
-    "r3 spot: +5%",
-    "t1 spot: -7%",
-    "t2 spot: -10%",
-    "t3 spot: +6%"
+    "r1 spot: +8%",
+    "r2 spot: -6%",
+    "r3 spot: +13%",
+    "t1 spot: -5%",
+    "t2 spot: -5%",
+    "t3 spot: +10%"
    ],
    "drivesPromotion": {
     "metrics": {
-     "brierDiff": -0.001208069254802985,
+     "brierDiff": -0.001427807321177379,
      "challenger": {
-      "brier": 0.11176802479511133,
-      "ece": 0.014061754133716768,
-      "logLoss": 0.3631217900928415
+      "brier": 0.11331136495532634,
+      "ece": 0.013199106529209645,
+      "logLoss": 0.36860425866377416
      },
      "champion": {
-      "brier": 0.11296926345075482,
-      "ece": 0.02043062544931714,
-      "logLoss": 0.3661355578399463
+      "brier": 0.11471074353951896,
+      "ece": 0.02138797250859116,
+      "logLoss": 0.37219392339114327
      },
-     "games": 52,
+     "games": 55,
      "interval": [
-      -0.0026588358811961135,
-      0.0002426973715901439
+      -0.002848577956260854,
+      -0.000007036686093904107
      ],
-     "paired": 1391,
+     "paired": 1455,
      "protected": {
       "contributors": {
-       "challenger": 0.1715259263766047,
-       "champion": 0.17396201815977172,
-       "n": 701
+       "challenger": 0.17011260667560307,
+       "champion": 0.17286302195710454,
+       "n": 746
       },
       "highTd": {
-       "challenger": 0.21896391578125005,
-       "champion": 0.22219332671874992,
-       "n": 64,
+       "challenger": 0.2125147389855073,
+       "champion": 0.21803096898550717,
+       "n": 69,
        "note": "Fewer than 80: tolerance check not decisive."
       },
       "teamCalls": {
-       "challenger": 0.22178031108910884,
-       "champion": 0.22505187029702975,
-       "n": 101
+       "challenger": 0.22026831065420552,
+       "champion": 0.2256063421495328,
+       "n": 107
       }
      }
     },
     "monitor": {
-     "games": 52,
+     "games": 55,
      "moved": 0,
-     "n": 1391,
+     "n": 1455,
      "withDrives_vs_blend": {
       "dBrier": 0,
       "dBrierCI": [
@@ -116,35 +116,31 @@
        0,
        0
       ],
-      "games": 52,
-      "n": 1391
+      "games": 55,
+      "n": 1455
      },
      "withDrives_vs_model": {
-      "dBrier": -1.201,
+      "dBrier": -1.399,
       "dBrierCI": [
-       -2.595,
-       0.194
+       -2.764,
+       0.095
       ],
-      "dLogLoss": -3.014,
+      "dLogLoss": -3.59,
       "dLogLossCI": [
-       -7.69,
-       1.516
+       -8.019,
+       1.427
       ],
-      "games": 52,
-      "n": 1391
+      "games": 55,
+      "n": 1455
      }
     },
-    "promote": false,
-    "reasons": [
-     "Brier improvement not beyond game-level sampling uncertainty."
-    ]
+    "promote": true,
+    "reasons": []
    },
    "inWeek": null,
    "promotion": {
-    "promote": false,
-    "reasons": [
-     "Brier improvement not beyond game-level sampling uncertainty."
-    ]
+    "promote": true,
+    "reasons": []
    }
   },
   "partial": [],
@@ -152,13 +148,13 @@
   "steps": [
    "lessons for weeks 1,2,3,4,5,6,7,8,9,10,11",
    "saved 16 pregame frames, 0 skipped",
-   "outcomes inserted 0, revised 0, unchanged 2542",
+   "outcomes inserted 0, revised 0, unchanged 2630",
    "validation updated"
   ],
   "week": 12
  },
- "finished_at": "2026-11-22T21:34:30.525Z",
+ "finished_at": "2026-11-23T02:17:37.573Z",
  "kind": "refresh",
- "started_at": "2026-11-22T21:34:23.656Z",
+ "started_at": "2026-11-23T02:17:29.965Z",
  "status": "success"
 }
