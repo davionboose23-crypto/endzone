@@ -3,8 +3,8 @@
   "learned": {
    "active": {
     "band": {
-     "15to25": 0.9937455057764274,
-     "25to35": 1.013956838286341,
+     "15to25": 1.0075591797084755,
+     "25to35": 1.033143452144306,
      "35to50": 0.8244291419940217,
      "50plus": 1.0642755581567487,
      "lt15": 1.15
@@ -12,7 +12,7 @@
     "basis": [
      {
       "applied": true,
-      "prospective": 274,
+      "prospective": 305,
       "reconstructed": 0,
       "week": 11
      },
@@ -31,80 +31,80 @@
     ],
     "label": "Learned from finished games, from the last three weeks",
     "spot": {
-     "r1": 1.07988073530118,
-     "r2": 0.9324677209372808,
-     "r3": 1.1317659222975174,
-     "t1": 0.9397752978630449,
-     "t2": 0.9606633539565242,
-     "t3": 1.106073713371489
+     "r1": 1.063603886133078,
+     "r2": 0.951730711827695,
+     "r3": 1.151605359436903,
+     "t1": 0.9475063772273482,
+     "t2": 0.9691328425342691,
+     "t3": 1.113795303195117
     },
     "vol": {
-     "passYd": 1.068508520048293,
-     "rec": 1.025941799334636,
-     "recYd": 1.026203126149756,
-     "rushYd": 1.032137776132875
+     "passYd": 1.0664992553731165,
+     "rec": 1.0338292270250753,
+     "recYd": 1.033339739826064,
+     "rushYd": 1.0224847434889472
     }
    },
    "describe": [
     "Learned from finished games, from the last three weeks",
-    "rushYd: +3%",
+    "rushYd: +2%",
     "rec: +3%",
     "recYd: +3%",
     "passYd: +7%",
     "lt15 chances: +15%",
-    "15to25 chances: -1%",
-    "25to35 chances: +1%",
+    "15to25 chances: +1%",
+    "25to35 chances: +3%",
     "35to50 chances: -18%",
     "50plus chances: +6%",
-    "r1 spot: +8%",
-    "r2 spot: -7%",
-    "r3 spot: +13%",
-    "t1 spot: -6%",
-    "t2 spot: -4%",
+    "r1 spot: +6%",
+    "r2 spot: -5%",
+    "r3 spot: +15%",
+    "t1 spot: -5%",
+    "t2 spot: -3%",
     "t3 spot: +11%"
    ],
    "drivesPromotion": {
     "metrics": {
-     "brierDiff": -0.001427807321177379,
+     "brierDiff": -0.0015533199002500519,
      "challenger": {
-      "brier": 0.11331136495532634,
-      "ece": 0.013199106529209645,
-      "logLoss": 0.36860425866377416
+      "brier": 0.1124555058748316,
+      "ece": 0.012839098250336502,
+      "logLoss": 0.3658748256643062
      },
      "champion": {
-      "brier": 0.11471074353951896,
-      "ece": 0.02138797250859116,
-      "logLoss": 0.37219392339114327
+      "brier": 0.11398930603633915,
+      "ece": 0.021761978465679784,
+      "logLoss": 0.36967941506808144
      },
-     "games": 55,
+     "games": 56,
      "interval": [
-      -0.002848577956260854,
-      -0.000007036686093904107
+      -0.0029714957412674365,
+      -0.00013514405923266718
      ],
-     "paired": 1455,
+     "paired": 1486,
      "protected": {
       "contributors": {
-       "challenger": 0.17011260667560307,
-       "champion": 0.17286302195710454,
-       "n": 746
+       "challenger": 0.16966861224704322,
+       "champion": 0.17269816664914586,
+       "n": 761
       },
       "highTd": {
-       "challenger": 0.2125147389855073,
-       "champion": 0.21803096898550717,
-       "n": 69,
+       "challenger": 0.21030854271428576,
+       "champion": 0.21541046942857137,
+       "n": 70,
        "note": "Fewer than 80: tolerance check not decisive."
       },
       "teamCalls": {
-       "challenger": 0.22026831065420552,
-       "champion": 0.2256063421495328,
-       "n": 107
+       "challenger": 0.21829348119266045,
+       "champion": 0.2232301248623854,
+       "n": 109
       }
      }
     },
     "monitor": {
-     "games": 55,
+     "games": 56,
      "moved": 0,
-     "n": 1455,
+     "n": 1486,
      "withDrives_vs_blend": {
       "dBrier": 0,
       "dBrierCI": [
@@ -116,22 +116,22 @@
        0,
        0
       ],
-      "games": 55,
-      "n": 1455
+      "games": 56,
+      "n": 1486
      },
      "withDrives_vs_model": {
-      "dBrier": -1.399,
+      "dBrier": -1.534,
       "dBrierCI": [
-       -2.764,
-       0.095
+       -2.943,
+       -0.203
       ],
-      "dLogLoss": -3.59,
+      "dLogLoss": -3.805,
       "dLogLossCI": [
-       -8.019,
-       1.427
+       -8.405,
+       0.681
       ],
-      "games": 55,
-      "n": 1455
+      "games": 56,
+      "n": 1486
      }
     },
     "promote": true,
@@ -148,13 +148,13 @@
   "steps": [
    "lessons for weeks 1,2,3,4,5,6,7,8,9,10,11",
    "saved 16 pregame frames, 0 skipped",
-   "outcomes inserted 0, revised 0, unchanged 2630",
+   "outcomes inserted 0, revised 0, unchanged 2662",
    "validation updated"
   ],
   "week": 12
  },
- "finished_at": "2026-11-23T04:25:36.081Z",
+ "finished_at": "2026-11-23T15:04:05.426Z",
  "kind": "refresh",
- "started_at": "2026-11-23T04:25:25.789Z",
+ "started_at": "2026-11-23T15:03:55.982Z",
  "status": "success"
 }
