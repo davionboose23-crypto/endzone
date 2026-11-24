@@ -1,38 +1,38 @@
 {
  "components": {
   "caps": {
-   "decidedAt": "2026-11-17T20:33:24.612Z",
+   "decidedAt": "2026-11-24T22:01:40.193Z",
    "enabled": false,
    "fit": {
-    "ceil": 0.6592,
-    "cold": 0.4343,
-    "fin": 0.6682,
-    "floor": 0.1375,
-    "pullS": 0.0399,
-    "pullT": 0.4129
+    "ceil": 0.6774,
+    "cold": 0.4339,
+    "fin": 0.6774,
+    "floor": 0.1373,
+    "pullS": 0.0393,
+    "pullT": 0.4132
    },
-   "reason": "withheld: Brier change -0.0006 [-0.0012,0.0001] not below zero; log-loss change -0.0011 [-0.0025,0.0006] not below zero",
-   "throughWeek": 10
+   "reason": "withheld: Brier change -0.0006 [-0.0013,0] not below zero; log-loss change -0.001 [-0.0025,0.0004] not below zero",
+   "throughWeek": 11
   },
   "challenger": {
-   "decidedAt": "2026-11-17T20:33:24.612Z",
-   "enabled": false,
-   "reason": "withheld: Brier improvement not beyond game-level sampling uncertainty."
+   "decidedAt": "2026-11-24T22:01:40.193Z",
+   "enabled": true,
+   "reason": "passed the prospective promotion rule"
   },
   "drives": {
-   "decidedAt": "2026-11-17T20:33:24.612Z",
+   "decidedAt": "2026-11-24T22:01:40.193Z",
    "enabled": false,
    "fitWeight": {
     "blend": 0,
     "model": 0
    },
-   "reason": "withheld: prospective rule: Brier improvement not beyond game-level sampling uncertainty.; walk-forward weight is 0 (drive patterns did not lower log loss on earlier weeks)",
+   "reason": "withheld: walk-forward weight is 0 (drive patterns did not lower log loss on earlier weeks)",
    "weight": 0
   },
   "modelVersion": "endzone-4.6.0",
   "trends": {
-   "decidedAt": "2026-11-17T20:33:24.612Z",
-   "enabled": false,
+   "decidedAt": "2026-11-24T22:01:40.193Z",
+   "enabled": true,
    "families": {
     "defense": {
      "all": {
@@ -46,8 +46,8 @@
        0,
        0
       ],
-      "games": 150,
-      "n": 3368
+      "games": 163,
+      "n": 3670
      },
      "enabled": false,
      "reason": "off: no improvement in Brier or log loss",
@@ -65,8 +65,8 @@
        0,
        0
       ],
-      "games": 150,
-      "n": 3368
+      "games": 163,
+      "n": 3670
      },
      "enabled": false,
      "reason": "off: no improvement in Brier or log loss",
@@ -77,15 +77,15 @@
       "dBrier": 0,
       "dBrierCI": [
        0,
-       0.0001
+       0
       ],
       "dLogLoss": 0.0001,
       "dLogLossCI": [
        0,
        0.0002
       ],
-      "games": 150,
-      "n": 3368
+      "games": 163,
+      "n": 3670
      },
      "enabled": false,
      "reason": "off: harmful beyond noise; no improvement in Brier or log loss; contributors regress (0)",
@@ -103,8 +103,8 @@
        0,
        0
       ],
-      "games": 150,
-      "n": 3368
+      "games": 163,
+      "n": 3670
      },
      "enabled": false,
      "reason": "off: no improvement in Brier or log loss",
@@ -122,8 +122,8 @@
        0,
        0
       ],
-      "games": 150,
-      "n": 3368
+      "games": 163,
+      "n": 3670
      },
      "enabled": false,
      "reason": "off: no improvement in Brier or log loss",
@@ -138,15 +138,15 @@
       ],
       "dLogLoss": 0,
       "dLogLossCI": [
-       0,
-       0.0001
+       -0.0001,
+       0
       ],
-      "games": 150,
-      "n": 3368
+      "games": 163,
+      "n": 3670
      },
-     "enabled": false,
-     "reason": "off: team calls regress (0.0001)",
-     "weight": 0
+     "enabled": true,
+     "reason": "passed: ΔBrier 0 [0,0], Δlog loss 0 [-0.0001,0]",
+     "weight": 0.1
     },
     "usage": {
      "all": {
@@ -160,23 +160,23 @@
        0,
        0
       ],
-      "games": 150,
-      "n": 3368
+      "games": 163,
+      "n": 3670
      },
      "enabled": false,
      "reason": "off: no improvement in Brier or log loss",
      "weight": 0
     }
    },
-   "reason": "all families off: snap (no improvement in Brier or log loss); usage (no improvement in Brier or log loss); redzone (no improvement in Brier or log loss); qbRush (harmful beyond noise; no improvement in Brier or log loss; contributors regress (0)); streak (team calls regress (0.0001)); defense (no improvement in Brier or log loss); miss (no improvement in Brier or log loss)",
-   "throughWeek": 10,
+   "reason": "enabled: streak 0.1",
+   "throughWeek": 11,
    "weights": {
     "defense": 0,
     "miss": 0,
     "qbRush": 0,
     "redzone": 0,
     "snap": 0,
-    "streak": 0,
+    "streak": 0.1,
     "usage": 0
    }
   }
@@ -830,6 +830,74 @@
     }
    },
    "week": 11
+  },
+  {
+   "budget": {
+    "a": -1.0819086991634217,
+    "b": 0.15692396625623034,
+    "n": 1414
+   },
+   "season": 2026,
+   "trendWeights": {
+    "defense": 0,
+    "miss": 0,
+    "qbRush": 0,
+    "redzone": 0,
+    "snap": 0,
+    "streak": 0.1,
+    "usage": 0
+   },
+   "volcal": {
+    "passYd.hi": {
+     "c": 1.02,
+     "kHi": 0.65,
+     "kLo": 0.65,
+     "n": 1150
+    },
+    "passYd.lo": {
+     "c": 0.85,
+     "kHi": 1.85,
+     "kLo": 1,
+     "n": 1683
+    },
+    "rec.hi": {
+     "c": 0.97,
+     "kHi": 1.35,
+     "kLo": 1,
+     "n": 5531
+    },
+    "rec.lo": {
+     "c": 0.85,
+     "kHi": 1.35,
+     "kLo": 1,
+     "n": 13746
+    },
+    "recYd.hi": {
+     "c": 0.91,
+     "kHi": 1.55,
+     "kLo": 0.95,
+     "n": 4418
+    },
+    "recYd.lo": {
+     "c": 0.85,
+     "kHi": 1.25,
+     "kLo": 1,
+     "n": 14859
+    },
+    "rushYd.hi": {
+     "c": 0.99,
+     "kHi": 1.45,
+     "kLo": 0.95,
+     "n": 2037
+    },
+    "rushYd.lo": {
+     "c": 0.85,
+     "kHi": 0.5,
+     "kLo": 1,
+     "n": 17240
+    }
+   },
+   "week": 12
   }
  ],
  "note": "Walk-forward fits. Entry (season, week) uses only games before that week. Generated by scripts/hist/ship-fits.mjs."
